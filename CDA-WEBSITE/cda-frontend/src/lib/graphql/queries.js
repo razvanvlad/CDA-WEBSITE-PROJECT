@@ -1,4 +1,136 @@
 // CDA-WEBSITE-PROJECT/CDA-WEBSITE/cda-frontend/src/lib/graphql/queries.js
+// Query to fetch homepage content with all required sections
+export const GET_HOMEPAGE_CONTENT = `
+  query GetHomepageContent($id: ID!) {
+    page(id: $id, idType: DATABASE_ID) {
+      id
+      title
+      date
+      homepageFields {
+        headerTitle
+        headerSubtitle
+        headerImage {
+          node {
+            sourceUrl
+            altText
+            title
+          }
+        }
+        primaryCta {
+          title
+          url
+        }
+        secondaryCta {
+          title
+          url
+        }
+        servicesAccordion {
+          title
+          subtitle
+          services {
+            title
+            description
+            link {
+              url
+              title
+            }
+          }
+        }
+        technologies {
+          title
+          subtitle
+          logos {
+            node {
+              sourceUrl
+              altText
+              title
+            }
+          }
+        }
+        values {
+          title
+          subtitle
+          valueItems {
+            title
+            description
+          }
+          image {
+            node {
+              sourceUrl
+              altText
+              title
+            }
+          }
+        }
+        caseStudies {
+          title
+          subtitle
+          studies {
+            title
+            excerpt
+            link {
+              url
+              title
+            }
+            image {
+              node {
+                sourceUrl
+                altText
+                title
+              }
+            }
+          }
+        }
+        locations {
+          title
+          subtitle
+          countries {
+            countryName
+            offices {
+              name
+              address
+              email
+              phone
+            }
+          }
+          image {
+            node {
+              sourceUrl
+              altText
+              title
+            }
+          }
+        }
+        news {
+          title
+          subtitle
+          articles {
+            title
+            excerpt
+            category
+            link {
+              url
+              title
+            }
+            image {
+              node {
+                sourceUrl
+                altText
+                title
+            }
+          }
+        }
+        newsletter {
+          title
+          subtitle
+          buttonText
+          privacyText
+        }
+      }
+    }
+  }
+`;
+
 // Query to fetch all pages for dynamic routing
 export const GET_ALL_PAGES = `
   query GetAllPages {
@@ -21,64 +153,6 @@ export const GET_PAGE_BY_URI = `
       content
       date
       modified
-    }
-  }
-`;
-
-// Query to fetch page content with ACF fields
-export const GET_PAGE_CONTENT = `
-  query GetPageContent($id: ID!) {
-    page(id: $id, idType: DATABASE_ID) {
-      id
-      title
-      date
-      content
-      testContentFields {
-        testText
-        testTextarea
-        testNumber
-        testToggle
-        testImage {
-          node {
-            sourceUrl
-            altText
-            title
-            mediaDetails {
-              width
-              height
-            }
-          }
-        }
-        testGallery {
-          nodes {
-            sourceUrl
-            altText
-            title
-          }
-        }
-        testFlexibleContent {
-          __typename
-          ... on TestContentFieldsTestFlexibleContentCtaSectionLayout {
-            title
-            buttonText
-            buttonLink
-          }
-          ... on TestContentFieldsTestFlexibleContentTextBlockLayout {
-            title
-            content
-          }
-          ... on TestContentFieldsTestFlexibleContentImageSectionLayout {
-            image {
-              node {
-                sourceUrl
-                altText
-                title
-              }
-            }
-            caption
-          }
-        }
-      }
     }
   }
 `;
