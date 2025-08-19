@@ -1,3 +1,5 @@
+'use client'
+
 // CDA-WEBSITE-PROJECT/CDA-WEBSITE/cda-frontend/src/app/page.js
 import { useEffect, useState } from 'react';
 import graphqlClient from '../lib/graphql/client';
