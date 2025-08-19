@@ -1,4 +1,4 @@
-// CDA-WEBSITE-PROJECT/CDA-FRONTEND/src/components/ui/Footer.js
+// CDA-WEBSITE-PROJECT/CDA-WEBSITE/cda-frontend/src/components/ui/Footer.js
 export default function Footer() {
   return (
     <footer className="bg-gray-800 text-white">

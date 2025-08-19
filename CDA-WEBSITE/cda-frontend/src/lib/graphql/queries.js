@@ -1,4 +1,4 @@
-// CDA-WEBSITE-PROJECT/CDA-FRONTEND/src/lib/graphql/queries.js
+// CDA-WEBSITE-PROJECT/CDA-WEBSITE/cda-frontend/src/lib/graphql/queries.js
 // Query to fetch all pages for dynamic routing
 export const GET_ALL_PAGES = `
   query GetAllPages {
@@ -25,7 +25,7 @@ export const GET_PAGE_BY_URI = `
   }
 `;
 
-// Query to fetch page content with ACF fields (based on our successful test)
+// Query to fetch page content with ACF fields
 export const GET_PAGE_CONTENT = `
   query GetPageContent($id: ID!) {
     page(id: $id, idType: DATABASE_ID) {

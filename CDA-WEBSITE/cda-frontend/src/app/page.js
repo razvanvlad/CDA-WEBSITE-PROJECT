@@ -1,4 +1,4 @@
-// CDA-WEBSITE-PROJECT/CDA-FRONTEND/src/app/page.js
+// CDA-WEBSITE-PROJECT/CDA-WEBSITE/cda-frontend/src/app/page.js
 import { useEffect, useState } from 'react';
 import graphqlClient from '../lib/graphql/client';
 import { GET_PAGE_CONTENT } from '../lib/graphql/queries';

@@ -1,4 +1,4 @@
-// CDA-WEBSITE-PROJECT/CDA-FRONTEND/next.config.js
+// CDA-WEBSITE-PROJECT/CDA-WEBSITE/cda-frontend/next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -6,7 +6,7 @@ const nextConfig = {
     domains: ['localhost', 'cda.group'],
   },
   env: {
-    NEXT_PUBLIC_WORDPRESS_URL: 'http://localhost/CDA-WEBSITE',
+    NEXT_PUBLIC_WORDPRESS_URL: 'http://localhost/CDA-WEBSITE/wordpress-backend',
   },
 };
 

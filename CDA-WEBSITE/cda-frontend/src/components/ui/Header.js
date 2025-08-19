@@ -1,4 +1,4 @@
-// CDA-WEBSITE-PROJECT/CDA-FRONTEND/src/components/ui/Header.js
+// CDA-WEBSITE-PROJECT/CDA-WEBSITE/cda-frontend/src/components/ui/Header.js
 import Link from 'next/link';
 
 export default function Header() {

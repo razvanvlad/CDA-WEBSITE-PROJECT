@@ -1,4 +1,4 @@
-// CDA-WEBSITE-PROJECT/CDA-FRONTEND/src/app/layout.js
+// CDA-WEBSITE-PROJECT/CDA-WEBSITE/cda-frontend/src/app/layout.js
 import Header from '../components/ui/Header';
 import Footer from '../components/ui/Footer';
 import '../styles/globals.css';
