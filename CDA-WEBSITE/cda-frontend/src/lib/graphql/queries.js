@@ -1,83 +1,63 @@
-// CDA-WEBSITE-PROJECT/CDA-WEBSITE/cda-frontend/src/lib/graphql/queries.js
-// Query to fetch homepage content with all required sections
-export const GET_HOMEPAGE_CONTENT = `
+// src/lib/graphql/queries.js
+import { gql } from '@apollo/client';
+
+export const GET_HOMEPAGE_CONTENT = gql`
   query GetHomepageContent($id: ID!) {
     page(id: $id, idType: DATABASE_ID) {
       id
       title
       date
-      testContentFields {
-        testText
-        testTextarea
-        testNumber
-        testToggle
-        testImage {
-          node {
-            sourceUrl
-            altText
+      homepageContent {
+        headerSection {
+          title
+          subtitle
+          primaryCta {
+            url
             title
-            mediaDetails {
-              width
-              height
-            }
+            target
+          }
+          secondaryCta {
+            url
+            title
+            target
           }
         }
-        testGallery {
-          nodes {
-            sourceUrl
-            altText
+        servicesAccordion {
+          title
+          description
+          link {
+            url
             title
+            target
           }
         }
-        testFlexibleContent {
-          __typename
-          ... on TestContentFieldsTestFlexibleContentCtaSectionLayout {
+        valuesSection {
+          title
+          valueItems {
             title
-            buttonText
-            buttonLink
+            description
           }
-          ... on TestContentFieldsTestFlexibleContentTextBlockLayout {
-            title
-            content
-          }
-          ... on TestContentFieldsTestFlexibleContentImageSectionLayout {
-            image {
-              node {
-                sourceUrl
-                altText
-                title
+        }
+        caseStudiesSection {
+          title
+          caseStudies {
+            nodes {
+              id
+              title
+              featuredImage {
+                node {
+                  sourceUrl
+                  altText
+                }
               }
             }
-            caption
           }
         }
+        newsletterSection {
+          title
+          subtitle
+        }
       }
-    }
-  }
-`;
-
-// Query to fetch all pages for dynamic routing
-export const GET_ALL_PAGES = `
-  query GetAllPages {
-    pages(first: 100) {
-      nodes {
-        id
-        uri
-        title
-      }
-    }
-  }
-`;
-
-// Query to fetch a specific page by URI
-export const GET_PAGE_BY_URI = `
-  query GetPageByUri($uri: String!) {
-    page(id: $uri, idType: URI) {
-      id
-      title
-      content
-      date
-      modified
     }
   }
 `;
