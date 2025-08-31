@@ -32,6 +32,12 @@ export const GET_HOMEPAGE_CONTENT = gql`
               title
               target
             }
+            desktopImage {
+              node {
+                sourceUrl
+                altText
+              }
+            }
           }
           servicesAccordion {
             title
@@ -47,6 +53,18 @@ export const GET_HOMEPAGE_CONTENT = gql`
             valueItems {
               title
               description
+            }
+          }
+          platformsSection {
+            title
+            subtitle
+            logos {
+              logo {
+                node {
+                  sourceUrl
+                  altText
+                }
+              }
             }
           }
           caseStudiesSection {
