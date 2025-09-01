@@ -17,15 +17,6 @@ export const GET_HOMEPAGE_CONTENT = gql`
         }
       }
       date
-      slug
-      seoSettings {
-        seoTitle
-        seoDescription
-        seoKeywords
-        noindex
-        nofollow
-        canonicalUrl
-      }
       ... on Page {
         homepageContent {
           headerSection {
@@ -114,6 +105,16 @@ export const GET_HOMEPAGE_CONTENT = gql`
             title
             subtitle
           }
+        }
+      }
+    }
+    menu(id: "primary", idType: NAME) {
+      menuItems {
+        nodes {
+          label
+          url
+          parentId
+          id
         }
       }
     }

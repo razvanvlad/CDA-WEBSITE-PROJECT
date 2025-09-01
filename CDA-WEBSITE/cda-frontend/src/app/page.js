@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import graphqlClient from '../lib/graphql/client';
 import { GET_HOMEPAGE_CONTENT } from '../lib/graphql/queries';
 import SEO from '../components/SEO';
+import Menu from '@/components/Menu';
 
 export default function Home() {
   const [pageData, setPageData] = useState(null);
@@ -108,17 +109,11 @@ const renderValues = (value, index) => (
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-gray-800">CDA2</h1>
-            <nav className="hidden md:flex space-x-8">
-              <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Home</a>
-              <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Services</a>
-              <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">About</a>
-              <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
-            </nav>
+            <h1 className="text-2xl font-bold text-gray-800">CDA3</h1>
+            <Menu menu={pageData?.menu} />            
           </div>
         </div>
       </header>
-
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 py-8">
         {/* Header Section */}
