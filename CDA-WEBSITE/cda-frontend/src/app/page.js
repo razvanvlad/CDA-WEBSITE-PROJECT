@@ -137,6 +137,62 @@ export default function Home() {
         </div>
       </section>
 
+      {/* About us Section */}      
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            <div className="lg:w-1/2">
+              <div className="relative">
+                {/* Static frame */}
+                <img 
+                  src="/images/Photo-Frame.png" 
+                  alt="Frame" 
+                  className="w-full h-auto"
+                />
+                
+                {/* Image inside the frame */}
+                <img 
+                  src={pageData?.homepageContent?.whoWeAreSection?.image?.node?.sourceUrl || '/placeholder.jpg'} 
+                  alt={pageData?.homepageContent?.whoWeAreSection?.image?.node?.altText}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            <div className="lg:w-1/2">
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                {pageData?.homepageContent?.whoWeAreSection?.title || 'Who we are'}
+              </h2>
+              <h3 className="text-3xl font-bold text-gray-800 mb-6">
+                {pageData?.homepageContent?.whoWeAreSection?.subtitle || 'Your Digital Partner'}
+              </h3>
+              <p className="text-gray-600 mb-8">
+                {pageData?.homepageContent?.whoWeAreSection?.text || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.'}
+              </p>
+              {pageData?.homepageContent?.whoWeAreSection?.button && (
+                <a 
+                  href={pageData.homepageContent.whoWeAreSection.button.url} 
+                  className="text-blue-600 underline hover:text-blue-800 transition-colors inline-flex items-center"
+                >
+                  {pageData.homepageContent.whoWeAreSection.button.title}
+                  <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              )}
+              
+              {/* Orange arrow */}
+              <div className="mt-8">
+                <img 
+                  src="/images/orange-arrow.png" 
+                  alt="Arrow" 
+                  className="w-24 h-24"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
         {/* Services Section */}
         <section className="py-16 bg-gray-50">
           <div className="max-w-4xl mx-auto">

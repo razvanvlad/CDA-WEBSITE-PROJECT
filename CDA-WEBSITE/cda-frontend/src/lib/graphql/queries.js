@@ -67,6 +67,21 @@ export const GET_HOMEPAGE_CONTENT = gql`
               }
             }
           }
+          whoWeAreSection {
+            title
+            subtitle
+            image {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            button {
+              url
+              title
+              target
+            }
+          }
           caseStudiesSection {
             title
             caseStudies {
