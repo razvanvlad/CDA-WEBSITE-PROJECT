@@ -17,6 +17,15 @@ export const GET_HOMEPAGE_CONTENT = gql`
         }
       }
       date
+      slug
+      seoSettings {
+        seoTitle
+        seoDescription
+        seoKeywords
+        noindex
+        nofollow
+        canonicalUrl
+      }
       ... on Page {
         homepageContent {
           headerSection {

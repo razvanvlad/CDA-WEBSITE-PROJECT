@@ -25,13 +25,48 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.image-frame {
+/* css for photo frame */
+.image-container {
   position: relative;
   width: 100%;
   height: auto;
 }
 
-.image-frame img {
+.image-container img {
   max-width: 100%;
   height: auto;
+}
+
+
+.content-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Add to your global CSS file */
+.wysiwyg-content {
+  /* Remove default paragraph styling */
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Ensure proper line height */
+  line-height: 1.6;
+}
+
+/* Handle strong text */
+.wysiwyg-content strong {
+  font-weight: bold;
+}
+
+/* Handle links */
+.wysiwyg-content a {
+  color: #0000ff;
+  text-decoration: underline;
+  cursor: pointer;
 }

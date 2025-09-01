@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'react';
 import graphqlClient from '../lib/graphql/client';
 import { GET_HOMEPAGE_CONTENT } from '../lib/graphql/queries';
+import SEO from '../components/SEO';
 
 export default function Home() {
   const [pageData, setPageData] = useState(null);
@@ -41,24 +42,41 @@ export default function Home() {
   </div>;
 
   // Render Components
-  const renderServicesAccordion = (accordionItem) => (
-    <div key={accordionItem.title} className="border-b border-gray-200 py-4">
-      <div className="flex justify-between items-center cursor-pointer">
-        <h3 className="font-semibold text-gray-800">{accordionItem.title}</h3>
-        <span className="text-gray-500">+</span>
-      </div>
-      <div className="mt-2 text-gray-600 leading-relaxed">
-        {accordionItem.description}
-      </div>
-      {accordionItem.link && (
-        <div className="mt-3">
-          <button className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 transition-colors">
-            {accordionItem.link.title}
-          </button>
-        </div>
-      )}
+const renderServicesAccordion = (accordionItem) => (
+  <div key={accordionItem.title} className="border-b border-gray-200 py-4">
+    <div className="flex justify-between items-center cursor-pointer">
+      <h3 className="font-semibold text-gray-800">{accordionItem.title}</h3>
+      <span className="text-gray-500">+</span>
     </div>
-  );
+    <div 
+      className="mt-2 text-gray-600 leading-relaxed"
+      dangerouslySetInnerHTML={{ __html: accordionItem.description }}
+    />
+    {accordionItem.link && (
+      <div className="mt-3">
+        <button className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 transition-colors">
+          {accordionItem.link.title}
+        </button>
+      </div>
+    )}
+  </div>
+);
+
+// For values section
+const renderValues = (value, index) => (
+  <div key={index} className="flex items-start">
+    <div className="flex-shrink-0 w-8 h-8 bg-black text-white rounded-full flex items-center justify-center text-sm font-bold mr-4">
+      {index + 1}
+    </div>
+    <div>
+      <h3 className="font-semibold text-gray-800 mb-1">{value.title}</h3>
+      <div 
+        className="text-gray-600"
+        dangerouslySetInnerHTML={{ __html: value.description }}
+      />
+    </div>
+  </div>
+);
 
   const renderStats = (stat) => (
     <div key={stat.label} className="text-center">
@@ -67,28 +85,30 @@ export default function Home() {
     </div>
   );
 
-  const renderCaseStudy = (study) => (
-    <div key={study.title} className="mb-8">
-      <img 
-        src={study.image?.node?.sourceUrl} 
-        alt={study.image?.node?.altText || study.title}
-        className="w-full h-64 object-cover rounded-lg mb-4"
-      />
-      <h3 className="text-xl font-bold text-gray-800 mb-2">{study.title}</h3>
-      <p className="text-gray-600 mb-4">{study.excerpt}</p>
-      <button className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 transition-colors">
-        View Project
-      </button>
-    </div>
-  );
+  // const renderCaseStudy = (study) => (
+  //   <div key={study.title} className="mb-8">
+  //     <img 
+  //       src={study.image?.node?.sourceUrl} 
+  //       alt={study.image?.node?.altText || study.title}
+  //       className="w-full h-64 object-cover rounded-lg mb-4"
+  //     />
+  //     <h3 className="text-xl font-bold text-gray-800 mb-2">{study.title}</h3>
+  //     <p className="text-gray-600 mb-4">{study.excerpt}</p>
+  //     <button className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 transition-colors">
+  //       View Project
+  //     </button>
+  //   </div>
+  // );
 
   return (
     <div className="min-h-screen bg-white">
+    {/* SEO Meta Tags */}
+    <SEO seoSettings={pageData?.seoSettings} title={pageData?.title} />
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-gray-800">CDA</h1>
+            <h1 className="text-2xl font-bold text-gray-800">CDA2</h1>
             <nav className="hidden md:flex space-x-8">
               <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Home</a>
               <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Services</a>
@@ -137,24 +157,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About us Section */}      
+      {/* About us Section */}  
       <section className="py-16">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="lg:w-1/2">
-              <div className="relative">
-                {/* Static frame */}
+            <div className="lg:w-1/2 relative">
+              {/* Container for the frame and image */}
+              <div className="image-container">
                 <img 
                   src="/images/Photo-Frame.png" 
                   alt="Frame" 
-                  className="w-full h-auto"
+                  className="frame-image"
                 />
-                
-                {/* Image inside the frame */}
                 <img 
                   src={pageData?.homepageContent?.whoWeAreSection?.image?.node?.sourceUrl || '/placeholder.jpg'} 
                   alt={pageData?.homepageContent?.whoWeAreSection?.image?.node?.altText}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="content-image"
                 />
               </div>
             </div>
@@ -227,30 +245,20 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Values Section */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-800 mb-8">
-              {pageData?.homepageContent?.valuesSection?.title || 'Our Values'}
-            </h2>
-            <p className="text-gray-600 mb-8">
-              {pageData?.homepageContent?.valuesSection?.subtitle || 'What we stand for'}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {pageData?.homepageContent?.valuesSection?.valueItems?.map((value, index) => (
-                <div key={index} className="flex items-start">
-                  <div className="flex-shrink-0 w-8 h-8 bg-black text-white rounded-full flex items-center justify-center text-sm font-bold mr-4">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-800 mb-1">{value.title}</h3>
-                    <p className="text-gray-600">{value.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+      {/* Values Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-800 mb-8">
+            {pageData?.homepageContent?.valuesSection?.title || 'Our Values'}
+          </h2>
+          <p className="text-gray-600 mb-8">
+            {pageData?.homepageContent?.valuesSection?.subtitle || 'What we stand for'}
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {pageData?.homepageContent?.valuesSection?.valueItems?.map(renderValues)}
           </div>
-        </section>
+        </div>
+      </section>
 
         {/* Newsletter Section */}
         <section className="py-16 bg-gray-50">
