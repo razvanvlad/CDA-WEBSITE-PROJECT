@@ -1,9 +1,25 @@
-// CDA-WEBSITE-PROJECT/CDA-WEBSITE/cda-frontend/src/lib/graphql/client.js
-import { GraphQLClient } from 'graphql-request';
+// src/lib/graphql/client.js
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
-const graphqlClient = new GraphQLClient(
-  process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT || 
-  'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/graphql'
-);
+// Create HTTP link
+const httpLink = createHttpLink({
+  uri: process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT || 
+       'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/graphql',
+});
 
-export default graphqlClient;
+// Create auth link for headers if needed
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+    }
+  }
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
+});
+
+export default client;
