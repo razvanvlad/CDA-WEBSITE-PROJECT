@@ -4,6 +4,8 @@
 import { useEffect, useState } from 'react';
 import client from '../lib/graphql/client';
 import { GET_HOMEPAGE_CONTENT } from '../lib/graphql/queries';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export default function Home() {
   const [pageData, setPageData] = useState(null);
@@ -18,10 +20,7 @@ export default function Home() {
           variables: { id: "289" }
         });
         
-        console.log('GraphQL Response:', response);
-        
         if (response.errors) {
-          console.error('GraphQL Errors:', response.errors);
           setError(response.errors[0].message);
           return;
         }
@@ -29,14 +28,7 @@ export default function Home() {
         setPageData(response.data);
         setLoading(false);
       } catch (err) {
-        console.error('Fetch Error:', err);
-        
-        if (err.message.includes('Unexpected token <')) {
-          setError('WordPress GraphQL endpoint is returning HTML instead of JSON. Check WordPress configuration.');
-        } else {
-          setError(err.message);
-        }
-        
+        setError(err.message);
         setLoading(false);
       }
     };
@@ -97,6 +89,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Header with Global Content */}
+      <Header 
+        globalOptions={pageData?.globalOptions} 
+        menu={pageData?.menu} 
+      />
+
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 py-8">
         {/* Header Section */}
@@ -279,6 +277,9 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      {/* Footer with Global Content */}
+      <Footer globalOptions={pageData?.globalOptions} />
     </div>
   );
 }

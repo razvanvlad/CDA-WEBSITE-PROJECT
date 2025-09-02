@@ -118,5 +118,31 @@ export const GET_HOMEPAGE_CONTENT = gql`
         }
       }
     }
+    globalOptions {
+      headerContent {
+        headerLogo {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+        headerPhone
+        headerEmail
+      }
+      footerContent {
+        footerLogo {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+        footerText
+        footerCopyright
+        footerSocialLinks {
+          platform
+          url
+        }
+      }
+    }
   }
 `;
