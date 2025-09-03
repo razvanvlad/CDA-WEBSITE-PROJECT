@@ -2,6 +2,7 @@
 import Header from '../components/ui/Header';
 import Footer from '../components/ui/Footer';
 import '../styles/globals.css';
+import { ApolloWrapper } from './providers';
 
 export const metadata = {
   title: 'CDA Systems Limited',
@@ -50,6 +51,18 @@ export default function RootLayout({ children }) {
         <Header />
         <main>{children}</main>
         <Footer />
+      </body>
+    </html>
+  );
+}
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <ApolloWrapper>
+          {children}
+        </ApolloWrapper>
       </body>
     </html>
   );

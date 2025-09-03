@@ -5,9 +5,7 @@ export const GET_HOMEPAGE_CONTENT = gql`
   query GetHomepageContent($id: ID!) {
     page(id: $id, idType: DATABASE_ID) {
       id
-      ... on NodeWithTitle {
-        title
-      }
+      title
       ... on NodeWithFeaturedImage {
         featuredImage {
           node {
@@ -108,39 +106,116 @@ export const GET_HOMEPAGE_CONTENT = gql`
         }
       }
     }
-    menu(id: "primary", idType: NAME) {
-      menuItems {
-        nodes {
-          label
-          url
-          parentId
-          id
-        }
-      }
-    }
-    globalOptions {
-      headerContent {
-        headerLogo {
-          node {
-            sourceUrl
-            altText
+  }
+`;
+
+// Updated queries.js with correct ACF image structure
+export const GET_ABOUT_US_CONTENT = gql`
+  query GetAboutUsContent($uri: ID!) {
+    page(id: $uri, idType: URI) {
+      id
+      title
+      uri
+      date
+      ... on Page {
+        aboutUsContent {
+          contentPageHeader {
+            title
+            text
+            cta {
+              url
+              title
+              target
+            }
           }
-        }
-        headerPhone
-        headerEmail
-      }
-      footerContent {
-        footerLogo {
-          node {
-            sourceUrl
-            altText
+          whoWeAreSection {
+            imageWithFrame {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            sectionTitle
+            sectionText
+            cta {
+              url
+              title
+              target
+            }
           }
-        }
-        footerText
-        footerCopyright
-        footerSocialLinks {
-          platform
-          url
+          whyCdaSection {
+            title
+            description
+            icon {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+          servicesSection {
+            servicesAccordion {
+              title
+              description
+              link {
+                url
+                title
+                target
+              }
+            }
+          }
+          cultureSection {
+            gallery {
+              sourceUrl
+              altText
+            }
+          }
+          approachSection {
+            title
+            text
+            image {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+          statsSection {
+            number
+            label
+            image {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+          videoSection {
+            url
+            title
+          }
+          leadershipSection {
+            image {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            name
+            position
+            bio
+          }
+          showreelSection {
+            video
+            logos {
+              image {
+                node {
+                  sourceUrl
+                  altText
+                }
+              }
+            }
+          }
         }
       }
     }
