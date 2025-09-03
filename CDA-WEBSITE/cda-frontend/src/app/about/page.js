@@ -57,7 +57,7 @@ export default function AboutPage() {
   }
 
   if (!data?.page) {
-    return <div>Page not found</div>;
+    return <div>Page not found Text on Line 60</div>;
   }
 
   const page = data.page;

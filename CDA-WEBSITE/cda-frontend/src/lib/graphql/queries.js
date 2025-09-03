@@ -109,7 +109,8 @@ export const GET_HOMEPAGE_CONTENT = gql`
   }
 `;
 
-// Updated queries.js with correct ACF image structure
+// src/lib/graphql/queries.js - Replace GET_ABOUT_US_CONTENT with this:
+
 export const GET_ABOUT_US_CONTENT = gql`
   query GetAboutUsContent($uri: ID!) {
     page(id: $uri, idType: URI) {
@@ -166,8 +167,10 @@ export const GET_ABOUT_US_CONTENT = gql`
           }
           cultureSection {
             gallery {
-              sourceUrl
-              altText
+              nodes {
+                sourceUrl
+                altText
+              }
             }
           }
           approachSection {
@@ -207,14 +210,6 @@ export const GET_ABOUT_US_CONTENT = gql`
           }
           showreelSection {
             video
-            logos {
-              image {
-                node {
-                  sourceUrl
-                  altText
-                }
-              }
-            }
           }
         }
       }
