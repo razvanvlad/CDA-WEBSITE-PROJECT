@@ -383,80 +383,55 @@ export const GET_OUTSOURCED_CMO_CONTENT = gql`
   }
 `;
 
-// AI Query (ID: 785)
 export const GET_AI_CONTENT = gql`
   query GET_AI_CONTENT {
-    page(id: "785", idType: DATABASE_ID) {
-      id
-      title
-      slug
-      uri
-      aiContent {
-        headerSection {
-          title
-          subtitle
-          desktopImage {
-            node {
-              sourceUrl
-              altText
-            }
+  page(id: "785", idType: DATABASE_ID) {
+    id
+    title
+    aiContent {
+      headerSection {
+        title
+        subtitle
+        desktopImage {
+          node {
+            sourceUrl
+            altText
           }
         }
-        servicesSection {
+      }
+      introSection {
+        title
+        content
+      }
+      servicesSection{
+        title
+        servicesItems{
           title
-          content
-          servicesItems {
-            icon {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            title
-            description
-          }
+          description
         }
-        technologiesSection {
+      }
+      benefitsSection{
+        title
+        content
+        benefitsItems{
           title
-          content
-          technologies {
-            name
-            logo {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            description
-          }
+          description
         }
-        useCasesSection {
+      }
+      ctaSection{
+        title
+        content
+        button {
+          target
           title
-          content
-          useCases {
-            title
-            description
-            image {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-        }
-        ctaSection {
-          title
-          content
-          button {
-            url
-            title
-            target
-          }
+          url
         }
       }
     }
   }
+}
 `;
+
 
 // Knowledge Hub Query (ID: 787)
 export const GET_KNOWLEDGE_HUB_CONTENT = gql`

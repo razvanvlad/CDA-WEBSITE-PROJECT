@@ -6,6 +6,7 @@ import client from '../lib/graphql/client';
 import { GET_HOMEPAGE_CONTENT } from '../lib/graphql/queries';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../styles/global.css';
 
 export default function Home() {
   const [pageData, setPageData] = useState(null);
@@ -99,24 +100,26 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Debug Section - Remove in production */}
-      <details className="m-4 p-4 bg-gray-100 rounded">
+      {/* <details className="m-4 p-4 bg-gray-100 rounded">
         <summary className="cursor-pointer font-bold text-sm">
-          🔧 Debug Data (Click to expand)
+           Debug Data (Click to expand)
         </summary>
         <pre className="mt-2 text-xs overflow-auto bg-white p-2 rounded max-h-96">
           {JSON.stringify(pageData, null, 2)}
         </pre>
-      </details>
+      </details> */}
 
       {/* Header Section */}
       {homepageContent?.headerSection && (
-        <section className="hero-section bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
+        <section className="hero-section py-20">
           <div className="container mx-auto px-4 max-w-6xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
-                  {homepageContent.headerSection.title}
-                </h1>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+              <div className="lg:col-span-2">
+                {/* FIXED: Use dangerouslySetInnerHTML for WYSIWYG title field */}
+                <h1 
+                  className="title-large-purple"
+                  dangerouslySetInnerHTML={{ __html: homepageContent.headerSection.title }}
+                />
                 {homepageContent.headerSection.subtitle && (
                   <p className="text-xl text-gray-600 mb-8">
                     {homepageContent.headerSection.subtitle}
@@ -128,7 +131,7 @@ export default function Home() {
                     <a 
                       href={homepageContent.headerSection.primaryCta.url}
                       target={homepageContent.headerSection.primaryCta.target || '_self'}
-                      className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-center"
+                      className="button-l"
                     >
                       {homepageContent.headerSection.primaryCta.title}
                     </a>
@@ -138,7 +141,7 @@ export default function Home() {
                     <a 
                       href={homepageContent.headerSection.secondaryCta.url}
                       target={homepageContent.headerSection.secondaryCta.target || '_self'}
-                      className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-colors text-center"
+                      className="button-without-box"
                     >
                       {homepageContent.headerSection.secondaryCta.title}
                     </a>
@@ -147,11 +150,11 @@ export default function Home() {
               </div>
               
               {homepageContent.headerSection.desktopImage && (
-                <div className="hidden lg:block">
+                <div className="hidden lg:block lg:col-span-1">
                   <img 
                     src={homepageContent.headerSection.desktopImage.node.sourceUrl}
                     alt={homepageContent.headerSection.desktopImage.node.altText}
-                    className="w-full h-auto rounded-lg shadow-2xl"
+                    className="w-full h-auto max-w-sm ml-auto"
                   />
                 </div>
               )}
@@ -164,7 +167,7 @@ export default function Home() {
       {homepageContent?.servicesAccordion && homepageContent.servicesAccordion.length > 0 && (
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4 max-w-4xl">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            <h2 className="title-small-purple">
               Our Services
             </h2>
             

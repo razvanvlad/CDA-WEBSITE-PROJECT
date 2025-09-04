@@ -1,0 +1,236 @@
+.button-l {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  font-weight: 700;
+  font-size: 14px;
+  color: white;
+  background-color: black;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.button-l::before {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 3px;
+  width: calc(100% - 6px);
+  height: 1px;
+  background-color: black;
+  z-index: 1;
+}
+
+.button-l::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  right: -3px;
+  width: 1px;
+  height: calc(100% - 3px);
+  background-color: black;
+  z-index: 1;
+}
+
+.button-l:hover {
+  background-color: white;
+  color: black;
+  box-shadow: inset 0 0 0 1px black;
+}
+
+.button-without-box {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: black;
+  text-decoration: none;
+  padding: 0 15px 0 0; /* Add right padding for the icon space */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1.2;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Underline: only under text */
+.button-without-box::after {
+  content: '';
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  width: calc(100% - 15px); /* Subtract space for icon and gap */
+  height: 1px;
+  background-color: black;
+  z-index: 1;
+}
+
+/* Icon: arrow-bottom-right (normal) */
+.button-without-box::before {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7L17 17"/><path d="M7 17H17"/><path d="M17 7V17"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+/* Hover effect */
+.button-without-box:hover {
+  color: black;
+}
+
+.button-without-box:hover::after {
+  background-color: black;
+}
+
+/* Replace icon on hover */
+.button-without-box:hover::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
+  bottom: 50%;
+  transform: translateY(50%);
+  right: 0;
+  width: 12px;
+  height: 12px;
+}
+
+/* Text colored underlines */
+/* Underline Color Classes */
+.underline-orange {
+  text-decoration: underline;
+  text-decoration-color: #FD8721;
+}
+
+.underline-pink {
+  text-decoration: underline;
+  text-decoration-color: #FF5C8A;
+}
+
+.underline-purple {
+  text-decoration: underline;
+  text-decoration-color: #AD80F9;
+}
+
+.underline-light-blue {
+  text-decoration: underline;
+  text-decoration-color: #3CBEEB;
+}
+
+.underline-green {
+  text-decoration: underline;
+  text-decoration-color: #01E486;
+}
+
+/* Underline Thickness Classes */
+.underline-thin {
+  text-decoration-thickness: 9px;
+}
+
+.underline-thick {
+  text-decoration-thickness: 11px;
+}
+
+/* Combined Classes for H1 and Title Usage */
+.title-small {
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.title-large {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+/* Utility combinations - you can use these directly */
+.title-small-orange {
+  font-size: 38px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #FD8721;
+  text-decoration-thickness: 9px;
+}
+
+.title-small-pink {
+  font-size: 38px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #FF5C8A;
+  text-decoration-thickness: 9px;
+}
+
+.title-small-purple {
+  font-size: 38px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #AD80F9;
+  text-decoration-thickness: 9px;
+}
+
+.title-small-light-blue {
+  font-size: 38px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #3CBEEB;
+  text-decoration-thickness: 9px;
+}
+
+.title-small-green {
+  font-size: 38px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #01E486;
+  text-decoration-thickness: 9px;
+}
+
+.title-large-orange {
+  font-size: 50px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #FD8721;
+  text-decoration-thickness: 11px;
+}
+
+.title-large-pink {
+  font-size: 50px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #FF5C8A;
+  text-decoration-thickness: 11px;
+}
+
+.title-large-purple {
+  font-size: 50px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #AD80F9;
+  text-decoration-thickness: 11px;
+}
+
+.title-large-light-blue {
+  font-size: 50px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #3CBEEB;
+  text-decoration-thickness: 11px;
+}
+
+.title-large-green {
+  font-size: 50px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #01E486;
+  text-decoration-thickness: 11px;
+}

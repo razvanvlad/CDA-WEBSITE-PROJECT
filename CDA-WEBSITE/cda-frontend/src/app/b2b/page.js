@@ -82,7 +82,7 @@ export default function B2BLeadGenerationPage() {
     <div className="min-h-screen bg-white">
       {/* Header Section */}
       {b2bContent.headerSection && (b2bContent.headerSection.title || b2bContent.headerSection.subtitle) && (
-        <section className="hero-section bg-gradient-to-br from-purple-50 to-indigo-100 py-20">
+        <section className="hero-section py-20">
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
