@@ -1,107 +1,136 @@
-// src/lib/graphql/queries.js
+// src/lib/graphql/queries.js - COMPLETE VERSION
 import { gql } from '@apollo/client';
 
+// Homepage Content Query (ID: 289)
 export const GET_HOMEPAGE_CONTENT = gql`
   query GetHomepageContent($id: ID!) {
     page(id: $id, idType: DATABASE_ID) {
       id
       title
-      ... on NodeWithFeaturedImage {
-        featuredImage {
-          node {
-            sourceUrl
-            altText
+      homepageContent {
+        headerSection {
+          title
+          subtitle
+          primaryCta {
+            url
+            title
+            target
+          }
+          secondaryCta {
+            url
+            title
+            target
+          }
+          desktopImage {
+            node {
+              sourceUrl
+              altText
+            }
           }
         }
-      }
-      date
-      ... on Page {
-        homepageContent {
-          headerSection {
+        servicesAccordion {
+          title
+          description
+          link {
+            url
             title
-            subtitle
-            primaryCta {
-              url
-              title
-              target
-            }
-            secondaryCta {
-              url
-              title
-              target
-            }
-            desktopImage {
-              node {
-                sourceUrl
-                altText
-              }
-            }
+            target
           }
-          servicesAccordion {
+        }
+        valuesSection {
+          title
+          valueItems {
             title
             description
-            link {
-              url
-              title
-              target
+          }
+        }
+        whoWeAreSection {
+          title
+          subtitle
+          image {
+            node {
+              sourceUrl
+              altText
             }
           }
-          valuesSection {
+          button {
+            url
             title
-            valueItems {
-              title
-              description
+            target
+          }
+        }
+        newsletterSection {
+          title
+          subtitle
+        }
+      }
+    }
+  }
+`;
+
+// B2B Lead Generation Query (ID: 775)
+export const GET_B2B_LEAD_GENERATION_CONTENT = gql`
+  query GET_B2B_LEAD_GENERATION {
+    page(id: "775", idType: DATABASE_ID) {
+      id
+      title
+      slug
+      uri
+      b2bLeadGenerationContent {
+        headerSection {
+          title
+          subtitle
+          desktopImage {
+            node {
+              sourceUrl
+              altText
             }
           }
-          platformsSection {
-            title
-            subtitle
-            logos {
-              logo {
-                node {
-                  sourceUrl
-                  altText
-                }
-              }
+          mobileImage {
+            node {
+              sourceUrl
+              altText
             }
           }
-          whoWeAreSection {
-            title
-            subtitle
-            image {
+        }
+        servicesSection {
+          title
+          servicesItems {
+            icon {
               node {
                 sourceUrl
                 altText
               }
             }
-            button {
-              url
-              title
-              target
-            }
-          }
-          caseStudiesSection {
             title
-            caseStudies {
-              nodes {
-                id
-                ... on NodeWithTitle {
-                  title
-                }
-                ... on NodeWithFeaturedImage {
-                  featuredImage {
-                    node {
-                      sourceUrl
-                      altText
-                    }
-                  }
-                }
-              }
-            }
+            description
           }
-          newsletterSection {
+        }
+        strategySection {
+          title
+          content
+          strategySteps {
+            stepNumber
             title
-            subtitle
+            description
+          }
+        }
+        testimonialsSection {
+          title
+          testimonialsItems {
+            content
+            author
+            position
+            company
+          }
+        }
+        ctaSection {
+          title
+          content
+          button {
+            url
+            title
+            target
           }
         }
       }
@@ -109,42 +138,641 @@ export const GET_HOMEPAGE_CONTENT = gql`
   }
 `;
 
-// src/lib/graphql/queries.js - Replace GET_ABOUT_US_CONTENT with this:
-
-export const GET_ABOUT_US_CONTENT = gql`
-  query GetAboutUsContent($uri: ID!) {
-    page(id: $uri, idType: URI) {
+// Software Development Query (ID: 777) - ❌ ACF field not exposed to GraphQL
+export const GET_SOFTWARE_DEVELOPMENT_CONTENT = gql`
+  query GET_SOFTWARE_DEVELOPMENT {
+    page(id: "777", idType: DATABASE_ID) {
       id
       title
+      slug
       uri
-      date
-      ... on Page {
-        aboutUsContent {
-          contentPageHeader {
-            title
-            text
-            cta {
-              url
-              title
-              target
+      # softwareDevelopmentContent field is not available in GraphQL
+      # Need to configure ACF field group to "Show in GraphQL"
+    }
+  }
+`;
+
+// Booking Systems Query (ID: 779)
+export const GET_BOOKING_SYSTEMS_CONTENT = gql`
+  query GET_BOOKING_SYSTEMS {
+    page(id: "779", idType: DATABASE_ID) {
+      id
+      title
+      slug
+      uri
+      bookingSystemsContent {
+        headerSection {
+          title
+          subtitle
+          desktopImage {
+            node {
+              sourceUrl
+              altText
             }
           }
-          whoWeAreSection {
-            imageWithFrame {
+        }
+        featuresSection {
+          title
+          featuresItems {
+            icon {
               node {
                 sourceUrl
                 altText
               }
             }
-            sectionTitle
-            sectionText
-            cta {
+            title
+            description
+          }
+        }
+        integrationsSection {
+          title
+          content
+          integrationsLogos {
+            name
+            logo {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+        demoSection {
+          title
+          content
+          demoVideo
+          demoButton {
+            url
+            title
+            target
+          }
+        }
+        ctaSection {
+          title
+          content
+          button {
+            url
+            title
+            target
+          }
+        }
+      }
+    }
+  }
+`;
+
+// Digital Marketing Query (ID: 781)
+export const GET_DIGITAL_MARKETING_CONTENT = gql`
+  query GET_DIGITAL_MARKETING {
+    page(id: "781", idType: DATABASE_ID) {
+      id
+      title
+      slug
+      uri
+      digitalMarketingContent {
+        headerSection {
+          title
+          subtitle
+          desktopImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+        servicesSection {
+          title
+          intro
+          servicesItems {
+            icon {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            title
+            description
+            features
+          }
+        }
+        strategySection {
+          title
+          content
+          strategySteps {
+            stepNumber
+            title
+            description
+          }
+        }
+        toolsSection {
+          title
+          content
+          toolsLogos {
+            name
+            logo {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+        resultsSection {
+          title
+          content
+          stats {
+            number
+            label
+          }
+        }
+        ctaSection {
+          title
+          content
+          button {
+            url
+            title
+            target
+          }
+        }
+      }
+    }
+  }
+`;
+
+// Outsourced CMO Query (ID: 783)
+export const GET_OUTSOURCED_CMO_CONTENT = gql`
+  query GET_OUTSOURCED_CMO {
+    page(id: "783", idType: DATABASE_ID) {
+      id
+      title
+      slug
+      uri
+      outsourcedCmoContent {
+        headerSection {
+          title
+          subtitle
+          desktopImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+        introSection {
+          title
+          content
+        }
+        servicesSection {
+          title
+          content
+          servicesItems {
+            icon {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            title
+            description
+          }
+        }
+        benefitsSection {
+          title
+          content
+          benefitsItems {
+            number
+            title
+            description
+          }
+        }
+        processSection {
+          title
+          content
+          processSteps {
+            stepNumber
+            title
+            description
+          }
+        }
+        testimonialsSection {
+          title
+          testimonialsItems {
+            content
+            author
+            position
+            company
+            photo {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+        ctaSection {
+          title
+          content
+          button {
+            url
+            title
+            target
+          }
+        }
+      }
+    }
+  }
+`;
+
+// AI Query (ID: 785)
+export const GET_AI_CONTENT = gql`
+  query GET_AI_CONTENT {
+    page(id: "785", idType: DATABASE_ID) {
+      id
+      title
+      slug
+      uri
+      aiContent {
+        headerSection {
+          title
+          subtitle
+          desktopImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+        servicesSection {
+          title
+          content
+          servicesItems {
+            icon {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            title
+            description
+          }
+        }
+        technologiesSection {
+          title
+          content
+          technologies {
+            name
+            logo {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            description
+          }
+        }
+        useCasesSection {
+          title
+          content
+          useCases {
+            title
+            description
+            image {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+        ctaSection {
+          title
+          content
+          button {
+            url
+            title
+            target
+          }
+        }
+      }
+    }
+  }
+`;
+
+// Knowledge Hub Query (ID: 787)
+export const GET_KNOWLEDGE_HUB_CONTENT = gql`
+  query GET_KNOWLEDGE_HUB {
+    page(id: "787", idType: DATABASE_ID) {
+      id
+      title
+      slug
+      uri
+      knowledgeHubContent {
+        headerSection {
+          title
+          subtitle
+          searchPlaceholder
+        }
+        featuredArticle {
+          title
+          excerpt
+          author
+          publishDate
+          readTime
+          featuredImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          url
+        }
+        categoriesSection {
+          title
+          categories {
+            name
+            color
+            articleCount
+            url
+          }
+        }
+        articlesSection {
+          title
+          articles {
+            title
+            excerpt
+            author
+            publishDate
+            readTime
+            category
+            featuredImage {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            url
+          }
+        }
+      }
+    }
+  }
+`;
+
+// Project Case Study Query (ID: 789)
+export const GET_CASE_STUDY_CONTENT = gql`
+  query GET_CASE_STUDY {
+    page(id: "789", idType: DATABASE_ID) {
+      id
+      title
+      slug
+      uri
+      caseStudyOakleighContent {
+        headerSection {
+          title
+          subtitle
+          clientName
+          projectType
+          projectDuration
+          featuredImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+        challengeSection {
+          title
+          content
+          challenges {
+            title
+            description
+          }
+        }
+        solutionSection {
+          title
+          content
+          solutions {
+            title
+            description
+            image {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+        resultsSection {
+          title
+          content
+          results {
+            metric
+            value
+            description
+          }
+        }
+        technologiesSection {
+          title
+          technologies {
+            name
+            logo {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+        ctaSection {
+          title
+          content
+          button {
+            url
+            title
+            target
+          }
+        }
+      }
+    }
+  }
+`;
+
+// Contact Query (ID: 791)
+export const GET_CONTACT_CONTENT = gql`
+  query GET_CONTACT {
+    page(id: "791", idType: DATABASE_ID) {
+      id
+      title
+      slug
+      uri
+      contactContent {
+        headerSection {
+          title
+          subtitle
+        }
+        contactInfo {
+          phone
+          email
+          address
+          workingHours
+        }
+        contactForm {
+          title
+          description
+          submitButtonText
+        }
+        locationSection {
+          title
+          address
+          mapEmbedCode
+        }
+        ctaSection {
+          title
+          content
+        }
+      }
+    }
+  }
+`;
+
+// Terms & Conditions Query (ID: 793)
+export const GET_TERMS_CONDITIONS_CONTENT = gql`
+  query GET_TERMS_CONDITIONS {
+    page(id: "793", idType: DATABASE_ID) {
+      id
+      title
+      slug
+      uri
+      termsConditionsContent {
+        headerSection {
+          title
+          lastUpdated
+        }
+        sections {
+          title
+          content
+        }
+      }
+    }
+  }
+`;
+
+// 404 Error Page Query (ID: 795)
+export const GET_404_CONTENT = gql`
+  query GET_404 {
+    page(id: "795", idType: DATABASE_ID) {
+      id
+      title
+      slug
+      uri
+      error404Content {
+        mainSection {
+          title
+          subtitle
+          message
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+        actionsSection {
+          title
+          homeButton {
+            url
+            title
+            target
+          }
+          contactButton {
+            url
+            title
+            target
+          }
+        }
+        searchSection {
+          title
+          searchPlaceholder
+        }
+        suggestionsSection {
+          title
+          suggestionsItems {
+            title
+            link {
               url
               title
               target
             }
+            description
           }
-          whyCdaSection {
+        }
+      }
+    }
+  }
+`;
+
+// About Us Content Query (ID: 317)
+export const GET_ABOUT_US_CONTENT = gql`
+  query GET_ABOUT_US_CONTENT($uri: String!) {
+    page(id: $uri, idType: URI) {
+      id
+      title
+      slug
+      aboutUsContent {
+        videoSection {
+          title
+          subtitle
+          videoUrl
+          thumbnailImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+        leadershipSection {
+          title
+          content
+          leaders {
+            name
+            position
+            bio
+            photo {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+        statsSection {
+          title
+          subtitle
+          stats {
+            number
+            label
+            description
+          }
+        }
+        whoWeAreSection {
+          title
+          subtitle
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          button {
+            url
+            title
+            target
+          }
+        }
+        whyCdaSection {
+          title
+          content
+          reasons {
             title
             description
             icon {
@@ -153,63 +781,6 @@ export const GET_ABOUT_US_CONTENT = gql`
                 altText
               }
             }
-          }
-          servicesSection {
-            servicesAccordion {
-              title
-              description
-              link {
-                url
-                title
-                target
-              }
-            }
-          }
-          cultureSection {
-            gallery {
-              nodes {
-                sourceUrl
-                altText
-              }
-            }
-          }
-          approachSection {
-            title
-            text
-            image {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-          statsSection {
-            number
-            label
-            image {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-          videoSection {
-            url
-            title
-          }
-          leadershipSection {
-            image {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            name
-            position
-            bio
-          }
-          showreelSection {
-            video
           }
         }
       }
