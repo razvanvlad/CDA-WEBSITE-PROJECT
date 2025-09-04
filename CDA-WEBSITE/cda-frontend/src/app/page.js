@@ -96,18 +96,22 @@ export default function Home() {
 
   const page = pageData.page;
   const homepageContent = page.homepageContent;
+  const globalOptions = pageData.globalOptions;
+  const primaryMenu = pageData.primaryMenu;
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Debug Section - Remove in production */}
-      {/* <details className="m-4 p-4 bg-gray-100 rounded">
-        <summary className="cursor-pointer font-bold text-sm">
-           Debug Data (Click to expand)
-        </summary>
-        <pre className="mt-2 text-xs overflow-auto bg-white p-2 rounded max-h-96">
-          {JSON.stringify(pageData, null, 2)}
-        </pre>
-      </details> */}
+      {/* Header with Menu */}
+      <Header menu={pageData.primaryMenu} />
+      
+      {/* Breadcrumb */}
+      {/* <div className="bg-gray-50 py-2">
+        <div className="max-w-6xl mx-auto px-4">
+          <nav className="text-sm text-gray-600">
+            <span>Breadcrumb</span> / <span>Breadcrumb</span>
+          </nav>
+        </div>
+      </div> */}
 
       {/* Header Section */}
       {homepageContent?.headerSection && (
@@ -115,7 +119,6 @@ export default function Home() {
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
               <div className="lg:col-span-2">
-                {/* FIXED: Use dangerouslySetInnerHTML for WYSIWYG title field */}
                 <h1 
                   className="title-large-purple"
                   dangerouslySetInnerHTML={{ __html: homepageContent.headerSection.title }}
@@ -299,6 +302,9 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      {/* Footer */}
+      <Footer globalOptions={globalOptions} />
     </div>
   );
 }

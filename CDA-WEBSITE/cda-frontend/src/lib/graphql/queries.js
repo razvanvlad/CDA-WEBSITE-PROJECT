@@ -762,3 +762,19 @@ export const GET_ABOUT_US_CONTENT = gql`
     }
   }
 `;
+
+export const GET_MENU = gql`
+  query GetMenu {
+    primaryMenu: menu(id: "primary", idType: SLUG) {
+      menuItems {
+        nodes {
+          id
+          label
+          url
+          parentId
+          order
+        }
+      }
+    }
+  }
+`;

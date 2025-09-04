@@ -1,54 +1,59 @@
 // components/Header.js
-import { useState } from 'react';
+'use client'
 
-export default function Header({ globalOptions, menu }) {
+import { useEffect, useState } from 'react';
+import client from '../lib/graphql/client';
+import { GET_MENU } from '../lib/graphql/queries';
+
+export default function Header() {
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
-  const headerContent = globalOptions?.headerContent;
-  const footerContent = globalOptions?.footerContent;
+
+  useEffect(() => {
+    const fetchMenu = async () => {
+      try {
+        const response = await client.query({
+          query: GET_MENU,
+          errorPolicy: 'all'
+        });
+        
+        const items = response.data?.primaryMenu?.menuItems?.nodes?.filter(item => !item.parentId) || [];
+        setMenuItems(items);
+      } catch (error) {
+        console.error('Menu fetch error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMenu();
+  }, []);
 
   return (
-    <header className="bg-white shadow-sm border-b">
+    <header className="bg-white" style={{ borderBottom: '1px solid #EBEBEB' }}>
       <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Static Logo */}
           <div className="flex items-center">
-            {headerContent?.headerLogo?.node?.sourceUrl ? (
-              <img 
-                src={headerContent.headerLogo.node.sourceUrl} 
-                alt={headerContent.headerLogo.node.altText || 'Logo'}
-                className="h-8 w-auto"
-              />
-            ) : (
-              <h1 className="text-2xl font-bold text-gray-800">CDA</h1>
-            )}
+            <h1 className="text-2xl font-bold text-gray-800">CDA</h1>
           </div>
 
-          {/* Contact Info */}
-          <div className="hidden md:flex items-center space-x-6 text-sm text-gray-600">
-            {headerContent?.headerPhone && (
-              <a href={`tel:${headerContent.headerPhone}`} className="hover:text-gray-900 transition-colors">
-                {headerContent.headerPhone}
-              </a>
-            )}
-            {headerContent?.headerEmail && (
-              <a href={`mailto:${headerContent.headerEmail}`} className="hover:text-gray-900 transition-colors">
-                {headerContent.headerEmail}
-              </a>
-            )}
-          </div>
-
-          {/* Navigation Menu */}
+          {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            {menu?.menuItems?.nodes?.filter(item => !item.parentId).map((item) => (
-              <a
-                key={item.id}
-                href={item.url}
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                {item.label}
-              </a>
-            ))}
+            {loading ? (
+              <div>Loading...</div>
+            ) : (
+              menuItems.map((item) => (
+                <a
+                  key={item.id}
+                  href={item.url}
+                  className="text-gray-600 hover:text-gray-900 transition-colors font-medium"
+                >
+                  {item.label}
+                </a>
+              ))
+            )}
           </nav>
 
           {/* Mobile menu button */}
@@ -56,7 +61,7 @@ export default function Header({ globalOptions, menu }) {
             className="md:hidden p-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
@@ -66,11 +71,11 @@ export default function Header({ globalOptions, menu }) {
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pt-4 border-t border-gray-200">
             <div className="flex flex-col space-y-4">
-              {menu?.menuItems?.nodes?.filter(item => !item.parentId).map((item) => (
+              {menuItems.map((item) => (
                 <a
                   key={item.id}
                   href={item.url}
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                  className="text-gray-600 hover:text-gray-900 transition-colors font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.label}
