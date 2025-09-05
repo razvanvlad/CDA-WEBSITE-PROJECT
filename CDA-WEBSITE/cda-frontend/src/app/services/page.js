@@ -1,6 +1,9 @@
+// src/app/services/page.js
 import { getServicesWithPagination, executeGraphQLQuery } from '@/lib/graphql-queries'
 import { getPaginationFromSearchParams } from '@/lib/pagination-utils'
 import Pagination from '@/components/Pagination'
+import ApproachBlock from '@/components/GlobalBlocks/ApproachBlock'
+import ValuesBlock from '@/components/GlobalBlocks/ValuesBlock'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -33,10 +36,6 @@ export const metadata = {
   }
 }
 
-interface ServicesPageProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
-}
-
 // Get all service types for filtering
 async function getServiceTypes() {
   const query = `
@@ -61,7 +60,63 @@ async function getServiceTypes() {
   }
 }
 
-export default async function ServicesPage({ searchParams }: ServicesPageProps) {
+// Get global content for Approach Block and Values Block
+async function getGlobalContent() {
+  const query = `
+    query GetGlobalContent {
+      globalOptions {
+        globalSharedContent {
+          approachBlock {
+            title
+            subtitle
+            steps {
+              stepNumber
+              title
+              description
+              image {
+                node {
+                  sourceUrl
+                  altText
+                }
+              }
+            }
+          }
+          valuesBlock {
+            title
+            subtitle
+            cards {
+              cardNumber
+              title
+              description
+              image {
+                node {
+                  sourceUrl
+                  altText
+                }
+              }
+            }
+            cornerImage {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+      }
+    }
+  `
+  
+  try {
+    const response = await executeGraphQLQuery(query)
+    return response.data?.globalOptions?.globalSharedContent || null
+  } catch (error) {
+    console.error('Failed to fetch global content:', error)
+    return null
+  }
+}
+
+export default async function ServicesPage({ searchParams }) {
   try {
     // Await search parameters for Next.js 15+
     const awaitedSearchParams = await searchParams
@@ -90,6 +145,9 @@ export default async function ServicesPage({ searchParams }: ServicesPageProps) 
 
     // Fetch service types for filtering
     const serviceTypes = await getServiceTypes()
+    
+    // Fetch global content for Approach Block
+    const globalContent = await getGlobalContent()
 
     // Basic pagination (simplified)
     const totalPages = 1
@@ -132,7 +190,7 @@ export default async function ServicesPage({ searchParams }: ServicesPageProps) 
                     Filter by Service Type
                   </label>
                   <div className="flex flex-wrap gap-2">
-                    {serviceTypes.map((type: any) => (
+                    {serviceTypes.map((type) => (
                       <label key={type.id} className="flex items-center">
                         <input
                           type="checkbox"
@@ -191,7 +249,7 @@ export default async function ServicesPage({ searchParams }: ServicesPageProps) 
           {services.length > 0 ? (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                {services.map((service: any) => (
+                {services.map((service) => (
                   <Link 
                     key={service.id}
                     href={`/services/${service.slug}`}
@@ -212,7 +270,7 @@ export default async function ServicesPage({ searchParams }: ServicesPageProps) 
                       
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3">
-                          {service.serviceTypes?.nodes?.map((type: any) => (
+                          {service.serviceTypes?.nodes?.map((type) => (
                             <span 
                               key={type.id}
                               className="inline-block px-3 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full"
@@ -297,6 +355,24 @@ export default async function ServicesPage({ searchParams }: ServicesPageProps) 
                 )}
               </div>
             </div>
+          )}
+
+          {/* Our Values Global Block */}
+          {globalContent?.valuesBlock && (
+            <ValuesBlock 
+              globalData={globalContent.valuesBlock}
+              pageData={null}
+              useOverride={false}
+            />
+          )}
+
+          {/* Our Approach Global Block */}
+          {globalContent?.approachBlock && (
+            <ApproachBlock 
+              globalData={globalContent.approachBlock}
+              pageData={null}
+              useOverride={false}
+            />
           )}
 
           {/* CTA Section */}

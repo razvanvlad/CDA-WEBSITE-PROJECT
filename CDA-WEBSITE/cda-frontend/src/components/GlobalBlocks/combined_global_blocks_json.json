@@ -338,6 +338,212 @@
                         ]
                     }
                 ]
+            },
+            {
+                "key": "field_global_values_block",
+                "label": "Values Block",
+                "name": "values_block",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "Global Values content that can be used across all pages - Our core values with numbered cards",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "show_in_graphql": 1,
+                "sub_fields": [
+                    {
+                        "key": "field_global_values_title",
+                        "label": "Title",
+                        "name": "title",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "Our Values",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_global_values_subtitle",
+                        "label": "Subtitle",
+                        "name": "subtitle",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "The Foundation Of Our Work",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_global_values_cards",
+                        "label": "Value Cards",
+                        "name": "cards",
+                        "aria-label": "",
+                        "type": "repeater",
+                        "instructions": "Add value cards with numbers, titles, descriptions and images. Cards will be displayed in a responsive grid layout.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "collapsed": "",
+                        "min": 1,
+                        "max": 6,
+                        "layout": "table",
+                        "button_label": "Add Value Card",
+                        "show_in_graphql": 1,
+                        "rows_per_page": 20,
+                        "sub_fields": [
+                            {
+                                "key": "field_values_card_number",
+                                "label": "Card Number",
+                                "name": "card_number",
+                                "aria-label": "",
+                                "type": "number",
+                                "instructions": "Enter the card number for ordering",
+                                "required": 1,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "15",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "1",
+                                "prepend": "",
+                                "append": "",
+                                "min": 1,
+                                "max": 6,
+                                "step": "",
+                                "show_in_graphql": 1,
+                                "parent_repeater": "field_global_values_cards"
+                            },
+                            {
+                                "key": "field_values_card_title",
+                                "label": "Card Title",
+                                "name": "title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Enter the title for this value card",
+                                "required": 1,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "25",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Value Title",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": "",
+                                "show_in_graphql": 1,
+                                "parent_repeater": "field_global_values_cards"
+                            },
+                            {
+                                "key": "field_values_card_description",
+                                "label": "Card Description",
+                                "name": "description",
+                                "aria-label": "",
+                                "type": "textarea",
+                                "instructions": "Enter the description for this value card",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "40",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Describe this value...",
+                                "maxlength": "",
+                                "rows": 3,
+                                "new_lines": "",
+                                "show_in_graphql": 1,
+                                "parent_repeater": "field_global_values_cards"
+                            },
+                            {
+                                "key": "field_values_card_image",
+                                "label": "Card Image",
+                                "name": "image",
+                                "aria-label": "",
+                                "type": "image",
+                                "instructions": "Upload an icon or image for this value card",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "20",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "array",
+                                "preview_size": "thumbnail",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": "",
+                                "show_in_graphql": 1,
+                                "parent_repeater": "field_global_values_cards"
+                            }
+                        ]
+                    },
+                    {
+                        "key": "field_global_values_corner_image",
+                        "label": "Corner Image",
+                        "name": "corner_image",
+                        "aria-label": "",
+                        "type": "image",
+                        "instructions": "Upload an image to display in the bottom-right corner of the section",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "preview_size": "medium",
+                        "library": "all",
+                        "min_width": "",
+                        "min_height": "",
+                        "min_size": "",
+                        "max_width": "",
+                        "max_height": "",
+                        "max_size": "",
+                        "mime_types": "",
+                        "show_in_graphql": 1
+                    }
+                ]
             }
         ],
         "location": [
