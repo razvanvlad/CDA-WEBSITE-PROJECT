@@ -1,0 +1,736 @@
+query {
+  __type(name: "RootQuery") {
+    fields {
+      name
+      type {
+        name
+      }
+    }
+  }
+}
+
+{
+  "data": {
+    "__type": {
+      "fields": [
+        {
+          "name": "allSettings",
+          "type": {
+            "name": "Settings"
+          }
+        },
+        {
+          "name": "categories",
+          "type": {
+            "name": "RootQueryToCategoryConnection"
+          }
+        },
+        {
+          "name": "category",
+          "type": {
+            "name": "Category"
+          }
+        },
+        {
+          "name": "comment",
+          "type": {
+            "name": "Comment"
+          }
+        },
+        {
+          "name": "comments",
+          "type": {
+            "name": "RootQueryToCommentConnection"
+          }
+        },
+        {
+          "name": "contentNode",
+          "type": {
+            "name": "ContentNode"
+          }
+        },
+        {
+          "name": "contentNodes",
+          "type": {
+            "name": "RootQueryToContentNodeConnection"
+          }
+        },
+        {
+          "name": "contentType",
+          "type": {
+            "name": "ContentType"
+          }
+        },
+        {
+          "name": "contentTypes",
+          "type": {
+            "name": "RootQueryToContentTypeConnection"
+          }
+        },
+        {
+          "name": "discussionSettings",
+          "type": {
+            "name": "DiscussionSettings"
+          }
+        },
+        {
+          "name": "generalSettings",
+          "type": {
+            "name": "GeneralSettings"
+          }
+        },
+        {
+          "name": "globalOptions",
+          "type": {
+            "name": "GlobalOptions"
+          }
+        },
+        {
+          "name": "mediaItem",
+          "type": {
+            "name": "MediaItem"
+          }
+        },
+        {
+          "name": "mediaItems",
+          "type": {
+            "name": "RootQueryToMediaItemConnection"
+          }
+        },
+        {
+          "name": "menu",
+          "type": {
+            "name": "Menu"
+          }
+        },
+        {
+          "name": "menuItem",
+          "type": {
+            "name": "MenuItem"
+          }
+        },
+        {
+          "name": "menuItems",
+          "type": {
+            "name": "RootQueryToMenuItemConnection"
+          }
+        },
+        {
+          "name": "menus",
+          "type": {
+            "name": "RootQueryToMenuConnection"
+          }
+        },
+        {
+          "name": "node",
+          "type": {
+            "name": "Node"
+          }
+        },
+        {
+          "name": "nodeByUri",
+          "type": {
+            "name": "UniformResourceIdentifiable"
+          }
+        },
+        {
+          "name": "page",
+          "type": {
+            "name": "Page"
+          }
+        },
+        {
+          "name": "pages",
+          "type": {
+            "name": "RootQueryToPageConnection"
+          }
+        },
+        {
+          "name": "plugin",
+          "type": {
+            "name": "Plugin"
+          }
+        },
+        {
+          "name": "plugins",
+          "type": {
+            "name": "RootQueryToPluginConnection"
+          }
+        },
+        {
+          "name": "post",
+          "type": {
+            "name": "Post"
+          }
+        },
+        {
+          "name": "postFormat",
+          "type": {
+            "name": "PostFormat"
+          }
+        },
+        {
+          "name": "postFormats",
+          "type": {
+            "name": "RootQueryToPostFormatConnection"
+          }
+        },
+        {
+          "name": "posts",
+          "type": {
+            "name": "RootQueryToPostConnection"
+          }
+        },
+        {
+          "name": "readingSettings",
+          "type": {
+            "name": "ReadingSettings"
+          }
+        },
+        {
+          "name": "registeredScripts",
+          "type": {
+            "name": "RootQueryToEnqueuedScriptConnection"
+          }
+        },
+        {
+          "name": "registeredStylesheets",
+          "type": {
+            "name": "RootQueryToEnqueuedStylesheetConnection"
+          }
+        },
+        {
+          "name": "revisions",
+          "type": {
+            "name": "RootQueryToRevisionsConnection"
+          }
+        },
+        {
+          "name": "tag",
+          "type": {
+            "name": "Tag"
+          }
+        },
+        {
+          "name": "tags",
+          "type": {
+            "name": "RootQueryToTagConnection"
+          }
+        },
+        {
+          "name": "taxonomies",
+          "type": {
+            "name": "RootQueryToTaxonomyConnection"
+          }
+        },
+        {
+          "name": "taxonomy",
+          "type": {
+            "name": "Taxonomy"
+          }
+        },
+        {
+          "name": "termNode",
+          "type": {
+            "name": "TermNode"
+          }
+        },
+        {
+          "name": "terms",
+          "type": {
+            "name": "RootQueryToTermNodeConnection"
+          }
+        },
+        {
+          "name": "theme",
+          "type": {
+            "name": "Theme"
+          }
+        },
+        {
+          "name": "themes",
+          "type": {
+            "name": "RootQueryToThemeConnection"
+          }
+        },
+        {
+          "name": "user",
+          "type": {
+            "name": "User"
+          }
+        },
+        {
+          "name": "userRole",
+          "type": {
+            "name": "UserRole"
+          }
+        },
+        {
+          "name": "userRoles",
+          "type": {
+            "name": "RootQueryToUserRoleConnection"
+          }
+        },
+        {
+          "name": "users",
+          "type": {
+            "name": "RootQueryToUserConnection"
+          }
+        },
+        {
+          "name": "viewer",
+          "type": {
+            "name": "User"
+          }
+        },
+        {
+          "name": "writingSettings",
+          "type": {
+            "name": "WritingSettings"
+          }
+        }
+      ]
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "58dbd80155056bf0231e004f724f440b305590d77cad83d26c526d8e320ca957 graphql:Query",
+      "keysLength": 78,
+      "keysCount": 2,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+#
+# 2
+#
+
+query {
+  acfOptionsGlobalContent {
+    __typename
+  }
+}
+
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"acfOptionsGlobalContent\" on type \"RootQuery\".",
+      "locations": [
+        {
+          "line": 2,
+          "column": 3
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "d46495574754206a2e5f7bc3de3592145123f7cc2e84c9f036907b0990b0c970 graphql:Query",
+      "keysLength": 78,
+      "keysCount": 2,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+#
+# 3
+#
+
+query {
+  globalOptions {
+    __typename
+  }
+}
+
+{
+  "data": {
+    "globalOptions": {
+      "__typename": "GlobalOptions"
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "b3b4f8c23ff5a48c105ee326a3a6efb5327ba592e82b9890955fa5a3e1a2a5f6 graphql:Query YWNmX29wdGlvbnNfcGFnZTpnbG9iYWwtY29udGVudA==",
+      "keysLength": 123,
+      "keysCount": 3,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+#
+# 4
+#
+
+query {
+  page(id: "289", idType: DATABASE_ID) {
+    id
+    title
+    homepageContent {
+      headerSection {
+        title
+      }
+    }
+  }
+}
+
+{
+  "data": {
+    "page": {
+      "id": "cG9zdDoyODk=",
+      "title": "Homepage",
+      "homepageContent": {
+        "headerSection": {
+          "title": "<h1>2</h1>\n"
+        }
+      }
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "b7cffaf9164595b3b79fb628ae0019f215802a6d8790d62447418c71a5be4811 graphql:Query cG9zdDoyODk=",
+      "keysLength": 91,
+      "keysCount": 3,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+#
+# 5
+#
+
+query {
+  __schema {
+    queryType {
+      fields {
+        name
+        type {
+          name
+        }
+      }
+    }
+  }
+}
+
+{
+  "data": {
+    "__schema": {
+      "queryType": {
+        "fields": [
+          {
+            "name": "allSettings",
+            "type": {
+              "name": "Settings"
+            }
+          },
+          {
+            "name": "categories",
+            "type": {
+              "name": "RootQueryToCategoryConnection"
+            }
+          },
+          {
+            "name": "category",
+            "type": {
+              "name": "Category"
+            }
+          },
+          {
+            "name": "comment",
+            "type": {
+              "name": "Comment"
+            }
+          },
+          {
+            "name": "comments",
+            "type": {
+              "name": "RootQueryToCommentConnection"
+            }
+          },
+          {
+            "name": "contentNode",
+            "type": {
+              "name": "ContentNode"
+            }
+          },
+          {
+            "name": "contentNodes",
+            "type": {
+              "name": "RootQueryToContentNodeConnection"
+            }
+          },
+          {
+            "name": "contentType",
+            "type": {
+              "name": "ContentType"
+            }
+          },
+          {
+            "name": "contentTypes",
+            "type": {
+              "name": "RootQueryToContentTypeConnection"
+            }
+          },
+          {
+            "name": "discussionSettings",
+            "type": {
+              "name": "DiscussionSettings"
+            }
+          },
+          {
+            "name": "generalSettings",
+            "type": {
+              "name": "GeneralSettings"
+            }
+          },
+          {
+            "name": "globalOptions",
+            "type": {
+              "name": "GlobalOptions"
+            }
+          },
+          {
+            "name": "mediaItem",
+            "type": {
+              "name": "MediaItem"
+            }
+          },
+          {
+            "name": "mediaItems",
+            "type": {
+              "name": "RootQueryToMediaItemConnection"
+            }
+          },
+          {
+            "name": "menu",
+            "type": {
+              "name": "Menu"
+            }
+          },
+          {
+            "name": "menuItem",
+            "type": {
+              "name": "MenuItem"
+            }
+          },
+          {
+            "name": "menuItems",
+            "type": {
+              "name": "RootQueryToMenuItemConnection"
+            }
+          },
+          {
+            "name": "menus",
+            "type": {
+              "name": "RootQueryToMenuConnection"
+            }
+          },
+          {
+            "name": "node",
+            "type": {
+              "name": "Node"
+            }
+          },
+          {
+            "name": "nodeByUri",
+            "type": {
+              "name": "UniformResourceIdentifiable"
+            }
+          },
+          {
+            "name": "page",
+            "type": {
+              "name": "Page"
+            }
+          },
+          {
+            "name": "pages",
+            "type": {
+              "name": "RootQueryToPageConnection"
+            }
+          },
+          {
+            "name": "plugin",
+            "type": {
+              "name": "Plugin"
+            }
+          },
+          {
+            "name": "plugins",
+            "type": {
+              "name": "RootQueryToPluginConnection"
+            }
+          },
+          {
+            "name": "post",
+            "type": {
+              "name": "Post"
+            }
+          },
+          {
+            "name": "postFormat",
+            "type": {
+              "name": "PostFormat"
+            }
+          },
+          {
+            "name": "postFormats",
+            "type": {
+              "name": "RootQueryToPostFormatConnection"
+            }
+          },
+          {
+            "name": "posts",
+            "type": {
+              "name": "RootQueryToPostConnection"
+            }
+          },
+          {
+            "name": "readingSettings",
+            "type": {
+              "name": "ReadingSettings"
+            }
+          },
+          {
+            "name": "registeredScripts",
+            "type": {
+              "name": "RootQueryToEnqueuedScriptConnection"
+            }
+          },
+          {
+            "name": "registeredStylesheets",
+            "type": {
+              "name": "RootQueryToEnqueuedStylesheetConnection"
+            }
+          },
+          {
+            "name": "revisions",
+            "type": {
+              "name": "RootQueryToRevisionsConnection"
+            }
+          },
+          {
+            "name": "tag",
+            "type": {
+              "name": "Tag"
+            }
+          },
+          {
+            "name": "tags",
+            "type": {
+              "name": "RootQueryToTagConnection"
+            }
+          },
+          {
+            "name": "taxonomies",
+            "type": {
+              "name": "RootQueryToTaxonomyConnection"
+            }
+          },
+          {
+            "name": "taxonomy",
+            "type": {
+              "name": "Taxonomy"
+            }
+          },
+          {
+            "name": "termNode",
+            "type": {
+              "name": "TermNode"
+            }
+          },
+          {
+            "name": "terms",
+            "type": {
+              "name": "RootQueryToTermNodeConnection"
+            }
+          },
+          {
+            "name": "theme",
+            "type": {
+              "name": "Theme"
+            }
+          },
+          {
+            "name": "themes",
+            "type": {
+              "name": "RootQueryToThemeConnection"
+            }
+          },
+          {
+            "name": "user",
+            "type": {
+              "name": "User"
+            }
+          },
+          {
+            "name": "userRole",
+            "type": {
+              "name": "UserRole"
+            }
+          },
+          {
+            "name": "userRoles",
+            "type": {
+              "name": "RootQueryToUserRoleConnection"
+            }
+          },
+          {
+            "name": "users",
+            "type": {
+              "name": "RootQueryToUserConnection"
+            }
+          },
+          {
+            "name": "viewer",
+            "type": {
+              "name": "User"
+            }
+          },
+          {
+            "name": "writingSettings",
+            "type": {
+              "name": "WritingSettings"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "08d0daa51f75824e6fdfe3314d5105fe8135e30d7aeeab206b30410251baffc7 graphql:Query",
+      "keysLength": 78,
+      "keysCount": 2,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+

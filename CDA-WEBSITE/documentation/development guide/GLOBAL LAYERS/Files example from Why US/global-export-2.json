@@ -1,0 +1,189 @@
+[
+    {
+        "key": "group_global_shared_content",
+        "title": "Global Shared Content",
+        "fields": [
+            {
+                "key": "field_global_why_cda_block",
+                "label": "Why CDA Block",
+                "name": "why_cda_block",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "Global Why CDA content that can be used across all pages",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "show_in_graphql": 1,
+                "sub_fields": [
+                    {
+                        "key": "field_global_why_cda_title",
+                        "label": "Title",
+                        "name": "title",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "Why CDA",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_global_why_cda_subtitle",
+                        "label": "Subtitle",
+                        "name": "subtitle",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "What Makes Us The Right Choice?",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_global_why_cda_cards",
+                        "label": "Cards",
+                        "name": "cards",
+                        "aria-label": "",
+                        "type": "repeater",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "collapsed": "",
+                        "min": 0,
+                        "max": 0,
+                        "layout": "table",
+                        "button_label": "Add Row",
+                        "show_in_graphql": 1,
+                        "rows_per_page": 20,
+                        "sub_fields": [
+                            {
+                                "key": "field_global_why_card_title",
+                                "label": "Title",
+                                "name": "title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": "",
+                                "show_in_graphql": 1,
+                                "parent_repeater": "field_global_why_cda_cards"
+                            },
+                            {
+                                "key": "field_global_why_card_description",
+                                "label": "Description",
+                                "name": "description",
+                                "aria-label": "",
+                                "type": "textarea",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "maxlength": "",
+                                "rows": 4,
+                                "new_lines": "",
+                                "show_in_graphql": 1,
+                                "parent_repeater": "field_global_why_cda_cards"
+                            },
+                            {
+                                "key": "field_global_why_card_image",
+                                "label": "Image",
+                                "name": "image",
+                                "aria-label": "",
+                                "type": "image",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "array",
+                                "preview_size": "medium",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": "",
+                                "show_in_graphql": 1,
+                                "parent_repeater": "field_global_why_cda_cards"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "global-content"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": 0,
+        "show_in_graphql": 1,
+        "graphql_field_name": "globalSharedContent",
+        "map_graphql_types_from_location_rules": 1,
+        "graphql_types": [
+            "Page",
+            "GlobalOptions"
+        ]
+    }
+]

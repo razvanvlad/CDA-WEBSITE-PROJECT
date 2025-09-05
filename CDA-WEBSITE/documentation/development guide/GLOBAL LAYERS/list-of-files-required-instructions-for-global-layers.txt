@@ -1,0 +1,58 @@
+Files Required for "Approach Block" Global Layer
+
+1. ACF JSON Configuration
+File: approach-block-acf.json
+Action: Import via WordPress Admin → ACF → Tools → Import
+Content: Clean JSON with Why CDA + Approach blocks only
+
+2. WordPress Backend (No changes needed)
+File: cda-cms.php
+Action: Already clean - no additional PHP code required
+Note: Clean functions.php by removing duplicate ACF code
+
+3. React Component
+File: src/components/GlobalBlocks/ApproachBlock.js
+Action: Create new file
+Features:
+
+Desktop: 5-column grid with SVG arrows
+Mobile: Vertical stack with downward arrows
+Responsive image containers
+
+4. GraphQL Query Update
+File: src/lib/graphql/queries.js
+Action: Update existing GET_HOMEPAGE_CONTENT
+Add: approachBlock fields to globalOptions.globalSharedContent
+
+5. Page Implementation
+
+File: src/app/page.js (or any page using the block)
+Action: Import component and add to JSX
+import WhyCdaBlock from '../components/GlobalBlocks/WhyCdaBlock';
+Usage:       <WhyCdaBlock 
+      globalData={pageData.globalOptions?.globalSharedContent?.whyCdaBlock}
+      pageData={pageData.page.whyCdaOverride?.customWhyCda}
+       useOverride={pageData.page.whyCdaOverride?.overrideWhyCda}
+      />
+
+6. Testing Queries
+Action: Test in GraphQL IDE before implementation
+
+Verify approachBlock exists in schema
+Test complete query structure
+Validate image field paths
+
+Summary
+
+1 JSON import
+1 React component
+1 query update
+1 page implementation
+
+Helper files after section Why US is working correct:
+Global Blocks Implementation Report.pdf
+list-of-files-required-instructions-for-global-layers.txt
+cda-cms.php
+global-export-2.json
+
+This follows the same pattern established with Why CDA block for consistency.

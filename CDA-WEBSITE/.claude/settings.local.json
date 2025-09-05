@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wp graphql get-schema:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

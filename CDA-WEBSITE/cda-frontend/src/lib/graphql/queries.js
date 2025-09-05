@@ -7,6 +7,8 @@ export const GET_HOMEPAGE_CONTENT = gql`
     page(id: $id, idType: DATABASE_ID) {
       id
       title
+      
+      # Homepage-specific content
       homepageContent {
         headerSection {
           title
@@ -28,22 +30,7 @@ export const GET_HOMEPAGE_CONTENT = gql`
             }
           }
         }
-        servicesAccordion {
-          title
-          description
-          link {
-            url
-            title
-            target
-          }
-        }
-        valuesSection {
-          title
-          valueItems {
-            title
-            description
-          }
-        }
+        
         whoWeAreSection {
           title
           subtitle
@@ -59,14 +46,84 @@ export const GET_HOMEPAGE_CONTENT = gql`
             target
           }
         }
+        
+        servicesAccordion {
+          title
+          description
+          link {
+            url
+            title
+            target
+          }
+        }
+        
+        platformsSection {
+          title
+          subtitle
+          logos {
+            logo {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+        
+        valuesSection {
+          title
+          valueItems {
+            title
+            description
+          }
+        }
+        
+        caseStudiesSection {
+          title
+          caseStudies {
+            nodes {
+              id
+              title
+              # Add other case study fields as needed
+            }
+          }
+        }
+        
         newsletterSection {
           title
           subtitle
         }
       }
+      
+      # Page-level global block overrides (optional)
+      globalBlockOverrides {
+        whyCdaOverride {
+          overrideWhyCda
+          # Custom Why CDA fields would go here if override is enabled
+        }
+        
+        approachOverride {
+          overrideApproach
+          # Custom approach fields would go here if override is enabled
+        }
+      }
+      
+      # SEO Settings
+      seoSettings {
+        seoTitle
+        seoDescription
+        seoKeywords
+        noindex
+        nofollow
+        canonicalUrl
+      }
     }
+    
+    # Global Options - Contains both Why CDA and Approach blocks
     globalOptions {
       globalSharedContent {
+        
+        # Why CDA Block - Global content
         whyCdaBlock {
           title
           subtitle
@@ -81,6 +138,24 @@ export const GET_HOMEPAGE_CONTENT = gql`
             }
           }
         }
+        
+        # Approach Block - Global content  
+        approachBlock {
+          title
+          subtitle
+          steps {
+            stepNumber
+            title
+            description
+            image {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+        
       }
     }
   }

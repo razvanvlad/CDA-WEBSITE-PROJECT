@@ -1,0 +1,1890 @@
+CDA WEBSITE - COMPLETE ACF FIELD DEFINITIONS
+Generated from Adobe XD Design Analysis
+==============================================
+
+This file contains all ACF field group definitions needed to implement the complete CDA website based on the design analysis.
+
+==============================================
+GLOBAL OPTIONS PAGE - SHARED CONTENT
+==============================================
+
+<?php
+// Global Options Page Registration
+if( function_exists('acf_add_options_page') ) {
+    acf_add_options_page(array(
+        'page_title' => 'Global Website Settings',
+        'menu_title' => 'Site Options',
+        'menu_slug' => 'site-options',
+        'capability' => 'edit_posts',
+        'show_in_graphql' => true,
+    ));
+}
+
+// GLOBAL SHARED CONTENT FIELDS
+acf_add_local_field_group(array(
+    'key' => 'group_global_shared_content',
+    'title' => 'Global Shared Content',
+    'fields' => array(
+        
+        // WHY CDA BLOCK (Already working - reference structure)
+        array(
+            'key' => 'field_global_why_cda',
+            'label' => 'Why CDA Block',
+            'name' => 'why_cda_block',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'whyCdaBlock',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_global_why_cda_heading',
+                    'label' => 'Section Heading',
+                    'name' => 'heading',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_global_why_cda_description',
+                    'label' => 'Description',
+                    'name' => 'description',
+                    'type' => 'textarea',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_global_why_cda_stats',
+                    'label' => 'Statistics',
+                    'name' => 'statistics',
+                    'type' => 'repeater',
+                    'show_in_graphql' => 1,
+                    'sub_fields' => array(
+                        array(
+                            'key' => 'field_global_why_cda_stat_number',
+                            'label' => 'Number',
+                            'name' => 'number',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_global_why_cda_stat_label',
+                            'label' => 'Label',
+                            'name' => 'label',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_global_why_cda_stat_desc',
+                            'label' => 'Description',
+                            'name' => 'description',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                    ),
+                ),
+            ),
+        ),
+        
+        // OUR APPROACH BLOCK (Needs fixing)
+        array(
+            'key' => 'field_global_approach',
+            'label' => 'Our Approach Block',
+            'name' => 'approach_block',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'approachBlock',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_global_approach_heading',
+                    'label' => 'Section Heading',
+                    'name' => 'heading',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_global_approach_description',
+                    'label' => 'Description',
+                    'name' => 'description',
+                    'type' => 'textarea',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_global_approach_steps',
+                    'label' => 'Process Steps',
+                    'name' => 'steps',
+                    'type' => 'repeater',
+                    'show_in_graphql' => 1,
+                    'sub_fields' => array(
+                        array(
+                            'key' => 'field_global_approach_step_number',
+                            'label' => 'Step Number',
+                            'name' => 'number',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_global_approach_step_title',
+                            'label' => 'Step Title',
+                            'name' => 'title',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_global_approach_step_desc',
+                            'label' => 'Step Description',
+                            'name' => 'description',
+                            'type' => 'textarea',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_global_approach_step_icon',
+                            'label' => 'Step Icon',
+                            'name' => 'icon',
+                            'type' => 'image',
+                            'show_in_graphql' => 1,
+                            'return_format' => 'array',
+                        ),
+                    ),
+                ),
+            ),
+        ),
+        
+        // SHOWREEL BLOCK
+        array(
+            'key' => 'field_global_showreel',
+            'label' => 'Showreel Block',
+            'name' => 'showreel_block',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'showreelBlock',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_global_showreel_heading',
+                    'label' => 'Section Heading',
+                    'name' => 'heading',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_global_showreel_video_thumbnail',
+                    'label' => 'Video Thumbnail',
+                    'name' => 'video_thumbnail',
+                    'type' => 'image',
+                    'show_in_graphql' => 1,
+                    'return_format' => 'array',
+                ),
+                array(
+                    'key' => 'field_global_showreel_video_url',
+                    'label' => 'Video URL',
+                    'name' => 'video_url',
+                    'type' => 'url',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_global_showreel_client_logos',
+                    'label' => 'Client Logos',
+                    'name' => 'client_logos',
+                    'type' => 'repeater',
+                    'show_in_graphql' => 1,
+                    'sub_fields' => array(
+                        array(
+                            'key' => 'field_global_showreel_logo',
+                            'label' => 'Client Logo',
+                            'name' => 'logo',
+                            'type' => 'image',
+                            'show_in_graphql' => 1,
+                            'return_format' => 'array',
+                        ),
+                        array(
+                            'key' => 'field_global_showreel_client_name',
+                            'label' => 'Client Name',
+                            'name' => 'name',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                    ),
+                ),
+            ),
+        ),
+        
+        // TECHNOLOGIES SHOWCASE
+        array(
+            'key' => 'field_global_technologies',
+            'label' => 'Technologies Showcase',
+            'name' => 'technologies_block',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'technologiesBlock',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_global_tech_heading',
+                    'label' => 'Section Heading',
+                    'name' => 'heading',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_global_tech_categories',
+                    'label' => 'Technology Categories',
+                    'name' => 'categories',
+                    'type' => 'repeater',
+                    'show_in_graphql' => 1,
+                    'sub_fields' => array(
+                        array(
+                            'key' => 'field_global_tech_cat_icon',
+                            'label' => 'Category Icon',
+                            'name' => 'icon',
+                            'type' => 'image',
+                            'show_in_graphql' => 1,
+                            'return_format' => 'array',
+                        ),
+                        array(
+                            'key' => 'field_global_tech_cat_name',
+                            'label' => 'Category Name',
+                            'name' => 'name',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_global_tech_cat_desc',
+                            'label' => 'Category Description',
+                            'name' => 'description',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_global_tech_cat_url',
+                            'label' => 'Link URL',
+                            'name' => 'url',
+                            'type' => 'url',
+                            'show_in_graphql' => 1,
+                        ),
+                    ),
+                ),
+            ),
+        ),
+        
+        // NEWSLETTER SIGNUP
+        array(
+            'key' => 'field_global_newsletter',
+            'label' => 'Newsletter Signup',
+            'name' => 'newsletter_block',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'newsletterBlock',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_global_newsletter_heading',
+                    'label' => 'Section Heading',
+                    'name' => 'heading',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_global_newsletter_desc',
+                    'label' => 'Description',
+                    'name' => 'description',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_global_newsletter_submit_text',
+                    'label' => 'Submit Button Text',
+                    'name' => 'submit_text',
+                    'type' => 'text',
+                    'default_value' => 'Sign Up',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_global_newsletter_privacy',
+                    'label' => 'Privacy Notice',
+                    'name' => 'privacy_notice',
+                    'type' => 'textarea',
+                    'show_in_graphql' => 1,
+                ),
+            ),
+        ),
+        
+        // READY TO START CTA
+        array(
+            'key' => 'field_global_cta',
+            'label' => 'Ready To Start CTA',
+            'name' => 'cta_block',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'ctaBlock',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_global_cta_heading',
+                    'label' => 'Main Heading',
+                    'name' => 'heading',
+                    'type' => 'text',
+                    'default_value' => 'Ready To Start Your Project?',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_global_cta_button_text',
+                    'label' => 'CTA Button Text',
+                    'name' => 'button_text',
+                    'type' => 'text',
+                    'default_value' => "Let's Talk",
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_global_cta_button_url',
+                    'label' => 'CTA Button URL',
+                    'name' => 'button_url',
+                    'type' => 'url',
+                    'show_in_graphql' => 1,
+                ),
+            ),
+        ),
+        
+        // CONTACT INFORMATION
+        array(
+            'key' => 'field_global_contact',
+            'label' => 'Contact Information',
+            'name' => 'contact_info',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'contactInfo',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_global_contact_phone',
+                    'label' => 'Phone Number',
+                    'name' => 'phone',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_global_contact_email',
+                    'label' => 'Email Address',
+                    'name' => 'email',
+                    'type' => 'email',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_global_contact_locations',
+                    'label' => 'Office Locations',
+                    'name' => 'locations',
+                    'type' => 'repeater',
+                    'show_in_graphql' => 1,
+                    'sub_fields' => array(
+                        array(
+                            'key' => 'field_global_location_country',
+                            'label' => 'Country/Region',
+                            'name' => 'country',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_global_location_city',
+                            'label' => 'City Name',
+                            'name' => 'city',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_global_location_address',
+                            'label' => 'Address',
+                            'name' => 'address',
+                            'type' => 'textarea',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_global_location_email',
+                            'label' => 'Location Email',
+                            'name' => 'email',
+                            'type' => 'email',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_global_location_phone',
+                            'label' => 'Location Phone',
+                            'name' => 'phone',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                    ),
+                ),
+                array(
+                    'key' => 'field_global_social_links',
+                    'label' => 'Social Media Links',
+                    'name' => 'social_links',
+                    'type' => 'repeater',
+                    'show_in_graphql' => 1,
+                    'sub_fields' => array(
+                        array(
+                            'key' => 'field_global_social_platform',
+                            'label' => 'Platform Name',
+                            'name' => 'platform',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_global_social_url',
+                            'label' => 'URL',
+                            'name' => 'url',
+                            'type' => 'url',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_global_social_icon',
+                            'label' => 'Icon',
+                            'name' => 'icon',
+                            'type' => 'image',
+                            'show_in_graphql' => 1,
+                            'return_format' => 'array',
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
+    'location' => array(
+        array(
+            array(
+                'param' => 'options_page',
+                'operator' => '==',
+                'value' => 'site-options',
+            ),
+        ),
+    ),
+    'show_in_graphql' => 1,
+    'graphql_field_name' => 'globalOptions',
+));
+
+==============================================
+PAGE TEMPLATE FIELDS
+==============================================
+
+// HOMEPAGE TEMPLATE
+acf_add_local_field_group(array(
+    'key' => 'group_homepage_template',
+    'title' => 'Homepage Template',
+    'fields' => array(
+        // HERO SECTION
+        array(
+            'key' => 'field_homepage_hero',
+            'label' => 'Hero Section',
+            'name' => 'hero_section',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'heroSection',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_homepage_hero_headline',
+                    'label' => 'Main Headline',
+                    'name' => 'headline',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_homepage_hero_subheadline',
+                    'label' => 'Subheadline',
+                    'name' => 'subheadline',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_homepage_hero_cta_text',
+                    'label' => 'CTA Button Text',
+                    'name' => 'cta_text',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_homepage_hero_cta_url',
+                    'label' => 'CTA Button URL',
+                    'name' => 'cta_url',
+                    'type' => 'url',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_homepage_hero_image',
+                    'label' => 'Hero Image',
+                    'name' => 'hero_image',
+                    'type' => 'image',
+                    'show_in_graphql' => 1,
+                    'return_format' => 'array',
+                ),
+            ),
+        ),
+        
+        // SERVICES GRID
+        array(
+            'key' => 'field_homepage_services',
+            'label' => 'Services Section',
+            'name' => 'services_section',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'servicesSection',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_homepage_services_heading',
+                    'label' => 'Section Heading',
+                    'name' => 'heading',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_homepage_services_list',
+                    'label' => 'Services',
+                    'name' => 'services',
+                    'type' => 'repeater',
+                    'show_in_graphql' => 1,
+                    'max' => 6,
+                    'sub_fields' => array(
+                        array(
+                            'key' => 'field_homepage_service_icon',
+                            'label' => 'Service Icon',
+                            'name' => 'icon',
+                            'type' => 'image',
+                            'show_in_graphql' => 1,
+                            'return_format' => 'array',
+                        ),
+                        array(
+                            'key' => 'field_homepage_service_title',
+                            'label' => 'Service Title',
+                            'name' => 'title',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_homepage_service_desc',
+                            'label' => 'Service Description',
+                            'name' => 'description',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_homepage_service_url',
+                            'label' => 'Service URL',
+                            'name' => 'url',
+                            'type' => 'url',
+                            'show_in_graphql' => 1,
+                        ),
+                    ),
+                ),
+            ),
+        ),
+        
+        // COMPANY STATS
+        array(
+            'key' => 'field_homepage_stats',
+            'label' => 'Company Statistics',
+            'name' => 'stats_section',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'statsSection',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_homepage_stats_list',
+                    'label' => 'Statistics',
+                    'name' => 'statistics',
+                    'type' => 'repeater',
+                    'show_in_graphql' => 1,
+                    'sub_fields' => array(
+                        array(
+                            'key' => 'field_homepage_stat_number',
+                            'label' => 'Number',
+                            'name' => 'number',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_homepage_stat_label',
+                            'label' => 'Label',
+                            'name' => 'label',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_homepage_stat_icon',
+                            'label' => 'Icon',
+                            'name' => 'icon',
+                            'type' => 'image',
+                            'show_in_graphql' => 1,
+                            'return_format' => 'array',
+                        ),
+                    ),
+                ),
+            ),
+        ),
+        
+        // CASE STUDY PREVIEW
+        array(
+            'key' => 'field_homepage_case_study',
+            'label' => 'Featured Case Study',
+            'name' => 'case_study_section',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'caseStudySection',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_homepage_case_study_heading',
+                    'label' => 'Section Heading',
+                    'name' => 'heading',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_homepage_featured_case_study',
+                    'label' => 'Featured Case Study',
+                    'name' => 'featured_case_study',
+                    'type' => 'post_object',
+                    'post_type' => array('case_studies'),
+                    'show_in_graphql' => 1,
+                    'return_format' => 'object',
+                ),
+            ),
+        ),
+        
+        // TESTIMONIAL
+        array(
+            'key' => 'field_homepage_testimonial',
+            'label' => 'Client Testimonial',
+            'name' => 'testimonial_section',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'testimonialSection',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_homepage_testimonial_quote',
+                    'label' => 'Quote Text',
+                    'name' => 'quote',
+                    'type' => 'textarea',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_homepage_testimonial_name',
+                    'label' => 'Client Name',
+                    'name' => 'client_name',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_homepage_testimonial_company',
+                    'label' => 'Client Company',
+                    'name' => 'client_company',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_homepage_testimonial_photo',
+                    'label' => 'Client Photo',
+                    'name' => 'client_photo',
+                    'type' => 'image',
+                    'show_in_graphql' => 1,
+                    'return_format' => 'array',
+                ),
+            ),
+        ),
+    ),
+    'location' => array(
+        array(
+            array(
+                'param' => 'page_template',
+                'operator' => '==',
+                'value' => 'page-homepage.php',
+            ),
+        ),
+    ),
+    'show_in_graphql' => 1,
+    'graphql_field_name' => 'homepageFields',
+));
+
+// ABOUT PAGE TEMPLATE
+acf_add_local_field_group(array(
+    'key' => 'group_about_template',
+    'title' => 'About Page Template',
+    'fields' => array(
+        // HERO SECTION
+        array(
+            'key' => 'field_about_hero',
+            'label' => 'Hero Section',
+            'name' => 'hero_section',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'heroSection',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_about_hero_title',
+                    'label' => 'Page Title',
+                    'name' => 'title',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_about_hero_subtitle',
+                    'label' => 'Subtitle',
+                    'name' => 'subtitle',
+                    'type' => 'textarea',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_about_hero_image',
+                    'label' => 'Hero Image',
+                    'name' => 'hero_image',
+                    'type' => 'image',
+                    'show_in_graphql' => 1,
+                    'return_format' => 'array',
+                ),
+            ),
+        ),
+        
+        // COMPANY STORY
+        array(
+            'key' => 'field_about_story',
+            'label' => 'Company Story Section',
+            'name' => 'story_section',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'storySection',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_about_story_heading',
+                    'label' => 'Section Heading',
+                    'name' => 'heading',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_about_story_content',
+                    'label' => 'Story Content',
+                    'name' => 'content',
+                    'type' => 'textarea',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_about_story_image',
+                    'label' => 'Company Image',
+                    'name' => 'image',
+                    'type' => 'image',
+                    'show_in_graphql' => 1,
+                    'return_format' => 'array',
+                ),
+            ),
+        ),
+        
+        // VALUES SECTION
+        array(
+            'key' => 'field_about_values',
+            'label' => 'Values Section',
+            'name' => 'values_section',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'valuesSection',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_about_values_heading',
+                    'label' => 'Section Heading',
+                    'name' => 'heading',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_about_values_grid',
+                    'label' => 'Values Grid',
+                    'name' => 'values_grid',
+                    'type' => 'repeater',
+                    'show_in_graphql' => 1,
+                    'max' => 6,
+                    'sub_fields' => array(
+                        array(
+                            'key' => 'field_about_value_icon',
+                            'label' => 'Value Icon',
+                            'name' => 'icon',
+                            'type' => 'image',
+                            'show_in_graphql' => 1,
+                            'return_format' => 'array',
+                        ),
+                        array(
+                            'key' => 'field_about_value_title',
+                            'label' => 'Value Title',
+                            'name' => 'title',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_about_value_desc',
+                            'label' => 'Value Description',
+                            'name' => 'description',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                    ),
+                ),
+            ),
+        ),
+        
+        // TEAM PREVIEW
+        array(
+            'key' => 'field_about_team_preview',
+            'label' => 'Team Preview',
+            'name' => 'team_preview_section',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'teamPreviewSection',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_about_team_heading',
+                    'label' => 'Section Heading',
+                    'name' => 'heading',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_about_featured_team',
+                    'label' => 'Featured Team Members',
+                    'name' => 'featured_team',
+                    'type' => 'post_object',
+                    'post_type' => array('team_members'),
+                    'multiple' => 1,
+                    'show_in_graphql' => 1,
+                    'return_format' => 'object',
+                ),
+            ),
+        ),
+    ),
+    'location' => array(
+        array(
+            array(
+                'param' => 'page_template',
+                'operator' => '==',
+                'value' => 'page-about.php',
+            ),
+        ),
+    ),
+    'show_in_graphql' => 1,
+    'graphql_field_name' => 'aboutFields',
+));
+
+// CONTACT PAGE TEMPLATE
+acf_add_local_field_group(array(
+    'key' => 'group_contact_template',
+    'title' => 'Contact Page Template',
+    'fields' => array(
+        // CONTACT FORM SECTION
+        array(
+            'key' => 'field_contact_form',
+            'label' => 'Contact Form Section',
+            'name' => 'form_section',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'formSection',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_contact_form_heading',
+                    'label' => 'Form Heading',
+                    'name' => 'heading',
+                    'type' => 'text',
+                    'default_value' => 'Send Us A Message',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_contact_form_submit_text',
+                    'label' => 'Submit Button Text',
+                    'name' => 'submit_text',
+                    'type' => 'text',
+                    'default_value' => 'Submit',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_contact_form_terms_text',
+                    'label' => 'Terms Agreement Text',
+                    'name' => 'terms_text',
+                    'type' => 'textarea',
+                    'show_in_graphql' => 1,
+                ),
+            ),
+        ),
+    ),
+    'location' => array(
+        array(
+            array(
+                'param' => 'page_template',
+                'operator' => '==',
+                'value' => 'page-contact.php',
+            ),
+        ),
+    ),
+    'show_in_graphql' => 1,
+    'graphql_field_name' => 'contactFields',
+));
+
+// ROI CALCULATOR PAGE TEMPLATE
+acf_add_local_field_group(array(
+    'key' => 'group_roi_calculator_template',
+    'title' => 'ROI Calculator Page',
+    'fields' => array(
+        array(
+            'key' => 'field_roi_calculator',
+            'label' => 'Calculator Section',
+            'name' => 'calculator_section',
+            'type' => 'group',
+            'show_in_graphql' => 1,
+            'graphql_field_name' => 'calculatorSection',
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_roi_calc_title',
+                    'label' => 'Calculator Title',
+                    'name' => 'title',
+                    'type' => 'text',
+                    'default_value' => 'ROI Calculator',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_roi_calc_description',
+                    'label' => 'Calculator Description',
+                    'name' => 'description',
+                    'type' => 'textarea',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_roi_calc_fields',
+                    'label' => 'Calculator Fields',
+                    'name' => 'calculator_fields',
+                    'type' => 'repeater',
+                    'show_in_graphql' => 1,
+                    'sub_fields' => array(
+                        array(
+                            'key' => 'field_roi_calc_field_label',
+                            'label' => 'Field Label',
+                            'name' => 'label',
+                            'type' => 'text',
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_roi_calc_field_type',
+                            'label' => 'Field Type',
+                            'name' => 'field_type',
+                            'type' => 'select',
+                            'choices' => array(
+                                'number' => 'Number',
+                                'select' => 'Select Dropdown',
+                                'text' => 'Text',
+                            ),
+                            'show_in_graphql' => 1,
+                        ),
+                        array(
+                            'key' => 'field_roi_calc_field_options',
+                            'label' => 'Options (for select fields)',
+                            'name' => 'options',
+                            'type' => 'textarea',
+                            'instructions' => 'One option per line',
+                            'conditional_logic' => array(
+                                array(
+                                    array(
+                                        'field' => 'field_roi_calc_field_type',
+                                        'operator' => '==',
+                                        'value' => 'select',
+                                    ),
+                                ),
+                            ),
+                            'show_in_graphql' => 1,
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
+    'location' => array(
+        array(
+            array(
+                'param' => 'page_template',
+                'operator' => '==',
+                'value' => 'page-roi-calculator.php',
+            ),
+        ),
+    ),
+    'show_in_graphql' => 1,
+    'graphql_field_name' => 'roiCalculatorFields',
+));
+
+==============================================
+CUSTOM POST TYPE DEFINITIONS
+==============================================
+
+// TEAM MEMBERS POST TYPE
+function create_team_members_post_type() {
+    register_post_type('team_members', array(
+        'labels' => array(
+            'name' => 'Team Members',
+            'singular_name' => 'Team Member',
+            'menu_name' => 'Team Members',
+            'add_new' => 'Add Team Member',
+            'add_new_item' => 'Add New Team Member',
+            'edit_item' => 'Edit Team Member',
+        ),
+        'public' => true,
+        'has_archive' => true,
+        'rewrite' => array('slug' => 'team'),
+        'supports' => array('title', 'editor', 'thumbnail'),
+        'show_in_rest' => true,
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'teamMember',
+        'graphql_plural_name' => 'teamMembers',
+    ));
+}
+add_action('init', 'create_team_members_post_type');
+
+// TEAM MEMBER FIELDS
+acf_add_local_field_group(array(
+    'key' => 'group_team_member_fields',
+    'title' => 'Team Member Fields',
+    'fields' => array(
+        array(
+            'key' => 'field_team_member_title',
+            'label' => 'Job Title',
+            'name' => 'job_title',
+            'type' => 'text',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_team_member_bio',
+            'label' => 'Biography',
+            'name' => 'biography',
+            'type' => 'textarea',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_team_member_photo',
+            'label' => 'Profile Photo',
+            'name' => 'profile_photo',
+            'type' => 'image',
+            'show_in_graphql' => 1,
+            'return_format' => 'array',
+        ),
+        array(
+            'key' => 'field_team_member_linkedin',
+            'label' => 'LinkedIn URL',
+            'name' => 'linkedin_url',
+            'type' => 'url',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_team_member_email',
+            'label' => 'Email Address',
+            'name' => 'email_address',
+            'type' => 'email',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_team_member_phone',
+            'label' => 'Phone Number',
+            'name' => 'phone_number',
+            'type' => 'text',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_team_member_booking_enabled',
+            'label' => 'Enable Booking',
+            'name' => 'booking_enabled',
+            'type' => 'true_false',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_team_member_featured',
+            'label' => 'Featured on Homepage',
+            'name' => 'featured',
+            'type' => 'true_false',
+            'show_in_graphql' => 1,
+        ),
+    ),
+    'location' => array(
+        array(
+            array(
+                'param' => 'post_type',
+                'operator' => '==',
+                'value' => 'team_members',
+            ),
+        ),
+    ),
+    'show_in_graphql' => 1,
+    'graphql_field_name' => 'teamMemberFields',
+));
+
+// SERVICES POST TYPE
+function create_services_post_type() {
+    register_post_type('services', array(
+        'labels' => array(
+            'name' => 'Services',
+            'singular_name' => 'Service',
+            'menu_name' => 'Services',
+            'add_new' => 'Add Service',
+            'add_new_item' => 'Add New Service',
+            'edit_item' => 'Edit Service',
+        ),
+        'public' => true,
+        'has_archive' => true,
+        'rewrite' => array('slug' => 'services'),
+        'supports' => array('title', 'editor', 'thumbnail'),
+        'show_in_rest' => true,
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'service',
+        'graphql_plural_name' => 'services',
+    ));
+}
+add_action('init', 'create_services_post_type');
+
+// SERVICE FIELDS
+acf_add_local_field_group(array(
+    'key' => 'group_service_fields',
+    'title' => 'Service Fields',
+    'fields' => array(
+        array(
+            'key' => 'field_service_description',
+            'label' => 'Service Description',
+            'name' => 'service_description',
+            'type' => 'textarea',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_service_icon',
+            'label' => 'Service Icon',
+            'name' => 'service_icon',
+            'type' => 'image',
+            'show_in_graphql' => 1,
+            'return_format' => 'array',
+        ),
+        array(
+            'key' => 'field_service_benefits',
+            'label' => 'Key Benefits',
+            'name' => 'key_benefits',
+            'type' => 'repeater',
+            'show_in_graphql' => 1,
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_service_benefit_title',
+                    'label' => 'Benefit Title',
+                    'name' => 'title',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_service_benefit_desc',
+                    'label' => 'Benefit Description',
+                    'name' => 'description',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+            ),
+        ),
+        array(
+            'key' => 'field_service_process',
+            'label' => 'Process Steps',
+            'name' => 'process_steps',
+            'type' => 'repeater',
+            'show_in_graphql' => 1,
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_service_step_title',
+                    'label' => 'Step Title',
+                    'name' => 'title',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_service_step_desc',
+                    'label' => 'Step Description',
+                    'name' => 'description',
+                    'type' => 'textarea',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_service_step_image',
+                    'label' => 'Step Image',
+                    'name' => 'image',
+                    'type' => 'image',
+                    'show_in_graphql' => 1,
+                    'return_format' => 'array',
+                ),
+            ),
+        ),
+        array(
+            'key' => 'field_service_statistics',
+            'label' => 'Service Statistics',
+            'name' => 'statistics',
+            'type' => 'repeater',
+            'show_in_graphql' => 1,
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_service_stat_number',
+                    'label' => 'Number',
+                    'name' => 'number',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_service_stat_label',
+                    'label' => 'Label',
+                    'name' => 'label',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_service_stat_type',
+                    'label' => 'Metric Type',
+                    'name' => 'metric_type',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+            ),
+        ),
+        array(
+            'key' => 'field_service_case_studies',
+            'label' => 'Featured Case Studies',
+            'name' => 'featured_case_studies',
+            'type' => 'post_object',
+            'post_type' => array('case_studies'),
+            'multiple' => 1,
+            'show_in_graphql' => 1,
+            'return_format' => 'object',
+        ),
+    ),
+    'location' => array(
+        array(
+            array(
+                'param' => 'post_type',
+                'operator' => '==',
+                'value' => 'services',
+            ),
+        ),
+    ),
+    'show_in_graphql' => 1,
+    'graphql_field_name' => 'serviceFields',
+));
+
+// CASE STUDIES POST TYPE
+function create_case_studies_post_type() {
+    register_post_type('case_studies', array(
+        'labels' => array(
+            'name' => 'Case Studies',
+            'singular_name' => 'Case Study',
+            'menu_name' => 'Case Studies',
+            'add_new' => 'Add Case Study',
+            'add_new_item' => 'Add New Case Study',
+            'edit_item' => 'Edit Case Study',
+        ),
+        'public' => true,
+        'has_archive' => true,
+        'rewrite' => array('slug' => 'case-studies'),
+        'supports' => array('title', 'editor', 'thumbnail'),
+        'show_in_rest' => true,
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'caseStudy',
+        'graphql_plural_name' => 'caseStudies',
+    ));
+}
+add_action('init', 'create_case_studies_post_type');
+
+// CASE STUDY FIELDS
+acf_add_local_field_group(array(
+    'key' => 'group_case_study_fields',
+    'title' => 'Case Study Fields',
+    'fields' => array(
+        array(
+            'key' => 'field_case_study_client',
+            'label' => 'Client Name',
+            'name' => 'client_name',
+            'type' => 'text',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_case_study_challenge',
+            'label' => 'Challenge',
+            'name' => 'challenge',
+            'type' => 'textarea',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_case_study_solution',
+            'label' => 'Solution',
+            'name' => 'solution',
+            'type' => 'textarea',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_case_study_results',
+            'label' => 'Results',
+            'name' => 'results',
+            'type' => 'textarea',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_case_study_metrics',
+            'label' => 'Key Metrics',
+            'name' => 'key_metrics',
+            'type' => 'repeater',
+            'show_in_graphql' => 1,
+            'sub_fields' => array(
+                array(
+                    'key' => 'field_case_study_metric_number',
+                    'label' => 'Metric Number',
+                    'name' => 'number',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_case_study_metric_label',
+                    'label' => 'Metric Label',
+                    'name' => 'label',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+                array(
+                    'key' => 'field_case_study_metric_desc',
+                    'label' => 'Metric Description',
+                    'name' => 'description',
+                    'type' => 'text',
+                    'show_in_graphql' => 1,
+                ),
+            ),
+        ),
+        array(
+            'key' => 'field_case_study_gallery',
+            'label' => 'Project Images',
+            'name' => 'project_gallery',
+            'type' => 'gallery',
+            'show_in_graphql' => 1,
+            'return_format' => 'array',
+        ),
+        array(
+            'key' => 'field_case_study_completed',
+            'label' => 'Date Completed',
+            'name' => 'date_completed',
+            'type' => 'date_picker',
+            'show_in_graphql' => 1,
+            'return_format' => 'Y-m-d',
+        ),
+        array(
+            'key' => 'field_case_study_featured',
+            'label' => 'Featured Case Study',
+            'name' => 'featured',
+            'type' => 'true_false',
+            'show_in_graphql' => 1,
+        ),
+    ),
+    'location' => array(
+        array(
+            array(
+                'param' => 'post_type',
+                'operator' => '==',
+                'value' => 'case_studies',
+            ),
+        ),
+    ),
+    'show_in_graphql' => 1,
+    'graphql_field_name' => 'caseStudyFields',
+));
+
+// NEWS/BLOG POST TYPE
+function create_news_post_type() {
+    register_post_type('news', array(
+        'labels' => array(
+            'name' => 'News Articles',
+            'singular_name' => 'News Article',
+            'menu_name' => 'News',
+            'add_new' => 'Add Article',
+            'add_new_item' => 'Add New Article',
+            'edit_item' => 'Edit Article',
+        ),
+        'public' => true,
+        'has_archive' => true,
+        'rewrite' => array('slug' => 'news'),
+        'supports' => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'show_in_rest' => true,
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'newsArticle',
+        'graphql_plural_name' => 'newsArticles',
+    ));
+}
+add_action('init', 'create_news_post_type');
+
+// NEWS ARTICLE FIELDS
+acf_add_local_field_group(array(
+    'key' => 'group_news_fields',
+    'title' => 'News Article Fields',
+    'fields' => array(
+        array(
+            'key' => 'field_news_author',
+            'label' => 'Author',
+            'name' => 'author',
+            'type' => 'post_object',
+            'post_type' => array('team_members'),
+            'show_in_graphql' => 1,
+            'return_format' => 'object',
+        ),
+        array(
+            'key' => 'field_news_read_time',
+            'label' => 'Read Time Estimate',
+            'name' => 'read_time',
+            'type' => 'text',
+            'instructions' => 'e.g., "5 min read"',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_news_publication_date',
+            'label' => 'Publication Date',
+            'name' => 'publication_date',
+            'type' => 'date_picker',
+            'show_in_graphql' => 1,
+            'return_format' => 'Y-m-d',
+        ),
+    ),
+    'location' => array(
+        array(
+            array(
+                'param' => 'post_type',
+                'operator' => '==',
+                'value' => 'news',
+            ),
+        ),
+    ),
+    'show_in_graphql' => 1,
+    'graphql_field_name' => 'newsFields',
+));
+
+// JOB LISTINGS POST TYPE
+function create_jobs_post_type() {
+    register_post_type('jobs', array(
+        'labels' => array(
+            'name' => 'Job Listings',
+            'singular_name' => 'Job Listing',
+            'menu_name' => 'Jobs',
+            'add_new' => 'Add Job',
+            'add_new_item' => 'Add New Job',
+            'edit_item' => 'Edit Job',
+        ),
+        'public' => true,
+        'has_archive' => true,
+        'rewrite' => array('slug' => 'careers'),
+        'supports' => array('title', 'editor', 'thumbnail'),
+        'show_in_rest' => true,
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'job',
+        'graphql_plural_name' => 'jobs',
+    ));
+}
+add_action('init', 'create_jobs_post_type');
+
+// JOB LISTING FIELDS
+acf_add_local_field_group(array(
+    'key' => 'group_job_fields',
+    'title' => 'Job Listing Fields',
+    'fields' => array(
+        array(
+            'key' => 'field_job_department',
+            'label' => 'Department',
+            'name' => 'department',
+            'type' => 'text',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_job_location',
+            'label' => 'Location',
+            'name' => 'location',
+            'type' => 'text',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_job_type',
+            'label' => 'Job Type',
+            'name' => 'job_type',
+            'type' => 'select',
+            'choices' => array(
+                'full-time' => 'Full-Time',
+                'part-time' => 'Part-Time',
+                'contract' => 'Contract',
+                'internship' => 'Internship',
+            ),
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_job_requirements',
+            'label' => 'Requirements',
+            'name' => 'requirements',
+            'type' => 'textarea',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_job_benefits',
+            'label' => 'Benefits',
+            'name' => 'benefits',
+            'type' => 'textarea',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_job_salary_range',
+            'label' => 'Salary Range',
+            'name' => 'salary_range',
+            'type' => 'text',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_job_deadline',
+            'label' => 'Application Deadline',
+            'name' => 'application_deadline',
+            'type' => 'date_picker',
+            'show_in_graphql' => 1,
+            'return_format' => 'Y-m-d',
+        ),
+        array(
+            'key' => 'field_job_apply_url',
+            'label' => 'Apply URL',
+            'name' => 'apply_url',
+            'type' => 'url',
+            'show_in_graphql' => 1,
+        ),
+    ),
+    'location' => array(
+        array(
+            array(
+                'param' => 'post_type',
+                'operator' => '==',
+                'value' => 'jobs',
+            ),
+        ),
+    ),
+    'show_in_graphql' => 1,
+    'graphql_field_name' => 'jobFields',
+));
+
+// TECHNOLOGIES POST TYPE
+function create_technologies_post_type() {
+    register_post_type('technologies', array(
+        'labels' => array(
+            'name' => 'Technologies',
+            'singular_name' => 'Technology',
+            'menu_name' => 'Technologies',
+            'add_new' => 'Add Technology',
+            'add_new_item' => 'Add New Technology',
+            'edit_item' => 'Edit Technology',
+        ),
+        'public' => true,
+        'has_archive' => true,
+        'rewrite' => array('slug' => 'technologies'),
+        'supports' => array('title', 'editor', 'thumbnail'),
+        'show_in_rest' => true,
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'technology',
+        'graphql_plural_name' => 'technologies',
+    ));
+}
+add_action('init', 'create_technologies_post_type');
+
+// TECHNOLOGY FIELDS
+acf_add_local_field_group(array(
+    'key' => 'group_technology_fields',
+    'title' => 'Technology Fields',
+    'fields' => array(
+        array(
+            'key' => 'field_tech_description',
+            'label' => 'Description',
+            'name' => 'description',
+            'type' => 'textarea',
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_tech_icon',
+            'label' => 'Technology Icon',
+            'name' => 'icon',
+            'type' => 'image',
+            'show_in_graphql' => 1,
+            'return_format' => 'array',
+        ),
+        array(
+            'key' => 'field_tech_proficiency',
+            'label' => 'Proficiency Level',
+            'name' => 'proficiency_level',
+            'type' => 'select',
+            'choices' => array(
+                'beginner' => 'Beginner',
+                'intermediate' => 'Intermediate',
+                'advanced' => 'Advanced',
+                'expert' => 'Expert',
+            ),
+            'show_in_graphql' => 1,
+        ),
+        array(
+            'key' => 'field_tech_featured',
+            'label' => 'Featured Technology',
+            'name' => 'featured',
+            'type' => 'true_false',
+            'show_in_graphql' => 1,
+        ),
+    ),
+    'location' => array(
+        array(
+            array(
+                'param' => 'post_type',
+                'operator' => '==',
+                'value' => 'technologies',
+            ),
+        ),
+    ),
+    'show_in_graphql' => 1,
+    'graphql_field_name' => 'technologyFields',
+));
+
+==============================================
+TAXONOMIES
+==============================================
+
+// SERVICE TYPES TAXONOMY
+function create_service_types_taxonomy() {
+    register_taxonomy('service_types', array('services', 'case_studies'), array(
+        'labels' => array(
+            'name' => 'Service Types',
+            'singular_name' => 'Service Type',
+            'menu_name' => 'Service Types',
+        ),
+        'hierarchical' => true,
+        'public' => true,
+        'show_in_rest' => true,
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'serviceType',
+        'graphql_plural_name' => 'serviceTypes',
+    ));
+
+    // Add default service types
+    $service_types = array(
+        'ecommerce' => 'eCommerce',
+        'b2b-lead-generation' => 'B2B Lead Generation', 
+        'software-development' => 'Software Development',
+        'booking-systems' => 'Booking Systems',
+        'digital-marketing' => 'Digital Marketing',
+        'outsourced-cmo' => 'Outsourced CMO',
+        'ai' => 'AI',
+    );
+
+    foreach ($service_types as $slug => $name) {
+        if (!term_exists($name, 'service_types')) {
+            wp_insert_term($name, 'service_types', array('slug' => $slug));
+        }
+    }
+}
+add_action('init', 'create_service_types_taxonomy');
+
+// PROJECT TYPES TAXONOMY
+function create_project_types_taxonomy() {
+    register_taxonomy('project_types', array('case_studies'), array(
+        'labels' => array(
+            'name' => 'Project Types',
+            'singular_name' => 'Project Type',
+            'menu_name' => 'Project Types',
+        ),
+        'hierarchical' => true,
+        'public' => true,
+        'show_in_rest' => true,
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'projectType',
+        'graphql_plural_name' => 'projectTypes',
+    ));
+}
+add_action('init', 'create_project_types_taxonomy');
+
+// TECHNOLOGY CATEGORIES TAXONOMY
+function create_technology_categories_taxonomy() {
+    register_taxonomy('technology_categories', array('technologies'), array(
+        'labels' => array(
+            'name' => 'Technology Categories',
+            'singular_name' => 'Technology Category',
+            'menu_name' => 'Categories',
+        ),
+        'hierarchical' => true,
+        'public' => true,
+        'show_in_rest' => true,
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'technologyCategory',
+        'graphql_plural_name' => 'technologyCategories',
+    ));
+
+    // Add default categories
+    $categories = array(
+        'frontend' => 'Frontend',
+        'backend' => 'Backend',
+        'database' => 'Database',
+        'marketing-tools' => 'Marketing Tools',
+        'analytics' => 'Analytics',
+    );
+
+    foreach ($categories as $slug => $name) {
+        if (!term_exists($name, 'technology_categories')) {
+            wp_insert_term($name, 'technology_categories', array('slug' => $slug));
+        }
+    }
+}
+add_action('init', 'create_technology_categories_taxonomy');
+
+// CONTENT CATEGORIES TAXONOMY
+function create_content_categories_taxonomy() {
+    register_taxonomy('content_categories', array('news'), array(
+        'labels' => array(
+            'name' => 'Content Categories',
+            'singular_name' => 'Content Category',
+            'menu_name' => 'Categories',
+        ),
+        'hierarchical' => true,
+        'public' => true,
+        'show_in_rest' => true,
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'contentCategory',
+        'graphql_plural_name' => 'contentCategories',
+    ));
+
+    // Add default categories
+    $categories = array(
+        'industry-insights' => 'Industry Insights',
+        'case-studies' => 'Case Studies',
+        'company-news' => 'Company News',
+        'technical-articles' => 'Technical Articles',
+    );
+
+    foreach ($categories as $slug => $name) {
+        if (!term_exists($name, 'content_categories')) {
+            wp_insert_term($name, 'content_categories', array('slug' => $slug));
+        }
+    }
+}
+add_action('init', 'create_content_categories_taxonomy');
+
+==============================================
+INSTALLATION INSTRUCTIONS
+==============================================
+
+1. BACKUP YOUR DATABASE before making changes
+
+2. Copy this code to your WordPress theme's functions.php file or create a custom plugin
+
+3. Go to WordPress Admin and:
+   - Check that all post types are created (Team Members, Services, Case Studies, etc.)
+   - Check that all taxonomies are created
+   - Verify ACF field groups are loaded
+   - Go to Site Options page to configure global content
+
+4. Test GraphQL queries at: /graphql
+
+5. Sample GraphQL queries:
+   
+   # Get global options
+   query GetGlobalOptions {
+     globalOptions {
+       globalSharedContent {
+         whyCdaBlock {
+           heading
+           description
+           statistics {
+             number
+             label
+             description
+           }
+         }
+       }
+     }
+   }
+
+   # Get homepage content  
+   query GetHomepage {
+     page(id: "homepage", idType: URI) {
+       homepageFields {
+         heroSection {
+           headline
+           subheadline
+           ctaText
+           ctaUrl
+           heroImage {
+             node {
+               sourceUrl
+               altText
+             }
+           }
+         }
+       }
+     }
+   }
+
+   # Get all team members
+   query GetTeamMembers {
+     teamMembers {
+       nodes {
+         title
+         teamMemberFields {
+           jobTitle
+           biography
+           profilePhoto {
+             node {
+               sourceUrl
+               altText
+             }
+           }
+           linkedinUrl
+           featured
+         }
+       }
+     }
+   }
+
+   # Get all services
+   query GetServices {
+     services {
+       nodes {
+         title
+         serviceFields {
+           serviceDescription
+           serviceIcon {
+             node {
+               sourceUrl
+               altText
+             }
+           }
+           statistics {
+             number
+             label
+             metricType
+           }
+         }
+       }
+     }
+   }
+
+   # Get all case studies
+   query GetCaseStudies {
+     caseStudies {
+       nodes {
+         title
+         caseStudyFields {
+           clientName
+           challenge
+           solution
+           results
+           keyMetrics {
+             number
+             label
+             description
+           }
+           featured
+         }
+       }
+     }
+   }
+
+==============================================
+TROUBLESHOOTING
+==============================================
+
+If fields don't appear in GraphQL:
+1. Check 'show_in_graphql' => 1 is set on all fields
+2. Verify GraphQL field names are unique
+3. Clear any caching plugins
+4. Check WPGraphQL plugin is active
+5. Use GraphiQL debugger to test queries
+
+Common Issues:
+- Approach block not showing: Check field keys match exactly
+- Images not loading: Ensure 'return_format' => 'array' is set
+- Global options not accessible: Check options page is registered with GraphQL
+
+==============================================
+IMPLEMENTATION COMPLETE
+==============================================
+
+This provides the complete ACF structure for all identified content from the Adobe XD designs. Each section is mapped with proper GraphQL integration and follows WordPress best practices.

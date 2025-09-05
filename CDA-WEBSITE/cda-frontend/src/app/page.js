@@ -7,6 +7,7 @@ import { GET_HOMEPAGE_CONTENT } from '../lib/graphql/queries';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import WhyCdaBlock from '../components/GlobalBlocks/WhyCdaBlock';
+import ApproachBlock from '../components/GlobalBlocks/ApproachBlock';
 import '../styles/global.css';
 
 export default function Home() {
@@ -308,6 +309,12 @@ export default function Home() {
       pageData={pageData.page.whyCdaOverride?.customWhyCda}
        useOverride={pageData.page.whyCdaOverride?.overrideWhyCda}
       />
+      <ApproachBlock 
+        globalData={pageData.globalOptions?.globalSharedContent?.approachBlock}
+        pageData={pageData.page.approachOverride?.customApproach}
+        useOverride={pageData.page.approachOverride?.overrideApproach}
+      />
+      
 
       {/* Footer */}
       <Footer globalOptions={globalOptions} />

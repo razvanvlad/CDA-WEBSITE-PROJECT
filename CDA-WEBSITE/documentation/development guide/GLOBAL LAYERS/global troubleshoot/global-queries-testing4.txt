@@ -1,0 +1,113 @@
+Test 12: Check WhyCdaBlock Fields
+query {
+  __type(name: "GlobalSharedContentWhyCdaBlock") {
+    fields {
+      name
+      type {
+        name
+      }
+    }
+  }
+}
+
+{
+  "data": {
+    "__type": {
+      "fields": [
+        {
+          "name": "cards",
+          "type": {
+            "name": null
+          }
+        },
+        {
+          "name": "subtitle",
+          "type": {
+            "name": "String"
+          }
+        },
+        {
+          "name": "title",
+          "type": {
+            "name": "String"
+          }
+        }
+      ]
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "17b6601c795731f95540059109caf828e84c259fba2bf535d46e66139fa773fe graphql:Query",
+      "keysLength": 78,
+      "keysCount": 2,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+Test 13: Full WhyCdaBlock Query
+query {
+  globalOptions {
+    globalSharedContent {
+      whyCdaBlock {
+        title
+        subtitle
+        cards {
+          title
+          description
+          image {
+            sourceUrl
+            altText
+          }
+        }
+      }
+    }
+  }
+}
+
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"sourceUrl\" on type \"AcfMediaItemConnectionEdge\".",
+      "locations": [
+        {
+          "line": 11,
+          "column": 13
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"altText\" on type \"AcfMediaItemConnectionEdge\".",
+      "locations": [
+        {
+          "line": 12,
+          "column": 13
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "78d6c405bb70893795e95e43b0dace4b5c819e1c8e1442dad12e699d239d1217 graphql:Query",
+      "keysLength": 78,
+      "keysCount": 2,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}

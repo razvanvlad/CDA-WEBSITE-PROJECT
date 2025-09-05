@@ -1,0 +1,103 @@
+Test 10: Check GlobalSharedContent Fields
+query {
+  __type(name: "GlobalSharedContent") {
+    fields {
+      name
+      type {
+        name
+      }
+    }
+  }
+}
+
+{
+  "data": {
+    "__type": {
+      "fields": [
+        {
+          "name": "contactInfo",
+          "type": {
+            "name": "GlobalSharedContentContactInfo"
+          }
+        },
+        {
+          "name": "footerContent",
+          "type": {
+            "name": "GlobalSharedContentFooterContent"
+          }
+        },
+        {
+          "name": "headerContent",
+          "type": {
+            "name": "GlobalSharedContentHeaderContent"
+          }
+        },
+        {
+          "name": "scriptsTracking",
+          "type": {
+            "name": "GlobalSharedContentScriptsTracking"
+          }
+        },
+        {
+          "name": "socialMedia",
+          "type": {
+            "name": "GlobalSharedContentSocialMedia"
+          }
+        },
+        {
+          "name": "whyCdaBlock",
+          "type": {
+            "name": "GlobalSharedContentWhyCdaBlock"
+          }
+        }
+      ]
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "6063900f52b7017fb004c98e1f60e475999b02703681fac74957fc9e741813ff graphql:Query",
+      "keysLength": 78,
+      "keysCount": 2,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+Test 11: Try to Query WhyCdaBlock
+query {
+  globalOptions {
+    globalSharedContent {
+      whyCdaBlock {
+        title
+      }
+    }
+  }
+}
+
+{
+  "data": {
+    "globalOptions": {
+      "globalSharedContent": {
+        "whyCdaBlock": {
+          "title": "Why CDA"
+        }
+      }
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "8040c03ccf9c9c9ed20dbb6bf8ba3ee2d3e0c08dedfbaf4b76a5fc6f21e5ad46 graphql:Query YWNmX29wdGlvbnNfcGFnZTpnbG9iYWwtY29udGVudA==",
+      "keysLength": 123,
+      "keysCount": 3,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}

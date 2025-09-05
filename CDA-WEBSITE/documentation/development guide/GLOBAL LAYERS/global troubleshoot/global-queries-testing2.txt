@@ -1,0 +1,180 @@
+Test 6: Check GlobalOptions Fields
+
+query {
+  __type(name: "GlobalOptions") {
+    fields {
+      name
+      type {
+        name
+      }
+    }
+  }
+}
+
+{
+  "data": {
+    "__type": {
+      "fields": [
+        {
+          "name": "footerContent",
+          "type": {
+            "name": "FooterContent"
+          }
+        },
+        {
+          "name": "globalSharedContent",
+          "type": {
+            "name": "GlobalSharedContent"
+          }
+        },
+        {
+          "name": "headerContent",
+          "type": {
+            "name": "HeaderContent"
+          }
+        },
+        {
+          "name": "id",
+          "type": {
+            "name": null
+          }
+        },
+        {
+          "name": "menuTitle",
+          "type": {
+            "name": "String"
+          }
+        },
+        {
+          "name": "pageTitle",
+          "type": {
+            "name": "String"
+          }
+        },
+        {
+          "name": "parentId",
+          "type": {
+            "name": "String"
+          }
+        }
+      ]
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "116cd79b3bf448dc6214fd2d04bfc32ed4a21c2c640e22bf4cb11f3b63bafd09 graphql:Query",
+      "keysLength": 78,
+      "keysCount": 2,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+Test 7: Try Direct globalOptions Query
+query {
+  globalOptions {
+    globalSharedContent {
+      __typename
+    }
+  }
+}
+
+{
+  "data": {
+    "globalOptions": {
+      "globalSharedContent": {
+        "__typename": "GlobalSharedContent"
+      }
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "b50881d571f84af579ba5ec535ef312af737487270be81dea0bd494cfe607257 graphql:Query YWNmX29wdGlvbnNfcGFnZTpnbG9iYWwtY29udGVudA==",
+      "keysLength": 123,
+      "keysCount": 3,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+Test 8: List All Available Fields on GlobalOptions
+query {
+  globalOptions {
+    __typename
+  }
+}
+
+{
+  "data": {
+    "globalOptions": {
+      "__typename": "GlobalOptions"
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "b3b4f8c23ff5a48c105ee326a3a6efb5327ba592e82b9890955fa5a3e1a2a5f6 graphql:Query YWNmX29wdGlvbnNfcGFnZTpnbG9iYWwtY29udGVudA==",
+      "keysLength": 123,
+      "keysCount": 3,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+Test 9: Simple Working Homepage Query
+query {
+  page(id: "289", idType: DATABASE_ID) {
+    id
+    title
+    homepageContent {
+      headerSection {
+        title
+        subtitle
+      }
+    }
+  }
+  globalOptions {
+    __typename
+  }
+}
+
+{
+  "data": {
+    "page": {
+      "id": "cG9zdDoyODk=",
+      "title": "Homepage",
+      "homepageContent": {
+        "headerSection": {
+          "title": "<h1>2</h1>\n",
+          "subtitle": "Lorem ipsum odor amet, consectetuer adipiscing elit. Nisl dolor enim primis vivamus integer facilisis quis efficitur? Rutrum eros nullam ante conubia."
+        }
+      }
+    },
+    "globalOptions": {
+      "__typename": "GlobalOptions"
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "6b6548aa7a6a1b54156552adcad79bf21b06e6c8dd8a458deb9ce11390686ae6 graphql:Query cG9zdDoyODk= YWNmX29wdGlvbnNfcGFnZTpnbG9iYWwtY29udGVudA==",
+      "keysLength": 136,
+      "keysCount": 4,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}

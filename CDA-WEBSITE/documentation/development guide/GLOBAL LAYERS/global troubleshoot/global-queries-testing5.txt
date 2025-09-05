@@ -1,0 +1,116 @@
+Test 14: Check Cards Structure
+query {
+  globalOptions {
+    globalSharedContent {
+      whyCdaBlock {
+        title
+        subtitle
+        cards {
+          title
+          description
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+{
+  "data": {
+    "globalOptions": {
+      "globalSharedContent": {
+        "whyCdaBlock": {
+          "title": "Why CDA",
+          "subtitle": "What Makes Us The Right Choice?",
+          "cards": [
+            {
+              "title": "title 1",
+              "description": "desc 1",
+              "image": {
+                "node": {
+                  "sourceUrl": "http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/wp-content/uploads/2025/08/svgexport-10.png",
+                  "altText": ""
+                }
+              }
+            },
+            {
+              "title": "title 2",
+              "description": "desc 2",
+              "image": {
+                "node": {
+                  "sourceUrl": "http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/wp-content/uploads/2025/08/svgexport-10.png",
+                  "altText": ""
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "492f03b51ba97c4722b1ba430bf607db4d11327b1653e5ef7afd47e95ef55e15 graphql:Query YWNmX29wdGlvbnNfcGFnZTpnbG9iYWwtY29udGVudA== cG9zdDozMDI=",
+      "keysLength": 136,
+      "keysCount": 4,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+Test 15: Simple Cards Test
+query {
+  globalOptions {
+    globalSharedContent {
+      whyCdaBlock {
+        cards {
+          title
+          description
+        }
+      }
+    }
+  }
+}
+
+
+{
+  "data": {
+    "globalOptions": {
+      "globalSharedContent": {
+        "whyCdaBlock": {
+          "cards": [
+            {
+              "title": "title 1",
+              "description": "desc 1"
+            },
+            {
+              "title": "title 2",
+              "description": "desc 2"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "f61d4cb1a25310bbed9db80c32adc5bb0e8922c6619750ce704a96b362ccca31 graphql:Query YWNmX29wdGlvbnNfcGFnZTpnbG9iYWwtY29udGVudA==",
+      "keysLength": 123,
+      "keysCount": 3,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
