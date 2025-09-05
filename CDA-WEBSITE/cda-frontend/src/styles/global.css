@@ -234,3 +234,104 @@
   text-decoration-color: #01E486;
   text-decoration-thickness: 11px;
 }
+
+.nav-link {
+  color: #6b7280;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #111827;
+  text-decoration: underline;
+  text-decoration-color: #3CBEEB;
+  text-decoration-thickness: 4px;
+}
+
+/* CSS FOR VERTICAL BUTTON */
+
+.button-without-box-vertical-black {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+  background-color: black;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1.2;
+  border: none;
+  font-family: inherit;
+}
+
+/* Desktop: Vertical text */
+@media (min-width: 768px) {
+  .button-without-box-vertical-black {
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    padding: 20px 15px;
+    width: auto;
+    height: auto;
+  }
+  
+  /* Desktop hover effect */
+  .button-without-box-vertical-black:hover::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
+  }
+}
+
+/* Mobile: Horizontal text, full width */
+@media (max-width: 767px) {
+  .button-without-box-vertical-black {
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+    padding: 15px 20px;
+    width: 100vw;
+    margin: 0;
+    left: 0;
+    transform: translateX(0);
+    position: relative;
+  }
+  
+  /* Underline: centered under text on mobile */
+  .button-without-box-vertical-black::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 1px;
+    background-color: white;
+    z-index: 1;
+  }
+
+  /* Arrow icon positioned right of underline on mobile */
+  .button-without-box-vertical-black::before {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: calc(50% + 85px); /* Center + half underline width + gap */
+    width: 12px;
+    height: 12px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7L17 17"/><path d="M7 17H17"/><path d="M17 7V17"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 2;
+    transition: all 0.2s ease;
+  }
+
+  /* Mobile hover effect */
+  .button-without-box-vertical-black:hover::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
+    bottom: 50%;
+    transform: translateY(50%);
+  }
+}
+
+/* CSS FOR VERTICAL BUTTON */
