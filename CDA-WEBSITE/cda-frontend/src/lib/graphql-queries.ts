@@ -634,7 +634,6 @@ export async function getServicesWithPagination(variables: {
   first?: number;
   after?: string;
   search?: string;
-  serviceTypeIn?: string[];
 }) {
   const response = await executeGraphQLQuery(GET_SERVICES_WITH_PAGINATION, variables);
   
@@ -662,21 +661,19 @@ export async function getAllCaseStudies() {
 
 export async function getCaseStudiesWithPagination(variables: {
   first?: number;
-  offset?: number;
+  after?: string;
   search?: string;
-  projectTypeIn?: string[];
-  featured?: boolean;
 }) {
   const response = await executeGraphQLQuery(GET_CASE_STUDIES_WITH_PAGINATION, variables);
   
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
-    return { nodes: [], total: 0 };
+    return { nodes: [], pageInfo: null };
   }
 
   return {
     nodes: response.data?.caseStudies?.nodes || [],
-    total: response.data?.caseStudies?.pageInfo?.offsetPagination?.total || 0
+    pageInfo: response.data?.caseStudies?.pageInfo || null
   };
 }
 
@@ -693,21 +690,19 @@ export async function getAllTeamMembers() {
 
 export async function getTeamMembersWithPagination(variables: {
   first?: number;
-  offset?: number;
+  after?: string;
   search?: string;
-  departmentIn?: string[];
-  featured?: boolean;
 }) {
   const response = await executeGraphQLQuery(GET_TEAM_MEMBERS_WITH_PAGINATION, variables);
   
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
-    return { nodes: [], total: 0 };
+    return { nodes: [], pageInfo: null };
   }
 
   return {
     nodes: response.data?.teamMembers?.nodes || [],
-    total: response.data?.teamMembers?.pageInfo?.offsetPagination?.total || 0
+    pageInfo: response.data?.teamMembers?.pageInfo || null
   };
 }
 

@@ -23,7 +23,8 @@ export default function Home() {
       try {
         const response = await client.query({
           query: GET_GLOBAL_CONTENT,
-          errorPolicy: 'all'
+          errorPolicy: 'all',
+          fetchPolicy: 'no-cache'
         });
         
         if (response.errors) {
@@ -35,6 +36,8 @@ export default function Home() {
         console.log("Full response:", response);
         setPageData(response.data);
         console.log("Response data:", response.data);
+        console.log("Global options:", response.data?.globalOptions);
+        console.log("Global shared content:", response.data?.globalOptions?.globalSharedContent);
       } catch (err) {
         console.error("Fetch error:", err);
         setError(err);

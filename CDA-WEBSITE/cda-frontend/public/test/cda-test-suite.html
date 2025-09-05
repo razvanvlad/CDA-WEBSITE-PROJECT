@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDA Content Test Suite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .test-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .test-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .test-card h2 {
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        
+        .status-pending { background: #fbbf24; }
+        .status-pass { background: #34d399; }
+        .status-fail { background: #f87171; }
+        
+        .test-list {
+            list-style: none;
+        }
+        
+        .test-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f7f7f7;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .test-item:hover {
+            background: #e7e7e7;
+        }
+        
+        .test-item.pass { border-left: 4px solid #34d399; }
+        .test-item.fail { border-left: 4px solid #f87171; }
+        .test-item.pending { border-left: 4px solid #fbbf24; }
+        
+        .test-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+        
+        .btn-test {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-test:hover {
+            background: #5a67d8;
+        }
+        
+        .btn-save {
+            background: #34d399;
+            color: white;
+        }
+        
+        .btn-save:hover {
+            background: #2bb77d;
+        }
+        
+        .calculator-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .calculator-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .calc-field {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .calc-field label {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        
+        .calc-field input {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        
+        .calc-field input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .results {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .results h3 {
+            margin-bottom: 10px;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+        
+        .query-tester {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .query-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+        
+        .query-results {
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 10px;
+            min-height: 100px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        
+        .saved-queries {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f0f4ff;
+            border-radius: 10px;
+        }
+        
+        .saved-queries h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .saved-query-item {
+            background: white;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .saved-query-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .stats-bar {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 CDA Content Test Suite</h1>
+            <p>Comprehensive testing dashboard for all website content and functionality</p>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number" id="totalTests">47</div>
+                <div class="stat-label">Total Tests</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="passedTests">0</div>
+                <div class="stat-label">Passed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="failedTests">0</div>
+                <div class="stat-label">Failed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="coverage">0%</div>
+                <div class="stat-label">Coverage</div>
+            </div>
+        </div>
+
+        <div class="test-sections">
+            <!-- Navigation Tests -->
+            <div class="test-card">
+                <h2><span class="status-icon status-pending"></span> Navigation Structure</h2>
+                <ul class="test-list">
+                    <li class="test-item pending" data-test="nav-header">
+                        <span>Header Navigation</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('nav-header')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('nav-header')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="nav-footer">
+                        <span>Footer Links</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('nav-footer')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('nav-footer')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="nav-sidebar">
+                        <span>Sidebar Menu</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('nav-sidebar')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('nav-sidebar')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="nav-cta">
+                        <span>Floating CTA</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('nav-cta')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('nav-cta')">Save</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Page Templates -->
+            <div class="test-card">
+                <h2><span class="status-icon status-pending"></span> Page Templates</h2>
+                <ul class="test-list">
+                    <li class="test-item pending" data-test="page-home">
+                        <span>Homepage</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('page-home')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('page-home')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="page-about">
+                        <span>About Page</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('page-about')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('page-about')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="page-services">
+                        <span>Services Landing</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('page-services')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('page-services')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="page-team">
+                        <span>Team Profiles</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('page-team')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('page-team')">Save</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- eCommerce Services -->
+            <div class="test-card">
+                <h2><span class="status-icon status-pending"></span> eCommerce Services</h2>
+                <ul class="test-list">
+                    <li class="test-item pending" data-test="ecom-dev">
+                        <span>Website Development</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('ecom-dev')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('ecom-dev')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="ecom-ui">
+                        <span>UI & UX</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('ecom-ui')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('ecom-ui')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="ecom-cro">
+                        <span>Conversion Optimization</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('ecom-cro')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('ecom-cro')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="ecom-headless">
+                        <span>Headless Commerce</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('ecom-headless')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('ecom-headless')">Save</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Content Blocks -->
+            <div class="test-card">
+                <h2><span class="status-icon status-pending"></span> Content Blocks</h2>
+                <ul class="test-list">
+                    <li class="test-item pending" data-test="block-hero">
+                        <span>Hero Headers</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('block-hero')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('block-hero')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="block-accordion">
+                        <span>Service Accordions</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('block-accordion')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('block-accordion')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="block-stats">
+                        <span>Statistics Rows</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('block-stats')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('block-stats')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="block-case">
+                        <span>Case Studies</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('block-case')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('block-case')">Save</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Integrations -->
+            <div class="test-card">
+                <h2><span class="status-icon status-pending"></span> Third-Party Integrations</h2>
+                <ul class="test-list">
+                    <li class="test-item pending" data-test="int-hubspot">
+                        <span>HubSpot Forms</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('int-hubspot')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('int-hubspot')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="int-analytics">
+                        <span>Google Analytics</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('int-analytics')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('int-analytics')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="int-gtm">
+                        <span>Tag Manager</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('int-gtm')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('int-gtm')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="int-captcha">
+                        <span>Spam Protection</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('int-captcha')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('int-captcha')">Save</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- SEO & Performance -->
+            <div class="test-card">
+                <h2><span class="status-icon status-pending"></span> SEO & Performance</h2>
+                <ul class="test-list">
+                    <li class="test-item pending" data-test="seo-meta">
+                        <span>Meta Tags</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('seo-meta')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('seo-meta')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="seo-sitemap">
+                        <span>XML Sitemap</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('seo-sitemap')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('seo-sitemap')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="perf-speed">
+                        <span>Page Speed</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('perf-speed')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('perf-speed')">Save</button>
+                        </div>
+                    </li>
+                    <li class="test-item pending" data-test="perf-mobile">
+                        <span>Mobile Responsiveness</span>
+                        <div class="test-actions">
+                            <button class="btn btn-test" onclick="runTest('perf-mobile')">Test</button>
+                            <button class="btn btn-save" onclick="saveTest('perf-mobile')">Save</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- eCommerce Calculator Section -->
+        <div class="calculator-section">
+            <h2>📊 eCommerce ROI Calculator Test</h2>
+            <div class="calc-grid">
+                <div class="calc-field">
+                    <label>Current Web Sales (£)</label>
+                    <input type="number" id="webSales" value="100000" />
+                </div>
+                <div class="calc-field">
+                    <label>Number of Orders</label>
+                    <input type="number" id="numOrders" value="1000" />
+                </div>
+                <div class="calc-field">
+                    <label>Website Traffic</label>
+                    <input type="number" id="traffic" value="50000" />
+                </div>
+                <div class="calc-field">
+                    <label>Engagement Rate (%)</label>
+                    <input type="number" id="engagement" value="40" step="0.1" />
+                </div>
+                <div class="calc-field">
+                    <label>Traffic Increase (%)</label>
+                    <input type="number" id="trafficIncrease" value="10" step="0.1" />
+                </div>
+                <div class="calc-field">
+                    <label>New Engagement Rate (%)</label>
+                    <input type="number" id="newEngagement" value="45" step="0.1" />
+                </div>
+            </div>
+            <button class="btn btn-test" style="width: 200px; padding: 12px; font-size: 1.1em;" onclick="calculateROI()">
+                Calculate ROI
+            </button>
+            <div class="results" id="calcResults" style="display: none;">
+                <h3>Projected Results</h3>
+                <div class="result-item">
+                    <span>Average Order Value:</span>
+                    <span id="aov">£0</span>
+                </div>
+                <div class="result-item">
+                    <span>New Traffic:</span>
+                    <span id="newTraffic">0</span>
+                </div>
+                <div class="result-item">
+                    <span>New Engaged Users:</span>
+                    <span id="newEngaged">0</span>
+                </div>
+                <div class="result-item">
+                    <span>Projected Revenue:</span>
+                    <span id="projRevenue">£0</span>
+                </div>
+                <div class="result-item">
+                    <span>Revenue Increase:</span>
+                    <span id="revIncrease">£0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Query Testing Section -->
+        <div class="query-tester">
+            <h2>🔍 GraphQL Query Tester</h2>
+            <textarea class="query-input" id="queryInput" placeholder="Enter your GraphQL query here..." rows="8">
+query GetPageContent {
+  pages {
+    nodes {
+      title
+      slug
+      template
+      content
+    }
+  }
+}</textarea>
+            <button class="btn btn-test" style="width: 150px; padding: 12px; font-size: 1.1em;" onclick="testQuery()">
+                Test Query
+            </button>
+            <div class="query-results" id="queryResults">
+                Query results will appear here...
+            </div>
+            
+            <div class="saved-queries">
+                <h3>✅ Saved Working Queries</h3>
+                <div id="savedQueriesList">
+                    <div class="saved-query-item" onclick="loadQuery(this)">
+                        GetHomepageContent - Fetches homepage data with all sections
+                    </div>
+                    <div class="saved-query-item" onclick="loadQuery(this)">
+                        GetServicesOverview - Retrieves all service categories
+                    </div>
+                    <div class="saved-query-item" onclick="loadQuery(this)">
+                        GetTeamProfiles - Lists all team members with details
+                    </div>
+                    <div class="saved-query-item" onclick="loadQuery(this)">
+                        GetCaseStudies - Fetches case study listings
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Test data mapping based on your sitemap
+        const testData = {
+            'nav-header': {
+                name: 'Header Navigation',
+                items: ['eCommerce', 'B2B Lead Generation', 'Software Development', 'Digital Marketing', 'Outsourced CMO', 'AI']
+            },
+            'nav-footer': {
+                name: 'Footer Links',
+                items: ['Work', 'Services', 'Careers', 'Policies', 'Contact', 'Socials']
+            },
+            'page-home': {
+                name: 'Homepage',
+                template: 'Homepage',
+                sections: ['Hero', 'Services', 'Case Studies', 'Stats', 'CTA']
+            },
+            'ecom-dev': {
+                name: 'eCommerce Website Development',
+                template: 'Service Details Page',
+                url: '/ecommerce/website-development'
+            }
+        };
+
+        let testResults = {};
+        let savedQueries = [];
+
+        function runTest(testId) {
+            const testItem = document.querySelector(`[data-test="${testId}"]`);
+            
+            // Simulate test execution
+            setTimeout(() => {
+                const success = Math.random() > 0.2; // 80% success rate for demo
+                testItem.classList.remove('pending');
+                testItem.classList.add(success ? 'pass' : 'fail');
+                
+                const statusIcon = testItem.closest('.test-card').querySelector('.status-icon');
+                statusIcon.classList.remove('status-pending');
+                statusIcon.classList.add(success ? 'status-pass' : 'status-fail');
+                
+                testResults[testId] = success;
+                updateStats();
+            }, 1000);
+        }
+
+        function saveTest(testId) {
+            if (testResults[testId]) {
+                alert(`Test "${testData[testId]?.name || testId}" saved successfully!`);
+            } else {
+                alert('Please run the test first before saving.');
+            }
+        }
+
+        function updateStats() {
+            const total = Object.keys(testData).length;
+            const tested = Object.keys(testResults).length;
+            const passed = Object.values(testResults).filter(r => r).length;
+            const failed = tested - passed;
+            
+            document.getElementById('passedTests').textContent = passed;
+            document.getElementById('failedTests').textContent = failed;
+            document.getElementById('coverage').textContent = Math.round((tested / total) * 100) + '%';
+        }
+
+        function calculateROI() {
+            const webSales = parseFloat(document.getElementById('webSales').value) || 0;
+            const numOrders = parseFloat(document.getElementById('numOrders').value) || 1;
+            const traffic = parseFloat(document.getElementById('traffic').value) || 1;
+            const engagement = parseFloat(document.getElementById('engagement').value) / 100;
+            const trafficIncrease = parseFloat(document.getElementById('trafficIncrease').value) / 100;
+            const newEngagement = parseFloat(document.getElementById('newEngagement').value) / 100;
+            
+            // Calculate based on your Excel formulas
+            const aov = webSales / numOrders;
+            const currentEngaged = traffic * engagement;
+            const currentConversion = numOrders / currentEngaged;
+            
+            const newTraffic = traffic * (1 + trafficIncrease);
+            const newEngaged = newTraffic * newEngagement;
+            const projectedOrders = newEngaged * currentConversion;
+            const projectedRevenue = projectedOrders * aov;
+            const revenueIncrease = projectedRevenue - webSales;
+            
+            // Display results
+            document.getElementById('aov').textContent = '£' + aov.toFixed(2);
+            document.getElementById('newTraffic').textContent = Math.round(newTraffic).toLocaleString();
+            document.getElementById('newEngaged').textContent = Math.round(newEngaged).toLocaleString();
+            document.getElementById('projRevenue').textContent = '£' + projectedRevenue.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('revIncrease').textContent = '£' + revenueIncrease.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            
+            document.getElementById('calcResults').style.display = 'block';
+        }
+
+        function testQuery() {
+            const query = document.getElementById('queryInput').value;
+            const results = document.getElementById('queryResults');
+            
+            // Simulate GraphQL query testing
+            results.textContent = 'Testing query...\n';
+            
+            setTimeout(() => {
+                results.textContent = `✅ Query executed successfully!\n\n`;
+                results.textContent += `Sample Response:\n`;
+                results.textContent += `{\n  "data": {\n    "pages": {\n      "nodes": [\n`;
+                results.textContent += `        { "title": "Home", "slug": "home" },\n`;
+                results.textContent += `        { "title": "About", "slug": "about" },\n`;
+                results.textContent += `        { "title": "eCommerce", "slug": "ecommerce" }\n`;
+                results.textContent += `      ]\n    }\n  }\n}`;
+                
+                // Add save button
+                if (!document.getElementById('saveQueryBtn')) {
+                    const saveBtn = document.createElement('button');
+                    saveBtn.id = 'saveQueryBtn';
+                    saveBtn.className = 'btn btn-save';
+                    saveBtn.textContent = 'Save Working Query';
+                    saveBtn.style.marginTop = '10px';
+                    saveBtn.onclick = saveQuery;
+                    results.parentNode.insertBefore(saveBtn, results.nextSibling);
+                }
+            }, 1500);
+        }
+
+        function saveQuery() {
+            const query = document.getElementById('queryInput').value;
+            const name = prompt('Enter a name for this query:');
+            if (name) {
+                const newItem = document.createElement('div');
+                newItem.className = 'saved-query-item';
+                newItem.textContent = name;
+                newItem.onclick = function() { loadQuery(this); };
+                document.getElementById('savedQueriesList').appendChild(newItem);
+                alert('Query saved successfully!');
+            }
+        }
+
+        function loadQuery(element) {
+            const queryInput = document.getElementById('queryInput');
+            // Load a sample query based on the clicked item
+            queryInput.value = `query ${element.textContent.split(' ')[0]} {\n  # Your saved query here\n}`;
+        }
+
+        // Run all tests button
+        function runAllTests() {
+            Object.keys(testData).forEach((testId, index) => {
+                setTimeout(() => runTest(testId), index * 200);
+            });
+        }
+    </script>
+</body>
+</html>

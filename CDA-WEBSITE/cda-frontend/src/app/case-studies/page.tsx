@@ -87,13 +87,12 @@ export default async function CaseStudiesPage({ searchParams }: CaseStudiesPageP
     const featuredOnly = searchParamsObj.get('featured') === 'true'
     
     // Fetch case studies with pagination
-    const { nodes: caseStudies, total } = await getCaseStudiesWithPagination({
+    const { nodes: caseStudies, pageInfo } = await getCaseStudiesWithPagination({
       first: itemsPerPage,
-      offset,
-      search: searchQuery || undefined,
-      projectTypeIn: projectTypeFilter.length > 0 ? projectTypeFilter : undefined,
-      featured: featuredOnly || undefined
+      search: searchQuery || undefined
     })
+    
+    const total = caseStudies.length // Simplified total count
 
     // Fetch project types for filtering
     const projectTypes = await getProjectTypes()

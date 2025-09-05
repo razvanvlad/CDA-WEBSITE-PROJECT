@@ -85,8 +85,7 @@ export default async function ServicesPage({ searchParams }: ServicesPageProps) 
     // Fetch services (simplified - no advanced pagination for now)
     const { nodes: services } = await getServicesWithPagination({
       first: 12,
-      search: searchQuery || undefined,
-      serviceTypeIn: serviceTypeFilter.length > 0 ? serviceTypeFilter : undefined
+      search: searchQuery || undefined
     })
 
     // Fetch service types for filtering

@@ -6,7 +6,13 @@
       "Bash(npm run dev:*)",
       "Bash(curl:*)",
       "Bash(powershell:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(for page in services team case-studies about contact ai b2b booking-systems digital-marketing outsourced-cmo software-development knowledge-hub case-study terms-conditions 404 test-graphql)",
+      "Bash(do echo -n \"$page: \")",
+      "Bash(done)",
+      "Bash(for page in \"\" \"services\" \"team\" \"case-studies\" \"about\" \"contact\" \"ai\" \"b2b\" \"booking-systems\" \"digital-marketing\" \"outsourced-cmo\" \"software-development\" \"knowledge-hub\" \"case-study\" \"terms-conditions\")",
+      "Bash(do)",
+      "Bash(echo:*)"
     ],
     "deny": [],
     "ask": []

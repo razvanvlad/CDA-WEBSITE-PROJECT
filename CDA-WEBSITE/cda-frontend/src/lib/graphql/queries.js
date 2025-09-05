@@ -923,37 +923,6 @@ export const GET_GLOBAL_CONTENT = gql`
             }
           }
         }
-        technologiesBlock {
-          title
-          subtitle
-          categories {
-            icon {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            name
-            description
-            url
-          }
-        }
-        showreelBlock {
-          title
-          subtitle
-          videoThumbnail {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-          videoUrl
-          callToAction {
-            url
-            title
-            target
-          }
-        }
       }
     }
   }

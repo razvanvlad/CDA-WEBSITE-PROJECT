@@ -2,8 +2,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import client from '../../lib/graphql/client';
 import { GET_ABOUT_US_CONTENT } from '../../lib/graphql/queries';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 export default function AboutPage() {
   const [data, setData] = useState(null);
@@ -40,335 +43,369 @@ export default function AboutPage() {
     fetchData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <div className="flex items-center justify-center min-h-screen bg-gray-50">
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+            <p className="text-gray-600">Loading About Us content...</p>
+          </div>
+        </div>
+      </>
+    );
+  }
   
   if (error) {
     return (
-      <div style={{ padding: '20px', fontFamily: 'monospace' }}>
-        <h1>GraphQL Error</h1>
-        <div style={{ backgroundColor: '#f8f8f8', padding: '15px', marginBottom: '20px' }}>
-          <strong>Error Details:</strong>
-          <pre style={{ whiteSpace: 'pre-wrap', fontSize: '12px' }}>
-            {JSON.stringify(error, null, 2)}
-          </pre>
+      <>
+        <Header />
+        <div className="flex items-center justify-center min-h-screen bg-red-50">
+          <div className="bg-white p-6 rounded-lg shadow-md max-w-md">
+            <h2 className="text-red-600 text-lg font-semibold mb-2">Error Loading Content</h2>
+            <p className="text-gray-600 text-sm mb-4">Failed to fetch About Us data.</p>
+            
+            <details className="mt-4">
+              <summary className="cursor-pointer text-sm font-medium">Error Details</summary>
+              <pre className="mt-2 text-xs bg-gray-100 p-2 rounded overflow-auto">
+                {JSON.stringify(error, null, 2)}
+              </pre>
+            </details>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
   if (!data?.page) {
-    return <div>Page not found Text on Line 60</div>;
+    return (
+      <>
+        <Header />
+        <div className="flex items-center justify-center min-h-screen bg-yellow-50">
+          <div className="bg-white p-6 rounded-lg shadow-md max-w-md">
+            <h2 className="text-yellow-600 text-lg font-semibold mb-2">Page Not Found</h2>
+            <p className="text-gray-600 text-sm">The About Us page could not be found.</p>
+          </div>
+        </div>
+      </>
+    );
   }
 
   const page = data.page;
   const aboutContent = page.aboutUsContent;
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
-      {/* Debug Data */}
-      <details style={{ marginBottom: '30px', backgroundColor: '#f8f9fa', padding: '15px' }}>
-        <summary style={{ cursor: 'pointer', fontWeight: 'bold' }}>
-          Debug Data (Click to expand)
-        </summary>
-        <pre style={{ 
-          fontSize: '11px', 
-          overflow: 'auto',
-          backgroundColor: 'white',
-          padding: '10px',
-          borderRadius: '3px',
-          marginTop: '10px'
-        }}>
-          {JSON.stringify(data, null, 2)}
-        </pre>
-      </details>
-
-      {/* Content Page Header */}
-      {aboutContent?.contentPageHeader && (
-        <section style={{ marginBottom: '40px', textAlign: 'center' }}>
-          <div 
-            dangerouslySetInnerHTML={{ 
-              __html: aboutContent.contentPageHeader.title 
-            }} 
-            style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '20px' }}
-          />
-          <div 
-            dangerouslySetInnerHTML={{ 
-              __html: aboutContent.contentPageHeader.text 
-            }}
-            style={{ fontSize: '1.2rem', marginBottom: '30px', color: '#666' }}
-          />
-          {aboutContent.contentPageHeader.cta && (
-            <a 
-              href={aboutContent.contentPageHeader.cta.url}
-              style={{
-                display: 'inline-block',
-                backgroundColor: '#007cba',
-                color: 'white',
-                padding: '12px 24px',
-                textDecoration: 'none',
-                borderRadius: '5px'
-              }}
-            >
-              {aboutContent.contentPageHeader.cta.title}
-            </a>
-          )}
-        </section>
-      )}
-
-      {/* Who We Are Section */}
-      {aboutContent?.whoWeAreSection && (aboutContent.whoWeAreSection.sectionTitle || aboutContent.whoWeAreSection.imageWithFrame) && (
-        <section style={{ marginBottom: '40px' }}>
-          <div style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
-            {aboutContent.whoWeAreSection.imageWithFrame?.node && (
-              <div style={{ flex: '1' }}>
-                <img 
-                  src={aboutContent.whoWeAreSection.imageWithFrame.node.sourceUrl}
-                  alt={aboutContent.whoWeAreSection.imageWithFrame.node.altText || 'Who We Are'}
-                  style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }}
-                />
-              </div>
-            )}
-            <div style={{ flex: '1' }}>
-              {aboutContent.whoWeAreSection.sectionTitle && (
-                <div 
-                  dangerouslySetInnerHTML={{ 
-                    __html: aboutContent.whoWeAreSection.sectionTitle 
-                  }}
-                  style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '15px' }}
-                />
-              )}
-              {aboutContent.whoWeAreSection.sectionText && (
-                <div 
-                  dangerouslySetInnerHTML={{ 
-                    __html: aboutContent.whoWeAreSection.sectionText 
-                  }}
-                  style={{ marginBottom: '20px', lineHeight: '1.6' }}
-                />
-              )}
-              {aboutContent.whoWeAreSection.cta && (
-                <a 
-                  href={aboutContent.whoWeAreSection.cta.url}
-                  style={{ color: '#007cba', textDecoration: 'underline' }}
-                >
-                  {aboutContent.whoWeAreSection.cta.title}
-                </a>
-              )}
-            </div>
+    <>
+      <Header />
+      
+      <main className="min-h-screen bg-white">
+        {/* Hero Section */}
+        <section className="relative py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              About <span className="text-blue-200">CDA</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-8">
+              We're a team of passionate digital experts dedicated to transforming businesses through innovative technology solutions.
+            </p>
           </div>
         </section>
-      )}
 
-      {/* Why CDA Section */}
-      {aboutContent?.whyCdaSection && aboutContent.whyCdaSection.length > 0 && (
-        <section style={{ marginBottom: '40px' }}>
-          <h2 style={{ textAlign: 'center', marginBottom: '30px' }}>Why Choose CDA</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
-            {aboutContent.whyCdaSection.map((item, index) => (
-              <div key={index} style={{ textAlign: 'center', padding: '20px' }}>
-                {item.icon?.node && (
-                  <div style={{ marginBottom: '15px' }}>
-                    <img 
-                      src={item.icon.node.sourceUrl}
-                      alt={item.icon.node.altText || `Icon ${index + 1}`}
-                      style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }}
-                    />
+        {/* Video Section */}
+        {aboutContent?.videoSection && (
+          <section className="py-16 bg-gray-50">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  {aboutContent.videoSection.title || "Our Story"}
+                </h2>
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  {aboutContent.videoSection.subtitle || "Watch our journey and discover what drives us to deliver exceptional results."}
+                </p>
+              </div>
+              
+              <div className="max-w-4xl mx-auto">
+                {aboutContent.videoSection.videoUrl ? (
+                  <div className="relative aspect-video bg-gray-900 rounded-lg overflow-hidden shadow-2xl">
+                    {aboutContent.videoSection.thumbnailImage?.node ? (
+                      <div className="relative w-full h-full group cursor-pointer">
+                        <Image
+                          src={aboutContent.videoSection.thumbnailImage.node.sourceUrl}
+                          alt={aboutContent.videoSection.thumbnailImage.node.altText || "Video thumbnail"}
+                          fill
+                          className="object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-20 transition-all duration-300">
+                          <div className="w-20 h-20 bg-white bg-opacity-90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <svg className="w-8 h-8 text-blue-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.68L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-center h-full">
+                        <a 
+                          href={aboutContent.videoSection.videoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                        >
+                          <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.68L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"/>
+                          </svg>
+                          Watch Our Story
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="bg-gray-200 aspect-video rounded-lg flex items-center justify-center">
+                    <p className="text-gray-500">Video content coming soon</p>
                   </div>
                 )}
-                <div 
-                  dangerouslySetInnerHTML={{ __html: item.title }}
-                  style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '10px' }}
-                />
-                <div 
-                  dangerouslySetInnerHTML={{ __html: item.description }}
-                  style={{ color: '#666' }}
-                />
               </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Services Section */}
-      {aboutContent?.servicesSection?.servicesAccordion && (
-        <section style={{ marginBottom: '40px' }}>
-          <h2 style={{ textAlign: 'center', marginBottom: '30px' }}>Our Services</h2>
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            {aboutContent.servicesSection.servicesAccordion.map((service, index) => (
-              <div key={index} style={{ 
-                border: '1px solid #ddd', 
-                marginBottom: '10px', 
-                borderRadius: '5px',
-                padding: '20px'
-              }}>
-                <div 
-                  dangerouslySetInnerHTML={{ __html: service.title }}
-                  style={{ fontSize: '1.3rem', fontWeight: 'bold', marginBottom: '10px' }}
-                />
-                <div 
-                  dangerouslySetInnerHTML={{ __html: service.description }}
-                  style={{ marginBottom: '15px' }}
-                />
-                {service.link && (
-                  <a 
-                    href={service.link.url}
-                    style={{ color: '#007cba', textDecoration: 'underline' }}
-                  >
-                    {service.link.title}
-                  </a>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Approach Section */}
-      {aboutContent?.approachSection && (
-        <section style={{ marginBottom: '40px' }}>
-          <div style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
-            {aboutContent.approachSection.image?.node && (
-              <div style={{ flex: '1' }}>
-                <img 
-                  src={aboutContent.approachSection.image.node.sourceUrl}
-                  alt={aboutContent.approachSection.image.node.altText || 'Our Approach'}
-                  style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }}
-                />
-              </div>
-            )}
-            <div style={{ flex: '1' }}>
-              {aboutContent.approachSection.title && (
-                <div 
-                  dangerouslySetInnerHTML={{ __html: aboutContent.approachSection.title }}
-                  style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '15px' }}
-                />
-              )}
-              {aboutContent.approachSection.text && (
-                <div 
-                  dangerouslySetInnerHTML={{ __html: aboutContent.approachSection.text }}
-                  style={{ lineHeight: '1.6' }}
-                />
-              )}
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )}
 
-      {/* Stats Section */}
-      {aboutContent?.statsSection && (aboutContent.statsSection.number || aboutContent.statsSection.label) && (
-        <section style={{ marginBottom: '40px', textAlign: 'center' }}>
-          {aboutContent.statsSection.image?.node && (
-            <img 
-              src={aboutContent.statsSection.image.node.sourceUrl}
-              alt={aboutContent.statsSection.image.node.altText || 'Stats'}
-              style={{ maxWidth: '200px', height: 'auto', marginBottom: '20px' }}
-            />
-          )}
-          {aboutContent.statsSection.number && (
-            <div style={{ fontSize: '3rem', fontWeight: 'bold', color: '#007cba', marginBottom: '10px' }}>
-              {aboutContent.statsSection.number}
-            </div>
-          )}
-          {aboutContent.statsSection.label && (
-            <div 
-              dangerouslySetInnerHTML={{ __html: aboutContent.statsSection.label }}
-              style={{ fontSize: '1.2rem' }}
-            />
-          )}
-        </section>
-      )}
-
-      {/* Video Section */}
-      {aboutContent?.videoSection?.url && (
-        <section style={{ marginBottom: '40px', textAlign: 'center' }}>
-          {aboutContent.videoSection.title && (
-            <div 
-              dangerouslySetInnerHTML={{ __html: aboutContent.videoSection.title }}
-              style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '20px' }}
-            />
-          )}
-          <div>
-            <a 
-              href={aboutContent.videoSection.url}
-              style={{ color: '#007cba', textDecoration: 'underline' }}
-            >
-              Watch Video: {aboutContent.videoSection.url}
-            </a>
-          </div>
-        </section>
-      )}
-
-      {/* Leadership Section */}
-      {aboutContent?.leadershipSection && (aboutContent.leadershipSection.name || aboutContent.leadershipSection.position) && (
-        <section style={{ marginBottom: '40px' }}>
-          <h2 style={{ textAlign: 'center', marginBottom: '30px' }}>Leadership Team</h2>
-          <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
-            {aboutContent.leadershipSection.image?.node && (
-              <div style={{ marginBottom: '20px' }}>
-                <img 
-                  src={aboutContent.leadershipSection.image.node.sourceUrl}
-                  alt={aboutContent.leadershipSection.image.node.altText || 'Leader'}
-                  style={{ maxWidth: '200px', height: 'auto', borderRadius: '50%' }}
-                />
+        {/* Leadership Section */}
+        {aboutContent?.leadershipSection && (
+          <section className="py-16 bg-white">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">Leadership Team</h2>
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  Meet the experienced professionals guiding CDA's vision and strategy.
+                </p>
               </div>
-            )}
-            {aboutContent.leadershipSection.name && (
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '5px' }}>
-                {aboutContent.leadershipSection.name}
-              </h3>
-            )}
-            {aboutContent.leadershipSection.position && (
-              <p style={{ color: '#666', marginBottom: '15px' }}>
-                {aboutContent.leadershipSection.position}
-              </p>
-            )}
-            {aboutContent.leadershipSection.bio && (
-              <div 
-                dangerouslySetInnerHTML={{ __html: aboutContent.leadershipSection.bio }}
-                style={{ textAlign: 'left', lineHeight: '1.6' }}
-              />
-            )}
-          </div>
-        </section>
-      )}
-
-      {/* Showreel Section */}
-      {aboutContent?.showreelSection && (aboutContent.showreelSection.video || aboutContent.showreelSection.logos) && (
-        <section style={{ marginBottom: '40px' }}>
-          <h2 style={{ textAlign: 'center', marginBottom: '30px' }}>Our Work</h2>
-          <div style={{ textAlign: 'center' }}>
-            {aboutContent.showreelSection.video && (
-              <div style={{ marginBottom: '30px' }}>
-                <p>Video: {aboutContent.showreelSection.video}</p>
-              </div>
-            )}
-            
-            {aboutContent.showreelSection.logos && aboutContent.showreelSection.logos.length > 0 && (
-              <div>
-                <h3 style={{ marginBottom: '20px' }}>Our Clients</h3>
-                <div style={{ 
-                  display: 'grid', 
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', 
-                  gap: '20px',
-                  maxWidth: '800px',
-                  margin: '0 auto'
-                }}>
-                  {aboutContent.showreelSection.logos.map((logo, index) => (
-                    <div key={index}>
-                      {logo.image?.node && (
-                        <img 
-                          src={logo.image.node.sourceUrl}
-                          alt={logo.image.node.altText || `Client Logo ${index + 1}`}
-                          style={{ maxWidth: '100%', height: 'auto' }}
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {aboutContent.leadershipSection.leaders?.map((leader, index) => (
+                  <div key={index} className="bg-white rounded-lg p-6 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    {leader.photo?.node && (
+                      <div className="mb-6">
+                        <div className="relative w-32 h-32 mx-auto">
+                          <Image
+                            src={leader.photo.node.sourceUrl}
+                            alt={leader.photo.node.altText || leader.name}
+                            fill
+                            className="object-cover rounded-full"
+                          />
+                        </div>
+                      </div>
+                    )}
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      {leader.name}
+                    </h3>
+                    <p className="text-blue-600 font-medium mb-4">
+                      {leader.position}
+                    </p>
+                    {leader.bio && (
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        {leader.bio}
+                      </p>
+                    )}
+                  </div>
+                )) || (
+                  // Single leader fallback
+                  <div className="col-span-full max-w-2xl mx-auto">
+                    <div className="bg-white rounded-lg p-8 text-center shadow-lg">
+                      {aboutContent.leadershipSection.photo?.node && (
+                        <div className="mb-6">
+                          <div className="relative w-40 h-40 mx-auto">
+                            <Image
+                              src={aboutContent.leadershipSection.photo.node.sourceUrl}
+                              alt={aboutContent.leadershipSection.photo.node.altText || aboutContent.leadershipSection.name}
+                              fill
+                              className="object-cover rounded-full"
+                            />
+                          </div>
+                        </div>
+                      )}
+                      <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+                        {aboutContent.leadershipSection.name}
+                      </h3>
+                      <p className="text-blue-600 font-medium mb-6 text-lg">
+                        {aboutContent.leadershipSection.position}
+                      </p>
+                      {aboutContent.leadershipSection.bio && (
+                        <div 
+                          className="text-gray-600 leading-relaxed"
+                          dangerouslySetInnerHTML={{ __html: aboutContent.leadershipSection.bio }}
                         />
                       )}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
+          </section>
+        )}
+
+        {/* Stats Section */}
+        {aboutContent?.statsSection && (
+          <section className="py-16 bg-blue-50">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  {aboutContent.statsSection.title || "Our Impact"}
+                </h2>
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  {aboutContent.statsSection.subtitle || "Numbers that reflect our commitment to excellence and client success."}
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {aboutContent.statsSection.stats?.map((stat, index) => (
+                  <div key={index} className="text-center">
+                    <div className="text-4xl md:text-6xl font-bold text-blue-600 mb-4">
+                      {stat.number}
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      {stat.label}
+                    </h3>
+                    <p className="text-gray-600">
+                      {stat.description}
+                    </p>
+                  </div>
+                )) || (
+                  // Single stat fallback
+                  <div className="col-span-full text-center">
+                    <div className="text-6xl font-bold text-blue-600 mb-4">
+                      {aboutContent.statsSection.number}
+                    </div>
+                    <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+                      {aboutContent.statsSection.label}
+                    </h3>
+                    <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                      {aboutContent.statsSection.description}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Who We Are Section */}
+        {aboutContent?.whoWeAreSection && (
+          <section className="py-16 bg-white">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                    {aboutContent.whoWeAreSection.title || "Who We Are"}
+                  </h2>
+                  <div className="text-lg text-gray-600 mb-6 leading-relaxed">
+                    {aboutContent.whoWeAreSection.subtitle && (
+                      <p className="mb-4 text-blue-600 font-medium">
+                        {aboutContent.whoWeAreSection.subtitle}
+                      </p>
+                    )}
+                    <p>
+                      We're more than just a digital agency. We're your strategic partner in navigating the complex digital landscape, helping you transform challenges into opportunities and ideas into impact.
+                    </p>
+                  </div>
+                  {aboutContent.whoWeAreSection.button && (
+                    <a 
+                      href={aboutContent.whoWeAreSection.button.url}
+                      target={aboutContent.whoWeAreSection.button.target || "_self"}
+                      className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                      {aboutContent.whoWeAreSection.button.title}
+                      <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/>
+                      </svg>
+                    </a>
+                  )}
+                </div>
+                
+                {aboutContent.whoWeAreSection.image?.node && (
+                  <div className="relative">
+                    <div className="aspect-square rounded-lg overflow-hidden shadow-xl">
+                      <Image
+                        src={aboutContent.whoWeAreSection.image.node.sourceUrl}
+                        alt={aboutContent.whoWeAreSection.image.node.altText || "Who we are"}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Why CDA Section */}
+        {aboutContent?.whyCdaSection && (
+          <section className="py-16 bg-gray-50">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  {aboutContent.whyCdaSection.title || "Why Choose CDA"}
+                </h2>
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  {aboutContent.whyCdaSection.content || "Discover what sets us apart and makes us the right choice for your digital transformation journey."}
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {aboutContent.whyCdaSection.reasons?.map((reason, index) => (
+                  <div key={index} className="bg-white rounded-lg p-6 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    {reason.icon?.node && (
+                      <div className="mb-6">
+                        <div className="relative w-16 h-16 mx-auto">
+                          <Image
+                            src={reason.icon.node.sourceUrl}
+                            alt={reason.icon.node.altText || reason.title}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                      </div>
+                    )}
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                      {reason.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      {reason.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* CTA Section */}
+        <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Business?</h2>
+            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+              Let's discuss how CDA can help you achieve your digital goals and drive meaningful results.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a 
+                href="/contact" 
+                className="inline-flex items-center justify-center px-8 py-3 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-colors"
+              >
+                Get in Touch
+              </a>
+              <a 
+                href="/services" 
+                className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-900 transition-colors"
+              >
+                View Our Services
+              </a>
+            </div>
           </div>
         </section>
-      )}
-    </div>
+      </main>
+
+      <Footer />
+    </>
   );
 }

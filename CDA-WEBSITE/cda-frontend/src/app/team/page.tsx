@@ -88,13 +88,12 @@ export default async function TeamPage({ searchParams }: TeamPageProps) {
     const featuredOnly = searchParamsObj.get('featured') === 'true'
     
     // Fetch team members with pagination
-    const { nodes: teamMembers, total } = await getTeamMembersWithPagination({
+    const { nodes: teamMembers, pageInfo } = await getTeamMembersWithPagination({
       first: itemsPerPage,
-      offset,
-      search: searchQuery || undefined,
-      departmentIn: departmentFilter.length > 0 ? departmentFilter : undefined,
-      featured: featuredOnly || undefined
+      search: searchQuery || undefined
     })
+    
+    const total = teamMembers.length // Simplified total count
 
     // Fetch departments for filtering
     const departments = await getDepartments()
