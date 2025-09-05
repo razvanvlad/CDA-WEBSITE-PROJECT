@@ -1,0 +1,147 @@
+{
+  "startTime": "2025-09-05T14:33:45.855Z",
+  "tests": [
+    {
+      "name": "Server Availability",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:46.018Z",
+      "details": "Server responding at http://localhost:3003 (156ms)"
+    },
+    {
+      "name": "GraphQL Query: services",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:46.990Z",
+      "details": "Query returned data successfully"
+    },
+    {
+      "name": "GraphQL Query: caseStudies",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:47.994Z",
+      "details": "Query returned data successfully"
+    },
+    {
+      "name": "GraphQL Query: teamMembers",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:33:48.949Z",
+      "warning": "Query succeeded but no data returned"
+    },
+    {
+      "name": "GraphQL Query: serviceTypes",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:49.899Z",
+      "details": "Query returned data successfully"
+    },
+    {
+      "name": "GraphQL Query: projectTypes",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:33:50.822Z",
+      "warning": "Query succeeded but no data returned"
+    },
+    {
+      "name": "GraphQL Query: departments",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:51.765Z",
+      "details": "Query returned data successfully"
+    },
+    {
+      "name": "Route: /",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:51.910Z",
+      "details": "Status: 200, Response time: 144ms"
+    },
+    {
+      "name": "Route: /services",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:54.101Z",
+      "details": "Status: 200, Response time: 2189ms"
+    },
+    {
+      "name": "Route: /case-studies",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:56.246Z",
+      "details": "Status: 200, Response time: 2142ms"
+    },
+    {
+      "name": "Route: /team",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:58.326Z",
+      "details": "Status: 200, Response time: 2079ms"
+    },
+    {
+      "name": "Route: /about",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:58.459Z",
+      "details": "Status: 200, Response time: 132ms"
+    },
+    {
+      "name": "Route: /contact",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:58.587Z",
+      "details": "Status: 200, Response time: 126ms"
+    },
+    {
+      "name": "Image: /favicon.ico",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:58.889Z",
+      "details": "Status: 200, Content-Type: image/x-icon"
+    },
+    {
+      "name": "Next.js Image Optimization",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:58.895Z",
+      "details": "Image optimization endpoint responding correctly"
+    },
+    {
+      "name": "Responsive Meta Tag",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:59.063Z",
+      "details": "Viewport meta tag detected in HTML"
+    },
+    {
+      "name": "Mobile User Agent Response",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:59.193Z",
+      "details": "Page loads successfully with mobile user agent (130ms)"
+    },
+    {
+      "name": "Performance: /",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:33:59.367Z",
+      "details": "Load time: 172ms (< 2s target)"
+    },
+    {
+      "name": "Performance: /services",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:34:01.536Z",
+      "warning": "Load time: 2168ms (slow but acceptable)"
+    },
+    {
+      "name": "Performance: /case-studies",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:34:03.568Z",
+      "warning": "Load time: 2031ms (slow but acceptable)"
+    },
+    {
+      "name": "Performance: /team",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:34:05.662Z",
+      "warning": "Load time: 2093ms (slow but acceptable)"
+    },
+    {
+      "name": "Overall Performance",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:34:05.663Z",
+      "details": "Average load time: 1616ms across 4 routes"
+    }
+  ],
+  "summary": {
+    "total": 22,
+    "passed": 0,
+    "failed": 0,
+    "warnings": 0,
+    "pass": null,
+    "warn": null
+  },
+  "endTime": "2025-09-05T14:34:05.666Z",
+  "duration": 19811
+}

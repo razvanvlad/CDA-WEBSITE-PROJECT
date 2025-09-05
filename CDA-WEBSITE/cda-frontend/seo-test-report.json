@@ -1,0 +1,591 @@
+{
+  "startTime": "2025-09-05T14:49:20.067Z",
+  "tests": [
+    {
+      "name": "Static Page: / - Meta Tags",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:49:23.766Z",
+      "details": "Found 1 tags, 1 required missing",
+      "found": [
+        "title: \"CDA Website Solutions - Digital Marketing &amp; Web Development\""
+      ],
+      "missing": [
+        "description"
+      ],
+      "score": 1,
+      "maxScore": 2,
+      "warning": "Some required meta tags missing"
+    },
+    {
+      "name": "Static Page: / - Title Length",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:49:23.770Z",
+      "warning": "Title length: 63 characters (recommended: 30-60)",
+      "score": 0.5,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: / - Open Graph Tags",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:23.770Z",
+      "details": "Found 0 OG tags, 3 required missing",
+      "found": [],
+      "missing": [
+        "og:title",
+        "og:description",
+        "og:type"
+      ],
+      "score": 0,
+      "maxScore": 4.5,
+      "error": "No Open Graph tags found"
+    },
+    {
+      "name": "Static Page: / - Twitter Tags",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:49:23.774Z",
+      "details": "Found 0 Twitter tags",
+      "found": [],
+      "score": 0,
+      "maxScore": 1.5,
+      "warning": "No Twitter tags found (recommended for social sharing)"
+    },
+    {
+      "name": "Static Page: / - Structured Data",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:23.775Z",
+      "details": "Found 2 structured data objects",
+      "found": [
+        "Schema type: Organization",
+        "Schema type: WebSite"
+      ],
+      "score": 2,
+      "maxScore": 2
+    },
+    {
+      "name": "Static Page: / - Canonical URL",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:23.779Z",
+      "details": "Canonical URL: http://localhost:3004",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: / - Robots Meta",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:23.780Z",
+      "details": "No robots meta tag (defaults to index,follow)",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: / - Mobile Viewport",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:23.781Z",
+      "error": "No viewport meta tag found (required for mobile SEO)",
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: / - H1 Structure",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:23.782Z",
+      "error": "No H1 tag found",
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /services - Meta Tags",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:49:26.077Z",
+      "details": "Found 1 tags, 1 required missing",
+      "found": [
+        "title: \"Our Services | CDA Website Solutions\""
+      ],
+      "missing": [
+        "description"
+      ],
+      "score": 1,
+      "maxScore": 2,
+      "warning": "Some required meta tags missing"
+    },
+    {
+      "name": "Static Page: /services - Title Length",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:26.082Z",
+      "details": "Title length: 36 characters (optimal)",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /services - Open Graph Tags",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:26.086Z",
+      "details": "Found 0 OG tags, 3 required missing",
+      "found": [],
+      "missing": [
+        "og:title",
+        "og:description",
+        "og:type"
+      ],
+      "score": 0,
+      "maxScore": 4.5,
+      "error": "No Open Graph tags found"
+    },
+    {
+      "name": "Static Page: /services - Twitter Tags",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:49:26.092Z",
+      "details": "Found 0 Twitter tags",
+      "found": [],
+      "score": 0,
+      "maxScore": 1.5,
+      "warning": "No Twitter tags found (recommended for social sharing)"
+    },
+    {
+      "name": "Static Page: /services - Structured Data",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:26.093Z",
+      "details": "Found 2 structured data objects",
+      "found": [
+        "Schema type: Organization",
+        "Schema type: WebSite"
+      ],
+      "score": 2,
+      "maxScore": 2
+    },
+    {
+      "name": "Static Page: /services - Canonical URL",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:26.097Z",
+      "details": "Canonical URL: http://localhost:3004/services",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /services - Robots Meta",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:26.099Z",
+      "details": "No robots meta tag (defaults to index,follow)",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /services - Mobile Viewport",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:26.101Z",
+      "error": "No viewport meta tag found (required for mobile SEO)",
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /services - H1 Structure",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:26.102Z",
+      "details": "Exactly one H1 tag found",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /case-studies - Meta Tags",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:49:28.245Z",
+      "details": "Found 1 tags, 1 required missing",
+      "found": [
+        "title: \"Case Studies - CDA Success Stories | CDA Website Solutions\""
+      ],
+      "missing": [
+        "description"
+      ],
+      "score": 1,
+      "maxScore": 2,
+      "warning": "Some required meta tags missing"
+    },
+    {
+      "name": "Static Page: /case-studies - Title Length",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:28.248Z",
+      "details": "Title length: 58 characters (optimal)",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /case-studies - Open Graph Tags",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:28.249Z",
+      "details": "Found 0 OG tags, 3 required missing",
+      "found": [],
+      "missing": [
+        "og:title",
+        "og:description",
+        "og:type"
+      ],
+      "score": 0,
+      "maxScore": 4.5,
+      "error": "No Open Graph tags found"
+    },
+    {
+      "name": "Static Page: /case-studies - Twitter Tags",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:49:28.252Z",
+      "details": "Found 0 Twitter tags",
+      "found": [],
+      "score": 0,
+      "maxScore": 1.5,
+      "warning": "No Twitter tags found (recommended for social sharing)"
+    },
+    {
+      "name": "Static Page: /case-studies - Structured Data",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:28.253Z",
+      "details": "Found 2 structured data objects",
+      "found": [
+        "Schema type: Organization",
+        "Schema type: WebSite"
+      ],
+      "score": 2,
+      "maxScore": 2
+    },
+    {
+      "name": "Static Page: /case-studies - Canonical URL",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:28.256Z",
+      "details": "Canonical URL: http://localhost:3004/case-studies",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /case-studies - Robots Meta",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:28.257Z",
+      "details": "No robots meta tag (defaults to index,follow)",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /case-studies - Mobile Viewport",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:28.258Z",
+      "error": "No viewport meta tag found (required for mobile SEO)",
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /case-studies - H1 Structure",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:28.259Z",
+      "details": "Exactly one H1 tag found",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /team - Meta Tags",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:49:30.388Z",
+      "details": "Found 1 tags, 1 required missing",
+      "found": [
+        "title: \"Our Team - Meet the CDA Experts | CDA Website Solutions\""
+      ],
+      "missing": [
+        "description"
+      ],
+      "score": 1,
+      "maxScore": 2,
+      "warning": "Some required meta tags missing"
+    },
+    {
+      "name": "Static Page: /team - Title Length",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:30.391Z",
+      "details": "Title length: 55 characters (optimal)",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /team - Open Graph Tags",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:30.393Z",
+      "details": "Found 0 OG tags, 3 required missing",
+      "found": [],
+      "missing": [
+        "og:title",
+        "og:description",
+        "og:type"
+      ],
+      "score": 0,
+      "maxScore": 4.5,
+      "error": "No Open Graph tags found"
+    },
+    {
+      "name": "Static Page: /team - Twitter Tags",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:49:30.396Z",
+      "details": "Found 0 Twitter tags",
+      "found": [],
+      "score": 0,
+      "maxScore": 1.5,
+      "warning": "No Twitter tags found (recommended for social sharing)"
+    },
+    {
+      "name": "Static Page: /team - Structured Data",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:30.398Z",
+      "details": "Found 2 structured data objects",
+      "found": [
+        "Schema type: Organization",
+        "Schema type: WebSite"
+      ],
+      "score": 2,
+      "maxScore": 2
+    },
+    {
+      "name": "Static Page: /team - Canonical URL",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:30.402Z",
+      "details": "Canonical URL: http://localhost:3004/team",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /team - Robots Meta",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:30.403Z",
+      "details": "No robots meta tag (defaults to index,follow)",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /team - Mobile Viewport",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:30.405Z",
+      "error": "No viewport meta tag found (required for mobile SEO)",
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /team - H1 Structure",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:30.406Z",
+      "details": "Exactly one H1 tag found",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /about - Meta Tags",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:49:30.611Z",
+      "details": "Found 1 tags, 1 required missing",
+      "found": [
+        "title: \"CDA Website Solutions - Digital Marketing &amp; Web Development\""
+      ],
+      "missing": [
+        "description"
+      ],
+      "score": 1,
+      "maxScore": 2,
+      "warning": "Some required meta tags missing"
+    },
+    {
+      "name": "Static Page: /about - Title Length",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:49:30.614Z",
+      "warning": "Title length: 63 characters (recommended: 30-60)",
+      "score": 0.5,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /about - Open Graph Tags",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:30.615Z",
+      "details": "Found 0 OG tags, 3 required missing",
+      "found": [],
+      "missing": [
+        "og:title",
+        "og:description",
+        "og:type"
+      ],
+      "score": 0,
+      "maxScore": 4.5,
+      "error": "No Open Graph tags found"
+    },
+    {
+      "name": "Static Page: /about - Twitter Tags",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:49:30.618Z",
+      "details": "Found 0 Twitter tags",
+      "found": [],
+      "score": 0,
+      "maxScore": 1.5,
+      "warning": "No Twitter tags found (recommended for social sharing)"
+    },
+    {
+      "name": "Static Page: /about - Structured Data",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:30.620Z",
+      "details": "Found 2 structured data objects",
+      "found": [
+        "Schema type: Organization",
+        "Schema type: WebSite"
+      ],
+      "score": 2,
+      "maxScore": 2
+    },
+    {
+      "name": "Static Page: /about - Canonical URL",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:30.622Z",
+      "details": "Canonical URL: http://localhost:3004",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /about - Robots Meta",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:30.623Z",
+      "details": "No robots meta tag (defaults to index,follow)",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /about - Mobile Viewport",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:30.624Z",
+      "error": "No viewport meta tag found (required for mobile SEO)",
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /about - H1 Structure",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:30.625Z",
+      "error": "No H1 tag found",
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /contact - Meta Tags",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:49:30.819Z",
+      "details": "Found 1 tags, 1 required missing",
+      "found": [
+        "title: \"CDA Website Solutions - Digital Marketing &amp; Web Development\""
+      ],
+      "missing": [
+        "description"
+      ],
+      "score": 1,
+      "maxScore": 2,
+      "warning": "Some required meta tags missing"
+    },
+    {
+      "name": "Static Page: /contact - Title Length",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:49:30.822Z",
+      "warning": "Title length: 63 characters (recommended: 30-60)",
+      "score": 0.5,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /contact - Open Graph Tags",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:30.822Z",
+      "details": "Found 0 OG tags, 3 required missing",
+      "found": [],
+      "missing": [
+        "og:title",
+        "og:description",
+        "og:type"
+      ],
+      "score": 0,
+      "maxScore": 4.5,
+      "error": "No Open Graph tags found"
+    },
+    {
+      "name": "Static Page: /contact - Twitter Tags",
+      "status": "WARN",
+      "timestamp": "2025-09-05T14:49:30.825Z",
+      "details": "Found 0 Twitter tags",
+      "found": [],
+      "score": 0,
+      "maxScore": 1.5,
+      "warning": "No Twitter tags found (recommended for social sharing)"
+    },
+    {
+      "name": "Static Page: /contact - Structured Data",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:30.826Z",
+      "details": "Found 2 structured data objects",
+      "found": [
+        "Schema type: Organization",
+        "Schema type: WebSite"
+      ],
+      "score": 2,
+      "maxScore": 2
+    },
+    {
+      "name": "Static Page: /contact - Canonical URL",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:30.829Z",
+      "details": "Canonical URL: http://localhost:3004",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /contact - Robots Meta",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:30.830Z",
+      "details": "No robots meta tag (defaults to index,follow)",
+      "score": 1,
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /contact - Mobile Viewport",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:30.832Z",
+      "error": "No viewport meta tag found (required for mobile SEO)",
+      "maxScore": 1
+    },
+    {
+      "name": "Static Page: /contact - H1 Structure",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:30.832Z",
+      "error": "No H1 tag found",
+      "maxScore": 1
+    },
+    {
+      "name": "Dynamic Page: /services/test-servic-title-1 - Accessibility",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:32.085Z",
+      "error": "Page not accessible (404)",
+      "maxScore": 5
+    },
+    {
+      "name": "Dynamic Page: /casestudies/test-case-study-1 - Accessibility",
+      "status": "FAIL",
+      "timestamp": "2025-09-05T14:49:32.262Z",
+      "error": "Page not accessible (404)",
+      "maxScore": 5
+    },
+    {
+      "name": "Global SEO - Sitemap",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:33.338Z",
+      "details": "XML sitemap found and accessible",
+      "score": 2,
+      "maxScore": 2
+    },
+    {
+      "name": "Global SEO - Robots.txt",
+      "status": "PASS",
+      "timestamp": "2025-09-05T14:49:33.432Z",
+      "details": "robots.txt found and accessible",
+      "score": 1,
+      "maxScore": 1
+    }
+  ],
+  "summary": {
+    "total": 58,
+    "passed": 26,
+    "failed": 17,
+    "warnings": 15
+  },
+  "seoScore": {
+    "total": 39.75,
+    "maxScore": 103,
+    "percentage": 39
+  },
+  "endTime": "2025-09-05T14:49:33.433Z",
+  "duration": 13366
+}

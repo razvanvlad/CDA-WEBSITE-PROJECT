@@ -888,3 +888,73 @@ export const GET_WHY_CDA_GLOBAL = gql`
     }
   }
 `;
+
+// Working Global Content Query (tested and working)
+export const GET_GLOBAL_CONTENT = gql`
+  query GetGlobalContent {
+    globalOptions {
+      globalSharedContent {
+        whyCdaBlock {
+          title
+          subtitle
+          cards {
+            title
+            description
+            image {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+        approachBlock {
+          title
+          subtitle
+          steps {
+            stepNumber
+            title
+            description
+            image {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+        technologiesBlock {
+          title
+          subtitle
+          categories {
+            icon {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            name
+            description
+            url
+          }
+        }
+        showreelBlock {
+          title
+          subtitle
+          videoThumbnail {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          videoUrl
+          callToAction {
+            url
+            title
+            target
+          }
+        }
+      }
+    }
+  }
+`;

@@ -1,0 +1,282 @@
+{
+  "timestamp": "2025-09-05T15:00:55.393Z",
+  "designRequirements": {
+    "colors": {
+      "primary": {
+        "blue900": "rgb(30, 58, 138)",
+        "blue800": "rgb(30, 64, 175)",
+        "blue700": "rgb(29, 78, 216)",
+        "blue600": "rgb(37, 99, 235)",
+        "blue500": "rgb(59, 130, 246)",
+        "blue400": "rgb(96, 165, 250)",
+        "blue200": "rgb(191, 219, 254)",
+        "blue100": "rgb(219, 234, 254)",
+        "blue50": "rgb(239, 246, 255)"
+      },
+      "neutral": {
+        "white": "rgb(255, 255, 255)",
+        "gray50": "rgb(249, 250, 251)",
+        "gray100": "rgb(243, 244, 246)",
+        "gray200": "rgb(229, 231, 235)",
+        "gray300": "rgb(209, 213, 219)",
+        "gray400": "rgb(156, 163, 175)",
+        "gray500": "rgb(107, 114, 128)",
+        "gray600": "rgb(75, 85, 99)",
+        "gray700": "rgb(55, 65, 81)",
+        "gray800": "rgb(31, 41, 55)",
+        "gray900": "rgb(17, 24, 39)",
+        "black": "rgb(0, 0, 0)"
+      },
+      "status": {
+        "success": "rgb(34, 197, 94)",
+        "warning": "rgb(245, 158, 11)",
+        "error": "rgb(239, 68, 68)",
+        "info": "rgb(59, 130, 246)"
+      }
+    },
+    "typography": {
+      "fontFamilies": {
+        "primary": [
+          "Geist",
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif"
+        ],
+        "mono": [
+          "Geist Mono",
+          "ui-monospace",
+          "monospace"
+        ]
+      },
+      "fontSize": {
+        "xs": "12px",
+        "sm": "14px",
+        "base": "16px",
+        "lg": "18px",
+        "xl": "20px",
+        "2xl": "24px",
+        "3xl": "30px",
+        "4xl": "36px",
+        "5xl": "48px",
+        "6xl": "60px",
+        "7xl": "72px",
+        "8xl": "96px",
+        "9xl": "128px"
+      },
+      "fontWeight": {
+        "thin": "100",
+        "extralight": "200",
+        "light": "300",
+        "normal": "400",
+        "medium": "500",
+        "semibold": "600",
+        "bold": "700",
+        "extrabold": "800",
+        "black": "900"
+      },
+      "lineHeight": {
+        "none": "1",
+        "tight": "1.25",
+        "snug": "1.375",
+        "normal": "1.5",
+        "relaxed": "1.625",
+        "loose": "2"
+      }
+    },
+    "spacing": {
+      "scale": {
+        "0": "0px",
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "20px",
+        "6": "24px",
+        "8": "32px",
+        "10": "40px",
+        "12": "48px",
+        "16": "64px",
+        "20": "80px",
+        "24": "96px",
+        "32": "128px",
+        "40": "160px",
+        "48": "192px",
+        "56": "224px",
+        "64": "256px"
+      }
+    },
+    "components": {
+      "buttons": {
+        "primary": {
+          "backgroundColor": [
+            "rgb(29, 78, 216)",
+            "rgb(37, 99, 235)"
+          ],
+          "color": "rgb(255, 255, 255)",
+          "borderRadius": "8px",
+          "padding": {
+            "x": [
+              "24px",
+              "32px"
+            ],
+            "y": [
+              "12px",
+              "16px"
+            ]
+          }
+        },
+        "secondary": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderColor": [
+            "rgb(209, 213, 219)",
+            "rgb(156, 163, 175)"
+          ],
+          "color": [
+            "rgb(55, 65, 81)",
+            "rgb(31, 41, 55)"
+          ]
+        }
+      },
+      "cards": {
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "8px",
+        "boxShadow": [
+          "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
+          "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
+        ]
+      }
+    },
+    "layout": {
+      "maxWidth": {
+        "container": "1280px",
+        "content": "768px"
+      },
+      "breakpoints": {
+        "sm": "640px",
+        "md": "768px",
+        "lg": "1024px",
+        "xl": "1280px",
+        "2xl": "1536px"
+      }
+    }
+  },
+  "results": {
+    "typography": {
+      "fontConsistency": {
+        "passed": 0,
+        "failed": 0,
+        "issues": []
+      },
+      "sizeHierarchy": {
+        "passed": 0,
+        "failed": 0,
+        "issues": []
+      },
+      "weightUsage": {
+        "passed": 0,
+        "failed": 0,
+        "issues": []
+      }
+    },
+    "colors": {
+      "brandColors": {
+        "passed": 0,
+        "failed": 0,
+        "issues": []
+      },
+      "consistency": {
+        "passed": 0,
+        "failed": 0,
+        "issues": []
+      },
+      "contrast": {
+        "passed": 0,
+        "failed": 0,
+        "issues": []
+      }
+    },
+    "spacing": {
+      "consistency": {
+        "passed": 0,
+        "failed": 0,
+        "issues": []
+      },
+      "standardScale": {
+        "passed": 0,
+        "failed": 0,
+        "issues": []
+      }
+    },
+    "components": {
+      "layout": {
+        "passed": 0,
+        "failed": 0,
+        "issues": []
+      },
+      "responsive": {
+        "passed": 0,
+        "failed": 0,
+        "issues": []
+      },
+      "grid": {
+        "passed": 0,
+        "failed": 0,
+        "issues": []
+      }
+    },
+    "layout": {},
+    "hoverStates": {
+      "buttons": {
+        "passed": 0,
+        "failed": 0,
+        "issues": []
+      },
+      "links": {
+        "passed": 0,
+        "failed": 0,
+        "issues": []
+      },
+      "interactive": {
+        "passed": 0,
+        "failed": 0,
+        "issues": []
+      }
+    },
+    "summary": {
+      "totalTests": 0,
+      "totalPassed": 0,
+      "totalFailed": 0,
+      "complianceScore": 0,
+      "issues": [],
+      "recommendations": []
+    }
+  },
+  "logs": [
+    "[6:00:45 PM] [INFO] ============================================================",
+    "[6:00:45 PM] [INFO] CDA WEBSITE DESIGN COMPLIANCE CHECKER",
+    "[6:00:45 PM] [INFO] ============================================================",
+    "[6:00:45 PM] [INFO] 🔍 Starting design compliance analysis...",
+    "[6:00:45 PM] [INFO] 📝 Testing typography consistency...",
+    "[6:00:47 PM] [FAIL] ❌ FAIL: Typography Test - / - Status: 500",
+    "[6:00:47 PM] [FAIL] ❌ FAIL: Typography Test - /services - Status: 500",
+    "[6:00:48 PM] [FAIL] ❌ FAIL: Typography Test - /case-studies - Status: 500",
+    "[6:00:48 PM] [FAIL] ❌ FAIL: Typography Test - /team - Status: 500",
+    "[6:00:48 PM] [FAIL] ❌ FAIL: Typography Test - /about - Status: 500",
+    "[6:00:49 PM] [FAIL] ❌ FAIL: Typography Test - /contact - Status: 500",
+    "[6:00:49 PM] [INFO] 🎨 Testing color scheme accuracy...",
+    "[6:00:50 PM] [INFO] 📏 Testing spacing and padding uniformity...",
+    "[6:00:52 PM] [INFO] 🧩 Testing component alignment and layout...",
+    "[6:00:53 PM] [INFO] 👆 Testing hover states and interactive elements...",
+    "[6:00:55 PM] [INFO] 📊 Generating design compliance summary...",
+    "[6:00:55 PM] [INFO] ============================================================",
+    "[6:00:55 PM] [INFO] DESIGN COMPLIANCE CHECK COMPLETED",
+    "[6:00:55 PM] [INFO] ============================================================",
+    "[6:00:55 PM] [INFO] 📊 SUMMARY:",
+    "[6:00:55 PM] [INFO]    Total Tests: 0",
+    "[6:00:55 PM] [INFO]    ✅ Passed: 0",
+    "[6:00:55 PM] [INFO]    ❌ Failed: 0",
+    "[6:00:55 PM] [INFO]    🎯 Compliance Score: 0%",
+    "[6:00:55 PM] [INFO]    ⏱️  Duration: 10s",
+    "[6:00:55 PM] [INFO] ============================================================"
+  ]
+}

@@ -1,0 +1,871 @@
+{
+  "timestamp": "2025-09-05T14:54:07.495Z",
+  "config": {
+    "baseUrl": "http://localhost:3005",
+    "buildDir": ".next",
+    "logFile": "performance-test-results.log",
+    "routes": [
+      "/",
+      "/services",
+      "/case-studies",
+      "/team",
+      "/about",
+      "/contact"
+    ],
+    "imageExtensions": [
+      ".jpg",
+      ".jpeg",
+      ".png",
+      ".webp",
+      ".svg",
+      ".gif"
+    ],
+    "performanceThresholds": {
+      "firstLoad": 3000,
+      "subsequentLoad": 1000,
+      "imageLoad": 2000,
+      "bundleSize": 1000000
+    }
+  },
+  "results": {
+    "pageLoadTimes": {
+      "/": {
+        "coldLoad": 206,
+        "warmLoad": 171,
+        "cachedLoad": 172,
+        "contentLength": 37754,
+        "statusCode": 200,
+        "averageLoad": 183
+      },
+      "/services": {
+        "coldLoad": 2237,
+        "warmLoad": 2051,
+        "cachedLoad": 2059,
+        "contentLength": 62730,
+        "statusCode": 200,
+        "averageLoad": 2116
+      },
+      "/case-studies": {
+        "coldLoad": 2099,
+        "warmLoad": 2270,
+        "cachedLoad": 2247,
+        "contentLength": 50867,
+        "statusCode": 200,
+        "averageLoad": 2205
+      },
+      "/team": {
+        "coldLoad": 2109,
+        "warmLoad": 2280,
+        "cachedLoad": 2185,
+        "contentLength": 63804,
+        "statusCode": 200,
+        "averageLoad": 2191
+      },
+      "/about": {
+        "coldLoad": 183,
+        "warmLoad": 181,
+        "cachedLoad": 162,
+        "contentLength": 37618,
+        "statusCode": 200,
+        "averageLoad": 175
+      },
+      "/contact": {
+        "coldLoad": 170,
+        "warmLoad": 172,
+        "cachedLoad": 153,
+        "contentLength": 37861,
+        "statusCode": 200,
+        "averageLoad": 165
+      }
+    },
+    "bundleAnalysis": {
+      "js": [
+        {
+          "name": "node_modules_0ac8c5e3._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_0ac8c5e3._.js",
+          "size": 1168229
+        },
+        {
+          "name": "node_modules_0cb73291._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_0cb73291._.js",
+          "size": 1119833
+        },
+        {
+          "name": "node_modules_189ee2ad._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_189ee2ad._.js",
+          "size": 179228
+        },
+        {
+          "name": "node_modules_34e6557c._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_34e6557c._.js",
+          "size": 1191058
+        },
+        {
+          "name": "node_modules_41e95cac._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_41e95cac._.js",
+          "size": 336861
+        },
+        {
+          "name": "node_modules_42d1239c._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_42d1239c._.js",
+          "size": 178420
+        },
+        {
+          "name": "node_modules_4692b122._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_4692b122._.js",
+          "size": 160134
+        },
+        {
+          "name": "node_modules_4e730f86._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_4e730f86._.js",
+          "size": 235292
+        },
+        {
+          "name": "node_modules_530f9845._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_530f9845._.js",
+          "size": 1190620
+        },
+        {
+          "name": "node_modules_5bc08417._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_5bc08417._.js",
+          "size": 1193167
+        },
+        {
+          "name": "node_modules_93de8282._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_93de8282._.js",
+          "size": 1041825
+        },
+        {
+          "name": "node_modules_@apollo_client_3c3851b4._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_@apollo_client_3c3851b4._.js",
+          "size": 792538
+        },
+        {
+          "name": "node_modules_@swc_helpers_cjs_8e433861._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_@swc_helpers_cjs_8e433861._.js",
+          "size": 3436
+        },
+        {
+          "name": "node_modules_bc4938d5._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_bc4938d5._.js",
+          "size": 235730
+        },
+        {
+          "name": "node_modules_c4bd4408._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_c4bd4408._.js",
+          "size": 1167421
+        },
+        {
+          "name": "node_modules_db71f29e._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_db71f29e._.js",
+          "size": 1188193
+        },
+        {
+          "name": "node_modules_e6a465c4._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_e6a465c4._.js",
+          "size": 1167421
+        },
+        {
+          "name": "node_modules_f2979c3a._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_f2979c3a._.js",
+          "size": 71467
+        },
+        {
+          "name": "node_modules_f347cb3a._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_f347cb3a._.js",
+          "size": 263360
+        },
+        {
+          "name": "node_modules_graphql_a8f80aaf._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_graphql_a8f80aaf._.js",
+          "size": 168172
+        },
+        {
+          "name": "node_modules_next_a6d5f576._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_a6d5f576._.js",
+          "size": 188638
+        },
+        {
+          "name": "node_modules_next_app_95ea274f.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_app_95ea274f.js",
+          "size": 459
+        },
+        {
+          "name": "node_modules_next_dist_01fcdebf._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_01fcdebf._.js",
+          "size": 134984
+        },
+        {
+          "name": "node_modules_next_dist_445d8acf._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_445d8acf._.js",
+          "size": 157987
+        },
+        {
+          "name": "node_modules_next_dist_7c4b9b2a._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_7c4b9b2a._.js",
+          "size": 81463
+        },
+        {
+          "name": "node_modules_next_dist_ad6392d3._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_ad6392d3._.js",
+          "size": 75169
+        },
+        {
+          "name": "node_modules_next_dist_b758c999._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_b758c999._.js",
+          "size": 38877
+        },
+        {
+          "name": "node_modules_next_dist_build_polyfills_polyfill-nomodule.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_build_polyfills_polyfill-nomodule.js",
+          "size": 112594
+        },
+        {
+          "name": "node_modules_next_dist_client_20b209c9._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_client_20b209c9._.js",
+          "size": 482158
+        },
+        {
+          "name": "node_modules_next_dist_client_becf32a6._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_client_becf32a6._.js",
+          "size": 179496
+        },
+        {
+          "name": "node_modules_next_dist_client_components_builtin_global-error_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_client_components_builtin_global-error_45a68a45.js",
+          "size": 204
+        },
+        {
+          "name": "node_modules_next_dist_client_components_builtin_global-error_db726730.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_client_components_builtin_global-error_db726730.js",
+          "size": 204
+        },
+        {
+          "name": "node_modules_next_dist_compiled_0f1b9fd4._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_compiled_0f1b9fd4._.js",
+          "size": 252242
+        },
+        {
+          "name": "node_modules_next_dist_compiled_ca41998d._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_compiled_ca41998d._.js",
+          "size": 82688
+        },
+        {
+          "name": "node_modules_next_dist_compiled_next-devtools_index_82a36480.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_compiled_next-devtools_index_82a36480.js",
+          "size": 1382493
+        },
+        {
+          "name": "node_modules_next_dist_compiled_next-devtools_index_d575f738.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_compiled_next-devtools_index_d575f738.js",
+          "size": 1382561
+        },
+        {
+          "name": "node_modules_next_dist_compiled_react-dom_1f56dc06._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_compiled_react-dom_1f56dc06._.js",
+          "size": 896265
+        },
+        {
+          "name": "node_modules_next_dist_ea69acce._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_ea69acce._.js",
+          "size": 140078
+        },
+        {
+          "name": "node_modules_next_dist_shared_lib_3cbd5cc2._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_shared_lib_3cbd5cc2._.js",
+          "size": 223413
+        },
+        {
+          "name": "node_modules_next_dist_shared_lib_492fcef6._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_dist_shared_lib_492fcef6._.js",
+          "size": 209894
+        },
+        {
+          "name": "node_modules_next_error_8c8bf619.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_next_error_8c8bf619.js",
+          "size": 465
+        },
+        {
+          "name": "node_modules_react-dom_82bb97c6._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_react-dom_82bb97c6._.js",
+          "size": 871463
+        },
+        {
+          "name": "node_modules_rxjs_dist_esm5_internal_4f78abaa._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\node_modules_rxjs_dist_esm5_internal_4f78abaa._.js",
+          "size": 155564
+        },
+        {
+          "name": "_app.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\pages\\_app.js",
+          "size": 737
+        },
+        {
+          "name": "_error.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\pages\\_error.js",
+          "size": 745
+        },
+        {
+          "name": "pages__app_4b3c26ac._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\pages__app_4b3c26ac._.js",
+          "size": 69451
+        },
+        {
+          "name": "pages__app_5771e187._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\pages__app_5771e187._.js",
+          "size": 807
+        },
+        {
+          "name": "pages__error_50fcf3db._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\pages__error_50fcf3db._.js",
+          "size": 69457
+        },
+        {
+          "name": "pages__error_5771e187._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\pages__error_5771e187._.js",
+          "size": 809
+        },
+        {
+          "name": "src_152f3ca6._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_152f3ca6._.js",
+          "size": 52565
+        },
+        {
+          "name": "src_17386939._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_17386939._.js",
+          "size": 66888
+        },
+        {
+          "name": "src_19647bb6._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_19647bb6._.js",
+          "size": 117370
+        },
+        {
+          "name": "src_1b6152b7._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_1b6152b7._.js",
+          "size": 126814
+        },
+        {
+          "name": "src_24c1a54f._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_24c1a54f._.js",
+          "size": 84751
+        },
+        {
+          "name": "src_2d4da005._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_2d4da005._.js",
+          "size": 49283
+        },
+        {
+          "name": "src_2d68ed27._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_2d68ed27._.js",
+          "size": 52685
+        },
+        {
+          "name": "src_32fab967._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_32fab967._.js",
+          "size": 110479
+        },
+        {
+          "name": "src_379f5656._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_379f5656._.js",
+          "size": 88831
+        },
+        {
+          "name": "src_39ddd373._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_39ddd373._.js",
+          "size": 99853
+        },
+        {
+          "name": "src_4b5b5d1d._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_4b5b5d1d._.js",
+          "size": 9411
+        },
+        {
+          "name": "src_67a3e5c2._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_67a3e5c2._.js",
+          "size": 53118
+        },
+        {
+          "name": "src_6a7e6504._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_6a7e6504._.js",
+          "size": 129330
+        },
+        {
+          "name": "src_76b69c5f._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_76b69c5f._.js",
+          "size": 116747
+        },
+        {
+          "name": "src_7a007c94._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_7a007c94._.js",
+          "size": 59681
+        },
+        {
+          "name": "src_90113e83._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_90113e83._.js",
+          "size": 57116
+        },
+        {
+          "name": "src_9b45e264._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_9b45e264._.js",
+          "size": 61524
+        },
+        {
+          "name": "src_a69dc6bc._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_a69dc6bc._.js",
+          "size": 56941
+        },
+        {
+          "name": "src_a8bed927._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_a8bed927._.js",
+          "size": 81061
+        },
+        {
+          "name": "src_a982f978._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_a982f978._.js",
+          "size": 52422
+        },
+        {
+          "name": "src_ad95dd01._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_ad95dd01._.js",
+          "size": 101378
+        },
+        {
+          "name": "src_afc0724f._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_afc0724f._.js",
+          "size": 182427
+        },
+        {
+          "name": "src_app_404_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_404_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_app_about_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_about_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_app_about_page_f0784fdb.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_about_page_f0784fdb.js",
+          "size": 56864
+        },
+        {
+          "name": "src_app_ai_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_ai_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_app_b2b_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_b2b_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_app_booking-systems_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_booking-systems_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_app_case-studies_page_tsx_45a68a45._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_case-studies_page_tsx_45a68a45._.js",
+          "size": 318
+        },
+        {
+          "name": "src_app_case-study_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_case-study_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_app_contact_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_contact_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_app_digital-marketing_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_digital-marketing_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_app_favicon_ico_mjs_f9cadd25._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_favicon_ico_mjs_f9cadd25._.js",
+          "size": 260
+        },
+        {
+          "name": "src_app_knowledge-hub_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_knowledge-hub_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_app_layout_tsx_68b267f5._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_layout_tsx_68b267f5._.js",
+          "size": 260
+        },
+        {
+          "name": "src_app_not-found_tsx_45a68a45._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_not-found_tsx_45a68a45._.js",
+          "size": 260
+        },
+        {
+          "name": "src_app_outsourced-cmo_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_outsourced-cmo_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_app_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_page_45a68a45.js",
+          "size": 337
+        },
+        {
+          "name": "src_app_page_tsx_db726730._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_page_tsx_db726730._.js",
+          "size": 238
+        },
+        {
+          "name": "src_app_services_page_tsx_45a68a45._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_services_page_tsx_45a68a45._.js",
+          "size": 318
+        },
+        {
+          "name": "src_app_services_[slug]_page_tsx_45a68a45._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_services_[slug]_page_tsx_45a68a45._.js",
+          "size": 260
+        },
+        {
+          "name": "src_app_software-development_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_software-development_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_app_team_page_tsx_45a68a45._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_team_page_tsx_45a68a45._.js",
+          "size": 318
+        },
+        {
+          "name": "src_app_terms-conditions_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_terms-conditions_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_app_test-ai-direct_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_test-ai-direct_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_app_test-all-pages_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_test-all-pages_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_app_test-graphql_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_test-graphql_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_app_test-graphql_page_tsx_45a68a45._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_test-graphql_page_tsx_45a68a45._.js",
+          "size": 238
+        },
+        {
+          "name": "src_app_test-schema_page_45a68a45.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_test-schema_page_45a68a45.js",
+          "size": 287
+        },
+        {
+          "name": "src_b15fe6ba._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_b15fe6ba._.js",
+          "size": 49972
+        },
+        {
+          "name": "src_b2088218._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_b2088218._.js",
+          "size": 139967
+        },
+        {
+          "name": "src_b38aff88._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_b38aff88._.js",
+          "size": 41904
+        },
+        {
+          "name": "src_components_Pagination_tsx_7aa48287._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_components_Pagination_tsx_7aa48287._.js",
+          "size": 22038
+        },
+        {
+          "name": "src_d1a4bd22._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_d1a4bd22._.js",
+          "size": 82485
+        },
+        {
+          "name": "src_e0b91e9e._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_e0b91e9e._.js",
+          "size": 62797
+        },
+        {
+          "name": "src_f82001a7._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_f82001a7._.js",
+          "size": 50932
+        },
+        {
+          "name": "src_f8a85811._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_f8a85811._.js",
+          "size": 68735
+        },
+        {
+          "name": "src_fd3897b3._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_fd3897b3._.js",
+          "size": 70978
+        },
+        {
+          "name": "src_lib_apollo-wrapper_tsx_93ad7de4._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_lib_apollo-wrapper_tsx_93ad7de4._.js",
+          "size": 5188
+        },
+        {
+          "name": "[next]_entry_page-loader_ts_8ccf5f86._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\[next]_entry_page-loader_ts_8ccf5f86._.js",
+          "size": 849
+        },
+        {
+          "name": "[next]_entry_page-loader_ts_f9f6e84e._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\[next]_entry_page-loader_ts_f9f6e84e._.js",
+          "size": 843
+        },
+        {
+          "name": "[root-of-the-server]__010dee56._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\[root-of-the-server]__010dee56._.js",
+          "size": 16810
+        },
+        {
+          "name": "[root-of-the-server]__95ff7225._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\[root-of-the-server]__95ff7225._.js",
+          "size": 16814
+        },
+        {
+          "name": "[turbopack]_browser_dev_hmr-client_hmr-client_ts_5af4a3bc._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\[turbopack]_browser_dev_hmr-client_hmr-client_ts_5af4a3bc._.js",
+          "size": 286
+        },
+        {
+          "name": "[turbopack]_browser_dev_hmr-client_hmr-client_ts_61dcf9ba._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\[turbopack]_browser_dev_hmr-client_hmr-client_ts_61dcf9ba._.js",
+          "size": 16529
+        },
+        {
+          "name": "[turbopack]_browser_dev_hmr-client_hmr-client_ts_6aaa83c7._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\[turbopack]_browser_dev_hmr-client_hmr-client_ts_6aaa83c7._.js",
+          "size": 673
+        },
+        {
+          "name": "_01f48b92._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\_01f48b92._.js",
+          "size": 69275
+        },
+        {
+          "name": "_57f60be9._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\_57f60be9._.js",
+          "size": 78249
+        },
+        {
+          "name": "_5940c50f._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\_5940c50f._.js",
+          "size": 102553
+        },
+        {
+          "name": "_6e5c3146._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\_6e5c3146._.js",
+          "size": 73702
+        },
+        {
+          "name": "_c0a58c47._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\_c0a58c47._.js",
+          "size": 59247
+        },
+        {
+          "name": "_e69f0d32._.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\_e69f0d32._.js",
+          "size": 689
+        },
+        {
+          "name": "_buildManifest.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\development\\_buildManifest.js",
+          "size": 260
+        },
+        {
+          "name": "_ssgManifest.js",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\development\\_ssgManifest.js",
+          "size": 76
+        }
+      ],
+      "css": [
+        {
+          "name": "src_app_globals_css_e59ae46c._.single.css",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_app_globals_css_e59ae46c._.single.css",
+          "size": 97943
+        },
+        {
+          "name": "src_styles_global_99ee5e55.css",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\src_styles_global_99ee5e55.css",
+          "size": 7573
+        },
+        {
+          "name": "[next]_internal_font_google_geist_e531dabc_module_css_e59ae46c._.single.css",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\[next]_internal_font_google_geist_e531dabc_module_css_e59ae46c._.single.css",
+          "size": 1538
+        },
+        {
+          "name": "[next]_internal_font_google_geist_mono_68a01160_module_css_e59ae46c._.single.css",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\[next]_internal_font_google_geist_mono_68a01160_module_css_e59ae46c._.single.css",
+          "size": 1598
+        },
+        {
+          "name": "[next]_internal_font_google_inter_59dee874_module_css_e59ae46c._.single.css",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\[next]_internal_font_google_inter_59dee874_module_css_e59ae46c._.single.css",
+          "size": 2507
+        },
+        {
+          "name": "[root-of-the-server]__8ebb6d4b._.css",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\[root-of-the-server]__8ebb6d4b._.css",
+          "size": 100861
+        },
+        {
+          "name": "[root-of-the-server]__9a168d68._.css",
+          "path": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\.next\\static\\chunks\\[root-of-the-server]__9a168d68._.css",
+          "size": 27567
+        }
+      ],
+      "total": 23390146
+    },
+    "imageOptimization": {
+      "totalImages": 116,
+      "totalSize": 5718544,
+      "formats": {
+        ".svg": {
+          "count": 56,
+          "size": 772630
+        },
+        ".png": {
+          "count": 60,
+          "size": 4945914
+        }
+      },
+      "largeImages": [],
+      "recommendations": [
+        "Consider using WebP format for better compression"
+      ],
+      "lazyLoading": {
+        "totalImages": 0,
+        "lazyImages": 0,
+        "nextJsImages": 0,
+        "lazyPercentage": 0,
+        "nextJsPercentage": 0
+      }
+    },
+    "caching": {
+      "/": {
+        "statusCode": 200,
+        "headers": {
+          "cacheControl": "no-store, must-revalidate"
+        },
+        "hasCaching": true
+      },
+      "/services": {
+        "statusCode": 200,
+        "headers": {
+          "cacheControl": "no-store, must-revalidate"
+        },
+        "hasCaching": true
+      },
+      "/_next/static/css/app/layout.css": {
+        "statusCode": 404,
+        "headers": {
+          "cacheControl": "no-store, must-revalidate"
+        },
+        "hasCaching": true
+      }
+    },
+    "performance": {},
+    "summary": {
+      "totalTests": 20,
+      "passedTests": 15,
+      "warningTests": 5,
+      "failedTests": 0,
+      "performanceScore": 88,
+      "recommendations": [
+        "Consider code splitting and tree shaking to reduce bundle size"
+      ]
+    }
+  },
+  "logs": [
+    "[5:53:38 PM] [INFO] ============================================================",
+    "[5:53:38 PM] [INFO] CDA WEBSITE PERFORMANCE TEST SUITE",
+    "[5:53:38 PM] [INFO] ============================================================",
+    "[5:53:38 PM] [INFO] 🔍 Starting comprehensive performance analysis...",
+    "[5:53:38 PM] [INFO] 🚀 Testing page load times...",
+    "[5:53:39 PM] [PASS] ✅ PASS: Page Load Times - / - Cold load: 206ms (Good)",
+    "[5:53:39 PM] [PASS] ✅ PASS: Page Load Times - / - Cached load: 172ms (Fast)",
+    "[5:53:39 PM] [INFO]     Details: Cold: 206ms, Warm: 171ms, Cached: 172ms",
+    "[5:53:39 PM] [INFO]     Content size: 37KB",
+    "[5:53:46 PM] [PASS] ✅ PASS: Page Load Times - /services - Cold load: 2237ms (Good)",
+    "[5:53:46 PM] [WARN] ⚠️ WARN: Page Load Times - /services - Cached load: 2059ms (Could be faster)",
+    "[5:53:46 PM] [INFO]     Details: Cold: 2237ms, Warm: 2051ms, Cached: 2059ms",
+    "[5:53:46 PM] [INFO]     Content size: 61KB",
+    "[5:53:53 PM] [PASS] ✅ PASS: Page Load Times - /case-studies - Cold load: 2099ms (Good)",
+    "[5:53:53 PM] [WARN] ⚠️ WARN: Page Load Times - /case-studies - Cached load: 2247ms (Could be faster)",
+    "[5:53:53 PM] [INFO]     Details: Cold: 2099ms, Warm: 2270ms, Cached: 2247ms",
+    "[5:53:53 PM] [INFO]     Content size: 50KB",
+    "[5:54:00 PM] [PASS] ✅ PASS: Page Load Times - /team - Cold load: 2109ms (Good)",
+    "[5:54:00 PM] [WARN] ⚠️ WARN: Page Load Times - /team - Cached load: 2185ms (Could be faster)",
+    "[5:54:00 PM] [INFO]     Details: Cold: 2109ms, Warm: 2280ms, Cached: 2185ms",
+    "[5:54:00 PM] [INFO]     Content size: 62KB",
+    "[5:54:02 PM] [PASS] ✅ PASS: Page Load Times - /about - Cold load: 183ms (Good)",
+    "[5:54:02 PM] [PASS] ✅ PASS: Page Load Times - /about - Cached load: 162ms (Fast)",
+    "[5:54:02 PM] [INFO]     Details: Cold: 183ms, Warm: 181ms, Cached: 162ms",
+    "[5:54:02 PM] [INFO]     Content size: 37KB",
+    "[5:54:03 PM] [PASS] ✅ PASS: Page Load Times - /contact - Cold load: 170ms (Good)",
+    "[5:54:03 PM] [PASS] ✅ PASS: Page Load Times - /contact - Cached load: 153ms (Fast)",
+    "[5:54:03 PM] [INFO]     Details: Cold: 170ms, Warm: 172ms, Cached: 153ms",
+    "[5:54:03 PM] [INFO]     Content size: 37KB",
+    "[5:54:03 PM] [INFO] 📦 Analyzing bundle sizes and unused code...",
+    "[5:54:03 PM] [WARN] ⚠️ WARN: Bundle Size - Total: 22842KB (Large)",
+    "[5:54:03 PM] [INFO]     JS files: 123 (22608KB)",
+    "[5:54:03 PM] [INFO]     CSS files: 7 (234KB)",
+    "[5:54:03 PM] [INFO]     Largest files:",
+    "[5:54:03 PM] [INFO]       - node_modules_next_dist_compiled_next-devtools_index_d575f738.js: 1350KB",
+    "[5:54:03 PM] [INFO]       - node_modules_next_dist_compiled_next-devtools_index_82a36480.js: 1350KB",
+    "[5:54:03 PM] [INFO]       - node_modules_5bc08417._.js: 1165KB",
+    "[5:54:03 PM] [INFO]       - node_modules_34e6557c._.js: 1163KB",
+    "[5:54:03 PM] [INFO]       - node_modules_530f9845._.js: 1163KB",
+    "[5:54:03 PM] [INFO] 🖼️ Testing image optimization...",
+    "[5:54:03 PM] [PASS] ✅ PASS: Image Access - file.svg - 6ms",
+    "[5:54:03 PM] [PASS] ✅ PASS: Image Access - globe.svg - 3ms",
+    "[5:54:03 PM] [PASS] ✅ PASS: Image Access - ants.png - 3ms",
+    "[5:54:03 PM] [INFO]     Total images: 116",
+    "[5:54:03 PM] [INFO]     Total size: 5.45MB",
+    "[5:54:03 PM] [INFO]     .svg: 56 files (755KB)",
+    "[5:54:03 PM] [INFO]     .png: 60 files (4830KB)",
+    "[5:54:03 PM] [WARN] ⚠️ WARN: No WebP images found - consider using WebP for better compression",
+    "[5:54:03 PM] [INFO] ⚡ Testing lazy loading implementation...",
+    "[5:54:05 PM] [INFO] ℹ️ INFO: Lazy Loading - No images found on test page",
+    "[5:54:05 PM] [INFO] 💾 Testing caching headers...",
+    "[5:54:05 PM] [PASS] ✅ PASS: Caching Headers - / - Has caching headers",
+    "[5:54:05 PM] [INFO]     Cache-Control: no-store, must-revalidate",
+    "[5:54:07 PM] [PASS] ✅ PASS: Caching Headers - /services - Has caching headers",
+    "[5:54:07 PM] [INFO]     Cache-Control: no-store, must-revalidate",
+    "[5:54:07 PM] [PASS] ✅ PASS: Caching Headers - /_next/static/css/app/layout.css - Has caching headers",
+    "[5:54:07 PM] [INFO]     Cache-Control: no-store, must-revalidate",
+    "[5:54:07 PM] [INFO] 📊 Generating performance summary...",
+    "[5:54:07 PM] [INFO] ============================================================",
+    "[5:54:07 PM] [INFO] PERFORMANCE TEST SUITE COMPLETED",
+    "[5:54:07 PM] [INFO] ============================================================",
+    "[5:54:07 PM] [INFO] 📊 SUMMARY:",
+    "[5:54:07 PM] [INFO]    Total Tests: 20",
+    "[5:54:07 PM] [INFO]    ✅ Passed: 15",
+    "[5:54:07 PM] [INFO]    ❌ Failed: 0",
+    "[5:54:07 PM] [INFO]    ⚠️  Warnings: 5",
+    "[5:54:07 PM] [INFO]    🎯 Performance Score: 88%",
+    "[5:54:07 PM] [INFO]    ⏱️  Duration: 29s",
+    "[5:54:07 PM] [INFO] 💡 RECOMMENDATIONS:",
+    "[5:54:07 PM] [INFO]    - Consider code splitting and tree shaking to reduce bundle size",
+    "[5:54:07 PM] [INFO] ============================================================"
+  ]
+}

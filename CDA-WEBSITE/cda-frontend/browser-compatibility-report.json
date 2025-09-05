@@ -1,0 +1,991 @@
+{
+  "metadata": {
+    "title": "CDA Website Browser Compatibility Analysis",
+    "generatedDate": "2025-09-05T15:53:26.522Z",
+    "siteUrl": "http://localhost:3005",
+    "testingFramework": "Static Code Analysis + Manual Testing Guide"
+  },
+  "executiveSummary": {
+    "overallCompatibility": "Good",
+    "primaryConcerns": [
+      "Vertical text rendering (Safari/Firefox)",
+      "Custom CSS decoration features",
+      "Modern JavaScript feature support"
+    ],
+    "recommendedMinimumVersions": {
+      "chrome": "90+",
+      "firefox": "90+",
+      "safari": "14+",
+      "edge": "90+"
+    }
+  },
+  "browserMatrix": {
+    "chrome": {
+      "version": "120+",
+      "support": "Excellent",
+      "issues": [],
+      "score": 95,
+      "notes": "Full support for all modern features"
+    },
+    "firefox": {
+      "version": "115+",
+      "support": "Good",
+      "issues": [
+        {
+          "type": "css",
+          "property": "text-decoration-thickness",
+          "file": "src/styles/global.css",
+          "issue": "text-decoration-thickness limited browser support",
+          "severity": "medium",
+          "suggestion": "Use border-bottom as fallback for custom underlines"
+        },
+        {
+          "type": "css",
+          "property": "writing-mode",
+          "file": "src/styles/global.css",
+          "issue": "Vertical text rendering may be inconsistent",
+          "severity": "medium",
+          "suggestion": "Test vertical button text appearance"
+        },
+        {
+          "type": "css",
+          "property": "text-decoration-thickness",
+          "file": "src/styles/global.css",
+          "issue": "Custom underline thickness may not render correctly",
+          "severity": "medium",
+          "suggestion": "Provide fallback for browsers without support"
+        }
+      ],
+      "score": 61,
+      "notes": "Some CSS decoration features may vary"
+    },
+    "safari": {
+      "version": "16+",
+      "support": "Good with caveats",
+      "issues": [
+        {
+          "type": "css",
+          "property": "writing-mode",
+          "file": "src/styles/global.css",
+          "issue": "writing-mode property support varies",
+          "severity": "medium",
+          "suggestion": "Test vertical text rendering, consider CSS transforms as fallback"
+        },
+        {
+          "type": "css",
+          "property": "text-orientation",
+          "file": "src/styles/global.css",
+          "issue": "text-orientation not fully supported in older browsers",
+          "severity": "medium",
+          "suggestion": "Review browser support and add fallbacks"
+        },
+        {
+          "type": "css",
+          "property": "gap",
+          "file": "src/styles/global.css",
+          "issue": "CSS Grid gap property issues in older browsers",
+          "severity": "low",
+          "suggestion": "Use margins as fallback for grid gaps"
+        },
+        {
+          "type": "css",
+          "property": "text-decoration-thickness",
+          "file": "src/styles/global.css",
+          "issue": "text-decoration-thickness limited browser support",
+          "severity": "medium",
+          "suggestion": "Use border-bottom as fallback for custom underlines"
+        },
+        {
+          "type": "css",
+          "property": "writing-mode",
+          "file": "src/styles/global.css",
+          "issue": "Vertical text rendering may be inconsistent",
+          "severity": "medium",
+          "suggestion": "Test vertical button text appearance"
+        },
+        {
+          "type": "css",
+          "property": "text-decoration-thickness",
+          "file": "src/styles/global.css",
+          "issue": "Custom underline thickness may not render correctly",
+          "severity": "medium",
+          "suggestion": "Provide fallback for browsers without support"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\404\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\404\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\about\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\about\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\ai\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\b2b\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\b2b\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\booking-systems\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\booking-systems\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\case-studies\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\case-studies\\page.tsx",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\case-studies\\[slug]\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\case-studies\\[slug]\\page.tsx",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\case-study\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\case-study\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\contact\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\contact\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\digital-marketing\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\digital-marketing\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\knowledge-hub\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\knowledge-hub\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\outsourced-cmo\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\outsourced-cmo\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\services\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\services\\page.tsx",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\services\\[slug]\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\services\\[slug]\\page.tsx",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        }
+      ],
+      "score": 60,
+      "notes": "Potential issues with vertical text and some CSS features"
+    },
+    "edge": {
+      "version": "120+",
+      "support": "Excellent",
+      "issues": [
+        {
+          "type": "css",
+          "property": "text-orientation",
+          "file": "src/styles/global.css",
+          "issue": "text-orientation not fully supported in older browsers",
+          "severity": "medium",
+          "suggestion": "Review browser support and add fallbacks"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\404\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\about\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\b2b\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\booking-systems\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\case-studies\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\case-studies\\[slug]\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\case-study\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\contact\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\digital-marketing\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\knowledge-hub\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\outsourced-cmo\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\services\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\services\\[slug]\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        }
+      ],
+      "score": 60,
+      "notes": "Chromium-based Edge has excellent compatibility"
+    }
+  },
+  "detailedIssues": {
+    "chrome": {
+      "issues": [],
+      "score": 0
+    },
+    "firefox": {
+      "issues": [
+        {
+          "type": "css",
+          "property": "text-decoration-thickness",
+          "file": "src/styles/global.css",
+          "issue": "text-decoration-thickness limited browser support",
+          "severity": "medium",
+          "suggestion": "Use border-bottom as fallback for custom underlines"
+        },
+        {
+          "type": "css",
+          "property": "writing-mode",
+          "file": "src/styles/global.css",
+          "issue": "Vertical text rendering may be inconsistent",
+          "severity": "medium",
+          "suggestion": "Test vertical button text appearance"
+        },
+        {
+          "type": "css",
+          "property": "text-decoration-thickness",
+          "file": "src/styles/global.css",
+          "issue": "Custom underline thickness may not render correctly",
+          "severity": "medium",
+          "suggestion": "Provide fallback for browsers without support"
+        }
+      ],
+      "score": 0
+    },
+    "safari": {
+      "issues": [
+        {
+          "type": "css",
+          "property": "writing-mode",
+          "file": "src/styles/global.css",
+          "issue": "writing-mode property support varies",
+          "severity": "medium",
+          "suggestion": "Test vertical text rendering, consider CSS transforms as fallback"
+        },
+        {
+          "type": "css",
+          "property": "text-orientation",
+          "file": "src/styles/global.css",
+          "issue": "text-orientation not fully supported in older browsers",
+          "severity": "medium",
+          "suggestion": "Review browser support and add fallbacks"
+        },
+        {
+          "type": "css",
+          "property": "gap",
+          "file": "src/styles/global.css",
+          "issue": "CSS Grid gap property issues in older browsers",
+          "severity": "low",
+          "suggestion": "Use margins as fallback for grid gaps"
+        },
+        {
+          "type": "css",
+          "property": "text-decoration-thickness",
+          "file": "src/styles/global.css",
+          "issue": "text-decoration-thickness limited browser support",
+          "severity": "medium",
+          "suggestion": "Use border-bottom as fallback for custom underlines"
+        },
+        {
+          "type": "css",
+          "property": "writing-mode",
+          "file": "src/styles/global.css",
+          "issue": "Vertical text rendering may be inconsistent",
+          "severity": "medium",
+          "suggestion": "Test vertical button text appearance"
+        },
+        {
+          "type": "css",
+          "property": "text-decoration-thickness",
+          "file": "src/styles/global.css",
+          "issue": "Custom underline thickness may not render correctly",
+          "severity": "medium",
+          "suggestion": "Provide fallback for browsers without support"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\404\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\404\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\about\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\about\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\ai\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\b2b\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\b2b\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\booking-systems\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\booking-systems\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\case-studies\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\case-studies\\page.tsx",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\case-studies\\[slug]\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\case-studies\\[slug]\\page.tsx",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\case-study\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\case-study\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\contact\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\contact\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\digital-marketing\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\digital-marketing\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\knowledge-hub\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\knowledge-hub\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\outsourced-cmo\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\outsourced-cmo\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\page.js",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\services\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\services\\page.tsx",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\services\\[slug]\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "async-await",
+          "file": "src\\app\\services\\[slug]\\page.tsx",
+          "issue": "Ensure async/await is properly transpiled for older Safari",
+          "severity": "low",
+          "suggestion": "Verify Babel configuration"
+        }
+      ],
+      "score": 0
+    },
+    "edge": {
+      "issues": [
+        {
+          "type": "css",
+          "property": "text-orientation",
+          "file": "src/styles/global.css",
+          "issue": "text-orientation not fully supported in older browsers",
+          "severity": "medium",
+          "suggestion": "Review browser support and add fallbacks"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\404\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\about\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\b2b\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\booking-systems\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\case-studies\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\case-studies\\[slug]\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\case-study\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\contact\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\digital-marketing\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\knowledge-hub\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\outsourced-cmo\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\page.js",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\services\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        },
+        {
+          "type": "javascript",
+          "feature": "optional-chaining",
+          "file": "src\\app\\services\\[slug]\\page.tsx",
+          "issue": "Optional chaining not supported in older versions",
+          "severity": "high",
+          "suggestion": "Ensure Babel transpilation or add polyfills"
+        }
+      ],
+      "score": 0
+    }
+  },
+  "testingChecklist": {
+    "layout": [
+      "Header navigation alignment and mobile menu functionality",
+      "Vertical \"Start A Project\" button positioning and text orientation",
+      "Service cards grid layout and responsive behavior",
+      "Footer layout and link spacing",
+      "Typography consistency (font rendering)",
+      "Custom button hover states and animations"
+    ],
+    "functionality": [
+      "Mobile menu toggle functionality",
+      "Booking modal open/close behavior",
+      "Form submissions and validation",
+      "Navigation link highlighting and hover effects",
+      "Scroll behavior and smooth scrolling",
+      "Image loading and lazy loading (if implemented)"
+    ],
+    "styling": [
+      "Custom underline thickness and colors",
+      "Button hover animations (icon transitions)",
+      "Gradient backgrounds and color consistency",
+      "Font rendering consistency across browsers",
+      "Responsive breakpoint behavior",
+      "Shadow and border rendering"
+    ],
+    "javascript": [
+      "GraphQL client functionality",
+      "React hooks and state management",
+      "Event handlers (clicks, scrolls, resizes)",
+      "Error handling and fallbacks",
+      "Dynamic content loading",
+      "Browser console errors"
+    ]
+  },
+  "manualTestingGuide": {
+    "setup": [
+      "1. Ensure development server is running on localhost:3005",
+      "2. Test in each browser with developer tools open",
+      "3. Test both desktop and mobile viewports",
+      "4. Check browser console for JavaScript errors"
+    ],
+    "criticalTests": [
+      "Vertical button text rendering and positioning",
+      "Custom underline animations and thickness",
+      "Mobile menu functionality across browsers",
+      "Form validation and submission",
+      "GraphQL data loading and error handling"
+    ],
+    "performanceTests": [
+      "Page load times in each browser",
+      "JavaScript execution performance",
+      "CSS rendering performance",
+      "Memory usage during navigation"
+    ]
+  },
+  "recommendations": {
+    "immediate": [
+      "Test vertical text button in Safari and Firefox",
+      "Verify custom underline rendering across browsers",
+      "Check mobile menu functionality in all browsers"
+    ],
+    "improvements": [
+      "Add CSS fallbacks for unsupported features",
+      "Consider polyfills for older browser support",
+      "Implement progressive enhancement patterns"
+    ]
+  }
+}

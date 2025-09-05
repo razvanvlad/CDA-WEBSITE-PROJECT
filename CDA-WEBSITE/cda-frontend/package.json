@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "node test-suite-simple.js",
+    "test:full": "node test-suite.js",
+    "test:dev": "npm run dev & sleep 5 && npm run test && killall node"
   },
   "dependencies": {
     "@apollo/client": "^4.0.3",
