@@ -1,7 +1,7 @@
 // src/lib/graphql/queries.js - COMPLETE VERSION
 import { gql } from '@apollo/client';
 
-// Homepage Content Query (ID: 289)
+// Updated Homepage Query - Add to your queries.js
 export const GET_HOMEPAGE_CONTENT = gql`
   query GetHomepageContent($id: ID!) {
     page(id: $id, idType: DATABASE_ID) {
@@ -62,6 +62,24 @@ export const GET_HOMEPAGE_CONTENT = gql`
         newsletterSection {
           title
           subtitle
+        }
+      }
+    }
+    globalOptions {
+      globalSharedContent {
+        whyCdaBlock {
+          title
+          subtitle
+          cards {
+            title
+            description
+            image {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
         }
       }
     }
@@ -773,6 +791,23 @@ export const GET_MENU = gql`
           url
           parentId
           order
+        }
+      }
+    }
+  }
+`;
+
+export const GET_WHY_CDA_GLOBAL = gql`
+  query GetWhyCdaGlobal {
+    globalBlocks: acfOptionsGlobalBlocks {
+      whyCdaTitle
+      whyCdaSubtitle
+      whyCdaCards {
+        title
+        description
+        image {
+          sourceUrl
+          altText
         }
       }
     }

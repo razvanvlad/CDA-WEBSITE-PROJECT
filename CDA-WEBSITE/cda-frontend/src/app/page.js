@@ -6,6 +6,7 @@ import client from '../lib/graphql/client';
 import { GET_HOMEPAGE_CONTENT } from '../lib/graphql/queries';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import WhyCdaBlock from '../components/GlobalBlocks/WhyCdaBlock';
 import '../styles/global.css';
 
 export default function Home() {
@@ -302,6 +303,11 @@ export default function Home() {
           </div>
         </section>
       )}
+      <WhyCdaBlock 
+      globalData={pageData.globalOptions?.globalSharedContent?.whyCdaBlock}
+      pageData={pageData.page.whyCdaOverride?.customWhyCda}
+       useOverride={pageData.page.whyCdaOverride?.overrideWhyCda}
+      />
 
       {/* Footer */}
       <Footer globalOptions={globalOptions} />
