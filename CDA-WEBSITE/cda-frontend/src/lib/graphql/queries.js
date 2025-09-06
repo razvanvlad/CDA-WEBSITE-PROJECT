@@ -923,6 +923,20 @@ export const GET_GLOBAL_CONTENT = gql`
             }
           }
         }
+        technologiesSliderBlock {
+          title
+          subtitle
+          logos {
+            image {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            name
+            url
+          }
+        }
       }
     }
   }

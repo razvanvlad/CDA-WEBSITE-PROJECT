@@ -8,6 +8,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import WhyCdaBlock from '../components/GlobalBlocks/WhyCdaBlock';
 import ApproachBlock from '../components/GlobalBlocks/ApproachBlock';
+import TechnologiesSlider from '../components/GlobalBlocks/TechnologiesSlider';
+import PhotoFrame from '../components/GlobalBlocks/PhotoFrame';
 import '../styles/global.css';
 
 export default function Home() {
@@ -131,8 +133,14 @@ export default function Home() {
       <WhyCdaBlock 
         globalData={globalSharedContent?.whyCdaBlock}
       />
+      <PhotoFrame 
+        globalData={globalSharedContent?.photoFrameBlock}
+      />
       <ApproachBlock 
         globalData={globalSharedContent?.approachBlock}
+      />
+      <TechnologiesSlider 
+        globalData={globalSharedContent?.technologiesSliderBlock}
       />
       
       {/* Footer */}

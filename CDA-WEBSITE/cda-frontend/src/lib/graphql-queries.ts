@@ -760,6 +760,32 @@ export const GET_GLOBAL_CONTENT = `
           subtitle
           description
         }
+        photoFrameBlock {
+          frameImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          innerImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          subtitle
+          title
+          text
+          buttonTitle
+          buttonUrl
+          buttonTarget
+          arrowIllustration {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
       }
     }
   }
