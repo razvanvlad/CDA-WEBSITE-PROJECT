@@ -905,6 +905,10 @@ export const GET_GLOBAL_CONTENT_BLOCKS = gql`
         }
         servicesAccordion {
           title
+          subtitle
+          illustration {
+            node { sourceUrl altText }
+          }
           services {
             nodes {
               ... on Service {

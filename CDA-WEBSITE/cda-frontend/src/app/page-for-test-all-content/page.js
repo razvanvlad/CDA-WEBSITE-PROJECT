@@ -114,6 +114,8 @@ export default function PageForTestAllContent() {
               }
               servicesAccordion {
                 title
+                subtitle
+                illustration { node { sourceUrl altText } }
                 services {
                   nodes { ... on Service { id title uri } }
                 }

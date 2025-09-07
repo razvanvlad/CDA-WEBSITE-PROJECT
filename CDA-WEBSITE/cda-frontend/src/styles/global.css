@@ -249,6 +249,17 @@
   text-decoration-thickness: 4px;
 }
 
+/* Title underline svg helper */
+.underline-svg {
+  position: absolute;
+  left: 0;
+bottom: -8px; /* tighten to touch glyphs */
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
 /* CSS FOR VERTICAL BUTTON */
 
 .button-without-box-vertical-black {

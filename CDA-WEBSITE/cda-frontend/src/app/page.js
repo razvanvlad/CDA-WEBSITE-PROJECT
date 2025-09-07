@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import ValuesBlock from '../components/GlobalBlocks/ValuesBlock';
 import PhotoFrame from '../components/GlobalBlocks/PhotoFrame';
 import TechnologiesSlider from '../components/GlobalBlocks/TechnologiesSlider';
+import ServicesAccordion from '../components/GlobalBlocks/ServicesAccordion';
 
 export default function Home() {
   const [globalData, setGlobalData] = useState(null);
@@ -34,6 +35,8 @@ export default function Home() {
               }
               servicesAccordion {
                 title
+                subtitle
+                illustration { node { sourceUrl altText } }
                 services {
                   nodes {
                     ... on Service { id title uri }
@@ -501,36 +504,8 @@ export default function Home() {
       
       {/* Services Accordion Block */}
       {globalSelection?.enableServicesAccordion && globalContentBlocks?.servicesAccordion && (
-        <section style={{padding: '5rem 1rem'}}>
-          <div style={{maxWidth: '1200px', margin: '0 auto'}}>
-            <div style={{textAlign: 'center', marginBottom: '2rem'}}>
-              <h2 style={{fontSize: '2rem', fontWeight: 'bold'}}>{globalContentBlocks.servicesAccordion.title || 'Our Services'}</h2>
-            </div>
-            {(() => {
-              const servicesNodes = globalContentBlocks.servicesAccordion.services?.nodes || globalContentBlocks.servicesAccordion.servicesList?.nodes || globalContentBlocks.servicesAccordion.servicesList || [];
-              if (Array.isArray(servicesNodes) && servicesNodes.length > 0) {
-                return (
-                  <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem'}}>
-                    {servicesNodes.map((svc, idx) => {
-                      const node = svc?.node || svc;
-                      return (
-                        <a key={node?.id || idx} href={node?.uri || '#'} style={{display: 'block', padding: '1.25rem', backgroundColor: '#ffffff', borderRadius: '0.5rem', border: '1px solid #e5e7eb', textDecoration: 'none'}}>
-                          <h3 style={{fontSize: '1.125rem', fontWeight: 600, color: '#111827', margin: 0}}>{node?.title || 'Service'}</h3>
-                          <p style={{fontSize: '0.875rem', color: '#6b7280', marginTop: '0.5rem'}}>Explore service</p>
-                        </a>
-                      );
-                    })}
-                  </div>
-                );
-              }
-              return (
-                <div style={{backgroundColor: '#f3f4f6', padding: '2rem', borderRadius: '0.5rem', textAlign: 'center'}}>
-                  <p style={{color: '#6b7280'}}>No services linked yet. Add Services in Global Content → Services Accordion. If you don’t see them in GraphQL, ensure the Services field is set to Show in GraphQL and GraphQL Field Name = "services".</p>
-                </div>
-              );
-            })()}
-          </div>
-        </section>
+        // New styled accordion component
+        <ServicesAccordion globalData={globalContentBlocks.servicesAccordion} />
       )}
       
       {/* Projects Section from WordPress */}

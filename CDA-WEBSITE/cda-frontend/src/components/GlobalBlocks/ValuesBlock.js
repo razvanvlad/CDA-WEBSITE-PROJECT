@@ -2,191 +2,65 @@
 // src/components/GlobalBlocks/ValuesBlock.js
 import React from 'react';
 
+/*
+  Pixel-perfect pass for Values Block
+  - Section label (subtitle), headline (title)
+  - 3-up cards desktop, 2-up tablet, 1-up mobile
+  - Number badges, subtle shadows, clean spacing
+*/
 const ValuesBlock = ({ globalData, pageData, useOverride = false }) => {
-  // Use override data if specified, otherwise use global data
   const data = useOverride && pageData ? pageData : globalData;
-  
-  // Support both new field structure (values) and legacy (cards)
   const items = data?.values || data?.cards || [];
   if (!items || items.length === 0) return null;
 
-  // Sort items by cardNumber (legacy) or by index
-  const sortedItems = [...items].sort((a, b) => {
-    if (a.cardNumber && b.cardNumber) {
-      return a.cardNumber - b.cardNumber;
-    }
-    return 0; // Keep original order if no cardNumber
-  });
+  const sortedItems = [...items];
 
   return (
-    <section className="py-16 bg-gray-50 relative overflow-hidden">
-      <div className="container mx-auto px-4 max-w-7xl relative z-10">
+    <section className="relative bg-[#F8FAFC] py-16 md:py-20 lg:py-24 overflow-hidden">
+      <div className="mx-auto w-full max-w-[1200px] px-4 md:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
-          {data.title && (
-            <h2 className="text-md font-bold text-gray-700 mb-2">
-              {data.title}
-            </h2>
-          )}
+        <div className="text-center max-w-[780px] mx-auto mb-12 md:mb-16">
           {data.subtitle && (
-            <p className="text-3xl font-bold tracking-wider text-gray-900">
-              {data.subtitle}
-            </p>
+            <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-[#7C3AED] mb-3">{data.subtitle}</p>
+          )}
+          {data.title && (
+            <h2 className="text-[32px] leading-[1.15] md:text-[40px] font-bold text-[#111827]">{data.title}</h2>
           )}
         </div>
 
-        {/* Desktop Layout - Grid */}
-        <div className="hidden lg:block">
-          <div className="grid grid-cols-3 gap-8">
-            {sortedItems.map((item, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                {/* Card Number Badge */}
-                <div className="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg mb-4">
-                  {item.cardNumber || index + 1}
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {sortedItems.map((item, index) => (
+            <div key={index} className="group bg-white rounded-[14px] p-6 md:p-7 shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)] transition-shadow">
+              {/* Badge + optional icon */}
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 md:w-11 md:h-11 rounded-full bg-[#FB923C] text-white font-bold flex items-center justify-center">
+                  {index + 1}
                 </div>
-                
-                {/* Card Image */}
-                {item.image && (
-                  <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                    <img 
-                      src={item.image.node.sourceUrl}
-                      alt={item.image.node.altText || item.title || ''}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
+                {item.image?.node?.sourceUrl && (
+                  <img src={item.image.node.sourceUrl} alt={item.image.node.altText || item.title || ''} className="w-8 h-8 object-contain" />
                 )}
-                
-                {/* Card Content */}
-                <div className="space-y-3">
-                  <h3 className="text-xl font-semibold text-gray-900">
-                    {item.title}
-                  </h3>
-                  {(item.description || item.text) && (
-                    <p className="text-gray-600 leading-relaxed">
-                      {item.description || item.text}
-                    </p>
-                  )}
-                </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Tablet Layout - 2 Column Grid */}
-        <div className="hidden md:block lg:hidden">
-          <div className="grid grid-cols-2 gap-6">
-            {sortedItems.map((item, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                {/* Card Number Badge */}
-                <div className="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-md mb-4">
-                  {item.cardNumber || index + 1}
-                </div>
-                
-                {/* Card Image */}
-                {item.image && (
-                  <div className="w-14 h-14 mb-4 flex items-center justify-center">
-                    <img 
-                      src={item.image.node.sourceUrl}
-                      alt={item.image.node.altText || item.title || ''}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                )}
-                
-                {/* Card Content */}
-                <div className="space-y-3">
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    {item.title}
-                  </h3>
-                  {(item.description || item.text) && (
-                    <p className="text-sm text-gray-600 leading-relaxed">
-                      {item.description || item.text}
-                    </p>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Mobile Layout - Single Column */}
-        <div className="block md:hidden">
-          <div className="space-y-6">
-            {sortedItems.map((item, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-lg">
-                {/* Card Number Badge */}
-                <div className="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-md mb-4">
-                  {item.cardNumber || index + 1}
-                </div>
-                
-                {/* Card Image */}
-                {item.image && (
-                  <div className="w-12 h-12 mb-4 flex items-center justify-center">
-                    <img 
-                      src={item.image.node.sourceUrl}
-                      alt={item.image.node.altText || item.title || ''}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                )}
-                
-                {/* Card Content */}
-                <div className="space-y-3">
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    {item.title}
-                  </h3>
-                  {(item.description || item.text) && (
-                    <p className="text-sm text-gray-600 leading-relaxed">
-                      {item.description || item.text}
-                    </p>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+              {/* Content */}
+              <h3 className="text-[18px] md:text-[20px] font-semibold text-[#111827] mb-2">{item.title}</h3>
+              {(item.description || item.text) && (
+                <p className="text-[15px] md:text-[16px] leading-[1.7] text-[#4B5563]">{item.description || item.text}</p>
+              )}
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Bottom Right Corner Image */}
-      {data.cornerImage && (
-        <div className="absolute bottom-0 right-0 w-64 h-64 opacity-20 pointer-events-none">
-          <img 
-            src={data.cornerImage.node.sourceUrl}
-            alt={data.cornerImage.node.altText || 'Values decoration'}
-            className="w-full h-full object-contain"
-          />
-        </div>
+      {/* Decorative bottom-right illustration */}
+      {data?.illustration?.node?.sourceUrl && (
+        <img
+          src={data.illustration.node.sourceUrl}
+          alt={data.illustration.node.altText || 'Values illustration'}
+          className="pointer-events-none select-none hidden md:block absolute -bottom-6 -right-6 w-[220px] opacity-20"
+          draggable={false}
+        />
       )}
-
-      {/* Custom CSS for animations */}
-      <style jsx>{`
-        /* Add subtle animation to value cards */
-        .value-card {
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .value-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Badge animation */
-        .card-badge {
-          transition: transform 0.2s ease;
-        }
-        
-        .card-badge:hover {
-          transform: scale(1.1);
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-          .corner-image {
-            width: 150px;
-            height: 150px;
-          }
-        }
-      `}</style>
     </section>
   );
 };
