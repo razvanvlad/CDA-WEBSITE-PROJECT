@@ -889,55 +889,162 @@ export const GET_WHY_CDA_GLOBAL = gql`
   }
 `;
 
-// Working Global Content Query (tested and working)
-export const GET_GLOBAL_CONTENT = gql`
-  query GetGlobalContent {
+// NEW: Global Content Blocks Query - matches our clean ACF structure
+export const GET_GLOBAL_CONTENT_BLOCKS = gql`
+  query GetGlobalContentBlocks {
     globalOptions {
-      globalSharedContent {
-        whyCdaBlock {
+      globalContentBlocks {
+        imageFrameBlock {
           title
           subtitle
-          cards {
-            title
-            description
-            image {
-              node {
-                sourceUrl
-                altText
+          text
+          button { url title target }
+          contentImage { node { sourceUrl altText } }
+          frameImage { node { sourceUrl altText } }
+          arrowImage { node { sourceUrl altText } }
+        }
+        servicesAccordion {
+          title
+          services {
+            nodes {
+              ... on Service {
+                id
+                title
+                uri
               }
             }
           }
         }
-        approachBlock {
-          title
-          subtitle
-          steps {
-            stepNumber
-            title
-            description
-            image {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-        }
-        technologiesSliderBlock {
+        technologiesSlider {
           title
           subtitle
           logos {
-            image {
-              node {
-                sourceUrl
-                altText
+            nodes {
+              ... on Technology {
+                id
+                title
+                uri
               }
             }
-            name
-            url
           }
+        }
+        valuesBlock {
+          title
+          subtitle
+          values { title text }
+          illustration { node { sourceUrl altText } }
+        }
+        showreel {
+          title
+          subtitle
+          button { url title target }
+          largeImage { node { sourceUrl altText } }
+          logos { logo { node { sourceUrl altText } } }
+        }
+        locationsImage {
+          title
+          subtitle
+          countries {
+            countryName
+            offices { name address email phone }
+          }
+          illustration { node { sourceUrl altText } }
+        }
+        newsCarousel {
+          title
+          subtitle
+          articleSelection
+          category { nodes { name slug } }
+          manualArticles {
+            nodes {
+              ... on Post {
+                id
+                title
+                excerpt
+                uri
+                featuredImage { node { sourceUrl altText } }
+              }
+            }
+          }
+        }
+        newsletterSignup {
+          title
+          subtitle
+          hubspotScript
+          termsText
         }
       }
     }
   }
 `;
+
+// NEW: Homepage Content Query - matches our clean ACF structure
+export const GET_HOMEPAGE_CONTENT_CLEAN = gql`
+  query GetHomepageContentClean {
+    page(id: "289", idType: DATABASE_ID) {
+      id
+      title
+      homepageContentClean {
+        headerSection {
+          title
+          text
+          button1 {
+            url
+            title
+            target
+          }
+          button2 {
+            url
+            title
+            target
+          }
+          illustration {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+        projectsSection {
+          title
+          subtitle
+          link {
+            url
+            title
+            target
+          }
+        }
+        caseStudiesSection {
+          subtitle
+          title
+          knowledgeHubLink {
+            url
+            title
+            target
+          }
+          selectedStudies {
+            ... on CaseStudy {
+              id
+              title
+              uri
+            }
+          }
+        }
+        globalContentSelection {
+          enableImageFrame
+          enableServicesAccordion
+          enableTechnologiesSlider
+          enableValues
+          enableShowreel
+          enableStatsImage
+          enableLocationsImage
+          enableNewsCarousel
+          enableNewsletterSignup
+        }
+      }
+    }
+  }
+`;
+
+// LEGACY: Keep old query for backward compatibility (commented out)
+// export const GET_GLOBAL_CONTENT = gql`

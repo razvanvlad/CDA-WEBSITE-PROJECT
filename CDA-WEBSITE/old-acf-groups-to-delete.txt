@@ -1,0 +1,57 @@
+OLD ACF FIELD GROUPS TO DELETE
+==============================
+
+These field groups are causing the duplicate/conflicting sections on the homepage.
+Go to: WordPress Admin → Custom Fields → Field Groups
+
+DELETE THESE FIELD GROUPS:
+--------------------------
+
+1. ❌ "Homepage" (or "Homepage Content" - the OLD one)
+   - This contains the old individual blocks that should be global
+   - Look for the one that has "Why CDA Block", "Services Accordion", etc.
+
+2. ❌ "Global Shared Content" 
+   - The old grouped global content structure
+   - Should be replaced by the new individual Global Content Blocks
+
+3. ❌ "Global Block Overrides"
+   - Old override system
+
+4. ❌ Any field group containing these individual blocks:
+   - "Why CDA Block"
+   - "Services Accordion" 
+   - "Stats & Image"
+   - "Locations with Image"
+   - "Content Blocks"
+
+KEEP THESE FIELD GROUPS:
+-----------------------
+
+✅ "Homepage Content" (the NEW clean one with unique keys)
+   - Should show: Header Section, Projects Section, Case Studies Section, Global Content Selection
+
+✅ "Global Content Blocks"
+   - Should contain all 9 global blocks for content entry
+
+HOW TO IDENTIFY THE RIGHT ONES:
+-------------------------------
+
+The CORRECT field groups have these characteristics:
+- Homepage Content: Has "Global Content Selection" with 9 toggles
+- Global Content Blocks: Located at "global-content-blocks" options page
+
+The WRONG field groups have these characteristics:
+- Individual "Why CDA Block", "Services Accordion" fields
+- "Global Shared Content" section
+- Old field keys/structure
+
+AFTER DELETION:
+--------------
+The homepage should ONLY show:
+- Header Section ✓
+- Projects Section ✓  
+- Case Studies Section ✓
+- Global Content Selection (9 toggles) ✓
+
+And NOTHING ELSE!

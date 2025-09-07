@@ -1,0 +1,198 @@
+CONTENT STRUCTURE FIXING STRATEGIES
+=====================================
+
+PROBLEM ANALYSIS:
+- Current setup groups multiple blocks under "Global Shared Content"
+- No way to select individual blocks independently
+- Forces all-or-nothing approach when using shared content
+- Lack of granular control over content display
+
+SOLUTION STRATEGIES:
+
+1. INDIVIDUAL BLOCK SELECTION APPROACH
+--------------------------------------
+Instead of grouping blocks, make each block individually selectable:
+
+Current Structure:
+- Global Shared Content (group)
+  ├── Why CDA Block
+  ├── Approach Block
+  ├── Values Block
+  ├── Technologies Showcase Block
+  ├── Showreel Block
+  ├── Newsletter Signup Block
+  ├── Ready To Start CTA Block
+  └── Photo Frame Block
+
+Improved Structure:
+- Individual Global Blocks
+  ├── □ Why CDA Block
+  ├── □ Approach Block
+  ├── □ Values Block
+  ├── □ Technologies Showcase Block
+  ├── □ Showreel Block
+  ├── □ Newsletter Signup Block
+  ├── □ Ready To Start CTA Block
+  └── □ Photo Frame Block
+
+Benefits:
+- Each block can be toggled independently
+- Granular control over content
+- No forced groupings
+- Flexible page composition
+
+2. HIERARCHICAL SELECTION WITH OVERRIDES
+-----------------------------------------
+Keep groups but add individual control:
+
+Structure:
+- Page-Specific Content
+  ├── Locations with image
+  ├── Services Accordion
+  └── Stats & Image
+
+- Global Content Selection
+  ├── □ Enable All Global Blocks
+  ├── Individual Block Controls:
+      ├── □ Why CDA Block
+      ├── □ Approach Block
+      ├── □ Values Block
+      ├── □ Technologies Showcase Block
+      ├── □ Showreel Block
+      ├── □ Newsletter Signup Block
+      ├── □ Ready To Start CTA Block
+      └── □ Photo Frame Block
+
+- Global Block Overrides
+  ├── Why CDA Override
+  └── Approach Override
+
+Benefits:
+- Backward compatibility
+- Quick "select all" option
+- Individual control when needed
+- Override capability maintained
+
+3. CONTENT LIBRARY APPROACH
+---------------------------
+Treat blocks as library components that can be selected:
+
+Structure:
+- Page Content Sections
+  ├── Page-Specific Sections
+      ├── Locations with image
+      ├── Services Accordion
+      └── Stats & Image
+  
+  ├── Available Global Sections
+      ├── + Add Why CDA Block
+      ├── + Add Approach Block
+      ├── + Add Values Block
+      ├── + Add Technologies Showcase Block
+      ├── + Add Showreel Block
+      ├── + Add Newsletter Signup Block
+      ├── + Add Ready To Start CTA Block
+      └── + Add Photo Frame Block
+
+- Selected Global Sections
+  └── [Drag and drop selected sections here]
+
+Benefits:
+- Visual selection process
+- Drag-and-drop ordering
+- Clear separation of available vs. selected
+- Intuitive user experience
+
+4. CATEGORY-BASED WITH SELECTIVE ENABLE
+---------------------------------------
+Group by purpose but allow individual selection:
+
+Structure:
+- Content Categories
+  
+  ├── Marketing Blocks
+      ├── □ Why CDA Block
+      ├── □ Values Block
+      └── □ Ready To Start CTA Block
+  
+  ├── Interactive Blocks
+      ├── □ Technologies Showcase Block
+      ├── □ Showreel Block
+      └── □ Newsletter Signup Block
+  
+  ├── Information Blocks
+      ├── □ Approach Block
+      └── □ Photo Frame Block
+  
+  └── Page-Specific Blocks
+      ├── □ Locations with image
+      ├── □ Services Accordion
+      └── □ Stats & Image
+
+Benefits:
+- Logical grouping by function
+- Individual control within categories
+- Better organization
+- Scalable structure
+
+5. PRESET COMBINATIONS WITH CUSTOM OPTION
+-----------------------------------------
+Provide common combinations plus custom selection:
+
+Structure:
+- Content Presets
+  ├── ○ Full Global Content (all blocks)
+  ├── ○ Marketing Focus (Why CDA, Values, CTA)
+  ├── ○ Interactive Only (Tech Showcase, Showreel, Newsletter)
+  ├── ○ Minimal (Newsletter Signup only)
+  └── ○ Custom Selection
+
+- Custom Selection (when selected)
+  ├── □ Why CDA Block
+  ├── □ Approach Block
+  ├── □ Values Block
+  ├── □ Technologies Showcase Block
+  ├── □ Showreel Block
+  ├── □ Newsletter Signup Block
+  ├── □ Ready To Start CTA Block
+  └── □ Photo Frame Block
+
+Benefits:
+- Quick common configurations
+- Custom flexibility when needed
+- Reduces decision fatigue
+- Maintains power user options
+
+IMPLEMENTATION RECOMMENDATIONS:
+
+IMMEDIATE FIX (Strategy #1):
+1. Convert "Global Shared Content" group to individual checkboxes
+2. Each block becomes independently selectable
+3. Remove the grouping constraint
+4. Update the admin interface to show individual toggles
+
+LONG-TERM IMPROVEMENT (Strategy #3):
+1. Implement drag-and-drop content builder
+2. Create content library interface
+3. Add section ordering capabilities
+4. Include preview functionality
+
+DATABASE CHANGES NEEDED:
+- Instead of storing one "global_content_enabled" flag
+- Store individual flags: "newsletter_enabled", "why_cda_enabled", etc.
+- Or use a JSON field to store selected block IDs
+- Maintain backward compatibility during migration
+
+USER EXPERIENCE IMPROVEMENTS:
+- Add block descriptions/previews
+- Show which blocks are currently active
+- Provide ordering controls
+- Include enable/disable all toggle
+- Add search/filter for large block libraries
+
+TESTING SCENARIOS:
+1. Select only Newsletter Signup Block → Should work
+2. Select multiple individual blocks → Should display correctly
+3. Override specific blocks → Should maintain functionality
+4. Migration from current setup → Should preserve existing configurations
+5. Different page types → Should support varying block combinations

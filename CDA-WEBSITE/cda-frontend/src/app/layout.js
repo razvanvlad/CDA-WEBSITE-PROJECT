@@ -1,18 +1,15 @@
-// 3. Update your src/app/layout.js
-import CustomApolloProvider from '../components/providers/ApolloProvider';
+import './globals.css';
 
 export const metadata = {
-  title: 'CDA Systems',
-  description: 'Professional web development and digital marketing services',
+  title: 'CDA Systems - WordPress Integration Active',
+  description: 'Professional web development services - Content loaded from WordPress',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <CustomApolloProvider>
-          {children}
-        </CustomApolloProvider>
+      <body className="bg-white">
+        {children}
       </body>
     </html>
   );

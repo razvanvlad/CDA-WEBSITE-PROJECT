@@ -9,13 +9,17 @@ const PhotoFrame = ({ globalData }) => {
 
   const {
     frameImage,
-    innerImage,
+    contentImage,
     subtitle,
     title,
     text,
     button,
-    arrowIllustration
+    arrowImage
   } = globalData;
+  
+  // Handle legacy field names for backward compatibility
+  const innerImage = contentImage || globalData.innerImage;
+  const arrowIllustration = arrowImage || globalData.arrowIllustration;
 
   return (
     <section className="photo-frame-section py-16 lg:py-24 bg-gray-50">

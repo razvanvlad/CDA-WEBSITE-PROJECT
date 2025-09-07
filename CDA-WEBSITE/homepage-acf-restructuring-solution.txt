@@ -1,0 +1,261 @@
+HOMEPAGE ACF RESTRUCTURING & GLOBAL CONTENT SOLUTION
+====================================================
+
+PROBLEM ANALYSIS:
+- Homepage has individual sections that should be global
+- Missing proper global content structure with individual selection
+- Some sections incorrectly set up as individual when they should be global
+- Need to maintain flexibility while using global content
+
+CURRENT HOMEPAGE ISSUES TO FIX:
+================================
+
+SECTIONS TO DELETE (Currently Individual, Should be Global):
+- About Us Section → Move to Global: "Image & Frame Left, Text & CTA Right"
+- Services Section → Move to Global: "Services Accordion" (NOT DONE)
+- Platforms Section → Move to Global: "Technologies Slider" (DONE, not on homepage)
+- Values Section → Already Global and Working ✓
+- Showreel Section → Move to Global: "Showreel" (DONE, not on homepage)
+- Stats Section → Move to Global: "Stats & Image" (NOT DONE)
+- Locations Section → Move to Global: "Locations with Image" (NOT DONE)
+- CTA Section → Move to Footer Section (separate from global)
+
+SECTIONS TO KEEP AS INDIVIDUAL:
+- Header Section ✓ (Correct)
+- Projects Section ✓ (Needs field completion)
+
+SECTIONS TO ADD AS INDIVIDUAL:
+- Case Studies Section (NOT DONE)
+
+PROPOSED SOLUTION STRUCTURE:
+============================
+
+1. HOMEPAGE CONTENT ARCHITECTURE
+---------------------------------
+
+Individual Homepage Sections:
+├── Header Section ✓ (Already Done)
+├── Projects Section ✓ (Missing fields/content)
+└── Case Studies Section (To be created)
+
+Global Content Selection (Individual Toggles):
+├── □ Image & Frame Left, Text & CTA Right ✓ (Already Done Global)
+├── □ Services Accordion (To be created)
+├── □ Technologies Slider ✓ (Done, need to add to homepage)
+├── □ Values ✓ (Done and working)
+├── □ Showreel ✓ (Done, need to add to homepage)
+├── □ Stats & Image (To be created)
+├── □ Locations with Image (To be created)
+├── □ News Carousel (To be created)
+└── □ Newsletter Signup ✓ (Done, need to add to homepage)
+
+Footer Sections:
+└── CTA Section (Move from homepage to footer)
+
+2. IMPLEMENTATION PLAN
+-----------------------
+
+PHASE 1 - CLEANUP (Remove incorrect individual sections):
+□ Delete: About Us Section (individual)
+□ Delete: Services Section (individual)
+□ Delete: Platforms Section (individual)
+□ Delete: Values Section (individual) - Keep global version
+□ Delete: Showreel Section (individual) - Keep global version
+□ Delete: Stats Section (individual)
+□ Delete: Locations Section (individual)
+□ Delete: CTA Section (individual)
+
+PHASE 2 - CREATE MISSING GLOBAL BLOCKS:
+□ Create: Services Accordion (Global Block)
+□ Create: Stats & Image (Global Block)
+□ Create: Locations with Image (Global Block)
+□ Create: News Carousel (Global Block)
+□ Update: Newsletter with HubSpot script
+
+PHASE 3 - CREATE INDIVIDUAL BLOCKS:
+□ Complete: Projects Section (add missing fields)
+□ Create: Case Studies Section (Individual Block)
+
+PHASE 4 - RESTRUCTURE GLOBAL SELECTION:
+□ Convert grouped "Global Shared Content" to individual toggles
+□ Add each global block as separate checkbox option
+□ Maintain override functionality where needed
+
+3. NEW ACF STRUCTURE LAYOUT
+----------------------------
+
+Homepage Edit Page Structure:
+
+INDIVIDUAL SECTIONS
+├── Header Section
+│   ├── Title (with underline/color control)
+│   ├── Text
+│   ├── 2 x Buttons (title, URL, target)
+│   └── Illustration (image/video/GIF)
+├── Projects Section
+│   └── [Complete missing fields as per requirements]
+└── Case Studies Section
+    ├── Subtitle
+    ├── Title
+    ├── Knowledge hub link (filtered)
+    └── 2 x Selected case studies
+
+GLOBAL CONTENT SELECTION
+├── □ Image & Frame Left, Text & CTA Right
+├── □ Services Accordion
+├── □ Technologies Slider
+├── □ Values
+├── □ Showreel
+├── □ Stats & Image
+├── □ Locations with Image
+├── □ News Carousel
+└── □ Newsletter Signup
+
+GLOBAL CONTENT OVERRIDES (When applicable)
+├── Image & Frame Override
+├── Services Accordion Override
+├── Technologies Slider Override
+├── Values Override
+├── Showreel Override
+├── Stats & Image Override
+├── Locations Override
+├── News Carousel Override
+└── Newsletter Override
+
+4. DETAILED GLOBAL BLOCKS TO CREATE/UPDATE
+===========================================
+
+CREATE: Services Accordion (8.4)
+Fields:
+- Subtitle
+- Title
+- Illustration (image/video/GIF)
+- Services accordion (select from services post type)
+
+CREATE: Stats & Image (8.8)
+Fields:
+- 4 x Stats with text (custom CSS classes)
+- Text block (expandable)
+- Button (title & link)
+- Illustration (image/video/GIF)
+
+CREATE: Locations with Image (8.10)
+Fields:
+- Subtitle
+- Title
+- Countries (repeater)
+  - Offices (1-2 per country)
+    - Name
+    - Address
+    - Email
+    - Phone
+- Illustration (image/video/GIF)
+
+CREATE: News Carousel (8.11)
+Fields:
+- Subtitle
+- Title
+- Article Selection Options:
+  - Recent articles
+  - Category filter
+  - Manual selection
+- Display: 8 articles total (carousel)
+
+UPDATE: Newsletter (8.12)
+Add missing HubSpot script:
+<script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
+<script>
+hbspt.forms.create({
+  portalId: "143891025",
+  formId: "d91d6a70-edc5-4879-a79c-16b6d4e5bb00",
+  region: "eu1"
+});
+</script>
+
+Fields:
+- Subtitle
+- Title
+- Form fields (First Name, Last Name, Email, Button)
+- Terms checkbox with text
+
+CREATE: Case Studies Individual Block (8.9)
+Fields:
+- Subtitle
+- Title
+- Knowledge hub link
+- 2 x Selected case studies
+  - Client Name
+  - The Challenge
+  - View Project Button + URL
+  - Project Gallery
+
+5. DATABASE MIGRATION STRATEGY
+===============================
+
+STEP 1: Backup current ACF configurations and content
+
+STEP 2: Create new global block fields (don't delete old ones yet)
+
+STEP 3: Data migration script:
+- Move content from individual sections to global blocks
+- Update page references to use global blocks
+- Preserve any customizations/overrides
+
+STEP 4: Update templates to use new structure
+
+STEP 5: Test thoroughly before removing old fields
+
+STEP 6: Remove deprecated individual section fields
+
+6. HOMEPAGE DISPLAY ORDER RECOMMENDATION
+=========================================
+
+Suggested order for homepage sections:
+1. Header Section (Individual) ✓
+2. Image & Frame Left, Text & CTA Right (Global) ✓
+3. Services Accordion (Global) - NEW
+4. Values (Global) ✓
+5. Technologies Slider (Global) ✓
+6. Projects Section (Individual) ✓
+7. Case Studies (Individual) - NEW
+8. Showreel (Global) ✓
+9. Stats & Image (Global) - NEW
+10. News Carousel (Global) - NEW
+11. Locations with Image (Global) - NEW
+12. Newsletter Signup (Global) ✓
+
+7. TESTING CHECKLIST
+=====================
+
+□ Individual sections display correctly
+□ Global sections can be toggled independently
+□ Override functionality works for global sections
+□ Content migrated correctly from old individual sections
+□ No broken layouts or missing content
+□ All new global blocks function properly
+□ Homepage displays in correct order
+□ Other pages can use global blocks independently
+□ Newsletter HubSpot integration works
+□ Case studies pull correct data from post type
+
+8. BENEFITS OF THIS SOLUTION
+=============================
+
+✓ Granular control over global content
+✓ Individual section selection (like Newsletter only)
+✓ Maintains override capability
+✓ Proper separation of individual vs global content
+✓ Scalable structure for future content blocks
+✓ Consistent content management across pages
+✓ Eliminates duplicate content management
+✓ Flexible page composition
+✓ Better user experience for content editors
+
+NEXT STEPS:
+1. Approve this restructuring plan
+2. Create backup of current ACF setup
+3. Begin with Phase 1 cleanup
+4. Create missing global blocks (Phase 2)
+5. Complete individual sections (Phase 3)
+6. Implement new selection structure (Phase 4)
+7. Test thoroughly before going live

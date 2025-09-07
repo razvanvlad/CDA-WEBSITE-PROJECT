@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GraphQL Schema Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .error { color: red; }
+        .success { color: green; }
+        pre { background: #f5f5f5; padding: 10px; overflow: auto; }
+    </style>
+</head>
+<body>
+    <h1>GraphQL Schema Debug Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Basic GraphQL Connection</h2>
+        <button onclick="testBasicConnection()">Test Basic Connection</button>
+        <div id="basic-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: Current Query (What's Failing)</h2>
+        <button onclick="testCurrentQuery()">Test Current Query</button>
+        <div id="current-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 3: Introspection - Find Available Fields</h2>
+        <button onclick="testIntrospection()">Test Schema Introspection</button>
+        <div id="introspection-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 4: Homepage Fields</h2>
+        <button onclick="testHomepage()">Test Homepage Fields</button>
+        <div id="homepage-result"></div>
+    </div>
+
+    <script>
+        const GRAPHQL_URL = 'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/wp-json/graphql';
+
+        async function makeGraphQLRequest(query) {
+            try {
+                const response = await fetch(GRAPHQL_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ query })
+                });
+                
+                const data = await response.json();
+                return { success: response.ok, data };
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
+
+        async function testBasicConnection() {
+            const query = `
+                query {
+                    generalSettings {
+                        title
+                        description
+                    }
+                }
+            `;
+            
+            const result = await makeGraphQLRequest(query);
+            const resultDiv = document.getElementById('basic-result');
+            
+            if (result.success) {
+                resultDiv.innerHTML = '<div class="success">✅ GraphQL Connection Working!</div><pre>' + JSON.stringify(result.data, null, 2) + '</pre>';
+            } else {
+                resultDiv.innerHTML = '<div class="error">❌ Connection Failed</div><pre>' + JSON.stringify(result, null, 2) + '</pre>';
+            }
+        }
+
+        async function testCurrentQuery() {
+            const query = `
+                query {
+                    globalOptions {
+                        globalContentBlocks {
+                            valuesBlock {
+                                title
+                                subtitle
+                                values {
+                                    title
+                                    text
+                                }
+                            }
+                            locationsImage {
+                                title
+                                subtitle
+                                countries {
+                                    countryName
+                                    offices {
+                                        name
+                                        address
+                                        email
+                                        phone
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    page(id: "289", idType: DATABASE_ID) {
+                        id
+                        title
+                        homepageContentClean {
+                            globalContentSelection {
+                                enableValues
+                                enableLocationsImage
+                            }
+                        }
+                    }
+                }
+            `;
+            
+            const result = await makeGraphQLRequest(query);
+            const resultDiv = document.getElementById('current-result');
+            
+            if (result.success && !result.data.errors) {
+                resultDiv.innerHTML = '<div class="success">✅ Current Query Works!</div><pre>' + JSON.stringify(result.data, null, 2) + '</pre>';
+            } else {
+                resultDiv.innerHTML = '<div class="error">❌ Current Query Failed</div><pre>' + JSON.stringify(result, null, 2) + '</pre>';
+            }
+        }
+
+        async function testIntrospection() {
+            const query = `
+                query {
+                    __type(name: "GlobalOptions") {
+                        fields {
+                            name
+                            type {
+                                name
+                                kind
+                                ofType {
+                                    name
+                                }
+                            }
+                        }
+                    }
+                }
+            `;
+            
+            const result = await makeGraphQLRequest(query);
+            const resultDiv = document.getElementById('introspection-result');
+            
+            resultDiv.innerHTML = '<pre>' + JSON.stringify(result, null, 2) + '</pre>';
+        }
+
+        async function testHomepage() {
+            const query = `
+                query {
+                    page(id: "289", idType: DATABASE_ID) {
+                        id
+                        title
+                        __typename
+                    }
+                }
+            `;
+            
+            const result = await makeGraphQLRequest(query);
+            const resultDiv = document.getElementById('homepage-result');
+            
+            resultDiv.innerHTML = '<pre>' + JSON.stringify(result, null, 2) + '</pre>';
+        }
+    </script>
+</body>
+</html>

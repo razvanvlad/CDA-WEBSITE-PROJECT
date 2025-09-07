@@ -1,0 +1,93 @@
+ACF IMPORT VERIFICATION CHECKLIST
+===================================
+
+After importing acf-export-clean-final.json, verify the Homepage edit page shows EXACTLY this structure:
+
+HOMEPAGE EDIT PAGE SHOULD SHOW:
+===============================
+
+📋 INDIVIDUAL SECTIONS (3 sections total):
+------------------------------------------
+✅ Header Section
+   - Title (text field) ✓
+   - Text (textarea) ✓
+   - Button 1 (link field) ✓
+   - Button 2 (link field) ✓
+   - Illustration (image field) ✓
+
+✅ Projects Section  
+   - Title (text field) ✓
+   - Subtitle (text field) ✓
+   - Link (link field) ✓
+
+✅ Case Studies Section
+   - Subtitle (text field) ✓
+   - Title (text field) ✓
+   - Knowledge Hub Link (link field) ✓
+   - Selected Case Studies (post object field) ✓
+
+📋 GLOBAL CONTENT SELECTION (9 toggles total):
+---------------------------------------------
+✅ 8.3 - Enable Image & Frame Block (toggle) ✓
+✅ 8.4 - Enable Services Accordion (toggle) ✓
+✅ 8.5 - Enable Technologies Slider (toggle) ✓
+✅ 8.6 - Enable Values Block (toggle) ✓
+✅ 8.7 - Enable Showreel Block (toggle) ✓
+✅ 8.8 - Enable Stats & Image (toggle) ✓
+✅ 8.10 - Enable Locations with Image (toggle) ✓
+✅ 8.11 - Enable News Carousel (toggle) ✓
+✅ 8.12 - Enable Newsletter Signup (toggle) ✓
+
+❌ SHOULD NOT APPEAR (these should be DELETED):
+----------------------------------------------
+❌ Individual "Why CDA Block" fields
+❌ Individual "Services Accordion" fields  
+❌ Individual "Stats & Image" fields
+❌ Individual "Locations with Image" fields
+❌ "Global Shared Content" section
+❌ "Global Blocks Overrides" section
+❌ Any individual content blocks that should be global
+
+GLOBAL CONTENT BLOCKS ADMIN PAGE:
+=================================
+Go to: WordPress Admin → Global Content Blocks
+
+Should show ALL 9 global blocks for content entry:
+✅ Image & Frame Left, Text & CTA Right
+✅ Services Accordion
+✅ Technologies Slider  
+✅ Values
+✅ Showreel
+✅ Stats & Image
+✅ Locations with Image
+✅ News Carousel
+✅ Newsletter Signup
+
+TESTING SCENARIOS:
+=================
+1. ✅ Enable ONLY "8.12 - Enable Newsletter Signup" toggle on homepage
+   → Should work without forcing other content
+
+2. ✅ Enable multiple individual toggles (e.g., Newsletter + Values + Services)
+   → Should work independently
+
+3. ✅ All content should pull from Global Content Blocks admin page
+
+4. ✅ No duplicate content management (can't add content both individually AND globally)
+
+SUCCESS CRITERIA:
+================
+✅ Homepage edit page shows exactly 3 individual sections + 9 global toggles
+✅ No conflicting or duplicate content blocks
+�✅ Global Content Blocks admin page contains all 9 blocks
+✅ Can select Newsletter Signup alone without other content
+✅ Clean, logical content management structure
+
+FAILURE INDICATORS:
+==================
+❌ Still seeing individual "Why CDA Block", "Services Accordion", etc. fields on homepage
+❌ Still seeing "Global Shared Content" section
+❌ Can add content both individually AND through global toggles (duplicate management)
+❌ More than 3 individual sections on homepage
+❌ Missing global toggles
+❌ Cannot select individual global blocks independently

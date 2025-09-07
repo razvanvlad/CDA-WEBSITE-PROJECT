@@ -15,9 +15,12 @@ import Image from 'next/image';
  * @param {Array} props.logos - Array of logo objects with image data
  * @returns {JSX.Element} TechnologiesSlider component
  */
-const TechnologiesSlider = ({ subtitle, title, logos }) => {
+const TechnologiesSlider = ({ globalData, subtitle, title, logos }) => {
+  // Use globalData structure if provided, otherwise use individual props
+  const data = globalData || { subtitle, title, logos };
+  
   // Don't render if no data
-  if (!subtitle && !title && (!logos || logos.length === 0)) {
+  if (!data.subtitle && !data.title && (!data.logos || data.logos.length === 0)) {
     return null;
   }
 
@@ -26,28 +29,31 @@ const TechnologiesSlider = ({ subtitle, title, logos }) => {
       <div className="container">
         {/* Header Section */}
         <div className="technologies-header">
-          {subtitle && (
-            <p className="technologies-subtitle">{subtitle}</p>
+          {data.subtitle && (
+            <p className="technologies-subtitle">{data.subtitle}</p>
           )}
-          {title && (
-            <h2 className="technologies-title">{title}</h2>
+          {data.title && (
+            <h2 className="technologies-title">{data.title}</h2>
           )}
         </div>
 
         {/* Logos Grid/Slider */}
-        {logos && logos.length > 0 && (
+        {data.logos && data.logos.length > 0 && (
           <div className="technologies-logos">
             <div className="logos-grid">
-              {logos.map((logo, index) => (
+              {data.logos.map((logo, index) => (
                 <div key={index} className="logo-item">
-                  {logo?.url && (
+                  {/* Image if available, otherwise fallback text badge */}
+                  {(logo?.url || logo?.node?.sourceUrl || logo?.sourceUrl) ? (
                     <Image
-                      src={logo.url}
-                      alt={logo.alt || `Technology ${index + 1}`}
+                      src={logo.url || logo.node?.sourceUrl || logo.sourceUrl}
+                      alt={logo.alt || logo.node?.altText || logo.altText || logo.title || `Technology ${index + 1}`}
                       width={120}
                       height={80}
                       className="logo-image"
                     />
+                  ) : (
+                    <span className="logo-fallback">{logo?.title || `Tech ${index + 1}`}</span>
                   )}
                 </div>
               ))}
@@ -55,6 +61,14 @@ const TechnologiesSlider = ({ subtitle, title, logos }) => {
           </div>
         )}
       </div>
+
+      <style jsx>{`
+        .logo-fallback {
+          font-size: 14px;
+          font-weight: 600;
+          color: #334155;
+        }
+      `}</style>
 
       <style jsx>{`
         .technologies-slider {

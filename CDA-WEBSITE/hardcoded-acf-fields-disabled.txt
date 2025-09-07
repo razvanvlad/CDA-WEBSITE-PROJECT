@@ -1,0 +1,54 @@
+HARDCODED ACF FIELDS DISABLED
+=============================
+
+File: wordpress-backend/wp-content/mu-plugins/cda-cms.php
+
+COMMENTED OUT THE FOLLOWING add_action LINES:
+--------------------------------------------
+
+Line 686:  // add_action('acf/init', 'cda_add_global_blocks');
+           → Disabled: "Global Shared Content" field group
+
+Line 2240: // add_action('acf/init', 'cda_add_why_cda_global');
+           → Disabled: Individual "Why CDA Block" fields
+
+Line 2433: // add_action('acf/init', 'cda_add_services_accordion_global');
+           → Disabled: Individual "Services Accordion" fields
+
+Line 2581: // add_action('acf/init', 'cda_add_stats_image_global');
+           → Disabled: Individual "Stats & Image" fields
+
+Line 2841: // add_action('acf/init', 'cda_add_locations_image_global');
+           → Disabled: Individual "Locations with Image" fields
+
+Line 3185: // add_action('acf/init', 'cda_add_homepage_fields');
+           → Disabled: Old "Homepage Content" with "Content Blocks" flexible content
+
+Line 3547: // add_action('acf/init', 'cda_add_page_overrides');
+           → Disabled: "Global Block Overrides" fields
+
+RESULT:
+-------
+✅ All conflicting hardcoded fields are now DISABLED
+✅ Only the imported clean ACF structure will appear
+✅ Homepage should now show ONLY:
+   - Header Section (individual)
+   - Projects Section (individual)
+   - Case Studies Section (individual)
+   - Global Content Selection (9 toggles)
+
+WHAT TO TEST:
+------------
+1. Refresh the homepage edit page
+2. Check that ONLY 4 sections appear (3 individual + 1 toggle group)
+3. Verify no "Content Blocks", "Why CDA Block", etc. appear
+4. Test enabling just "Newsletter Signup" toggle independently
+
+IF YOU NEED TO RE-ENABLE ANY FIELDS:
+-----------------------------------
+Simply remove the "//" comment from the specific add_action line you want to restore.
+
+FUNCTIONS STILL EXIST:
+---------------------
+The function definitions are still in the file, just not being called.
+This allows easy re-enabling if needed without data loss.

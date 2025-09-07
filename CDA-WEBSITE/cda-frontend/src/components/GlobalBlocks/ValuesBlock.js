@@ -6,10 +6,17 @@ const ValuesBlock = ({ globalData, pageData, useOverride = false }) => {
   // Use override data if specified, otherwise use global data
   const data = useOverride && pageData ? pageData : globalData;
   
-  if (!data?.cards || data.cards.length === 0) return null;
+  // Support both new field structure (values) and legacy (cards)
+  const items = data?.values || data?.cards || [];
+  if (!items || items.length === 0) return null;
 
-  // Sort cards by cardNumber to ensure correct order
-  const sortedCards = [...data.cards].sort((a, b) => a.cardNumber - b.cardNumber);
+  // Sort items by cardNumber (legacy) or by index
+  const sortedItems = [...items].sort((a, b) => {
+    if (a.cardNumber && b.cardNumber) {
+      return a.cardNumber - b.cardNumber;
+    }
+    return 0; // Keep original order if no cardNumber
+  });
 
   return (
     <section className="py-16 bg-gray-50 relative overflow-hidden">
@@ -31,19 +38,19 @@ const ValuesBlock = ({ globalData, pageData, useOverride = false }) => {
         {/* Desktop Layout - Grid */}
         <div className="hidden lg:block">
           <div className="grid grid-cols-3 gap-8">
-            {sortedCards.map((card, index) => (
+            {sortedItems.map((item, index) => (
               <div key={index} className="bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                 {/* Card Number Badge */}
                 <div className="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg mb-4">
-                  {card.cardNumber || index + 1}
+                  {item.cardNumber || index + 1}
                 </div>
                 
                 {/* Card Image */}
-                {card.image && (
+                {item.image && (
                   <div className="w-16 h-16 mb-4 flex items-center justify-center">
                     <img 
-                      src={card.image.node.sourceUrl}
-                      alt={card.image.node.altText || card.title || ''}
+                      src={item.image.node.sourceUrl}
+                      alt={item.image.node.altText || item.title || ''}
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -52,11 +59,11 @@ const ValuesBlock = ({ globalData, pageData, useOverride = false }) => {
                 {/* Card Content */}
                 <div className="space-y-3">
                   <h3 className="text-xl font-semibold text-gray-900">
-                    {card.title}
+                    {item.title}
                   </h3>
-                  {card.description && (
+                  {(item.description || item.text) && (
                     <p className="text-gray-600 leading-relaxed">
-                      {card.description}
+                      {item.description || item.text}
                     </p>
                   )}
                 </div>
@@ -68,19 +75,19 @@ const ValuesBlock = ({ globalData, pageData, useOverride = false }) => {
         {/* Tablet Layout - 2 Column Grid */}
         <div className="hidden md:block lg:hidden">
           <div className="grid grid-cols-2 gap-6">
-            {sortedCards.map((card, index) => (
+            {sortedItems.map((item, index) => (
               <div key={index} className="bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300">
                 {/* Card Number Badge */}
                 <div className="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-md mb-4">
-                  {card.cardNumber || index + 1}
+                  {item.cardNumber || index + 1}
                 </div>
                 
                 {/* Card Image */}
-                {card.image && (
+                {item.image && (
                   <div className="w-14 h-14 mb-4 flex items-center justify-center">
                     <img 
-                      src={card.image.node.sourceUrl}
-                      alt={card.image.node.altText || card.title || ''}
+                      src={item.image.node.sourceUrl}
+                      alt={item.image.node.altText || item.title || ''}
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -89,11 +96,11 @@ const ValuesBlock = ({ globalData, pageData, useOverride = false }) => {
                 {/* Card Content */}
                 <div className="space-y-3">
                   <h3 className="text-lg font-semibold text-gray-900">
-                    {card.title}
+                    {item.title}
                   </h3>
-                  {card.description && (
+                  {(item.description || item.text) && (
                     <p className="text-sm text-gray-600 leading-relaxed">
-                      {card.description}
+                      {item.description || item.text}
                     </p>
                   )}
                 </div>
@@ -105,19 +112,19 @@ const ValuesBlock = ({ globalData, pageData, useOverride = false }) => {
         {/* Mobile Layout - Single Column */}
         <div className="block md:hidden">
           <div className="space-y-6">
-            {sortedCards.map((card, index) => (
+            {sortedItems.map((item, index) => (
               <div key={index} className="bg-white rounded-lg p-6 shadow-lg">
                 {/* Card Number Badge */}
                 <div className="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-md mb-4">
-                  {card.cardNumber || index + 1}
+                  {item.cardNumber || index + 1}
                 </div>
                 
                 {/* Card Image */}
-                {card.image && (
+                {item.image && (
                   <div className="w-12 h-12 mb-4 flex items-center justify-center">
                     <img 
-                      src={card.image.node.sourceUrl}
-                      alt={card.image.node.altText || card.title || ''}
+                      src={item.image.node.sourceUrl}
+                      alt={item.image.node.altText || item.title || ''}
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -126,11 +133,11 @@ const ValuesBlock = ({ globalData, pageData, useOverride = false }) => {
                 {/* Card Content */}
                 <div className="space-y-3">
                   <h3 className="text-lg font-semibold text-gray-900">
-                    {card.title}
+                    {item.title}
                   </h3>
-                  {card.description && (
+                  {(item.description || item.text) && (
                     <p className="text-sm text-gray-600 leading-relaxed">
-                      {card.description}
+                      {item.description || item.text}
                     </p>
                   )}
                 </div>

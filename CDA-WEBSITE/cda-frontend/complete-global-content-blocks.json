@@ -1,0 +1,558 @@
+[
+  {
+    "key": "group_global_content_blocks_complete",
+    "title": "Global Content Blocks",
+    "fields": [
+      {
+        "key": "field_image_frame_block",
+        "label": "Image Frame Block",
+        "name": "image_frame_block",
+        "aria-label": "",
+        "type": "group",
+        "instructions": "Content block with image frame and text",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_frame_title",
+            "label": "Title",
+            "name": "title",
+            "type": "text",
+            "required": 0,
+            "wrapper": {"width": "50"},
+            "placeholder": "Frame Block Title"
+          },
+          {
+            "key": "field_frame_subtitle",
+            "label": "Subtitle",
+            "name": "subtitle",
+            "type": "text",
+            "required": 0,
+            "wrapper": {"width": "50"},
+            "placeholder": "Frame Block Subtitle"
+          },
+          {
+            "key": "field_frame_text",
+            "label": "Text",
+            "name": "text",
+            "type": "textarea",
+            "required": 0,
+            "rows": 4
+          },
+          {
+            "key": "field_frame_button",
+            "label": "Button",
+            "name": "button",
+            "type": "link",
+            "required": 0
+          },
+          {
+            "key": "field_frame_content_image",
+            "label": "Content Image",
+            "name": "content_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "required": 0
+          },
+          {
+            "key": "field_frame_frame_image",
+            "label": "Frame Image",
+            "name": "frame_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "required": 0
+          },
+          {
+            "key": "field_frame_arrow_image",
+            "label": "Arrow Image",
+            "name": "arrow_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "required": 0
+          }
+        ]
+      },
+      {
+        "key": "field_services_accordion",
+        "label": "Services Accordion",
+        "name": "services_accordion",
+        "type": "group",
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_services_title",
+            "label": "Title",
+            "name": "title",
+            "type": "text",
+            "wrapper": {"width": "50"}
+          },
+          {
+            "key": "field_services_subtitle",
+            "label": "Subtitle", 
+            "name": "subtitle",
+            "type": "text",
+            "wrapper": {"width": "50"}
+          },
+          {
+            "key": "field_services_illustration",
+            "label": "Illustration",
+            "name": "illustration",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium"
+          },
+          {
+            "key": "field_services_services",
+            "label": "Services",
+            "name": "services",
+            "type": "post_object",
+            "post_type": ["services"],
+            "return_format": "object",
+            "multiple": 1
+          }
+        ]
+      },
+      {
+        "key": "field_technologies_slider",
+        "label": "Technologies Slider",
+        "name": "technologies_slider",
+        "type": "group",
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_tech_title",
+            "label": "Title",
+            "name": "title",
+            "type": "text",
+            "wrapper": {"width": "50"}
+          },
+          {
+            "key": "field_tech_subtitle",
+            "label": "Subtitle",
+            "name": "subtitle", 
+            "type": "text",
+            "wrapper": {"width": "50"}
+          },
+          {
+            "key": "field_tech_logos",
+            "label": "Technologies",
+            "name": "logos",
+            "type": "post_object",
+            "post_type": ["technologies"],
+            "return_format": "object",
+            "multiple": 1
+          }
+        ]
+      },
+      {
+        "key": "field_values_block",
+        "label": "Values Block",
+        "name": "values_block",
+        "type": "group",
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_values_title",
+            "label": "Title", 
+            "name": "title",
+            "type": "text",
+            "wrapper": {"width": "50"},
+            "placeholder": "Our Values"
+          },
+          {
+            "key": "field_values_subtitle",
+            "label": "Subtitle",
+            "name": "subtitle",
+            "type": "text", 
+            "wrapper": {"width": "50"},
+            "placeholder": "What We Stand For"
+          },
+          {
+            "key": "field_values_values",
+            "label": "Values",
+            "name": "values",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Add Value",
+            "min": 0,
+            "max": 6,
+            "sub_fields": [
+              {
+                "key": "field_value_title",
+                "label": "Title",
+                "name": "title",
+                "type": "text",
+                "required": 1,
+                "wrapper": {"width": "30"},
+                "placeholder": "Innovation"
+              },
+              {
+                "key": "field_value_text",
+                "label": "Description",
+                "name": "text",
+                "type": "textarea",
+                "required": 1,
+                "rows": 3,
+                "wrapper": {"width": "70"},
+                "placeholder": "We embrace innovation to deliver cutting-edge solutions..."
+              }
+            ]
+          },
+          {
+            "key": "field_values_illustration",
+            "label": "Illustration",
+            "name": "illustration",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium"
+          }
+        ]
+      },
+      {
+        "key": "field_showreel_block",
+        "label": "Showreel Block",
+        "name": "showreel",
+        "type": "group",
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_showreel_title",
+            "label": "Title",
+            "name": "title",
+            "type": "text",
+            "wrapper": {"width": "50"}
+          },
+          {
+            "key": "field_showreel_subtitle",
+            "label": "Subtitle",
+            "name": "subtitle",
+            "type": "text",
+            "wrapper": {"width": "50"}
+          },
+          {
+            "key": "field_showreel_button",
+            "label": "Button",
+            "name": "button",
+            "type": "link"
+          },
+          {
+            "key": "field_showreel_large_image",
+            "label": "Large Image",
+            "name": "large_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "large"
+          },
+          {
+            "key": "field_showreel_logos",
+            "label": "Logos",
+            "name": "logos",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Add Logo",
+            "sub_fields": [
+              {
+                "key": "field_showreel_logo",
+                "label": "Logo",
+                "name": "logo",
+                "type": "image",
+                "return_format": "array",
+                "preview_size": "thumbnail"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_stats_image",
+        "label": "Stats & Image Block",
+        "name": "stats_image",
+        "type": "group",
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_stats_text",
+            "label": "Text",
+            "name": "text",
+            "type": "textarea",
+            "rows": 3
+          },
+          {
+            "key": "field_stats_button",
+            "label": "Button",
+            "name": "button",
+            "type": "link"
+          },
+          {
+            "key": "field_stats_stats",
+            "label": "Statistics",
+            "name": "stats",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Add Statistic",
+            "sub_fields": [
+              {
+                "key": "field_stat_number",
+                "label": "Number",
+                "name": "number",
+                "type": "text",
+                "wrapper": {"width": "30"},
+                "placeholder": "100+"
+              },
+              {
+                "key": "field_stat_text",
+                "label": "Text",
+                "name": "text",
+                "type": "text",
+                "wrapper": {"width": "70"},
+                "placeholder": "Happy Clients"
+              }
+            ]
+          },
+          {
+            "key": "field_stats_illustration",
+            "label": "Illustration",
+            "name": "illustration",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium"
+          }
+        ]
+      },
+      {
+        "key": "field_locations_image",
+        "label": "Locations with Image",
+        "name": "locations_image",
+        "type": "group",
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_locations_title",
+            "label": "Title",
+            "name": "title",
+            "type": "text",
+            "wrapper": {"width": "50"},
+            "placeholder": "Our Locations"
+          },
+          {
+            "key": "field_locations_subtitle", 
+            "label": "Subtitle",
+            "name": "subtitle",
+            "type": "text",
+            "wrapper": {"width": "50"},
+            "placeholder": "Global Presence"
+          },
+          {
+            "key": "field_locations_countries",
+            "label": "Countries",
+            "name": "countries",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Country",
+            "sub_fields": [
+              {
+                "key": "field_country_name",
+                "label": "Country Name",
+                "name": "country_name",
+                "type": "text",
+                "required": 1,
+                "placeholder": "United Kingdom"
+              },
+              {
+                "key": "field_country_offices",
+                "label": "Offices",
+                "name": "offices",
+                "type": "repeater",
+                "layout": "table",
+                "button_label": "Add Office",
+                "sub_fields": [
+                  {
+                    "key": "field_office_name",
+                    "label": "Office Name",
+                    "name": "name",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {"width": "25"},
+                    "placeholder": "London Office"
+                  },
+                  {
+                    "key": "field_office_address",
+                    "label": "Address",
+                    "name": "address",
+                    "type": "text",
+                    "required": 1,
+                    "wrapper": {"width": "35"},
+                    "placeholder": "123 Business Street, London, SW1A 1AA"
+                  },
+                  {
+                    "key": "field_office_email",
+                    "label": "Email",
+                    "name": "email",
+                    "type": "email",
+                    "wrapper": {"width": "20"},
+                    "placeholder": "london@cda.com"
+                  },
+                  {
+                    "key": "field_office_phone",
+                    "label": "Phone",
+                    "name": "phone",
+                    "type": "text",
+                    "wrapper": {"width": "20"},
+                    "placeholder": "+44 20 1234 5678"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "field_locations_illustration",
+            "label": "Illustration",
+            "name": "illustration",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium"
+          }
+        ]
+      },
+      {
+        "key": "field_news_carousel",
+        "label": "News Carousel",
+        "name": "news_carousel",
+        "type": "group",
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_news_title",
+            "label": "Title",
+            "name": "title",
+            "type": "text",
+            "wrapper": {"width": "50"}
+          },
+          {
+            "key": "field_news_subtitle",
+            "label": "Subtitle",
+            "name": "subtitle",
+            "type": "text",
+            "wrapper": {"width": "50"}
+          },
+          {
+            "key": "field_news_article_selection",
+            "label": "Article Selection",
+            "name": "article_selection",
+            "type": "radio",
+            "choices": {
+              "latest": "Latest Articles",
+              "category": "By Category",
+              "manual": "Manual Selection"
+            },
+            "default_value": "latest"
+          },
+          {
+            "key": "field_news_category",
+            "label": "Category",
+            "name": "category",
+            "type": "taxonomy",
+            "taxonomy": "category",
+            "field_type": "select",
+            "conditional_logic": [
+              [
+                {
+                  "field": "field_news_article_selection",
+                  "operator": "==",
+                  "value": "category"
+                }
+              ]
+            ]
+          },
+          {
+            "key": "field_news_manual_articles",
+            "label": "Manual Articles",
+            "name": "manual_articles",
+            "type": "post_object",
+            "post_type": ["post", "blog_posts"],
+            "return_format": "object",
+            "multiple": 1,
+            "conditional_logic": [
+              [
+                {
+                  "field": "field_news_article_selection",
+                  "operator": "==",
+                  "value": "manual"
+                }
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_newsletter_signup",
+        "label": "Newsletter Signup",
+        "name": "newsletter_signup",
+        "type": "group",
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_newsletter_title",
+            "label": "Title",
+            "name": "title",
+            "type": "text",
+            "wrapper": {"width": "50"},
+            "placeholder": "Subscribe to Our Newsletter"
+          },
+          {
+            "key": "field_newsletter_subtitle",
+            "label": "Subtitle",
+            "name": "subtitle",
+            "type": "text",
+            "wrapper": {"width": "50"},
+            "placeholder": "Stay Updated"
+          },
+          {
+            "key": "field_newsletter_hubspot_script",
+            "label": "HubSpot Form Script",
+            "name": "hubspot_script",
+            "type": "textarea",
+            "rows": 4,
+            "placeholder": "<script>...</script>"
+          },
+          {
+            "key": "field_newsletter_terms_text",
+            "label": "Terms Text",
+            "name": "terms_text",
+            "type": "text",
+            "default_value": "I agree to the Terms and Conditions and consent to receive email updates and newsletters"
+          }
+        ]
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "global-content"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Complete global content blocks for the CDA website",
+    "show_in_rest": 1,
+    "show_in_graphql": 1,
+    "graphql_field_name": "globalContentBlocks"
+  }
+]

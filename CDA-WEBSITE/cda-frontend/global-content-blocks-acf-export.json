@@ -1,0 +1,478 @@
+[
+  {
+    "key": "group_global_content_blocks",
+    "title": "Global Content Blocks",
+    "fields": [
+      {
+        "key": "field_values_block",
+        "label": "Values Block",
+        "name": "values_block",
+        "aria-label": "",
+        "type": "group",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_values_subtitle",
+            "label": "Subtitle",
+            "name": "subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Small text above the main title",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "50",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Our Values",
+            "prepend": "",
+            "append": ""
+          },
+          {
+            "key": "field_values_title",
+            "label": "Title",
+            "name": "title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Main section heading",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "50",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "What We Stand For",
+            "prepend": "",
+            "append": ""
+          },
+          {
+            "key": "field_values_list",
+            "label": "Values",
+            "name": "values",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Add individual value items",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 6,
+            "collapsed": "",
+            "button_label": "Add Value",
+            "rows_per_page": 20,
+            "sub_fields": [
+              {
+                "key": "field_value_title",
+                "label": "Title",
+                "name": "title",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "30",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "Innovation",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_value_text",
+                "label": "Description",
+                "name": "text",
+                "aria-label": "",
+                "type": "textarea",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "70",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "rows": 3,
+                "placeholder": "We embrace innovation to deliver cutting-edge solutions...",
+                "new_lines": ""
+              }
+            ]
+          },
+          {
+            "key": "field_values_illustration",
+            "label": "Corner Illustration",
+            "name": "illustration",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Optional decorative image for bottom right corner",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "medium"
+          }
+        ]
+      },
+      {
+        "key": "field_locations_block",
+        "label": "Locations Block",
+        "name": "locations_image",
+        "aria-label": "",
+        "type": "group",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_locations_subtitle",
+            "label": "Subtitle",
+            "name": "subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "50",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Global Presence",
+            "prepend": "",
+            "append": ""
+          },
+          {
+            "key": "field_locations_title",
+            "label": "Title",
+            "name": "title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "50",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Our Office Locations",
+            "prepend": "",
+            "append": ""
+          },
+          {
+            "key": "field_countries",
+            "label": "Countries",
+            "name": "countries",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Add countries and their office locations",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 10,
+            "collapsed": "",
+            "button_label": "Add Country",
+            "rows_per_page": 20,
+            "sub_fields": [
+              {
+                "key": "field_country_name",
+                "label": "Country Name",
+                "name": "country_name",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "United Kingdom",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_offices",
+                "label": "Offices",
+                "name": "offices",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "Add office locations in this country",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "layout": "table",
+                "pagination": 0,
+                "min": 0,
+                "max": 5,
+                "collapsed": "",
+                "button_label": "Add Office",
+                "rows_per_page": 20,
+                "sub_fields": [
+                  {
+                    "key": "field_office_name",
+                    "label": "Office Name",
+                    "name": "name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                      "width": "25",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "London Office",
+                    "prepend": "",
+                    "append": ""
+                  },
+                  {
+                    "key": "field_office_address",
+                    "label": "Address",
+                    "name": "address",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                      "width": "35",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "123 Business Street, London, SW1A 1AA",
+                    "prepend": "",
+                    "append": ""
+                  },
+                  {
+                    "key": "field_office_email",
+                    "label": "Email",
+                    "name": "email",
+                    "aria-label": "",
+                    "type": "email",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                      "width": "20",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "london@cda.com",
+                    "prepend": "",
+                    "append": ""
+                  },
+                  {
+                    "key": "field_office_phone",
+                    "label": "Phone",
+                    "name": "phone",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                      "width": "20",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "+44 20 1234 5678",
+                    "prepend": "",
+                    "append": ""
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_newsletter_block",
+        "label": "Newsletter Signup",
+        "name": "newsletter_signup",
+        "aria-label": "",
+        "type": "group",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_newsletter_subtitle",
+            "label": "Subtitle",
+            "name": "subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "50",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Stay Updated",
+            "prepend": "",
+            "append": ""
+          },
+          {
+            "key": "field_newsletter_title",
+            "label": "Title",
+            "name": "title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "50",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Subscribe to Our Newsletter",
+            "prepend": "",
+            "append": ""
+          },
+          {
+            "key": "field_hubspot_script",
+            "label": "HubSpot Form Script",
+            "name": "hubspot_script",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Paste the HubSpot form embed script here",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 4,
+            "placeholder": "<script>...</script>",
+            "new_lines": ""
+          },
+          {
+            "key": "field_terms_text",
+            "label": "Terms Text",
+            "name": "terms_text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Text for terms and conditions agreement",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "I agree to the Terms and Conditions and consent to receive email updates and newsletters",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+          }
+        ]
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "global-content"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 1,
+    "show_in_graphql": 1,
+    "graphql_field_name": "globalContentBlocks"
+  }
+]
