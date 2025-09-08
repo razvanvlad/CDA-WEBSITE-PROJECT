@@ -274,9 +274,9 @@ export default function Home() {
            
       {/* Header Section from WordPress */}
       {homepageContent?.headerSection ? (
-        <section style={{padding: '5rem 1rem', backgroundColor: '#f8fafc'}}>
-<div style={{maxWidth: '1620px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'center'}}>
-            <div style={{textAlign: 'left'}}>
+        <section style={{padding: '5rem 0', backgroundColor: '#ffffff'}}>
+<div className="home-header-grid mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+            <div className="home-header-text">
               <h1 style={{fontSize: '3rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '1rem'}}
                 dangerouslySetInnerHTML={{
                   __html: sanitizeTitleHtml(
@@ -287,7 +287,7 @@ export default function Home() {
               <p style={{fontSize: '1.25rem', color: '#4b5563', marginBottom: '2rem'}}>
                 {homepageContent.headerSection.text || 'Digital solutions that drive results.'}
               </p>
-              <div style={{display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'flex-start'}}>
+              <div className="home-header-cta">
                 {homepageContent.headerSection.button1 && (
                   <a 
                     href={homepageContent.headerSection.button1.url || '#'} 
@@ -308,12 +308,13 @@ export default function Home() {
                 )}
               </div>
             </div>
-            <div style={{textAlign: 'center'}}>
+            <div className="home-header-illustration-wrap">
               {homepageContent.headerSection.illustration?.node?.sourceUrl ? (
                 <img 
                   src={homepageContent.headerSection.illustration.node.sourceUrl}
                   alt={homepageContent.headerSection.illustration.node.altText || 'Header illustration'}
-                  style={{maxWidth: '100%', height: 'auto', borderRadius: '0.5rem'}}
+                  className="home-header-illustration"
+                  style={{borderRadius: '0.5rem'}}
                 />
               ) : (
                 <div style={{backgroundColor: '#e5e7eb', padding: '3rem', borderRadius: '0.5rem', color: '#6b7280'}}>
@@ -324,8 +325,8 @@ export default function Home() {
           </div>
         </section>
       ) : (
-        <section style={{padding: '5rem 1rem', backgroundColor: '#f8fafc', textAlign: 'center'}}>
-<div style={{maxWidth: '1620px', margin: '0 auto'}}>
+        <section style={{padding: '5rem 0', backgroundColor: '#ffffff', textAlign: 'center'}}>
+<div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
             <h1 style={{fontSize: '3rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '1rem'}}>
               Welcome to CDA Website
             </h1>

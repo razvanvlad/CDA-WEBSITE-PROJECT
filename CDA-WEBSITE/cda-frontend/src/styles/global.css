@@ -375,3 +375,56 @@
 }
 
 /* CSS FOR VERTICAL BUTTON */
+
+/* Homepage header illustration sizing */
+.home-header-illustration {
+  width: 584px;
+  height: 638px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  .home-header-illustration {
+    width: 309px;
+    height: 337px;
+  }
+}
+
+/* Homepage header grid responsive layout */
+.home-header-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .home-header-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Header text alignment: center on mobile, left on desktop */
+.home-header-text { text-align: center; }
+@media (min-width: 1024px) {
+  .home-header-text { text-align: left; }
+}
+
+/* Header CTA row: keep on same line and wrap if needed */
+.home-header-cta {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 24px;
+  row-gap: 16px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Illustration alignment: push to the right */
+.home-header-illustration-wrap {
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
+}
