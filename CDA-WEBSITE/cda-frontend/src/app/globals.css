@@ -22,7 +22,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* css for photo frame */
@@ -86,25 +86,30 @@ body {
   /* Defaults: can be overridden by helpers below */
   --u-color: #FD8721;      /* underline color */
   --u-thickness: 11px;     /* underline thickness */
-  --u-offset: 10px;        /* gap between text and underline */
+  --u-offset: 10px;        /* gap between text and underline (can be negative) */
   --u-width: 100%;         /* underline width: 100%, 50%, etc. */
 
   position: relative;
   display: inline-block;
+  /* Fallback: simple sum (may be invalid if negative) */
   padding-bottom: calc(var(--u-offset) + var(--u-thickness));
+  /* Clamp so negative offsets don't cause negative padding */
+  padding-bottom: calc(var(--u-thickness) + max(var(--u-offset), 0px));
 }
 
 .title-underline::after {
   content: "";
   position: absolute;
   left: 0;
+  /* Default position */
   bottom: 0;
+  /* If offset is negative, move the underline upward into the text area by that amount */
+  bottom: max(calc(-1 * var(--u-offset)), 0px);
   height: var(--u-thickness);
   width: var(--u-width);
   background-color: var(--u-color);
   border-radius: calc(var(--u-thickness) / 2);
 }
-
 /* Color variants */
 .title-large-orange { --u-color: #FD8721; }
 .title-large-pink   { --u-color: #FF5FA0; }
@@ -120,6 +125,7 @@ body {
 /* Gap helpers */
 .u-gap-6  { --u-offset: 6px; }
 .u-gap-10 { --u-offset: 10px; }
+.u-gap-12 { --u-offset: -12px; }
 .u-gap-14 { --u-offset: 14px; }
 
 /* Thickness helpers */

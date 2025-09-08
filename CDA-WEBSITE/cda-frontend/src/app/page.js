@@ -9,6 +9,7 @@ import TechnologiesSlider from '../components/GlobalBlocks/TechnologiesSlider';
 import Showreel from '../components/GlobalBlocks/Showreel';
 import ServicesAccordion from '../components/GlobalBlocks/ServicesAccordion';
 import LocationsImage from '../components/GlobalBlocks/LocationsImage';
+import { sanitizeTitleHtml } from '../lib/sanitizeTitleHtml';
 
 export default function Home() {
   const [globalData, setGlobalData] = useState(null);
@@ -276,9 +277,13 @@ export default function Home() {
         <section style={{padding: '5rem 1rem', backgroundColor: '#f8fafc'}}>
 <div style={{maxWidth: '1620px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'center'}}>
             <div style={{textAlign: 'left'}}>
-              <h1 style={{fontSize: '3rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '1rem'}}>
-                {homepageContent.headerSection.title || 'Welcome to CDA Website'}
-              </h1>
+              <h1 style={{fontSize: '3rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '1rem'}}
+                dangerouslySetInnerHTML={{
+                  __html: sanitizeTitleHtml(
+                    homepageContent.headerSection.title || 'Welcome to CDA Website'
+                  )
+                }}
+              />
               <p style={{fontSize: '1.25rem', color: '#4b5563', marginBottom: '2rem'}}>
                 {homepageContent.headerSection.text || 'Digital solutions that drive results.'}
               </p>
@@ -286,7 +291,7 @@ export default function Home() {
                 {homepageContent.headerSection.button1 && (
                   <a 
                     href={homepageContent.headerSection.button1.url || '#'} 
-                    style={{display: 'inline-block', padding: '0.75rem 2rem', backgroundColor: '#7c3aed', color: 'white', textDecoration: 'none', borderRadius: '0.5rem', fontWeight: '600'}}
+                    className="button-l"
                     target={homepageContent.headerSection.button1.target || '_self'}
                   >
                     {homepageContent.headerSection.button1.title || 'Get Started'}
@@ -295,7 +300,7 @@ export default function Home() {
                 {homepageContent.headerSection.button2 && (
                   <a 
                     href={homepageContent.headerSection.button2.url || '#'} 
-                    style={{display: 'inline-block', padding: '0.75rem 2rem', border: '2px solid #7c3aed', color: '#7c3aed', textDecoration: 'none', borderRadius: '0.5rem', fontWeight: '600'}}
+                    className="button-without-box"
                     target={homepageContent.headerSection.button2.target || '_self'}
                   >
                     {homepageContent.headerSection.button2.title || 'Learn More'}
@@ -384,7 +389,7 @@ export default function Home() {
               {globalContentBlocks.statsImage.button && (
                 <a 
                   href={globalContentBlocks.statsImage.button.url || '#'}
-                  style={{display: 'inline-block', padding: '0.75rem 2rem', backgroundColor: '#7c3aed', color: 'white', textDecoration: 'none', borderRadius: '0.5rem', fontWeight: '600'}}
+                  className="button-l"
                   target={globalContentBlocks.statsImage.button.target || '_self'}
                 >
                   {globalContentBlocks.statsImage.button.title || 'Learn More'}
@@ -447,7 +452,7 @@ export default function Home() {
             {homepageContent.projectsSection.link && (
               <a 
                 href={homepageContent.projectsSection.link.url}
-                style={{display: 'inline-block', padding: '0.75rem 2rem', backgroundColor: '#7c3aed', color: 'white', textDecoration: 'none', borderRadius: '0.5rem', fontWeight: '600'}}
+                className="button-l"
                 target={homepageContent.projectsSection.link.target || '_self'}
               >
                 {homepageContent.projectsSection.link.title}
@@ -480,7 +485,7 @@ export default function Home() {
                     <div style={{color: '#6b7280', fontSize: '0.9rem', lineHeight: '1.5', marginBottom: '1rem'}} dangerouslySetInnerHTML={{__html: study.excerpt}} />
                     <a 
                       href={study.uri}
-                      style={{display: 'inline-block', padding: '0.5rem 1rem', backgroundColor: '#7c3aed', color: 'white', textDecoration: 'none', borderRadius: '0.25rem', fontSize: '0.9rem', fontWeight: '500'}}
+                      className="button-without-box"
                     >
                       Read Case Study
                     </a>

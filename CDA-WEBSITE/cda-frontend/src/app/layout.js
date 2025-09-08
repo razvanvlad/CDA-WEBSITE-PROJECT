@@ -1,4 +1,5 @@
 import './globals.css';
+import '../styles/global.css';
 
 export const metadata = {
   title: 'CDA Systems - WordPress Integration Active',

@@ -1,11 +1,15 @@
 .button-l {
+  --btn-l-line: 1px;           /* line thickness */
+  --btn-l-offset: 4px;       /* half-pixel placement for crisp stroke */
+
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0.75rem 2rem;
+  font-family: 'Poppins', sans-serif;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 18px;
   color: white;
   background-color: black;
   border: none;
@@ -15,24 +19,28 @@
   white-space: nowrap;
 }
 
+/* Bottom underline (horizontal) */
 .button-l::before {
   content: '';
   position: absolute;
-  bottom: -3px;
-  left: 3px;
-  width: calc(100% - 6px);
-  height: 1px;
+  left: var(--btn-l-offset);
+  bottom: calc(var(--btn-l-offset) * -1);
+  /* Extend to meet vertical line at bottom-right corner */
+  width: calc(100% - var(--btn-l-line));
+  height: var(--btn-l-line);
   background-color: black;
   z-index: 1;
 }
 
+/* Right side line (vertical) */
 .button-l::after {
   content: '';
   position: absolute;
-  top: 3px;
-  right: -3px;
-  width: 1px;
-  height: calc(100% - 3px);
+  top: var(--btn-l-offset);
+  right: calc(var(--btn-l-offset) * -1);
+  width: var(--btn-l-line);
+  /* Stretch down to the same depth as the bottom underline */
+  bottom: calc(var(--btn-l-offset) * -1);
   background-color: black;
   z-index: 1;
 }
@@ -44,6 +52,11 @@
 }
 
 .button-without-box {
+  --btn-link-underline: 0.5px;   /* underline thickness from design */
+  --btn-link-icon: 12px;         /* icon size */
+  --btn-link-gap: 3px;           /* gap between underline end and icon */
+  --btn-link-baseline: 2px;      /* distance from text baseline to underline/icon */
+
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -52,36 +65,36 @@
   font-size: 18px;
   color: black;
   text-decoration: none;
-  padding: 0 15px 0 0; /* Add right padding for the icon space */
+  padding: 0 calc(var(--btn-link-icon) + var(--btn-link-gap)) 0 0; /* space for icon */
   cursor: pointer;
   transition: all 0.2s ease;
   line-height: 1.2;
   border: none;
   background: none;
-  font-family: inherit;
 }
 
-/* Underline: only under text */
+/* Underline: only under text (stops before icon space) */
 .button-without-box::after {
   content: '';
   position: absolute;
-  bottom: 12px;
+  /* baseline offset for 18px Poppins (override via --btn-link-baseline) */
+  bottom: var(--btn-link-baseline);
   left: 0;
-  width: calc(100% - 15px); /* Subtract space for icon and gap */
-  height: 1px;
+  width: calc(100% - var(--btn-link-icon) - var(--btn-link-gap));
+  height: var(--btn-link-underline);
   background-color: black;
   z-index: 1;
 }
 
-/* Icon: arrow-bottom-right (normal) */
+/* Icon: design-inspired corner arrow */
 .button-without-box::before {
   content: '';
   position: absolute;
-  bottom: 2px;
+  bottom: var(--btn-link-baseline);
   right: 0;
-  width: 12px;
-  height: 12px;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7L17 17"/><path d="M7 17H17"/><path d="M17 7V17"/></svg>');
+  width: var(--btn-link-icon);
+  height: var(--btn-link-icon);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none' stroke='black' stroke-width='0.5'%3E%3Cpath d='M16.522 15.346V9.038h1.663v9.147H9.038V16.522h6.308L4.293 5.469 5.469 4.293Z' fill='black' stroke='black' stroke-width='0.5'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
   z-index: 2;

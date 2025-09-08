@@ -59,7 +59,7 @@ export default function UnderlineTestPage() {
         <h2 className="text-2xl font-semibold">Gap variations (underline offset)</h2>
         <div className="space-y-4">
           <h3 className="text-3xl md:text-5xl font-semibold leading-tight">
-            <span className="title-underline title-large-orange u-half u-gap-6">Gap 6px</span>
+            <span className="title-underline title-large-orange u-half u-gap-12">Gap 6px</span>
           </h3>
           <h3 className="text-3xl md:text-5xl font-semibold leading-tight">
             <span className="title-underline title-large-orange u-half u-gap-10">Gap 10px</span>
@@ -107,8 +107,8 @@ export default function UnderlineTestPage() {
         <h2 className="text-2xl font-semibold">Multi-line wrapping behavior</h2>
         <div className="space-y-4 max-w-xl">
           <h3 className="text-3xl md:text-5xl font-semibold leading-tight">
-            <span className="title-underline title-large-green u-half">
-              This is a longer title that will wrap onto multiple lines to demonstrate underline width behavior
+            <span className="title-underline title-large-green u-full">
+              Underline width behavior
             </span>
           </h3>
         </div>
