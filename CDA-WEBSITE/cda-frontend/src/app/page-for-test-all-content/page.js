@@ -11,7 +11,7 @@ function Section({ title, description, onRun, disabled, result }) {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
         <div>
           <h3 style={{ margin: 0, fontSize: 16 }}>{title}</h3>
-          {description && <p style={{ margin: '6px 0 0', color: '#6b7280', fontSize: 13 }}>{description}</p>}
+          {description && <p style={{ margin: '6px 0 0', color: '#000000', fontSize: 13 }}>{description}</p>}
         </div>
         <button onClick={onRun} disabled={disabled} style={{ padding: '8px 12px', background: '#2563eb', color: '#fff', border: 0, borderRadius: 6, cursor: disabled ? 'not-allowed' : 'pointer' }}>
           {disabled ? 'Running…' : 'Run Test'}

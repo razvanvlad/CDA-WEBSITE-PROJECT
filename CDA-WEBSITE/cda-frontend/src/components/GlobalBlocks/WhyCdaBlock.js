@@ -9,12 +9,12 @@ const WhyCdaBlock = ({ globalData }) => {
   <div className="container mx-auto px-4 max-w-6xl">
     <div className="text-center mb-12">
        {globalData.title && (
-        <h2 className="text-md font-bold text-gray-700">
+<h2 className="text-md font-bold text-black">
           {globalData.title}
         </h2>
       )}
       {globalData.subtitle && (
-        <p className="text-lg font-bold tracking-wider text-gray-900">
+<p className="text-lg font-bold tracking-wider text-black">
           {globalData.subtitle}
         </p>
       )}

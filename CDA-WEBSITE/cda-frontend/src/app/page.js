@@ -277,7 +277,7 @@ export default function Home() {
         <section style={{padding: '5rem 0', backgroundColor: '#ffffff'}}>
 <div className="home-header-grid mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
             <div className="home-header-text">
-              <h1 style={{fontSize: '3rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '1rem'}}
+<h1 style={{fontSize: '3rem', fontWeight: 'bold', color: '#000000', marginBottom: '1rem'}}
                 dangerouslySetInnerHTML={{
                   __html: sanitizeTitleHtml(
                     homepageContent.headerSection.title || 'Welcome to CDA Website'
@@ -585,7 +585,7 @@ export default function Home() {
       </div>
       
       <Footer globalOptions={globalData?.globalOptions} />
-      
+
       {/* Inline CSS for spinner animation */}
       <style dangerouslySetInnerHTML={{
         __html: `

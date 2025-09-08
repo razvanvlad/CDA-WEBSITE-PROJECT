@@ -21,19 +21,18 @@ const ServicesAccordion = ({ globalData }) => {
   if (!itemsRaw.length && !globalData.title) return null;
 
   return (
-    <section className="bg-[#F4F4F4] py-16 md:py-20 lg:py-24">
-<div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+    <section className="relative -mt-16 md:-mt-24 lg:-mt-28 bg-[#F4F4F4] py-16 md:py-20 lg:py-24 overflow-visible">
+<div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-12 gap-y-10 gap-x-10 items-start">
           {/* Left: Title, subtitle, optional image */}
           <div className="col-span-12 lg:col-span-4">
-            {globalData.subtitle && (
-              <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-[#111827] mb-3">{globalData.subtitle}</p>
+{globalData.subtitle && (
+              <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-black mb-3">{globalData.subtitle}</p>
             )}
             {globalData.title && (
-              <h2 className="mb-4 font-bold text-[#111827]" style={{ fontFamily: 'Poppins, sans-serif', fontSize: 38, lineHeight: 1.1 }}>
+              <h2 className="mb-4 font-bold text-black" style={{ fontFamily: 'Poppins, sans-serif', fontSize: 38, lineHeight: 1.1 }}>
                 <span className="relative inline-block align-baseline">
                   {globalData.title}
-                  <img src="/images/underlines/Path%20304.svg" alt="" className="underline-svg" />
                 </span>
               </h2>
             )}
@@ -41,7 +40,7 @@ const ServicesAccordion = ({ globalData }) => {
               <img
                 src={globalData.illustration.node.sourceUrl}
                 alt={globalData.illustration.node.altText || globalData.title || 'Illustration'}
-                className="w-full h-auto max-w-[420px] rounded-[10px] shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
+                className="w-full h-auto max-w-[420px] rounded-[10px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] md:hidden"
               />
             )}
           </div>
@@ -59,7 +58,7 @@ const ServicesAccordion = ({ globalData }) => {
                       aria-expanded={isOpen}
                       onClick={() => setOpenIndex(isOpen ? -1 : idx)}
                     >
-                      <span className="text-[16px] md:text-[18px] font-semibold text-[#111827]">{item.title}</span>
+<span className="text-[16px] md:text-[18px] font-semibold text-black">{item.title}</span>
                       {/* Plus / Minus icon */}
                       {isOpen ? (
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#7C3AED]">
@@ -87,6 +86,15 @@ const ServicesAccordion = ({ globalData }) => {
           </div>
         </div>
       </div>
+
+      {/* Bottom-left illustration on larger screens */}
+      {globalData.illustration?.node?.sourceUrl && (
+        <img
+          src={globalData.illustration.node.sourceUrl}
+          alt={globalData.illustration.node.altText || globalData.title || 'Illustration'}
+          className="hidden md:block absolute bottom-0 left-0 w-[280px] md:w-[340px] lg:w-[380px] pointer-events-none select-none z-[5]"
+        />
+      )}
     </section>
   );
 };

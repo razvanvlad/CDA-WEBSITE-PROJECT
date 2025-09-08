@@ -25,6 +25,11 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+/* Prevent accidental horizontal scrollbars sitewide */
+html, body {
+  overflow-x: hidden;
+}
+
 /* css for photo frame */
 .image-container {
   position: relative;

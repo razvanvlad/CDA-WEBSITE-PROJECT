@@ -94,7 +94,7 @@ export default function Header() {
                 onClick={() => setIsSideMenuOpen(true)}
                 aria-label="Open side menu"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8M4 18h16"></path>
                 </svg>
               </button>
@@ -105,7 +105,7 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-label="Open mobile menu"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
               </button>
@@ -120,7 +120,7 @@ export default function Header() {
                   <a
                     key={item.id}
                     href={item.url}
-                    className="text-gray-600 hover:text-gray-900 transition-colors font-medium"
+                    className="text-black hover:text-black transition-colors font-medium"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.label}
@@ -150,7 +150,7 @@ export default function Header() {
         <div className="flex flex-col h-full">
           {/* Side Menu Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-900">Menu</h2>
+            <h2 className="text-xl font-semibold text-black">Menu</h2>
             <button
               onClick={() => {
                 setIsSideMenuOpen(false);
@@ -159,7 +159,7 @@ export default function Header() {
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
               aria-label="Close side menu"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
@@ -177,7 +177,7 @@ export default function Header() {
                   >
                     <span>Company</span>
                     <svg 
-                      className={`w-5 h-5 transform transition-transform ${isCompanyMenuOpen ? 'rotate-180' : ''}`}
+                      className={`w-5 h-5 transform transition-transform ${isCompanyMenuOpen ? 'rotate-180' : ''} text-black`}
                       fill="none" 
                       stroke="currentColor" 
                       viewBox="0 0 24 24"
@@ -191,7 +191,7 @@ export default function Header() {
                     <div className="mt-2 ml-4 space-y-2 border-l border-gray-200 pl-4">
                       <a 
                         href="/about" 
-                        className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+className="block px-4 py-2 text-black hover:text-black hover:bg-gray-50 rounded-lg transition-colors"
                         onClick={() => {
                           setIsSideMenuOpen(false);
                           setIsCompanyMenuOpen(false);
@@ -201,7 +201,7 @@ export default function Header() {
                       </a>
                       <a 
                         href="/team" 
-                        className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+className="block px-4 py-2 text-black hover:text-black hover:bg-gray-50 rounded-lg transition-colors"
                         onClick={() => {
                           setIsSideMenuOpen(false);
                           setIsCompanyMenuOpen(false);
@@ -211,7 +211,7 @@ export default function Header() {
                       </a>
                       <a 
                         href="/case-studies" 
-                        className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+className="block px-4 py-2 text-black hover:text-black hover:bg-gray-50 rounded-lg transition-colors"
                         onClick={() => {
                           setIsSideMenuOpen(false);
                           setIsCompanyMenuOpen(false);
@@ -221,7 +221,7 @@ export default function Header() {
                       </a>
                       <a 
                         href="/knowledge-hub" 
-                        className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+className="block px-4 py-2 text-black hover:text-black hover:bg-gray-50 rounded-lg transition-colors"
                         onClick={() => {
                           setIsSideMenuOpen(false);
                           setIsCompanyMenuOpen(false);
@@ -236,7 +236,7 @@ export default function Header() {
                 {/* Other Main Menu Items */}
                 <a 
                   href="/services" 
-                  className="block px-4 py-3 text-gray-900 hover:bg-gray-50 rounded-lg transition-colors font-medium"
+className="block px-4 py-3 text-black hover:bg-gray-50 rounded-lg transition-colors font-medium"
                   onClick={() => {
                     setIsSideMenuOpen(false);
                     setIsCompanyMenuOpen(false);
@@ -246,7 +246,7 @@ export default function Header() {
                 </a>
                 <a 
                   href="/contact" 
-                  className="block px-4 py-3 text-gray-900 hover:bg-gray-50 rounded-lg transition-colors font-medium"
+className="block px-4 py-3 text-black hover:bg-gray-50 rounded-lg transition-colors font-medium"
                   onClick={() => {
                     setIsSideMenuOpen(false);
                     setIsCompanyMenuOpen(false);

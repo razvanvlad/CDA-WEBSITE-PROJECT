@@ -16,21 +16,20 @@ const ValuesBlock = ({ globalData, pageData, useOverride = false }) => {
   const sortedItems = [...items];
 
   return (
-    <section className="relative bg-white py-16 md:py-20 lg:py-24 overflow-hidden">
+    <section className="relative bg-white py-16 md:py-20 lg:py-24 overflow-visible">
 <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="mb-10 md:mb-12">
-          {data.subtitle && (
-            <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-[#111827] mb-2">{data.subtitle}</p>
+{data.subtitle && (
+            <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-black mb-2">{data.subtitle}</p>
           )}
-          {data.title && (
-            <h2 className="mb-6 font-bold text-[#111827]" style={{ fontFamily: 'Poppins, sans-serif', fontSize: 38, lineHeight: 1.1 }}>
-              <span className="relative inline-block align-baseline">
-                {data.title}
-                <img src="/images/underlines/Path%20304.svg" alt="" className="underline-svg" />
-              </span>
-            </h2>
-          )}
+            {data.title && (
+              <h2 className="mb-6 font-bold text-black" style={{ fontFamily: 'Poppins, sans-serif', fontSize: 38, lineHeight: 1.1 }}>
+                <span className="relative inline-block align-baseline">
+                  {data.title}
+                </span>
+              </h2>
+            )}
         </div>
 
         {/* Two-column list */}
@@ -39,7 +38,7 @@ const ValuesBlock = ({ globalData, pageData, useOverride = false }) => {
             <div key={index} className="flex items-start gap-4">
               <div className="value-badge">{String(index + 1).padStart(2, '0')}</div>
               <div>
-                <h3 className="text-[18px] md:text-[20px] font-semibold text-[#111827] mb-2">{item.title}</h3>
+<h3 className="text-[18px] md:text-[20px] font-semibold text-black mb-2">{item.title}</h3>
                 {(item.description || item.text) && (
                   <p className="text-[15px] md:text-[16px] leading-[1.7] text-[#4B5563]">{item.description || item.text}</p>
                 )}
@@ -58,6 +57,9 @@ const ValuesBlock = ({ globalData, pageData, useOverride = false }) => {
           draggable={false}
         />
       )}
+
+      {/* Cross-section arrow pointing to next section */}
+      <div className="cross-section-arrow" aria-hidden="true"></div>
     </section>
   );
 };

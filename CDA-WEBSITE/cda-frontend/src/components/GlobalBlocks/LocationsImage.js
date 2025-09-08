@@ -33,7 +33,6 @@ const LocationsImage = ({ globalData }) => {
             <h2 className="font-bold text-[#111827]" style={{ fontFamily: 'Poppins, sans-serif', fontSize: 38, lineHeight: 1.1 }}>
               <span className="relative inline-block align-baseline">
                 {globalData.title}
-                <img src="/images/underlines/Path%20304.svg" alt="" className="underline-svg" />
               </span>
             </h2>
           )}
@@ -76,7 +75,7 @@ const LocationsImage = ({ globalData }) => {
                       aria-pressed={isActive}
                     >
                       <span className={isActive ? 'text-[#111827]' : 'text-[#9CA3AF]'}>{c.countryName}</span>
-                      {isActive && <span className="absolute left-0 right-24 -bottom-0.5 h-[6px] bg-[#FF3B80]"></span>}
+                      {isActive && <span className="title-underline title-large-pink u-full u-gap-12"></span>}
                     </button>
                   );
                 })}

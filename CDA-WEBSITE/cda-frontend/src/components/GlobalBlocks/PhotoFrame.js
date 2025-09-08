@@ -51,8 +51,8 @@ const PhotoFrame = ({ globalData }) => {
               {subtitle && (
                 <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-black mb-3">{subtitle}</p>
               )}
-              {title && (
-                <h2 className="text-[32px] leading-[1.15] md:text-[40px] font-bold text-[#111827] mb-5">{title}</h2>
+{title && (
+                <h2 className="text-[32px] leading-[1.15] md:text-[40px] font-bold text-black mb-5">{title}</h2>
               )}
               {text && (
                 <div className="text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] space-y-4 mb-6">
@@ -66,7 +66,7 @@ const PhotoFrame = ({ globalData }) => {
                   href={button.url}
                   target={button.target === '_blank' ? '_blank' : '_self'}
                   rel={button.target === '_blank' ? 'noopener noreferrer' : undefined}
-className="button-without-box text-black"
+                  className="button-without-box text-black"
                 >
                   {button.title}
                 </a>
@@ -77,7 +77,7 @@ className="button-without-box text-black"
                 <img
                   src={arrowIllustration.node.sourceUrl}
                   alt={arrowIllustration.node.altText || 'Arrow'}
-                  className="hidden lg:block absolute -bottom-10 -right-6 w-[140px] h-auto pointer-events-none select-none"
+className="hidden lg:block absolute -bottom-[300px] right-12 w-[90px] h-auto pointer-events-none select-none z-20"
                   draggable={false}
                 />
               )}
