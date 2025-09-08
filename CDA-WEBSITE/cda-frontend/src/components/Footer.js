@@ -4,7 +4,7 @@ export default function Footer({ globalOptions }) {
 
   return (
     <footer className="bg-gray-800 text-white py-8">
-      <div className="max-w-6xl mx-auto px-4">
+<div className="mx-auto max-w-[1620px] px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           {/* Logo and Text */}
           <div className="mb-4 md:mb-0 text-center md:text-left">

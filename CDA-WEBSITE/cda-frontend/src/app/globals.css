@@ -70,3 +70,59 @@ body {
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* Sitewide max-width override: design uses 1620px */
+.max-w-6xl, .max-w-7xl, .max-w-5xl {
+  max-width: 1620px !important;
+}
+
+/* Also bump any legacy 1200px containers to 1620px if present */
+.max-w-\[1200px\] {
+  max-width: 1620px !important;
+}
+
+/* Title underline utilities */
+.title-underline {
+  /* Defaults: can be overridden by helpers below */
+  --u-color: #FD8721;      /* underline color */
+  --u-thickness: 11px;     /* underline thickness */
+  --u-offset: 10px;        /* gap between text and underline */
+  --u-width: 100%;         /* underline width: 100%, 50%, etc. */
+
+  position: relative;
+  display: inline-block;
+  padding-bottom: calc(var(--u-offset) + var(--u-thickness));
+}
+
+.title-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: var(--u-thickness);
+  width: var(--u-width);
+  background-color: var(--u-color);
+  border-radius: calc(var(--u-thickness) / 2);
+}
+
+/* Color variants */
+.title-large-orange { --u-color: #FD8721; }
+.title-large-pink   { --u-color: #FF5FA0; }
+.title-large-purple { --u-color: #7B61FF; }
+.title-large-light-blue { --u-color: #4FC3F7; }
+.title-large-green  { --u-color: #34C759; }
+
+/* Width helpers */
+.u-full  { --u-width: 100%; }
+.u-half  { --u-width: 50%; }
+.u-third { --u-width: 33.3333%; }
+
+/* Gap helpers */
+.u-gap-6  { --u-offset: 6px; }
+.u-gap-10 { --u-offset: 10px; }
+.u-gap-14 { --u-offset: 14px; }
+
+/* Thickness helpers */
+.u-thick-9  { --u-thickness: 9px; }
+.u-thick-11 { --u-thickness: 11px; }
+.u-thick-14 { --u-thickness: 14px; }

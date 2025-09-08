@@ -6,7 +6,9 @@ import Footer from '../components/Footer';
 import ValuesBlock from '../components/GlobalBlocks/ValuesBlock';
 import PhotoFrame from '../components/GlobalBlocks/PhotoFrame';
 import TechnologiesSlider from '../components/GlobalBlocks/TechnologiesSlider';
+import Showreel from '../components/GlobalBlocks/Showreel';
 import ServicesAccordion from '../components/GlobalBlocks/ServicesAccordion';
+import LocationsImage from '../components/GlobalBlocks/LocationsImage';
 
 export default function Home() {
   const [globalData, setGlobalData] = useState(null);
@@ -267,35 +269,12 @@ export default function Home() {
 
   return (
     <div style={{minHeight: '100vh', backgroundColor: 'white'}}>
-      <Header />
-      
-      {/* Success Status Bar */}
-      <div style={{backgroundColor: '#dcfce7', borderLeft: '4px solid #16a34a', color: '#15803d', padding: '1rem'}}>
-        <div style={{maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center'}}>
-          <span style={{fontSize: '1rem', fontWeight: '600'}}>✅ WordPress Integration Active</span>
-          <span style={{marginLeft: '1rem', fontSize: '0.9rem'}}>Loading content from WordPress ACF fields</span>
-        </div>
-      </div>
-      
-      {/* Debug Data Display */}
-      <div style={{backgroundColor: '#fef3c7', padding: '1rem', borderBottom: '1px solid #f59e0b'}}>
-        <div style={{maxWidth: '1200px', margin: '0 auto'}}>
-          <details style={{fontSize: '0.8rem'}}>
-            <summary style={{cursor: 'pointer', fontWeight: '600', color: '#92400e'}}>Debug: WordPress Data</summary>
-            <div style={{marginTop: '0.5rem', backgroundColor: 'white', padding: '1rem', borderRadius: '0.25rem', overflow: 'auto'}}>
-              <p><strong>Homepage Data:</strong></p>
-              <pre style={{fontSize: '0.7rem', color: '#374151'}}>{JSON.stringify(homepageData, null, 2)}</pre>
-              <p><strong>Global Data:</strong></p>
-              <pre style={{fontSize: '0.7rem', color: '#374151'}}>{JSON.stringify(globalData, null, 2)}</pre>
-            </div>
-          </details>
-        </div>
-      </div>
-      
+      <Header />      
+           
       {/* Header Section from WordPress */}
       {homepageContent?.headerSection ? (
         <section style={{padding: '5rem 1rem', backgroundColor: '#f8fafc'}}>
-          <div style={{maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'center'}}>
+<div style={{maxWidth: '1620px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'center'}}>
             <div style={{textAlign: 'left'}}>
               <h1 style={{fontSize: '3rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '1rem'}}>
                 {homepageContent.headerSection.title || 'Welcome to CDA Website'}
@@ -341,7 +320,7 @@ export default function Home() {
         </section>
       ) : (
         <section style={{padding: '5rem 1rem', backgroundColor: '#f8fafc', textAlign: 'center'}}>
-          <div style={{maxWidth: '1200px', margin: '0 auto'}}>
+<div style={{maxWidth: '1620px', margin: '0 auto'}}>
             <h1 style={{fontSize: '3rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '1rem'}}>
               Welcome to CDA Website
             </h1>
@@ -355,33 +334,16 @@ export default function Home() {
         </section>
       )}
       
-      {/* Global Content Blocks - Only show if toggles are enabled and data exists */}
-      {globalSelection?.enableValues && globalContentBlocks?.valuesBlock && (
-        <>
-          {/* Debug: Show Values Block is rendering */}
-          <div style={{backgroundColor: '#dcfce7', padding: '1rem', textAlign: 'center', borderLeft: '4px solid #16a34a'}}>
-            <p style={{color: '#15803d', fontWeight: '600'}}>✅ Values Block is rendering below</p>
-          </div>
-          <ValuesBlock globalData={globalContentBlocks.valuesBlock} />
-        </>
-      )}
-      
-      {/* Debug: Show Values Block data structure */}
-      {globalSelection?.enableValues && (
-        <div style={{backgroundColor: '#f3f4f6', padding: '1rem', margin: '1rem 0'}}>
-          <div style={{maxWidth: '1200px', margin: '0 auto'}}>
-            <details style={{fontSize: '0.8rem'}}>
-              <summary style={{cursor: 'pointer', fontWeight: '600', color: '#374151'}}>Debug: Values Block Data Structure</summary>
-              <div style={{marginTop: '0.5rem', backgroundColor: 'white', padding: '1rem', borderRadius: '0.25rem', overflow: 'auto'}}>
-                <pre style={{fontSize: '0.7rem', color: '#374151'}}>{JSON.stringify(globalContentBlocks?.valuesBlock, null, 2)}</pre>
-              </div>
-            </details>
-          </div>
-        </div>
-      )}
+       
       
       {globalSelection?.enableImageFrame && globalContentBlocks?.imageFrameBlock && (
         <PhotoFrame globalData={globalContentBlocks.imageFrameBlock} />
+      )}
+
+      {/* Services Accordion Block */}
+      {globalSelection?.enableServicesAccordion && globalContentBlocks?.servicesAccordion && (
+        // New styled accordion component
+        <ServicesAccordion globalData={globalContentBlocks.servicesAccordion} />
       )}
       
       {globalSelection?.enableTechnologiesSlider && globalContentBlocks?.technologiesSlider && (
@@ -392,28 +354,22 @@ export default function Home() {
         />
       )}
 
-      {/* Showreel Block */}
+      {/* Global Content Blocks - Only show if toggles are enabled and data exists */}
+      {globalSelection?.enableValues && globalContentBlocks?.valuesBlock && (
+        <>
+          <ValuesBlock globalData={globalContentBlocks.valuesBlock} />
+        </>
+      )}
+
+{/* Showreel Block */}
       {globalSelection?.enableShowreel && globalContentBlocks?.showreel && (
-        <section style={{padding: '5rem 1rem'}}>
-          <div style={{maxWidth: '1200px', margin: '0 auto', textAlign: 'center'}}>
-            <p style={{color: '#7c3aed', fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.5rem'}}>{globalContentBlocks.showreel.subtitle}</p>
-            <h2 style={{fontSize: '2rem', fontWeight: 'bold', marginBottom: '1.5rem'}}>{globalContentBlocks.showreel.title}</h2>
-            {globalContentBlocks.showreel.largeImage?.node?.sourceUrl && (
-              <img src={globalContentBlocks.showreel.largeImage.node.sourceUrl} alt={globalContentBlocks.showreel.largeImage.node.altText || ''} style={{maxWidth: '100%', borderRadius: '8px', marginBottom: '1.5rem'}} />
-            )}
-            {globalContentBlocks.showreel.button && (
-              <a href={globalContentBlocks.showreel.button.url || '#'} target={globalContentBlocks.showreel.button.target || '_self'} style={{display: 'inline-block', padding: '0.75rem 2rem', backgroundColor: '#7c3aed', color: 'white', textDecoration: 'none', borderRadius: '0.5rem', fontWeight: '600'}}>
-                {globalContentBlocks.showreel.button.title || 'Learn More'}
-              </a>
-            )}
-          </div>
-        </section>
+        <Showreel globalData={globalContentBlocks.showreel} />
       )}
       
       {/* Stats & Image Block */}
       {globalSelection?.enableStatsImage && globalContentBlocks?.statsImage && (
         <div style={{padding: '5rem 1rem'}}>
-          <div style={{maxWidth: '1200px', margin: '0 auto'}}>
+<div style={{maxWidth: '1620px', margin: '0 auto'}}>
             <h2 style={{fontSize: '2rem', fontWeight: 'bold', marginBottom: '2rem', textAlign: 'center'}}>Statistics & Achievements</h2>
             <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', marginBottom: '2rem'}}>
               {globalContentBlocks.statsImage.stats?.map((stat, index) => (
@@ -439,37 +395,15 @@ export default function Home() {
         </div>
       )}
       
-      {/* Locations Block */}
+{/* Locations Block */}
       {globalSelection?.enableLocationsImage && globalContentBlocks?.locationsImage && (
-        <div style={{padding: '5rem 1rem', backgroundColor: '#f9fafb'}}>
-          <div style={{maxWidth: '1200px', margin: '0 auto'}}>
-            <div style={{textAlign: 'center', marginBottom: '3rem'}}>
-              <p style={{color: '#7c3aed', fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.5rem'}}>{globalContentBlocks.locationsImage.subtitle}</p>
-              <h2 style={{fontSize: '2rem', fontWeight: 'bold'}}>{globalContentBlocks.locationsImage.title}</h2>
-            </div>
-            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem'}}>
-              {globalContentBlocks.locationsImage.countries?.map((country, index) => (
-                <div key={index} style={{backgroundColor: 'white', padding: '2rem', borderRadius: '0.5rem', boxShadow: '0 2px 10px rgba(0,0,0,0.1)'}}>
-                  <h3 style={{fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem', color: '#1f2937'}}>{country.countryName}</h3>
-                  {country.offices?.map((office, officeIndex) => (
-                    <div key={officeIndex} style={{marginBottom: '1rem', paddingBottom: '1rem', borderBottom: officeIndex < country.offices.length - 1 ? '1px solid #e5e7eb' : 'none'}}>
-                      <h4 style={{fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#374151'}}>{office.name}</h4>
-                      <p style={{fontSize: '0.9rem', color: '#6b7280', marginBottom: '0.25rem'}}>{office.address}</p>
-                      <p style={{fontSize: '0.9rem', color: '#6b7280', marginBottom: '0.25rem'}}>Email: {office.email}</p>
-                      <p style={{fontSize: '0.9rem', color: '#6b7280'}}>Phone: {office.phone}</p>
-                    </div>
-                  )) || []}
-                </div>
-              )) || []}
-            </div>
-          </div>
-        </div>
+        <LocationsImage globalData={globalContentBlocks.locationsImage} />
       )}
       
       {/* News Carousel Block */}
       {globalSelection?.enableNewsCarousel && globalContentBlocks?.newsCarousel && (
         <section style={{padding: '5rem 1rem'}}>
-          <div style={{maxWidth: '1200px', margin: '0 auto'}}>
+<div style={{maxWidth: '1620px', margin: '0 auto'}}>
             <div style={{textAlign: 'center', marginBottom: '2rem'}}>
               <p style={{color: '#7c3aed', fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.5rem'}}>{globalContentBlocks.newsCarousel.subtitle}</p>
               <h2 style={{fontSize: '2rem', fontWeight: 'bold'}}>{globalContentBlocks.newsCarousel.title}</h2>
@@ -502,16 +436,12 @@ export default function Home() {
         </div>
       )}
       
-      {/* Services Accordion Block */}
-      {globalSelection?.enableServicesAccordion && globalContentBlocks?.servicesAccordion && (
-        // New styled accordion component
-        <ServicesAccordion globalData={globalContentBlocks.servicesAccordion} />
-      )}
+      
       
       {/* Projects Section from WordPress */}
       {homepageContent?.projectsSection && (
         <section style={{padding: '5rem 1rem', backgroundColor: '#f9fafb'}}>
-          <div style={{maxWidth: '1200px', margin: '0 auto', textAlign: 'center'}}>
+<div style={{maxWidth: '1620px', margin: '0 auto', textAlign: 'center'}}>
             <h2 style={{fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem'}}>{homepageContent.projectsSection.title}</h2>
             <p style={{fontSize: '1.25rem', color: '#4b5563', marginBottom: '2rem'}}>{homepageContent.projectsSection.subtitle}</p>
             {homepageContent.projectsSection.link && (
@@ -530,7 +460,7 @@ export default function Home() {
       {/* Case Studies Section from WordPress */}
       {homepageContent?.caseStudiesSection && (
         <section style={{padding: '5rem 1rem'}}>
-          <div style={{maxWidth: '1200px', margin: '0 auto', textAlign: 'center'}}>
+<div style={{maxWidth: '1620px', margin: '0 auto', textAlign: 'center'}}>
             <p style={{color: '#7c3aed', marginBottom: '1rem'}}>{homepageContent.caseStudiesSection.subtitle}</p>
             <h2 style={{fontSize: '2rem', fontWeight: 'bold', marginBottom: '2rem'}}>{homepageContent.caseStudiesSection.title}</h2>
             
@@ -574,7 +504,7 @@ export default function Home() {
       
       {/* Global Content Debug & Configuration Section */}
       <div style={{padding: '3rem 1rem', backgroundColor: '#f0f9ff', borderTop: '1px solid #e0e7ff'}}>
-        <div style={{maxWidth: '1200px', margin: '0 auto'}}>
+<div style={{maxWidth: '1620px', margin: '0 auto'}}>
           <h2 style={{fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem', color: '#1e40af'}}>Global Content Status</h2>
           
           <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem', marginBottom: '2rem'}}>

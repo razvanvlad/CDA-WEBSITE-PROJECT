@@ -253,11 +253,27 @@
 .underline-svg {
   position: absolute;
   left: 0;
-bottom: -8px; /* tighten to touch glyphs */
+  bottom: -10px; /* tight against glyphs */
   width: 100%;
   height: auto;
   pointer-events: none;
   user-select: none;
+}
+
+/* Values number badge */
+.value-badge {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  background: #111827; /* near-black */
+  border-radius: 6px;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #111827; /* double outline */
 }
 
 /* CSS FOR VERTICAL BUTTON */

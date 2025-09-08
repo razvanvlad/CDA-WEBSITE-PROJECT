@@ -57,7 +57,7 @@ export default function Header() {
       </div>
 
       <header className="bg-white" style={{ borderBottom: '1px solid #EBEBEB' }}>
-        <div className="max-w-7xl mx-auto px-4 py-4">
+<div className="mx-auto max-w-[1620px] px-4 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center">
