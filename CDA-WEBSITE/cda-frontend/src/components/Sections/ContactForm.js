@@ -5,16 +5,98 @@ export default function ContactForm({ onSubmit }) {
     e.preventDefault();
     if (onSubmit) onSubmit(new FormData(e.currentTarget));
   };
+
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="mx-auto w-full max-w-[800px] px-4 md:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-black mb-8 text-center">Send us a message</h2>
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
-          <input name="name" placeholder="Your name" className="px-4 py-3 border rounded-lg" />
-          <input name="email" placeholder="Your email" type="email" className="px-4 py-3 border rounded-lg" />
-          <textarea name="message" placeholder="Your message" rows={5} className="px-4 py-3 border rounded-lg" />
-          <button type="submit" className="button-l self-center">Submit</button>
-        </form>
+    <section className="contact-section">
+      <div className="contact-container">
+        {/* Left: Form */}
+        <div className="contact-content">
+          <div className="contact-header">
+            <div className="contact-subtitle">Send us a</div>
+            <h2 className="contact-title">Message</h2>
+          </div>
+
+          <form onSubmit={handleSubmit} className="contact-form" aria-label="Contact form">
+            <div className="contact-grid">
+              <div className="contact-input-wrap">
+                <input
+                  className="contact-input"
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  autoComplete="given-name"
+                  required
+                />
+              </div>
+              <div className="contact-input-wrap">
+                <input
+                  className="contact-input"
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  autoComplete="family-name"
+                  required
+                />
+              </div>
+              <div className="contact-input-wrap">
+                <input
+                  className="contact-input"
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  autoComplete="email"
+                  required
+                />
+              </div>
+              <div className="contact-input-wrap">
+                <input
+                  className="contact-input"
+                  type="tel"
+                  name="telephone"
+                  placeholder="Telephone Number"
+                  autoComplete="tel"
+                />
+              </div>
+            </div>
+
+            <div className="contact-input-wrap">
+              <textarea
+                className="contact-textarea"
+                name="message"
+                placeholder="Message"
+                rows={6}
+                required
+              />
+            </div>
+
+            <div className="contact-input-wrap">
+              <select className="contact-select" name="reason" defaultValue="">
+                <option value="" disabled>
+                  Reason
+                </option>
+                <option value="general">General Enquiry</option>
+                <option value="quote">Request a Quote</option>
+                <option value="support">Support</option>
+                <option value="partnership">Partnership</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div className="contact-actions">
+              <button type="submit" className="button-l">Submit</button>
+            </div>
+          </form>
+        </div>
+
+        {/* Right: Illustration */}
+        <div className="contact-illustration">
+          <img
+            className="contact-illustration-img"
+            src="/images/Component 119 – 1.svg"
+            alt="Illustration"
+            loading="lazy"
+          />
+        </div>
       </div>
     </section>
   );

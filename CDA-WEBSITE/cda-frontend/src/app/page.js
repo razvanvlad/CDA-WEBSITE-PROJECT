@@ -10,6 +10,7 @@ import Showreel from '../components/GlobalBlocks/Showreel';
 import ServicesAccordion from '../components/GlobalBlocks/ServicesAccordion';
 import LocationsImage from '../components/GlobalBlocks/LocationsImage';
 import { sanitizeTitleHtml } from '../lib/sanitizeTitleHtml';
+import NewsletterSignup from '../components/GlobalBlocks/NewsletterSignup';
 
 export default function Home() {
   const [globalData, setGlobalData] = useState(null);
@@ -531,82 +532,7 @@ export default function Home() {
 
       {/* Newsletter Signup Block */}
       {globalSelection?.enableNewsletterSignup && globalContentBlocks?.newsletterSignup && (
-        <section className="newsletter-section">
-          <div className="newsletter-container">
-            <div className="newsletter-content">
-              {/* Header */}
-              <div className="newsletter-header">
-                <p className="newsletter-subtitle">
-                  {globalContentBlocks.newsletterSignup.subtitle || 'Want These Insights?'}
-                </p>
-                <h2 className="newsletter-title">
-                  {globalContentBlocks.newsletterSignup.title || 'Sign Up To Our Newsletter'}
-                </h2>
-              </div>
-              
-              {/* Form */}
-              <form className="newsletter-form">
-                {/* First Row - Name Fields */}
-                <div className="newsletter-row">
-                  <div className="newsletter-input-wrap">
-                    <input
-                      type="text"
-                      placeholder="First Name"
-                      className="newsletter-input"
-                    />
-                  </div>
-                  <div className="newsletter-input-wrap">
-                    <input
-                      type="text"
-                      placeholder="Last Name"
-                      className="newsletter-input"
-                    />
-                  </div>
-                </div>
-                
-                {/* Second Row - Email and Submit */}
-                <div className="newsletter-row">
-                  <div className="newsletter-input-wrap">
-                    <input
-                      type="email"
-                      placeholder="Email Address"
-                      className="newsletter-input"
-                    />
-                  </div>
-                  <div className="newsletter-input-wrap">
-                    <button
-                      type="submit"
-                      className="button-l newsletter-submit"
-                    >
-                      Sign Up
-                    </button>
-                  </div>
-                </div>
-                
-                {/* Terms and Conditions */}
-                <div className="newsletter-terms">
-                  <input
-                    type="checkbox"
-                    id="terms"
-                    className="newsletter-checkbox"
-                  />
-                  <label htmlFor="terms" className="newsletter-label">
-                    I agree to the{' '}
-                    <span className="newsletter-terms-link">
-                      Terms and Conditions
-                    </span>
-                    {' '}and consent to receive email updates and newsletters
-                  </label>
-                </div>
-              </form>
-              
-            </div>
-            {/* Illustration */}
-            <div className="newsletter-illustration">
-              <img src="/images/paper-plane.svg" alt="Paper plane illustration" className="newsletter-illustration-img" />
-            </div>
-          </div>
-        </section>
+        <NewsletterSignup globalData={globalContentBlocks.newsletterSignup} />
       )}
       
       

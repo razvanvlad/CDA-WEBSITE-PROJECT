@@ -4,6 +4,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import LocationsImage from '../../components/GlobalBlocks/LocationsImage';
 import ContactForm from '@/components/Sections/ContactForm';
+import NewsletterSignup from '../../components/GlobalBlocks/NewsletterSignup';
 
 const stripHTML = (html) => html ? html.replace(/<[^>]*>/g, '').trim() : '';
 
@@ -119,20 +120,24 @@ export default function ContactPage() {
       <Header />
 
       {/* Contact Form Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="mx-auto w-full max-w-[800px] px-4 md:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-black mb-3">{stripHTML(formSection?.title) || 'Contact Us'}</h1>
-            {formSection?.description && (
-              <div className="text-gray-600" dangerouslySetInnerHTML={{ __html: formSection.description }} />
+      <section className="contact-section">
+        <div className="contact-container">
+          <div className="contact-content">
+            <div className="contact-header">
+              <div className="contact-subtitle">Send us a</div>
+              <h1 className="contact-title">Message</h1>
+            </div>
+
+            {formEmbed ? (
+              <div dangerouslySetInnerHTML={{ __html: formSection.formShortcode }} />
+            ) : (
+              <ContactForm />
             )}
           </div>
 
-          {formEmbed ? (
-            <div dangerouslySetInnerHTML={{ __html: formSection.formShortcode }} />
-          ) : (
-            <ContactForm />
-          )}
+          <div className="contact-illustration">
+            <img className="contact-illustration-img" src="/images/Component 119 – 1.svg" alt="Illustration" />
+          </div>
         </div>
       </section>
 
@@ -143,26 +148,7 @@ export default function ContactPage() {
 
       {/* Newsletter (Global) */}
       {globalBlocks?.newsletterSignup && (
-        <section className="py-16">
-          <div className="max-w-[600px] mx-auto text-center px-4">
-            {globalBlocks.newsletterSignup.subtitle && (
-              <p className="text-sm font-semibold text-purple-600 mb-2">{globalBlocks.newsletterSignup.subtitle}</p>
-            )}
-            {globalBlocks.newsletterSignup.title && (
-              <h2 className="text-2xl font-bold mb-6">{globalBlocks.newsletterSignup.title}</h2>
-            )}
-            <div className="bg-gray-50 p-6 rounded-lg mb-3">
-              {globalBlocks.newsletterSignup.hubspotScript ? (
-                <div dangerouslySetInnerHTML={{ __html: globalBlocks.newsletterSignup.hubspotScript }} />
-              ) : (
-                <p className="text-gray-600">Newsletter form not configured yet.</p>
-              )}
-            </div>
-            {globalBlocks.newsletterSignup.termsText && (
-              <p className="text-xs text-gray-500">{globalBlocks.newsletterSignup.termsText}</p>
-            )}
-          </div>
-        </section>
+        <NewsletterSignup globalData={globalBlocks.newsletterSignup} />
       )}
 
       {/* Debug panel */}

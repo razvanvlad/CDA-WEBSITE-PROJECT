@@ -830,3 +830,85 @@
     font-size: 3rem;
   }
 }
+
+/* Contact Section (SVG-accurate) */
+.contact-section {
+  background-color: #F4F4F4; /* matches SVG light gray */
+  padding: 80px 16px; /* generous vertical space as in SVG */
+}
+
+.contact-container {
+  max-width: 1216px; /* same container as newsletter */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr; /* form | illustration, similar to SVG balance */
+  gap: 48px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .contact-container {
+    grid-template-columns: 1fr; /* stack on tablet/mobile */
+  }
+}
+
+.contact-content { text-align: left; }
+
+/* Header */
+.contact-header { margin-bottom: 24px; }
+.contact-subtitle {
+  color: #000;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-family: 'Poppins', sans-serif;
+}
+.contact-title {
+  font-size: 50px; /* large title per design */
+  font-weight: 700;
+  color: #000;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+/* Form grid: first/last/email/tel in two columns on desktop */
+.contact-form { display: flex; flex-direction: column; gap: 24px; }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 36px; /* row gap 24, column gap 36 to match spacing */
+}
+@media (max-width: 768px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* Inputs */
+.contact-input-wrap { width: 100%; }
+.contact-input,
+.contact-select,
+.contact-textarea {
+  width: 100%;
+  height: 50px;
+  padding: 0 30px;
+  border: 1px solid #DBDBDB;
+  background-color: #FFFFFF;
+  font-size: 18px;
+  font-family: 'Inter', sans-serif;
+  color: rgba(0,0,0,0.6);
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* Textarea height */
+.contact-textarea { height: 170px; padding: 18px 30px; resize: vertical; }
+
+/* Select style with placeholder */
+.contact-select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, #000 50%), linear-gradient(135deg, #000 50%, transparent 50%), linear-gradient(to right, transparent, transparent); background-position: calc(100% - 20px) calc(1.1em), calc(100% - 15px) calc(1.1em), 100% 0; background-size: 5px 5px, 5px 5px, 2.5em 2.5em; background-repeat: no-repeat; }
+
+/* Actions */
+.contact-actions { margin-top: 8px; }
+.contact-actions .button-l { width: 240px; height: 52px; }
+
+/* Right illustration */
+.contact-illustration { display: flex; align-items: center; justify-content: center; }
+.contact-illustration-img { width: 100%; max-width: 540px; height: auto; object-fit: contain; }
