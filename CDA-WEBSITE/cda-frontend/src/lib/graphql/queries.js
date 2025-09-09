@@ -779,28 +779,7 @@ export const GET_404_CONTENT = gql`
   }
 `;
 
-// About Us Content Query (ID: 317)
-export const GET_ABOUT_US_CONTENT = gql`
-  query GET_ABOUT_US_CONTENT($id: ID!) {
-    page(id: $id, idType: DATABASE_ID) {
-      id
-      title
-      slug
-      aboutUsContent {
-        contentPageHeader {
-          title
-          text
-          cta { url title target }
-        }
-        whoWeAreSection {
-          sectionTitle
-          sectionText
-          cta { url title target }
-        }
-      }
-    }
-  }
-`;
+// (Removed duplicate - see complete query below)
 
 export const GET_MENU = gql`
   query GetMenu {
@@ -852,22 +831,95 @@ export const GET_WHY_CDA_GLOBAL = gql`
   }
 `;
 
-// Optional About page toggles (separate field group)
-export const GET_ABOUT_TOGGLES = gql`
-  query GET_ABOUT_TOGGLES($id: ID!) {
-    page(id: $id, idType: DATABASE_ID) {
+// About Us Page Content Query - matches ACF structure
+export const GET_ABOUT_US_CONTENT = gql`
+  query GET_ABOUT_US_CONTENT($id: ID!, $idType: PageIdType) {
+    page(id: $id, idType: $idType) {
       id
-      aboutUsGlobalContentSelection {
-        enableImageFrame
-        enableServicesAccordion
-        enableWhyCda
-        enableTechnologiesSlider
-        enableValues
-        enableShowreel
-        enableStatsImage
-        enableLocationsImage
-        enableNewsCarousel
-        enableNewsletterSignup
+      title
+      aboutUsContent {
+        contentPageHeader {
+          title
+          text
+          cta {
+            url
+            title
+            target
+          }
+        }
+        whoWeAreSection {
+          imageWithFrame {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          sectionTitle
+          sectionText
+          cta {
+            url
+            title
+            target
+          }
+        }
+        leadershipSection {
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          name
+          position
+          bio
+        }
+        globalContentSelection {
+          enableImageFrame
+          enableServicesAccordion
+          enableWhyCda
+          enableShowreel
+          enableCultureGallerySlider
+          enableApproach
+          enableFullVideo
+          enableJoinOurTeam
+          enableThreeColumnsWithIcons
+          enableContactFormLeftImageRight
+          enableTechnologiesSlider
+          enableValues
+          enableStatsImage
+          enableLocationsImage
+          enableNewsCarousel
+          enableNewsletterSignup
+        }
+      }
+    }
+  }
+`;
+
+// Optional About page toggles (for backward compatibility)
+export const GET_ABOUT_TOGGLES = gql`
+  query GET_ABOUT_TOGGLES($id: ID!, $idType: PageIdType) {
+    page(id: $id, idType: $idType) {
+      id
+      aboutUsContent {
+        globalContentSelection {
+          enableImageFrame
+          enableServicesAccordion
+          enableWhyCda
+          enableShowreel
+          enableCultureGallerySlider
+          enableApproach
+          enableFullVideo
+          enableJoinOurTeam
+          enableThreeColumnsWithIcons
+          enableContactFormLeftImageRight
+          enableTechnologiesSlider
+          enableValues
+          enableStatsImage
+          enableLocationsImage
+          enableNewsCarousel
+          enableNewsletterSignup
+        }
       }
     }
   }
@@ -969,6 +1021,54 @@ export const GET_GLOBAL_CONTENT_BLOCKS = gql`
           subtitle
           hubspotScript
           termsText
+        }
+        statsImage {
+          text
+          button { url title target }
+          stats { number text }
+          illustration { node { sourceUrl altText } }
+        }
+        cultureGallerySlider {
+          title
+          subtitle
+          useGlobalSocialLinks
+          images { sourceUrl altText caption }
+        }
+        approach {
+          title
+          subtitle
+          steps {
+            image { node { sourceUrl altText } }
+            title
+          }
+        }
+        fullVideo {
+          url
+          file { node { mediaItemUrl } }
+        }
+        joinOurTeam {
+          leftMediaType
+          leftImage { node { sourceUrl altText } }
+          leftVideo { node { mediaItemUrl } }
+          leftGif { node { sourceUrl altText } }
+          title
+          text
+          button { url title target }
+          rightMediaType
+          rightImage { node { sourceUrl altText } }
+          rightVideo { node { mediaItemUrl } }
+          rightGif { node { sourceUrl altText } }
+        }
+        columnsWithIcons3X {
+          title
+          subtitle
+          columns { iconClass title description }
+        }
+        contactFormLeftImageRight {
+          title
+          subtitle
+          formShortcode
+          image { node { sourceUrl altText } }
         }
       }
     }

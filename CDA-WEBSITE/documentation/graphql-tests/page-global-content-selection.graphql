@@ -1,0 +1,206 @@
+# Page-level Global Content Selection Toggles
+# ============================================
+# 
+# This field group is available on all Pages EXCEPT the About page (which has its own internal toggles).
+# These toggles control which global content blocks should appear on each page.
+#
+# GraphQL Path: Page.globalContentSelection
+# ACF Group: Global Content Selection (Page-level)
+#
+# Usage:
+# - Each toggle corresponds to a block in globalOptions.globalSharedContent
+# - Frontend should check these toggles to conditionally render global blocks
+# - About page uses aboutUsContent.globalContentSelection instead
+
+# Test query for any standard page (example: Contact page ID 791)
+query GetPageGlobalContentToggles {
+  page(id: "791", idType: DATABASE_ID) {
+    id
+    title
+    uri
+    
+    # Page-level toggles for global content blocks
+    globalContentSelection {
+      enableWhyCda
+      enableApproach
+      enableServicesAccordion
+      enableShowreel
+      enableTechnologiesSlider
+      enableCultureGallerySlider
+      enableFullVideo
+      enableJoinOurTeam
+      enable3XColumnsWithIcons
+      enableContactFormLeftImageRight
+    }
+  }
+}
+
+# Query with variables for flexibility
+query GetPageTogglesByUri($uri: String!) {
+  page(id: $uri, idType: URI) {
+    id
+    title
+    
+    globalContentSelection {
+      enableWhyCda
+      enableApproach
+      enableServicesAccordion
+      enableShowreel
+      enableTechnologiesSlider
+      enableCultureGallerySlider
+      enableFullVideo
+      enableJoinOurTeam
+      enable3XColumnsWithIcons
+      enableContactFormLeftImageRight
+    }
+  }
+}
+
+# Variables example:
+# {
+#   "uri": "/contact/"
+# }
+
+# Combined query: Get page toggles + the actual global content blocks
+query GetPageWithGlobalBlocks($pageId: ID!) {
+  page(id: $pageId, idType: DATABASE_ID) {
+    id
+    title
+    
+    # Check which blocks are enabled for this page
+    globalContentSelection {
+      enableWhyCda
+      enableApproach
+      enableServicesAccordion
+      enableShowreel
+      enableTechnologiesSlider
+      enableCultureGallerySlider
+      enableFullVideo
+      enableJoinOurTeam
+      enable3XColumnsWithIcons
+      enableContactFormLeftImageRight
+    }
+  }
+  
+  # Get the actual global content blocks
+  globalOptions {
+    globalSharedContent {
+      whyCdaBlock {
+        title
+        subtitle
+        reasons {
+          iconClass
+          title
+          description
+        }
+      }
+      
+      approachBlock {
+        title
+        subtitle
+        description
+        steps {
+          number
+          title
+          description
+        }
+      }
+      
+      cultureGallerySlider {
+        title
+        subtitle
+        images {
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          caption
+        }
+      }
+      
+      fullVideo {
+        title
+        subtitle
+        videoUrl
+        posterImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+      }
+      
+      joinOurTeam {
+        title
+        subtitle
+        text
+        button {
+          url
+          title
+          target
+        }
+      }
+      
+      columnsWithIcons3X {
+        title
+        subtitle
+        columns {
+          iconClass
+          title
+          description
+        }
+      }
+      
+      contactFormLeftImageRight {
+        title
+        subtitle
+        formShortcode
+        image {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+      }
+    }
+    
+    # Also includes the original global content blocks
+    globalContentBlocks {
+      servicesAccordion {
+        title
+        subtitle
+      }
+      
+      showreel {
+        title
+        subtitle
+        button {
+          url
+          title
+          target
+        }
+      }
+      
+      technologiesSlider {
+        title
+        subtitle
+        logos {
+          nodes {
+            ... on Technology {
+              id
+              title
+              uri
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+# Variables example:
+# {
+#   "pageId": "791"
+# }

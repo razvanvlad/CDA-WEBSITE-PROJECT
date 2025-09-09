@@ -1,4 +1,4 @@
-import { getTeamMemberBySlug, getTeamMemberSlugs } from '@/lib/graphql-queries'
+import { getTeamMemberBySlug, getTeamMemberSlugs } from '@/lib/graphql-queries.js'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'

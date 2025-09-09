@@ -23,6 +23,9 @@ export default function Home() {
       setError(null);
       
       try {
+        const GRAPHQL_URL =
+          process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT ||
+          'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/graphql';
         // Using simplified, working GraphQL queries
         const globalQuery = `{
           globalOptions {
@@ -86,7 +89,11 @@ export default function Home() {
                 articleSelection
                 category { nodes { name slug } }
                 manualArticles {
-                  nodes { ... on Post { id title excerpt uri featuredImage { node { sourceUrl altText } } } }
+                  nodes {
+                    __typename
+                    ... on BlogPost { id title excerpt uri featuredImage { node { sourceUrl altText } } }
+                    ... on Post { id title excerpt uri featuredImage { node { sourceUrl altText } } }
+                  }
                 }
               }
               newsletterSignup {
@@ -135,6 +142,7 @@ export default function Home() {
               caseStudiesSection {
                 subtitle
                 title
+                title
                 knowledgeHubLink {
                   url
                   title
@@ -167,7 +175,7 @@ export default function Home() {
         }`;
         
         // Fetch global data
-        const globalResponse = await fetch('http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/graphql', {
+        const globalResponse = await fetch(GRAPHQL_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -178,12 +186,12 @@ export default function Home() {
 
         // Normalize global blocks to align with components
         const rawBlocks = globalResult?.data?.globalOptions?.globalContentBlocks || {};
-        const normalizedBlocks = {
+        let normalizedBlocks = {
           ...rawBlocks,
           // Map statsImage to image if backend exposes it that way
           statsImage: rawBlocks?.statsImage || rawBlocks?.image,
           // Flatten technologies logos connection into plain image objects for the slider
-              technologiesSlider: rawBlocks?.technologiesSlider
+          technologiesSlider: rawBlocks?.technologiesSlider
             ? {
                 ...rawBlocks.technologiesSlider,
                 logos: (rawBlocks.technologiesSlider.logos?.nodes || [])
@@ -196,11 +204,78 @@ export default function Home() {
             : undefined,
         };
         
+        // Compute News Carousel articles based on selection (manual/latest/category)
+        try {
+          const newsConfig = rawBlocks?.newsCarousel;
+          if (newsConfig) {
+            let computedArticles = [];
+            const selection = newsConfig.articleSelection;
+
+            if (selection === 'manual') {
+              computedArticles = (newsConfig.manualArticles?.nodes || [])
+                .filter((n) => n?.__typename === 'BlogPost')
+                .map((n) => ({
+                  id: n?.id,
+                  title: n?.title,
+                  excerpt: n?.excerpt,
+                  uri: n?.uri,
+                  imageUrl: n?.featuredImage?.node?.sourceUrl || '',
+                  imageAlt: n?.featuredImage?.node?.altText || n?.title || 'Article image',
+                }));
+            } else {
+              const selectedSlug = newsConfig?.category?.nodes?.[0]?.slug;
+              const firstCount = selection === 'category' ? 12 : 6;
+              const blogQuery = `{
+                blogPosts(first: ${firstCount}, where: { orderby: {field: DATE, order: DESC} }) {
+                  nodes {
+                    id
+                    title
+                    excerpt
+                    uri
+                    date
+                    featuredImage { node { sourceUrl altText } }
+                    blogCategories { nodes { name slug } }
+                  }
+                }
+              }`;
+              const blogRes = await fetch(GRAPHQL_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query: blogQuery })
+              });
+              const blogJson = await blogRes.json();
+              const blogNodes = (blogJson?.data?.blogPosts?.nodes || []);
+              const filteredNodes = (selection === 'category' && selectedSlug)
+                ? blogNodes.filter((n) => (n?.blogCategories?.nodes || []).some((c) => c?.slug === selectedSlug))
+                : blogNodes;
+
+              computedArticles = filteredNodes.map((n) => ({
+                id: n?.id,
+                title: n?.title,
+                excerpt: n?.excerpt,
+                uri: n?.uri,
+                date: n?.date,
+                imageUrl: n?.featuredImage?.node?.sourceUrl || '',
+                imageAlt: n?.featuredImage?.node?.altText || n?.title || 'Article image',
+                categories: (n?.blogCategories?.nodes || []).map((c) => c?.name).filter(Boolean),
+              }));
+            }
+
+            normalizedBlocks = {
+              ...normalizedBlocks,
+              newsCarousel: newsConfig ? { ...newsConfig, computedArticles } : undefined,
+            };
+          }
+        } catch (e) {
+          console.warn('News Carousel posts fetch failed, falling back to config only.', e);
+          // keep normalizedBlocks as-is; UI will gracefully show placeholder
+        }
+        
         // Overwrite with normalized structure for downstream rendering
         globalResult.data = { globalOptions: { globalContentBlocks: normalizedBlocks } };
         
         // Fetch homepage data
-        const homepageResponse = await fetch('http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/graphql', {
+        const homepageResponse = await fetch(GRAPHQL_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -408,38 +483,119 @@ export default function Home() {
       
       {/* News Carousel Block */}
       {globalSelection?.enableNewsCarousel && globalContentBlocks?.newsCarousel && (
-        <section style={{padding: '5rem 1rem'}}>
-<div style={{maxWidth: '1620px', margin: '0 auto'}}>
-            <div style={{textAlign: 'center', marginBottom: '2rem'}}>
-              <p style={{color: '#7c3aed', fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.5rem'}}>{globalContentBlocks.newsCarousel.subtitle}</p>
-              <h2 style={{fontSize: '2rem', fontWeight: 'bold'}}>{globalContentBlocks.newsCarousel.title}</h2>
+        <section className="news-carousel-section">
+          <div className="news-carousel-container">
+            <div className="news-carousel-header">
+              <p className="news-carousel-subtitle">{globalContentBlocks.newsCarousel.subtitle}</p>
+              <h2 className="news-carousel-title">{globalContentBlocks.newsCarousel.title}</h2>
             </div>
-            <div style={{backgroundColor: '#f3f4f6', padding: '2rem', borderRadius: '0.5rem', textAlign: 'center'}}>
-              <p style={{color: '#6b7280'}}>News carousel component ready — {globalContentBlocks.newsCarousel.manualArticles?.nodes?.length || 0} articles selected.</p>
-            </div>
+
+            {(globalContentBlocks.newsCarousel.computedArticles?.length || 0) > 0 ? (
+              <div className="news-carousel-list">
+                {globalContentBlocks.newsCarousel.computedArticles.map((post) => (
+                  <article key={post.id || post.uri} className="news-card">
+                    {post.imageUrl ? (
+                      <a href={post.uri} className="news-card-image" aria-label={post.title}>
+                        <img src={post.imageUrl} alt={post.imageAlt || post.title} />
+                      </a>
+                    ) : null}
+                    <div className="news-card-content">
+                      <h3 className="news-card-title" dangerouslySetInnerHTML={{ __html: post.title }} />
+                      {post.excerpt && (
+                        <div className="news-card-excerpt" dangerouslySetInnerHTML={{ __html: post.excerpt }} />
+                      )}
+                      <a href={post.uri} className="news-card-link">Read more →</a>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <div className="news-carousel-placeholder">
+                <p>No articles found. Add posts in WordPress or adjust the News Carousel settings.</p>
+              </div>
+            )}
           </div>
         </section>
       )}
 
       {/* Newsletter Signup Block */}
       {globalSelection?.enableNewsletterSignup && globalContentBlocks?.newsletterSignup && (
-        <div style={{padding: '5rem 1rem'}}>
-          <div style={{maxWidth: '600px', margin: '0 auto', textAlign: 'center'}}>
-            <p style={{color: '#7c3aed', fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.5rem'}}>{globalContentBlocks.newsletterSignup.subtitle}</p>
-            <h2 style={{fontSize: '2rem', fontWeight: 'bold', marginBottom: '2rem'}}>{globalContentBlocks.newsletterSignup.title}</h2>
-            <div style={{backgroundColor: '#f8fafc', padding: '2rem', borderRadius: '0.5rem', marginBottom: '1rem'}}>
-              <p style={{color: '#6b7280', marginBottom: '1rem'}}>HubSpot newsletter form would be embedded here</p>
-              {globalContentBlocks.newsletterSignup.hubspotScript && (
-                <div style={{fontSize: '0.8rem', color: '#10b981'}}>
-                  ✓ HubSpot script configured
+        <section className="newsletter-section">
+          <div className="newsletter-container">
+            <div className="newsletter-content">
+              {/* Header */}
+              <div className="newsletter-header">
+                <p className="newsletter-subtitle">
+                  {globalContentBlocks.newsletterSignup.subtitle || 'Want These Insights?'}
+                </p>
+                <h2 className="newsletter-title">
+                  {globalContentBlocks.newsletterSignup.title || 'Sign Up To Our Newsletter'}
+                </h2>
+              </div>
+              
+              {/* Form */}
+              <form className="newsletter-form">
+                {/* First Row - Name Fields */}
+                <div className="newsletter-row">
+                  <div className="newsletter-input-wrap">
+                    <input
+                      type="text"
+                      placeholder="First Name"
+                      className="newsletter-input"
+                    />
+                  </div>
+                  <div className="newsletter-input-wrap">
+                    <input
+                      type="text"
+                      placeholder="Last Name"
+                      className="newsletter-input"
+                    />
+                  </div>
                 </div>
-              )}
+                
+                {/* Second Row - Email and Submit */}
+                <div className="newsletter-row">
+                  <div className="newsletter-input-wrap">
+                    <input
+                      type="email"
+                      placeholder="Email Address"
+                      className="newsletter-input"
+                    />
+                  </div>
+                  <div className="newsletter-input-wrap">
+                    <button
+                      type="submit"
+                      className="button-l newsletter-submit"
+                    >
+                      Sign Up
+                    </button>
+                  </div>
+                </div>
+                
+                {/* Terms and Conditions */}
+                <div className="newsletter-terms">
+                  <input
+                    type="checkbox"
+                    id="terms"
+                    className="newsletter-checkbox"
+                  />
+                  <label htmlFor="terms" className="newsletter-label">
+                    I agree to the{' '}
+                    <span className="newsletter-terms-link">
+                      Terms and Conditions
+                    </span>
+                    {' '}and consent to receive email updates and newsletters
+                  </label>
+                </div>
+              </form>
+              
             </div>
-            {globalContentBlocks.newsletterSignup.termsText && (
-              <p style={{fontSize: '0.8rem', color: '#6b7280'}}>{globalContentBlocks.newsletterSignup.termsText}</p>
-            )}
+            {/* Illustration */}
+            <div className="newsletter-illustration">
+              <img src="/images/paper-plane.svg" alt="Paper plane illustration" className="newsletter-illustration-img" />
+            </div>
           </div>
-        </div>
+        </section>
       )}
       
       

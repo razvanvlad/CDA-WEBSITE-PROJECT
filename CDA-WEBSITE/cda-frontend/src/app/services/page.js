@@ -1,5 +1,5 @@
 // src/app/services/page.js
-import { getServicesWithPagination, executeGraphQLQuery } from '@/lib/graphql-queries'
+import { getServicesWithPagination, executeGraphQLQuery } from '@/lib/graphql-queries.js'
 import { getPaginationFromSearchParams } from '@/lib/pagination-utils'
 import Pagination from '@/components/Pagination'
 import ApproachBlock from '@/components/GlobalBlocks/ApproachBlock'

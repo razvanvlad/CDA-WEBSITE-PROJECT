@@ -227,6 +227,18 @@ export default function AIPage() {
                 <div dangerouslySetInnerHTML={{ __html: aiContent.ctaSection.content }} />
               </div>
             )}
+            {aiContent.ctaSection.button?.url && (
+              <div>
+                <a
+                  href={aiContent.ctaSection.button.url}
+                  target={aiContent.ctaSection.button.target && aiContent.ctaSection.button.target !== '' ? aiContent.ctaSection.button.target : '_self'}
+                  rel={aiContent.ctaSection.button.target === '_blank' ? 'noopener noreferrer' : undefined}
+                  className="inline-flex items-center justify-center px-8 py-3 bg-white text-cyan-700 font-semibold rounded-lg hover:bg-cyan-50 transition-colors"
+                >
+                  {aiContent.ctaSection.button.title || 'Learn More'}
+                </a>
+              </div>
+            )}
           </div>
         </section>
       )}

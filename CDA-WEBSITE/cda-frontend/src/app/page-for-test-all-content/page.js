@@ -209,14 +209,91 @@ export default function PageForTestAllContent() {
       `,
     },
     {
+      key: 'pageGlobalToggles',
+      title: '7) Page-level Global Content Selection',
+      description: 'Tests new page-level toggles for any standard page (not About)',
+      query: `
+        query {
+          page(id: "791", idType: DATABASE_ID) {
+            id
+            title
+            globalContentSelection {
+              enableWhyCda
+              enableApproach
+              enableServicesAccordion
+              enableShowreel
+              enableTechnologiesSlider
+              enableCultureGallerySlider
+              enableFullVideo
+              enableJoinOurTeam
+              enable3XColumnsWithIcons
+              enableContactFormLeftImageRight
+            }
+          }
+        }
+      `,
+    },
+    {
       key: 'introspectStatsImage',
-      title: '7) Introspection of AboutUsContentStatsSectionImage',
+      title: '8) Introspection of AboutUsContentStatsSectionImage',
       description: 'Check fields for the Stats & Image compatible object.',
       query: `
         query {
           __type(name: "AboutUsContentStatsSectionImage") {
             name
             fields { name type { name kind ofType { name kind } } }
+          }
+        }
+      `,
+    },
+    {
+      key: 'globalSharedContent',
+      title: '9) Global Shared Content blocks',
+      description: 'Tests new global shared content blocks (Why CDA, Approach, etc)',
+      query: `
+        query {
+          globalOptions {
+            globalSharedContent {
+              whyCdaBlock {
+                title
+                subtitle
+                reasons { iconClass title description }
+              }
+              approachBlock {
+                title
+                subtitle
+                description
+                steps { number title description }
+              }
+              cultureGallerySlider {
+                title
+                subtitle
+                images { image { node { sourceUrl altText } } caption }
+              }
+              fullVideo {
+                title
+                subtitle
+                videoUrl
+                posterImage { node { sourceUrl altText } }
+              }
+              joinOurTeam {
+                title
+                subtitle
+                text
+                button { url title target }
+              }
+              columnsWithIcons3X {
+                title
+                subtitle
+                columns { iconClass title description }
+              }
+              contactFormLeftImageRight {
+                title
+                subtitle
+                formShortcode
+                image { node { sourceUrl altText } }
+              }
+            }
           }
         }
       `,
