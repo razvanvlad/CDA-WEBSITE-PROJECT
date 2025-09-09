@@ -1,0 +1,230 @@
+# Test 1: Check if serviceFields exists on Service type
+query CheckServiceFieldsSchema {
+  __type(name: "Service") {
+    name
+    fields {
+      name
+      type {
+        name
+        kind
+      }
+    }
+  }
+}
+
+# Test 2: Check serviceFields structure
+query CheckServiceFieldsStructure {
+  __type(name: "ServiceServiceFields") {
+    name
+    fields {
+      name
+      type {
+        name
+        kind
+      }
+    }
+  }
+}
+
+# Test 3: Check if seoSettings exists on Page type
+query CheckSeoSettingsSchema {
+  __type(name: "Page") {
+    name
+    fields {
+      name
+      type {
+        name
+        kind
+      }
+    }
+  }
+}
+
+# Test 4: Check seoSettings structure
+query CheckSeoSettingsStructure {
+  __type(name: "PageSeoSettings") {
+    name
+    fields {
+      name
+      type {
+        name
+        kind
+      }
+    }
+  }
+}
+
+# Test 5: Get actual Service data with serviceFields
+query GetServiceWithFields {
+  services(first: 1) {
+    nodes {
+      id
+      title
+      slug
+      serviceFields {
+        heroSection {
+          subtitle
+          description
+          heroImage {
+            sourceUrl
+            altText
+          }
+          cta {
+            url
+            title
+            target
+          }
+        }
+        keyStatistics {
+          number
+          label
+          description
+        }
+        serviceFeatures {
+          icon {
+            sourceUrl
+            altText
+          }
+          title
+          description
+        }
+        featuredCaseStudies {
+          ... on CaseStudy {
+            id
+            title
+            slug
+          }
+        }
+      }
+    }
+  }
+}
+
+# Test 6: Get actual Page data with seoSettings
+query GetPageWithSeoSettings {
+  pages(first: 1) {
+    nodes {
+      id
+      title
+      slug
+      uri
+      seoSettings {
+        seoTitle
+        seoDescription
+        seoKeywords
+        noindex
+        nofollow
+        canonicalUrl
+      }
+    }
+  }
+}
+
+# Test 7: Get specific page by URI with seoSettings
+query GetAboutPageSeoSettings {
+  page(id: "/about", idType: URI) {
+    id
+    title
+    seoSettings {
+      seoTitle
+      seoDescription
+      seoKeywords
+      noindex
+      nofollow
+      canonicalUrl
+    }
+  }
+}
+
+# Test 8: Get specific service by slug (if you have services)
+query GetSpecificServiceFields {
+  service(id: "web-development", idType: SLUG) {
+    id
+    title
+    serviceFields {
+      heroSection {
+        subtitle
+        description
+        heroImage {
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+        cta {
+          url
+          title
+          target
+        }
+      }
+      keyStatistics {
+        number
+        label
+        description
+      }
+      serviceFeatures {
+        icon {
+          sourceUrl
+          altText
+        }
+        title
+        description
+      }
+      featuredCaseStudies {
+        ... on CaseStudy {
+          id
+          title
+          slug
+          excerpt
+        }
+      }
+    }
+  }
+}
+
+# Test 9: Combined query - Page with both content and SEO
+query GetPageWithAllFields {
+  page(id: "/about", idType: URI) {
+    id
+    title
+    uri
+    # SEO Settings
+    seoSettings {
+      seoTitle
+      seoDescription
+      seoKeywords
+      noindex
+      nofollow
+      canonicalUrl
+    }
+    # About Us Content (if About page)
+    aboutUsContent {
+      contentPageHeader {
+        title
+        text
+        cta {
+          url
+          title
+        }
+      }
+      globalContentSelection {
+        enableImageFrame
+        enableServicesAccordion
+        enableWhyCda
+        enableShowreel
+      }
+    }
+  }
+}
+
+# Test 10: Check if the types are properly registered
+query CheckAllCustomTypes {
+  __schema {
+    types {
+      name
+      description
+    }
+  }
+}

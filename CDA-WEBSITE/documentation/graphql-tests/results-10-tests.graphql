@@ -1,0 +1,481 @@
+# Test 1: Check if serviceFields exists on Service type
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 64,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 144,
+          "column": 5
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "b238c5158d7c7f7da5cdc4c7d69937a8069389327e076d36dfb5513f390b0232 graphql:Query operation:CheckServiceFieldsSchema list:service list:page",
+      "keysLength": 136,
+      "keysCount": 5,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+# Test 2: Check serviceFields structure
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 64,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 144,
+          "column": 5
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "b238c5158d7c7f7da5cdc4c7d69937a8069389327e076d36dfb5513f390b0232 graphql:Query operation:CheckServiceFieldsStructure list:service list:page",
+      "keysLength": 139,
+      "keysCount": 5,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+# Test 3: Check if seoSettings exists on Page type
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 64,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 144,
+          "column": 5
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "b238c5158d7c7f7da5cdc4c7d69937a8069389327e076d36dfb5513f390b0232 graphql:Query operation:CheckSeoSettingsSchema list:service list:page",
+      "keysLength": 134,
+      "keysCount": 5,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+# Test 4: Check seoSettings structure
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 64,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 144,
+          "column": 5
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "b238c5158d7c7f7da5cdc4c7d69937a8069389327e076d36dfb5513f390b0232 graphql:Query operation:CheckSeoSettingsStructure list:service list:page",
+      "keysLength": 137,
+      "keysCount": 5,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+# Test 5: Get actual Service data with serviceFields
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 64,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 144,
+          "column": 5
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "b238c5158d7c7f7da5cdc4c7d69937a8069389327e076d36dfb5513f390b0232 graphql:Query operation:GetServiceWithFields list:service list:page",
+      "keysLength": 132,
+      "keysCount": 5,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+# Test 6: Get actual Page data with seoSettings
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 64,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 144,
+          "column": 5
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "b238c5158d7c7f7da5cdc4c7d69937a8069389327e076d36dfb5513f390b0232 graphql:Query operation:GetPageWithSeoSettings list:service list:page",
+      "keysLength": 134,
+      "keysCount": 5,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}{
+  "errors": [
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 64,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 144,
+          "column": 5
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "b238c5158d7c7f7da5cdc4c7d69937a8069389327e076d36dfb5513f390b0232 graphql:Query operation:GetPageWithSeoSettings list:service list:page",
+      "keysLength": 134,
+      "keysCount": 5,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+# Test 7: Get specific page by URI with seoSettings
+
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 64,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 144,
+          "column": 5
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "b238c5158d7c7f7da5cdc4c7d69937a8069389327e076d36dfb5513f390b0232 graphql:Query operation:GetAboutPageSeoSettings list:service list:page",
+      "keysLength": 135,
+      "keysCount": 5,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+# Test 8: Get specific service by slug (if you have services)
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 64,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 144,
+          "column": 5
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "b238c5158d7c7f7da5cdc4c7d69937a8069389327e076d36dfb5513f390b0232 graphql:Query operation:GetSpecificServiceFields list:service list:page",
+      "keysLength": 136,
+      "keysCount": 5,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+# Test 9: Combined query - Page with both content and SEO
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 64,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 144,
+          "column": 5
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "b238c5158d7c7f7da5cdc4c7d69937a8069389327e076d36dfb5513f390b0232 graphql:Query operation:GetPageWithAllFields list:service list:page",
+      "keysLength": 132,
+      "keysCount": 5,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+# Test 10: Check if the types are properly registered
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 64,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"serviceFields\" on type \"Service\". Did you mean \"serviceId\" or \"serviceTypes\"?",
+      "locations": [
+        {
+          "line": 144,
+          "column": 5
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "b238c5158d7c7f7da5cdc4c7d69937a8069389327e076d36dfb5513f390b0232 graphql:Query operation:CheckAllCustomTypes list:service list:page",
+      "keysLength": 131,
+      "keysCount": 5,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "key": "group_about_us_global_toggles_20250908",
+    "title": "About: Global Content Selection",
+    "fields": [
+      {
+        "key": "field_about_global_content_selection",
+        "label": "Global Content Selection",
+        "name": "global_content_selection",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "aboutUsGlobalContentSelection",
+        "sub_fields": [
+          { "key": "field_about_enable_image_frame", "label": "Enable Image Frame", "name": "enable_image_frame", "type": "true_false", "ui": 1, "default_value": 1, "show_in_graphql": 1, "graphql_field_name": "enableImageFrame" },
+          { "key": "field_about_enable_services_accordion", "label": "Enable Services Accordion", "name": "enable_services_accordion", "type": "true_false", "ui": 1, "default_value": 1, "show_in_graphql": 1, "graphql_field_name": "enableServicesAccordion" },
+          { "key": "field_about_enable_why_cda", "label": "Enable Why CDA", "name": "enable_why_cda", "type": "true_false", "ui": 1, "default_value": 1, "show_in_graphql": 1, "graphql_field_name": "enableWhyCda" },
+          { "key": "field_about_enable_technologies_slider", "label": "Enable Technologies Slider", "name": "enable_technologies_slider", "type": "true_false", "ui": 1, "default_value": 0, "show_in_graphql": 1, "graphql_field_name": "enableTechnologiesSlider" },
+          { "key": "field_about_enable_values", "label": "Enable Values", "name": "enable_values", "type": "true_false", "ui": 1, "default_value": 0, "show_in_graphql": 1, "graphql_field_name": "enableValues" },
+          { "key": "field_about_enable_showreel", "label": "Enable Showreel", "name": "enable_showreel", "type": "true_false", "ui": 1, "default_value": 1, "show_in_graphql": 1, "graphql_field_name": "enableShowreel" },
+          { "key": "field_about_enable_stats_image", "label": "Enable Stats Image", "name": "enable_stats_image", "type": "true_false", "ui": 1, "default_value": 0, "show_in_graphql": 1, "graphql_field_name": "enableStatsImage" },
+          { "key": "field_about_enable_locations_image", "label": "Enable Locations Image", "name": "enable_locations_image", "type": "true_false", "ui": 1, "default_value": 0, "show_in_graphql": 1, "graphql_field_name": "enableLocationsImage" },
+          { "key": "field_about_enable_news_carousel", "label": "Enable News Carousel", "name": "enable_news_carousel", "type": "true_false", "ui": 1, "default_value": 0, "show_in_graphql": 1, "graphql_field_name": "enableNewsCarousel" },
+          { "key": "field_about_enable_newsletter_signup", "label": "Enable Newsletter Signup", "name": "enable_newsletter_signup", "type": "true_false", "ui": 1, "default_value": 0, "show_in_graphql": 1, "graphql_field_name": "enableNewsletterSignup" }
+        ]
+      }
+    ],
+    "location": [
+      [ { "param": "page", "operator": "==", "value": "317" } ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Toggle which global sections render on the About page.",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "aboutUsGlobalContentSelection",
+    "map_graphql_types_from_location_rules": 1,
+    "graphql_types": ["Page"]
+  }
+]
+

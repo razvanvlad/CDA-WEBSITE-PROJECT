@@ -4,12 +4,21 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import client from '../../lib/graphql/client';
-import { GET_ABOUT_US_CONTENT } from '../../lib/graphql/queries';
+import { GET_ABOUT_US_CONTENT, GET_GLOBAL_CONTENT_BLOCKS, GET_WHY_CDA_GLOBAL, GET_GLOBAL_SHARED_CONTENT, GET_ABOUT_TOGGLES } from '../../lib/graphql/queries';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import PhotoFrame from '../../components/GlobalBlocks/PhotoFrame';
+import WhyCdaBlock from '../../components/GlobalBlocks/WhyCdaBlock';
+import ServicesAccordion from '../../components/GlobalBlocks/ServicesAccordion';
+import Showreel from '../../components/GlobalBlocks/Showreel';
+import ApproachBlock from '../../components/GlobalBlocks/ApproachBlock';
 
 export default function AboutPage() {
   const [data, setData] = useState(null);
+  const [globalBlocks, setGlobalBlocks] = useState(null);
+  const [whyGlobal, setWhyGlobal] = useState(null);
+  const [globalShared, setGlobalShared] = useState(null);
+  const [aboutToggles, setAboutToggles] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -19,20 +28,25 @@ export default function AboutPage() {
       setError(null);
       
       try {
-        const response = await client.query({
-          query: GET_ABOUT_US_CONTENT,
-          variables: { uri: "about-us" },
-          errorPolicy: 'all'
-        });
-        
-        if (response.errors) {
-            console.log("GraphQL errors:", response.errors);
-          setError(response.errors[0]);
+        const [aboutRes, globalBlocksRes, whyRes, globalSharedRes, aboutTogglesRes] = await Promise.all([
+          client.query({ query: GET_ABOUT_US_CONTENT, variables: { id: "317" }, errorPolicy: 'all' }),
+          client.query({ query: GET_GLOBAL_CONTENT_BLOCKS, errorPolicy: 'all' }),
+          client.query({ query: GET_WHY_CDA_GLOBAL, errorPolicy: 'all' }).catch(() => null),
+          client.query({ query: GET_GLOBAL_SHARED_CONTENT, errorPolicy: 'all' }).catch(() => null),
+          client.query({ query: GET_ABOUT_TOGGLES, variables: { id: "317" }, errorPolicy: 'all' }).catch(() => null),
+        ]);
+
+        if (aboutRes.errors) {
+          console.log("GraphQL errors (About):", aboutRes.errors);
+          setError(aboutRes.errors[0]);
           return;
         }
-        console.log("Full response:", response); // Add this line
-        setData(response.data);
-        console.log("Response data:", response.data); // Add this line
+
+        setData(aboutRes.data);
+        setGlobalBlocks(globalBlocksRes.data?.globalOptions?.globalContentBlocks || null);
+        setWhyGlobal(whyRes?.data?.globalBlocks || null);
+        setGlobalShared(globalSharedRes?.data?.globalOptions?.globalSharedContent || null);
+        setAboutToggles(aboutTogglesRes?.data?.page?.aboutUsGlobalContentSelection || null);
       } catch (err) {
         setError(err);
       } finally {
@@ -100,20 +114,112 @@ export default function AboutPage() {
       <Header />
       
       <main className="min-h-screen bg-white">
-        {/* Hero Section */}
-        <section className="relative py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white">
+        {/* Header (individual) */}
+        {aboutContent?.contentPageHeader && (
+          <section className="relative py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white">
+            <div className="max-w-7xl mx-auto px-4 text-center">
+              {aboutContent.contentPageHeader.title && (
+                <h1 className="text-4xl md:text-6xl font-bold mb-6" dangerouslySetInnerHTML={{ __html: aboutContent.contentPageHeader.title }} />
+              )}
+              {aboutContent.contentPageHeader.text && (
+                <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-8" dangerouslySetInnerHTML={{ __html: aboutContent.contentPageHeader.text }} />
+              )}
+              {aboutContent.contentPageHeader.cta?.url && (
+                <a href={aboutContent.contentPageHeader.cta.url} target={aboutContent.contentPageHeader.cta.target || '_self'} className="inline-flex items-center px-6 py-3 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-colors">
+                  {aboutContent.contentPageHeader.cta.title}
+                </a>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* Who We Are (global image with individual copy) */}
+        {(() => {
+          const toggles = aboutToggles || {};
+          const show = toggles.enableImageFrame ?? true;
+          if (!show || !globalBlocks?.imageFrameBlock) return null;
+          const contentOverride = aboutContent?.whoWeAreSection ? {
+            title: aboutContent.whoWeAreSection.sectionTitle,
+            text: aboutContent.whoWeAreSection.sectionText,
+            button: aboutContent.whoWeAreSection.cta,
+          } : null;
+          return <PhotoFrame globalData={globalBlocks.imageFrameBlock} contentOverride={contentOverride} />
+        })()}
+
+        {/* Why CDA (global) */}
+        {(() => {
+          const toggles = aboutToggles || {};
+          const show = toggles.enableWhyCda ?? true;
+          if (!show) return null;
+          const globalWhy = globalBlocks?.whyCdaBlock || globalShared?.whyCdaBlock;
+          if (!(globalWhy || whyGlobal)) return null;
+          return (
+            <WhyCdaBlock globalData={globalWhy || {
+              title: whyGlobal?.whyCdaTitle,
+              subtitle: whyGlobal?.whyCdaSubtitle,
+              cards: (whyGlobal?.whyCdaCards || [])
+                .filter(Boolean)
+                .map(c => ({
+                  title: c?.title || '',
+                  description: c?.description || '',
+                  image: c?.image ? { node: { sourceUrl: c.image?.sourceUrl || '', altText: c.image?.altText || '' } } : null
+                }))
+            }} />
+          );
+        })()}
+
+        {/* Services Accordion (global) */}
+        {(() => {
+          const toggles = aboutToggles || {};
+          const show = toggles.enableServicesAccordion ?? true;
+          if (!show || !globalBlocks?.servicesAccordion) return null;
+          return <ServicesAccordion globalData={globalBlocks.servicesAccordion} />
+        })()}
+
+        {/* Culture (individual image slider) - placeholder until ACF exposes it */}
+        <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              About <span className="text-blue-200">CDA</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-8">
-              We're a team of passionate digital experts dedicated to transforming businesses through innovative technology solutions.
-            </p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Culture</h2>
+            <p className="text-gray-600">Image slider coming soon. Configure Culture gallery in ACF to enable.</p>
           </div>
         </section>
 
-        {/* Video Section */}
-        {aboutContent?.videoSection && (
+        {/* Our Approach (global) */}
+        {globalShared?.approachBlock && (
+          <ApproachBlock globalData={globalShared.approachBlock} />
+        )}
+
+        {/* Numbers (global) - placeholder */}
+        <section className="py-16 bg-blue-50">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Numbers</h2>
+            <p className="text-gray-600">This global stats section will appear once configured in Global Options.</p>
+          </div>
+        </section>
+
+        {/* Video (individual) - placeholder */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Story</h2>
+            <p className="text-gray-600">Video section coming soon. Enable videoSection in ACF to expose via GraphQL.</p>
+          </div>
+        </section>
+
+        {/* Behind CDA - placeholder */}
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Behind CDA</h2>
+            <p className="text-gray-600">This section will showcase the people and stories behind CDA.</p>
+          </div>
+        </section>
+
+        {/* Our Work / Showreel (global) */}
+        {(() => {
+          const toggles = aboutToggles || {};
+          const show = toggles.enableShowreel ?? true;
+          if (!show || !globalBlocks?.showreel) return null;
+          return <Showreel globalData={globalBlocks.showreel} />
+        })()}
           <section className="py-16 bg-gray-50">
             <div className="max-w-7xl mx-auto px-4">
               <div className="text-center mb-12">
@@ -168,7 +274,6 @@ export default function AboutPage() {
               </div>
             </div>
           </section>
-        )}
 
         {/* Leadership Section */}
         {aboutContent?.leadershipSection && (
@@ -296,25 +401,25 @@ export default function AboutPage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                    {aboutContent.whoWeAreSection.title || "Who We Are"}
+                    {aboutContent.whoWeAreSection.sectionTitle || "Who We Are"}
                   </h2>
                   <div className="text-lg text-gray-600 mb-6 leading-relaxed">
-                    {aboutContent.whoWeAreSection.subtitle && (
+                    {aboutContent.whoWeAreSection.sectionText && (
                       <p className="mb-4 text-blue-600 font-medium">
-                        {aboutContent.whoWeAreSection.subtitle}
+                        {aboutContent.whoWeAreSection.sectionText}
                       </p>
                     )}
                     <p>
                       We're more than just a digital agency. We're your strategic partner in navigating the complex digital landscape, helping you transform challenges into opportunities and ideas into impact.
                     </p>
                   </div>
-                  {aboutContent.whoWeAreSection.button && (
+                  {aboutContent.whoWeAreSection.cta && (
                     <a 
-                      href={aboutContent.whoWeAreSection.button.url}
-                      target={aboutContent.whoWeAreSection.button.target || "_self"}
+                      href={aboutContent.whoWeAreSection.cta.url}
+                      target={aboutContent.whoWeAreSection.cta.target || "_self"}
                       className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
                     >
-                      {aboutContent.whoWeAreSection.button.title}
+                      {aboutContent.whoWeAreSection.cta.title}
                       <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/>
                       </svg>
@@ -322,63 +427,11 @@ export default function AboutPage() {
                   )}
                 </div>
                 
-                {aboutContent.whoWeAreSection.image?.node && (
-                  <div className="relative">
-                    <div className="aspect-square rounded-lg overflow-hidden shadow-xl">
-                      <Image
-                        src={aboutContent.whoWeAreSection.image.node.sourceUrl}
-                        alt={aboutContent.whoWeAreSection.image.node.altText || "Who we are"}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </section>
         )}
 
-        {/* Why CDA Section */}
-        {aboutContent?.whyCdaSection && (
-          <section className="py-16 bg-gray-50">
-            <div className="max-w-7xl mx-auto px-4">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                  {aboutContent.whyCdaSection.title || "Why Choose CDA"}
-                </h2>
-                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                  {aboutContent.whyCdaSection.content || "Discover what sets us apart and makes us the right choice for your digital transformation journey."}
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {aboutContent.whyCdaSection.reasons?.map((reason, index) => (
-                  <div key={index} className="bg-white rounded-lg p-6 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    {reason.icon?.node && (
-                      <div className="mb-6">
-                        <div className="relative w-16 h-16 mx-auto">
-                          <Image
-                            src={reason.icon.node.sourceUrl}
-                            alt={reason.icon.node.altText || reason.title}
-                            fill
-                            className="object-contain"
-                          />
-                        </div>
-                      </div>
-                    )}
-                    <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                      {reason.title}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      {reason.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white">

@@ -1,0 +1,62 @@
+[
+  {
+    "key": "group_global_shared_content_whycda_20250908",
+    "title": "Global Shared Content: WhyCDA",
+    "fields": [
+      {
+        "key": "field_global_shared_content",
+        "label": "Global Shared Content",
+        "name": "global_shared_content",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "globalSharedContent",
+        "sub_fields": [
+          {
+            "key": "field_whycda_block",
+            "label": "WhyCDA Block",
+            "name": "why_cda_block",
+            "type": "group",
+            "layout": "block",
+            "show_in_graphql": 1,
+            "graphql_field_name": "whyCdaBlock",
+            "sub_fields": [
+              { "key": "field_whycda_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_whycda_subtitle", "label": "Subtitle", "name": "subtitle", "type": "text", "show_in_graphql": 1 },
+              {
+                "key": "field_whycda_cards",
+                "label": "Cards",
+                "name": "cards",
+                "type": "repeater",
+                "layout": "row",
+                "show_in_graphql": 1,
+                "sub_fields": [
+                  { "key": "field_whycda_card_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+                  { "key": "field_whycda_card_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 },
+                  { "key": "field_whycda_card_image", "label": "Image", "name": "image", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1 }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "location": [
+      [ { "param": "options_page", "operator": "==", "value": "acf-options-global-options" } ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Global WhyCDA section exposed to GraphQL as globalOptions.globalSharedContent.whyCdaBlock",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "globalSharedContent",
+    "map_graphql_types_from_location_rules": 1,
+    "graphql_types": ["Options"]
+  }
+]
+

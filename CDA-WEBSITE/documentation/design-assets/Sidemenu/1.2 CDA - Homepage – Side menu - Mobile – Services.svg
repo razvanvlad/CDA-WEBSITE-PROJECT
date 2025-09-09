@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="430" height="932" viewBox="0 0 430 932">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-_1.2_CDA_-_Homepage_Side_menu_-_Mobile_Services);
+      }
+
+      .cls-2, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        stroke: #000;
+        stroke-width: 1.5px;
+      }
+
+      .cls-2, .cls-5 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: none;
+        stroke: #dbdbdb;
+        opacity: 0.997;
+      }
+
+      .cls-4, .cls-9 {
+        font-size: 14px;
+      }
+
+      .cls-4, .cls-6, .cls-8 {
+        font-family: Poppins-Bold, Poppins;
+        font-weight: 700;
+      }
+
+      .cls-4 {
+        text-decoration: underline;
+      }
+
+      .cls-5 {
+        stroke: #fff;
+        stroke-width: 0.5px;
+      }
+
+      .cls-6 {
+        font-size: 22px;
+      }
+
+      .cls-8 {
+        font-size: 18px;
+      }
+
+      .cls-9 {
+        font-family: Inter;
+      }
+    </style>
+    <clipPath id="clip-_1.2_CDA_-_Homepage_Side_menu_-_Mobile_Services">
+      <rect width="430" height="932"/>
+    </clipPath>
+  </defs>
+  <g id="_1.2_CDA_-_Homepage_Side_menu_-_Mobile_Services" data-name="1.2 CDA - Homepage – Side menu - Mobile – Services" class="cls-1">
+    <rect class="cls-7" width="430" height="932"/>
+    <rect id="Rectangle_182" data-name="Rectangle 182" width="430" height="932"/>
+    <path id="_9110796_x_icon" data-name="9110796_x_icon" class="cls-2" d="M13.325,16.059l-8.3,8.3L2.293,21.624l8.3-8.3-8.3-8.3L5.026,2.293l8.3,8.3,8.3-8.3,2.733,2.733-8.3,8.3,8.3,8.3-2.733,2.733Z" transform="translate(366.643 52.707)"/>
+    <line id="Line_204" data-name="Line 204" class="cls-3" x2="353" transform="translate(38.5 198.5)"/>
+    <g id="Group_9643" data-name="Group 9643" transform="translate(-233.99 -290)">
+      <text id="Back" class="cls-4" transform="translate(294.22 458)"><tspan x="0" y="0">Back</tspan></text>
+      <path id="_9110843_arrow_bottom_right_icon_1_" data-name="9110843_arrow_bottom_right_icon (1)" class="cls-5" d="M5.655,13.344V8.179H4.293v7.49h7.49V14.307H6.618l9.051-9.051-.963-.963Z" transform="translate(268.197 443.02)"/>
+    </g>
+    <text id="Ecommerce" class="cls-6" transform="translate(38 261.818)"><tspan x="0" y="0">Ecommerce</tspan></text>
+    <text id="b2B_Lead_Generation" data-name="b2B Lead Generation" class="cls-6" transform="translate(38 312.818)"><tspan x="0" y="0">B2b Lead Generation</tspan></text>
+    <text id="Software_Development" data-name="Software Development" class="cls-6" transform="translate(38 364.076)"><tspan x="0" y="0">Software Development</tspan></text>
+    <text id="Booking_Systems" data-name="Booking Systems" class="cls-6" transform="translate(38 415.076)"><tspan x="0" y="0">Booking Systems</tspan></text>
+    <text id="Digital_MArketing" data-name="Digital MArketing" class="cls-6" transform="translate(38 466.076)"><tspan x="0" y="0">Digital Marketing</tspan></text>
+    <text id="Outsourced_CMO" data-name="Outsourced CMO" class="cls-6" transform="translate(38 517.076)"><tspan x="0" y="0">Outsourced CMO</tspan></text>
+    <g id="Group_9658" data-name="Group 9658" transform="translate(-116.5 13.542)">
+      <g id="Group_9283" data-name="Group 9283" transform="translate(155 39)">
+        <path id="Path_1" data-name="Path 1" class="cls-7" d="M49.581,35.19c-3.117-1.056-5.608-3.43-5.691-7.288-.1-4.581,3.023-8.105,7.263-8.2a7.642,7.642,0,0,1,5.727,2.309l.522.611,3.822-3.89-.444-.513A12.961,12.961,0,0,0,51.036,14.3a14.167,14.167,0,0,0-2.219.222,9.484,9.484,0,0,0-7.7,7.378c-1.141,5.8,2.224,12.288,8.466,13.286Z" transform="translate(-37.409 -14.301)"/>
+        <path id="Path_2" data-name="Path 2" class="cls-7" d="M30.472,48.366l-.51.654a7.945,7.945,0,0,1-6.051,2.731A7.413,7.413,0,0,1,22,51.494c-8.4-1.53-11.318-13.619-5.124-19.188a.034.034,0,0,0-.039-.054A13.247,13.247,0,0,0,10.72,43.715,13.023,13.023,0,0,0,23.911,57.151a13.036,13.036,0,0,0,10.022-4.46l.4-.517-3.861-3.81Z" transform="translate(-10.72 -30.172)"/>
+      </g>
+      <path id="Path_7821" data-name="Path 7821" class="cls-7" d="M257.432,20.478h-3.155v15.6h3.155c3.623,0,7.291-2.679,7.291-7.8a8.612,8.612,0,0,0-1.282-4.571c2.85,3.184,3.857,11.653-4.686,16.184a13.286,13.286,0,0,1-6.17,1.846H248.4V14.82h8.959c7.717,0,13.316,5.662,13.316,13.462s-5.6,13.458-13.316,13.458H255.88c9.635-3.112,11.319-10.4,9.907-15.08a8.636,8.636,0,0,0-5.727-5.871,7.612,7.612,0,0,0-2.627-.31Z" transform="translate(-65.93 24.24)"/>
+      <path id="Path_7822" data-name="Path 7822" class="cls-7" d="M454.252,15.21,443.56,42.084h6.16l2.314-5.862,10.124-.151,2.218,6.013h6.16l-6.569-16.3s-.14,7.387-11.052,7.439l4.134-11.009s5.5,8.632-2.473,10.377c0,0,8.6-.786,8.8-7.364L459.841,15.21h-5.589Z" transform="translate(-238.536 23.895)"/>
+    </g>
+    <g id="Group_9647" data-name="Group 9647" transform="translate(0 50)">
+      <text id="Let_s_connect" data-name="Let’s connect" class="cls-8" transform="translate(36.666 604.947)"><tspan x="0" y="0">Let’s Connect</tspan></text>
+      <text id="Contact_Us" data-name="Contact Us" class="cls-9" transform="translate(36.666 641.732)"><tspan x="0" y="0">Contact Us</tspan></text>
+      <text id="_0203_780_0808" data-name="0203 780 0808" class="cls-9" transform="translate(141 641.732)"><tspan x="0" y="0">0203 780 0808</tspan></text>
+      <path id="_5305164_play_video_youtube_youtube_logo_icon_3_" data-name="5305164_play_video_youtube_youtube logo_icon (3)" class="cls-7" d="M25.292,79.624a3.235,3.235,0,0,0-2.284-2.284c-2.015-.54-10.092-.54-10.092-.54s-8.078,0-10.092.54A3.235,3.235,0,0,0,.54,79.624a36.084,36.084,0,0,0,0,12.435,3.235,3.235,0,0,0,2.284,2.284c2.015.54,10.092.54,10.092.54s8.078,0,10.092-.54a3.235,3.235,0,0,0,2.284-2.284,33.621,33.621,0,0,0,.54-6.217A33.625,33.625,0,0,0,25.292,79.624ZM10.332,89.716v-7.75l6.711,3.875Z" transform="translate(195 592.932)"/>
+      <g id="_104493_linkedin_icon_2_" data-name="104493_linkedin_icon (2)" transform="translate(154 669.732)">
+        <path id="Path_10" data-name="Path 10" class="cls-7" d="M30.039,27.052v-.028l-.018.028Z" transform="translate(-20.333 -18.859)"/>
+        <path id="Path_11" data-name="Path 11" class="cls-7" d="M20.211,4.667H4.827a1.318,1.318,0,0,0-1.333,1.3V21.532a1.318,1.318,0,0,0,1.333,1.3H20.211a1.318,1.318,0,0,0,1.335-1.3V5.968A1.318,1.318,0,0,0,20.211,4.667ZM8.965,19.874H6.239v-8.2H8.965ZM7.6,10.551H7.584A1.421,1.421,0,1,1,7.62,7.717,1.422,1.422,0,1,1,7.6,10.551ZM18.8,19.874H16.071V15.485c0-1.1-.394-1.855-1.381-1.855a1.493,1.493,0,0,0-1.4,1,1.867,1.867,0,0,0-.089.665v4.581H10.475s.036-7.434,0-8.2H13.2v1.161a2.707,2.707,0,0,1,2.458-1.355c1.794,0,3.139,1.173,3.139,3.692v4.7Z" transform="translate(-3.494 -4.667)"/>
+      </g>
+      <g id="_1161953_instagram_icon_5_" data-name="1161953_instagram_icon (5)" transform="translate(109 669.732)">
+        <path id="Path_8" data-name="Path 8" class="cls-7" d="M20.109,16.7a4.709,4.709,0,1,0,4.709,4.709A4.719,4.719,0,0,0,20.109,16.7Zm0,7.727a3.017,3.017,0,1,1,3.017-3.017A3.031,3.031,0,0,1,20.109,24.427Z" transform="translate(-10.985 -12.322)"/>
+        <circle id="Ellipse_4" data-name="Ellipse 4" class="cls-7" cx="1.067" cy="1.067" r="1.067" transform="translate(12.951 3.201)"/>
+        <path id="Path_9" data-name="Path 9" class="cls-7" d="M20.178,6.309A5.24,5.24,0,0,0,16.314,4.8H8.735A5.04,5.04,0,0,0,3.4,10.135v7.543a5.294,5.294,0,0,0,1.545,3.937,5.369,5.369,0,0,0,3.826,1.435h7.506a5.433,5.433,0,0,0,3.863-1.435,5.267,5.267,0,0,0,1.509-3.9V10.135A5.274,5.274,0,0,0,20.178,6.309ZM20.03,17.714A3.6,3.6,0,0,1,18.963,20.4a3.8,3.8,0,0,1-2.686.957H8.772A3.8,3.8,0,0,1,6.086,20.4a3.7,3.7,0,0,1-.993-2.723V10.135a3.668,3.668,0,0,1,.993-2.686,3.742,3.742,0,0,1,2.686-.957h7.579a3.668,3.668,0,0,1,2.686.993,3.8,3.8,0,0,1,.993,2.649v7.579Z" transform="translate(-3.4 -4.8)"/>
+      </g>
+      <path id="_9034940_logo_tiktok_icon" data-name="9034940_logo_tiktok_icon" class="cls-7" d="M62.717,20.16a4.425,4.425,0,0,1-.383-.223,5.383,5.383,0,0,1-.983-.835,4.638,4.638,0,0,1-1.108-2.286h0A2.816,2.816,0,0,1,60.2,16h-3.34V28.916c0,.173,0,.345-.007.514,0,.021,0,.041,0,.063a.139.139,0,0,1,0,.029v.007a2.836,2.836,0,0,1-1.427,2.251,2.788,2.788,0,0,1-1.382.365,2.836,2.836,0,0,1,0-5.672,2.792,2.792,0,0,1,.867.137l0-3.4a6.2,6.2,0,0,0-4.781,1.4,6.555,6.555,0,0,0-1.43,1.764,6.112,6.112,0,0,0-.737,2.805,6.621,6.621,0,0,0,.359,2.218V31.4a6.528,6.528,0,0,0,.907,1.654,6.788,6.788,0,0,0,1.447,1.365v-.008l.008.008a6.25,6.25,0,0,0,3.41,1.027,6.036,6.036,0,0,0,2.531-.56,6.351,6.351,0,0,0,2.055-1.545,6.421,6.421,0,0,0,1.12-1.861,6.971,6.971,0,0,0,.4-2.128V22.5c.041.024.58.381.58.381a7.725,7.725,0,0,0,1.991.823,11.463,11.463,0,0,0,2.043.28V20.67A4.332,4.332,0,0,1,62.717,20.16Z" transform="translate(22.041 652.732)"/>
+      <path id="_104498_facebook_icon_4_" data-name="104498_facebook_icon (4)" class="cls-7" d="M27.019,12.394H23.942V10.375A.822.822,0,0,1,24.8,9.44H26.97V6.108L23.979,6.1A3.788,3.788,0,0,0,19.9,10.172v2.222h-1.92v3.434H19.9v9.717h4.039V15.828h2.726Z" transform="translate(20.018 662.637)"/>
+    </g>
+    <text id="AI" class="cls-6" transform="translate(38 568.076)"><tspan x="0" y="0">AI</tspan></text>
+  </g>
+</svg>

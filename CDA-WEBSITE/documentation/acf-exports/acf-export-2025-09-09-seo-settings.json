@@ -1,0 +1,96 @@
+[
+  {
+    "key": "group_seo_settings",
+    "title": "SEO Settings",
+    "fields": [
+      {
+        "key": "field_seo_title",
+        "label": "SEO Title",
+        "name": "seo_title",
+        "type": "text",
+        "instructions": "Custom title for SEO (max 60 characters)",
+        "required": false,
+        "conditional_logic": false,
+        "wrapper": {"width": "", "class": "", "id": ""},
+        "show_in_graphql": 1
+      },
+      {
+        "key": "field_seo_description",
+        "label": "Meta Description",
+        "name": "seo_description",
+        "type": "textarea",
+        "instructions": "Custom meta description for SEO (max 160 characters)",
+        "rows": 3,
+        "required": false,
+        "conditional_logic": false,
+        "wrapper": {"width": "", "class": "", "id": ""},
+        "show_in_graphql": 1
+      },
+      {
+        "key": "field_seo_keywords",
+        "label": "Meta Keywords",
+        "name": "seo_keywords",
+        "type": "text",
+        "instructions": "Comma-separated keywords for SEO",
+        "required": false,
+        "conditional_logic": false,
+        "wrapper": {"width": "", "class": "", "id": ""},
+        "show_in_graphql": 1
+      },
+      {
+        "key": "field_noindex",
+        "label": "No Index",
+        "name": "noindex",
+        "type": "true_false",
+        "instructions": "Check to prevent search engines from indexing this page",
+        "ui": 1,
+        "required": false,
+        "conditional_logic": false,
+        "wrapper": {"width": "", "class": "", "id": ""},
+        "show_in_graphql": 1
+      },
+      {
+        "key": "field_nofollow",
+        "label": "No Follow",
+        "name": "nofollow",
+        "type": "true_false",
+        "instructions": "Check to prevent search engines from following links on this page",
+        "ui": 1,
+        "required": false,
+        "conditional_logic": false,
+        "wrapper": {"width": "", "class": "", "id": ""},
+        "show_in_graphql": 1
+      },
+      {
+        "key": "field_canonical_url",
+        "label": "Canonical URL",
+        "name": "canonical_url",
+        "type": "url",
+        "instructions": "Specify a canonical URL for this page",
+        "required": false,
+        "conditional_logic": false,
+        "wrapper": {"width": "", "class": "", "id": ""},
+        "show_in_graphql": 1
+      }
+    ],
+    "location": [
+      [
+        {"param": "post_type", "operator": "==", "value": "page"}
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "seoSettings",
+    "map_graphql_types_from_location_rules": 1,
+    "graphql_types": ["Page"]
+  }
+]
+

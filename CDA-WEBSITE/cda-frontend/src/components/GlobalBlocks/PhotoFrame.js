@@ -7,11 +7,12 @@ import React from 'react';
   - Right: subtitle, title, copy, CTA
   - Arrow/decoration positioned relative to content on desktop, stacked on mobile
 */
-const PhotoFrame = ({ globalData }) => {
+const PhotoFrame = ({ globalData, contentOverride }) => {
   if (!globalData) return null;
 
   const { frameImage, contentImage, subtitle, title, text, button, arrowImage } = globalData;
 
+  const copy = contentOverride || { subtitle, title, text, button };
   const innerImage = contentImage || globalData.innerImage;
   const arrowIllustration = arrowImage || globalData.arrowIllustration;
 
@@ -48,27 +49,27 @@ const PhotoFrame = ({ globalData }) => {
           {/* Right: Copy */}
           <div className="col-span-12 lg:col-span-6">
             <div className="relative">
-              {subtitle && (
-                <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-black mb-3">{subtitle}</p>
+              {copy.subtitle && (
+                <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-black mb-3">{copy.subtitle}</p>
               )}
-{title && (
-                <h2 className="text-[32px] leading-[1.15] md:text-[40px] font-bold text-black mb-5">{title}</h2>
+              {copy.title && (
+                <h2 className="text-[32px] leading-[1.15] md:text-[40px] font-bold text-black mb-5">{copy.title}</h2>
               )}
-              {text && (
+              {copy.text && (
                 <div className="text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] space-y-4 mb-6">
-                  {text.split('\n').map((p, i) => p.trim() && (
+                  {String(copy.text).split('\n').map((p, i) => p.trim() && (
                     <p key={i}>{p.trim()}</p>
                   ))}
                 </div>
               )}
-              {button?.url && button?.title && (
+              {copy.button?.url && copy.button?.title && (
                 <a
-                  href={button.url}
-                  target={button.target === '_blank' ? '_blank' : '_self'}
-                  rel={button.target === '_blank' ? 'noopener noreferrer' : undefined}
+                  href={copy.button.url}
+                  target={copy.button.target === '_blank' ? '_blank' : '_self'}
+                  rel={copy.button.target === '_blank' ? 'noopener noreferrer' : undefined}
                   className="button-without-box text-black"
                 >
-                  {button.title}
+                  {copy.button.title}
                 </a>
               )}
 

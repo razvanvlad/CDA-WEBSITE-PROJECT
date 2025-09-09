@@ -1,0 +1,739 @@
+[
+  {
+    "key": "group_ai_page_content_20250908",
+    "title": "AI Page Content",
+    "fields": [
+      {
+        "key": "field_ai_header_section",
+        "label": "Header Section",
+        "name": "header_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "headerSection",
+        "sub_fields": [
+          { "key": "field_ai_header_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_ai_header_subtitle", "label": "Subtitle", "name": "subtitle", "type": "textarea", "rows": 3, "show_in_graphql": 1 },
+{ "key": "field_ai_header_desktop_image", "label": "Desktop Image", "name": "desktop_image", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1, "graphql_field_name": "desktopImage" }
+        ]
+      },
+      {
+        "key": "field_ai_intro_section",
+        "label": "Intro Section",
+        "name": "intro_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "introSection",
+        "sub_fields": [
+          { "key": "field_ai_intro_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_ai_intro_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 }
+        ]
+      },
+      {
+        "key": "field_ai_services_section",
+        "label": "Services Section",
+        "name": "services_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "servicesSection",
+        "sub_fields": [
+          { "key": "field_ai_services_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          {
+            "key": "field_ai_services_items",
+            "label": "Services Items",
+            "name": "services_items",
+            "type": "repeater",
+            "layout": "row",
+            "show_in_graphql": 1,
+            "graphql_field_name": "servicesItems",
+            "sub_fields": [
+              { "key": "field_ai_services_item_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_ai_services_item_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_ai_benefits_section",
+        "label": "Benefits Section",
+        "name": "benefits_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "benefitsSection",
+        "sub_fields": [
+          { "key": "field_ai_benefits_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_ai_benefits_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          {
+            "key": "field_ai_benefits_items",
+            "label": "Benefits Items",
+            "name": "benefits_items",
+            "type": "repeater",
+            "layout": "row",
+            "show_in_graphql": 1,
+            "graphql_field_name": "benefitsItems",
+            "sub_fields": [
+              { "key": "field_ai_benefit_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_ai_benefit_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_ai_cta_section",
+        "label": "CTA Section",
+        "name": "cta_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "ctaSection",
+        "sub_fields": [
+          { "key": "field_ai_cta_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_ai_cta_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          { "key": "field_ai_cta_button", "label": "Button", "name": "button", "type": "link", "return_format": "array", "show_in_graphql": 1 }
+        ]
+      }
+    ],
+    "location": [[ { "param": "page", "operator": "==", "value": "785" } ]],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "aiContent",
+    "map_graphql_types_from_location_rules": 1,
+    "graphql_types": ["Page"]
+  },
+  {
+    "key": "group_booking_systems_content_20250908",
+    "title": "Booking Systems Content",
+    "fields": [
+      {
+        "key": "field_bs_header_section",
+        "label": "Header Section",
+        "name": "header_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "headerSection",
+        "sub_fields": [
+          { "key": "field_bs_header_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_bs_header_subtitle", "label": "Subtitle", "name": "subtitle", "type": "textarea", "rows": 3, "show_in_graphql": 1 },
+{ "key": "field_bs_header_desktop_image", "label": "Desktop Image", "name": "desktop_image", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1, "graphql_field_name": "desktopImage" }
+        ]
+      },
+      {
+        "key": "field_bs_features_section",
+        "label": "Features Section",
+        "name": "features_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "featuresSection",
+        "sub_fields": [
+          { "key": "field_bs_features_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          {
+            "key": "field_bs_features_items",
+            "label": "Features Items",
+            "name": "features_items",
+            "type": "repeater",
+            "layout": "row",
+            "show_in_graphql": 1,
+            "graphql_field_name": "featuresItems",
+            "sub_fields": [
+              { "key": "field_bs_feature_icon", "label": "Icon", "name": "icon", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1 },
+              { "key": "field_bs_feature_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_bs_feature_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_bs_integrations_section",
+        "label": "Integrations Section",
+        "name": "integrations_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "integrationsSection",
+        "sub_fields": [
+          { "key": "field_bs_integrations_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_bs_integrations_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          {
+            "key": "field_bs_integrations_logos",
+            "label": "Integrations Logos",
+            "name": "integrations_logos",
+            "type": "repeater",
+            "layout": "table",
+            "show_in_graphql": 1,
+            "graphql_field_name": "integrationsLogos",
+            "sub_fields": [
+              { "key": "field_bs_integration_name", "label": "Name", "name": "name", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_bs_integration_logo", "label": "Logo", "name": "logo", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_bs_demo_section",
+        "label": "Demo Section",
+        "name": "demo_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "demoSection",
+        "sub_fields": [
+          { "key": "field_bs_demo_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_bs_demo_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+{ "key": "field_bs_demo_video", "label": "Demo Video (oEmbed/URL)", "name": "demo_video", "type": "url", "show_in_graphql": 1, "graphql_field_name": "demoVideo" },
+{ "key": "field_bs_demo_button", "label": "Demo Button", "name": "demo_button", "type": "link", "return_format": "array", "show_in_graphql": 1, "graphql_field_name": "demoButton" }
+        ]
+      },
+      {
+        "key": "field_bs_cta_section",
+        "label": "CTA Section",
+        "name": "cta_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "ctaSection",
+        "sub_fields": [
+          { "key": "field_bs_cta_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_bs_cta_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          { "key": "field_bs_cta_button", "label": "Button", "name": "button", "type": "link", "return_format": "array", "show_in_graphql": 1 }
+        ]
+      }
+    ],
+    "location": [[ { "param": "page", "operator": "==", "value": "779" } ]],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "bookingSystemsContent",
+    "map_graphql_types_from_location_rules": 1,
+    "graphql_types": ["Page"]
+  },
+  {
+    "key": "group_digital_marketing_content_20250908",
+    "title": "Digital Marketing Content",
+    "fields": [
+      {
+        "key": "field_dm_header_section",
+        "label": "Header Section",
+        "name": "header_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "headerSection",
+        "sub_fields": [
+          { "key": "field_dm_header_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_dm_header_subtitle", "label": "Subtitle", "name": "subtitle", "type": "textarea", "rows": 3, "show_in_graphql": 1 },
+{ "key": "field_dm_header_desktop_image", "label": "Desktop Image", "name": "desktop_image", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1, "graphql_field_name": "desktopImage" }
+        ]
+      },
+      {
+        "key": "field_dm_services_section",
+        "label": "Services Section",
+        "name": "services_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "servicesSection",
+        "sub_fields": [
+          { "key": "field_dm_services_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_dm_services_intro", "label": "Intro", "name": "intro", "type": "textarea", "rows": 3, "show_in_graphql": 1 },
+          {
+            "key": "field_dm_services_items",
+            "label": "Services Items",
+            "name": "services_items",
+            "type": "repeater",
+            "layout": "row",
+            "show_in_graphql": 1,
+            "graphql_field_name": "servicesItems",
+            "sub_fields": [
+              { "key": "field_dm_service_icon", "label": "Icon", "name": "icon", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1 },
+              { "key": "field_dm_service_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_dm_service_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 },
+              { "key": "field_dm_service_features", "label": "Features (one per line)", "name": "features", "type": "textarea", "rows": 4, "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_dm_strategy_section",
+        "label": "Strategy Section",
+        "name": "strategy_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "strategySection",
+        "sub_fields": [
+          { "key": "field_dm_strategy_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_dm_strategy_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          {
+            "key": "field_dm_strategy_steps",
+            "label": "Strategy Steps",
+            "name": "strategy_steps",
+            "type": "repeater",
+            "layout": "row",
+            "show_in_graphql": 1,
+            "graphql_field_name": "strategySteps",
+            "sub_fields": [
+{ "key": "field_dm_strategy_step_number", "label": "Step Number", "name": "step_number", "type": "number", "show_in_graphql": 1, "graphql_field_name": "stepNumber" },
+              { "key": "field_dm_strategy_step_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_dm_strategy_step_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_dm_tools_section",
+        "label": "Tools Section",
+        "name": "tools_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "toolsSection",
+        "sub_fields": [
+          { "key": "field_dm_tools_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_dm_tools_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          {
+            "key": "field_dm_tools_logos",
+            "label": "Tools Logos",
+            "name": "tools_logos",
+            "type": "repeater",
+            "layout": "table",
+            "show_in_graphql": 1,
+            "graphql_field_name": "toolsLogos",
+            "sub_fields": [
+              { "key": "field_dm_tool_name", "label": "Name", "name": "name", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_dm_tool_logo", "label": "Logo", "name": "logo", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_dm_results_section",
+        "label": "Results Section",
+        "name": "results_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "resultsSection",
+        "sub_fields": [
+          { "key": "field_dm_results_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_dm_results_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          {
+            "key": "field_dm_results_stats",
+            "label": "Stats",
+            "name": "stats",
+            "type": "repeater",
+            "layout": "row",
+            "show_in_graphql": 1,
+            "sub_fields": [
+              { "key": "field_dm_result_number", "label": "Number", "name": "number", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_dm_result_label", "label": "Label", "name": "label", "type": "text", "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_dm_cta_section",
+        "label": "CTA Section",
+        "name": "cta_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "ctaSection",
+        "sub_fields": [
+          { "key": "field_dm_cta_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_dm_cta_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          { "key": "field_dm_cta_button", "label": "Button", "name": "button", "type": "link", "return_format": "array", "show_in_graphql": 1 }
+        ]
+      }
+    ],
+    "location": [[ { "param": "page", "operator": "==", "value": "781" } ]],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "digitalMarketingContent",
+    "map_graphql_types_from_location_rules": 1,
+    "graphql_types": ["Page"]
+  },
+  {
+    "key": "group_outsourced_cmo_content_20250908",
+    "title": "Outsourced CMO Content",
+    "fields": [
+      {
+        "key": "field_cmo_header_section",
+        "label": "Header Section",
+        "name": "header_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "headerSection",
+        "sub_fields": [
+          { "key": "field_cmo_header_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_cmo_header_subtitle", "label": "Subtitle", "name": "subtitle", "type": "textarea", "rows": 3, "show_in_graphql": 1 },
+{ "key": "field_cmo_header_desktop_image", "label": "Desktop Image", "name": "desktop_image", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1, "graphql_field_name": "desktopImage" }
+        ]
+      },
+      {
+        "key": "field_cmo_intro_section",
+        "label": "Intro Section",
+        "name": "intro_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "introSection",
+        "sub_fields": [
+          { "key": "field_cmo_intro_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_cmo_intro_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 }
+        ]
+      },
+      {
+        "key": "field_cmo_services_section",
+        "label": "Services Section",
+        "name": "services_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "servicesSection",
+        "sub_fields": [
+          { "key": "field_cmo_services_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          {
+            "key": "field_cmo_services_items",
+            "label": "Services Items",
+            "name": "services_items",
+            "type": "repeater",
+            "layout": "row",
+            "show_in_graphql": 1,
+            "graphql_field_name": "servicesItems",
+            "sub_fields": [
+              { "key": "field_cmo_service_icon", "label": "Icon", "name": "icon", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1 },
+              { "key": "field_cmo_service_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_cmo_service_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_cmo_benefits_section",
+        "label": "Benefits Section",
+        "name": "benefits_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "benefitsSection",
+        "sub_fields": [
+          { "key": "field_cmo_benefits_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_cmo_benefits_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          {
+            "key": "field_cmo_benefits_items",
+            "label": "Benefits Items",
+            "name": "benefits_items",
+            "type": "repeater",
+            "layout": "row",
+            "show_in_graphql": 1,
+            "graphql_field_name": "benefitsItems",
+            "sub_fields": [
+              { "key": "field_cmo_benefit_number", "label": "Number", "name": "number", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_cmo_benefit_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_cmo_benefit_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_cmo_process_section",
+        "label": "Process Section",
+        "name": "process_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "processSection",
+        "sub_fields": [
+          { "key": "field_cmo_process_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_cmo_process_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          {
+            "key": "field_cmo_process_steps",
+            "label": "Process Steps",
+            "name": "process_steps",
+            "type": "repeater",
+            "layout": "row",
+            "show_in_graphql": 1,
+            "graphql_field_name": "processSteps",
+            "sub_fields": [
+{ "key": "field_cmo_process_step_number", "label": "Step Number", "name": "step_number", "type": "number", "show_in_graphql": 1, "graphql_field_name": "stepNumber" },
+              { "key": "field_cmo_process_step_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_cmo_process_step_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_cmo_testimonials_section",
+        "label": "Testimonials Section",
+        "name": "testimonials_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "testimonialsSection",
+        "sub_fields": [
+          { "key": "field_cmo_testimonials_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          {
+            "key": "field_cmo_testimonials_items",
+            "label": "Testimonials Items",
+            "name": "testimonials_items",
+            "type": "repeater",
+            "layout": "row",
+            "show_in_graphql": 1,
+            "graphql_field_name": "testimonialsItems",
+            "sub_fields": [
+              { "key": "field_cmo_testimonial_content", "label": "Content", "name": "content", "type": "textarea", "rows": 3, "show_in_graphql": 1 },
+              { "key": "field_cmo_testimonial_author", "label": "Author", "name": "author", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_cmo_testimonial_position", "label": "Position", "name": "position", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_cmo_testimonial_company", "label": "Company", "name": "company", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_cmo_testimonial_photo", "label": "Photo", "name": "photo", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_cmo_cta_section",
+        "label": "CTA Section",
+        "name": "cta_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "ctaSection",
+        "sub_fields": [
+          { "key": "field_cmo_cta_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_cmo_cta_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          { "key": "field_cmo_cta_button", "label": "Button", "name": "button", "type": "link", "return_format": "array", "show_in_graphql": 1 }
+        ]
+      }
+    ],
+    "location": [[ { "param": "page", "operator": "==", "value": "783" } ]],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "outsourcedCmoContent",
+    "map_graphql_types_from_location_rules": 1,
+    "graphql_types": ["Page"]
+  },
+  {
+    "key": "group_software_development_content_20250908",
+    "title": "Software Development Content",
+    "fields": [
+      {
+        "key": "field_sd_header_section",
+        "label": "Header Section",
+        "name": "header_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "headerSection",
+        "sub_fields": [
+          { "key": "field_sd_header_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_sd_header_subtitle", "label": "Subtitle", "name": "subtitle", "type": "textarea", "rows": 3, "show_in_graphql": 1 },
+{ "key": "field_sd_header_desktop_image", "label": "Desktop Image", "name": "desktop_image", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1, "graphql_field_name": "desktopImage" }
+        ]
+      }
+    ],
+    "location": [[ { "param": "page", "operator": "==", "value": "777" } ]],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "softwareDevelopmentContent",
+    "map_graphql_types_from_location_rules": 1,
+    "graphql_types": ["Page"]
+  },
+  {
+    "key": "group_case_study_oakleigh_content_20250908",
+    "title": "Case Study Oakleigh Content",
+    "fields": [
+      {
+        "key": "field_cs_header_section",
+        "label": "Header Section",
+        "name": "header_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "headerSection",
+        "sub_fields": [
+          { "key": "field_cs_header_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_cs_header_subtitle", "label": "Subtitle", "name": "subtitle", "type": "textarea", "rows": 3, "show_in_graphql": 1 },
+{ "key": "field_cs_header_client_name", "label": "Client Name", "name": "client_name", "type": "text", "show_in_graphql": 1, "graphql_field_name": "clientName" },
+{ "key": "field_cs_header_project_type", "label": "Project Type", "name": "project_type", "type": "text", "show_in_graphql": 1, "graphql_field_name": "projectType" },
+{ "key": "field_cs_header_project_duration", "label": "Project Duration", "name": "project_duration", "type": "text", "show_in_graphql": 1, "graphql_field_name": "projectDuration" },
+{ "key": "field_cs_header_featured_image", "label": "Featured Image", "name": "featured_image", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1, "graphql_field_name": "featuredImage" }
+        ]
+      },
+      {
+        "key": "field_cs_challenge_section",
+        "label": "Challenge Section",
+        "name": "challenge_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "challengeSection",
+        "sub_fields": [
+          { "key": "field_cs_challenge_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_cs_challenge_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          {
+            "key": "field_cs_challenges",
+            "label": "Challenges",
+            "name": "challenges",
+            "type": "repeater",
+            "layout": "row",
+            "show_in_graphql": 1,
+            "sub_fields": [
+              { "key": "field_cs_challenge_item_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_cs_challenge_item_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_cs_solution_section",
+        "label": "Solution Section",
+        "name": "solution_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "solutionSection",
+        "sub_fields": [
+          { "key": "field_cs_solution_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_cs_solution_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          {
+            "key": "field_cs_solutions",
+            "label": "Solutions",
+            "name": "solutions",
+            "type": "repeater",
+            "layout": "row",
+            "show_in_graphql": 1,
+            "sub_fields": [
+              { "key": "field_cs_solution_item_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_cs_solution_item_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 },
+              { "key": "field_cs_solution_item_image", "label": "Image", "name": "image", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_cs_results_section",
+        "label": "Results Section",
+        "name": "results_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "resultsSection",
+        "sub_fields": [
+          { "key": "field_cs_results_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_cs_results_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          {
+            "key": "field_cs_results_items",
+            "label": "Results",
+            "name": "results",
+            "type": "repeater",
+            "layout": "row",
+            "show_in_graphql": 1,
+            "sub_fields": [
+              { "key": "field_cs_result_metric", "label": "Metric", "name": "metric", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_cs_result_value", "label": "Value", "name": "value", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_cs_result_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_cs_technologies_section",
+        "label": "Technologies Section",
+        "name": "technologies_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "technologiesSection",
+        "sub_fields": [
+          { "key": "field_cs_technologies_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          {
+            "key": "field_cs_technologies_list",
+            "label": "Technologies",
+            "name": "technologies",
+            "type": "repeater",
+            "layout": "table",
+            "show_in_graphql": 1,
+            "sub_fields": [
+              { "key": "field_cs_technology_name", "label": "Name", "name": "name", "type": "text", "show_in_graphql": 1 },
+              { "key": "field_cs_technology_logo", "label": "Logo", "name": "logo", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_cs_cta_section",
+        "label": "CTA Section",
+        "name": "cta_section",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "ctaSection",
+        "sub_fields": [
+          { "key": "field_cs_cta_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_cs_cta_content", "label": "Content", "name": "content", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          { "key": "field_cs_cta_button", "label": "Button", "name": "button", "type": "link", "return_format": "array", "show_in_graphql": 1 }
+        ]
+      }
+    ],
+    "location": [[ { "param": "page", "operator": "==", "value": "789" } ]],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "caseStudyOakleighContent",
+    "map_graphql_types_from_location_rules": 1,
+    "graphql_types": ["Page"]
+  }
+]
+

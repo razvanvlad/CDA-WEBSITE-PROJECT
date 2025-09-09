@@ -274,20 +274,21 @@ export default function Home() {
            
       {/* Header Section from WordPress */}
       {homepageContent?.headerSection ? (
-        <section style={{padding: '5rem 0', backgroundColor: '#ffffff'}}>
-<div className="home-header-grid mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-            <div className="home-header-text">
-<h1 style={{fontSize: '3rem', fontWeight: 'bold', color: '#000000', marginBottom: '1rem'}}
+        <section className="home-hero-section">
+          <div className="home-header-grid mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+            <div className="home-header-text text-center md:text-left">
+              <h1
+                className="home-hero-title"
                 dangerouslySetInnerHTML={{
                   __html: sanitizeTitleHtml(
                     homepageContent.headerSection.title || 'Welcome to CDA Website'
                   )
                 }}
               />
-              <p style={{fontSize: '1.25rem', color: '#4b5563', marginBottom: '2rem'}}>
+              <p className="home-hero-subtitle">
                 {homepageContent.headerSection.text || 'Digital solutions that drive results.'}
               </p>
-              <div className="home-header-cta">
+              <div className="home-header-cta home-hero-cta">
                 {homepageContent.headerSection.button1 && (
                   <a 
                     href={homepageContent.headerSection.button1.url || '#'} 
@@ -314,10 +315,9 @@ export default function Home() {
                   src={homepageContent.headerSection.illustration.node.sourceUrl}
                   alt={homepageContent.headerSection.illustration.node.altText || 'Header illustration'}
                   className="home-header-illustration"
-                  style={{borderRadius: '0.5rem'}}
                 />
               ) : (
-                <div style={{backgroundColor: '#e5e7eb', padding: '3rem', borderRadius: '0.5rem', color: '#6b7280'}}>
+                <div className="home-hero-illustration-placeholder">
                   <p>Upload illustration in WordPress Admin → Pages → Edit Homepage → Header Section</p>
                 </div>
               )}
@@ -325,15 +325,15 @@ export default function Home() {
           </div>
         </section>
       ) : (
-        <section style={{padding: '5rem 0', backgroundColor: '#ffffff', textAlign: 'center'}}>
-<div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-            <h1 style={{fontSize: '3rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '1rem'}}>
+        <section className="home-hero-section">
+          <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 text-center">
+            <h1 className="home-hero-title">
               Welcome to CDA Website
             </h1>
-            <p style={{fontSize: '1.25rem', color: '#4b5563', marginBottom: '2rem'}}>
+            <p className="home-hero-subtitle">
               Digital solutions that drive results.
             </p>
-            <p style={{fontSize: '0.9rem', color: '#f59e0b', backgroundColor: '#fef3c7', padding: '0.5rem 1rem', borderRadius: '0.25rem', display: 'inline-block'}}>
+            <p className="home-hero-config-hint">
               Configure header section in WordPress Admin → Pages → Edit Homepage
             </p>
           </div>

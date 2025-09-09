@@ -781,75 +781,21 @@ export const GET_404_CONTENT = gql`
 
 // About Us Content Query (ID: 317)
 export const GET_ABOUT_US_CONTENT = gql`
-  query GET_ABOUT_US_CONTENT($uri: String!) {
-    page(id: $uri, idType: URI) {
+  query GET_ABOUT_US_CONTENT($id: ID!) {
+    page(id: $id, idType: DATABASE_ID) {
       id
       title
       slug
       aboutUsContent {
-        videoSection {
+        contentPageHeader {
           title
-          subtitle
-          videoUrl
-          thumbnailImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-        leadershipSection {
-          title
-          content
-          leaders {
-            name
-            position
-            bio
-            photo {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-        }
-        statsSection {
-          title
-          subtitle
-          stats {
-            number
-            label
-            description
-          }
+          text
+          cta { url title target }
         }
         whoWeAreSection {
-          title
-          subtitle
-          image {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-          button {
-            url
-            title
-            target
-          }
-        }
-        whyCdaSection {
-          title
-          content
-          reasons {
-            title
-            description
-            icon {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
+          sectionTitle
+          sectionText
+          cta { url title target }
         }
       }
     }
@@ -859,6 +805,23 @@ export const GET_ABOUT_US_CONTENT = gql`
 export const GET_MENU = gql`
   query GetMenu {
     primaryMenu: menu(id: "primary", idType: SLUG) {
+      menuItems {
+        nodes {
+          id
+          label
+          url
+          parentId
+          order
+        }
+      }
+    }
+  }
+`;
+
+// Footer Menu (slug: footer)
+export const GET_FOOTER_MENU = gql`
+  query GetFooterMenu {
+    footerMenu: menu(id: "footer", idType: SLUG) {
       menuItems {
         nodes {
           id
@@ -884,6 +847,27 @@ export const GET_WHY_CDA_GLOBAL = gql`
           sourceUrl
           altText
         }
+      }
+    }
+  }
+`;
+
+// Optional About page toggles (separate field group)
+export const GET_ABOUT_TOGGLES = gql`
+  query GET_ABOUT_TOGGLES($id: ID!) {
+    page(id: $id, idType: DATABASE_ID) {
+      id
+      aboutUsGlobalContentSelection {
+        enableImageFrame
+        enableServicesAccordion
+        enableWhyCda
+        enableTechnologiesSlider
+        enableValues
+        enableShowreel
+        enableStatsImage
+        enableLocationsImage
+        enableNewsCarousel
+        enableNewsletterSignup
       }
     }
   }
@@ -938,6 +922,15 @@ export const GET_GLOBAL_CONTENT_BLOCKS = gql`
           values { title text }
           illustration { node { sourceUrl altText } }
         }
+        whyCdaBlock {
+          title
+          subtitle
+          cards {
+            title
+            description
+            image { node { sourceUrl altText } }
+          }
+        }
         showreel {
           title
           subtitle
@@ -976,6 +969,37 @@ export const GET_GLOBAL_CONTENT_BLOCKS = gql`
           subtitle
           hubspotScript
           termsText
+        }
+      }
+    }
+  }
+`;
+
+// Global Shared Content (WhyCdaBlock and ApproachBlock)
+export const GET_GLOBAL_SHARED_CONTENT = gql`
+  query GetGlobalSharedContent {
+    globalOptions {
+      globalSharedContent {
+        whyCdaBlock {
+          title
+          subtitle
+          cards {
+            title
+            description
+            image {
+              node { sourceUrl altText }
+            }
+          }
+        }
+        approachBlock {
+          title
+          subtitle
+          steps {
+            stepNumber
+            title
+            description
+            image { node { sourceUrl altText } }
+          }
         }
       }
     }

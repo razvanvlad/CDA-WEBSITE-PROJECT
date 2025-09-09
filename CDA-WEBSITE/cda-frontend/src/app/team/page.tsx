@@ -3,6 +3,8 @@ import { getPaginationFromSearchParams } from '@/lib/pagination-utils'
 import Pagination from '@/components/Pagination'
 import Link from 'next/link'
 import Image from 'next/image'
+import FounderSpotlight from '@/components/Sections/FounderSpotlight'
+import JoinOurTeamCTA from '@/components/Sections/JoinOurTeamCTA'
 import { notFound } from 'next/navigation'
 
 export const metadata = {
@@ -464,6 +466,9 @@ export default async function TeamPage({ searchParams }: TeamPageProps) {
             </div>
           )}
 
+          {/* Founder Spotlight (placeholder safe) */}
+          <FounderSpotlight />
+
           {/* CTA Section */}
           <section className="mt-20 bg-gradient-to-br from-purple-900 via-purple-800 to-purple-700 text-white rounded-lg p-12 text-center">
             <h2 className="text-3xl font-bold mb-4">Want to Join Our Team?</h2>
@@ -485,6 +490,11 @@ export default async function TeamPage({ searchParams }: TeamPageProps) {
               </Link>
             </div>
           </section>
+
+          {/* Join Our Team CTA (shared style) */}
+          <div className="mt-12">
+            <JoinOurTeamCTA />
+          </div>
         </div>
       </div>
     )

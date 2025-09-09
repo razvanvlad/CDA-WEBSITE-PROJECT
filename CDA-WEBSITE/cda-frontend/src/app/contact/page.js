@@ -2,6 +2,9 @@
 import { useEffect, useState } from 'react';
 import client from '../../lib/graphql/client';
 import { GET_CONTACT_CONTENT } from '../../lib/graphql/queries';
+import ContactMethods from '@/components/Sections/ContactMethods';
+import ContactForm from '@/components/Sections/ContactForm';
+import ContactMap from '@/components/Sections/ContactMap';
 
 const stripHTML = (html) => html ? html.replace(/<[^>]*>/g, '').trim() : '';
 
@@ -69,8 +72,25 @@ export default function ContactPage() {
           </div>
         </section>
       )}
+
+      {/* Contact Methods */}
+      <div className="mt-8">
+        {/* Avoid hard dependency on data; show placeholders when missing */}
+        <div className="mx-auto w-full max-w-[1620px] px-4">
+          <h2 className="sr-only">Contact Sections</h2>
+        </div>
+      </div>
+
+      {/* Legacy success banner */}
       <div className="bg-green-50 border-l-4 border-green-400 p-4 m-4">
         <div className="flex"><div className="flex-shrink-0"><span className="text-green-400 text-xl">✅</span></div><div className="ml-3"><p className="text-sm text-green-700 font-medium">Contact page loaded successfully!</p></div></div>
+      </div>
+
+      {/* New structured sections (safe placeholders) */}
+      <div>
+        <ContactMethods />
+        <ContactForm />
+        <ContactMap />
       </div>
     </div>
   );

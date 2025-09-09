@@ -69,6 +69,29 @@ export default function KnowledgeHubPage() {
           </div>
         </section>
       )}
+
+      {/* Listing/Grid (safe placeholder) */}
+      <section className="py-12">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[...(hubContent?.items || []), ...(hubContent?.posts || [])].slice(0, 6).map((item, i) => (
+              <div key={i} className="bg-gray-50 p-6 rounded-lg shadow-sm">
+                <div className="text-lg font-semibold text-black mb-2">{item?.title || 'Article Title'}</div>
+                <div className="text-sm text-gray-600">{item?.excerpt ? item.excerpt.replace(/<[^>]*>/g,'') : 'Summary coming soon.'}</div>
+              </div>
+            ))}
+            {(!hubContent?.items && !hubContent?.posts) && (
+              [...Array(6)].map((_, i) => (
+                <div key={i} className="bg-gray-50 p-6 rounded-lg shadow-sm">
+                  <div className="text-lg font-semibold text-black mb-2">Article Title</div>
+                  <div className="text-sm text-gray-600">Summary coming soon.</div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      </section>
+
       <div className="bg-green-50 border-l-4 border-green-400 p-4 m-4">
         <div className="flex"><div className="flex-shrink-0"><span className="text-green-400 text-xl">✅</span></div><div className="ml-3"><p className="text-sm text-green-700 font-medium">Knowledge Hub page loaded successfully!</p></div></div>
       </div>

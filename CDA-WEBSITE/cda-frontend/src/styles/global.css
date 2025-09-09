@@ -471,3 +471,177 @@
   justify-content: flex-end;
   text-align: right;
 }
+
+.side-menu-heading {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #000;
+}
+
+.side-menu-divider {
+  border: 0;
+  border-top: 1px solid #DBDBDB; /* matches SVG */
+}
+
+.side-menu-item {
+  display: block;
+  padding: 0.25rem 0; /* tight like design */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 22px; /* Mobile spec */
+  color: #000;
+  text-decoration: none;
+}
+
+.side-menu-item:hover {
+  color: #000;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.side-menu-connect-heading {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #000;
+}
+
+.side-menu-connect-link {
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #000;
+  text-decoration: none;
+}
+
+.side-menu-connect-text {
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #000;
+}
+
+.side-menu-social {
+  color: #000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Side menu dark theme adjustments */
+.side-menu-heading {
+  color: #FFFFFF;
+}
+.side-menu-divider {
+  border-color: #2A2A2A;
+}
+.side-menu-item {
+  color: #FFFFFF;
+}
+.side-menu-item:hover {
+  color: #FFFFFF;
+  background: rgba(255,255,255,0.06);
+}
+.side-menu-connect-heading {
+  color: #FFFFFF;
+}
+.side-menu-connect-link {
+  color: #FFFFFF;
+  border-bottom-color: rgba(255,255,255,0.3);
+}
+.side-menu-connect-text {
+  color: #D1D1D1;
+}
+.side-menu-social {
+  color: #FFFFFF;
+}
+
+/* Homepage Hero Mobile Styles */
+.home-hero-section {
+  background: #fff;
+  padding: 40px 0 24px;
+}
+
+.home-header-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.home-header-text {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.home-hero-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.1;
+  color: #000;
+  margin: 0 0 16px;
+}
+
+/* Underline accent to match SVG (#3cbeeb) */
+.home-hero-title u,
+.home-hero-title .underline {
+  text-decoration: none;
+  box-shadow: inset 0 -10px 0 #3cbeeb;
+}
+
+.home-hero-subtitle {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 28px;
+}
+
+/* NEW: Keep CTA buttons on one row and centered on mobile */
+.home-hero-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px; /* tight to fit both buttons */
+  flex-wrap: nowrap; /* prevent wrap on mobile */
+}
+
+/* NEW: Center the illustration and constrain size */
+.home-header-illustration-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.home-header-illustration {
+  display: block;
+  width: min(520px, 90%);
+  height: auto;
+  margin: 0 auto;
+}
+
+/* Small phones adjustments */
+@media (max-width: 375px) {
+  .home-hero-title { font-size: 30px; }
+  .home-hero-cta { gap: 14px; }
+}
+
+/* Tablet+ */
+@media (min-width: 768px) {
+  .home-hero-section { padding: 72px 0; }
+  .home-header-grid { grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 40px; }
+  .home-header-text { margin: 0; }
+  .home-hero-title { font-size: 56px; }
+  .home-hero-subtitle { font-size: 18px; }
+  .home-hero-cta { justify-content: flex-start; gap: 24px; }
+}
+
+/* Config hint */
+.home-hero-config-hint {
+  font-size: 14px;
+  color: #f59e0b;
+  background: #fef3c7;
+  padding: 8px 12px;
+  border-radius: 4px;
+  display: inline-block;
+}

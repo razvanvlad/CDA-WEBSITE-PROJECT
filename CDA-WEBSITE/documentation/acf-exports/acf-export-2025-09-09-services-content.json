@@ -1,0 +1,89 @@
+[
+  {
+    "key": "group_services_content",
+    "title": "Service Content",
+    "fields": [
+      {
+        "key": "field_service_hero_section",
+        "label": "Hero Section",
+        "name": "hero_section",
+        "type": "group",
+        "instructions": "Main hero section for this service page",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "heroSection",
+        "sub_fields": [
+          {"key": "field_service_hero_subtitle", "label": "Subtitle", "name": "subtitle", "type": "text", "show_in_graphql": 1},
+          {"key": "field_service_hero_description", "label": "Description", "name": "description", "type": "textarea", "show_in_graphql": 1},
+          {"key": "field_service_hero_image", "label": "Hero Image", "name": "hero_image", "type": "image", "return_format": "array", "show_in_graphql": 1},
+          {"key": "field_service_hero_cta", "label": "Call to Action", "name": "cta", "type": "link", "show_in_graphql": 1}
+        ]
+      },
+      {
+        "key": "field_service_statistics",
+        "label": "Key Statistics",
+        "name": "key_statistics",
+        "type": "repeater",
+        "instructions": "Add key metrics and statistics for this service",
+        "min": 0,
+        "max": 6,
+        "layout": "table",
+        "button_label": "Add Statistic",
+        "show_in_graphql": 1,
+        "sub_fields": [
+          {"key": "field_service_stat_number", "label": "Number", "name": "number", "type": "text", "show_in_graphql": 1},
+          {"key": "field_service_stat_label", "label": "Label", "name": "label", "type": "text", "show_in_graphql": 1},
+          {"key": "field_service_stat_description", "label": "Description", "name": "description", "type": "text", "show_in_graphql": 1}
+        ]
+      },
+      {
+        "key": "field_service_features",
+        "label": "Service Features",
+        "name": "service_features",
+        "type": "repeater",
+        "instructions": "Key features and benefits of this service",
+        "min": 0,
+        "max": 8,
+        "layout": "block",
+        "button_label": "Add Feature",
+        "show_in_graphql": 1,
+        "sub_fields": [
+          {"key": "field_service_feature_icon", "label": "Icon", "name": "icon", "type": "image", "return_format": "array", "show_in_graphql": 1},
+          {"key": "field_service_feature_title", "label": "Title", "name": "title", "type": "text", "required": 1, "show_in_graphql": 1},
+          {"key": "field_service_feature_description", "label": "Description", "name": "description", "type": "textarea", "show_in_graphql": 1}
+        ]
+      },
+      {
+        "key": "field_service_case_studies",
+        "label": "Featured Case Studies",
+        "name": "featured_case_studies",
+        "type": "post_object",
+        "instructions": "Select case studies to feature for this service",
+        "post_type": ["case_studies"],
+        "multiple": 1,
+        "max": 4,
+        "return_format": "object",
+        "show_in_graphql": 1
+      }
+    ],
+    "location": [
+      [
+        {"param": "post_type", "operator": "==", "value": "services"}
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Content fields for services",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "serviceFields",
+    "map_graphql_types_from_location_rules": 1,
+    "graphql_types": ["Services"]
+  }
+]
+

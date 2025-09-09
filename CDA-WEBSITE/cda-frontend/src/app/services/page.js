@@ -4,6 +4,9 @@ import { getPaginationFromSearchParams } from '@/lib/pagination-utils'
 import Pagination from '@/components/Pagination'
 import ApproachBlock from '@/components/GlobalBlocks/ApproachBlock'
 import ValuesBlock from '@/components/GlobalBlocks/ValuesBlock'
+import ServicesProcess from '@/components/Sections/ServicesProcess'
+import ServicesStats from '@/components/Sections/ServicesStats'
+import ServicesCaseStudiesPreview from '@/components/Sections/ServicesCaseStudiesPreview'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -374,6 +377,11 @@ export default async function ServicesPage({ searchParams }) {
               useOverride={false}
             />
           )}
+
+          {/* Services: Process, Stats, Case Studies Preview */}
+          <ServicesProcess />
+          <ServicesStats />
+          <ServicesCaseStudiesPreview />
 
           {/* CTA Section */}
           <section className="mt-16 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white rounded-lg p-12 text-center">
