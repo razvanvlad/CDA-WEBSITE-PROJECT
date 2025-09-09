@@ -492,22 +492,33 @@ export default function Home() {
 
             {(globalContentBlocks.newsCarousel.computedArticles?.length || 0) > 0 ? (
               <div className="news-carousel-list">
-                {globalContentBlocks.newsCarousel.computedArticles.map((post) => (
-                  <article key={post.id || post.uri} className="news-card">
-                    {post.imageUrl ? (
-                      <a href={post.uri} className="news-card-image" aria-label={post.title}>
-                        <img src={post.imageUrl} alt={post.imageAlt || post.title} />
-                      </a>
-                    ) : null}
-                    <div className="news-card-content">
-                      <h3 className="news-card-title" dangerouslySetInnerHTML={{ __html: post.title }} />
-                      {post.excerpt && (
-                        <div className="news-card-excerpt" dangerouslySetInnerHTML={{ __html: post.excerpt }} />
-                      )}
-                      <a href={post.uri} className="news-card-link">Read more →</a>
-                    </div>
-                  </article>
-                ))}
+                {globalContentBlocks.newsCarousel.computedArticles.map((post) => {
+                  const slugFromUri = (() => {
+                    try {
+                      // wp uri example: /index.php/blog/magento-vs-shopify-which-platform-is-best/
+                      const parts = (post.uri || '').split('/').filter(Boolean);
+                      // last segment is slug
+                      return parts[parts.length - 1] || '';
+                    } catch (_) { return ''; }
+                  })();
+                  const nextHref = slugFromUri ? `/news-article/${slugFromUri}` : (post.uri || '#');
+                  return (
+                    <article key={post.id || post.uri} className="news-card">
+                      {post.imageUrl ? (
+                        <a href={nextHref} className="news-card-image" aria-label={post.title}>
+                          <img src={post.imageUrl} alt={post.imageAlt || post.title} />
+                        </a>
+                      ) : null}
+                      <div className="news-card-content">
+                        <h3 className="news-card-title" dangerouslySetInnerHTML={{ __html: post.title }} />
+                        {post.excerpt && (
+                          <div className="news-card-excerpt" dangerouslySetInnerHTML={{ __html: post.excerpt }} />
+                        )}
+                        <a href={nextHref} className="news-card-link">Read more →</a>
+                      </div>
+                    </article>
+                  );
+                })}
               </div>
             ) : (
               <div className="news-carousel-placeholder">

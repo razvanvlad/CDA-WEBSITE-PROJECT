@@ -19,6 +19,15 @@ const nextConfig = {
       { source: '/sectors', destination: '/services', permanent: false },
     ];
   },
+  async rewrites() {
+    return [
+      // Map legacy WordPress blog permalinks to Next.js dynamic route
+      { source: '/index.php/blog/:slug', destination: '/news-article/:slug' },
+      { source: '/index.php/blog/:slug/', destination: '/news-article/:slug' },
+      { source: '/blog/:slug', destination: '/news-article/:slug' },
+      { source: '/blog/:slug/', destination: '/news-article/:slug' },
+    ];
+  },
 };
 
 module.exports = nextConfig;

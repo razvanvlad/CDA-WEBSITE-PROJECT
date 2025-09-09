@@ -36,8 +36,12 @@ export default async function TeamPage() {
       page(id: ${TEAM_ID}, idType: DATABASE_ID) {
         id
         title
+        databaseId
+        uri
+        template { __typename templateName }
         teamPageContent {
-          contentSections {
+          __typename
+          teamContentSections {
             teamListing {
               sectionTitle
               description
@@ -92,12 +96,23 @@ export default async function TeamPage() {
       console.log('Team GraphQL errors:', teamResult.errors);
     }
 
-    const sections = teamResult?.data?.page?.teamPageContent?.contentSections || {};
-    const teamListing = sections?.teamListing || null;
-    const curatedMembers = sections?.teamMembers?.selectedMembers?.nodes || [];
-    const founder = sections?.meetTheFounder || null;
-    const join = sections?.joinOurTeam || null;
-    const videoSec = sections?.videoSection || null;
+    const pageData = teamResult?.data?.page || {};
+    const sections = pageData?.teamPageContent?.teamContentSections
+      || pageData?.teamPageContent?.contentSections
+      || {};
+
+    // Fallback if wrapper is not used
+    const contentRoot = Object.keys(sections).length > 0
+      ? sections
+      : (pageData?.teamPageContent || {});
+
+    const teamListing = contentRoot?.teamListing || null;
+    const curatedMembers = (contentRoot?.teamMembers?.selectedMembers?.nodes)
+      || (contentRoot?.teamMembers?.selectedMembers)
+      || [];
+    const founder = contentRoot?.meetTheFounder || null;
+    const join = contentRoot?.joinOurTeam || null;
+    const videoSec = contentRoot?.videoSection || null;
 
     const listMembers = Array.isArray(curatedMembers) ? curatedMembers : [];
 
@@ -264,6 +279,18 @@ export default async function TeamPage() {
                 </div>
               ))}
             </div>
+            <details className="mt-6">
+              <summary className="cursor-pointer text-sm text-blue-900">Debug: Raw Team Page GraphQL payload</summary>
+              <pre className="mt-3 text-xs bg-white rounded p-3 overflow-auto border border-blue-100">
+                {JSON.stringify({
+                  pageId: pageData?.databaseId,
+                  uri: pageData?.uri,
+                  template: pageData?.template,
+                  teamPageContentType: pageData?.teamPageContent?.__typename,
+                  contentKeys: Object.keys(contentRoot || {})
+                }, null, 2)}
+              </pre>
+            </details>
           </div>
         </div>
         <Footer />

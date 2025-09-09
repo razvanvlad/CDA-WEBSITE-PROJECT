@@ -1,0 +1,171 @@
+{
+  "data": {
+    "page": {
+      "id": "cG9zdDozODY=",
+      "title": "Team Listing",
+      "uri": "/index.php/team-listing/",
+      "template": {
+        "__typename": "Template_Team",
+        "templateName": "Team"
+      },
+      "teamPageContent": {
+        "__typename": "TeamPageContent"
+      }
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "0aab4d84c197ebde90c68897734e5ec9ea299bc8dceede32d1bd1357651f79b4 graphql:Query cG9zdDozODY=",
+      "keysLength": 91,
+      "keysCount": 3,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"contentSections\" on type \"TeamPageContent\". Did you mean \"teamContentSections\"?",
+      "locations": [
+        {
+          "line": 5,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "c7b75fe8146f3109ff7abe62c6adad84aefdc6744add715effaaeb3e14fc4cfc graphql:Query",
+      "keysLength": 78,
+      "keysCount": 2,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"teamListing\" on type \"TeamPageContent\".",
+      "locations": [
+        {
+          "line": 5,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"teamMembers\" on type \"TeamPageContent\".",
+      "locations": [
+        {
+          "line": 6,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"meetTheFounder\" on type \"TeamPageContent\".",
+      "locations": [
+        {
+          "line": 19,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"joinOurTeam\" on type \"TeamPageContent\".",
+      "locations": [
+        {
+          "line": 23,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    },
+    {
+      "message": "Cannot query field \"videoSection\" on type \"TeamPageContent\".",
+      "locations": [
+        {
+          "line": 29,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "effd7d5ff4882cecdcc12b68375ab70fc0ef339246ed3379c827bffae83e4541 graphql:Query",
+      "keysLength": 78,
+      "keysCount": 2,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
+
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"teamMembers\" on type \"TeamPageContent\".",
+      "locations": [
+        {
+          "line": 4,
+          "column": 7
+        }
+      ],
+      "extensions": {
+        "file": "C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\wordpress-backend\\wp-content\\plugins\\wp-graphql\\vendor\\webonyx\\graphql-php\\src\\Validator\\Rules\\FieldsOnCorrectType.php",
+        "line": 43
+      }
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "fe6b2312a1175e03a4aced35d3c1cac56507aeef46104b2d620f5cdd28d54a63 graphql:Query",
+      "keysLength": 78,
+      "keysCount": 2,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}
