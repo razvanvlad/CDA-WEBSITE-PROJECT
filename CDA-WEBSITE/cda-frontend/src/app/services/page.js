@@ -7,6 +7,8 @@ import ValuesBlock from '@/components/GlobalBlocks/ValuesBlock'
 import ServicesProcess from '@/components/Sections/ServicesProcess'
 import ServicesStats from '@/components/Sections/ServicesStats'
 import ServicesCaseStudiesPreview from '@/components/Sections/ServicesCaseStudiesPreview'
+import Header from '../../components/Header'
+import Footer from '../../components/Footer'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -177,35 +179,21 @@ export default async function ServicesPage({ searchParams }) {
     const total = services.length
 
     return (
-      <div className="min-h-screen bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4">
-          {/* Hero from ACF (Service Overview Content) */}
-          {overviewContent?.heroSection ? (
-            <section className="relative bg-gradient-to-br from-blue-50 to-white rounded-xl p-8 mb-12 overflow-hidden">
-              <div className="relative z-10 max-w-3xl">
-                {overviewContent.heroSection.title && (
-                  <h1 className="text-4xl font-bold text-gray-900 mb-4">{overviewContent.heroSection.title}</h1>
-                )}
-                {overviewContent.heroSection.description && (
-                  <p className="text-lg text-gray-600">{overviewContent.heroSection.description}</p>
-                )}
-              </div>
-              {overviewContent.heroSection.imageRight?.node?.sourceUrl && (
-                <img
-                  src={overviewContent.heroSection.imageRight.node.sourceUrl}
-                  alt={overviewContent.heroSection.imageRight.node.altText || ''}
-                  className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-[40%] max-w-[520px] object-contain opacity-90"
-                />
-              )}
-            </section>
-          ) : (
-            <div className="text-center mb-16">
+      <>
+        <Header />
+        <div className="min-h-screen bg-white">
+          <div className="max-w-7xl mx-auto px-4 py-16">
+          {/* Hero Section */}
+          <section className="relative bg-gradient-to-br from-purple-50 to-white rounded-xl p-8 mb-12 overflow-hidden">
+            <div className="relative z-10 max-w-4xl mx-auto text-center">
               <h1 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h1>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-600 mb-8">
                 Discover our comprehensive range of digital services designed to help your business grow and succeed in the digital landscape.
               </p>
             </div>
-          )}
+          </section>
+
+
 
           {/* Service Landing Two-Column Section */}
           {(overviewContent?.featuredServiceSection || overviewContent?.rightColumn) && (
@@ -284,155 +272,101 @@ export default async function ServicesPage({ searchParams }) {
             </section>
           )}
 
-          {/* Filters and Search */}
-          <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-            <form method="GET" className="space-y-4">
-              {/* Search Bar */}
-              <div>
-                <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-2">
-                  Search Services
-                </label>
-                <input
-                  type="text"
-                  id="search"
-                  name="search"
-                  defaultValue={searchQuery}
-                  placeholder="Search by service name or description..."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
 
-              {/* Service Type Filter */}
-              {serviceTypes.length > 0 && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Filter by Service Type
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {serviceTypes.map((type) => (
-                      <label key={type.id} className="flex items-center">
-                        <input
-                          type="checkbox"
-                          name="service_type"
-                          value={type.id}
-                          defaultChecked={serviceTypeFilter.includes(type.id)}
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                        />
-                        <span className="ml-2 text-sm text-gray-700">
-                          {type.name} ({type.count})
-                        </span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Filter Actions */}
-              <div className="flex flex-wrap gap-4">
-                <button
-                  type="submit"
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
-                >
-                  Apply Filters
-                </button>
-                <Link
-                  href="/services"
-                  className="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
-                >
-                  Clear Filters
-                </Link>
-              </div>
-            </form>
-          </div>
-
-          {/* Results Summary */}
-          {total > 0 && (
-            <div className="mb-6">
-              <p className="text-gray-600">
-                {searchQuery || serviceTypeFilter.length > 0 ? (
-                  <>
-                    Showing {services.length} of {total} services
-                    {searchQuery && <span> matching "{searchQuery}"</span>}
-                    {serviceTypeFilter.length > 0 && (
-                      <span> in {serviceTypeFilter.length} selected categories</span>
-                    )}
-                  </>
-                ) : (
-                  `Showing all ${total} services`
-                )}
-              </p>
-            </div>
-          )}
 
           {/* Services Grid */}
           {services.length > 0 ? (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+              <div className="space-y-6 mb-16">
                 {services.map((service) => (
-                  <Link 
-                    key={service.id}
-                    href={`/services/${service.slug}`}
-                    className="group block"
-                  >
-                    <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <div key={service.id} className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 hover:border-gray-300">
+                    <div className="flex flex-col lg:flex-row">
+                      {/* Image Section */}
                       {service.featuredImage?.node?.sourceUrl && (
-                        <div className="relative h-48 w-full overflow-hidden">
-                          <Image
-                            src={service.featuredImage.node.sourceUrl}
-                            alt={service.featuredImage.node.altText || service.title}
-                            fill
-                            className="object-cover group-hover:scale-110 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+                        <div className="lg:w-1/3">
+                          <div className="relative h-64 lg:h-full w-full overflow-hidden">
+                            <Image
+                              src={service.featuredImage.node.sourceUrl}
+                              alt={service.featuredImage.node.altText || service.title}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
                         </div>
                       )}
                       
-                      <div className="p-6">
-                        <div className="flex items-center gap-2 mb-3">
-                          {service.serviceTypes?.nodes?.map((type) => (
+                      {/* Content Section */}
+                      <div className={`p-6 ${service.featuredImage?.node?.sourceUrl ? 'lg:w-2/3' : 'w-full'}`}>
+                        <div className="flex items-center gap-2 mb-4">
+                          {service.serviceTypes?.nodes?.slice(0, 2).map((type) => (
                             <span 
                               key={type.id}
-                              className="inline-block px-3 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full"
+                              className="inline-block px-3 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full"
                             >
                               {type.name}
                             </span>
                           ))}
                         </div>
 
-                        <h2 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
-                          {service.title}
+                        <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                          <Link href={`/services/${service.slug}`} className="hover:text-purple-600 transition-colors">
+                            {service.title}
+                          </Link>
                         </h2>
 
                         {service.serviceFields?.heroSection?.subtitle && (
-                          <p className="text-blue-600 font-medium mb-3 text-sm">
+                          <p className="text-purple-600 font-medium mb-4 text-base">
                             {service.serviceFields.heroSection.subtitle}
                           </p>
                         )}
 
                         {service.excerpt && (
                           <div 
-                            className="text-gray-600 text-sm line-clamp-3 mb-4"
+                            className="text-gray-600 mb-4"
                             dangerouslySetInnerHTML={{ __html: service.excerpt }}
                           />
                         )}
 
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center text-blue-600 font-medium text-sm group-hover:text-blue-800 transition-colors">
-                            Learn more
-                            <svg className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </div>
-                          
-                          {service.date && (
-                            <div className="text-xs text-gray-400">
-                              Updated {new Date(service.date).toLocaleDateString()}
+                        {/* Service Description from Hero Section */}
+                        {service.serviceFields?.heroSection?.description && (
+                          <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                            <div className="text-gray-700 leading-relaxed">
+                              {service.serviceFields.heroSection.description}
                             </div>
-                          )}
-                        </div>
+                          </div>
+                        )}
+
+                        {/* Service Bullet Points */}
+                        {service.serviceFields?.serviceBulletPoints?.bullets && service.serviceFields.serviceBulletPoints.bullets.length > 0 && (
+                          <div className="mb-6">
+                            {service.serviceFields.serviceBulletPoints.title && (
+                              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                                {service.serviceFields.serviceBulletPoints.title}
+                              </h3>
+                            )}
+                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                              {service.serviceFields.serviceBulletPoints.bullets.slice(0, 6).map((bullet, index) => (
+                                <li key={index} className="flex items-start space-x-2">
+                                  <div className="flex-shrink-0 w-2 h-2 bg-purple-600 rounded-full mt-2"></div>
+                                  <span className="text-gray-700 text-sm">{bullet.text}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        <Link 
+                          href={`/services/${service.slug}`}
+                          className="inline-flex items-center text-purple-600 font-semibold hover:text-purple-700 transition-colors"
+                        >
+                          Learn more
+                          <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </Link>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 ))}
               </div>
 
@@ -520,8 +454,10 @@ export default async function ServicesPage({ searchParams }) {
               </Link>
             </div>
           </section>
+          </div>
         </div>
-      </div>
+        <Footer />
+      </>
     )
   } catch (error) {
     console.error('Failed to load services:', error)

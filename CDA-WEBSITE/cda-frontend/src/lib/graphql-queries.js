@@ -62,6 +62,12 @@ export const GET_ALL_SERVICES = `
             subtitle
             description
           }
+          serviceBulletPoints {
+            title
+            bullets {
+              text
+            }
+          }
         }
         serviceTypes {
           nodes {
@@ -103,6 +109,12 @@ export const GET_SERVICES_WITH_PAGINATION = `
             subtitle
             description
           }
+          serviceBulletPoints {
+            title
+            bullets {
+              text
+            }
+          }
         }
         serviceTypes {
           nodes {
@@ -124,6 +136,87 @@ export const GET_SERVICES_WITH_PAGINATION = `
 
 export const GET_SERVICE_BY_SLUG = `
   query GetServiceBySlug($slug: ID!) {
+    service(id: $slug, idType: SLUG) {
+      id
+      title
+      slug
+      date
+      content
+      excerpt
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+        }
+      }
+      serviceFields {
+        heroSection {
+          subtitle
+          description
+          heroImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          cta {
+            url
+            title
+          }
+        }
+        serviceBulletPoints {
+          title
+          bullets {
+            text
+          }
+        }
+        valueDescription {
+          title
+          description
+          cta {
+            url
+            title
+          }
+        }
+        caseStudies {
+          nodes {
+            ... on CaseStudy {
+              id
+              title
+              uri
+              excerpt
+              featuredImage {
+                node {
+                  sourceUrl
+                  altText
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_SERVICE_BY_SLUG_TEST_ACF = `
+  query GetServiceBySlugTestACF($slug: ID!) {
+    service(id: $slug, idType: SLUG) {
+      id
+      title
+      slug
+      serviceDetail {
+        hero {
+          subtitle
+          description
+        }
+      }
+    }
+  }
+`;
+
+export const GET_SERVICE_BY_SLUG_WITH_ACF = `
+  query GetServiceBySlugWithACF($slug: ID!) {
     service(id: $slug, idType: SLUG) {
       id
       title
@@ -211,28 +304,6 @@ export const GET_SERVICE_BY_SLUG = `
         newsletterSection {
           title
           subtitle
-        }
-        # New fields for enhanced service pages
-        serviceCards {
-          title
-          description
-          cta { url title target }
-          pinIcon
-        }
-        serviceBulletPoints {
-          title
-          bullets { text }
-        }
-        valueDescription {
-          title
-          description
-          cta { url title target }
-        }
-        clientsLogos {
-          title
-          description
-          largeImage { node { sourceUrl altText } }
-          logos { logo { node { sourceUrl altText } } }
         }
       }
       serviceTypes {
@@ -598,15 +669,16 @@ export const GET_TEAM_MEMBER_SLUGS = `
 // =============================================================================
 
 export async function getServiceBySlug(slug) {
+  // Fetch the base service fields
   const response = await executeGraphQLQuery(GET_SERVICE_BY_SLUG, { slug });
-  
-  // Be tolerant of partial GraphQL errors: return whatever data is available.
-  if (response.errors && !response.data?.service) {
+  if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return null;
   }
+  const service = response.data?.service;
+  if (!service) return null;
 
-  return response.data?.service || null;
+  return service;
 }
 
 export async function getCaseStudyBySlug(slug) {
@@ -801,6 +873,27 @@ export async function getGlobalContent() {
 
   return response.data?.globalOptions?.globalSharedContent || null;
 }
+
+// =============================================================================
+// SERVICES ENHANCED FIELDS (queried separately and merged if available)
+// =============================================================================
+export const GET_SERVICE_ENHANCED_FIELDS = `
+  query GetServiceEnhanced($slug: ID!) {
+    service(id: $slug, idType: SLUG) {
+      serviceFields {
+        serviceCards { title description pinIcon cta { url title target } }
+        serviceBulletPoints { title bullets { text } }
+        valueDescription { title description cta { url title target } }
+        clientsLogos {
+          title
+          description
+          largeImage { node { sourceUrl altText } }
+          logos { logo { node { sourceUrl altText } } }
+        }
+      }
+    }
+  }
+`;
 
 // =============================================================================
 // SERVICES OVERVIEW PAGE ("/services")

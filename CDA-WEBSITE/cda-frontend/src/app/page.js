@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ValuesBlock from '../components/GlobalBlocks/ValuesBlock';
@@ -17,6 +17,16 @@ export default function Home() {
   const [homepageData, setHomepageData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const newsListRef = useRef(null);
+
+  const scrollNews = (dir) => {
+    if (!newsListRef.current) return;
+    const el = newsListRef.current;
+    const firstCard = el.querySelector('.news-card');
+    const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : el.clientWidth * 0.86;
+    const delta = dir === 'next' ? cardWidth + 16 : -(cardWidth + 16);
+    el.scrollBy({ left: delta, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     const fetchPageData = async () => {
@@ -570,35 +580,43 @@ export default function Home() {
             </div>
 
             {(globalContentBlocks.newsCarousel.computedArticles?.length || 0) > 0 ? (
-              <div className="news-carousel-list">
-                {globalContentBlocks.newsCarousel.computedArticles.map((post) => {
-                  const slugFromUri = (() => {
-                    try {
-                      // wp uri example: /index.php/blog/magento-vs-shopify-which-platform-is-best/
-                      const parts = (post.uri || '').split('/').filter(Boolean);
-                      // last segment is slug
-                      return parts[parts.length - 1] || '';
-                    } catch (_) { return ''; }
-                  })();
-                  const nextHref = slugFromUri ? `/news-article/${slugFromUri}` : (post.uri || '#');
-                  return (
-                    <article key={post.id || post.uri} className="news-card">
-                      {post.imageUrl ? (
-                        <a href={nextHref} className="news-card-image" aria-label={post.title}>
-                          <img src={post.imageUrl} alt={post.imageAlt || post.title} />
-                        </a>
-                      ) : null}
-                      <div className="news-card-content">
-                        <h3 className="news-card-title" dangerouslySetInnerHTML={{ __html: post.title }} />
-                        {post.excerpt && (
-                          <div className="news-card-excerpt" dangerouslySetInnerHTML={{ __html: post.excerpt }} />
-                        )}
-                        <a href={nextHref} className="news-card-link">Read more →</a>
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
+              <>
+                <div ref={newsListRef} className="news-carousel-list">
+                  {globalContentBlocks.newsCarousel.computedArticles.map((post) => {
+                    const slugFromUri = (() => {
+                      try {
+                        const parts = (post.uri || '').split('/').filter(Boolean);
+                        return parts[parts.length - 1] || '';
+                      } catch (_) { return ''; }
+                    })();
+                    const nextHref = slugFromUri ? `/news-article/${slugFromUri}` : (post.uri || '#');
+                    return (
+                      <article key={post.id || post.uri} className="news-card">
+                        {post.imageUrl ? (
+                          <a href={nextHref} className="news-card-image" aria-label={post.title}>
+                            <img src={post.imageUrl} alt={post.imageAlt || post.title} />
+                          </a>
+                        ) : null}
+                        <div className="news-card-content">
+                          <h3 className="news-card-title" dangerouslySetInnerHTML={{ __html: post.title }} />
+                          {post.excerpt && (
+                            <div className="news-card-excerpt" dangerouslySetInnerHTML={{ __html: post.excerpt }} />
+                          )}
+                          <a href={nextHref} className="news-card-link">Read more →</a>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+                <div className="news-carousel-nav">
+                  <button type="button" className="news-carousel-nav-btn prev" onClick={() => scrollNews('prev')} aria-label="Previous">
+                    ←
+                  </button>
+                  <button type="button" className="news-carousel-nav-btn next" onClick={() => scrollNews('next')} aria-label="Next">
+                    →
+                  </button>
+                </div>
+              </>
             ) : (
               <div className="news-carousel-placeholder">
                 <p>No articles found. Add posts in WordPress or adjust the News Carousel settings.</p>
