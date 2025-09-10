@@ -5,6 +5,8 @@ import { sanitizeTitleHtml } from '../../../lib/sanitizeTitleHtml';
 import { getServiceBySlug } from '../../../lib/graphql-queries';
 import Image from 'next/image';
 import Link from 'next/link';
+// Remove HubSpotForm import
+// (deleted) import HubSpotForm from '../../../components/HubSpotForm';
 
 // Service color mapping
 const getServiceColor = (slug) => {
@@ -23,7 +25,8 @@ const getServiceColor = (slug) => {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }) {
-  const service = await getServiceBySlug(params.slug);
+  const { slug } = await params;
+  const service = await getServiceBySlug(slug);
   
   if (!service) {
     return {
@@ -50,7 +53,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ServicePage({ params }) {
-  const service = await getServiceBySlug(params.slug);
+  const { slug } = await params;
+  const service = await getServiceBySlug(slug);
 
   if (!service) {
     notFound();
@@ -94,13 +98,13 @@ export default async function ServicePage({ params }) {
                     dangerouslySetInnerHTML={{ __html: heroSection.description }}
                   />
                 )}
-                {heroSection.cta?.title && heroSection.cta?.url && (
-                  <Link 
-                    href={heroSection.cta.url}
+                {heroSection.cta?.title && (
+                  <a 
+                    href="#contact-form"
                     className="button-l"
                   >
                     {heroSection.cta.title}
-                  </Link>
+                  </a>
                 )}
               </div>
               
@@ -260,6 +264,25 @@ export default async function ServicePage({ params }) {
 
 
       </main>
+
+      {/* Contact Form Section */}
+      {/* Removed HubSpot dynamic form per request. We'll add a static form later. */}
+      {/* <section id="contact-form" className="py-16 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Get Started with {service.title}
+            </h2>
+            <p className="text-lg text-gray-600">
+              Fill out the form below and we'll get back to you within 24 hours.
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-lg shadow-lg p-8">
+             <HubSpotForm serviceSlug={slug} />
+           </div>
+        </div>
+      </section> */}
       
       <Footer />
     </>

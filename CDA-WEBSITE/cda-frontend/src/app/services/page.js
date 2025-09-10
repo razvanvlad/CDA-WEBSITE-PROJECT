@@ -199,7 +199,7 @@ export default async function ServicesPage({ searchParams }) {
         <div className="min-h-screen bg-white">
           <div className="max-w-7xl mx-auto px-4 py-16">
           {/* Hero Section */}
-          <section className="relative bg-white rounded-xl p-8 mb-12 overflow-hidden">
+          <section className="relative bg-white p-8 mb-12 overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
               <div className="relative z-10">
                 <h1 className="text-4xl font-bold text-gray-900 mb-4">
@@ -312,7 +312,7 @@ export default async function ServicesPage({ searchParams }) {
             <>
               <div className="space-y-6 mb-16">
                 {services.map((service) => (
-                  <div key={service.id} className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 hover:border-gray-300">
+                  <div key={service.id} className="bg-white border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 hover:border-gray-300">
                     <div className="flex flex-col lg:flex-row">
                       {/* Left Section - Title and Image */}
                       <div className="lg:w-1/3 p-6">
@@ -398,19 +398,19 @@ export default async function ServicesPage({ searchParams }) {
                         )}
 
                         <div className="flex flex-wrap gap-4">
-                          <Link 
-                            href="/contact"
-                            className="button-l"
-                          >
-                            Get Started
-                          </Link>
-                          <Link 
-                            href={`/services/${service.slug}`}
-                            className="button-without-box"
-                          >
-                            Learn more
-                          </Link>
-                        </div>
+                            <Link
+                              href={`/services/${service.slug}#contact-form`}
+                              className="button-l"
+                            >
+                              Get Started
+                            </Link>
+                            <Link 
+                              href={`/services/${service.slug}`}
+                              className="button-without-box"
+                            >
+                              Learn more
+                            </Link>
+                          </div>
                       </div>
                     </div>
                   </div>
