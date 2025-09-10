@@ -136,37 +136,19 @@ export default function ContactPage() {
           </div>
 
           <div className="contact-illustration">
-            <img className="contact-illustration-img" src="/images/Component 119 – 1.svg" alt="Illustration" />
+            <img className="contact-illustration-img" src="/images/contact-birds.svg" alt="Contact illustration with birds and envelopes" />
           </div>
         </div>
       </section>
 
-      {/* Locations (Global) */}
-      {globalBlocks?.locationsImage && (
-        <LocationsImage globalData={globalBlocks.locationsImage} />
-      )}
+      {/* Locations section removed to prevent double image issue */}
 
       {/* Newsletter (Global) */}
       {globalBlocks?.newsletterSignup && (
         <NewsletterSignup globalData={globalBlocks.newsletterSignup} />
       )}
 
-      {/* Debug panel */}
-      <div className="p-6 bg-blue-50 border-t border-blue-100">
-        <div className="max-w-[900px] mx-auto text-sm">
-          <h3 className="font-semibold text-blue-900 mb-2">Contact Page Debug</h3>
-          <pre className="bg-white border rounded p-3 overflow-auto text-xs">
-            {JSON.stringify({
-              pageId: contactData?.page?.id,
-              formSectionKeys: Object.keys(formSection || {}),
-              globals: {
-                hasLocations: !!globalBlocks?.locationsImage,
-                hasNewsletter: !!globalBlocks?.newsletterSignup
-              }
-            }, null, 2)}
-          </pre>
-        </div>
-      </div>
+
 
       <Footer />
     </div>

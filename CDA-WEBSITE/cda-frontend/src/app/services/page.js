@@ -200,11 +200,29 @@ export default async function ServicesPage({ searchParams }) {
           <div className="max-w-7xl mx-auto px-4 py-16">
           {/* Hero Section */}
           <section className="relative bg-white rounded-xl p-8 mb-12 overflow-hidden">
-            <div className="relative z-10 max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h1>
-              <p className="text-xl text-gray-600 mb-8">
-                Discover our comprehensive range of digital services designed to help your business grow and succeed in the digital landscape.
-              </p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
+              <div className="relative z-10">
+                <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                  {overviewContent?.heroSection?.title || 'Our Services'}
+                </h1>
+                <p className="text-xl text-gray-600 mb-8">
+                  {overviewContent?.heroSection?.description || 'Discover our comprehensive range of digital services designed to help your business grow and succeed in the digital landscape.'}
+                </p>
+              </div>
+              
+              {/* Hero Image Right */}
+              {overviewContent?.heroSection?.imageRight?.node?.sourceUrl && (
+                <div className="relative">
+                  <Image
+                    src={overviewContent.heroSection.imageRight.node.sourceUrl}
+                    alt={overviewContent.heroSection.imageRight.node.altText || 'Our Services'}
+                    width={600}
+                    height={400}
+                    className="w-full h-auto rounded-lg shadow-lg"
+                    priority
+                  />
+                </div>
+              )}
             </div>
           </section>
 
@@ -296,22 +314,8 @@ export default async function ServicesPage({ searchParams }) {
                 {services.map((service) => (
                   <div key={service.id} className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 hover:border-gray-300">
                     <div className="flex flex-col lg:flex-row">
-                      {/* Image Section */}
-                      {service.featuredImage?.node?.sourceUrl && (
-                        <div className="lg:w-1/3">
-                          <div className="relative h-64 lg:h-full w-full overflow-hidden">
-                            <Image
-                              src={service.featuredImage.node.sourceUrl}
-                              alt={service.featuredImage.node.altText || service.title}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                        </div>
-                      )}
-                      
-                      {/* Content Section */}
-                      <div className={`p-6 ${service.featuredImage?.node?.sourceUrl ? 'lg:w-2/3' : 'w-full'}`}>
+                      {/* Left Section - Title and Image */}
+                      <div className="lg:w-1/3 p-6">
                         <div className="flex items-center gap-2 mb-4">
                           {service.serviceTypes?.nodes?.slice(0, 2).map((type) => (
                             <span 
@@ -323,7 +327,7 @@ export default async function ServicesPage({ searchParams }) {
                           ))}
                         </div>
 
-                        <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">
                           <Link 
                             href={`/services/${service.slug}`} 
                             className="transition-colors"
@@ -337,15 +341,21 @@ export default async function ServicesPage({ searchParams }) {
                           </Link>
                         </h2>
 
-                        {/* {service.serviceFields?.heroSection?.subtitle && (
-                          <p 
-                            className="font-medium mb-4 text-base"
-                            style={{ color: getServiceColor(service.slug) }}
-                          >
-                            {service.serviceFields.heroSection.subtitle}
-                          </p>
-                        )} */}
+                        {/* Image Section */}
+                        {service.featuredImage?.node?.sourceUrl && (
+                          <div className="relative h-48 w-full overflow-hidden rounded-lg">
+                            <Image
+                              src={service.featuredImage.node.sourceUrl}
+                              alt={service.featuredImage.node.altText || service.title}
+                              fill
+                              className="object-contain"
+                            />
+                          </div>
+                        )}
+                      </div>
 
+                      {/* Right Section - Content */}
+                      <div className="lg:w-2/3 p-6">
                         {service.excerpt && (
                           <div 
                             className="text-gray-600 mb-4"
@@ -355,8 +365,13 @@ export default async function ServicesPage({ searchParams }) {
 
                         {/* Service Description from Hero Section */}
                         {service.serviceFields?.heroSection?.description && (
-                          <div className="bg-gray-50 rounded-lg p-4 mb-6">
-                            <div className="text-gray-700 leading-relaxed">
+                          <div className="mb-6">
+                            {service.serviceFields?.serviceBulletPoints?.title && (
+                              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                                {service.serviceFields.serviceBulletPoints.title}
+                              </h3>
+                            )}
+                            <div className="text-gray-700 leading-relaxed mb-4">
                               {service.serviceFields.heroSection.description}
                             </div>
                           </div>
@@ -365,11 +380,6 @@ export default async function ServicesPage({ searchParams }) {
                         {/* Service Bullet Points */}
                         {service.serviceFields?.serviceBulletPoints?.bullets && service.serviceFields.serviceBulletPoints.bullets.length > 0 && (
                           <div className="mb-6">
-                            {service.serviceFields.serviceBulletPoints.title && (
-                              <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                                {service.serviceFields.serviceBulletPoints.title}
-                              </h3>
-                            )}
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                               {service.serviceFields.serviceBulletPoints.bullets.slice(0, 6).map((bullet, index) => {
                                 const serviceColor = getServiceColor(service.slug);
@@ -387,12 +397,20 @@ export default async function ServicesPage({ searchParams }) {
                           </div>
                         )}
 
-                        <Link 
-                          href={`/services/${service.slug}`}
-                          className="button-without-box"
-                        >
-                          Learn more
-                        </Link>
+                        <div className="flex flex-wrap gap-4">
+                          <Link 
+                            href="/contact"
+                            className="button-l"
+                          >
+                            Get Started
+                          </Link>
+                          <Link 
+                            href={`/services/${service.slug}`}
+                            className="button-without-box"
+                          >
+                            Learn more
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>

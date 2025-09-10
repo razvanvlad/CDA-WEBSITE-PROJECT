@@ -7,16 +7,7 @@ export default function ContactForm({ onSubmit }) {
   };
 
   return (
-    <section className="contact-section">
-      <div className="contact-container">
-        {/* Left: Form */}
-        <div className="contact-content">
-          <div className="contact-header">
-            <div className="contact-subtitle">Send us a</div>
-            <h2 className="contact-title">Message</h2>
-          </div>
-
-          <form onSubmit={handleSubmit} className="contact-form" aria-label="Contact form">
+    <form onSubmit={handleSubmit} className="contact-form" aria-label="Contact form">
             <div className="contact-grid">
               <div className="contact-input-wrap">
                 <input
@@ -85,20 +76,7 @@ export default function ContactForm({ onSubmit }) {
             <div className="contact-actions">
               <button type="submit" className="button-l">Submit</button>
             </div>
-          </form>
-        </div>
-
-        {/* Right: Illustration */}
-        <div className="contact-illustration">
-          <img
-            className="contact-illustration-img"
-            src="/images/Component 119 – 1.svg"
-            alt="Illustration"
-            loading="lazy"
-          />
-        </div>
-      </div>
-    </section>
+      </form>
   );
 }
 
