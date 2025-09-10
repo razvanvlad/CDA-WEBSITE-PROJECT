@@ -1,0 +1,210 @@
+[
+  {
+    "key": "group_services_landing_content_v3",
+    "title": "Services Landing Content",
+    "show_in_graphql": 1,
+    "graphql_field_name": "servicesLandingContent",
+    "fields": [
+      {
+        "key": "field_services_landing_left_title",
+        "label": "Left Column Title",
+        "name": "left_title",
+        "type": "text",
+        "instructions": "Optional. Defaults to 'Featured Case Study'.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Featured Case Study",
+        "placeholder": "Featured Case Study",
+        "prepend": "",
+        "append": "",
+        "maxlength": "",
+        "show_in_graphql": 1,
+        "graphql_field_name": "leftTitle"
+      },
+      {
+        "key": "field_services_landing_featured_service",
+        "label": "Selected Service",
+        "name": "featured_service",
+        "type": "post_object",
+        "instructions": "Pick a Service. The left column will pull its Featured Case Study automatically.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "post_type": [
+          "service"
+        ],
+        "taxonomy": "",
+        "allow_null": 0,
+        "multiple": 0,
+        "return_format": "object",
+        "ui": 1,
+        "show_in_graphql": 1,
+        "graphql_field_name": "featuredService"
+      },
+      {
+        "key": "field_services_landing_cta_label",
+        "label": "CTA Label",
+        "name": "cta_label",
+        "type": "text",
+        "instructions": "Label for the Case Study CTA button.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Explore Case Study",
+        "placeholder": "Explore Case Study",
+        "prepend": "",
+        "append": "",
+        "maxlength": "",
+        "show_in_graphql": 1,
+        "graphql_field_name": "ctaLabel"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "page_template",
+          "operator": "==",
+          "value": "template-services-landing.php"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Left column pulls Featured Case Study from the selected Service.",
+    "modified": 1690000001
+  },
+  {
+    "key": "group_service_content_v3",
+    "title": "Service Content",
+    "show_in_graphql": 1,
+    "graphql_field_name": "serviceContent",
+    "fields": [
+      {
+        "key": "field_service_short_description",
+        "label": "Short Description",
+        "name": "short_description",
+        "type": "textarea",
+        "instructions": "A concise description used on listings.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "placeholder": "",
+        "maxlength": "",
+        "rows": 3,
+        "new_lines": "",
+        "show_in_graphql": 1,
+        "graphql_field_name": "shortDescription"
+      },
+      {
+        "key": "field_service_bullet_points",
+        "label": "Bullet Points",
+        "name": "bullet_points",
+        "type": "repeater",
+        "instructions": "Points shown in two rows on the Services landing.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "collapsed": "",
+        "min": 0,
+        "max": 0,
+        "layout": "table",
+        "button_label": "Add Point",
+        "sub_fields": [
+          {
+            "key": "field_service_bullet_points_item",
+            "label": "Item",
+            "name": "item",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "show_in_graphql": 1,
+            "graphql_field_name": "item"
+          }
+        ],
+        "show_in_graphql": 1,
+        "graphql_field_name": "bulletPoints"
+      },
+      {
+        "key": "field_service_featured_case_study",
+        "label": "Featured Case Study",
+        "name": "featured_case_study",
+        "type": "post_object",
+        "instructions": "Select the Case Study to feature for this Service.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "post_type": [
+          "case_study"
+        ],
+        "taxonomy": "",
+        "allow_null": 0,
+        "multiple": 0,
+        "return_format": "object",
+        "ui": 1,
+        "show_in_graphql": 1,
+        "graphql_field_name": "featuredCaseStudy"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "service"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fields used on Service detail and Services listing.",
+    "modified": 1690000002
+  }
+]
+

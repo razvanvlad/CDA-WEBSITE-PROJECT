@@ -209,6 +209,103 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </section>
         )}
 
+        {/* Service Cards (3 Columns) */}
+        {service.serviceFields?.serviceCards && service.serviceFields.serviceCards.length > 0 && (
+          <section className="py-16 bg-white">
+            <div className="max-w-7xl mx-auto px-4">
+              <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Service Highlights</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {service.serviceFields.serviceCards.map((card: any, index: number) => (
+                  <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <div className="flex items-start gap-3 mb-3">
+                      {card.pinIcon && <span className="mt-1 inline-block w-2 h-2 rounded-full bg-blue-600"></span>}
+                      <h3 className="text-xl font-semibold text-gray-900">{card.title}</h3>
+                    </div>
+                    {card.description && (
+                      <p className="text-gray-600 mb-4">{card.description}</p>
+                    )}
+                    {card.cta?.url && (
+                      <Link href={card.cta.url} className="text-blue-600 font-medium hover:underline">
+                        {card.cta.title || 'Learn more'}
+                      </Link>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Service Bullet Points */}
+        {service.serviceFields?.serviceBulletPoints?.bullets && service.serviceFields.serviceBulletPoints.bullets.length > 0 && (
+          <section className="py-16 bg-gray-50">
+            <div className="max-w-7xl mx-auto px-4">
+              {service.serviceFields.serviceBulletPoints.title && (
+                <h2 className="text-3xl font-bold mb-6 text-gray-900">{service.serviceFields.serviceBulletPoints.title}</h2>
+              )}
+              <div className="grid sm:grid-cols-2 gap-3">
+                {service.serviceFields.serviceBulletPoints.bullets.map((b: any, index: number) => (
+                  <div key={index} className="flex items-start gap-2">
+                    <span className="mt-1 inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+                    <span className="text-gray-700">{b.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Value Description */}
+        {(service.serviceFields?.valueDescription?.title || service.serviceFields?.valueDescription?.description) && (
+          <section className="py-16 bg-white">
+            <div className="max-w-4xl mx-auto px-4 text-center">
+              {service.serviceFields.valueDescription.title && (
+                <h2 className="text-3xl font-bold mb-4 text-gray-900">{service.serviceFields.valueDescription.title}</h2>
+              )}
+              {service.serviceFields.valueDescription.description && (
+                <p className="text-lg text-gray-700 mb-6">{service.serviceFields.valueDescription.description}</p>
+              )}
+              {service.serviceFields.valueDescription.cta?.url && (
+                <Link href={service.serviceFields.valueDescription.cta.url} className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                  {service.serviceFields.valueDescription.cta.title || 'Get Started'}
+                </Link>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* Clients Logos */}
+        {(service.serviceFields?.clientsLogos?.logos && service.serviceFields.clientsLogos.logos.length > 0) && (
+          <section className="py-16 bg-gray-50">
+            <div className="max-w-7xl mx-auto px-4">
+              {(service.serviceFields.clientsLogos.title || service.serviceFields.clientsLogos.description) && (
+                <div className="text-center mb-8">
+                  {service.serviceFields.clientsLogos.title && (
+                    <h2 className="text-3xl font-bold text-gray-900 mb-2">{service.serviceFields.clientsLogos.title}</h2>
+                  )}
+                  {service.serviceFields.clientsLogos.description && (
+                    <p className="text-gray-700">{service.serviceFields.clientsLogos.description}</p>
+                  )}
+                </div>
+              )}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 items-center">
+                {service.serviceFields.clientsLogos.logos.map((item: any, index: number) => (
+                  <div key={index} className="h-12 flex items-center justify-center">
+                    {item?.logo?.node?.sourceUrl && (
+                      <Image src={item.logo.node.sourceUrl} alt={item.logo.node.altText || 'Client logo'} width={160} height={48} className="object-contain max-h-12" />
+                    )}
+                  </div>
+                ))}
+              </div>
+              {service.serviceFields.clientsLogos.largeImage?.node?.sourceUrl && (
+                <div className="mt-10 flex justify-center">
+                  <Image src={service.serviceFields.clientsLogos.largeImage.node.sourceUrl} alt={service.serviceFields.clientsLogos.largeImage.node.altText || 'Clients'} width={800} height={300} className="object-contain w-full max-w-4xl" />
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
         {/* Process */}
         {service.serviceFields?.process?.steps && service.serviceFields.process.steps.length > 0 && (
           <section className="py-16 bg-white">

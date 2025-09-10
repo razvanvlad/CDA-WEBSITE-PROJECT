@@ -1,0 +1,297 @@
+[
+  {
+    "key": "group_service_content",
+    "title": "Service Content",
+    "fields": [
+      {
+        "key": "field_service_hero_section",
+        "label": "Hero Section",
+        "name": "hero_section",
+        "type": "group",
+        "show_in_graphql": 1,
+        "graphql_field_name": "heroSection",
+        "layout": "block",
+        "sub_fields": [
+          { "key": "field_service_hero_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_service_hero_description", "label": "Description", "name": "description", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          { "key": "field_service_hero_cta", "label": "CTA", "name": "cta", "type": "link", "return_format": "array", "show_in_graphql": 1 },
+          { "key": "field_service_hero_image", "label": "Hero Image", "name": "hero_image", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1 }
+        ]
+      },
+      {
+        "key": "field_service_features",
+        "label": "Service Features",
+        "name": "service_features",
+        "type": "repeater",
+        "layout": "table",
+        "show_in_graphql": 1,
+        "sub_fields": [
+          { "key": "field_service_feature_icon", "label": "Icon", "name": "icon", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all", "show_in_graphql": 1 },
+          { "key": "field_service_feature_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_service_feature_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 }
+        ]
+      },
+      {
+        "key": "field_service_key_statistics",
+        "label": "Key Statistics",
+        "name": "key_statistics",
+        "type": "repeater",
+        "layout": "table",
+        "show_in_graphql": 1,
+        "sub_fields": [
+          { "key": "field_service_stat_number", "label": "Number", "name": "number", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_service_stat_label", "label": "Label", "name": "label", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_service_stat_percentage", "label": "Is Percentage?", "name": "percentage", "type": "true_false", "ui": 1, "show_in_graphql": 1 }
+        ]
+      },
+      {
+        "key": "field_service_featured_case_studies",
+        "label": "Featured Case Studies",
+        "name": "featured_case_studies",
+        "type": "post_object",
+        "post_type": ["case_studies"],
+        "multiple": 1,
+        "allow_null": 1,
+        "return_format": "object",
+        "ui": 1,
+        "show_in_graphql": 1
+      },
+      {
+        "key": "field_service_cards",
+        "label": "Service Cards (3 cols)",
+        "name": "service_cards",
+        "type": "repeater",
+        "layout": "table",
+        "show_in_graphql": 1,
+        "sub_fields": [
+          { "key": "field_service_card_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_service_card_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 },
+          { "key": "field_service_card_cta", "label": "CTA", "name": "cta", "type": "link", "return_format": "array", "show_in_graphql": 1 },
+          { "key": "field_service_card_pinned", "label": "Pin Icon", "name": "pin_icon", "type": "true_false", "ui": 1, "show_in_graphql": 1 }
+        ]
+      },
+      {
+        "key": "field_service_bullet_points",
+        "label": "Service Bullet Points",
+        "name": "bullet_points",
+        "type": "group",
+        "show_in_graphql": 1,
+        "layout": "block",
+        "sub_fields": [
+          { "key": "field_service_bullets_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          {
+            "key": "field_service_bullets_items",
+            "label": "Points",
+            "name": "points",
+            "type": "repeater",
+            "layout": "table",
+            "show_in_graphql": 1,
+            "sub_fields": [ { "key": "field_service_bullet_text", "label": "Text", "name": "text", "type": "text", "show_in_graphql": 1 } ]
+          }
+        ]
+      },
+      {
+        "key": "field_service_value_description",
+        "label": "Value Description",
+        "name": "value_description",
+        "type": "group",
+        "show_in_graphql": 1,
+        "layout": "block",
+        "sub_fields": [
+          { "key": "field_service_value_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_service_value_description_text", "label": "Description", "name": "description", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          { "key": "field_service_value_cta", "label": "CTA", "name": "cta", "type": "link", "return_format": "array", "show_in_graphql": 1 }
+        ]
+      },
+      {
+        "key": "field_service_clients_logos",
+        "label": "Clients Logos",
+        "name": "clients_logos",
+        "type": "group",
+        "show_in_graphql": 1,
+        "layout": "block",
+        "sub_fields": [
+          { "key": "field_service_clients_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_service_clients_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 },
+          { "key": "field_service_clients_large_image", "label": "Large Image", "name": "large_image", "type": "image", "return_format": "array", "preview_size": "large", "library": "all", "show_in_graphql": 1 },
+          {
+            "key": "field_service_clients_logos_list",
+            "label": "Client Logos",
+            "name": "logos",
+            "type": "repeater",
+            "layout": "table",
+            "show_in_graphql": 1,
+            "sub_fields": [
+              { "key": "field_service_client_logo_image", "label": "Logo", "name": "image", "type": "image", "return_format": "array", "preview_size": "thumbnail", "library": "all", "show_in_graphql": 1 },
+              { "key": "field_service_client_logo_name", "label": "Name", "name": "name", "type": "text", "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_service_global_content_selection",
+        "label": "Global Content Selection",
+        "name": "global_content_selection",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "globalContentSelection",
+        "sub_fields": [
+          { "key": "field_service_enable_approach", "label": "Enable Approach", "name": "enable_approach", "type": "true_false", "ui": 1, "show_in_graphql": 1 },
+          { "key": "field_service_enable_projects_filtered", "label": "Enable Projects by Service", "name": "enable_projects_by_service", "type": "true_false", "ui": 1, "show_in_graphql": 1 },
+          { "key": "field_service_enable_latest_news", "label": "Enable Latest News", "name": "enable_latest_news", "type": "true_false", "ui": 1, "show_in_graphql": 1 },
+          { "key": "field_service_enable_services_slider", "label": "Enable Services Slider", "name": "enable_services_slider", "type": "true_false", "ui": 1, "show_in_graphql": 1 }
+        ]
+      }
+    ],
+    "location": [ [ { "param": "post_type", "operator": "==", "value": "services" } ] ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Service post type fields for detail pages and components",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "serviceFields",
+    "map_graphql_types_from_location_rules": 1,
+    "graphql_types": ["Service"]
+  },
+  {
+    "key": "group_services_landing_content",
+    "title": "Services Landing Content",
+    "fields": [
+      {
+        "key": "field_services_landing_hero",
+        "label": "Hero Section",
+        "name": "hero_section",
+        "type": "group",
+        "show_in_graphql": 1,
+        "layout": "block",
+        "sub_fields": [
+          { "key": "field_services_landing_hero_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_services_landing_hero_description", "label": "Description", "name": "description", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          { "key": "field_services_landing_hero_cta", "label": "CTA", "name": "cta", "type": "link", "return_format": "array", "show_in_graphql": 1 },
+          { "key": "field_services_landing_hero_image", "label": "Hero Image (Right)", "name": "image", "type": "image", "return_format": "array", "preview_size": "large", "library": "all", "show_in_graphql": 1 }
+        ]
+      },
+      {
+        "key": "field_services_landing_cards",
+        "label": "Service Cards (3 cols)",
+        "name": "service_cards",
+        "type": "repeater",
+        "layout": "table",
+        "show_in_graphql": 1,
+        "sub_fields": [
+          { "key": "field_services_landing_card_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_services_landing_card_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 },
+          { "key": "field_services_landing_card_cta", "label": "CTA", "name": "cta", "type": "link", "return_format": "array", "show_in_graphql": 1 },
+          { "key": "field_services_landing_card_pin", "label": "Pin Icon", "name": "pin_icon", "type": "true_false", "ui": 1, "show_in_graphql": 1 }
+        ]
+      },
+      {
+        "key": "field_services_landing_bullets",
+        "label": "Service Bullet Points",
+        "name": "bullet_points",
+        "type": "group",
+        "show_in_graphql": 1,
+        "layout": "block",
+        "sub_fields": [
+          { "key": "field_services_landing_bullets_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          {
+            "key": "field_services_landing_bullets_items",
+            "label": "Points",
+            "name": "points",
+            "type": "repeater",
+            "layout": "table",
+            "show_in_graphql": 1,
+            "sub_fields": [ { "key": "field_services_landing_bullet_text", "label": "Text", "name": "text", "type": "text", "show_in_graphql": 1 } ]
+          }
+        ]
+      },
+      {
+        "key": "field_services_landing_value_desc",
+        "label": "Value Description",
+        "name": "value_description",
+        "type": "group",
+        "show_in_graphql": 1,
+        "layout": "block",
+        "sub_fields": [
+          { "key": "field_services_landing_value_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_services_landing_value_description", "label": "Description", "name": "description", "type": "wysiwyg", "tabs": "all", "toolbar": "full", "media_upload": 1, "show_in_graphql": 1 },
+          { "key": "field_services_landing_value_cta", "label": "CTA", "name": "cta", "type": "link", "return_format": "array", "show_in_graphql": 1 }
+        ]
+      },
+      {
+        "key": "field_services_landing_clients",
+        "label": "Clients Logos",
+        "name": "clients_logos",
+        "type": "group",
+        "show_in_graphql": 1,
+        "layout": "block",
+        "sub_fields": [
+          { "key": "field_services_landing_clients_title", "label": "Title", "name": "title", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_services_landing_clients_desc", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "show_in_graphql": 1 },
+          { "key": "field_services_landing_clients_large_image", "label": "Large Image", "name": "large_image", "type": "image", "return_format": "array", "preview_size": "large", "library": "all", "show_in_graphql": 1 },
+          {
+            "key": "field_services_landing_clients_logos",
+            "label": "Client Logos",
+            "name": "logos",
+            "type": "repeater",
+            "layout": "table",
+            "show_in_graphql": 1,
+            "sub_fields": [
+              { "key": "field_services_landing_client_logo_image", "label": "Logo", "name": "image", "type": "image", "return_format": "array", "preview_size": "thumbnail", "library": "all", "show_in_graphql": 1 },
+              { "key": "field_services_landing_client_logo_name", "label": "Name", "name": "name", "type": "text", "show_in_graphql": 1 }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_services_landing_key_stats",
+        "label": "Key Statistics",
+        "name": "key_statistics",
+        "type": "repeater",
+        "layout": "table",
+        "show_in_graphql": 1,
+        "sub_fields": [
+          { "key": "field_services_landing_stat_number", "label": "Number", "name": "number", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_services_landing_stat_label", "label": "Label", "name": "label", "type": "text", "show_in_graphql": 1 },
+          { "key": "field_services_landing_stat_percentage", "label": "Is Percentage?", "name": "percentage", "type": "true_false", "ui": 1, "show_in_graphql": 1 }
+        ]
+      },
+      {
+        "key": "field_services_landing_global_content",
+        "label": "Global Content Selection",
+        "name": "global_content_selection",
+        "type": "group",
+        "layout": "block",
+        "show_in_graphql": 1,
+        "graphql_field_name": "globalContentSelection",
+        "sub_fields": [
+          { "key": "field_services_landing_enable_approach", "label": "Enable Approach", "name": "enable_approach", "type": "true_false", "ui": 1, "show_in_graphql": 1 },
+          { "key": "field_services_landing_enable_projects_filtered", "label": "Enable Projects by Service", "name": "enable_projects_by_service", "type": "true_false", "ui": 1, "show_in_graphql": 1 },
+          { "key": "field_services_landing_enable_latest_news", "label": "Enable Latest News", "name": "enable_latest_news", "type": "true_false", "ui": 1, "show_in_graphql": 1 },
+          { "key": "field_services_landing_enable_services_slider", "label": "Enable Services Slider", "name": "enable_services_slider", "type": "true_false", "ui": 1, "show_in_graphql": 1 }
+        ]
+      }
+    ],
+    "location": [ [ { "param": "page_template", "operator": "==", "value": "template-services-landing.php" } ] ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Services landing page content and optional sections",
+    "show_in_rest": 0,
+    "show_in_graphql": 1,
+    "graphql_field_name": "servicesLandingContent",
+    "map_graphql_types_from_location_rules": 1,
+    "graphql_types": ["Page", "Template_ServicesLanding"]
+  }
+]
+

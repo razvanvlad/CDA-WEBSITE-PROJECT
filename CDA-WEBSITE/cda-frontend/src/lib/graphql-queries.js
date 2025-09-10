@@ -212,6 +212,28 @@ export const GET_SERVICE_BY_SLUG = `
           title
           subtitle
         }
+        # New fields for enhanced service pages
+        serviceCards {
+          title
+          description
+          cta { url title target }
+          pinIcon
+        }
+        serviceBulletPoints {
+          title
+          bullets { text }
+        }
+        valueDescription {
+          title
+          description
+          cta { url title target }
+        }
+        clientsLogos {
+          title
+          description
+          largeImage { node { sourceUrl altText } }
+          logos { logo { node { sourceUrl altText } } }
+        }
       }
       serviceTypes {
         nodes {
@@ -578,7 +600,8 @@ export const GET_TEAM_MEMBER_SLUGS = `
 export async function getServiceBySlug(slug) {
   const response = await executeGraphQLQuery(GET_SERVICE_BY_SLUG, { slug });
   
-  if (response.errors) {
+  // Be tolerant of partial GraphQL errors: return whatever data is available.
+  if (response.errors && !response.data?.service) {
     console.error('GraphQL errors:', response.errors);
     return null;
   }
@@ -777,4 +800,59 @@ export async function getGlobalContent() {
   }
 
   return response.data?.globalOptions?.globalSharedContent || null;
+}
+
+// =============================================================================
+// SERVICES OVERVIEW PAGE ("/services")
+// =============================================================================
+export const GET_SERVICE_OVERVIEW_CONTENT = `
+  query GetServiceOverviewContent {
+    page(id: "/services", idType: URI) {
+      id
+      title
+      serviceOverviewContent {
+        heroSection {
+          title
+          description
+          imageRight { node { sourceUrl altText } }
+        }
+        featuredServiceSection {
+          leftColumnTitle
+          selectedService { ... on Service { id title slug } }
+          caseStudyOverride { ... on CaseStudy { id title slug featuredImage { node { sourceUrl altText } } } }
+          caseStudyCtaLabel
+          caseStudyCtaLink { url title target }
+        }
+        rightColumn {
+          title
+          description
+          bulletPoints { text }
+          bulletsTwoRows
+          ctaServiceLink { url title target }
+          ctaContactUs { url title target }
+        }
+        globalContentToggles {
+          enableApproach
+          enableProjectsFilteredByService
+          enableLatestNews
+          enableOurServicesSlider
+        }
+        ourServicesSlider {
+          title
+          subtitle
+          image { node { sourceUrl altText } }
+          cta { url title target }
+        }
+      }
+    }
+  }
+`;
+
+export async function getServiceOverviewContent() {
+  const response = await executeGraphQLQuery(GET_SERVICE_OVERVIEW_CONTENT);
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return null;
+  }
+  return response.data?.page?.serviceOverviewContent || null;
 }

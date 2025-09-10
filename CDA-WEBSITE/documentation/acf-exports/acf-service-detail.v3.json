@@ -1,0 +1,316 @@
+[
+  {
+    "key": "group_service_detail_v3",
+    "title": "Service Detail",
+    "show_in_graphql": 1,
+    "graphql_field_name": "serviceDetail",
+    "fields": [
+      {
+        "key": "field_service_detail_hero",
+        "label": "Hero Section",
+        "name": "hero",
+        "type": "group",
+        "show_in_graphql": 1,
+        "graphql_field_name": "hero",
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_service_detail_hero_subtitle",
+            "label": "Subtitle",
+            "name": "subtitle",
+            "type": "text",
+            "show_in_graphql": 1,
+            "graphql_field_name": "subtitle"
+          },
+          {
+            "key": "field_service_detail_hero_description",
+            "label": "Description",
+            "name": "description",
+            "type": "textarea",
+            "rows": 5,
+            "show_in_graphql": 1,
+            "graphql_field_name": "description"
+          },
+          {
+            "key": "field_service_detail_hero_image",
+            "label": "Hero Image",
+            "name": "hero_image",
+            "type": "image",
+            "return_format": "object",
+            "preview_size": "medium",
+            "library": "all",
+            "show_in_graphql": 1,
+            "graphql_field_name": "heroImage"
+          },
+          {
+            "key": "field_service_detail_hero_cta",
+            "label": "Call to Action",
+            "name": "cta",
+            "type": "group",
+            "layout": "block",
+            "show_in_graphql": 1,
+            "graphql_field_name": "cta",
+            "sub_fields": [
+              {
+                "key": "field_service_detail_hero_cta_label",
+                "label": "Label",
+                "name": "label",
+                "type": "text",
+                "show_in_graphql": 1,
+                "graphql_field_name": "label"
+              },
+              {
+                "key": "field_service_detail_hero_cta_url",
+                "label": "URL",
+                "name": "url",
+                "type": "url",
+                "show_in_graphql": 1,
+                "graphql_field_name": "url"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_service_detail_features",
+        "label": "Service Features",
+        "name": "features",
+        "type": "group",
+        "show_in_graphql": 1,
+        "graphql_field_name": "features",
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_service_detail_features_items",
+            "label": "Items",
+            "name": "items",
+            "type": "repeater",
+            "button_label": "Add Feature",
+            "show_in_graphql": 1,
+            "graphql_field_name": "items",
+            "sub_fields": [
+              {
+                "key": "field_service_detail_features_item_icon",
+                "label": "Icon",
+                "name": "icon",
+                "type": "image",
+                "return_format": "object",
+                "preview_size": "thumbnail",
+                "library": "all",
+                "show_in_graphql": 1,
+                "graphql_field_name": "icon"
+              },
+              {
+                "key": "field_service_detail_features_item_title",
+                "label": "Title",
+                "name": "title",
+                "type": "text",
+                "show_in_graphql": 1,
+                "graphql_field_name": "title"
+              },
+              {
+                "key": "field_service_detail_features_item_description",
+                "label": "Description",
+                "name": "description",
+                "type": "textarea",
+                "rows": 3,
+                "show_in_graphql": 1,
+                "graphql_field_name": "description"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_service_detail_stats",
+        "label": "Key Statistics",
+        "name": "stats",
+        "type": "group",
+        "show_in_graphql": 1,
+        "graphql_field_name": "stats",
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_service_detail_stats_items",
+            "label": "Items",
+            "name": "items",
+            "type": "repeater",
+            "button_label": "Add Stat",
+            "show_in_graphql": 1,
+            "graphql_field_name": "items",
+            "sub_fields": [
+              {
+                "key": "field_service_detail_stats_item_value",
+                "label": "Value",
+                "name": "value",
+                "type": "text",
+                "show_in_graphql": 1,
+                "graphql_field_name": "value"
+              },
+              {
+                "key": "field_service_detail_stats_item_label",
+                "label": "Label",
+                "name": "label",
+                "type": "text",
+                "show_in_graphql": 1,
+                "graphql_field_name": "label"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "field_service_detail_featured_case_studies",
+        "label": "Featured Case Studies",
+        "name": "featured_case_studies",
+        "type": "relationship",
+        "post_type": ["case_study"],
+        "filters": ["search"],
+        "return_format": "object",
+        "show_in_graphql": 1,
+        "graphql_field_name": "featuredCaseStudies"
+      }
+    ],
+    "location": [
+      [
+        {"param": "post_type", "operator": "==", "value": "service"}
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Local fields for the Service detail page.",
+    "modified": 1757462268
+  },
+  {
+    "key": "group_service_listing_v3",
+    "title": "Service Listing",
+    "show_in_graphql": 1,
+    "graphql_field_name": "serviceListing",
+    "fields": [
+      {
+        "key": "field_service_listing_short_description",
+        "label": "Short Description",
+        "name": "short_description",
+        "type": "textarea",
+        "rows": 3,
+        "show_in_graphql": 1,
+        "graphql_field_name": "shortDescription"
+      },
+      {
+        "key": "field_service_listing_bullet_points",
+        "label": "Bullet Points",
+        "name": "bullet_points",
+        "type": "repeater",
+        "button_label": "Add Point",
+        "show_in_graphql": 1,
+        "graphql_field_name": "bulletPoints",
+        "sub_fields": [
+          {
+            "key": "field_service_listing_bullet_point_item",
+            "label": "Item",
+            "name": "item",
+            "type": "text",
+            "show_in_graphql": 1,
+            "graphql_field_name": "item"
+          }
+        ]
+      },
+      {
+        "key": "field_service_listing_featured_case_study",
+        "label": "Featured Case Study",
+        "name": "featured_case_study",
+        "type": "post_object",
+        "post_type": ["case_study"],
+        "return_format": "object",
+        "show_in_graphql": 1,
+        "graphql_field_name": "featuredCaseStudy"
+      }
+    ],
+    "location": [
+      [
+        {"param": "post_type", "operator": "==", "value": "service"}
+      ]
+    ],
+    "menu_order": 1,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Listing summary used on Services landing (right column) and elsewhere.",
+    "modified": 1757462268
+  },
+  {
+    "key": "group_service_global_selection_v3",
+    "title": "Service Global Selection",
+    "show_in_graphql": 1,
+    "graphql_field_name": "serviceGlobalSelection",
+    "fields": [
+      {
+        "key": "field_service_global_use_global_hero",
+        "label": "Use Global Hero",
+        "name": "use_global_hero",
+        "type": "true_false",
+        "ui": 1,
+        "ui_on_text": "On",
+        "ui_off_text": "Off",
+        "show_in_graphql": 1,
+        "graphql_field_name": "useGlobalHero"
+      },
+      {
+        "key": "field_service_global_use_global_features",
+        "label": "Use Global Features",
+        "name": "use_global_features",
+        "type": "true_false",
+        "ui": 1,
+        "ui_on_text": "On",
+        "ui_off_text": "Off",
+        "show_in_graphql": 1,
+        "graphql_field_name": "useGlobalFeatures"
+      },
+      {
+        "key": "field_service_global_use_global_key_stats",
+        "label": "Use Global Key Stats",
+        "name": "use_global_key_stats",
+        "type": "true_false",
+        "ui": 1,
+        "ui_on_text": "On",
+        "ui_off_text": "Off",
+        "show_in_graphql": 1,
+        "graphql_field_name": "useGlobalKeyStats"
+      },
+      {
+        "key": "field_service_global_use_global_featured_case_studies",
+        "label": "Use Global Featured Case Studies",
+        "name": "use_global_featured_case_studies",
+        "type": "true_false",
+        "ui": 1,
+        "ui_on_text": "On",
+        "ui_off_text": "Off",
+        "show_in_graphql": 1,
+        "graphql_field_name": "useGlobalFeaturedCaseStudies"
+      }
+    ],
+    "location": [
+      [
+        {"param": "post_type", "operator": "==", "value": "service"}
+      ]
+    ],
+    "menu_order": 2,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Toggles for pulling global content instead of local Service Detail fields.",
+    "modified": 1757462268
+  }
+]
+

@@ -1,5 +1,5 @@
 // src/app/services/page.js
-import { getServicesWithPagination, executeGraphQLQuery } from '@/lib/graphql-queries.js'
+import { getServicesWithPagination, executeGraphQLQuery, getServiceOverviewContent, getServiceBySlug } from '@/lib/graphql-queries.js'
 import { getPaginationFromSearchParams } from '@/lib/pagination-utils'
 import Pagination from '@/components/Pagination'
 import ApproachBlock from '@/components/GlobalBlocks/ApproachBlock'
@@ -140,6 +140,9 @@ export default async function ServicesPage({ searchParams }) {
     const searchQuery = searchParamsObj.get('search') || ''
     const serviceTypeFilter = searchParamsObj.getAll('service_type')
     
+    // Fetch overview ACF content for this page
+    const overviewContent = await getServiceOverviewContent()
+
     // Fetch services (simplified - no advanced pagination for now)
     const { nodes: services } = await getServicesWithPagination({
       first: 12,
@@ -152,6 +155,21 @@ export default async function ServicesPage({ searchParams }) {
     // Fetch global content for Approach Block
     const globalContent = await getGlobalContent()
 
+    // Resolve featured case study for left column
+    let featuredCaseStudy = null
+    let selectedServiceSlug = overviewContent?.featuredServiceSection?.selectedService?.slug || overviewContent?.featuredServiceSection?.selectedService?.node?.slug
+    const overrideCS = overviewContent?.featuredServiceSection?.caseStudyOverride
+    if (overrideCS) {
+      featuredCaseStudy = Array.isArray(overrideCS) ? overrideCS[0] : overrideCS
+    }
+    if (!featuredCaseStudy && selectedServiceSlug) {
+      const selService = await getServiceBySlug(selectedServiceSlug)
+      const csList = selService?.serviceFields?.caseStudiesSection?.caseStudies || []
+      if (Array.isArray(csList) && csList.length > 0) {
+        featuredCaseStudy = csList[0]
+      }
+    }
+
     // Basic pagination (simplified)
     const totalPages = 1
     const currentPage = 1
@@ -161,12 +179,110 @@ export default async function ServicesPage({ searchParams }) {
     return (
       <div className="min-h-screen bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Discover our comprehensive range of digital services designed to help your business grow and succeed in the digital landscape.
-            </p>
-          </div>
+          {/* Hero from ACF (Service Overview Content) */}
+          {overviewContent?.heroSection ? (
+            <section className="relative bg-gradient-to-br from-blue-50 to-white rounded-xl p-8 mb-12 overflow-hidden">
+              <div className="relative z-10 max-w-3xl">
+                {overviewContent.heroSection.title && (
+                  <h1 className="text-4xl font-bold text-gray-900 mb-4">{overviewContent.heroSection.title}</h1>
+                )}
+                {overviewContent.heroSection.description && (
+                  <p className="text-lg text-gray-600">{overviewContent.heroSection.description}</p>
+                )}
+              </div>
+              {overviewContent.heroSection.imageRight?.node?.sourceUrl && (
+                <img
+                  src={overviewContent.heroSection.imageRight.node.sourceUrl}
+                  alt={overviewContent.heroSection.imageRight.node.altText || ''}
+                  className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-[40%] max-w-[520px] object-contain opacity-90"
+                />
+              )}
+            </section>
+          ) : (
+            <div className="text-center mb-16">
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h1>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Discover our comprehensive range of digital services designed to help your business grow and succeed in the digital landscape.
+              </p>
+            </div>
+          )}
+
+          {/* Service Landing Two-Column Section */}
+          {(overviewContent?.featuredServiceSection || overviewContent?.rightColumn) && (
+            <section className="mb-12">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                {/* Left column 1/3 - Featured Case Study */}
+                <div className="lg:col-span-1">
+                  <div className="bg-white rounded-lg shadow p-6 h-full">
+                    {overviewContent?.featuredServiceSection?.leftColumnTitle && (
+                      <h2 className="text-lg font-semibold text-gray-900 mb-4">{overviewContent.featuredServiceSection.leftColumnTitle}</h2>
+                    )}
+                    {featuredCaseStudy ? (
+                      <div>
+                        {featuredCaseStudy?.featuredImage?.node?.sourceUrl && (
+                          <div className="relative w-full h-40 mb-4 overflow-hidden rounded-md">
+                            <Image
+                              src={featuredCaseStudy.featuredImage.node.sourceUrl}
+                              alt={featuredCaseStudy.featuredImage.node.altText || featuredCaseStudy.title}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                        )}
+                        <h3 className="text-md font-semibold mb-2">{featuredCaseStudy.title}</h3>
+                        <Link
+                          href={`/case-studies/${featuredCaseStudy.slug}`}
+                          className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                        >
+                          {overviewContent?.featuredServiceSection?.caseStudyCtaLabel || 'Explore Case Study'}
+                        </Link>
+                      </div>
+                    ) : (
+                      <p className="text-gray-500">Configure a featured case study in Service Overview Content.</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Right column 2/3 - From service post */}
+                <div className="lg:col-span-2">
+                  <div className="bg-white rounded-lg shadow p-6 h-full">
+                    {overviewContent?.rightColumn?.title && (
+                      <h2 className="text-2xl font-bold text-gray-900 mb-3">{overviewContent.rightColumn.title}</h2>
+                    )}
+                    {overviewContent?.rightColumn?.description && (
+                      <p className="text-gray-700 mb-4">{overviewContent.rightColumn.description}</p>
+                    )}
+
+                    {/* Bullets */}
+                    {overviewContent?.rightColumn?.bulletPoints && overviewContent.rightColumn.bulletPoints.length > 0 && (
+                      <div className={`grid gap-2 ${overviewContent.rightColumn.bulletsTwoRows ? 'sm:grid-cols-2' : 'sm:grid-cols-1'}`}>
+                        {overviewContent.rightColumn.bulletPoints.map((b, i) => (
+                          <div key={i} className="flex items-start gap-2">
+                            <span className="mt-1 inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+                            <span className="text-gray-700">{b.text}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* CTAs */}
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      {overviewContent?.rightColumn?.ctaServiceLink?.url && (
+                        <Link href={overviewContent.rightColumn.ctaServiceLink.url} className="px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                          {overviewContent.rightColumn.ctaServiceLink.title || 'View Service'}
+                        </Link>
+                      )}
+                      {overviewContent?.rightColumn?.ctaContactUs?.url && (
+                        <Link href={overviewContent.rightColumn.ctaContactUs.url} className="px-5 py-2 border border-blue-600 text-blue-700 rounded hover:bg-blue-50">
+                          {overviewContent.rightColumn.ctaContactUs.title || 'Speak To Us'}
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* Filters and Search */}
           <div className="bg-white rounded-lg shadow-sm p-6 mb-8">

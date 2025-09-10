@@ -487,6 +487,947 @@
 .side-menu-item {
   display: block;
   padding: 0.25rem 0; /* tight like design */
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 22px; /* Mobile spec */
+  color: #000;
+  text-decoration: none;
+}
+
+.side-menu-item:hover {
+  color: #000;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.side-menu-connect-heading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #000;
+}
+
+.side-menu-connect-link {
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #000;
+  text-decoration: none;
+}
+
+.side-menu-connect-text {
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #000;
+}
+
+.side-menu-social {
+  color: #000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Side menu dark theme adjustments */
+.side-menu-heading {
+  color: #FFFFFF;
+}
+.side-menu-divider {
+  border-color: #2A2A2A;
+}
+.side-menu-item {
+  color: #FFFFFF;
+}
+.side-menu-item:hover {
+  color: #FFFFFF;
+  background: rgba(255,255,255,0.06);
+}
+.side-menu-connect-heading {
+  color: #FFFFFF;
+}
+.side-menu-connect-link {
+  color: #FFFFFF;
+  border-bottom-color: rgba(255,255,255,0.3);
+}
+.side-menu-connect-text {
+  color: #D1D1D1;
+}
+.side-menu-social {
+  color: #FFFFFF;
+}
+
+/* Homepage Hero Mobile Styles */
+.home-hero-section {
+  background: #fff;
+  padding: 40px 0 24px;
+}
+
+.home-header-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.home-header-text {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.home-hero-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.1;
+  color: #000;
+  margin: 0 0 16px;
+}
+
+/* Underline accent to match SVG (#3cbeeb) */
+.home-hero-title u,
+.home-hero-title .underline {
+  text-decoration: none;
+  box-shadow: inset 0 -10px 0 #3cbeeb;
+}
+
+.home-hero-subtitle {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 28px;
+}
+
+/* NEW: Keep CTA buttons on one row and centered on mobile */
+.home-hero-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px; /* tight to fit both buttons */
+  flex-wrap: nowrap; /* prevent wrap on mobile */
+}
+
+/* NEW: Center the illustration and constrain size */
+.home-header-illustration-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.home-header-illustration {
+  display: block;
+  width: min(520px, 90%);
+  height: auto;
+  margin: 0 auto;
+}
+
+/* Small phones adjustments */
+@media (max-width: 375px) {
+  .home-hero-title { font-size: 30px; }
+  .home-hero-cta { gap: 14px; }
+}
+
+/* Tablet+ */
+@media (min-width: 768px) {
+  .home-hero-section { padding: 72px 0; }
+  .home-header-grid { grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 40px; }
+  .home-header-text { margin: 0; }
+  .home-hero-title { font-size: 56px; }
+  .home-hero-subtitle { font-size: 18px; }
+  .home-hero-cta { justify-content: flex-start; gap: 24px; }
+}
+
+/* Config hint */
+.home-hero-config-hint {
+  font-size: 14px;
+  color: #f59e0b;
+  background: #fef3c7;
+  padding: 8px 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* Newsletter Section Styles */
+.newsletter-section {
+  background-color: #f4f4f4;
+  padding: 5rem 1rem;
+}
+
+.newsletter-container {
+  max-width: 1216px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr; /* content | illustration */
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .newsletter-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.newsletter-content {
+  text-align: left;
+}
+
+.newsletter-header { margin-bottom: 3rem; }
+
+.newsletter-subtitle {
+  color: #000;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.newsletter-title {
+  font-size: 38px;
+  font-weight: 700;
+  color: #000;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.newsletter-row {
+  display: flex;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+
+.newsletter-input-wrap {
+  flex: 1;
+  min-width: 290px; /* responsive min width; was 590 in design for desktop */
+}
+
+@media (min-width: 1280px) {
+  .newsletter-input-wrap { min-width: 590px; }
+}
+
+.newsletter-input {
+  width: 100%;
+  max-width: 560px;
+  padding: 0 16px;
+  height: 48px;
+  border: 1px solid #DBDBDB;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  color: rgba(0, 0, 0, 1);
+  outline: none;
+}
+
+.newsletter-submit {
+  width: 100%;
+  height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newsletter-terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  margin-top: 5px;
+}
+
+.newsletter-checkbox {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #dbdbdb;
+  background-color: #fff;
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+.newsletter-label {
+  font-size: 18px;
+  font-family: 'Inter', sans-serif;
+  color: rgba(0, 0, 0, 0.999);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.newsletter-terms-link {
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.newsletter-status {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: #10b981;
+}
+
+/* Illustration */
+.newsletter-illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newsletter-illustration-img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* News Carousel Section */
+.news-carousel-section {
+  padding: 5rem 1rem;
+}
+
+.news-carousel-container {
+  max-width: 1620px;
+  margin: 0 auto;
+}
+
+.news-carousel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.news-carousel-subtitle {
+  color: #7c3aed; /* Indigo-600 from design */
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.news-carousel-title {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.news-carousel-placeholder {
+  background-color: #f3f4f6; /* Gray-100 */
+  padding: 2rem;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.news-carousel-placeholder p {
+  color: #6b7280; /* Gray-500 */
+}
+
+/* News Header helpers */
+.news-carousel-header-left { text-align: left; }
+.news-carousel-all {
+  color: #111;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 2px solid #111;
+  line-height: 1;
+}
+.news-carousel-all:hover { opacity: 0.8; }
+
+/* News list & cards */
+.news-carousel-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .news-carousel-list { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .news-carousel-list { grid-template-columns: repeat(3, 1fr); }
+}
+
+.news-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #000; /* fallback while image loads */
+}
+
+.news-card-image img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .news-card-image img { height: 280px; }
+}
+@media (min-width: 1280px) {
+  .news-card-image img { height: 320px; }
+}
+
+.news-card-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.0) 40%, rgba(0,0,0,0.75) 100%);
+  color: #fff;
+}
+
+.news-card-title {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.news-card-excerpt {
+  color: rgba(255,255,255,0.92);
+  font-size: 0.9rem;
+  display: none; /* keep compact on mobile */
+}
+
+@media (min-width: 1024px) {
+  .news-card-excerpt { display: block; }
+}
+
+.news-card-link {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .news-carousel-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .news-carousel-title {
+    font-size: 3rem;
+  }
+}
+
+/* Contact Section (SVG-accurate) */
+.contact-section {
+  background-color: #F4F4F4; /* matches SVG light gray */
+  padding: 80px 16px; /* generous vertical space as in SVG */
+}
+
+.contact-container {
+  max-width: 1216px; /* same container as newsletter */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr; /* form | illustration, similar to SVG balance */
+  gap: 48px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .contact-container {
+    grid-template-columns: 1fr; /* stack on tablet/mobile */
+  }
+}
+
+.contact-content { text-align: left; }
+
+/* Header */
+.contact-header { margin-bottom: 24px; }
+.contact-subtitle {
+  color: #000;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-family: 'Poppins', sans-serif;
+}
+.contact-title {
+  font-size: 50px; /* large title per design */
+  font-weight: 700;
+  color: #000;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+/* Form grid: first/last/email/tel in two columns on desktop */
+.contact-form { display: flex; flex-direction: column; gap: 24px; }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 36px; /* row gap 24, column gap 36 to match spacing */
+}
+@media (max-width: 768px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* Inputs */
+.contact-input-wrap { width: 100%; }
+.contact-input,
+.contact-select,
+.contact-textarea {
+  width: 100%;
+  height: 50px;
+  padding: 0 30px;
+  border: 1px solid #DBDBDB;
+  background-color: #FFFFFF;
+  font-size: 18px;
+  font-family: 'Inter', sans-serif;
+  color: rgba(0,0,0,0.6);
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* Textarea height */
+.contact-textarea { height: 170px; padding: 18px 30px; resize: vertical; }
+
+/* Select style with placeholder */
+.contact-select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, #000 50%), linear-gradient(135deg, #000 50%, transparent 50%), linear-gradient(to right, transparent, transparent); background-position: calc(100% - 20px) calc(1.1em), calc(100% - 15px) calc(1.1em), 100% 0; background-size: 5px 5px, 5px 5px, 2.5em 2.5em; background-repeat: no-repeat; }
+
+/* Actions */
+.contact-actions { margin-top: 8px; }
+.contact-actions .button-l { width: 240px; height: 52px; }
+
+/* Right illustration */
+.contact-illustration { display: flex; align-items: center; justify-content: center; }
+.contact-illustration-img { width: 100%; max-width: 540px; height: auto; object-fit: contain; }
+
+/* Footer CTA interaction */
+/* Footer CTA: bottom-center magnifier with hover swap (overrides previous motion) */
+.footer-cta-card {
+  position: relative;
+  overflow: visible !important; /* allow magnifier to overhang the card */
+}
+.footer-cta-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+.footer-cta-btn.button-l {
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Remove magnifier rules entirely */
+/* (Intentionally blank - previously .footer-cta-magnifier rules removed) */
+
+.footer-cta-magnifier {
+  position: fixed; /* fixed to viewport bottom */
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 20; /* above footer content but below any nav overlays */
+}
+/* Footer CTA */
+.footer-cta-card {
+  position: relative;
+}
+.footer-cta-content {
+  text-align: center;
+}
+.footer-cta-btn.button-l {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+}
+
+/* Magnifier container: positioned within the CTA card */
+.footer-cta-magnifier {
+  position: absolute;
+  /* Resting placement (before hover) — adjustable via CSS variables */
+  --rest-left: 50%;
+  --rest-offset: 220px; /* distance below card bottom; adjust as needed */
+  left: var(--rest-left);
+  top: calc(100% + var(--rest-offset));
+  bottom: auto; /* clear any earlier bottom:0 from other blocks */
+  transform: translateX(-50%);
+
+  width: 518px; /* requested size */
+  height: 518px; /* requested size */
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform, top, left;
+  transition: left 260ms ease, top 260ms ease, transform 260ms ease, opacity 200ms ease;
+
+  /* Lens center inside the SVG frame (fractions, 0..1). Tweaked from design to center the white circle visually. */
+  --lens-anchor-x: 0.50; /* 0.5 = center horizontally */
+  --lens-anchor-y: 0.46; /* lens center is slightly above visual center */
+  /* Optional pixel nudges applied after placement; positive moves right/down */
+  --lens-nudge-x: 0px;
+  --lens-nudge-y: -2px;
+  /* Hover scale to match enlarged glass in second print screen */
+  --hover-scale: 1.7;
+
+  /* Keep scaling centered on the lens center so the anchor doesn't drift */
+  transform-origin: calc(var(--lens-anchor-x) * 100%) calc(var(--lens-anchor-y) * 100%);
+}
+
+/* When JS aligns the magnifier to the button center */
+.footer-cta-magnifier[data-moved="true"] {
+  bottom: auto; /* ensure no conflicting bottom */
+  /* top/left set from JS; scale up while staying centered on the lens */
+  transform: scale(var(--hover-scale));
+}
+
+/* Responsive minor tweak in case container constrains */
+@media (max-width: 640px) {
+  .footer-cta-magnifier { width: 380px; height: 324px; left: 50%; --rest-offset: 100px; --hover-scale: 1.35; top: calc(100% + var(--rest-offset)); transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  .footer-cta-magnifier {
+    width: clamp(140px, 40vw, 260px);
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-cta-magnifier {
+    width: clamp(120px, 45vw, 220px);
+  }
+}
+
+/* L-type button white variant */
+.button-l--white {
+  background-color: #fff;
+  color: #000;
+  box-shadow: inset 0 0 0 1px #000;
+}
+.button-l.button-l--white::before,
+.button-l.button-l--white::after {
+  background-color: #000;
+}
+.button-l.button-l--white:hover {
+  background-color: #000;
+  color: #fff;
+}
+.button-l.button-l--white:hover::before,
+.button-l.button-l--white:hover::after {
+  background-color: #fff;
+}
+.button-l.button-l--white:hover::after {
+  background-color: #fff;
+}
+.button-l.button-l--white:hover::after {
+  background-color: #fff;
+}
+
+/* --- Home Case Studies: list + item layout (fix stacking) --- */
+.home-case-studies .cs-list { display: flex; flex-direction: column; gap: 80px; }
+
+.home-case-studies .cs-item { 
+  display: grid; 
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  grid-template-areas: 'media content';
+  align-items: center; 
+  gap: 56px; 
+}
+.home-case-studies .cs-item.cs-item--reverse { 
+  grid-template-areas: 'content media';
+}
+.home-case-studies .cs-media { grid-area: media; width: 100%; height: clamp(260px, 34vw, 520px); overflow: hidden; background: #f3f4f6; }
+.home-case-studies .cs-img { grid-area: media; width: 100%; height: 100%; object-fit: cover; display: block; }
+.home-case-studies .cs-content { grid-area: content; text-align: left; }
+
+@media (max-width: 1024px) {
+  .home-case-studies .cs-item { grid-template-columns: 1fr; grid-template-areas: 'media' 'content'; gap: 28px; }
+}
+@media (max-width: 640px) {
+  .home-case-studies .cs-list { gap: 48px; }
+  .home-case-studies .cs-item { gap: 20px; }
+  .home-case-studies .cs-media { height: clamp(200px, 52vw, 320px); }
+}
+.button-l.button-l--white:hover::after {
+  background-color: #fff;
+}
+
+/* Home Case Studies: header layout + overrides */
+.home-case-studies .cs-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.home-case-studies .cs-head-left { flex: 1 1 auto; max-width: 60%; }
+.home-case-studies .cs-subtitle {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0b0b0b;
+}
+.home-case-studies .cs-heading {
+  margin: 0;
+  font-size: clamp(36px, 4.5vw, 58px);
+  line-height: 1.05;
+  font-weight: 800;
+  color: #0b0b0b;
+}
+.home-case-studies .cs-header-cta { align-self: center; white-space: nowrap; }
+
+@media (max-width: 991px) {
+  .home-case-studies .cs-head-left { max-width: 100%; }
+}
+@media (max-width: 767px) {
+  .home-case-studies .cs-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .home-case-studies .cs-header-cta { align-self: flex-start; }
+}
+
+/* Enforce square images (no rounded corners) */
+.home-case-studies .cs-media { border-radius: 0 !important; }
+@media (max-width: 767px) {
+  .home-case-studies .cs-media { border-radius: 0 !important; }
+}
+
+
+
+
+
+
+.nav-link {
+  color: #000000;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #000000;
+  text-decoration: underline;
+  text-decoration-color: #3CBEEB;
+  text-decoration-thickness: 4px;
+}
+
+/* Title underline svg helper */
+.underline-svg {
+  position: absolute;
+  left: 0;
+  bottom: -10px; /* tight against glyphs */
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Values number badge */
+.value-badge {
+  width: 75px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  background: #111827; /* near-black */
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #111827; /* double outline */
+}
+
+/* CSS FOR VERTICAL BUTTON */
+
+.button-without-box-vertical-black {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+  background-color: black;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1.2;
+  border: none;
+  font-family: inherit;
+}
+
+/* Desktop: Vertical text */
+@media (min-width: 768px) {
+  .button-without-box-vertical-black {
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    padding: 20px 15px;
+    width: auto;
+    height: auto;
+  }
+  
+  /* Desktop hover effect */
+  .button-without-box-vertical-black:hover::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
+  }
+}
+
+/* Mobile: Horizontal text, full width */
+@media (max-width: 767px) {
+  .button-without-box-vertical-black {
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+    padding: 15px 20px;
+    width: 100vw;
+    margin: 0;
+    left: 0;
+    transform: translateX(0);
+    position: relative;
+  }
+  
+  /* Underline: centered under text on mobile */
+  .button-without-box-vertical-black::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 1px;
+    background-color: white;
+    z-index: 1;
+  }
+
+  /* Arrow icon positioned right of underline on mobile */
+  .button-without-box-vertical-black::before {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: calc(50% + 85px); /* Center + half underline width + gap */
+    width: 12px;
+    height: 12px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7L17 17"/><path d="M7 17H17"/><path d="M17 7V17"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 2;
+    transition: all 0.2s ease;
+  }
+
+  /* Mobile hover effect */
+  .button-without-box-vertical-black:hover::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
+    bottom: 50%;
+    transform: translateY(50%);
+  }
+}
+
+/* CSS FOR VERTICAL BUTTON */
+
+/* Homepage header illustration sizing */
+.home-header-illustration {
+  width: 584px;
+  height: 638px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  .home-header-illustration {
+    width: 309px;
+    height: 337px;
+  }
+}
+
+/* Homepage header grid responsive layout */
+.home-header-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+
+/* Enhance hero grid for desktop alignment with overlay */
+@media (min-width: 768px) {
+  .home-header-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .home-header-grid {
+    grid-template-columns: 1.05fr 0.95fr; /* slight bias to text column */
+    gap: 4rem;
+  }
+  .home-header-text {
+    align-self: center;
+  }
+  .home-header-illustration-wrap {
+    justify-self: end;
+  }
+}
+
+/* Cross-section arrow that visually spans two sections */
+.cross-section-arrow {
+  position: absolute;
+  left: 50%;
+  bottom: -60px; /* extend into next section */
+  transform: translateX(-50%) rotate(90deg); /* point downward */
+  width: 140px;
+  height: 140px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 30; /* above both sections */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='80' viewBox='0 0 180 80' fill='none'><path d='M2 2 C 60 2, 120 30, 178 30' stroke='%23FD8721' stroke-width='6' stroke-linecap='round'/><path d='M160 15 L 178 30 L 160 45' stroke='%23FD8721' stroke-width='6' stroke-linecap='round' fill='none'/></svg>");
+}
+
+@media (max-width: 767px) {
+  .cross-section-arrow {
+    width: 90px;
+    height: 90px;
+    bottom: -40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-header-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Header text alignment: center on mobile, left on desktop */
+.home-header-text { text-align: center; }
+@media (min-width: 1024px) {
+  .home-header-text { text-align: left; }
+}
+
+/* Header CTA row: keep on same line and wrap if needed */
+.home-header-cta {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 24px;
+  row-gap: 16px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Illustration alignment: push to the right */
+.home-header-illustration-wrap {
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.side-menu-heading {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #000;
+}
+
+.side-menu-divider {
+  border: 0;
+  border-top: 1px solid #DBDBDB; /* matches SVG */
+}
+
+.side-menu-item {
+  display: block;
+  padding: 0.25rem 0; /* tight like design */
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   font-size: 22px; /* Mobile spec */
@@ -912,3 +1853,113 @@
 /* Right illustration */
 .contact-illustration { display: flex; align-items: center; justify-content: center; }
 .contact-illustration-img { width: 100%; max-width: 540px; height: auto; object-fit: contain; }
+
+/* Footer CTA interaction */
+/* Footer CTA: bottom-center magnifier with hover swap (overrides previous motion) */
+.footer-cta-card {
+  position: relative;
+  overflow: visible !important; /* allow magnifier to overhang the card */
+}
+.footer-cta-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+.footer-cta-btn.button-l {
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Remove magnifier rules entirely */
+/* (Intentionally blank - previously .footer-cta-magnifier rules removed) */
+
+.footer-cta-magnifier {
+  position: fixed; /* fixed to viewport bottom */
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 20; /* above footer content but below any nav overlays */
+}
+/* Footer CTA */
+.footer-cta-card {
+  position: relative;
+}
+.footer-cta-content {
+  text-align: center;
+}
+.footer-cta-btn.button-l {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+}
+
+/* Magnifier container: positioned within the CTA card */
+.footer-cta-magnifier {
+  position: absolute;
+  /* Resting placement (before hover) — adjustable via CSS variables */
+  --rest-left: 50%;
+  --rest-offset: 220px; /* distance below card bottom; adjust as needed */
+  left: var(--rest-left);
+  top: calc(100% + var(--rest-offset));
+  bottom: auto; /* clear any earlier bottom:0 from other blocks */
+  transform: translateX(-50%);
+
+  width: 518px; /* requested size */
+  height: 518px; /* requested size */
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform, top, left;
+  transition: left 260ms ease, top 260ms ease, transform 260ms ease, opacity 200ms ease;
+
+  /* Lens center inside the SVG frame (fractions, 0..1). Tweaked from design to center the white circle visually. */
+  --lens-anchor-x: 0.50; /* 0.5 = center horizontally */
+  --lens-anchor-y: 0.46; /* lens center is slightly above visual center */
+  /* Optional pixel nudges applied after placement; positive moves right/down */
+  --lens-nudge-x: 0px;
+  --lens-nudge-y: -2px;
+  /* Hover scale to match enlarged glass in second print screen */
+  --hover-scale: 1.7;
+
+  /* Keep scaling centered on the lens center so the anchor doesn't drift */
+  transform-origin: calc(var(--lens-anchor-x) * 100%) calc(var(--lens-anchor-y) * 100%);
+}
+
+/* When JS aligns the magnifier to the button center */
+.footer-cta-magnifier[data-moved="true"] {
+  bottom: auto; /* ensure no conflicting bottom */
+  /* top/left set from JS; scale up while staying centered on the lens */
+  transform: scale(var(--hover-scale));
+}
+
+/* Responsive minor tweak in case container constrains */
+@media (max-width: 640px) {
+  .footer-cta-magnifier { width: 380px; height: 324px; left: 50%; --rest-offset: 100px; --hover-scale: 1.35; top: calc(100% + var(--rest-offset)); transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  .footer-cta-magnifier {
+    width: clamp(140px, 40vw, 260px);
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-cta-magnifier {
+    width: clamp(120px, 45vw, 220px);
+  }
+}
+
+/* L-type button white variant */
+.button-l--white {
+  background-color: #fff;
+  color: #000;
+  box-shadow: inset 0 0 0 1px #000;
+}
+.button-l.button-l--white::before,
+.button-l.button-l--white::after {
+  background-color: #000;
+}
+.button-l.button-l--white:hover {
+  background-color: #000;
+  color: #fff;
+}

@@ -156,6 +156,7 @@ export default function Home() {
                       title
                       uri
                       excerpt
+                      featuredImage { node { sourceUrl altText } }
                     }
                   }
                 }
@@ -482,13 +483,90 @@ export default function Home() {
         <LocationsImage globalData={globalContentBlocks.locationsImage} />
       )}
       
+      {/* Projects Section from WordPress */}
+      {homepageContent?.projectsSection && (
+        <section style={{padding: '5rem 1rem', backgroundColor: '#f9fafb'}}>
+<div style={{maxWidth: '1620px', margin: '0 auto', textAlign: 'center'}}>
+            <h2 style={{fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem'}}>{homepageContent.projectsSection.title}</h2>
+            <p style={{fontSize: '1.25rem', color: '#4b5563', marginBottom: '2rem'}}>{homepageContent.projectsSection.subtitle}</p>
+            {homepageContent.projectsSection.link && (
+              <a 
+                href={homepageContent.projectsSection.link.url}
+                className="button-l"
+                target={homepageContent.projectsSection.link.target || '_self'}
+              >
+                {homepageContent.projectsSection.link.title}
+              </a>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* Case Studies Section from WordPress */}
+      {homepageContent?.caseStudiesSection && (
+        <section className="home-case-studies" style={{padding: '5rem 1rem'}}>
+          <div style={{maxWidth: '1620px', margin: '0 auto'}}>
+            {/* Header: left subtitle + title, right CTA (empty box style) */}
+            <div className="cs-header">
+              <div className="cs-head-left">
+                {homepageContent.caseStudiesSection.subtitle && (
+                  <p className="cs-subtitle">{homepageContent.caseStudiesSection.subtitle}</p>
+                )}
+                {homepageContent.caseStudiesSection.title && (
+                  <h2 className="cs-heading">{homepageContent.caseStudiesSection.title}</h2>
+                )}
+              </div>
+              {homepageContent.caseStudiesSection.knowledgeHubLink && (
+                <a
+                  href={homepageContent.caseStudiesSection.knowledgeHubLink.url}
+                  className="button-without-box cs-header-cta"
+                  target={homepageContent.caseStudiesSection.knowledgeHubLink.target || '_self'}
+                >
+                  {homepageContent.caseStudiesSection.knowledgeHubLink.title}
+                </a>
+              )}
+            </div>
+            
+            {/* Selected Case Studies - Alternating two-up layout */}
+            {homepageContent.caseStudiesSection.selectedStudies?.nodes && homepageContent.caseStudiesSection.selectedStudies.nodes.length > 0 && (
+              <div className="cs-list" style={{marginBottom: '3rem'}}>
+                {homepageContent.caseStudiesSection.selectedStudies.nodes.slice(0, 2).map((study, index) => (
+                  <article key={study.id || index} className={`cs-item ${index % 2 === 1 ? 'cs-item--reverse' : ''}`}>
+                    <div className="cs-media">
+                      {study.featuredImage?.node?.sourceUrl && (
+                        <img 
+                          src={study.featuredImage.node.sourceUrl}
+                          alt={study.featuredImage.node.altText || study.title}
+                          className="cs-img"
+                          loading="lazy"
+                        />
+                      )}
+                    </div>
+                    <div className="cs-content">
+                      <h3 className="cs-title">{study.title}</h3>
+                      <div className="cs-excerpt" dangerouslySetInnerHTML={{__html: study.excerpt}} />
+                      <a href={study.uri} className="button-l button-l--white cs-cta">Read Case Study</a>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+            
+            {/* Removed bottom CTA; moved to header */}
+          </div>
+        </section>
+      )}
+
       {/* News Carousel Block */}
       {globalSelection?.enableNewsCarousel && globalContentBlocks?.newsCarousel && (
         <section className="news-carousel-section">
           <div className="news-carousel-container">
             <div className="news-carousel-header">
-              <p className="news-carousel-subtitle">{globalContentBlocks.newsCarousel.subtitle}</p>
-              <h2 className="news-carousel-title">{globalContentBlocks.newsCarousel.title}</h2>
+              <div className="news-carousel-header-left">
+                <h2 className="news-carousel-subtitle">{globalContentBlocks.newsCarousel.subtitle}</h2>
+                <h2 className="news-carousel-title">{globalContentBlocks.newsCarousel.title}</h2>
+              </div>
+              <a href="/news" className="news-carousel-all">All News</a>
             </div>
 
             {(globalContentBlocks.newsCarousel.computedArticles?.length || 0) > 0 ? (
@@ -558,49 +636,59 @@ export default function Home() {
 
       {/* Case Studies Section from WordPress */}
       {homepageContent?.caseStudiesSection && (
-        <section style={{padding: '5rem 1rem'}}>
-<div style={{maxWidth: '1620px', margin: '0 auto', textAlign: 'center'}}>
-            <p style={{color: '#7c3aed', marginBottom: '1rem'}}>{homepageContent.caseStudiesSection.subtitle}</p>
-            <h2 style={{fontSize: '2rem', fontWeight: 'bold', marginBottom: '2rem'}}>{homepageContent.caseStudiesSection.title}</h2>
+        <section className="home-case-studies" style={{padding: '5rem 1rem'}}>
+          <div style={{maxWidth: '1620px', margin: '0 auto'}}>
+            {/* Header: left subtitle + title, right CTA (empty box style) */}
+            <div className="cs-header">
+              <div className="cs-head-left">
+                {homepageContent.caseStudiesSection.subtitle && (
+                  <p className="cs-subtitle">{homepageContent.caseStudiesSection.subtitle}</p>
+                )}
+                {homepageContent.caseStudiesSection.title && (
+                  <h2 className="cs-heading">{homepageContent.caseStudiesSection.title}</h2>
+                )}
+              </div>
+              {homepageContent.caseStudiesSection.knowledgeHubLink && (
+                <a
+                  href={homepageContent.caseStudiesSection.knowledgeHubLink.url}
+                  className="button-without-box cs-header-cta"
+                  target={homepageContent.caseStudiesSection.knowledgeHubLink.target || '_self'}
+                >
+                  {homepageContent.caseStudiesSection.knowledgeHubLink.title}
+                </a>
+              )}
+            </div>
             
-            {/* Selected Case Studies */}
+            {/* Selected Case Studies - Alternating two-up layout */}
             {homepageContent.caseStudiesSection.selectedStudies?.nodes && homepageContent.caseStudiesSection.selectedStudies.nodes.length > 0 && (
-              <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '3rem'}}>
-                {homepageContent.caseStudiesSection.selectedStudies.nodes.map((study, index) => (
-                  <div key={study.id || index} style={{backgroundColor: '#f9fafb', padding: '2rem', borderRadius: '0.5rem', textAlign: 'left'}}>
-                    {study.featuredImage?.node?.sourceUrl && (
-                      <img 
-                        src={study.featuredImage.node.sourceUrl}
-                        alt={study.featuredImage.node.altText || study.title}
-                        style={{width: '100%', height: '200px', objectFit: 'cover', borderRadius: '0.25rem', marginBottom: '1rem'}}
-                      />
-                    )}
-                    <h3 style={{fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.5rem', color: '#1f2937'}}>{study.title}</h3>
-                    <div style={{color: '#6b7280', fontSize: '0.9rem', lineHeight: '1.5', marginBottom: '1rem'}} dangerouslySetInnerHTML={{__html: study.excerpt}} />
-                    <a 
-                      href={study.uri}
-                      className="button-without-box"
-                    >
-                      Read Case Study
-                    </a>
-                  </div>
+              <div className="cs-list" style={{marginBottom: '3rem'}}>
+                {homepageContent.caseStudiesSection.selectedStudies.nodes.slice(0, 2).map((study, index) => (
+                  <article key={study.id || index} className={`cs-item ${index % 2 === 1 ? 'cs-item--reverse' : ''}`}>
+                    <div className="cs-media">
+                      {study.featuredImage?.node?.sourceUrl && (
+                        <img 
+                          src={study.featuredImage.node.sourceUrl}
+                          alt={study.featuredImage.node.altText || study.title}
+                          className="cs-img"
+                          loading="lazy"
+                        />
+                      )}
+                    </div>
+                    <div className="cs-content">
+                      <h3 className="cs-title">{study.title}</h3>
+                      <div className="cs-excerpt" dangerouslySetInnerHTML={{__html: study.excerpt}} />
+                      <a href={study.uri} className="button-l button-l--white cs-cta">Read Case Study</a>
+                    </div>
+                  </article>
                 ))}
               </div>
             )}
             
-            {homepageContent.caseStudiesSection.knowledgeHubLink && (
-              <a 
-                href={homepageContent.caseStudiesSection.knowledgeHubLink.url}
-                style={{display: 'inline-block', padding: '0.75rem 2rem', border: '2px solid #7c3aed', color: '#7c3aed', textDecoration: 'none', borderRadius: '0.5rem', fontWeight: '600'}}
-                target={homepageContent.caseStudiesSection.knowledgeHubLink.target || '_self'}
-              >
-                {homepageContent.caseStudiesSection.knowledgeHubLink.title}
-              </a>
-            )}
+            {/* Removed bottom CTA; moved to header */}
           </div>
         </section>
       )}
-      
+
       {/* Global Content Debug & Configuration Section */}
       <div style={{padding: '3rem 1rem', backgroundColor: '#f0f9ff', borderTop: '1px solid #e0e7ff'}}>
 <div style={{maxWidth: '1620px', margin: '0 auto'}}>
