@@ -6,6 +6,21 @@ import { getServiceBySlug } from '../../../lib/graphql-queries';
 import Image from 'next/image';
 import Link from 'next/link';
 
+// Service color mapping
+const getServiceColor = (slug) => {
+  const colorMap = {
+    'ecommerce': '#3CBEEB',
+    'b2b-lead-generation': '#AD80F9',
+    'software-development': '#01E486',
+    'franchise-booking-systems': '#FD8721',
+    'booking-systems': '#FD8721',
+    'digital-marketing': '#FF60DF',
+    'outsourced-cmo': '#FF5C8A',
+    'ai': '#3CBEEB'
+  };
+  return colorMap[slug] || '#7c3aed'; // fallback to purple
+};
+
 // Generate metadata for SEO
 export async function generateMetadata({ params }) {
   const service = await getServiceBySlug(params.slug);
@@ -42,10 +57,11 @@ export default async function ServicePage({ params }) {
   }
 
   const serviceFields = service.serviceFields || {};
-         const heroSection = serviceFields.heroSection || {};
-           const serviceBulletPoints = serviceFields.serviceBulletPoints || {};
-           const valueDescription = serviceFields.valueDescription || {};
-           const featuredCaseStudies = serviceFields.caseStudies?.nodes || [];
+          const heroSection = serviceFields.heroSection || {};
+            const serviceBulletPoints = serviceFields.serviceBulletPoints || {};
+            const valueDescription = serviceFields.valueDescription || {};
+            const featuredCaseStudies = serviceFields.caseStudies?.nodes || [];
+            const serviceColor = getServiceColor(service.slug);
 
   return (
     <>
@@ -58,11 +74,18 @@ export default async function ServicePage({ params }) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="service-hero-content">
                 {heroSection.subtitle && (
-                  <p className="service-hero-subtitle text-purple-600 font-semibold mb-4">
+                  <p className="service-hero-subtitle font-semibold mb-4" style={{ color: serviceColor }}>
                     {heroSection.subtitle}
                   </p>
                 )}
-                <h1 className="service-hero-title text-4xl lg:text-5xl font-bold mb-6">
+                <h1 
+                  className="service-hero-title text-4xl lg:text-5xl font-bold mb-6"
+                  style={{
+                    textDecoration: 'underline',
+                    textDecorationColor: serviceColor,
+                    textDecorationThickness: '11px'
+                  }}
+                >
                   {sanitizeTitleHtml(service.title)}
                 </h1>
                 {heroSection.description && (
@@ -74,7 +97,7 @@ export default async function ServicePage({ params }) {
                 {heroSection.cta?.title && heroSection.cta?.url && (
                   <Link 
                     href={heroSection.cta.url}
-                    className="inline-block bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+                    className="button-l"
                   >
                     {heroSection.cta.title}
                   </Link>
@@ -132,7 +155,10 @@ export default async function ServicePage({ params }) {
                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                      {serviceBulletPoints.bullets.map((bullet, index) => (
                        <li key={index} className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
-                         <div className="flex-shrink-0 w-2 h-2 bg-purple-600 rounded-full mt-2"></div>
+                         <div 
+                           className="flex-shrink-0 w-2 h-2 rounded-full mt-2"
+                           style={{ backgroundColor: serviceColor }}
+                         ></div>
                          <span className="text-gray-700">{bullet.text}</span>
                        </li>
                      ))}

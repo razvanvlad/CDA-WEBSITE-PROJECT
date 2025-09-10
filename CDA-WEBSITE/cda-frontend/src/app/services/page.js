@@ -13,6 +13,21 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
+// Service color mapping
+const getServiceColor = (slug) => {
+  const colorMap = {
+    'ecommerce': '#3CBEEB',
+    'b2b-lead-generation': '#AD80F9',
+    'software-development': '#01E486',
+    'franchise-booking-systems': '#FD8721',
+    'booking-systems': '#FD8721',
+    'digital-marketing': '#FF60DF',
+    'outsourced-cmo': '#FF5C8A',
+    'ai': '#3CBEEB'
+  };
+  return colorMap[slug] || '#7c3aed'; // fallback to purple
+};
+
 export const metadata = {
   title: 'Our Services',
   description: 'Discover our comprehensive range of digital services including web development, digital marketing, eCommerce solutions, B2B lead generation, and business consulting. Professional solutions tailored to your business needs.',
@@ -184,7 +199,7 @@ export default async function ServicesPage({ searchParams }) {
         <div className="min-h-screen bg-white">
           <div className="max-w-7xl mx-auto px-4 py-16">
           {/* Hero Section */}
-          <section className="relative bg-gradient-to-br from-purple-50 to-white rounded-xl p-8 mb-12 overflow-hidden">
+          <section className="relative bg-white rounded-xl p-8 mb-12 overflow-hidden">
             <div className="relative z-10 max-w-4xl mx-auto text-center">
               <h1 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h1>
               <p className="text-xl text-gray-600 mb-8">
@@ -309,13 +324,24 @@ export default async function ServicesPage({ searchParams }) {
                         </div>
 
                         <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                          <Link href={`/services/${service.slug}`} className="hover:text-purple-600 transition-colors">
+                          <Link 
+                            href={`/services/${service.slug}`} 
+                            className="transition-colors"
+                            style={{
+                              textDecoration: 'underline',
+                              textDecorationColor: getServiceColor(service.slug),
+                              textDecorationThickness: '4px'
+                            }}
+                          >
                             {service.title}
                           </Link>
                         </h2>
 
                         {service.serviceFields?.heroSection?.subtitle && (
-                          <p className="text-purple-600 font-medium mb-4 text-base">
+                          <p 
+                            className="font-medium mb-4 text-base"
+                            style={{ color: getServiceColor(service.slug) }}
+                          >
                             {service.serviceFields.heroSection.subtitle}
                           </p>
                         )}
@@ -345,24 +371,27 @@ export default async function ServicesPage({ searchParams }) {
                               </h3>
                             )}
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                              {service.serviceFields.serviceBulletPoints.bullets.slice(0, 6).map((bullet, index) => (
-                                <li key={index} className="flex items-start space-x-2">
-                                  <div className="flex-shrink-0 w-2 h-2 bg-purple-600 rounded-full mt-2"></div>
-                                  <span className="text-gray-700 text-sm">{bullet.text}</span>
-                                </li>
-                              ))}
+                              {service.serviceFields.serviceBulletPoints.bullets.slice(0, 6).map((bullet, index) => {
+                                const serviceColor = getServiceColor(service.slug);
+                                return (
+                                  <li key={index} className="flex items-start space-x-2">
+                                    <div 
+                                      className="flex-shrink-0 w-2 h-2 rounded-full mt-2"
+                                      style={{ backgroundColor: serviceColor }}
+                                    ></div>
+                                    <span className="text-gray-700 text-sm">{bullet.text}</span>
+                                  </li>
+                                );
+                              })}
                             </ul>
                           </div>
                         )}
 
                         <Link 
                           href={`/services/${service.slug}`}
-                          className="inline-flex items-center text-purple-600 font-semibold hover:text-purple-700 transition-colors"
+                          className="button-without-box"
                         >
                           Learn more
-                          <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
                         </Link>
                       </div>
                     </div>
@@ -434,21 +463,21 @@ export default async function ServicesPage({ searchParams }) {
           <ServicesCaseStudiesPreview />
 
           {/* CTA Section */}
-          <section className="mt-16 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white rounded-lg p-12 text-center">
-            <h2 className="text-3xl font-bold mb-4">Need a Custom Solution?</h2>
-            <p className="text-xl text-blue-100 mb-8">
+          <section className="mt-16 bg-white border border-gray-200 rounded-lg p-12 text-center">
+            <h2 className="text-3xl font-bold mb-4 text-gray-900">Need a Custom Solution?</h2>
+            <p className="text-xl text-gray-600 mb-8">
               Can't find exactly what you're looking for? We specialize in creating tailored solutions for unique business needs.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
                 href="/contact"
-                className="inline-block bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
+                className="button-l"
               >
                 Discuss Your Project
               </Link>
               <Link
                 href="/case-studies"
-                className="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-900 transition-colors"
+                className="button-l"
               >
                 View Our Work
               </Link>
