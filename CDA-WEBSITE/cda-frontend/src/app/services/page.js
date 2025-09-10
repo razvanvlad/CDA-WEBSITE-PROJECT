@@ -337,14 +337,14 @@ export default async function ServicesPage({ searchParams }) {
                           </Link>
                         </h2>
 
-                        {service.serviceFields?.heroSection?.subtitle && (
+                        {/* {service.serviceFields?.heroSection?.subtitle && (
                           <p 
                             className="font-medium mb-4 text-base"
                             style={{ color: getServiceColor(service.slug) }}
                           >
                             {service.serviceFields.heroSection.subtitle}
                           </p>
-                        )}
+                        )} */}
 
                         {service.excerpt && (
                           <div 
@@ -458,9 +458,6 @@ export default async function ServicesPage({ searchParams }) {
           )}
 
           {/* Services: Process, Stats, Case Studies Preview */}
-          <ServicesProcess />
-          <ServicesStats />
-          <ServicesCaseStudiesPreview />
 
           {/* CTA Section */}
           <section className="mt-16 bg-white border border-gray-200 rounded-lg p-12 text-center">

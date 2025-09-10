@@ -454,52 +454,10 @@ export const GET_CASE_STUDY_BY_SLUG = `
           }
           projectUrl
           completionDate
-          duration
         }
-        challenge {
-          title
-          description
-          image {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-        solution {
-          title
-          description
-          image {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-        results {
-          title
-          description
-          image {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-        keyMetrics {
-          metric
-          value
-          description
-        }
-        projectGallery {
-          image {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-          caption
-        }
+        challenge
+        solution
+        results
         featured
       }
       projectTypes {
@@ -507,14 +465,6 @@ export const GET_CASE_STUDY_BY_SLUG = `
           id
           name
           slug
-          description
-        }
-      }
-      seo {
-        title
-        metaDesc
-        opengraphImage {
-          sourceUrl
         }
       }
     }

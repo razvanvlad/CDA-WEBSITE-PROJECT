@@ -1,6 +1,8 @@
 import { getCaseStudiesWithPagination, executeGraphQLQuery } from '@/lib/graphql-queries.js'
 import { getPaginationFromSearchParams } from '@/lib/pagination-utils'
 import Pagination from '@/components/Pagination'
+import Header from '../../components/Header'
+import Footer from '../../components/Footer'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -67,8 +69,10 @@ export default async function CaseStudiesPage({ searchParams }) {
     const regularCaseStudies = featuredOnly ? caseStudies : caseStudies.filter((cs) => !cs.caseStudyFields?.featured)
 
     return (
-      <div className="min-h-screen bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4">
+      <>
+        <Header />
+        <div className="min-h-screen bg-white py-16">
+          <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Case Studies</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -76,43 +80,7 @@ export default async function CaseStudiesPage({ searchParams }) {
             </p>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-            <form method="GET" className="space-y-4">
-              <div>
-                <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-2">Search Case Studies</label>
-                <input type="text" id="search" name="search" defaultValue={searchQuery} placeholder="Search by client, project name, or description..." className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
-              </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {projectTypes.length > 0 && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Filter by Project Type</label>
-                    <div className="flex flex-wrap gap-2">
-                      {projectTypes.map((type) => (
-                        <label key={type.id} className="flex items-center">
-                          <input type="checkbox" name="project_type" value={type.id} defaultChecked={projectTypeFilter.includes(type.id)} className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                          <span className="ml-2 text-sm text-gray-700">{type.name} ({type.count})</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Display Options</label>
-                  <div className="flex items-center">
-                    <input type="checkbox" name="featured" value="true" defaultChecked={featuredOnly} className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                    <span className="ml-2 text-sm text-gray-700">Show only featured case studies</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-4">
-                <button type="submit" className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">Apply Filters</button>
-                <Link href="/case-studies" className="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors">Clear Filters</Link>
-              </div>
-            </form>
-          </div>
 
           {total > 0 && (
             <div className="mb-6">
@@ -188,8 +156,10 @@ export default async function CaseStudiesPage({ searchParams }) {
               <Pagination currentPage={currentPage} totalPages={totalPages} basePath="/case-studies" searchQuery={searchQuery} extraParams={{ project_type: projectTypeFilter, featured: featuredOnly ? 'true' : undefined }} />
             </div>
           )}
+          </div>
         </div>
-      </div>
+        <Footer />
+      </>
     )
   } catch (error) {
     console.error('Error rendering case studies page:', error)

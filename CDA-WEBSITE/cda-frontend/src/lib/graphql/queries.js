@@ -538,47 +538,105 @@ export const GET_KNOWLEDGE_HUB_CONTENT = gql`
         headerSection {
           title
           subtitle
-          searchPlaceholder
-        }
-        featuredArticle {
-          title
-          excerpt
-          author
-          publishDate
-          readTime
-          featuredImage {
+          headerImage {
             node {
               sourceUrl
               altText
             }
           }
-          url
         }
         categoriesSection {
           title
-          categories {
-            name
-            color
-            articleCount
-            url
-          }
-        }
-        articlesSection {
-          title
-          articles {
-            title
-            excerpt
-            author
-            publishDate
-            readTime
-            category
-            featuredImage {
+          categoriesItems {
+            icon {
               node {
                 sourceUrl
                 altText
               }
             }
-            url
+            title
+            description
+            link {
+              url
+              title
+              target
+            }
+          }
+        }
+        featuredSection {
+          title
+          featuredItems {
+            image {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            title
+            excerpt
+            link {
+              url
+              title
+              target
+            }
+          }
+        }
+        searchSection {
+          title
+          searchPlaceholder
+          description
+        }
+        newsletterSection {
+          title
+          description
+          formShortcode
+        }
+      }
+    }
+    caseStudies(first: 50) {
+      nodes {
+        id
+        title
+        slug
+        date
+        excerpt
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+        caseStudyFields {
+          projectOverview {
+            clientName
+          }
+          featured
+        }
+        projectTypes {
+          nodes {
+            name
+            slug
+          }
+        }
+      }
+    }
+    posts(first: 50) {
+      nodes {
+        id
+        title
+        slug
+        date
+        excerpt
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+        categories {
+          nodes {
+            name
+            slug
           }
         }
       }
