@@ -56,7 +56,7 @@ export default function Header() {
     { id: 'fallback-ecommerce', label: 'eCommerce', url: '/services/ecommerce' },
     { id: 'fallback-b2b-lead', label: 'B2B Lead Generation', url: '/services/b2b-lead-generation' },
     { id: 'fallback-software-dev', label: 'Software Development', url: '/services/software-development' },
-    { id: 'fallback-booking', label: 'Booking Systems', url: '/services/booking-systems' },
+    { id: 'fallback-booking', label: 'Booking Systems', url: '/franchise-booking-systems' },
     { id: 'fallback-digital-marketing', label: 'Digital Marketing', url: '/services/digital-marketing' },
     { id: 'fallback-outsourced-cmo', label: 'Outsourced CMO', url: '/services/outsourced-cmo' },
     { id: 'fallback-ai', label: 'AI', url: '/services/ai' }
