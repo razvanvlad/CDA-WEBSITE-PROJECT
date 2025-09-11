@@ -355,6 +355,43 @@ export default function Home() {
   const homepageContent = homepageData?.page?.homepageContentClean || {};
   const globalSelection = homepageContent?.globalContentSelection || {};
 
+  // Utility: underline the second row of the homepage title (Services-style)
+  const buildUnderlinedSecondRow = (raw) => {
+    try {
+      if (!raw || typeof raw !== 'string') return '';
+      let before = null;
+      let after = null;
+
+      // Prefer an explicit <br> break if present (take the first <br> as the row break)
+      const brRegex = /<br\s*\/?>(.*)$/i;
+      const brMatch = raw.match(brRegex);
+      if (brMatch) {
+        after = brMatch[1];
+        before = raw.replace(brRegex, '');
+      } else {
+        // Otherwise, split on an en/em dash or hyphen surrounded by spaces and underline the part after the last delimiter
+        const splitRegex = /(\s[–—-]\s)(?!.*\s[–—-]\s)/; // last occurrence
+        const parts = raw.split(splitRegex);
+        if (parts.length >= 3) {
+          // Keep the delimiter on the first line to match visual comps
+          before = parts[0] + parts[1];
+          after = parts.slice(2).join('');
+        }
+      }
+
+      if (before != null && after != null) {
+        const decoratedAfter = `<span class="title-underline title-large-light-blue u-full u-gap-12 u-thick-11">${after}</span>`;
+        const processed = `${before}<br/>${decoratedAfter}`;
+        return sanitizeTitleHtml(processed);
+      }
+
+      // Fallback: just sanitize whatever we have (WordPress editors can also wrap the second row in a span with the allowed classes)
+      return sanitizeTitleHtml(raw);
+    } catch (_) {
+      return sanitizeTitleHtml(raw);
+    }
+  };
+
   return (
     <div style={{minHeight: '100vh', backgroundColor: 'white'}}>
       <Header />      
@@ -367,7 +404,7 @@ export default function Home() {
               <h1
                 className="home-hero-title"
                 dangerouslySetInnerHTML={{
-                  __html: sanitizeTitleHtml(
+                  __html: buildUnderlinedSecondRow(
                     homepageContent.headerSection.title || 'Welcome to CDA Website'
                   )
                 }}

@@ -73,7 +73,6 @@ const TechnologiesSlider = ({ globalData, subtitle, title, logos }) => {
       <style jsx>{`
         .technologies-slider {
           padding: 80px 0;
-          background: #f8f9fa;
           position: relative;
         }
 
@@ -124,7 +123,6 @@ const TechnologiesSlider = ({ globalData, subtitle, title, logos }) => {
           padding: 20px;
           background: white;
           border-radius: 12px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
           transition: all 0.3s ease;
           min-height: 120px;
         }
