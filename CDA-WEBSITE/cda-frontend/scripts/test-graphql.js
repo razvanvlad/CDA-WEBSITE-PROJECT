@@ -153,19 +153,14 @@ class GraphQLTester {
       'Services - With ACF Fields',
       `
         query GetServicesWithACF {
-          services {
+          services(first: 50) {
             nodes {
               id
               title
+              uri
               serviceFields {
-                heroSection {
-                  subtitle
-                  description
-                }
-                keyStatistics {
-                  number
-                  label
-                }
+                heroSection { subtitle description }
+                statistics { number label }
               }
             }
           }
@@ -294,25 +289,12 @@ class GraphQLTester {
       `
         query GetGlobalContent {
           globalOptions {
-            globalSharedContent {
-              whyCdaBlock {
-                title
-              }
-              approachBlock {
-                title
-              }
-              technologiesBlock {
-                title
-              }
-              showreelBlock {
-                title
-              }
-              newsletterBlock {
-                title
-              }
-              ctaBlock {
-                title
-              }
+            globalContentBlocks {
+              whyCda { title }
+              approach { title }
+              technologiesSlider { title }
+              showreel { title }
+              newsletterSignup { title }
             }
           }
         }

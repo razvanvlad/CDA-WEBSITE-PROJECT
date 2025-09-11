@@ -13,6 +13,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
+export const revalidate = 300
+
 // Service color mapping
 const getServiceColor = (slug) => {
   const colorMap = {
@@ -85,8 +87,8 @@ async function getGlobalContent() {
   const query = `
     query GetGlobalContent {
       globalOptions {
-        globalSharedContent {
-          approachBlock {
+        globalContentBlocks {
+          approach {
             title
             subtitle
             steps {
@@ -104,18 +106,11 @@ async function getGlobalContent() {
           valuesBlock {
             title
             subtitle
-            cards {
-              cardNumber
+            values {
               title
-              description
-              image {
-                node {
-                  sourceUrl
-                  altText
-                }
-              }
+              text
             }
-            cornerImage {
+            illustration {
               node {
                 sourceUrl
                 altText
@@ -129,7 +124,7 @@ async function getGlobalContent() {
   
   try {
     const response = await executeGraphQLQuery(query)
-    return response.data?.globalOptions?.globalSharedContent || null
+    return response.data?.globalOptions?.globalContentBlocks || null
   } catch (error) {
     console.error('Failed to fetch global content:', error)
     return null
@@ -467,9 +462,9 @@ export default async function ServicesPage({ searchParams }) {
           )}
 
           {/* Our Approach Global Block */}
-          {globalContent?.approachBlock && (
+          {globalContent?.approach && (
             <ApproachBlock 
-              globalData={globalContent.approachBlock}
+              globalData={globalContent.approach}
               pageData={null}
               useOverride={false}
             />
@@ -505,6 +500,18 @@ export default async function ServicesPage({ searchParams }) {
     )
   } catch (error) {
     console.error('Failed to load services:', error)
-    notFound()
+    return (
+      <main>
+        <section className="py-16 md:py-24">
+          <div className="container mx-auto max-w-5xl px-6 text-center">
+            <h1 className="text-3xl md:text-4xl font-semibold">Services</h1>
+            <p className="mt-4 text-lg text-gray-600">We’re having trouble loading services right now. Please try again in a moment.</p>
+            <div className="mt-8">
+              <a href="/services" className="inline-flex items-center rounded-md bg-black px-5 py-3 text-white hover:bg-gray-800 transition">Retry</a>
+            </div>
+          </div>
+        </section>
+      </main>
+    )
   }
 }

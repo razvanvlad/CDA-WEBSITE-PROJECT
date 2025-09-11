@@ -2,6 +2,8 @@ import Image from 'next/image'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 
+export const revalidate = 300
+
 export const metadata = {
   title: 'Meet Our Team - CDA Agency',
   description: 'Discover the talented team behind CDA Agency. Meet our designers, developers, strategists, and marketing experts dedicated to delivering exceptional results.',

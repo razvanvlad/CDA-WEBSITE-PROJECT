@@ -5,8 +5,7 @@ import { sanitizeTitleHtml } from '../../../lib/sanitizeTitleHtml';
 import { getServiceBySlug } from '../../../lib/graphql-queries';
 import Image from 'next/image';
 import Link from 'next/link';
-// Remove HubSpotForm import
-// (deleted) import HubSpotForm from '../../../components/HubSpotForm';
+import Script from 'next/script';
 
 // Service color mapping
 const getServiceColor = (slug) => {
@@ -266,8 +265,7 @@ export default async function ServicePage({ params }) {
       </main>
 
       {/* Contact Form Section */}
-      {/* Removed HubSpot dynamic form per request. We'll add a static form later. */}
-      {/* <section id="contact-form" className="py-16 bg-gray-50">
+      <section id="contact-form" className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -278,11 +276,51 @@ export default async function ServicePage({ params }) {
             </p>
           </div>
           
-          <div className="bg-white rounded-lg shadow-lg p-8">
-             <HubSpotForm serviceSlug={slug} />
+          <div className="bg-white rounded-lg shadow-lg p-8 hubspot-form-wrapper">
+            <div id={`hubspot-form-${slug}`}></div>
+            
+            <Script
+              src="//js-eu1.hsforms.net/forms/embed/v2.js"
+              strategy="afterInteractive"
+            />
+            
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.addEventListener('load', function() {
+                    if (window.hbspt) {
+                      const formConfigs = {
+                        'ecommerce': { portalId: '143891025', formId: '80e897f8-198d-42e2-81b8-41f6732d4218', region: 'eu1' },
+                        'b2b-lead-generation': { portalId: '143891025', formId: '80e897f8-198d-42e2-81b8-41f6732d4218', region: 'eu1' },
+                        'software-development': { portalId: '143891025', formId: '074aaebe-afd8-4cd4-aed3-9121b4a6cc8f', region: 'eu1' },
+                        'booking-systems': { portalId: '143891025', formId: '49fddd49-7309-4c02-9cd9-af6ac456a12e', region: 'eu1' },
+                        'franchise-booking-systems': { portalId: '143891025', formId: '49fddd49-7309-4c02-9cd9-af6ac456a12e', region: 'eu1' },
+                        'outsourced-cmo': { portalId: '143891025', formId: '2a38348b-7333-42c2-bc42-24d0cf303487', region: 'eu1' },
+                        'digital-marketing': { portalId: '143891025', formId: '8a22cbe4-8abf-4e1f-8bac-7f40a4f1f866', region: 'eu1' },
+                        'ai': { portalId: '143891025', formId: '58c24def-6c60-45b4-be8c-bf699201624c', region: 'eu1' }
+                      };
+                      
+                      const config = formConfigs['${slug}'];
+                      if (config) {
+                        window.hbspt.forms.create({
+                          ...config,
+                          target: '#hubspot-form-${slug}',
+                          onFormReady: function() {
+                            const submitBtn = document.querySelector('.hs-button');
+                            if (submitBtn) {
+                              submitBtn.classList.add('button-l', 'footer-cta-btn');
+                            }
+                          }
+                        });
+                      }
+                    }
+                  });
+                `
+              }}
+            />
            </div>
         </div>
-      </section> */}
+      </section>
       
       <Footer />
     </>

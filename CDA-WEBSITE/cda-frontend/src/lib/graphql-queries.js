@@ -8,14 +8,39 @@ const GRAPHQL_ENDPOINT =
   process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT ||
   (process?.env?.NEXT_PUBLIC_WORDPRESS_URL
     ? `${process.env.NEXT_PUBLIC_WORDPRESS_URL.replace(/\/$/, '')}/graphql`
-    : 'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/graphql');
+    : '/api/wp-graphql');
+
+// Resolve endpoint to absolute URL on server; relative is fine on the client
+function resolveGraphQLEndpoint() {
+  const endpoint = GRAPHQL_ENDPOINT;
+  // Absolute URL already
+  if (/^https?:\/\//i.test(endpoint)) return endpoint;
+
+  // Running in the browser: resolve against current origin
+  if (typeof window !== 'undefined' && window?.location?.origin) {
+    try {
+      return new URL(endpoint, window.location.origin).href;
+    } catch (e) {
+      // fallthrough to server fallback
+    }
+  }
+
+  // Server-side: use site URL env or localhost fallback
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  try {
+    return new URL(endpoint, siteUrl).href;
+  } catch (e) {
+    return `${siteUrl.replace(/\/$/, '')}${endpoint.startsWith('/') ? '' : '/'}${endpoint}`;
+  }
+}
 
 /**
  * Execute GraphQL query
  */
 export async function executeGraphQLQuery(query, variables = {}) {
   try {
-    const response = await fetch(GRAPHQL_ENDPOINT, {
+    const resolvedEndpoint = resolveGraphQLEndpoint();
+    const response = await fetch(resolvedEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -24,6 +49,8 @@ export async function executeGraphQLQuery(query, variables = {}) {
         query,
         variables,
       }),
+      // Important for Next.js to avoid caching SSR queries unintentionally
+      cache: 'no-store',
     });
 
     if (!response.ok) {
@@ -245,7 +272,7 @@ export const GET_SERVICE_BY_SLUG_WITH_ACF = `
             url
           }
         }
-        keyStatistics {
+        statistics {
           number
           label
           percentage
@@ -766,7 +793,7 @@ export async function getTeamMemberSlugs() {
 export const GET_GLOBAL_CONTENT = `
   query GetGlobalContent {
     globalOptions {
-      globalSharedContent {
+      globalContentBlocks {
         whyCdaBlock {
           title
           subtitle
@@ -821,7 +848,7 @@ export async function getGlobalContent() {
     return null;
   }
 
-  return response.data?.globalOptions?.globalSharedContent || null;
+  return response.data?.globalOptions?.globalContentBlocks || null;
 }
 
 // =============================================================================
@@ -853,40 +880,8 @@ export const GET_SERVICE_OVERVIEW_CONTENT = `
     page(id: "/services", idType: URI) {
       id
       title
-      serviceOverviewContent {
-        heroSection {
-          title
-          description
-          imageRight { node { sourceUrl altText } }
-        }
-        featuredServiceSection {
-          leftColumnTitle
-          selectedService { ... on Service { id title slug } }
-          caseStudyOverride { ... on CaseStudy { id title slug featuredImage { node { sourceUrl altText } } } }
-          caseStudyCtaLabel
-          caseStudyCtaLink { url title target }
-        }
-        rightColumn {
-          title
-          description
-          bulletPoints { text }
-          bulletsTwoRows
-          ctaServiceLink { url title target }
-          ctaContactUs { url title target }
-        }
-        globalContentToggles {
-          enableApproach
-          enableProjectsFilteredByService
-          enableLatestNews
-          enableOurServicesSlider
-        }
-        ourServicesSlider {
-          title
-          subtitle
-          image { node { sourceUrl altText } }
-          cta { url title target }
-        }
-      }
+      slug
+      uri
     }
   }
 `;
@@ -897,5 +892,5 @@ export async function getServiceOverviewContent() {
     console.error('GraphQL errors:', response.errors);
     return null;
   }
-  return response.data?.page?.serviceOverviewContent || null;
+  return response.data?.page || null;
 }

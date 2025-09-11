@@ -1,147 +1,242 @@
 {
-  "startTime": "2025-09-05T14:33:45.855Z",
+  "startTime": "2025-09-11T00:05:14.792Z",
   "tests": [
     {
       "name": "Server Availability",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:33:46.018Z",
-      "details": "Server responding at http://localhost:3003 (156ms)"
+      "timestamp": "2025-09-11T00:05:15.022Z",
+      "details": "Server responding at http://localhost:3000"
     },
     {
       "name": "GraphQL Query: services",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:33:46.990Z",
-      "details": "Query returned data successfully"
+      "timestamp": "2025-09-11T00:05:16.157Z",
+      "details": "Retrieved data for: services"
     },
     {
       "name": "GraphQL Query: caseStudies",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:33:47.994Z",
-      "details": "Query returned data successfully"
+      "timestamp": "2025-09-11T00:05:17.335Z",
+      "details": "Retrieved data for: caseStudies"
     },
     {
       "name": "GraphQL Query: teamMembers",
-      "status": "WARN",
-      "timestamp": "2025-09-05T14:33:48.949Z",
-      "warning": "Query succeeded but no data returned"
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:18.473Z",
+      "details": "Retrieved data for: teamMembers"
     },
     {
       "name": "GraphQL Query: serviceTypes",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:33:49.899Z",
-      "details": "Query returned data successfully"
+      "timestamp": "2025-09-11T00:05:19.642Z",
+      "details": "Retrieved data for: serviceTypes"
     },
     {
       "name": "GraphQL Query: projectTypes",
       "status": "WARN",
-      "timestamp": "2025-09-05T14:33:50.822Z",
-      "warning": "Query succeeded but no data returned"
+      "timestamp": "2025-09-11T00:05:20.812Z",
+      "details": "Query succeeded but no data returned",
+      "warning": "No data available"
     },
     {
       "name": "GraphQL Query: departments",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:33:51.765Z",
-      "details": "Query returned data successfully"
+      "timestamp": "2025-09-11T00:05:22.087Z",
+      "details": "Retrieved data for: departments"
     },
     {
       "name": "Route: /",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:33:51.910Z",
-      "details": "Status: 200, Response time: 144ms"
+      "timestamp": "2025-09-11T00:05:22.311Z",
+      "details": "Status: 200, Response time: 174ms"
     },
     {
       "name": "Route: /services",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:33:54.101Z",
-      "details": "Status: 200, Response time: 2189ms"
-    },
-    {
-      "name": "Route: /case-studies",
-      "status": "PASS",
-      "timestamp": "2025-09-05T14:33:56.246Z",
-      "details": "Status: 200, Response time: 2142ms"
+      "timestamp": "2025-09-11T00:05:27.148Z",
+      "details": "Status: 200, Response time: 4791ms"
     },
     {
       "name": "Route: /team",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:33:58.326Z",
-      "details": "Status: 200, Response time: 2079ms"
+      "timestamp": "2025-09-11T00:05:28.549Z",
+      "details": "Status: 200, Response time: 1351ms"
     },
     {
       "name": "Route: /about",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:33:58.459Z",
-      "details": "Status: 200, Response time: 132ms"
+      "timestamp": "2025-09-11T00:05:28.787Z",
+      "details": "Status: 200, Response time: 189ms"
     },
     {
       "name": "Route: /contact",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:33:58.587Z",
-      "details": "Status: 200, Response time: 126ms"
+      "timestamp": "2025-09-11T00:05:29.013Z",
+      "details": "Status: 200, Response time: 167ms"
+    },
+    {
+      "name": "Route: /roi",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:29.206Z",
+      "details": "Status: 200, Response time: 150ms"
+    },
+    {
+      "name": "Route: /technologies",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:29.402Z",
+      "details": "Status: 200, Response time: 155ms"
+    },
+    {
+      "name": "Route: /terms-conditions",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:29.607Z",
+      "details": "Status: 200, Response time: 161ms"
+    },
+    {
+      "name": "Route: /test-graphql",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:29.836Z",
+      "details": "Status: 200, Response time: 187ms"
+    },
+    {
+      "name": "Route: /test-working",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:30.022Z",
+      "details": "Status: 200, Response time: 145ms"
+    },
+    {
+      "name": "Route: /test-all-pages",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:30.233Z",
+      "details": "Status: 200, Response time: 169ms"
+    },
+    {
+      "name": "Route: /test-schema",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:30.432Z",
+      "details": "Status: 200, Response time: 158ms"
+    },
+    {
+      "name": "Route: /buttons-test",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:30.647Z",
+      "details": "Status: 200, Response time: 171ms"
+    },
+    {
+      "name": "Route: /underline-test",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:30.868Z",
+      "details": "Status: 200, Response time: 177ms"
+    },
+    {
+      "name": "Route: /non-existent-xyz",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:31.074Z",
+      "details": "Expected 404 for error route, Response time: 165ms"
+    },
+    {
+      "name": "Route: /404",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:31.255Z",
+      "details": "Expected 404 for error route, Response time: 140ms"
     },
     {
       "name": "Image: /favicon.ico",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:33:58.889Z",
-      "details": "Status: 200, Content-Type: image/x-icon"
+      "timestamp": "2025-09-11T00:05:31.598Z",
+      "details": "Status: 200, Size: 25931 bytes, Time: 299ms"
     },
     {
-      "name": "Next.js Image Optimization",
+      "name": "Image: /images/cda-logo.png",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:33:58.895Z",
-      "details": "Image optimization endpoint responding correctly"
+      "timestamp": "2025-09-11T00:05:31.658Z",
+      "details": "Status: 200, Size: 2707 bytes, Time: 5ms"
     },
     {
-      "name": "Responsive Meta Tag",
+      "name": "Image: /_next/image?url=%2Ffavicon.ico&w=32&q=75",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:33:59.063Z",
-      "details": "Viewport meta tag detected in HTML"
+      "timestamp": "2025-09-11T00:05:31.709Z",
+      "details": "Status: 200, Size: 25931 bytes, Time: 5ms"
     },
     {
-      "name": "Mobile User Agent Response",
+      "name": "Responsive mobile: /",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:33:59.193Z",
-      "details": "Page loads successfully with mobile user agent (130ms)"
+      "timestamp": "2025-09-11T00:05:31.921Z",
+      "details": "Status: 200, Time: 160ms"
+    },
+    {
+      "name": "Responsive tablet: /",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:32.136Z",
+      "details": "Status: 200, Time: 173ms"
+    },
+    {
+      "name": "Responsive desktop: /",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:32.346Z",
+      "details": "Status: 200, Time: 158ms"
+    },
+    {
+      "name": "Responsive mobile: /services",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:37.319Z",
+      "details": "Status: 200, Time: 4926ms"
+    },
+    {
+      "name": "Responsive tablet: /services",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:42.108Z",
+      "details": "Status: 200, Time: 4734ms"
+    },
+    {
+      "name": "Responsive desktop: /services",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:46.644Z",
+      "details": "Status: 200, Time: 4485ms"
+    },
+    {
+      "name": "Responsive mobile: /team",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:48.121Z",
+      "details": "Status: 200, Time: 1432ms"
+    },
+    {
+      "name": "Responsive tablet: /team",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:49.618Z",
+      "details": "Status: 200, Time: 1446ms"
+    },
+    {
+      "name": "Responsive desktop: /team",
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:51.146Z",
+      "details": "Status: 200, Time: 1471ms"
     },
     {
       "name": "Performance: /",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:33:59.367Z",
-      "details": "Load time: 172ms (< 2s target)"
+      "timestamp": "2025-09-11T00:05:51.368Z",
+      "details": "TTFB: 162ms, Total: 170ms"
     },
     {
       "name": "Performance: /services",
-      "status": "WARN",
-      "timestamp": "2025-09-05T14:34:01.536Z",
-      "warning": "Load time: 2168ms (slow but acceptable)"
-    },
-    {
-      "name": "Performance: /case-studies",
-      "status": "WARN",
-      "timestamp": "2025-09-05T14:34:03.568Z",
-      "warning": "Load time: 2031ms (slow but acceptable)"
+      "status": "PASS",
+      "timestamp": "2025-09-11T00:05:56.130Z",
+      "details": "TTFB: 4685ms, Total: 4721ms"
     },
     {
       "name": "Performance: /team",
-      "status": "WARN",
-      "timestamp": "2025-09-05T14:34:05.662Z",
-      "warning": "Load time: 2093ms (slow but acceptable)"
-    },
-    {
-      "name": "Overall Performance",
       "status": "PASS",
-      "timestamp": "2025-09-05T14:34:05.663Z",
-      "details": "Average load time: 1616ms across 4 routes"
+      "timestamp": "2025-09-11T00:05:57.560Z",
+      "details": "TTFB: 1365ms, Total: 1375ms"
     }
   ],
   "summary": {
-    "total": 22,
-    "passed": 0,
+    "total": 38,
+    "passed": 37,
     "failed": 0,
-    "warnings": 0,
-    "pass": null,
-    "warn": null
+    "warnings": 1
   },
-  "endTime": "2025-09-05T14:34:05.666Z",
-  "duration": 19811
+  "endTime": "2025-09-11T00:05:57.562Z",
+  "duration": 42770
 }

@@ -1,1 +1,97 @@
-[5:33:45 PM] [INFO] ============================================================\n[5:33:45 PM] [INFO] CDA WEBSITE TEST SUITE - Node.js Edition\n[5:33:45 PM] [INFO] ============================================================\n[5:33:45 PM] [INFO] 🚀 Starting comprehensive test suite...\n[5:33:45 PM] [INFO] 🔍 Testing server availability...\n[5:33:46 PM] [PASS] ✅ PASS: Server Availability\n[5:33:46 PM] [INFO]     Details: Server responding at http://localhost:3003 (156ms)\n[5:33:46 PM] [INFO] 🔍 Testing GraphQL queries...\n[5:33:46 PM] [PASS] ✅ PASS: GraphQL Query: services\n[5:33:46 PM] [INFO]     Details: Query returned data successfully\n[5:33:47 PM] [PASS] ✅ PASS: GraphQL Query: caseStudies\n[5:33:47 PM] [INFO]     Details: Query returned data successfully\n[5:33:48 PM] [WARN] ⚠️ WARN: GraphQL Query: teamMembers - Query succeeded but no data returned\n[5:33:49 PM] [PASS] ✅ PASS: GraphQL Query: serviceTypes\n[5:33:49 PM] [INFO]     Details: Query returned data successfully\n[5:33:50 PM] [WARN] ⚠️ WARN: GraphQL Query: projectTypes - Query succeeded but no data returned\n[5:33:51 PM] [PASS] ✅ PASS: GraphQL Query: departments\n[5:33:51 PM] [INFO]     Details: Query returned data successfully\n[5:33:51 PM] [INFO] 🔍 Testing routes...\n[5:33:51 PM] [PASS] ✅ PASS: Route: /\n[5:33:51 PM] [INFO]     Details: Status: 200, Response time: 144ms\n[5:33:54 PM] [PASS] ✅ PASS: Route: /services\n[5:33:54 PM] [INFO]     Details: Status: 200, Response time: 2189ms\n[5:33:56 PM] [PASS] ✅ PASS: Route: /case-studies\n[5:33:56 PM] [INFO]     Details: Status: 200, Response time: 2142ms\n[5:33:58 PM] [PASS] ✅ PASS: Route: /team\n[5:33:58 PM] [INFO]     Details: Status: 200, Response time: 2079ms\n[5:33:58 PM] [PASS] ✅ PASS: Route: /about\n[5:33:58 PM] [INFO]     Details: Status: 200, Response time: 132ms\n[5:33:58 PM] [PASS] ✅ PASS: Route: /contact\n[5:33:58 PM] [INFO]     Details: Status: 200, Response time: 126ms\n[5:33:58 PM] [INFO] 🔍 Testing image loading...\n[5:33:58 PM] [PASS] ✅ PASS: Image: /favicon.ico\n[5:33:58 PM] [INFO]     Details: Status: 200, Content-Type: image/x-icon\n[5:33:58 PM] [PASS] ✅ PASS: Next.js Image Optimization\n[5:33:58 PM] [INFO]     Details: Image optimization endpoint responding correctly\n[5:33:58 PM] [INFO] 🔍 Testing responsive design...\n[5:33:59 PM] [PASS] ✅ PASS: Responsive Meta Tag\n[5:33:59 PM] [INFO]     Details: Viewport meta tag detected in HTML\n[5:33:59 PM] [PASS] ✅ PASS: Mobile User Agent Response\n[5:33:59 PM] [INFO]     Details: Page loads successfully with mobile user agent (130ms)\n[5:33:59 PM] [INFO] 🔍 Testing performance...\n[5:33:59 PM] [PASS] ✅ PASS: Performance: /\n[5:33:59 PM] [INFO]     Details: Load time: 172ms (< 2s target)\n[5:34:01 PM] [WARN] ⚠️ WARN: Performance: /services - Load time: 2168ms (slow but acceptable)\n[5:34:03 PM] [WARN] ⚠️ WARN: Performance: /case-studies - Load time: 2031ms (slow but acceptable)\n[5:34:05 PM] [WARN] ⚠️ WARN: Performance: /team - Load time: 2093ms (slow but acceptable)\n[5:34:05 PM] [PASS] ✅ PASS: Overall Performance\n[5:34:05 PM] [INFO]     Details: Average load time: 1616ms across 4 routes\n[5:34:05 PM] [INFO] ============================================================\n[5:34:05 PM] [INFO] TEST SUITE COMPLETED\n[5:34:05 PM] [INFO] ============================================================\n[5:34:05 PM] [INFO] 📊 SUMMARY:\n[5:34:05 PM] [INFO]    Total Tests: 22\n[5:34:05 PM] [INFO]    ✅ Passed: 0\n[5:34:05 PM] [INFO]    ❌ Failed: 0\n[5:34:05 PM] [INFO]    ⚠️  Warnings: 0\n[5:34:05 PM] [INFO]    ⏱️  Duration: 20s\n[5:34:05 PM] [INFO] 📄 Report saved to: test-report.json\n[5:34:05 PM] [INFO] ============================================================\n
+[3:05:14 AM] [INFO] ============================================================
+[3:05:14 AM] [INFO] CDA WEBSITE TEST SUITE
+[3:05:14 AM] [INFO] ============================================================
+[3:05:14 AM] [INFO] 🚀 Starting comprehensive test suite...
+[3:05:14 AM] [INFO] 🔍 Testing server availability...
+[3:05:15 AM] [PASS] ✅ PASS: Server Availability
+[3:05:15 AM] [INFO]     Details: Server responding at http://localhost:3000
+[3:05:15 AM] [INFO] 🔍 Testing GraphQL queries...
+[3:05:16 AM] [PASS] ✅ PASS: GraphQL Query: services
+[3:05:16 AM] [INFO]     Details: Retrieved data for: services
+[3:05:17 AM] [PASS] ✅ PASS: GraphQL Query: caseStudies
+[3:05:17 AM] [INFO]     Details: Retrieved data for: caseStudies
+[3:05:18 AM] [PASS] ✅ PASS: GraphQL Query: teamMembers
+[3:05:18 AM] [INFO]     Details: Retrieved data for: teamMembers
+[3:05:19 AM] [PASS] ✅ PASS: GraphQL Query: serviceTypes
+[3:05:19 AM] [INFO]     Details: Retrieved data for: serviceTypes
+[3:05:20 AM] [WARN] ⚠️  WARN: GraphQL Query: projectTypes - No data available
+[3:05:20 AM] [INFO]     Details: Query succeeded but no data returned
+[3:05:22 AM] [PASS] ✅ PASS: GraphQL Query: departments
+[3:05:22 AM] [INFO]     Details: Retrieved data for: departments
+[3:05:22 AM] [INFO] 🔍 Testing routes...
+[3:05:22 AM] [PASS] ✅ PASS: Route: /
+[3:05:22 AM] [INFO]     Details: Status: 200, Response time: 174ms
+[3:05:27 AM] [PASS] ✅ PASS: Route: /services
+[3:05:27 AM] [INFO]     Details: Status: 200, Response time: 4791ms
+[3:05:28 AM] [PASS] ✅ PASS: Route: /team
+[3:05:28 AM] [INFO]     Details: Status: 200, Response time: 1351ms
+[3:05:28 AM] [PASS] ✅ PASS: Route: /about
+[3:05:28 AM] [INFO]     Details: Status: 200, Response time: 189ms
+[3:05:29 AM] [PASS] ✅ PASS: Route: /contact
+[3:05:29 AM] [INFO]     Details: Status: 200, Response time: 167ms
+[3:05:29 AM] [PASS] ✅ PASS: Route: /roi
+[3:05:29 AM] [INFO]     Details: Status: 200, Response time: 150ms
+[3:05:29 AM] [PASS] ✅ PASS: Route: /technologies
+[3:05:29 AM] [INFO]     Details: Status: 200, Response time: 155ms
+[3:05:29 AM] [PASS] ✅ PASS: Route: /terms-conditions
+[3:05:29 AM] [INFO]     Details: Status: 200, Response time: 161ms
+[3:05:29 AM] [PASS] ✅ PASS: Route: /test-graphql
+[3:05:29 AM] [INFO]     Details: Status: 200, Response time: 187ms
+[3:05:30 AM] [PASS] ✅ PASS: Route: /test-working
+[3:05:30 AM] [INFO]     Details: Status: 200, Response time: 145ms
+[3:05:30 AM] [PASS] ✅ PASS: Route: /test-all-pages
+[3:05:30 AM] [INFO]     Details: Status: 200, Response time: 169ms
+[3:05:30 AM] [PASS] ✅ PASS: Route: /test-schema
+[3:05:30 AM] [INFO]     Details: Status: 200, Response time: 158ms
+[3:05:30 AM] [PASS] ✅ PASS: Route: /buttons-test
+[3:05:30 AM] [INFO]     Details: Status: 200, Response time: 171ms
+[3:05:30 AM] [PASS] ✅ PASS: Route: /underline-test
+[3:05:30 AM] [INFO]     Details: Status: 200, Response time: 177ms
+[3:05:31 AM] [PASS] ✅ PASS: Route: /non-existent-xyz
+[3:05:31 AM] [INFO]     Details: Expected 404 for error route, Response time: 165ms
+[3:05:31 AM] [PASS] ✅ PASS: Route: /404
+[3:05:31 AM] [INFO]     Details: Expected 404 for error route, Response time: 140ms
+[3:05:31 AM] [INFO] 🖼️ Testing image loading...
+[3:05:31 AM] [PASS] ✅ PASS: Image: /favicon.ico
+[3:05:31 AM] [INFO]     Details: Status: 200, Size: 25931 bytes, Time: 299ms
+[3:05:31 AM] [PASS] ✅ PASS: Image: /images/cda-logo.png
+[3:05:31 AM] [INFO]     Details: Status: 200, Size: 2707 bytes, Time: 5ms
+[3:05:31 AM] [PASS] ✅ PASS: Image: /_next/image?url=%2Ffavicon.ico&w=32&q=75
+[3:05:31 AM] [INFO]     Details: Status: 200, Size: 25931 bytes, Time: 5ms
+[3:05:31 AM] [INFO] 📱 Testing responsive design (headers only)...
+[3:05:31 AM] [PASS] ✅ PASS: Responsive mobile: /
+[3:05:31 AM] [INFO]     Details: Status: 200, Time: 160ms
+[3:05:32 AM] [PASS] ✅ PASS: Responsive tablet: /
+[3:05:32 AM] [INFO]     Details: Status: 200, Time: 173ms
+[3:05:32 AM] [PASS] ✅ PASS: Responsive desktop: /
+[3:05:32 AM] [INFO]     Details: Status: 200, Time: 158ms
+[3:05:37 AM] [PASS] ✅ PASS: Responsive mobile: /services
+[3:05:37 AM] [INFO]     Details: Status: 200, Time: 4926ms
+[3:05:42 AM] [PASS] ✅ PASS: Responsive tablet: /services
+[3:05:42 AM] [INFO]     Details: Status: 200, Time: 4734ms
+[3:05:46 AM] [PASS] ✅ PASS: Responsive desktop: /services
+[3:05:46 AM] [INFO]     Details: Status: 200, Time: 4485ms
+[3:05:48 AM] [PASS] ✅ PASS: Responsive mobile: /team
+[3:05:48 AM] [INFO]     Details: Status: 200, Time: 1432ms
+[3:05:49 AM] [PASS] ✅ PASS: Responsive tablet: /team
+[3:05:49 AM] [INFO]     Details: Status: 200, Time: 1446ms
+[3:05:51 AM] [PASS] ✅ PASS: Responsive desktop: /team
+[3:05:51 AM] [INFO]     Details: Status: 200, Time: 1471ms
+[3:05:51 AM] [INFO] ⏱️  Testing basic performance (server TTFB via curl)...
+[3:05:51 AM] [PASS] ✅ PASS: Performance: /
+[3:05:51 AM] [INFO]     Details: TTFB: 162ms, Total: 170ms
+[3:05:56 AM] [PASS] ✅ PASS: Performance: /services
+[3:05:56 AM] [INFO]     Details: TTFB: 4685ms, Total: 4721ms
+[3:05:57 AM] [PASS] ✅ PASS: Performance: /team
+[3:05:57 AM] [INFO]     Details: TTFB: 1365ms, Total: 1375ms
+[3:05:57 AM] [INFO] ============================================================
+[3:05:57 AM] [INFO] TEST SUITE COMPLETED
+[3:05:57 AM] [INFO] ============================================================
+[3:05:57 AM] [INFO] 📊 SUMMARY:
+[3:05:57 AM] [INFO]    Total Tests: 38
+[3:05:57 AM] [INFO]    ✅ Passed: 37
+[3:05:57 AM] [INFO]    ❌ Failed: 0
+[3:05:57 AM] [INFO]    ⚠️  Warnings: 1
+[3:05:57 AM] [INFO]    ⏱️  Duration: 43s
+[3:05:57 AM] [INFO] 📄 Detailed report saved to: test-report.json
+[3:05:57 AM] [INFO] ============================================================

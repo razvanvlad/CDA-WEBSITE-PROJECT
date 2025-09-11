@@ -1,7 +1,7 @@
 // components/Header.js
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import client from '../lib/graphql/client';
 import { GET_MENU } from '../lib/graphql/queries';
 import BookingModal from './BookingModal';
@@ -15,6 +15,52 @@ export default function Header() {
   const [isCompanyMenuOpen, setIsCompanyMenuOpen] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(true); // toggle for Services list
+
+  const wpBasePath = useMemo(() => {
+    try {
+      const url = process.env.NEXT_PUBLIC_WORDPRESS_URL;
+      if (url) return new URL(url).pathname.replace(/\/$/, '');
+    } catch {}
+    return '';
+  }, []);
+
+  const normalizePath = (path) => {
+    if (!path || typeof path !== 'string') return '/';
+    let p = path;
+    // strip domain part just in case
+    try {
+      if (p.startsWith('http://') || p.startsWith('https://')) {
+        p = new URL(p).pathname;
+      }
+    } catch {}
+    // strip WP base path e.g., /CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend
+    if (wpBasePath && p.startsWith(wpBasePath)) {
+      p = p.slice(wpBasePath.length) || '/';
+    }
+    // strip /index.php prefix
+    if (p.startsWith('/index.php')) {
+      p = p.replace(/^\/index\.php/, '') || '/';
+    }
+    // ensure leading slash
+    if (!p.startsWith('/')) p = '/' + p;
+    // collapse multiple slashes
+    p = p.replace(/\/+/g, '/');
+    return p === '' ? '/' : p;
+  };
+
+  // Helper to normalize menu hrefs to internal app paths
+  const resolveHref = (item) => {
+    const uri = item?.connectedNode?.node?.uri;
+    if (typeof uri === 'string' && uri.length > 0) return normalizePath(uri);
+    const url = item?.url;
+    try {
+      if (typeof url === 'string' && url.length > 0) {
+        const u = new URL(url, typeof window !== 'undefined' ? window.location.origin : 'http://localhost');
+        return normalizePath(u.pathname || '/');
+      }
+    } catch (e) {}
+    return '/';
+  };
 
   // Initialize Services section collapsed on mobile so main links are visible there by default
   useEffect(() => {
@@ -58,11 +104,12 @@ export default function Header() {
     'AI'
   ];
 
-  const servicesParent = menuNodes.find(
+  const servicesParent = useMemo(() => menuNodes.find(
     (n) => n?.label?.toLowerCase() === 'services' || (typeof n?.url === 'string' && n.url.toLowerCase().includes('/services'))
-  );
-  const servicesChildren = servicesParent ? menuNodes.filter((n) => n.parentId === servicesParent.id) : [];
-  const servicesFromLabels = menuNodes.filter((n) => servicesLabels.includes((n?.label || '').trim()));
+  ), [menuNodes]);
+
+  const servicesChildren = useMemo(() => servicesParent ? menuNodes.filter((n) => n.parentId === servicesParent.id) : [], [menuNodes, servicesParent]);
+  const servicesFromLabels = useMemo(() => menuNodes.filter((n) => servicesLabels.includes((n?.label || '').trim())), [menuNodes]);
   const servicesMenu = (servicesChildren && servicesChildren.length > 0) ? servicesChildren : servicesFromLabels;
 
   return (
@@ -107,7 +154,7 @@ export default function Header() {
                 menuItems.map((item) => (
                   <a
                     key={item.id}
-                    href={item.url}
+                    href={resolveHref(item)}
                     className="nav-link"
                     style={{ fontFamily: 'Inter', fontSize: '18px', fontWeight: '600' }}
                   >
@@ -148,7 +195,7 @@ export default function Header() {
                 {menuItems.map((item) => (
                   <a
                     key={item.id}
-                    href={item.url}
+                    href={resolveHref(item)}
                     className="text-black hover:text-black transition-colors font-medium"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
@@ -173,7 +220,7 @@ export default function Header() {
       )}
 
       {/* Side Menu */}
-      <div className={`fixed top-0 right-0 h-full w-full md:w-[430px] bg-black shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${
+      <div className={`fixed top-0 right-0 h-full w/full md:w-[430px] bg-black shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${
         isSideMenuOpen ? 'translate-x-0' : 'translate-x-full'
       }`}>
         <div className="flex flex-col h-full">
@@ -235,7 +282,7 @@ export default function Header() {
                     .map((svc) => (
                       <li key={svc.id}>
                         <a
-                          href={svc.url}
+                          href={resolveHref(svc)}
                           className="side-menu-item"
                           onClick={() => {
                             setIsSideMenuOpen(false);
@@ -299,20 +346,13 @@ export default function Header() {
                   <a href="#" aria-label="YouTube" className="side-menu-social">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.8 8.2a3 3 0 0 0-2.1-2.1C17.7 5.5 12 5.5 12 5.5s-5.7 0-7.7.6A3 3 0 0 0 2.2 8.2 31.4 31.4 0 0 0 1.8 12a31.4 31.4 0 0 0 .4 3.8 3 3 0 0 0 2.1 2.1c2 .6 7.7.6 7.7.6s5.7 0 7.7-.6a3 3 0 0 0 2.1-2.1c.3-1.2.4-2.5.4-3.8 0-1.3-.1-2.6-.4-3.8zM10 14.7V9.3l4.8 2.7L10 14.7z"/></svg>
                   </a>
-                  <a href="#" aria-label="TikTok" className="side-menu-social">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 8.5a7 7 0 0 1-4-1.3v7.1a6.3 6.3 0 1 1-5.4-6.3v3a3.3 3.3 0 1 0 2.3 3.1V2h3a4 4 0 0 0 4 4v2.5z"/></svg>
-                  </a>
                 </div>
               </div>
             </nav>
           </div>
-
-          {/* Side Menu Footer (optional placeholder to keep spacing) */}
-          <div className="p-6"></div>
         </div>
       </div>
 
-      {/* Booking Modal */}
       {isBookingModalOpen && (
         <BookingModal isOpen={isBookingModalOpen} onClose={() => setIsBookingModalOpen(false)} />
       )}

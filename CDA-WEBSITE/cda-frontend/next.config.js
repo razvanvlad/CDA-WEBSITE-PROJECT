@@ -1,31 +1,42 @@
-// CDA-WEBSITE-PROJECT/CDA-WEBSITE/cda-frontend/next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  images: {
-    domains: ['localhost', 'cda.group'],
-  },
   env: {
-    // Point to the correct local WordPress instance
     NEXT_PUBLIC_WORDPRESS_URL: 'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend',
-    // Explicit GraphQL endpoint used by apollo clients
-    NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT: 'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/graphql',
+    NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT: '/api/wp-graphql',
+    // Ensure server-side relative endpoints resolve correctly on Windows (avoid IPv6 localhost issues)
+    NEXT_PUBLIC_SITE_URL: 'http://127.0.0.1:3000',
+    SITE_URL: 'http://127.0.0.1:3000',
+  },
+  // Allow Next/Image to optimize images served from local WordPress uploads
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '',
+        pathname: '/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/wp-content/uploads/**',
+      },
+    ],
   },
   async redirects() {
     return [
-      // Temporary: fix casing mismatch and missing route
-      { source: '/eCommerce', destination: '/services/ecommerce', permanent: false },
-      // Temporary: avoid 404 until Sectors page is implemented
-      { source: '/sectors', destination: '/services', permanent: false },
+      { source: '/eCommerce', destination: '/services/ecommerce', permanent: true },
+      { source: '/sectors', destination: '/services', permanent: true },
     ];
   },
   async rewrites() {
+    const wpBase = process.env.NEXT_PUBLIC_WORDPRESS_URL || 'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend';
     return [
-      // Map legacy WordPress blog permalinks to Next.js dynamic route
-      { source: '/index.php/blog/:slug', destination: '/news-article/:slug' },
-      { source: '/index.php/blog/:slug/', destination: '/news-article/:slug' },
-      { source: '/blog/:slug', destination: '/news-article/:slug' },
-      { source: '/blog/:slug/', destination: '/news-article/:slug' },
+      // Proxy GraphQL to WP
+      {
+        source: '/api/wp-graphql',
+        destination: `${wpBase.replace(/\/$/, '')}/graphql`,
+      },
+      // Legacy blog permalink structure to Next.js route
+      {
+        source: '/blog/:year/:month/:day/:slug',
+        destination: '/news-article/:slug',
+      },
     ];
   },
 };

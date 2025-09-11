@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   authors: [{ name: "CDA Website Solutions" }],
   creator: "CDA Website Solutions",
   publisher: "CDA Website Solutions",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://cda-website-solutions.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   alternates: {
     canonical: '/'
   },
@@ -122,9 +122,96 @@ export default function RootLayout({
     }
   };
 
+  // Safely derive the WordPress GraphQL origin for preconnect/dns-prefetch
+  const wpGraphQLEndpoint = process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT || 'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/graphql';
+  let wpGraphQLOrigin: string | null = null;
+  try {
+    wpGraphQLOrigin = new URL(wpGraphQLEndpoint).origin;
+  } catch {
+    wpGraphQLOrigin = null;
+  }
+
+  // Minimal, non-intrusive performance observer that logs key metrics
+  const perfObserverScript = `(() => { try {
+    if (typeof window === 'undefined') return;
+    const state = { lcp: null, cls: 0, inp: null, ttfb: null };
+    // Expose initial state immediately
+    try { window.__PERF__ = state; } catch (_) {}
+    // TTFB from navigation timing
+    const nav = performance.getEntriesByType('navigation');
+    if (nav && nav[0]) { state.ttfb = Math.round(nav[0].responseStart); }
+
+    // CLS observer
+    let clsValue = 0;
+    if ('PerformanceObserver' in window) {
+      try {
+        const clsObserver = new PerformanceObserver((list) => {
+          list.getEntries().forEach((entry) => {
+            const anyEntry = entry; // JS runtime
+            if (!document.hidden && !(anyEntry.hadRecentInput)) {
+              clsValue += anyEntry.value || 0;
+              state.cls = Math.round((clsValue + Number.EPSILON) * 1000) / 1000;
+              window.__PERF__ = state;
+            }
+          });
+        });
+        clsObserver.observe({ type: 'layout-shift', buffered: true });
+      } catch (_) {}
+
+      // LCP observer
+      let lcpEntry = null;
+      try {
+        const lcpObserver = new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          lcpEntry = entries[entries.length - 1] || lcpEntry;
+          if (lcpEntry) { state.lcp = Math.round(lcpEntry.startTime); window.__PERF__ = state; }
+        });
+        lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
+      } catch (_) {}
+
+      // INP approximation via long-duration event entries
+      try {
+        if ('PerformanceEventTiming' in window) {
+          const inpObserver = new PerformanceObserver((list) => {
+            const entries = list.getEntries();
+            const last = entries[entries.length - 1];
+            if (last) { state.inp = Math.round(last.duration); window.__PERF__ = state; }
+          });
+          inpObserver.observe({ type: 'event', buffered: true, durationThreshold: 40 });
+        }
+      } catch (_) {}
+
+      const report = () => {
+        try {
+          const lcpEntries = performance.getEntriesByType('largest-contentful-paint');
+          const lcp = lcpEntries && lcpEntries.length ? lcpEntries[lcpEntries.length - 1] : null;
+          state.lcp = lcp ? Math.round(lcp.startTime) : state.lcp;
+          state.cls = Math.round((clsValue + Number.EPSILON) * 1000) / 1000;
+          window.__PERF__ = state;
+          console.log('[web-vitals]', state);
+        } catch (e) {}
+      };
+
+      // Also update on load so values become available during active session
+      window.addEventListener('load', report, { once: true });
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') report();
+      }, { once: true });
+      window.addEventListener('pagehide', report, { once: true });
+    }
+  } catch (e) { /* swallow */ }})();`;
+
   return (
     <html lang="en">
       <head>
+        {/* Resource Hints for WordPress GraphQL */}
+        {wpGraphQLOrigin && (
+          <>
+            <link rel="dns-prefetch" href={wpGraphQLOrigin} />
+            <link rel="preconnect" href={wpGraphQLOrigin} crossOrigin="anonymous" />
+          </>
+        )}
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -137,6 +224,8 @@ export default function RootLayout({
             __html: JSON.stringify(websiteSchema),
           }}
         />
+        {/* Lightweight performance observer */}
+        <script dangerouslySetInnerHTML={{ __html: perfObserverScript }} />
       </head>
       <body className={`${poppins.variable} antialiased`}>
         {children}

@@ -1,13 +1,58 @@
 // components/Footer.js
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import client from '../lib/graphql/client'
 import { GET_FOOTER_MENU } from '../lib/graphql/queries'
 
 export default function Footer({ globalOptions }) {
   const [menuItems, setMenuItems] = useState([])
   const [loading, setLoading] = useState(true)
+
+  // Derive WP base path once, e.g., /CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend
+  const wpBasePath = useMemo(() => {
+    try {
+      const url = process.env.NEXT_PUBLIC_WORDPRESS_URL
+      if (url) return new URL(url).pathname.replace(/\/$/, '')
+    } catch {}
+    return ''
+  }, [])
+
+  const normalizePath = (path) => {
+    if (!path || typeof path !== 'string') return '/'
+    let p = path
+    // If absolute URL, reduce to pathname
+    try {
+      if (p.startsWith('http://') || p.startsWith('https://')) {
+        p = new URL(p).pathname
+      }
+    } catch {}
+    // Strip WP base path
+    if (wpBasePath && p.startsWith(wpBasePath)) {
+      p = p.slice(wpBasePath.length) || '/'
+    }
+    // Strip index.php prefix
+    if (p.startsWith('/index.php')) {
+      p = p.replace(/^\/index\.php/, '') || '/'
+    }
+    // Ensure leading slash and collapse duplicates
+    if (!p.startsWith('/')) p = '/' + p
+    p = p.replace(/\/+/g, '/')
+    return p === '' ? '/' : p
+  }
+
+  const resolveHref = (item) => {
+    const uri = item?.connectedNode?.node?.uri
+    if (typeof uri === 'string' && uri.length > 0) return normalizePath(uri)
+    const url = item?.url
+    try {
+      if (typeof url === 'string' && url.length > 0) {
+        const u = new URL(url, typeof window !== 'undefined' ? window.location.origin : 'http://localhost')
+        return normalizePath(u.pathname || '/')
+      }
+    } catch (e) {}
+    return '/'
+  }
 
   useEffect(() => {
     const fetchFooterMenu = async () => {
@@ -52,7 +97,7 @@ export default function Footer({ globalOptions }) {
               <div className="flex flex-wrap gap-x-6 gap-y-2">
                 {menuItems && menuItems.length > 0 ? (
                   menuItems.map((item) => (
-                    <a key={item.id} href={item.url} className="text-[14px] text-[#0B0B0E] hover:underline">
+                    <a key={item.id} href={resolveHref(item)} className="text:[14px] text-[#0B0B0E] hover:underline">
                       {item.label}
                     </a>
                   ))

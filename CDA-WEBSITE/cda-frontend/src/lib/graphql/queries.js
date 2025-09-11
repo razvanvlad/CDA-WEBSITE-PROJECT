@@ -7,107 +7,58 @@ export const GET_HOMEPAGE_CONTENT = gql`
     page(id: $id, idType: DATABASE_ID) {
       id
       title
-      
+
       # Homepage-specific content
       homepageContent {
         headerSection {
           title
           subtitle
-          primaryCta {
-            url
-            title
-            target
-          }
-          secondaryCta {
-            url
-            title
-            target
-          }
-          desktopImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
+          primaryCta { url title target }
+          secondaryCta { url title target }
+          desktopImage { node { sourceUrl altText } }
         }
-        
+
         whoWeAreSection {
           title
           subtitle
-          image {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-          button {
-            url
-            title
-            target
-          }
+          image { node { sourceUrl altText } }
+          button { url title target }
         }
-        
+
         servicesAccordion {
           title
           description
-          link {
-            url
-            title
-            target
-          }
+          link { url title target }
         }
-        
+
         platformsSection {
           title
           subtitle
-          logos {
-            logo {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
+          logos { logo { node { sourceUrl altText } } }
         }
-        
+
         valuesSection {
           title
-          valueItems {
-            title
-            description
-          }
+          valueItems { title description }
         }
-        
+
         caseStudiesSection {
           title
-          caseStudies {
-            nodes {
-              id
-              title
-              # Add other case study fields as needed
-            }
-          }
+          caseStudies { nodes { id title } }
         }
-        
+
         newsletterSection {
           title
           subtitle
         }
       }
-      
+
       # Page-level global block overrides (optional)
       globalBlockOverrides {
-        whyCdaOverride {
-          overrideWhyCda
-          # Custom Why CDA fields would go here if override is enabled
-        }
-        
-        approachOverride {
-          overrideApproach
-          # Custom approach fields would go here if override is enabled
-        }
+        whyCdaOverride { overrideWhyCda }
+        approachOverride { overrideApproach }
       }
-      
+
       # SEO Settings
       seoSettings {
         seoTitle
@@ -118,872 +69,26 @@ export const GET_HOMEPAGE_CONTENT = gql`
         canonicalUrl
       }
     }
-    
+
     # Global Options - Contains both Why CDA and Approach blocks
     globalOptions {
-      globalSharedContent {
-        
-        # Why CDA Block - Global content
+      globalContentBlocks {
         whyCdaBlock {
           title
           subtitle
-          cards {
-            title
-            description
-            image {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
+          cards { title description image { node { sourceUrl altText } } }
         }
-        
-        # Approach Block - Global content  
-        approachBlock {
+        approach {
           title
           subtitle
-          steps {
-            stepNumber
-            title
-            description
-            image {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-        }
-        
-      }
-    }
-  }
-`;
-
-// B2B Lead Generation Query (ID: 775)
-export const GET_B2B_LEAD_GENERATION_CONTENT = gql`
-  query GET_B2B_LEAD_GENERATION {
-    page(id: "775", idType: DATABASE_ID) {
-      id
-      title
-      slug
-      uri
-      b2bLeadGenerationContent {
-        headerSection {
-          title
-          subtitle
-          desktopImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-          mobileImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-        servicesSection {
-          title
-          servicesItems {
-            icon {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            title
-            description
-          }
-        }
-        strategySection {
-          title
-          content
-          strategySteps {
-            stepNumber
-            title
-            description
-          }
-        }
-        testimonialsSection {
-          title
-          testimonialsItems {
-            content
-            author
-            position
-            company
-          }
-        }
-        ctaSection {
-          title
-          content
-          button {
-            url
-            title
-            target
-          }
+          steps { stepNumber title description image { node { sourceUrl altText } } }
         }
       }
     }
   }
 `;
 
-// Software Development Query (ID: 777) - ❌ ACF field not exposed to GraphQL
-export const GET_SOFTWARE_DEVELOPMENT_CONTENT = gql`
-  query GET_SOFTWARE_DEVELOPMENT {
-    page(id: "777", idType: DATABASE_ID) {
-      id
-      title
-      slug
-      uri
-      # softwareDevelopmentContent field is not available in GraphQL
-      # Need to configure ACF field group to "Show in GraphQL"
-    }
-  }
-`;
-
-// Booking Systems Query (ID: 779)
-export const GET_BOOKING_SYSTEMS_CONTENT = gql`
-  query GET_BOOKING_SYSTEMS {
-    page(id: "779", idType: DATABASE_ID) {
-      id
-      title
-      slug
-      uri
-      bookingSystemsContent {
-        headerSection {
-          title
-          subtitle
-          desktopImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-        featuresSection {
-          title
-          featuresItems {
-            icon {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            title
-            description
-          }
-        }
-        integrationsSection {
-          title
-          content
-          integrationsLogos {
-            name
-            logo {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-        }
-        demoSection {
-          title
-          content
-          demoVideo
-          demoButton {
-            url
-            title
-            target
-          }
-        }
-        ctaSection {
-          title
-          content
-          button {
-            url
-            title
-            target
-          }
-        }
-      }
-    }
-  }
-`;
-
-// Digital Marketing Query (ID: 781)
-export const GET_DIGITAL_MARKETING_CONTENT = gql`
-  query GET_DIGITAL_MARKETING {
-    page(id: "781", idType: DATABASE_ID) {
-      id
-      title
-      slug
-      uri
-      digitalMarketingContent {
-        headerSection {
-          title
-          subtitle
-          desktopImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-        servicesSection {
-          title
-          intro
-          servicesItems {
-            icon {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            title
-            description
-            features
-          }
-        }
-        strategySection {
-          title
-          content
-          strategySteps {
-            stepNumber
-            title
-            description
-          }
-        }
-        toolsSection {
-          title
-          content
-          toolsLogos {
-            name
-            logo {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-        }
-        resultsSection {
-          title
-          content
-          stats {
-            number
-            label
-          }
-        }
-        ctaSection {
-          title
-          content
-          button {
-            url
-            title
-            target
-          }
-        }
-      }
-    }
-  }
-`;
-
-// Outsourced CMO Query (ID: 783)
-export const GET_OUTSOURCED_CMO_CONTENT = gql`
-  query GET_OUTSOURCED_CMO {
-    page(id: "783", idType: DATABASE_ID) {
-      id
-      title
-      slug
-      uri
-      outsourcedCmoContent {
-        headerSection {
-          title
-          subtitle
-          desktopImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-        introSection {
-          title
-          content
-        }
-        servicesSection {
-          title
-          content
-          servicesItems {
-            icon {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            title
-            description
-          }
-        }
-        benefitsSection {
-          title
-          content
-          benefitsItems {
-            number
-            title
-            description
-          }
-        }
-        processSection {
-          title
-          content
-          processSteps {
-            stepNumber
-            title
-            description
-          }
-        }
-        testimonialsSection {
-          title
-          testimonialsItems {
-            content
-            author
-            position
-            company
-            photo {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-        }
-        ctaSection {
-          title
-          content
-          button {
-            url
-            title
-            target
-          }
-        }
-      }
-    }
-  }
-`;
-
-export const GET_AI_CONTENT = gql`
-  query GET_AI_CONTENT {
-  page(id: "785", idType: DATABASE_ID) {
-    id
-    title
-    aiContent {
-      headerSection {
-        title
-        subtitle
-        desktopImage {
-          node {
-            sourceUrl
-            altText
-          }
-        }
-      }
-      introSection {
-        title
-        content
-      }
-      servicesSection{
-        title
-        servicesItems{
-          title
-          description
-        }
-      }
-      benefitsSection{
-        title
-        content
-        benefitsItems{
-          title
-          description
-        }
-      }
-      ctaSection{
-        title
-        content
-        button {
-          target
-          title
-          url
-        }
-      }
-    }
-  }
-}
-`;
-
-
-// Knowledge Hub Query (ID: 787)
-export const GET_KNOWLEDGE_HUB_CONTENT = gql`
-  query GET_KNOWLEDGE_HUB {
-    page(id: "787", idType: DATABASE_ID) {
-      id
-      title
-      slug
-      uri
-      knowledgeHubContent {
-        headerSection {
-          title
-          subtitle
-          headerImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-        categoriesSection {
-          title
-          categoriesItems {
-            icon {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            title
-            description
-            link {
-              url
-              title
-              target
-            }
-          }
-        }
-        featuredSection {
-          title
-          featuredItems {
-            image {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            title
-            excerpt
-            link {
-              url
-              title
-              target
-            }
-          }
-        }
-        searchSection {
-          title
-          searchPlaceholder
-          description
-        }
-        newsletterSection {
-          title
-          description
-          formShortcode
-        }
-      }
-    }
-    caseStudies(first: 50) {
-      nodes {
-        id
-        title
-        slug
-        date
-        excerpt
-        featuredImage {
-          node {
-            sourceUrl
-            altText
-          }
-        }
-        caseStudyFields {
-          projectOverview {
-            clientName
-          }
-          featured
-        }
-        projectTypes {
-          nodes {
-            name
-            slug
-          }
-        }
-      }
-    }
-    posts(first: 50) {
-      nodes {
-        id
-        title
-        slug
-        date
-        excerpt
-        featuredImage {
-          node {
-            sourceUrl
-            altText
-          }
-        }
-        categories {
-          nodes {
-            name
-            slug
-          }
-        }
-      }
-    }
-  }
-`;
-
-// Project Case Study Query (ID: 789)
-export const GET_CASE_STUDY_CONTENT = gql`
-  query GET_CASE_STUDY {
-    page(id: "789", idType: DATABASE_ID) {
-      id
-      title
-      slug
-      uri
-      caseStudyOakleighContent {
-        headerSection {
-          title
-          subtitle
-          clientName
-          projectType
-          projectDuration
-          featuredImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-        challengeSection {
-          title
-          content
-          challenges {
-            title
-            description
-          }
-        }
-        solutionSection {
-          title
-          content
-          solutions {
-            title
-            description
-            image {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-        }
-        resultsSection {
-          title
-          content
-          results {
-            metric
-            value
-            description
-          }
-        }
-        technologiesSection {
-          title
-          technologies {
-            name
-            logo {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-        }
-        ctaSection {
-          title
-          content
-          button {
-            url
-            title
-            target
-          }
-        }
-      }
-    }
-  }
-`;
-
-// Contact Query (ID: 791)
-export const GET_CONTACT_CONTENT = gql`
-  query GET_CONTACT {
-    page(id: "791", idType: DATABASE_ID) {
-      id
-      title
-      slug
-      uri
-      contactContent {
-        headerSection {
-          title
-          subtitle
-        }
-        contactInfo {
-          phone
-          email
-          address
-          workingHours
-        }
-        contactForm {
-          title
-          description
-          submitButtonText
-        }
-        locationSection {
-          title
-          address
-          mapEmbedCode
-        }
-        ctaSection {
-          title
-          content
-        }
-      }
-    }
-  }
-`;
-
-// Terms & Conditions Query (ID: 793)
-export const GET_TERMS_CONDITIONS_CONTENT = gql`
-  query GET_TERMS_CONDITIONS {
-    page(id: "793", idType: DATABASE_ID) {
-      id
-      title
-      slug
-      uri
-      termsConditionsContent {
-        headerSection {
-          title
-          lastUpdated
-        }
-        sections {
-          title
-          content
-        }
-      }
-    }
-  }
-`;
-
-// 404 Error Page Query (ID: 795)
-export const GET_404_CONTENT = gql`
-  query GET_404 {
-    page(id: "795", idType: DATABASE_ID) {
-      id
-      title
-      slug
-      uri
-      error404Content {
-        mainSection {
-          title
-          subtitle
-          message
-          image {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-        actionsSection {
-          title
-          homeButton {
-            url
-            title
-            target
-          }
-          contactButton {
-            url
-            title
-            target
-          }
-        }
-        searchSection {
-          title
-          searchPlaceholder
-        }
-        suggestionsSection {
-          title
-          suggestionsItems {
-            title
-            link {
-              url
-              title
-              target
-            }
-            description
-          }
-        }
-      }
-    }
-  }
-`;
-
-// (Removed duplicate - see complete query below)
-
-export const GET_MENU = gql`
-  query GetMenu {
-    primaryMenu: menu(id: "primary", idType: SLUG) {
-      menuItems {
-        nodes {
-          id
-          label
-          url
-          parentId
-          order
-        }
-      }
-    }
-  }
-`;
-
-// Footer Menu (slug: footer)
-export const GET_FOOTER_MENU = gql`
-  query GetFooterMenu {
-    footerMenu: menu(id: "footer", idType: SLUG) {
-      menuItems {
-        nodes {
-          id
-          label
-          url
-          parentId
-          order
-        }
-      }
-    }
-  }
-`;
-
-export const GET_WHY_CDA_GLOBAL = gql`
-  query GetWhyCdaGlobal {
-    globalBlocks: acfOptionsGlobalBlocks {
-      whyCdaTitle
-      whyCdaSubtitle
-      whyCdaCards {
-        title
-        description
-        image {
-          sourceUrl
-          altText
-        }
-      }
-    }
-  }
-`;
-
-// About Us Page Content Query - matches ACF structure
-export const GET_ABOUT_US_CONTENT = gql`
-  query GET_ABOUT_US_CONTENT($id: ID!, $idType: PageIdType) {
-    page(id: $id, idType: $idType) {
-      id
-      title
-      aboutUsContent {
-        contentPageHeader {
-          title
-          text
-          cta {
-            url
-            title
-            target
-          }
-        }
-        whoWeAreSection {
-          imageWithFrame {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-          sectionTitle
-          sectionText
-          cta {
-            url
-            title
-            target
-          }
-        }
-        leadershipSection {
-          image {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-          name
-          position
-          bio
-        }
-        globalContentSelection {
-          enableImageFrame
-          enableServicesAccordion
-          enableWhyCda
-          enableShowreel
-          enableCultureGallerySlider
-          enableApproach
-          enableFullVideo
-          enableJoinOurTeam
-          enableThreeColumnsWithIcons
-          enableContactFormLeftImageRight
-          enableTechnologiesSlider
-          enableValues
-          enableStatsImage
-          enableLocationsImage
-          enableNewsCarousel
-          enableNewsletterSignup
-        }
-      }
-    }
-  }
-`;
-
-// Optional About page toggles (for backward compatibility)
-export const GET_ABOUT_TOGGLES = gql`
-  query GET_ABOUT_TOGGLES($id: ID!, $idType: PageIdType) {
-    page(id: $id, idType: $idType) {
-      id
-      aboutUsContent {
-        globalContentSelection {
-          enableImageFrame
-          enableServicesAccordion
-          enableWhyCda
-          enableShowreel
-          enableCultureGallerySlider
-          enableApproach
-          enableFullVideo
-          enableJoinOurTeam
-          enableThreeColumnsWithIcons
-          enableContactFormLeftImageRight
-          enableTechnologiesSlider
-          enableValues
-          enableStatsImage
-          enableLocationsImage
-          enableNewsCarousel
-          enableNewsletterSignup
-        }
-      }
-    }
-  }
-`;
-
-// NEW: Global Content Blocks Query - matches our clean ACF structure
+// Replace legacy export with new one or keep both if referenced elsewhere
 export const GET_GLOBAL_CONTENT_BLOCKS = gql`
   query GetGlobalContentBlocks {
     globalOptions {
@@ -1000,31 +105,13 @@ export const GET_GLOBAL_CONTENT_BLOCKS = gql`
         servicesAccordion {
           title
           subtitle
-          illustration {
-            node { sourceUrl altText }
-          }
-          services {
-            nodes {
-              ... on Service {
-                id
-                title
-                uri
-              }
-            }
-          }
+          illustration { node { sourceUrl altText } }
+          services { nodes { ... on Service { id title uri } } }
         }
         technologiesSlider {
           title
           subtitle
-          logos {
-            nodes {
-              ... on Technology {
-                id
-                title
-                uri
-              }
-            }
-          }
+          logos { nodes { ... on Technology { id title uri } } }
         }
         valuesBlock {
           title
@@ -1035,11 +122,7 @@ export const GET_GLOBAL_CONTENT_BLOCKS = gql`
         whyCdaBlock {
           title
           subtitle
-          cards {
-            title
-            description
-            image { node { sourceUrl altText } }
-          }
+          cards { title description image { node { sourceUrl altText } } }
         }
         showreel {
           title
@@ -1051,10 +134,7 @@ export const GET_GLOBAL_CONTENT_BLOCKS = gql`
         locationsImage {
           title
           subtitle
-          countries {
-            countryName
-            offices { name address email phone }
-          }
+          countries { countryName offices { name address email phone } }
           illustration { node { sourceUrl altText } }
         }
         newsCarousel {
@@ -1062,17 +142,7 @@ export const GET_GLOBAL_CONTENT_BLOCKS = gql`
           subtitle
           articleSelection
           category { nodes { name slug } }
-          manualArticles {
-            nodes {
-              ... on Post {
-                id
-                title
-                excerpt
-                uri
-                featuredImage { node { sourceUrl altText } }
-              }
-            }
-          }
+          manualArticles { nodes { ... on Post { id title excerpt uri featuredImage { node { sourceUrl altText } } } } }
         }
         newsletterSignup {
           title
@@ -1095,15 +165,9 @@ export const GET_GLOBAL_CONTENT_BLOCKS = gql`
         approach {
           title
           subtitle
-          steps {
-            image { node { sourceUrl altText } }
-            title
-          }
+          steps { image { node { sourceUrl altText } } title }
         }
-        fullVideo {
-          url
-          file { node { mediaItemUrl } }
-        }
+        fullVideo { url file { node { mediaItemUrl } } }
         joinOurTeam {
           leftMediaType
           leftImage { node { sourceUrl altText } }
@@ -1117,120 +181,108 @@ export const GET_GLOBAL_CONTENT_BLOCKS = gql`
           rightVideo { node { mediaItemUrl } }
           rightGif { node { sourceUrl altText } }
         }
-        columnsWithIcons3X {
-          title
-          subtitle
-          columns { iconClass title description }
-        }
-        contactFormLeftImageRight {
-          title
-          subtitle
-          formShortcode
-          image { node { sourceUrl altText } }
-        }
+        columnsWithIcons3X { title subtitle columns { iconClass title description } }
+        contactFormLeftImageRight { title subtitle formShortcode image { node { sourceUrl altText } } }
       }
     }
   }
 `;
 
-// Global Shared Content (WhyCdaBlock and ApproachBlock)
-export const GET_GLOBAL_SHARED_CONTENT = gql`
-  query GetGlobalSharedContent {
-    globalOptions {
-      globalSharedContent {
-        whyCdaBlock {
-          title
-          subtitle
-          cards {
-            title
-            description
-            image {
-              node { sourceUrl altText }
+// Remove or deprecate legacy GET_GLOBAL_SHARED_CONTENT block
+// export const GET_GLOBAL_SHARED_CONTENT = ... (deprecated)
+
+export const GET_FOOTER_MENU = gql`
+  query GetFooterMenu {
+    footerMenu: menu(id: FOOTER, idType: LOCATION) {
+      menuItems(first: 100) {
+        nodes {
+          id
+          parentId
+          label
+          url
+          connectedNode {
+            node {
+              ... on MenuItemLinkable {
+                uri
+              }
             }
           }
         }
-        approachBlock {
-          title
-          subtitle
-          steps {
-            stepNumber
-            title
-            description
-            image { node { sourceUrl altText } }
+      }
+    }
+  }
+`;
+export const GET_MENU = gql`
+  query GetPrimaryMenu {
+    primaryMenu: menu(id: PRIMARY, idType: LOCATION) {
+      menuItems(first: 100) {
+        nodes {
+          id
+          parentId
+          label
+          url
+          connectedNode {
+            node {
+              ... on MenuItemLinkable {
+                uri
+              }
+            }
           }
         }
       }
     }
   }
 `;
-
-// NEW: Homepage Content Query - matches our clean ACF structure
-export const GET_HOMEPAGE_CONTENT_CLEAN = gql`
-  query GetHomepageContentClean {
-    page(id: "289", idType: DATABASE_ID) {
+export const GET_TERMS_CONDITIONS_CONTENT = gql`
+  query GetTermsConditionsContent {
+    page(id: "/terms-conditions", idType: URI) {
       id
       title
-      homepageContentClean {
+      slug
+      uri
+      termsConditionsContent {
         headerSection {
           title
-          text
-          button1 {
-            url
-            title
-            target
-          }
-          button2 {
-            url
-            title
-            target
-          }
-          illustration {
-            node {
-              sourceUrl
-              altText
-            }
-          }
+          lastUpdated
         }
-        projectsSection {
+        sections {
           title
-          subtitle
-          link {
-            url
-            title
-            target
-          }
-        }
-        caseStudiesSection {
-          subtitle
-          title
-          knowledgeHubLink {
-            url
-            title
-            target
-          }
-          selectedStudies {
-            ... on CaseStudy {
-              id
-              title
-              uri
-            }
-          }
-        }
-        globalContentSelection {
-          enableImageFrame
-          enableServicesAccordion
-          enableTechnologiesSlider
-          enableValues
-          enableShowreel
-          enableStatsImage
-          enableLocationsImage
-          enableNewsCarousel
-          enableNewsletterSignup
+          content
         }
       }
     }
   }
 `;
-
-// LEGACY: Keep old query for backward compatibility (commented out)
-// export const GET_GLOBAL_CONTENT = gql`
+export const GET_404_CONTENT = gql`
+  query Get404Content {
+    page(id: "/404", idType: URI) {
+      id
+      title
+      error404Content {
+        mainSection {
+          title
+          subtitle
+          message
+          image { node { sourceUrl altText } }
+        }
+        actionsSection {
+          title
+          homeButton { url title target }
+          contactButton { url title target }
+        }
+        searchSection {
+          title
+          searchPlaceholder
+        }
+        suggestionsSection {
+          title
+          suggestionsItems {
+            title
+            description
+            link { url title target }
+          }
+        }
+      }
+    }
+  }
+`;
