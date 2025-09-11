@@ -9,6 +9,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://cdanewwebsite.wpenginepowered.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://cdanewwebsite.wpenginepowered.com" />
+      </head>
       <body className="bg-white">
         {children}
       </body>

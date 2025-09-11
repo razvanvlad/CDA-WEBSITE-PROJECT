@@ -2,6 +2,7 @@
 'use client'
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import client from '../lib/graphql/client';
 import { GET_MENU } from '../lib/graphql/queries';
 import BookingModal from './BookingModal';
@@ -56,7 +57,7 @@ export default function Header() {
     { id: 'fallback-ecommerce', label: 'eCommerce', url: '/services/ecommerce' },
     { id: 'fallback-b2b-lead', label: 'B2B Lead Generation', url: '/services/b2b-lead-generation' },
     { id: 'fallback-software-dev', label: 'Software Development', url: '/services/software-development' },
-    { id: 'fallback-booking', label: 'Booking Systems', url: '/franchise-booking-systems' },
+    { id: 'fallback-booking', label: 'Booking Systems', url: '/services/franchise-booking-systems' },
     { id: 'fallback-digital-marketing', label: 'Digital Marketing', url: '/services/digital-marketing' },
     { id: 'fallback-outsourced-cmo', label: 'Outsourced CMO', url: '/services/outsourced-cmo' },
     { id: 'fallback-ai', label: 'AI', url: '/services/ai' }
@@ -101,10 +102,12 @@ export default function Header() {
             {/* Logo */}
             <div className="flex items-center">
               <a href="/" aria-label="Go to homepage">
-                <img 
+<Image 
                   src="/images/cda-logo.svg" 
                   alt="CDA Logo" 
-                  className="h-8 w-auto"
+                  width={120}
+                  height={32}
+                  priority
                 />
               </a>
             </div>
@@ -190,10 +193,11 @@ export default function Header() {
           {/* Side Menu Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-800">
             <a href="/" aria-label="Go to homepage">
-              <img 
+<Image 
                 src="/images/cda-logo-white.svg" 
                 alt="CDA Logo" 
-                className="h-8 w-auto"
+                width={120}
+                height={32}
               />
             </a>
             <button

@@ -398,11 +398,25 @@ export default function Home() {
             </div>
             <div className="home-header-illustration-wrap">
               {homepageContent.headerSection.illustration?.node?.sourceUrl ? (
-                <img 
-                  src={homepageContent.headerSection.illustration.node.sourceUrl}
-                  alt={homepageContent.headerSection.illustration.node.altText || 'Header illustration'}
-                  className="home-header-illustration"
-                />
+                <>
+                  {(() => {
+                    const src = homepageContent.headerSection.illustration.node.sourceUrl;
+                    const alt = homepageContent.headerSection.illustration.node.altText || 'Header illustration';
+                    const Image = require('next/image').default;
+                    return (
+                      <Image
+                        src={src}
+                        alt={alt}
+                        priority
+                        fetchPriority="high"
+                        width={700}
+                        height={520}
+                        sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 700px"
+                        className="home-header-illustration"
+                      />
+                    );
+                  })()}
+                </>
               ) : (
                 <div className="home-hero-illustration-placeholder">
                   <p>Upload illustration in WordPress Admin → Pages → Edit Homepage → Header Section</p>
@@ -538,13 +552,17 @@ export default function Home() {
                 {homepageContent.caseStudiesSection.selectedStudies.nodes.slice(0, 2).map((study, index) => (
                   <article key={study.id || index} className={`cs-item ${index % 2 === 1 ? 'cs-item--reverse' : ''}`}>
                     <div className="cs-media">
-                      {study.featuredImage?.node?.sourceUrl && (
-                        <img 
-                          src={study.featuredImage.node.sourceUrl}
-                          alt={study.featuredImage.node.altText || study.title}
-                          className="cs-img"
-                          loading="lazy"
-                        />
+{study.featuredImage?.node?.sourceUrl && (
+                        (() => { const Image = require('next/image').default; return (
+                          <Image
+                            src={study.featuredImage.node.sourceUrl}
+                            alt={study.featuredImage.node.altText || study.title}
+                            width={640}
+                            height={400}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 640px"
+                            className="cs-img"
+                          />
+                        ); })()
                       )}
                     </div>
                     <div className="cs-content">
@@ -589,7 +607,9 @@ export default function Home() {
                       <article key={post.id || post.uri} className="news-card">
                         {post.imageUrl ? (
                           <a href={nextHref} className="news-card-image" aria-label={post.title}>
-                            <img src={post.imageUrl} alt={post.imageAlt || post.title} />
+{(() => { const Image = require('next/image').default; return (
+                              <Image src={post.imageUrl} alt={post.imageAlt || post.title} width={400} height={260} sizes="(max-width: 768px) 90vw, 400px" />
+                            ); })()}
                           </a>
                         ) : null}
                         <div className="news-card-content">
