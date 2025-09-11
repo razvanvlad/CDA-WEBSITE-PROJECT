@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:3001": "next dev -p 3001 --turbopack",
     "build": "next build",
     "start": "next start",
+    "start:3001": "next start -p 3001",
     "lint": "next lint",
     "test": "node test-suite-simple.js",
     "test:full": "node test-suite.js",

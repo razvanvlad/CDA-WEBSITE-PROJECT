@@ -1,7 +1,6 @@
 // src/app/services/page.js
 import { getServicesWithPagination, executeGraphQLQuery, getServiceOverviewContent, getServiceBySlug } from '@/lib/graphql-queries.js'
-import { getPaginationFromSearchParams } from '@/lib/pagination-utils'
-import Pagination from '@/components/Pagination'
+import ServicesClient from './ServicesClient'
 import ApproachBlock from '@/components/GlobalBlocks/ApproachBlock'
 import ValuesBlock from '@/components/GlobalBlocks/ValuesBlock'
 import ServicesProcess from '@/components/Sections/ServicesProcess'
@@ -131,37 +130,15 @@ async function getGlobalContent() {
   }
 }
 
-export default async function ServicesPage({ searchParams }) {
+export default async function ServicesPage() {
   try {
-    // Await search parameters for Next.js 15+
-    const awaitedSearchParams = searchParams
-    
-    // Parse search parameters
-    const searchParamsObj = new URLSearchParams()
-    Object.entries(awaitedSearchParams).forEach(([key, value]) => {
-      if (value) {
-        if (Array.isArray(value)) {
-          value.forEach(v => searchParamsObj.append(key, v))
-        } else {
-          searchParamsObj.set(key, value)
-        }
-      }
-    })
-
-    // Get filters  
-    const searchQuery = searchParamsObj.get('search') || ''
-    const serviceTypeFilter = searchParamsObj.getAll('service_type')
-    
     // Fetch overview ACF content for this page
     const overviewContent = await getServiceOverviewContent()
 
-    // Fetch services (simplified - no advanced pagination for now)
-    const { nodes: services } = await getServicesWithPagination({
-      first: 12,
-      search: searchQuery || undefined
-    })
+    // Fetch services (larger set for client filtering)
+    const { nodes: services } = await getServicesWithPagination({ first: 100 })
 
-    // Fetch service types for filtering
+    // Fetch service types (if you later want to expose UI filters)
     const serviceTypes = await getServiceTypes()
     
     // Fetch global content for Approach Block
@@ -181,12 +158,6 @@ export default async function ServicesPage({ searchParams }) {
         featuredCaseStudy = csList[0]
       }
     }
-
-    // Basic pagination (simplified)
-    const totalPages = 1
-    const currentPage = 1
-    const itemsPerPage = 12
-    const total = services.length
 
     return (
       <>
@@ -302,155 +273,8 @@ export default async function ServicesPage({ searchParams }) {
 
 
 
-          {/* Services Grid */}
-          {services.length > 0 ? (
-            <>
-              <div className="space-y-6 mb-16">
-                {services.map((service) => (
-                  <div key={service.id} className="bg-white border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 hover:border-gray-300">
-                    <div className="flex flex-col lg:flex-row">
-                      {/* Left Section - Title and Image */}
-                      <div className="lg:w-1/3 p-6">
-                        <div className="flex items-center gap-2 mb-4">
-                          {service.serviceTypes?.nodes?.slice(0, 2).map((type) => (
-                            <span 
-                              key={type.id}
-                              className="inline-block px-3 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full"
-                            >
-                              {type.name}
-                            </span>
-                          ))}
-                        </div>
-
-                        <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                          <Link 
-                            href={`/services/${service.slug}`} 
-                            className="transition-colors"
-                            style={{
-                              textDecoration: 'underline',
-                              textDecorationColor: getServiceColor(service.slug),
-                              textDecorationThickness: '4px'
-                            }}
-                          >
-                            {service.title}
-                          </Link>
-                        </h2>
-
-                        {/* Image Section */}
-                        {service.featuredImage?.node?.sourceUrl && (
-                          <div className="relative h-48 w-full overflow-hidden rounded-lg">
-                            <Image
-                              src={service.featuredImage.node.sourceUrl}
-                              alt={service.featuredImage.node.altText || service.title}
-                              fill
-                              className="object-contain"
-                            />
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Right Section - Content */}
-                      <div className="lg:w-2/3 p-6">
-                        {service.excerpt && (
-                          <div 
-                            className="text-gray-600 mb-4"
-                            dangerouslySetInnerHTML={{ __html: service.excerpt }}
-                          />
-                        )}
-
-                        {/* Service Description from Hero Section */}
-                        {service.serviceFields?.heroSection?.description && (
-                          <div className="mb-6">
-                            {service.serviceFields?.serviceBulletPoints?.title && (
-                              <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                                {service.serviceFields.serviceBulletPoints.title}
-                              </h3>
-                            )}
-                            <div className="text-gray-700 leading-relaxed mb-4">
-                              {service.serviceFields.heroSection.description}
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Service Bullet Points */}
-                        {service.serviceFields?.serviceBulletPoints?.bullets && service.serviceFields.serviceBulletPoints.bullets.length > 0 && (
-                          <div className="mb-6">
-                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                              {service.serviceFields.serviceBulletPoints.bullets.slice(0, 6).map((bullet, index) => {
-                                const serviceColor = getServiceColor(service.slug);
-                                return (
-                                  <li key={index} className="flex items-start space-x-2">
-                                    <div 
-                                      className="flex-shrink-0 w-2 h-2 rounded-full mt-2"
-                                      style={{ backgroundColor: serviceColor }}
-                                    ></div>
-                                    <span className="text-gray-700 text-sm">{bullet.text}</span>
-                                  </li>
-                                );
-                              })}
-                            </ul>
-                          </div>
-                        )}
-
-                        <div className="flex flex-wrap gap-4">
-                            <Link
-                              href={`/services/${service.slug}#contact-form`}
-                              className="button-l"
-                            >
-                              Get Started
-                            </Link>
-                            <Link 
-                              href={`/services/${service.slug}`}
-                              className="button-without-box"
-                            >
-                              Learn more
-                            </Link>
-                          </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Pagination */}
-              {totalPages > 1 && (
-                <div className="flex justify-center">
-                  <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    totalItems={total}
-                    itemsPerPage={itemsPerPage}
-                    basePath="/services"
-                    searchParams={searchParamsObj}
-                  />
-                </div>
-              )}
-            </>
-          ) : (
-            /* No Results */
-            <div className="text-center py-12">
-              <div className="max-w-md mx-auto">
-                <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <h3 className="mt-4 text-lg font-medium text-gray-900">No services found</h3>
-                <p className="mt-2 text-gray-500">
-                  {searchQuery || serviceTypeFilter.length > 0 
-                    ? "Try adjusting your search criteria or clearing filters."
-                    : "No services are available at the moment. Please check back later."
-                  }
-                </p>
-                {(searchQuery || serviceTypeFilter.length > 0) && (
-                  <Link
-                    href="/services"
-                    className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                  >
-                    View All Services
-                  </Link>
-                )}
-              </div>
-            </div>
-          )}
+          {/* Services Grid - client-side filtering */}
+          <ServicesClient initialItems={services} />
 
           {/* Our Values Global Block */}
           {globalContent?.valuesBlock && (
