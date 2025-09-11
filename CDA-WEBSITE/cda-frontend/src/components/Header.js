@@ -1,7 +1,7 @@
 // components/Header.js
 'use client'
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import client from '../lib/graphql/client';
 import { GET_MENU } from '../lib/graphql/queries';
 import BookingModal from './BookingModal';
@@ -16,52 +16,6 @@ export default function Header() {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(true); // toggle for Services list
 
-  const wpBasePath = useMemo(() => {
-    try {
-      const url = process.env.NEXT_PUBLIC_WORDPRESS_URL;
-      if (url) return new URL(url).pathname.replace(/\/$/, '');
-    } catch {}
-    return '';
-  }, []);
-
-  const normalizePath = (path) => {
-    if (!path || typeof path !== 'string') return '/';
-    let p = path;
-    // strip domain part just in case
-    try {
-      if (p.startsWith('http://') || p.startsWith('https://')) {
-        p = new URL(p).pathname;
-      }
-    } catch {}
-    // strip WP base path e.g., /CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend
-    if (wpBasePath && p.startsWith(wpBasePath)) {
-      p = p.slice(wpBasePath.length) || '/';
-    }
-    // strip /index.php prefix
-    if (p.startsWith('/index.php')) {
-      p = p.replace(/^\/index\.php/, '') || '/';
-    }
-    // ensure leading slash
-    if (!p.startsWith('/')) p = '/' + p;
-    // collapse multiple slashes
-    p = p.replace(/\/+/g, '/');
-    return p === '' ? '/' : p;
-  };
-
-  // Helper to normalize menu hrefs to internal app paths
-  const resolveHref = (item) => {
-    const uri = item?.connectedNode?.node?.uri;
-    if (typeof uri === 'string' && uri.length > 0) return normalizePath(uri);
-    const url = item?.url;
-    try {
-      if (typeof url === 'string' && url.length > 0) {
-        const u = new URL(url, typeof window !== 'undefined' ? window.location.origin : 'http://localhost');
-        return normalizePath(u.pathname || '/');
-      }
-    } catch (e) {}
-    return '/';
-  };
-
   // Initialize Services section collapsed on mobile so main links are visible there by default
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -72,25 +26,8 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    const fetchMenu = async () => {
-      try {
-        const response = await client.query({
-          query: GET_MENU,
-          errorPolicy: 'all'
-        });
-
-        const nodes = response.data?.primaryMenu?.menuItems?.nodes || [];
-        setMenuNodes(nodes);
-        const items = nodes.filter(item => !item.parentId) || [];
-        setMenuItems(items);
-      } catch (error) {
-        console.error('Menu fetch error:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMenu();
+    // Disable WordPress menu fetching - using hardcoded fallbacks only
+    setLoading(false);
   }, []);
 
   // Derive Services submenu from primary menu
@@ -104,13 +41,37 @@ export default function Header() {
     'AI'
   ];
 
-  const servicesParent = useMemo(() => menuNodes.find(
+  const servicesParent = menuNodes.find(
     (n) => n?.label?.toLowerCase() === 'services' || (typeof n?.url === 'string' && n.url.toLowerCase().includes('/services'))
-  ), [menuNodes]);
-
-  const servicesChildren = useMemo(() => servicesParent ? menuNodes.filter((n) => n.parentId === servicesParent.id) : [], [menuNodes, servicesParent]);
-  const servicesFromLabels = useMemo(() => menuNodes.filter((n) => servicesLabels.includes((n?.label || '').trim())), [menuNodes]);
+  );
+  const servicesChildren = servicesParent ? menuNodes.filter((n) => n.parentId === servicesParent.id) : [];
+  const servicesFromLabels = menuNodes.filter((n) => servicesLabels.includes((n?.label || '').trim()));
   const servicesMenu = (servicesChildren && servicesChildren.length > 0) ? servicesChildren : servicesFromLabels;
+  
+  // Filter out Services from main menu items for side menu
+  const topLevelNonServices = menuItems.filter((item) => !servicesParent || item.id !== servicesParent.id);
+  
+  // Fallback menu items for primary menu (services items for desktop navigation)
+  const fallbackMainLinks = [
+    { id: 'fallback-ecommerce', label: 'eCommerce', url: '/services/ecommerce' },
+    { id: 'fallback-b2b-lead', label: 'B2B Lead Generation', url: '/services/b2b-lead-generation' },
+    { id: 'fallback-software-dev', label: 'Software Development', url: '/services/software-development' },
+    { id: 'fallback-booking', label: 'Booking Systems', url: '/services/booking-systems' },
+    { id: 'fallback-digital-marketing', label: 'Digital Marketing', url: '/services/digital-marketing' },
+    { id: 'fallback-outsourced-cmo', label: 'Outsourced CMO', url: '/services/outsourced-cmo' },
+    { id: 'fallback-ai', label: 'AI', url: '/services/ai' }
+  ];
+  
+  // Fallback company menu items for side menu
+  const fallbackCompanyLinks = [
+    { id: 'fallback-about', label: 'About', url: '/about' },
+    { id: 'fallback-all-services', label: 'All Services', url: '/services' },
+    { id: 'fallback-sectors', label: 'Sectors', url: '/sectors' },
+    { id: 'fallback-case-studies', label: 'Case Studies', url: '/case-studies' },
+    { id: 'fallback-knowledge-hub', label: 'Knowledge Hub', url: '/knowledge-hub' },
+    { id: 'fallback-technologies', label: 'Technologies', url: '/technologies' },
+    { id: 'fallback-contact', label: 'Contact', url: '/contact' }
+  ];
 
   return (
     <>
@@ -151,10 +112,10 @@ export default function Header() {
               {loading ? (
                 <div>Loading...</div>
               ) : (
-                menuItems.map((item) => (
+                fallbackMainLinks.map((item) => (
                   <a
                     key={item.id}
-                    href={resolveHref(item)}
+                    href={item.url}
                     className="nav-link"
                     style={{ fontFamily: 'Inter', fontSize: '18px', fontWeight: '600' }}
                   >
@@ -195,7 +156,7 @@ export default function Header() {
                 {menuItems.map((item) => (
                   <a
                     key={item.id}
-                    href={resolveHref(item)}
+                    href={item.url}
                     className="text-black hover:text-black transition-colors font-medium"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
@@ -220,7 +181,7 @@ export default function Header() {
       )}
 
       {/* Side Menu */}
-      <div className={`fixed top-0 right-0 h-full w/full md:w-[430px] bg-black shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${
+      <div className={`fixed top-0 right-0 h-full w-full md:w-[430px] bg-black shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${
         isSideMenuOpen ? 'translate-x-0' : 'translate-x-full'
       }`}>
         <div className="flex flex-col h-full">
@@ -244,84 +205,106 @@ export default function Header() {
           {/* Side Menu Content */}
           <div className="flex-1 overflow-y-auto">
             <nav className="p-6">
-              {/* Our Services header row */}
-              <button
-                type="button"
-                onClick={() => setIsServicesOpen((v) => !v)}
-                className="w-full flex items-center justify-between mb-3 text-left"
-                aria-expanded={isServicesOpen}
-                aria-controls="side-menu-services"
-              >
-                <div className="flex items-center gap-3">
-                  {/* Grid icon */}
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <rect x="3" y="3" width="4" height="4" fill="#fff"/>
-                    <rect x="10" y="3" width="4" height="4" fill="#fff"/>
-                    <rect x="17" y="3" width="4" height="4" fill="#fff"/>
-                    <rect x="3" y="10" width="4" height="4" fill="#fff"/>
-                    <rect x="10" y="10" width="4" height="4" fill="#fff"/>
-                    <rect x="17" y="10" width="4" height="4" fill="#fff"/>
-                    <rect x="3" y="17" width="4" height="4" fill="#fff"/>
-                    <rect x="10" y="17" width="4" height="4" fill="#fff"/>
-                    <rect x="17" y="17" width="4" height="4" fill="#fff"/>
-                  </svg>
-                  <span className="side-menu-heading">Our Services</span>
-                </div>
-                {/* Arrow icon */}
-                <svg className={`w-4 h-4 transform transition-transform ${isServicesOpen ? 'rotate-45' : ''}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M5 12h14M12 5l7 7-7 7" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
-              <hr className="side-menu-divider" />
+              {/* Our Services header row - only show when not expanded */}
+              {!isServicesOpen && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setIsServicesOpen(true)}
+                    className="w-full flex items-center justify-between mb-3 text-left"
+                    aria-expanded={isServicesOpen}
+                    aria-controls="side-menu-services"
+                  >
+                    <div className="flex items-center gap-3">
+                      {/* Grid icon */}
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="3" y="3" width="4" height="4" fill="#fff"/>
+                        <rect x="10" y="3" width="4" height="4" fill="#fff"/>
+                        <rect x="17" y="3" width="4" height="4" fill="#fff"/>
+                        <rect x="3" y="10" width="4" height="4" fill="#fff"/>
+                        <rect x="10" y="10" width="4" height="4" fill="#fff"/>
+                        <rect x="17" y="10" width="4" height="4" fill="#fff"/>
+                        <rect x="3" y="17" width="4" height="4" fill="#fff"/>
+                        <rect x="10" y="17" width="4" height="4" fill="#fff"/>
+                        <rect x="17" y="17" width="4" height="4" fill="#fff"/>
+                      </svg>
+                      <span className="side-menu-heading">Our Services</span>
+                    </div>
+                    {/* Arrow icon */}
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M9 18l6-6-6-6" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                  <hr className="side-menu-divider" />
+                </>
+              )}
 
               {/* Services submenu (from primary menu) */}
-              {isServicesOpen && servicesMenu && servicesMenu.length > 0 && (
-                <ul id="side-menu-services" className="mt-4 mb-2 space-y-2">
-                  {servicesMenu
-                    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-                    .map((svc) => (
-                      <li key={svc.id}>
-                        <a
-                          href={resolveHref(svc)}
-                          className="side-menu-item"
-                          onClick={() => {
-                            setIsSideMenuOpen(false);
-                            setIsCompanyMenuOpen(false);
-                          }}
-                          title={svc.label}
-                        >
-                          {svc.label}
-                        </a>
-                      </li>
-                    ))}
-                </ul>
+              {isServicesOpen && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setIsServicesOpen(false)}
+                    className="w-full flex items-center gap-3 mb-3 text-left"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    <span className="side-menu-heading">Back</span>
+                  </button>
+                  <hr className="side-menu-divider" />
+                  
+                  <ul id="side-menu-services" className="space-y-4">
+                    {fallbackMainLinks
+                      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+                      .map((svc) => (
+                        <li key={svc.id}>
+                          <a
+                            href={svc.url}
+                            className="side-menu-item block"
+                            onClick={() => {
+                              setIsSideMenuOpen(false);
+                              setIsServicesOpen(false);
+                            }}
+                            title={svc.label}
+                          >
+                            {svc.label}
+                          </a>
+                        </li>
+                      ))}
+                  </ul>
+                </>
               )}
 
               {/* Main links list (hidden when 'Our Services' is expanded) */}
               {!isServicesOpen && (
                 <ul className="mt-6 space-y-4">
-                  {[
-                    { label: 'About', href: '/about' },
-                    { label: 'All Services', href: '/services' },
-                    { label: 'Sectors', href: '/sectors' },
-                    { label: 'Case Studies', href: '/case-studies' },
-                    { label: 'Knowledge Hub', href: '/knowledge-hub' },
-                    { label: 'Technologies', href: '/technologies' },
-                    { label: 'Contact', href: '/contact' },
-                  ].map((link) => (
-                    <li key={link.label}>
-                      <a
-                        href={link.href}
-                        className="side-menu-item"
-                        onClick={() => {
-                          setIsSideMenuOpen(false);
-                          setIsCompanyMenuOpen(false);
-                        }}
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
+                  {/* All Services entry visible on main view */}
+                  <li>
+                    <a
+                      href="/services"
+                      className="side-menu-item"
+                      onClick={() => setIsSideMenuOpen(false)}
+                    >
+                      All Services
+                    </a>
+                  </li>
+                  {fallbackCompanyLinks.filter((i) => (i?.label || '').toLowerCase() !== 'services')
+                    .sort((a, b) => ((a.order ?? 0) - (b.order ?? 0)))
+                    .map((item) => (
+                      <li key={item.id}>
+                        <a
+                          href={item.url}
+                          className="side-menu-item"
+                          onClick={() => {
+                            setIsSideMenuOpen(false);
+                            setIsCompanyMenuOpen(false);
+                          }}
+                        >
+                          {item.label}
+                        </a>
+                      </li>
+                    ))}
                 </ul>
               )}
 
@@ -346,15 +329,22 @@ export default function Header() {
                   <a href="#" aria-label="YouTube" className="side-menu-social">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.8 8.2a3 3 0 0 0-2.1-2.1C17.7 5.5 12 5.5 12 5.5s-5.7 0-7.7.6A3 3 0 0 0 2.2 8.2 31.4 31.4 0 0 0 1.8 12a31.4 31.4 0 0 0 .4 3.8 3 3 0 0 0 2.1 2.1c2 .6 7.7.6 7.7.6s5.7 0 7.7-.6a3 3 0 0 0 2.1-2.1c.3-1.2.4-2.5.4-3.8 0-1.3-.1-2.6-.4-3.8zM10 14.7V9.3l4.8 2.7L10 14.7z"/></svg>
                   </a>
+                  <a href="#" aria-label="TikTok" className="side-menu-social">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 8.5a7 7 0 0 1-4-1.3v7.1a6.3 6.3 0 1 1-5.4-6.3v3a3.3 3.3 0 1 0 2.3 3.1V2h3a4 4 0 0 0 4 4v2.5z"/></svg>
+                  </a>
                 </div>
               </div>
             </nav>
           </div>
+
+          {/* Side Menu Footer (optional placeholder to keep spacing) */}
+          <div className="p-6"></div>
         </div>
       </div>
 
+      {/* Booking Modal */}
       {isBookingModalOpen && (
-        <BookingModal isOpen={isBookingModalOpen} onClose={() => setIsBookingModalOpen(false)} />
+        <BookingModal onClose={() => setIsBookingModalOpen(false)} />
       )}
     </>
   );
