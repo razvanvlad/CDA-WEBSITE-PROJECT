@@ -119,21 +119,12 @@ export default function AboutPage() {
               contentPageHeader {
                 title
                 text
-                cta {
-                  url
-                  title
-                  target
-                }
-              }
-              whoWeAreSection {
-                imageWithFrame {
+                headerImage {
                   node {
                     sourceUrl
                     altText
                   }
                 }
-                sectionTitle
-                sectionText
                 cta {
                   url
                   title
@@ -141,15 +132,16 @@ export default function AboutPage() {
                 }
               }
               leadershipSection {
+                title
+                subtitle
+                description
                 image {
                   node {
                     sourceUrl
                     altText
                   }
                 }
-                name
-                position
-                bio
+                cta { url title target }
               }
               globalContentSelection {
                 enableImageFrame
@@ -234,10 +226,154 @@ export default function AboutPage() {
   if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   if (error) return <div className="min-h-screen flex items-center justify-center text-red-600">{error}</div>;
 
+  // Extract data with safe fallbacks
+  const globalContentBlocks = globalData || {};
+  const aboutContent = aboutData || {};
+  const globalSelection = aboutContent?.globalContentSelection || {};
+
   return (
     <>
       <Header />
-      {/* content omitted for brevity; same as original file */}
+      
+      {/* About Page Header */}
+      {aboutContent?.contentPageHeader && (
+        <section className="about-hero-section">
+          <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="text-center md:text-left">
+                <h1 
+                  className="title-large-pink mb-6"
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeTitleHtml(
+                      aboutContent.contentPageHeader.title || 'About Us'
+                    )
+                  }}
+                />
+                <div 
+                  className="about-hero-subtitle text-lg mb-6"
+                  dangerouslySetInnerHTML={{
+                    __html: aboutContent.contentPageHeader.text || 'Learn more about our company.'
+                  }}
+                />
+                {aboutContent.contentPageHeader.cta && (
+                  <a 
+                    href={aboutContent.contentPageHeader.cta.url || '#'} 
+                    className="button-l"
+                    target={aboutContent.contentPageHeader.cta.target || '_self'}
+                  >
+                    {aboutContent.contentPageHeader.cta.title || 'Get Started'}
+                  </a>
+                )}
+              </div>
+              <div className="flex justify-center">
+                {aboutContent.contentPageHeader.headerImage?.node?.sourceUrl ? (
+                  <img 
+                    src={aboutContent.contentPageHeader.headerImage.node.sourceUrl}
+                    alt={aboutContent.contentPageHeader.headerImage.node.altText || 'About Us'}
+                    className="w-full h-auto max-w-md rounded-lg"
+                  />
+                ) : (
+                  <div className="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <p className="text-gray-500">Add image in WordPress Admin</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Who We Are Section */}
+      {aboutContent?.whoWeAreSection && (
+        <section className="who-we-are-section">
+          <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h2 
+                  className="text-3xl font-bold mb-4"
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeTitleHtml(
+                      aboutContent.whoWeAreSection.sectionTitle || 'Who We Are'
+                    )
+                  }}
+                />
+                <div 
+                  className="text-lg mb-6"
+                  dangerouslySetInnerHTML={{
+                    __html: aboutContent.whoWeAreSection.sectionText || 'Our story and mission.'
+                  }}
+                />
+                {aboutContent.whoWeAreSection.cta && (
+                  <a 
+                    href={aboutContent.whoWeAreSection.cta.url || '#'} 
+                    className="button-l"
+                    target={aboutContent.whoWeAreSection.cta.target || '_self'}
+                  >
+                    {aboutContent.whoWeAreSection.cta.title || 'Learn More'}
+                  </a>
+                )}
+              </div>
+              <div>
+                {aboutContent.whoWeAreSection.imageWithFrame?.node?.sourceUrl && (
+                  <img 
+                    src={aboutContent.whoWeAreSection.imageWithFrame.node.sourceUrl}
+                    alt={aboutContent.whoWeAreSection.imageWithFrame.node.altText || 'Who we are'}
+                    className="w-full h-auto rounded-lg"
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+
+      {/* Global Content Blocks - Only show if toggles are enabled and data exists */}
+      
+      {/* Image Frame Block */}
+      {globalSelection?.enableImageFrame && globalContentBlocks?.imageFrameBlock && (
+        <PhotoFrame globalData={globalContentBlocks.imageFrameBlock} />
+      )}
+
+      {/* Services Accordion Block */}
+      {globalSelection?.enableServicesAccordion && globalContentBlocks?.servicesAccordion && (
+        <ServicesAccordion globalData={globalContentBlocks.servicesAccordion} />
+      )}
+      
+      {/* Why CDA Block */}
+      {globalSelection?.enableWhyCda && globalContentBlocks?.whyCdaBlock && (
+        <WhyCdaBlock globalData={globalContentBlocks.whyCdaBlock} />
+      )}
+      
+      {/* Showreel Block */}
+      {globalSelection?.enableShowreel && globalContentBlocks?.showreel && (
+        <Showreel globalData={globalContentBlocks.showreel} />
+      )}
+      
+      {/* Approach Block */}
+      {globalSelection?.enableApproach && globalContentBlocks?.approachBlock && (
+        <ApproachBlock globalData={globalContentBlocks.approachBlock} />
+      )}
+      
+      {/* Technologies Slider Block */}
+      {globalSelection?.enableTechnologiesSlider && globalContentBlocks?.technologiesSlider && (
+        <TechnologiesSlider 
+          title={globalContentBlocks.technologiesSlider.title}
+          subtitle={globalContentBlocks.technologiesSlider.subtitle}
+          logos={globalContentBlocks.technologiesSlider.logos}
+        />
+      )}
+      
+      {/* Values Block */}
+      {globalSelection?.enableValues && globalContentBlocks?.valuesBlock && (
+        <ValuesBlock globalData={globalContentBlocks.valuesBlock} />
+      )}
+      
+      {/* Locations Block */}
+      {globalSelection?.enableLocationsImage && globalContentBlocks?.locationsImage && (
+        <LocationsImage globalData={globalContentBlocks.locationsImage} />
+      )}
+      
       <Footer />
     </>
   );
