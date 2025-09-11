@@ -286,3 +286,21 @@ export const GET_404_CONTENT = gql`
     }
   }
 `;
+
+// Case Study page content used by src/app/case-study/page.js
+export const GET_CASE_STUDY_CONTENT = gql`
+  query GetCaseStudyContent {
+    page(id: "/case-study", idType: URI) {
+      id
+      title
+      slug
+      uri
+      caseStudyOakleighContent {
+        headerSection {
+          title
+          subtitle
+        }
+      }
+    }
+  }
+`;

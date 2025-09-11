@@ -25,7 +25,16 @@ function resolveGraphQLEndpoint() {
     }
   }
 
-  // Server-side: use site URL env or localhost fallback
+  // Server-side: prefer absolute WP endpoint when using the internal proxy route
+  if (endpoint.startsWith('/api/wp-graphql') && process.env.NEXT_PUBLIC_WORDPRESS_URL) {
+    try {
+      return `${process.env.NEXT_PUBLIC_WORDPRESS_URL.replace(/\/$/, '')}/graphql`;
+    } catch (e) {
+      // fall through to site URL resolution
+    }
+  }
+
+  // Server-side fallback: use site URL env or localhost
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
   try {
     return new URL(endpoint, siteUrl).href;
@@ -49,8 +58,8 @@ export async function executeGraphQLQuery(query, variables = {}) {
         query,
         variables,
       }),
-      // Important for Next.js to avoid caching SSR queries unintentionally
-      cache: 'no-store',
+      // Enable static generation with ISR instead of forcing dynamic rendering
+      next: { revalidate: Number(process.env.NEXT_PUBLIC_GRAPHQL_REVALIDATE || 300) },
     });
 
     if (!response.ok) {

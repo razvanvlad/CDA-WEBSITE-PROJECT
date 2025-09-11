@@ -42,6 +42,8 @@ const GET_ALL_POSTS = `
   }
 `
 
+export const revalidate = 300
+
 export default async function KnowledgeHubPage() {
   try {
     // Fetch case studies and posts separately

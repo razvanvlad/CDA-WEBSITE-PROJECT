@@ -4,7 +4,11 @@ import { setContext } from '@apollo/client/link/context';
 
 // Create HTTP link
 const httpLink = createHttpLink({
-  uri: process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT || '/api/wp-graphql',
+  uri:
+    process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT ||
+    (process.env.NEXT_PUBLIC_WORDPRESS_URL
+      ? `${process.env.NEXT_PUBLIC_WORDPRESS_URL.replace(/\/$/, '')}/graphql`
+      : 'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/graphql'),
 });
 
 // Create auth link for headers if needed
