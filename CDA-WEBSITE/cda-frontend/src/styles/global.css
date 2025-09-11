@@ -642,7 +642,7 @@
   color: #f59e0b;
   background: #fef3c7;
   padding: 8px 12px;
-  border-radius: 4px;
+  border-radius: 0;
   display: inline-block;
 }
 
@@ -716,7 +716,7 @@
   padding: 0 16px;
   height: 48px;
   border: 1px solid #DBDBDB;
-  border-radius: 6px;
+  border-radius: 0;
   font-size: 16px;
   font-family: 'Inter', sans-serif;
   color: rgba(0, 0, 0, 1);
@@ -812,7 +812,7 @@
 .news-carousel-placeholder {
   background-color: #f3f4f6; /* Gray-100 */
   padding: 2rem;
-  border-radius: 0.5rem;
+  border-radius: 0;
   text-align: center;
 }
 
@@ -860,7 +860,7 @@
 .news-card {
   position: relative;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 0;
   background: #000; /* fallback while image loads */
   flex: 0 0 86%; /* show one card and a peek of the next */
   scroll-snap-align: start;
@@ -928,7 +928,7 @@
 .news-carousel-nav-btn {
   width: 44px;
   height: 44px;
-  border-radius: 999px;
+  border-radius: 0;
   border: 1px solid #D1D5DB; /* gray-300 */
   background: #fff;
   color: #111827; /* gray-900 */
@@ -1054,7 +1054,7 @@
   color: #fff;
   border: none;
   padding: 12px 32px;
-  border-radius: 8px;
+  border-radius: 0;
   font-size: 16px;
   font-weight: 600;
   font-family: 'Inter', sans-serif;
@@ -1076,7 +1076,7 @@
   color: #fff;
   border: 2px solid #000;
   padding: 12px 32px;
-  border-radius: 8px;
+  border-radius: 0;
   font-size: 16px;
   font-weight: 600;
   font-family: 'Inter', sans-serif;
@@ -1950,7 +1950,7 @@
 .news-carousel-placeholder {
   background-color: #f3f4f6; /* Gray-100 */
   padding: 2rem;
-  border-radius: 0.5rem;
+  border-radius: 0;
   text-align: center;
 }
 
@@ -2161,4 +2161,68 @@
 .button-l.button-l--white:hover {
   background-color: #000;
   color: #fff;
+}
+
+/* Service Hero Section Styles */
+.service-hero {
+  background-color: #ffffff;
+  padding: 5rem 1rem;
+}
+
+.service-hero-title {
+  color: #000000 !important;
+}
+
+.service-hero-content {
+  max-width: 1620px;
+  margin: 0 auto;
+}
+
+.service-hero-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+.service-hero-description {
+  font-family: 'Inter', sans-serif;
+}
+
+.service-hero-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Global override: Remove all border-radius from the website */
+* {
+  border-radius: 0 !important;
+}
+
+/* Specific overrides for common rounded classes */
+.rounded,
+.rounded-sm,
+.rounded-md,
+.rounded-lg,
+.rounded-xl,
+.rounded-2xl,
+.rounded-3xl,
+.rounded-full,
+.rounded-none,
+.rounded-t,
+.rounded-r,
+.rounded-b,
+.rounded-l,
+.rounded-tl,
+.rounded-tr,
+.rounded-br,
+.rounded-bl {
+  border-radius: 0 !important;
+}
+
+/* Extra specific override for bullet points and small elements */
+.w-2.h-2,
+.flex-shrink-0.w-2.h-2,
+div.w-2.h-2,
+.w-2.h-2.rounded-full {
+  border-radius: 0 !important;
 }

@@ -6,6 +6,7 @@ import { getServiceBySlug } from '../../../lib/graphql-queries';
 import Image from 'next/image';
 import Link from 'next/link';
 import Script from 'next/script';
+import HubspotFormEmbed from '../../../components/HubspotFormEmbed';
 
 // Service color mapping
 const getServiceColor = (slug) => {
@@ -76,11 +77,6 @@ export default async function ServicePage({ params }) {
           <div className="container mx-auto px-4 py-16 lg:py-24">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="service-hero-content">
-                {heroSection.subtitle && (
-                  <p className="service-hero-subtitle font-semibold mb-4" style={{ color: serviceColor }}>
-                    {heroSection.subtitle}
-                  </p>
-                )}
                 <h1 
                   className="service-hero-title text-4xl lg:text-5xl font-bold mb-6"
                   style={{
@@ -114,7 +110,8 @@ export default async function ServicePage({ params }) {
                       alt={heroSection.heroImage.node.altText || service.title}
                       width={600}
                       height={400}
-                      className="w-full h-auto rounded-lg shadow-lg"
+                      className="w-full h-auto rounded-lg"
+                      style={{ maxHeight: '600px', objectFit: 'contain' }}
                       priority
                     />
                  ) : service.featuredImage?.node?.sourceUrl && (
@@ -123,7 +120,8 @@ export default async function ServicePage({ params }) {
                      alt={service.featuredImage.node.altText || service.title}
                      width={600}
                      height={400}
-                     className="w-full h-auto rounded-lg shadow-lg"
+                     className="w-full h-auto rounded-lg"
+                     style={{ maxHeight: '600px', objectFit: 'contain' }}
                      priority
                    />
                  )}
@@ -277,48 +275,51 @@ export default async function ServicePage({ params }) {
           </div>
           
           <div className="bg-white rounded-lg shadow-lg p-8 hubspot-form-wrapper">
-            <div id={`hubspot-form-${slug}`}></div>
-            
-            <Script
-              src="//js-eu1.hsforms.net/forms/embed/v2.js"
-              strategy="afterInteractive"
-            />
-            
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.addEventListener('load', function() {
-                    if (window.hbspt) {
-                      const formConfigs = {
-                        'ecommerce': { portalId: '143891025', formId: '80e897f8-198d-42e2-81b8-41f6732d4218', region: 'eu1' },
-                        'b2b-lead-generation': { portalId: '143891025', formId: '80e897f8-198d-42e2-81b8-41f6732d4218', region: 'eu1' },
-                        'software-development': { portalId: '143891025', formId: '074aaebe-afd8-4cd4-aed3-9121b4a6cc8f', region: 'eu1' },
-                        'booking-systems': { portalId: '143891025', formId: '49fddd49-7309-4c02-9cd9-af6ac456a12e', region: 'eu1' },
-                        'franchise-booking-systems': { portalId: '143891025', formId: '49fddd49-7309-4c02-9cd9-af6ac456a12e', region: 'eu1' },
-                        'outsourced-cmo': { portalId: '143891025', formId: '2a38348b-7333-42c2-bc42-24d0cf303487', region: 'eu1' },
-                        'digital-marketing': { portalId: '143891025', formId: '8a22cbe4-8abf-4e1f-8bac-7f40a4f1f866', region: 'eu1' },
-                        'ai': { portalId: '143891025', formId: '58c24def-6c60-45b4-be8c-bf699201624c', region: 'eu1' }
-                      };
-                      
-                      const config = formConfigs['${slug}'];
-                      if (config) {
-                        window.hbspt.forms.create({
-                          ...config,
-                          target: '#hubspot-form-${slug}',
-                          onFormReady: function() {
-                            const submitBtn = document.querySelector('.hs-button');
-                            if (submitBtn) {
-                              submitBtn.classList.add('button-l', 'footer-cta-btn');
-                            }
-                          }
-                        });
-                      }
-                    }
-                  });
-                `
-              }}
-            />
+            {/* Robust client embed to ensure consistent loading */}
+            <HubspotFormEmbed slug={slug} />
            </div>
+
+          {/* Force form colors: text black, fields white; override submit button colors */}
+          <style>{`
+            .hubspot-form-wrapper, .hubspot-form-wrapper * { color: #000; }
+            .hubspot-form-wrapper label { color: #000 !important; }
+            .hubspot-form-wrapper input[type="text"],
+            .hubspot-form-wrapper input[type="email"],
+            .hubspot-form-wrapper input[type="tel"],
+            .hubspot-form-wrapper input[type="number"],
+            .hubspot-form-wrapper input[type="url"],
+            .hubspot-form-wrapper input[type="password"],
+            .hubspot-form-wrapper select,
+            .hubspot-form-wrapper textarea {
+              background-color: #fff !important;
+              color: #000 !important;
+              border: 1px solid #e5e7eb !important;
+              border-radius: 0 !important;
+              padding: 0.75rem 1rem !important;
+            }
+            .hubspot-form-wrapper .hs-error-msg, .hubspot-form-wrapper .hs-form-required {
+              color: #b91c1c !important;
+            }
+            /* Submit button (proxy and native) — white text on black; invert on hover */
+            .hubspot-form-wrapper .hs-custom-submit.button-l,
+            .hubspot-form-wrapper .hs-submit .hs-button {
+              background-color: #000 !important;
+              color: #fff !important;
+              box-shadow: none !important;
+            }
+            .hubspot-form-wrapper .hs-custom-submit.button-l:hover,
+            .hubspot-form-wrapper .hs-submit .hs-button:hover {
+              background-color: #fff !important;
+              color: #000 !important;
+              box-shadow: inset 0 0 0 1px #000 !important;
+            }
+            .hubspot-form-wrapper .button-l,
+            .hubspot-form-wrapper .hs-button.button-l {
+              /* Ensure our styled submit stands out if HubSpot overwrites */
+              background-image: none !important;
+            }
+            .hubspot-form-wrapper .hs-hidden { display: none !important; }
+          `}</style>
         </div>
       </section>
       
