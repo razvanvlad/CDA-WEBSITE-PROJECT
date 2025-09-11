@@ -134,7 +134,7 @@ async function getGlobalContent() {
 export default async function ServicesPage({ searchParams }) {
   try {
     // Await search parameters for Next.js 15+
-    const awaitedSearchParams = await searchParams
+    const awaitedSearchParams = searchParams
     
     // Parse search parameters
     const searchParamsObj = new URLSearchParams()

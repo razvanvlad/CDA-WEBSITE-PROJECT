@@ -1,11 +1,27 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { ApolloError } from '@apollo/client'
+
+// Apollo Client v4 no longer exports ApolloError from '@apollo/client'.
+// Define a minimal "Apollo-like" error shape and type guards so our code
+// can work regardless of the exact error class.
+export type ApolloErrorLike = {
+  graphQLErrors?: Array<{ message?: string }>
+  networkError?: { message?: string } | Error
+  message?: string
+}
+
+function hasGraphQLErrors(e: unknown): e is { graphQLErrors: Array<{ message?: string }> } {
+  return !!(e as any)?.graphQLErrors && Array.isArray((e as any).graphQLErrors)
+}
+
+function hasNetworkError(e: unknown): e is { networkError: { message?: string } | Error } {
+  return !!(e as any)?.networkError
+}
 
 export interface ErrorState {
   hasError: boolean
-  error: Error | ApolloError | null
+  error: Error | ApolloErrorLike | null
   errorType: 'network' | 'graphql' | 'timeout' | 'validation' | 'unknown'
   errorMessage: string
   timestamp: Date | null
@@ -14,7 +30,7 @@ export interface ErrorState {
 
 export interface UseErrorHandlerReturn {
   errorState: ErrorState
-  setError: (error: Error | ApolloError | string, type?: ErrorState['errorType']) => void
+  setError: (error: Error | ApolloErrorLike | string, type?: ErrorState['errorType']) => void
   clearError: () => void
   retry: (retryFn: () => Promise<void> | void) => Promise<void>
   getErrorMessage: () => string
@@ -38,49 +54,31 @@ const RETRY_DELAY = 1000 // 1 second
 export const useErrorHandler = (): UseErrorHandlerReturn => {
   const [errorState, setErrorState] = useState<ErrorState>(initialErrorState)
 
-  const determineErrorType = (error: Error | ApolloError): ErrorState['errorType'] => {
-    if (error instanceof ApolloError) {
-      if (error.networkError) {
-        // Check for specific network error types
-        if (error.networkError.message?.includes('timeout')) {
-          return 'timeout'
-        }
-        return 'network'
-      }
-      if (error.graphQLErrors && error.graphQLErrors.length > 0) {
-        return 'graphql'
-      }
-    }
-
-    // Check error message for specific patterns
-    const errorMessage = error.message.toLowerCase()
-    if (errorMessage.includes('network') || errorMessage.includes('fetch')) {
+  const determineErrorType = (error: Error | ApolloErrorLike): ErrorState['errorType'] => {
+    if (hasNetworkError(error)) {
+      if ((error as any).networkError?.message?.includes?.('timeout')) return 'timeout'
       return 'network'
     }
-    if (errorMessage.includes('timeout')) {
-      return 'timeout'
-    }
-    if (errorMessage.includes('validation') || errorMessage.includes('invalid')) {
-      return 'validation'
+    if (hasGraphQLErrors(error)) {
+      return 'graphql'
     }
 
+    const msg = (error?.message || '').toLowerCase()
+    if (msg.includes('network') || msg.includes('fetch')) return 'network'
+    if (msg.includes('timeout')) return 'timeout'
+    if (msg.includes('validation') || msg.includes('invalid')) return 'validation'
     return 'unknown'
   }
 
-  const getHumanReadableMessage = (error: Error | ApolloError, type: ErrorState['errorType']): string => {
+  const getHumanReadableMessage = (error: Error | ApolloErrorLike, type: ErrorState['errorType']): string => {
     switch (type) {
       case 'network':
         return 'Unable to connect to the server. Please check your internet connection.'
       case 'graphql':
-        if (error instanceof ApolloError && error.graphQLErrors.length > 0) {
+        if (hasGraphQLErrors(error) && error.graphQLErrors.length > 0) {
           const graphQLError = error.graphQLErrors[0]
-          // Return a user-friendly version of GraphQL errors
-          if (graphQLError.message.includes('not found')) {
-            return 'The requested content was not found.'
-          }
-          if (graphQLError.message.includes('unauthorized')) {
-            return 'You do not have permission to access this content.'
-          }
+          if (graphQLError?.message?.includes?.('not found')) return 'The requested content was not found.'
+          if (graphQLError?.message?.includes?.('unauthorized')) return 'You do not have permission to access this content.'
           return 'There was an error loading the content from our database.'
         }
         return 'There was an error processing your request.'
@@ -94,7 +92,7 @@ export const useErrorHandler = (): UseErrorHandlerReturn => {
   }
 
   const setError = useCallback((
-    error: Error | ApolloError | string, 
+    error: Error | ApolloErrorLike | string, 
     type?: ErrorState['errorType']
   ) => {
     const errorObj = typeof error === 'string' ? new Error(error) : error
@@ -110,7 +108,6 @@ export const useErrorHandler = (): UseErrorHandlerReturn => {
       retryCount: prev.retryCount
     }))
 
-    // Log error in development
     if (process.env.NODE_ENV === 'development') {
       console.group('🚨 Error Handler')
       console.error('Error:', errorObj)
@@ -135,18 +132,14 @@ export const useErrorHandler = (): UseErrorHandlerReturn => {
       retryCount: prev.retryCount + 1
     }))
 
-    // Clear error temporarily
     setErrorState(prev => ({ ...prev, hasError: false }))
 
     try {
-      // Add delay between retries
       if (errorState.retryCount > 0) {
         await new Promise(resolve => setTimeout(resolve, RETRY_DELAY * errorState.retryCount))
       }
 
       await retryFn()
-      
-      // If successful, reset error state completely
       setErrorState(initialErrorState)
     } catch (error) {
       setError(error instanceof Error ? error : new Error(String(error)))
@@ -173,7 +166,7 @@ export const useErrorHandler = (): UseErrorHandlerReturn => {
 export const useGraphQLErrorHandler = () => {
   const errorHandler = useErrorHandler()
   
-  const handleGraphQLError = useCallback((error: ApolloError) => {
+  const handleGraphQLError = useCallback((error: ApolloErrorLike) => {
     errorHandler.setError(error, 'graphql')
   }, [errorHandler])
 
@@ -184,9 +177,9 @@ export const useGraphQLErrorHandler = () => {
     try {
       errorHandler.clearError()
       return await operation()
-    } catch (error) {
-      if (error instanceof ApolloError) {
-        handleGraphQLError(error)
+    } catch (error: unknown) {
+      if (hasGraphQLErrors(error)) {
+        handleGraphQLError(error as ApolloErrorLike)
       } else {
         errorHandler.setError(error instanceof Error ? error : new Error(String(error)))
       }
