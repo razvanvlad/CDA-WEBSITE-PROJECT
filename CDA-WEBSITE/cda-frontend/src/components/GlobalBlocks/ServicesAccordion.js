@@ -22,11 +22,11 @@ const ServicesAccordion = ({ globalData }) => {
 
   return (
     <section className="relative -mt-16 md:-mt-24 lg:-mt-28 bg-[#F4F4F4] py-16 md:py-20 lg:py-24 overflow-visible">
-<div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 relative z-10">
+      <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-12 gap-y-10 gap-x-10 items-start">
           {/* Left: Title, subtitle, optional image */}
           <div className="col-span-12 lg:col-span-4">
-{globalData.subtitle && (
+            {globalData.subtitle && (
               <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-black mb-3">{globalData.subtitle}</p>
             )}
             {globalData.title && (
@@ -58,14 +58,14 @@ const ServicesAccordion = ({ globalData }) => {
                       aria-expanded={isOpen}
                       onClick={() => setOpenIndex(isOpen ? -1 : idx)}
                     >
-<span className="text-[16px] md:text-[18px] font-semibold text-black">{item.title}</span>
+                      <span className="text-[16px] md:text-[18px] font-semibold text-black">{item.title}</span>
                       {/* Plus / Minus icon */}
                       {isOpen ? (
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#7C3AED]">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-black">
                           <path d="M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                         </svg>
                       ) : (
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#7C3AED]">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-black">
                           <path d="M12 5v14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                           <path d="M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                         </svg>
@@ -74,8 +74,8 @@ const ServicesAccordion = ({ globalData }) => {
                     <div className={`px-5 md:px-6 pb-5 md:pb-6 ${isOpen ? 'block' : 'hidden'}`}>
                       <div className="text-[15px] md:text-[16px] leading-[1.7] text-[#4B5563]">
                         <p className="mb-4">Learn more about this service and how it helps your business.</p>
-                        {item.uri && (
-<a href={item.uri} className="button-l inline-flex">Find Out More</a>
+                        {item.slug && (
+                          <a href={`/services/${item.slug}`} className="button-l inline-flex">Find Out More</a>
                         )}
                       </div>
                     </div>

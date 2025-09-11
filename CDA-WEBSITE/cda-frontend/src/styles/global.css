@@ -284,8 +284,8 @@
   font-weight: 700;
   font-size: 14px;
   color: #fff;
-  background: #7c3aed; /* purple */
-  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #7c3aed; /* double outline */
+  background: #000000; /* black */
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #000000; /* double outline */
 }
 
 /* CSS FOR VERTICAL BUTTON */
@@ -961,7 +961,7 @@
 
 /* Contact Section (SVG-accurate) */
 .contact-section {
-  background-color: #F4F4F4; /* matches SVG light gray */
+  background-color: #FFFFFF;
   padding: 80px 16px; /* generous vertical space as in SVG */
 }
 
@@ -1117,7 +1117,67 @@
   }
 }
 
-.contact-content { text-align: left; }
+.contact-content { 
+  text-align: left; 
+  background-color: #F4F4F4;
+  padding: 40px;
+  border-radius: 8px;
+  max-width: 600px;
+}
+
+.contact-form-wrapper {
+  background-color: #F4F4F4;
+}
+
+.contact-info {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #E5E7EB;
+}
+
+.contact-phone {
+  margin-bottom: 16px;
+  font-size: 16px;
+  color: #000;
+}
+
+.contact-phone a {
+  color: #FF6A00;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.contact-phone a:hover {
+  text-decoration: underline;
+}
+
+.contact-social {
+  font-size: 16px;
+  color: #000;
+}
+
+.social-links {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.social-links a {
+  color: #000;
+  transition: color 0.2s ease;
+}
+
+.social-links a:hover {
+  color: #FF6A00;
+}
+
+.contact-illustration {
+  background-color: transparent;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /* Header */
 .contact-header { margin-bottom: 24px; }
@@ -1424,8 +1484,8 @@
   font-weight: 700;
   font-size: 14px;
   color: #fff;
-  background: #7c3aed; /* purple */
-  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #7c3aed; /* double outline */
+  background: #000000; /* black */
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #000000; /* double outline */
 }
 
 /* CSS FOR VERTICAL BUTTON */

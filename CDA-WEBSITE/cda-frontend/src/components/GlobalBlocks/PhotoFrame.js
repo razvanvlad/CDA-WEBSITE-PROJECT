@@ -17,8 +17,10 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
   const arrowIllustration = arrowImage || globalData.arrowIllustration;
 
   return (
-    <section className="relative bg-white">
-<div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 py-16 md:py-20 lg:py-24">
+    <section className="relative bg-white overflow-visible">
+      {/* Gray background for bottom half of the section */}
+      <div className="absolute left-0 right-0 bottom-0 h-1/2 w-full z-0" style={{backgroundColor: '#f4f4f4'}}></div>
+      <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 py-16 md:py-20 lg:py-24 relative z-10">
         <div className="grid grid-cols-12 gap-y-10 gap-x-8 items-center">
           {/* Left: Frame */}
           <div className="col-span-12 lg:col-span-6 order-1 lg:order-none">
@@ -73,12 +75,12 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
                 </a>
               )}
 
-              {/* Arrow decoration (desktop only) */}
+              {/* Arrow decoration (desktop only) - positioned to extend into next section */}
               {arrowIllustration?.node?.sourceUrl && (
                 <img
                   src={arrowIllustration.node.sourceUrl}
                   alt={arrowIllustration.node.altText || 'Arrow'}
-className="hidden lg:block absolute -bottom-[300px] right-12 w-[90px] h-auto pointer-events-none select-none z-20"
+                  className="hidden lg:block absolute -bottom-[150px] left-[50px] w-[100px] h-auto pointer-events-none select-none z-30"
                   draggable={false}
                 />
               )}

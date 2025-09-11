@@ -56,7 +56,7 @@ export default function Home() {
                 illustration { node { sourceUrl altText } }
                 services {
                   nodes {
-                    ... on Service { id title uri }
+                    ... on Service { id title uri slug }
                   }
                 }
               }
@@ -448,13 +448,8 @@ export default function Home() {
       )}
 
       {/* Global Content Blocks - Only show if toggles are enabled and data exists */}
-      {globalSelection?.enableValues && globalContentBlocks?.valuesBlock && (
-        <>
-          <ValuesBlock globalData={globalContentBlocks.valuesBlock} />
-        </>
-      )}
-
-{/* Showreel Block */}
+      
+      {/* Showreel Block */}
       {globalSelection?.enableShowreel && globalContentBlocks?.showreel && (
         <Showreel globalData={globalContentBlocks.showreel} />
       )}

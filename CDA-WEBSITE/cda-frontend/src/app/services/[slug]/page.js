@@ -67,6 +67,10 @@ export default async function ServicePage({ params }) {
             const featuredCaseStudies = serviceFields.caseStudies?.nodes || [];
             const serviceColor = getServiceColor(service.slug);
 
+  // Alternate backgrounds for sections after hero: gray -> white -> gray -> ...
+  let sectionIndex = 0;
+  const nextBg = () => (sectionIndex++ % 2 === 0 ? 'bg-gray-50' : 'bg-white');
+
   return (
     <>
       <Header />
@@ -144,7 +148,7 @@ export default async function ServicePage({ params }) {
 
          {/* Service Bullet Points */}
          {serviceBulletPoints && (serviceBulletPoints.title || serviceBulletPoints.bullets) && (
-           <section className="service-bullet-points py-16 bg-gray-50">
+           <section className={`service-bullet-points py-16 ${nextBg()}`}>
              <div className="container mx-auto px-4">
                <div className="text-center mb-12">
                  {serviceBulletPoints.title && (
@@ -172,7 +176,7 @@ export default async function ServicePage({ params }) {
 
          {/* Value Description */}
          {valueDescription && (valueDescription.title || valueDescription.description) && (
-           <section className="value-description py-16">
+           <section className={`value-description py-16 ${nextBg()}`}>
              <div className="container mx-auto px-4">
                <div className="text-center mb-12">
                  {valueDescription.title && (
@@ -204,7 +208,7 @@ export default async function ServicePage({ params }) {
 
          {/* Featured Case Studies Section */}
          {featuredCaseStudies && featuredCaseStudies.length > 0 && (
-           <section className="home-case-studies" style={{padding: '5rem 1rem'}}>
+           <section className={`home-case-studies ${nextBg()}`} style={{padding: '5rem 1rem'}}>
              <div style={{maxWidth: '1620px', margin: '0 auto'}}>
                {/* Header */}
                <div className="cs-header">
@@ -245,7 +249,7 @@ export default async function ServicePage({ params }) {
 
         {/* Main Content */}
         {service.content && (
-          <section className="service-content py-16">
+          <section className={`service-content py-16 ${nextBg()}`}>
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
                 <div 
@@ -263,7 +267,7 @@ export default async function ServicePage({ params }) {
       </main>
 
       {/* Contact Form Section */}
-      <section id="contact-form" className="py-16 bg-gray-50">
+      <section id="contact-form" className={`py-16 ${nextBg()}`}>
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
