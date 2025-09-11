@@ -34,17 +34,17 @@ const Showreel = ({ globalData }) => {
   })();
 
   return (
-    <section className="py-12 md:py-16 lg:py-20">
+    <section className="bg-white text-black py-12 md:py-16 lg:py-20">
 <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
         {/* Header */}
         {(subtitle || title || button) && (
-          <div className="mb-6 md:mb-8 flex items-start justify-between gap-6">
+          <div className="mb-6 md:mb-8 flex flex-col md:flex-row items-start justify-between gap-6">
             <div>
               {subtitle && (
                 <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-black mb-1">{subtitle}</p>
               )}
               {title && (
-                <h2 className="text-[#111827] font-bold" style={{ fontFamily: 'Poppins, sans-serif', fontSize: 38, lineHeight: 1.1 }}>
+                <h2 className="text-black font-bold" style={{ fontFamily: 'Poppins, sans-serif', fontSize: 38, lineHeight: 1.1 }}>
                   {title}
                 </h2>
               )}

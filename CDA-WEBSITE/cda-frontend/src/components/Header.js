@@ -14,9 +14,9 @@ export default function Header() {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [isCompanyMenuOpen, setIsCompanyMenuOpen] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [isServicesOpen, setIsServicesOpen] = useState(true); // toggle for Services list
+  const [isServicesOpen, setIsServicesOpen] = useState(false); // toggle for Services list (collapsed by default)
 
-  // Initialize Services section collapsed on mobile so main links are visible there by default
+  // Ensure Services section stays collapsed on mobile so main links are visible there by default
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (window.innerWidth < 768) {
@@ -132,7 +132,7 @@ export default function Header() {
               {/* Side Menu Button - visible on all devices */}
               <button 
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                onClick={() => setIsSideMenuOpen(true)}
+                onClick={() => { setIsSideMenuOpen(true); setIsServicesOpen(false); }}
                 aria-label="Open side menu"
               >
                 <img src="/images/menu-icon.svg" alt="" className="w-6 h-6" aria-hidden="true" />

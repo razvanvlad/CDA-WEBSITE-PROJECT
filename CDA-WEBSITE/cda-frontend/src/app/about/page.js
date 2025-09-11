@@ -237,15 +237,15 @@ export default function AboutPage() {
       
       {/* About Page Header */}
       {aboutContent?.contentPageHeader && (
-        <section className="about-hero-section">
+<section className="bg-white text-black py-12 md:py-20">
           <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
+<div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="text-center md:text-left">
                 <h1 
                   className="title-large-pink mb-6"
                   dangerouslySetInnerHTML={{
                     __html: sanitizeTitleHtml(
-                      aboutContent.contentPageHeader.title || 'About Us'
+aboutContent.contentPageHeader.title
                     )
                   }}
                 />
