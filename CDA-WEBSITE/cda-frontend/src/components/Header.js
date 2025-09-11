@@ -100,11 +100,13 @@ export default function Header() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center">
-              <img 
-                src="/images/cda-logo.svg" 
-                alt="CDA Logo" 
-                className="h-8 w-auto"
-              />
+              <a href="/" aria-label="Go to homepage">
+                <img 
+                  src="/images/cda-logo.svg" 
+                  alt="CDA Logo" 
+                  className="h-8 w-auto"
+                />
+              </a>
             </div>
 
             {/* Desktop Navigation */}
@@ -187,11 +189,13 @@ export default function Header() {
         <div className="flex flex-col h-full">
           {/* Side Menu Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-800">
-            <img 
-              src="/images/cda-logo-white.svg" 
-              alt="CDA Logo" 
-              className="h-8 w-auto"
-            />
+            <a href="/" aria-label="Go to homepage">
+              <img 
+                src="/images/cda-logo-white.svg" 
+                alt="CDA Logo" 
+                className="h-8 w-auto"
+              />
+            </a>
             <button
               onClick={() => {
                 setIsSideMenuOpen(false);

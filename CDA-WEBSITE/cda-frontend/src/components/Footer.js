@@ -91,40 +91,49 @@ export default function Footer({ globalOptions }) {
         <div className="mt-16 pb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
           <div>
             <h3 className="text-[16px] font-semibold text-[#0B0B0E] mb-4">Have A Browse</h3>
-            {loading ? (
-              <div className="text-sm text-gray-500">Loading…</div>
-            ) : (
-              <div className="flex flex-wrap gap-x-6 gap-y-2">
-                {menuItems && menuItems.length > 0 ? (
-                  menuItems.map((item) => (
-                    <a key={item.id} href={resolveHref(item)} className="text:[14px] text-[#0B0B0E] hover:underline">
-                      {item.label}
-                    </a>
-                  ))
-                ) : (
-                  <span className="text-[14px] text-gray-500">No footer links configured</span>
-                )}
-              </div>
-            )}
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              <a href="/work" className="text:[14px] text-[#0B0B0E] hover:underline">
+                Work
+              </a>
+              <a href="/services" className="text:[14px] text-[#0B0B0E] hover:underline">
+                Services
+              </a>
+              <a href="/careers" className="text:[14px] text-[#0B0B0E] hover:underline">
+                Careers
+              </a>
+              <a href="/policies" className="text:[14px] text-[#0B0B0E] hover:underline">
+                Policies
+              </a>
+            </div>
             <p className="mt-6 text-[14px] text-[#111827]/60">CDA © {new Date().getFullYear()}. All rights reserved.</p>
           </div>
 
           <div className="w-full md:w-auto flex flex-col items-start md:items-end">
             <h3 className="text-[16px] font-semibold text-[#0B0B0E] mb-4">Let's Connect</h3>
             <div className="flex items-center gap-4 mb-4">
-              <a href="#" aria-label="Facebook" className="text-black hover:opacity-80">
+              <a href="https://www.facebook.com/cdagroupUK/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-black hover:opacity-80">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M22 12.07C22 6.49 17.52 2 11.93 2 6.35 2 1.86 6.49 1.86 12.07c0 5.01 3.66 9.16 8.44 9.96v-7.04H7.9v-2.92h2.4V9.85c0-2.38 1.42-3.69 3.6-3.69 1.04 0 2.13.19 2.13.19v2.34h-1.2c-1.18 0-1.55.73-1.55 1.48v1.78h2.64l-.42 2.92h-2.22V22c4.78-.8 8.44-4.95 8.44-9.96z"/>
+                  <path d="M22 12.07C22 6.48 17.52 2 11.93 2S1.86 6.48 1.86 12.07c0 5.02 3.66 9.18 8.44 9.93v-7.02H7.9v-2.91h2.41V9.41c0-2.38 1.42-3.7 3.6-3.7 1.04 0 2.13.18 2.13.18v2.34h-1.2c-1.18 0-1.55.73-1.55 1.47v1.77h2.64l-.42 2.91h-2.22V22c4.78-.75 8.44-4.91 8.44-9.93z"/>
                 </svg>
               </a>
-              <a href="#" aria-label="TikTok" className="text-black hover:opacity-80">
+              <a href="https://www.instagram.com/cdagroupUK/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-black hover:opacity-80">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2c.5 2.5 2.3 4.5 4.8 5v3.2c-1.4-.1-2.7-.5-3.9-1.2v5.7c0 3-2.4 5.3-5.4 5.3S2 17.7 2 14.7c0-2.5 1.6-4.6 3.8-5.2v3.3c-.6.4-1 .9-1 1.7 0 1.2 1 2.2 2.2 2.2s2.2-1 2.2-2.2V2h2.8z"/>
+                  <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10zm-5 3a5 5 0 1 0 .001 10.001A5 5 0 0 0 12 7zm0 2.2a2.8 2.8 0 1 1 0 5.6 2.8 2.8 0 0 1 0-5.6zM17.8 6.2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
                 </svg>
               </a>
-              <a href="#" aria-label="LinkedIn" className="text-black hover:opacity-80">
+              <a href="https://www.linkedin.com/company/cdagroup/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-black hover:opacity-80">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 5 2.12 5 3.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.1c.5-1 1.7-2.2 3.6-2.2 3.8 0 4.5 2.5 4.5 5.8V24h-4v-6.8c0-1.6 0-3.6-2.2-3.6s-2.6 1.7-2.6 3.5V24h-4V8z"/>
+                  <path d="M6.94 6.94A2.44 2.44 0 1 1 2.06 6.94a2.44 2.44 0 0 1 4.88 0zM2.4 8.8h4.8V22H2.4V8.8zm7.2 0h4.6v1.81h.06c.64-1.21 2.2-2.49 4.52-2.49 4.84 0 5.73 3.19 5.73 7.33V22h-4.8v-6.15c0-1.47-.03-3.36-2.05-3.36-2.06 0-2.38 1.6-2.38 3.26V22H9.6V8.8z"/>
+                </svg>
+              </a>
+              <a href="https://www.youtube.com/@CDAGroupUK" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-black hover:opacity-80">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21.8 8.2a3 3 0 0 0-2.1-2.1C17.7 5.5 12 5.5 12 5.5s-5.7 0-7.7.6A3 3 0 0 0 2.2 8.2 31.4 31.4 0 0 0 1.8 12a31.4 31.4 0 0 0 .4 3.8 3 3 0 0 0 2.1 2.1c2 .6 7.7.6 7.7.6s5.7 0 7.7-.6a3 3 0 0 0 2.1-2.1c.3-1.2.4-2.5.4-3.8 0-1.3-.1-2.6-.4-3.8zM10 14.7V9.3l4.8 2.7L10 14.7z"/>
+                </svg>
+              </a>
+              <a href="https://www.tiktok.com/@cdagroupuk" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-black hover:opacity-80">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 8.5a7 7 0 0 1-4-1.3v7.1a6.3 6.3 0 1 1-5.4-6.3v3a3.3 3.3 0 1 0 2.3 3.1V2h3a4 4 0 0 0 4 4v2.5z"/>
                 </svg>
               </a>
             </div>

@@ -1,27 +1,50 @@
-# Test & Error Log
+# Test Run Report — Frontend and Backend
 
-Date: <auto>
+Last updated: 2025-09-11 05:25:25 +03:00
 
-## Context
-- Environment: Local dev (Next.js frontend at http://localhost:3000, WordPress backend proxied via /api/wp-graphql)
-- Browser automation: Puppeteer via IDE
+Summary
+- Navigation successful across pages: Home, Services, About, Knowledge Hub, Case Studies (all 200 responses). 
+- Fixed: next/image invalid src prop errors by adding images.remotePatterns for localhost WP uploads in next.config.js.
+- Fixed: Footer link normalization to match Header (handles base path, absolute URLs, index.php). 
+- No SSR/runtime errors seen after fixes; warning remains about metadataBase not set in Next.js metadata (non-blocking).
 
-## Findings
+Load Times (observed from dev logs)
+- / (Home): ~190–220 ms
+- /services: initial ~4.8–4.9 s (GraphQL + image-heavy); subsequent ~4.9 s
+- /about: ~175 ms
+- /knowledge-hub: ~1.3–1.8 s
+- /case-studies: ~2.5–2.9 s
+- /services/ai: ~3.9 s (first render)
+- Favicon requests: ~300–390 ms (normal)
 
-### 1) Performance metrics (Home page)
-- TTFB: ~946 ms
-- DOMContentLoaded: ~982 ms
-- Load: ~1119 ms
+Key Errors and Warnings
+- 404 GET /@vite/client persists (likely a stray reference in dev tools or legacy code; not functional impact under Next dev server).
+- Warning: metadataBase property in metadata export not set; Next falls back to http://localhost:3000. Consider setting in app/layout metadata.
 
-### 2) Runtime errors observed
-- On About/Services puppeteer evaluate, saw script error: "Cannot convert undefined or null to object". Root cause was the evaluation script assuming an object where null may be returned.
-- Services page had GraphQL fetch using relative endpoint ('/api/wp-graphql') from server-side, causing SSR fetch to fail in some contexts.
+Navigation Validation
+- Home, Services, About, Knowledge Hub, Case Studies pages render without 500s now.
+- Header and Footer links tested across primary nav; no broken links observed in this pass.
 
-## Fixes Applied
-- Implemented endpoint resolution in src/lib/graphql-queries.js so that when GRAPHQL_ENDPOINT is relative, it resolves to an absolute URL on server using NEXT_PUBLIC_SITE_URL or fallback http://localhost:3000. Also added cache: 'no-store' to SSR fetch.
+Recent Fixes Implemented
+- next.config.js: added images.remotePatterns to allow localhost WordPress uploads.
+- Footer.js: unified resolveHref with Header behavior (normalizePath with base path, absolute URLs, index.php pruning).
 
-## Next Steps
-- Re-test Services page data fetching and rendering.
-- Re-run performance metrics collection for Home, Services, About pages.
-- Capture 1400x900 screenshots for Home, Services, About.
-- Monitor dev server logs for new errors after the fix.
+Performance Notes and Opportunities
+- Services page load (~4.9 s) suggests heavy data/images. Consider:
+  - Enable Next.js image optimization for remote images (already allowed); ensure correct sizes and priority on LCP images.
+  - Cache WP GraphQL requests on server (revalidate or SSG for stable content).
+  - Consider code-splitting for heavy components.
+- Knowledge Hub (~1.3–1.8 s) and Case Studies (~2.5–2.9 s) reasonable in dev; verify in prod build.
+
+Next Steps
+- Add metadataBase in app/(root)/layout.tsx or equivalent metadata export to remove warning.
+- Investigate and remove any references to /@vite/client.
+- Add simple timers (performance marks) to capture client-side TTI/LCP metrics or run Lighthouse on prod build.
+- Consider caching layers for WP GraphQL (Incremental Static Regeneration or edge cache) for Services and dynamic pages.
+
+Artifacts
+- Screenshots captured during this run (Home, Services, About, Knowledge Hub, Case Studies) via automation.
+
+Changes Touched
+- cda-frontend/next.config.js
+- cda-frontend/src/components/Footer.js

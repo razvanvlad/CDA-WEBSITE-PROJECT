@@ -1,12 +1,12 @@
 {
-  "timestamp": "2025-09-11T00:40:00.024Z",
+  "timestamp": "2025-09-11T00:53:30.926Z",
   "summary": {
     "totalTests": 12,
-    "passedTests": 10,
-    "failedTests": 2,
-    "successRate": 83,
-    "totalDuration": 13895,
-    "averageTestTime": 1157
+    "passedTests": 12,
+    "failedTests": 0,
+    "successRate": 100,
+    "totalDuration": 13720,
+    "averageTestTime": 1143
   },
   "results": [
     {
@@ -4503,8 +4503,8 @@
           ]
         }
       },
-      "duration": 1367,
-      "timestamp": "2025-09-11T00:39:46.126Z"
+      "duration": 1336,
+      "timestamp": "2025-09-11T00:53:17.203Z"
     },
     {
       "suite": "Connection",
@@ -4936,8 +4936,8 @@
           ]
         }
       },
-      "duration": 1134,
-      "timestamp": "2025-09-11T00:39:47.493Z"
+      "duration": 1148,
+      "timestamp": "2025-09-11T00:53:18.539Z"
     },
     {
       "suite": "Services",
@@ -4984,16 +4984,105 @@
           ]
         }
       },
-      "duration": 1125,
-      "timestamp": "2025-09-11T00:39:48.629Z"
+      "duration": 1148,
+      "timestamp": "2025-09-11T00:53:19.688Z"
     },
     {
       "suite": "Services",
       "query": "Services - With ACF Fields",
-      "success": false,
-      "error": "Cannot query field \"keyStatistics\" on type \"ServiceFields\". Did you mean \"statistics\"?",
-      "duration": 1212,
-      "timestamp": "2025-09-11T00:39:49.755Z"
+      "success": true,
+      "data": {
+        "services": {
+          "nodes": [
+            {
+              "id": "cG9zdDoxMzY1",
+              "title": "AI",
+              "uri": "/index.php/services/ai/",
+              "serviceFields": {
+                "heroSection": {
+                  "subtitle": "AI For SME Businesses",
+                  "description": "When used properly, AI is a powerful tool that can transform how your business operates, engages customers, and drives growth. Our AI services are designed to take the stress out of the unknown and help you confidently move forward in the digital world.\r\n\r\nIf you’re not sure where to start, we get it. Most businesses know AI is “important,” but few know how it can actually help them. That’s where we come in.\r\n\r\nWe’ll work with you to assess what your business needs (and what it doesn’t), then recommend and implement the right AI tools, platforms, and strategies to support your goals. No jargon. No wild goose chases. Just honest advice and practical solutions."
+                },
+                "statistics": null
+              }
+            },
+            {
+              "id": "cG9zdDoxMzY0",
+              "title": "Outsourced CMO",
+              "uri": "/index.php/services/outsourced-cmo/",
+              "serviceFields": {
+                "heroSection": {
+                  "subtitle": "We’re your in-house marketing expert – without the payroll hassle ",
+                  "description": "Not every business needs (or can justify) a full-time Chief Marketing Officer – but every business needs a solid marketing strategy. That’s where we come in.\r\n\r\n"
+                },
+                "statistics": null
+              }
+            },
+            {
+              "id": "cG9zdDoxMzYz",
+              "title": "Digital Marketing",
+              "uri": "/index.php/services/digital-marketing/",
+              "serviceFields": {
+                "heroSection": {
+                  "subtitle": "Flexible,  Full-Service  Digital  Marketing  That  Grows  With  You",
+                  "description": "At CDA, we specialise in helping B2B & B2C businesses generate quality leads that become loyal, high-value customers. No fluff, no vanity metrics — just targeted, measurable marketing that drives revenue. Whether you’re looking to attract new business, break into new markets, or scale your sales pipeline, we build lead gen strategies that work."
+                },
+                "statistics": null
+              }
+            },
+            {
+              "id": "cG9zdDoxMzYy",
+              "title": "Franchise / Booking Systems",
+              "uri": "/index.php/services/franchise-booking-systems/",
+              "serviceFields": {
+                "heroSection": {
+                  "subtitle": null,
+                  "description": null
+                },
+                "statistics": null
+              }
+            },
+            {
+              "id": "cG9zdDoxMzYx",
+              "title": "Software Development",
+              "uri": "/index.php/services/software-development/",
+              "serviceFields": {
+                "heroSection": {
+                  "subtitle": null,
+                  "description": null
+                },
+                "statistics": null
+              }
+            },
+            {
+              "id": "cG9zdDoxMzYw",
+              "title": "B2B Lead Generation",
+              "uri": "/index.php/services/b2b-lead-generation/",
+              "serviceFields": {
+                "heroSection": {
+                  "subtitle": "B2B Lead Generation",
+                  "description": "B2B marketing isn’t about getting as many eyes on your business as possible — it’s about getting in front of the right people at the right time with the right message. Our campaigns are designed to attract qualified decision-makers, nurture them through the sales funnel, and convert them into high-value customers. Every touchpoint is purposeful, from the landing page they visit to the follow-up email they’ll receive next."
+                },
+                "statistics": null
+              }
+            },
+            {
+              "id": "cG9zdDoxMzU5",
+              "title": "eCommerce",
+              "uri": "/index.php/services/ecommerce/",
+              "serviceFields": {
+                "heroSection": {
+                  "subtitle": "eCommerce Solutions",
+                  "description": "We plan, design and build user-friendly eCommerce solutions that don’t just look good – they work seamlessly, syncing your sales channels and business systems without headaches.\r\n\r\n"
+                },
+                "statistics": null
+              }
+            }
+          ]
+        }
+      },
+      "duration": 1121,
+      "timestamp": "2025-09-11T00:53:20.837Z"
     },
     {
       "suite": "Services",
@@ -5089,8 +5178,8 @@
           ]
         }
       },
-      "duration": 1136,
-      "timestamp": "2025-09-11T00:39:50.968Z"
+      "duration": 1143,
+      "timestamp": "2025-09-11T00:53:21.958Z"
     },
     {
       "suite": "Case Studies",
@@ -5112,8 +5201,8 @@
           ]
         }
       },
-      "duration": 1136,
-      "timestamp": "2025-09-11T00:39:52.104Z"
+      "duration": 1211,
+      "timestamp": "2025-09-11T00:53:23.102Z"
     },
     {
       "suite": "Case Studies",
@@ -5145,8 +5234,8 @@
           ]
         }
       },
-      "duration": 1142,
-      "timestamp": "2025-09-11T00:39:53.240Z"
+      "duration": 1076,
+      "timestamp": "2025-09-11T00:53:24.313Z"
     },
     {
       "suite": "Team Members",
@@ -5168,8 +5257,8 @@
           ]
         }
       },
-      "duration": 1164,
-      "timestamp": "2025-09-11T00:39:54.383Z"
+      "duration": 1058,
+      "timestamp": "2025-09-11T00:53:25.390Z"
     },
     {
       "suite": "Team Members",
@@ -5197,16 +5286,36 @@
           ]
         }
       },
-      "duration": 1161,
-      "timestamp": "2025-09-11T00:39:55.548Z"
+      "duration": 1192,
+      "timestamp": "2025-09-11T00:53:26.449Z"
     },
     {
       "suite": "Global Content",
       "query": "Global Content - All Blocks",
-      "success": false,
-      "error": "Cannot query field \"globalSharedContent\" on type \"GlobalOptions\".",
-      "duration": 1104,
-      "timestamp": "2025-09-11T00:39:56.710Z"
+      "success": true,
+      "data": {
+        "globalOptions": {
+          "globalContentBlocks": {
+            "whyCda": {
+              "title": "Why CDA"
+            },
+            "approach": {
+              "title": "How We Work"
+            },
+            "technologiesSlider": {
+              "title": "A Few We Work With"
+            },
+            "showreel": {
+              "title": "Brands We've Helped Grow"
+            },
+            "newsletterSignup": {
+              "title": "Sign Up To Our Newsletter"
+            }
+          }
+        }
+      },
+      "duration": 1060,
+      "timestamp": "2025-09-11T00:53:27.642Z"
     },
     {
       "suite": "Taxonomies",
@@ -5260,8 +5369,8 @@
           ]
         }
       },
-      "duration": 1071,
-      "timestamp": "2025-09-11T00:39:57.815Z"
+      "duration": 1128,
+      "timestamp": "2025-09-11T00:53:28.702Z"
     },
     {
       "suite": "Taxonomies",
@@ -5309,8 +5418,8 @@
           ]
         }
       },
-      "duration": 1134,
-      "timestamp": "2025-09-11T00:39:58.886Z"
+      "duration": 1090,
+      "timestamp": "2025-09-11T00:53:29.831Z"
     }
   ],
   "suites": {
@@ -9809,8 +9918,8 @@
             ]
           }
         },
-        "duration": 1367,
-        "timestamp": "2025-09-11T00:39:46.126Z"
+        "duration": 1336,
+        "timestamp": "2025-09-11T00:53:17.203Z"
       },
       {
         "suite": "Connection",
@@ -10242,8 +10351,8 @@
             ]
           }
         },
-        "duration": 1134,
-        "timestamp": "2025-09-11T00:39:47.493Z"
+        "duration": 1148,
+        "timestamp": "2025-09-11T00:53:18.539Z"
       }
     ],
     "Services": [
@@ -10292,16 +10401,105 @@
             ]
           }
         },
-        "duration": 1125,
-        "timestamp": "2025-09-11T00:39:48.629Z"
+        "duration": 1148,
+        "timestamp": "2025-09-11T00:53:19.688Z"
       },
       {
         "suite": "Services",
         "query": "Services - With ACF Fields",
-        "success": false,
-        "error": "Cannot query field \"keyStatistics\" on type \"ServiceFields\". Did you mean \"statistics\"?",
-        "duration": 1212,
-        "timestamp": "2025-09-11T00:39:49.755Z"
+        "success": true,
+        "data": {
+          "services": {
+            "nodes": [
+              {
+                "id": "cG9zdDoxMzY1",
+                "title": "AI",
+                "uri": "/index.php/services/ai/",
+                "serviceFields": {
+                  "heroSection": {
+                    "subtitle": "AI For SME Businesses",
+                    "description": "When used properly, AI is a powerful tool that can transform how your business operates, engages customers, and drives growth. Our AI services are designed to take the stress out of the unknown and help you confidently move forward in the digital world.\r\n\r\nIf you’re not sure where to start, we get it. Most businesses know AI is “important,” but few know how it can actually help them. That’s where we come in.\r\n\r\nWe’ll work with you to assess what your business needs (and what it doesn’t), then recommend and implement the right AI tools, platforms, and strategies to support your goals. No jargon. No wild goose chases. Just honest advice and practical solutions."
+                  },
+                  "statistics": null
+                }
+              },
+              {
+                "id": "cG9zdDoxMzY0",
+                "title": "Outsourced CMO",
+                "uri": "/index.php/services/outsourced-cmo/",
+                "serviceFields": {
+                  "heroSection": {
+                    "subtitle": "We’re your in-house marketing expert – without the payroll hassle ",
+                    "description": "Not every business needs (or can justify) a full-time Chief Marketing Officer – but every business needs a solid marketing strategy. That’s where we come in.\r\n\r\n"
+                  },
+                  "statistics": null
+                }
+              },
+              {
+                "id": "cG9zdDoxMzYz",
+                "title": "Digital Marketing",
+                "uri": "/index.php/services/digital-marketing/",
+                "serviceFields": {
+                  "heroSection": {
+                    "subtitle": "Flexible,  Full-Service  Digital  Marketing  That  Grows  With  You",
+                    "description": "At CDA, we specialise in helping B2B & B2C businesses generate quality leads that become loyal, high-value customers. No fluff, no vanity metrics — just targeted, measurable marketing that drives revenue. Whether you’re looking to attract new business, break into new markets, or scale your sales pipeline, we build lead gen strategies that work."
+                  },
+                  "statistics": null
+                }
+              },
+              {
+                "id": "cG9zdDoxMzYy",
+                "title": "Franchise / Booking Systems",
+                "uri": "/index.php/services/franchise-booking-systems/",
+                "serviceFields": {
+                  "heroSection": {
+                    "subtitle": null,
+                    "description": null
+                  },
+                  "statistics": null
+                }
+              },
+              {
+                "id": "cG9zdDoxMzYx",
+                "title": "Software Development",
+                "uri": "/index.php/services/software-development/",
+                "serviceFields": {
+                  "heroSection": {
+                    "subtitle": null,
+                    "description": null
+                  },
+                  "statistics": null
+                }
+              },
+              {
+                "id": "cG9zdDoxMzYw",
+                "title": "B2B Lead Generation",
+                "uri": "/index.php/services/b2b-lead-generation/",
+                "serviceFields": {
+                  "heroSection": {
+                    "subtitle": "B2B Lead Generation",
+                    "description": "B2B marketing isn’t about getting as many eyes on your business as possible — it’s about getting in front of the right people at the right time with the right message. Our campaigns are designed to attract qualified decision-makers, nurture them through the sales funnel, and convert them into high-value customers. Every touchpoint is purposeful, from the landing page they visit to the follow-up email they’ll receive next."
+                  },
+                  "statistics": null
+                }
+              },
+              {
+                "id": "cG9zdDoxMzU5",
+                "title": "eCommerce",
+                "uri": "/index.php/services/ecommerce/",
+                "serviceFields": {
+                  "heroSection": {
+                    "subtitle": "eCommerce Solutions",
+                    "description": "We plan, design and build user-friendly eCommerce solutions that don’t just look good – they work seamlessly, syncing your sales channels and business systems without headaches.\r\n\r\n"
+                  },
+                  "statistics": null
+                }
+              }
+            ]
+          }
+        },
+        "duration": 1121,
+        "timestamp": "2025-09-11T00:53:20.837Z"
       },
       {
         "suite": "Services",
@@ -10397,8 +10595,8 @@
             ]
           }
         },
-        "duration": 1136,
-        "timestamp": "2025-09-11T00:39:50.968Z"
+        "duration": 1143,
+        "timestamp": "2025-09-11T00:53:21.958Z"
       }
     ],
     "Case Studies": [
@@ -10422,8 +10620,8 @@
             ]
           }
         },
-        "duration": 1136,
-        "timestamp": "2025-09-11T00:39:52.104Z"
+        "duration": 1211,
+        "timestamp": "2025-09-11T00:53:23.102Z"
       },
       {
         "suite": "Case Studies",
@@ -10455,8 +10653,8 @@
             ]
           }
         },
-        "duration": 1142,
-        "timestamp": "2025-09-11T00:39:53.240Z"
+        "duration": 1076,
+        "timestamp": "2025-09-11T00:53:24.313Z"
       }
     ],
     "Team Members": [
@@ -10480,8 +10678,8 @@
             ]
           }
         },
-        "duration": 1164,
-        "timestamp": "2025-09-11T00:39:54.383Z"
+        "duration": 1058,
+        "timestamp": "2025-09-11T00:53:25.390Z"
       },
       {
         "suite": "Team Members",
@@ -10509,18 +10707,38 @@
             ]
           }
         },
-        "duration": 1161,
-        "timestamp": "2025-09-11T00:39:55.548Z"
+        "duration": 1192,
+        "timestamp": "2025-09-11T00:53:26.449Z"
       }
     ],
     "Global Content": [
       {
         "suite": "Global Content",
         "query": "Global Content - All Blocks",
-        "success": false,
-        "error": "Cannot query field \"globalSharedContent\" on type \"GlobalOptions\".",
-        "duration": 1104,
-        "timestamp": "2025-09-11T00:39:56.710Z"
+        "success": true,
+        "data": {
+          "globalOptions": {
+            "globalContentBlocks": {
+              "whyCda": {
+                "title": "Why CDA"
+              },
+              "approach": {
+                "title": "How We Work"
+              },
+              "technologiesSlider": {
+                "title": "A Few We Work With"
+              },
+              "showreel": {
+                "title": "Brands We've Helped Grow"
+              },
+              "newsletterSignup": {
+                "title": "Sign Up To Our Newsletter"
+              }
+            }
+          }
+        },
+        "duration": 1060,
+        "timestamp": "2025-09-11T00:53:27.642Z"
       }
     ],
     "Taxonomies": [
@@ -10576,8 +10794,8 @@
             ]
           }
         },
-        "duration": 1071,
-        "timestamp": "2025-09-11T00:39:57.815Z"
+        "duration": 1128,
+        "timestamp": "2025-09-11T00:53:28.702Z"
       },
       {
         "suite": "Taxonomies",
@@ -10625,8 +10843,8 @@
             ]
           }
         },
-        "duration": 1134,
-        "timestamp": "2025-09-11T00:39:58.886Z"
+        "duration": 1090,
+        "timestamp": "2025-09-11T00:53:29.831Z"
       }
     ]
   }
