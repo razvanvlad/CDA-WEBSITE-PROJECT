@@ -1,5 +1,6 @@
 // src/components/GlobalBlocks/WhyCdaBlock.js
 import React from 'react';
+import Image from 'next/image';
 
 const WhyCdaBlock = ({ globalData }) => {
   const cards = Array.isArray(globalData?.cards) ? globalData.cards.filter(Boolean) : [];
@@ -33,11 +34,14 @@ const WhyCdaBlock = ({ globalData }) => {
                   </div>
 
                   {/* Image - right side touches borders */}
-                  {card?.image?.node?.sourceUrl && (
+{card?.image?.node?.sourceUrl && (
                     <div className="w-60 flex-shrink-0 flex items-end">
-                      <img
+                      <Image
                         src={card.image.node.sourceUrl}
                         alt={card.image.node.altText || card.title || ''}
+                        width={240}
+                        height={180}
+                        sizes="(max-width: 1024px) 50vw, 240px"
                         className="w-full h-auto object-contain"
                       />
                     </div>
