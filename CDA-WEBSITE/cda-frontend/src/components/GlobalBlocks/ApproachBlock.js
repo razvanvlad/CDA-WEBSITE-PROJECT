@@ -1,6 +1,7 @@
 'use client';
 // src/components/GlobalBlocks/ApproachBlock.js
 import React from 'react';
+import Image from 'next/image';
 
 const ApproachBlock = ({ globalData, pageData, useOverride = false }) => {
   // Use override data if specified, otherwise use global data
@@ -71,15 +72,18 @@ const ApproachBlock = ({ globalData, pageData, useOverride = false }) => {
                   </div>
                   
                   {/* Step Image */}
-                  {step.image && (
-                    <div className="w-20 h-20 mb-4 flex items-center justify-center">
-                      <img 
-                        src={step.image.node.sourceUrl}
-                        alt={step.image.node.altText || step.title || ''}
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
-                  )}
+{step.image && (
+                      <div className="w-20 h-20 mb-4 flex items-center justify-center">
+                        <Image 
+                          src={step.image.node.sourceUrl}
+                          alt={step.image.node.altText || step.title || ''}
+                          width={80}
+                          height={80}
+                          sizes="80px"
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                    )}
                   
                   {/* Step Content */}
                   <div className="space-y-2">
@@ -117,15 +121,18 @@ const ApproachBlock = ({ globalData, pageData, useOverride = false }) => {
                   </div>
                   
                   {/* Step Image */}
-                  {step.image && (
-                    <div className="w-20 h-20 mb-4 flex items-center justify-center">
-                      <img 
-                        src={step.image.node.sourceUrl}
-                        alt={step.image.node.altText || step.title || ''}
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
-                  )}
+{step.image && (
+                      <div className="w-20 h-20 mb-4 flex items-center justify-center">
+                        <Image 
+                          src={step.image.node.sourceUrl}
+                          alt={step.image.node.altText || step.title || ''}
+                          width={80}
+                          height={80}
+                          sizes="80px"
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                    )}
                   
                   {/* Step Content */}
                   <div className="space-y-2">
@@ -168,15 +175,18 @@ const ApproachBlock = ({ globalData, pageData, useOverride = false }) => {
                   </div>
                   
                   {/* Step Image */}
-                  {step.image && (
-                    <div className="w-24 h-24 mb-4 flex items-center justify-center">
-                      <img 
-                        src={step.image.node.sourceUrl}
-                        alt={step.image.node.altText || step.title || ''}
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
-                  )}
+{step.image && (
+                      <div className="w-24 h-24 mb-4 flex items-center justify-center">
+                        <Image 
+                          src={step.image.node.sourceUrl}
+                          alt={step.image.node.altText || step.title || ''}
+                          width={96}
+                          height={96}
+                          sizes="96px"
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                    )}
                   
                   {/* Step Content */}
                   <div className="space-y-3 max-w-sm">

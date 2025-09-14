@@ -1,5 +1,6 @@
 // src/components/GlobalBlocks/PhotoFrame.js
 import React from 'react';
+import Image from 'next/image';
 
 /*
   Pixel-perfect pass for Image Frame Block (desktop + mobile)
@@ -27,10 +28,12 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
             <div className="relative mx-auto w-full max-w-[353px] lg:max-w-[822px] aspect-[353/278] lg:aspect-[822/646]">
               {/* Frame */}
               {frameImage?.node?.sourceUrl && (
-                <img
+                <Image
                   src={frameImage.node.sourceUrl}
                   alt={frameImage.node.altText || 'Frame'}
-                  className="absolute inset-0 w-full h-full object-contain z-10 pointer-events-none select-none"
+                  fill
+                  sizes="(max-width: 768px) 353px, 822px"
+                  className="absolute inset-0 object-contain z-10 pointer-events-none select-none"
                   draggable={false}
                 />
               )}
@@ -38,11 +41,15 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
               {/* Inner visual (exact proportional sizing inside frame) */}
               {innerImage?.node?.sourceUrl && (
                 <div className="absolute inset-0 z-0 flex items-center justify-center">
-                  <img
-                    src={innerImage.node.sourceUrl}
-                    alt={innerImage.node.altText || title || 'Visual'}
-                    className="w-[87.5%] h-[87.5%] object-cover rounded-[10px] shadow-[0_10px_30px_rgba(0,0,0,0.12)]"
-                  />
+                  <div className="relative w-[87.5%] h-[87.5%]">
+                    <Image
+                      src={innerImage.node.sourceUrl}
+                      alt={innerImage.node.altText || title || 'Visual'}
+                      fill
+                      sizes="(max-width: 768px) 300px, 720px"
+                      className="object-cover rounded-[10px] shadow-[0_10px_30px_rgba(0,0,0,0.12)]"
+                    />
+                  </div>
                 </div>
               )}
             </div>
@@ -77,9 +84,11 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
 
               {/* Arrow decoration (desktop only) - positioned to extend into next section */}
               {arrowIllustration?.node?.sourceUrl && (
-                <img
+                <Image
                   src={arrowIllustration.node.sourceUrl}
                   alt={arrowIllustration.node.altText || 'Arrow'}
+                  width={100}
+                  height={100}
                   className="hidden lg:block absolute -bottom-[150px] left-[50px] w-[100px] h-auto pointer-events-none select-none z-30"
                   draggable={false}
                 />
@@ -92,9 +101,11 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
       {/* Mobile arrow (stacked under content) */}
       {arrowIllustration?.node?.sourceUrl && (
         <div className="lg:hidden flex justify-center">
-          <img
+          <Image
             src={arrowIllustration.node.sourceUrl}
             alt={arrowIllustration.node.altText || 'Arrow'}
+            width={120}
+            height={120}
             className="mt-4 w-[120px] h-auto pointer-events-none select-none"
             draggable={false}
           />

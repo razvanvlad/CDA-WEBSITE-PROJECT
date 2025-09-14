@@ -2,7 +2,11 @@
 const nextConfig = {
   env: {
     // Prefer environment variables (Vercel or .env.*). Provide sensible defaults.
-    NEXT_PUBLIC_WORDPRESS_URL: process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://cdanewwebsite.wpenginepowered.com',
+    // URL FOR LIVE SERVER select one or the other (working):
+    // NEXT_PUBLIC_WORDPRESS_URL: process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://cdanewwebsite.wpenginepowered.com',
+    // URL FOR LIVE SERVER select one or the other (working):
+    NEXT_PUBLIC_WORDPRESS_URL: process.env.NEXT_PUBLIC_WORDPRESS_URL || 'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend',
+    // URL FOR LIVE SERVER select one or the other (working):
     NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT:
       process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT ||
       `${(process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://cdanewwebsite.wpenginepowered.com').replace(/\/$/, '')}/graphql`,
