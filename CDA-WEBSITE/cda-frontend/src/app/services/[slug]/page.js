@@ -184,7 +184,7 @@ export default async function ServicePage({ params }) {
                  )}
                </div>
                <div className="max-w-4xl mx-auto">
-                 <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-8 rounded-lg">
+                 <div className="bg-white rounded-lg">
                    {valueDescription.description && (
                      <p className="text-lg text-gray-700 leading-relaxed text-center mb-6">
                        {valueDescription.description}
