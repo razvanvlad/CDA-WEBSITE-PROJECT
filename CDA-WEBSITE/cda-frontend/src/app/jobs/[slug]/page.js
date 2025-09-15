@@ -8,13 +8,15 @@ import JobApplicationForm from '../../../components/JobApplicationForm';
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }) {
+  // Await params in Next.js 15
+  const resolvedParams = await params;
   let job;
   
   try {
-    job = await getJobListingBySlug(params.slug);
+    job = await getJobListingBySlug(resolvedParams.slug);
   } catch (error) {
     const allJobs = await getJobListingsSimple();
-    job = allJobs.find(j => j.slug === params.slug);
+    job = allJobs.find(j => j.slug === resolvedParams.slug);
   }
   
   if (!job) {
@@ -99,14 +101,16 @@ function useBgRotation() {
 }
 
 export default async function JobDetailPage({ params }) {
+  // Await params in Next.js 15
+  const resolvedParams = await params;
   let job;
   
   try {
-    job = await getJobListingBySlug(params.slug);
+    job = await getJobListingBySlug(resolvedParams.slug);
   } catch (error) {
     console.log('ACF query failed, using simple query:', error.message);
     const allJobs = await getJobListingsSimple();
-    job = allJobs.find(j => j.slug === params.slug);
+    job = allJobs.find(j => j.slug === resolvedParams.slug);
   }
 
   if (!job) {
@@ -115,13 +119,13 @@ export default async function JobDetailPage({ params }) {
 
   // Debug: Log the complete job data structure
   console.log('🔍 Complete job data:', JSON.stringify(job, null, 2));
-  console.log('🔍 jobListingFields:', job.jobListingFields);
   
+  // Extract ACF fields if they exist
   const { jobDetails, requirements, jobStatus } = job.jobListingFields || {};
   
-  // Debug: Log individual field sections
+  // Debug: Log ACF fields
+  console.log('🔍 jobListingFields:', job.jobListingFields);
   console.log('🔍 jobDetails:', jobDetails);
-  console.log('🔍 requirements:', requirements);
   console.log('🔍 jobStatus:', jobStatus);
   
   const statusBadge = getStatusBadge(jobStatus || 'open');
@@ -183,23 +187,62 @@ export default async function JobDetailPage({ params }) {
                 <div className="bg-white rounded-lg shadow-lg p-6 sticky top-8">
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">Position Details</h3>
                   
-                  <div className="mb-4">
-                    <dt className="text-sm font-medium text-gray-500 flex items-center mb-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a1 1 0 011-1h6a1 1 0 011 1v4M5 21V10a1 1 0 011-1h12a1 1 0 011 1v11a1 1 0 01-1 1H6a1 1 0 01-1-1z" />
-                      </svg>
-                      Posted
-                    </dt>
-                    <dd className="text-lg text-gray-900">{formatDate(job.date)}</dd>
-                  </div>
+                  <div className="space-y-4">
+                    <div>
+                      <dt className="text-sm font-medium text-gray-500 flex items-center mb-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a1 1 0 011-1h6a1 1 0 011 1v4M5 21V10a1 1 0 011-1h12a1 1 0 011 1v11a1 1 0 01-1 1H6a1 1 0 01-1-1z" />
+                        </svg>
+                        Posted
+                      </dt>
+                      <dd className="text-lg text-gray-900">{formatDate(jobDetails?.publishDate || job.date)}</dd>
+                    </div>
 
-                  <div className="mb-4">
-                    <dt className="text-sm font-medium text-gray-500">Status</dt>
-                    <dd>
-                      <span className={`px-3 py-1 text-xs font-semibold rounded-full border ${statusBadge.className}`}>
-                        {statusBadge.text}
-                      </span>
-                    </dd>
+                    {jobDetails?.location && (
+                      <div>
+                        <dt className="text-sm font-medium text-gray-500 flex items-center mb-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                          Location
+                        </dt>
+                        <dd className="text-lg text-gray-900">{jobDetails.location}</dd>
+                      </div>
+                    )}
+
+                    {jobDetails?.salary && (
+                      <div>
+                        <dt className="text-sm font-medium text-gray-500 flex items-center mb-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                          </svg>
+                          Salary
+                        </dt>
+                        <dd className="text-lg text-gray-900">{jobDetails.salary}</dd>
+                      </div>
+                    )}
+
+                    {jobDetails?.experienceLevel && (
+                      <div>
+                        <dt className="text-sm font-medium text-gray-500 flex items-center mb-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                          </svg>
+                          Experience Level
+                        </dt>
+                        <dd className="text-lg text-gray-900">{getExperienceLevelDisplay(jobDetails.experienceLevel)}</dd>
+                      </div>
+                    )}
+
+                    <div>
+                      <dt className="text-sm font-medium text-gray-500 mb-1">Status</dt>
+                      <dd>
+                        <span className={`px-3 py-1 text-xs font-semibold rounded-full border ${statusBadge.className}`}>
+                          {statusBadge.text}
+                        </span>
+                      </dd>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -207,10 +250,72 @@ export default async function JobDetailPage({ params }) {
           </div>
         </section>
 
-        {/* Placeholder sections for when ACF fields are available */}
+        {/* About the Position */}
+        {requirements?.aboutThePosition && (
+          <section className={`py-16 ${nextBg()}`}>
+            <div className="max-w-4xl mx-auto px-4">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">About the Position</h2>
+              <div 
+                className="prose prose-lg max-w-none"
+                dangerouslySetInnerHTML={{ __html: requirements.aboutThePosition }}
+              />
+            </div>
+          </section>
+        )}
 
-        {/* Main Content */}
-        {job.content && (
+        {/* Our Dream Candidate */}
+        {requirements?.ourDreamCandidate && (
+          <section className={`py-16 ${nextBg()}`}>
+            <div className="max-w-4xl mx-auto px-4">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Dream Candidate</h2>
+              <div 
+                className="prose prose-lg max-w-none"
+                dangerouslySetInnerHTML={{ __html: requirements.ourDreamCandidate }}
+              />
+            </div>
+          </section>
+        )}
+
+        {/* Key Responsibilities */}
+        {requirements?.requiredSkills && requirements.requiredSkills.length > 0 && (
+          <section className={`py-16 ${nextBg()}`}>
+            <div className="max-w-4xl mx-auto px-4">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Key Responsibilities</h2>
+              <ul className="space-y-3">
+                {requirements.requiredSkills.map((skill, index) => (
+                  <li key={index} className="flex items-start">
+                    <svg className="h-6 w-6 text-blue-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700">{skill.responsability}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
+        {/* Qualifications and Experience */}
+        {requirements?.requiredQualifications && requirements.requiredQualifications.length > 0 && (
+          <section className={`py-16 ${nextBg()}`}>
+            <div className="max-w-4xl mx-auto px-4">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Qualifications and Experience</h2>
+              <ul className="space-y-3">
+                {requirements.requiredQualifications.map((qual, index) => (
+                  <li key={index} className="flex items-start">
+                    <svg className="h-6 w-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                    </svg>
+                    <span className="text-gray-700">{qual.qualification}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
+        {/* Main Content (fallback) */}
+        {/* {job.content && (
           <section className={`py-16 ${nextBg()}`}>
             <div className="max-w-4xl mx-auto px-4">
               <div 
@@ -219,7 +324,7 @@ export default async function JobDetailPage({ params }) {
               />
             </div>
           </section>
-        )}
+        )} */}
 
         {/* Job Application Form Section */}
         <section id="apply" className={`py-16 ${nextBg()}`}>
@@ -280,31 +385,7 @@ export default async function JobDetailPage({ params }) {
               .hubspot-form-wrapper .hs-hidden { display: none !important; }
             `}</style>
           </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-16 bg-gray-900 text-white">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">Questions About This Role?</h2>
-            <p className="text-xl text-gray-300 mb-8">
-              We're here to help! Get in touch if you have any questions about this position or our company.
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="button-l"
-              >
-                Contact Us
-              </Link>
-              <Link
-                href="/jobs"
-                className="button-without-box text-white"
-              >
-                View All Positions
-              </Link>
-            </div>
-          </div>
-        </section>
+        </section>      
       </main>
       
       <Footer />

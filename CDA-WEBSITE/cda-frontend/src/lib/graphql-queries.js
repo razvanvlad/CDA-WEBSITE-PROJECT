@@ -988,6 +988,16 @@ export const GET_ALL_JOB_LISTINGS = `
             experienceLevel
             publishDate
           }
+          requirements {
+            aboutThePosition
+            ourDreamCandidate
+            requiredSkills {
+              responsability
+            }
+            requiredQualifications {
+              qualification
+            }
+          }
           jobStatus
         }
       }
@@ -1022,6 +1032,16 @@ export const GET_JOB_LISTINGS_WITH_PAGINATION = `
             salary
             experienceLevel
             publishDate
+          }
+          requirements {
+            aboutThePosition
+            ourDreamCandidate
+            requiredSkills {
+              responsability
+            }
+            requiredQualifications {
+              qualification
+            }
           }
           jobStatus
         }
