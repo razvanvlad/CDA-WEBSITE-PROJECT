@@ -860,6 +860,64 @@ export async function getGlobalContent() {
   return response.data?.globalOptions?.globalContentBlocks || null;
 }
 
+export async function getJobListingBySlug(slug) {
+  const response = await executeGraphQLQuery(GET_JOB_LISTING_BY_SLUG, { slug });
+  
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return null;
+  }
+
+  return response.data?.jobListing || null;
+}
+
+export async function getAllJobListings() {
+  const response = await executeGraphQLQuery(GET_ALL_JOB_LISTINGS);
+  
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return [];
+  }
+
+  return response.data?.jobListings?.nodes || [];
+}
+
+export async function getJobListingsWithPagination(variables) {
+  const response = await executeGraphQLQuery(GET_JOB_LISTINGS_WITH_PAGINATION, variables);
+  
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return { nodes: [], pageInfo: null };
+  }
+
+  return {
+    nodes: response.data?.jobListings?.nodes || [],
+    pageInfo: response.data?.jobListings?.pageInfo || null
+  };
+}
+
+export async function getJobListingSlugs() {
+  const response = await executeGraphQLQuery(GET_JOB_LISTING_SLUGS);
+  
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return [];
+  }
+
+  return response.data?.jobListings?.nodes?.map((jobListing) => jobListing.slug) || [];
+}
+
+export async function getJobListingsSimple() {
+  const response = await executeGraphQLQuery(GET_JOB_LISTINGS_SIMPLE);
+  
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return [];
+  }
+
+  return response.data?.jobListings?.nodes || [];
+}
+
 // =============================================================================
 // SERVICES ENHANCED FIELDS (queried separately and merged if available)
 // =============================================================================
@@ -903,3 +961,140 @@ export async function getServiceOverviewContent() {
   }
   return response.data?.page || null;
 }
+
+// =============================================================================
+// JOB LISTINGS QUERIES
+// =============================================================================
+
+export const GET_ALL_JOB_LISTINGS = `
+  query GetAllJobListings($first: Int, $after: String, $where: RootQueryToJobListingConnectionWhereArgs) {
+    jobListings(first: $first, after: $after, where: $where) {
+      nodes {
+        id
+        title
+        slug
+        date
+        excerpt
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+        jobListingFields {
+          jobDetails {
+            location
+            salary
+            experienceLevel
+            publishDate
+          }
+          jobStatus
+        }
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+`;
+
+export const GET_JOB_LISTINGS_WITH_PAGINATION = `
+  query GetJobListingsWithPagination($first: Int = 12, $after: String, $search: String) {
+    jobListings(first: $first, after: $after, where: { search: $search }) {
+      nodes {
+        id
+        title
+        slug
+        date
+        excerpt
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+        jobListingFields {
+          jobDetails {
+            location
+            salary
+            experienceLevel
+            publishDate
+          }
+          jobStatus
+        }
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+`;
+
+export const GET_JOB_LISTING_BY_SLUG = `
+  query GetJobListingBySlug($slug: ID!) {
+    jobListing(id: $slug, idType: SLUG) {
+      id
+      title
+      slug
+      date
+      content
+      excerpt
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+        }
+      }
+      jobListingFields {
+        jobDetails {
+          location
+          salary
+          experienceLevel
+          publishDate
+        }
+        requirements {
+          aboutThePosition
+          ourDreamCandidate
+          requiredSkills {
+            responsability
+          }
+          requiredQualifications {
+            qualification
+          }
+        }
+        jobStatus
+      }
+    }
+  }
+`;
+
+export const GET_JOB_LISTING_SLUGS = `
+  query GetJobListingSlugs {
+    jobListings {
+      nodes {
+        slug
+      }
+    }
+  }
+`;
+
+// Simple test query to check available fields
+export const GET_JOB_LISTINGS_SIMPLE = `
+  query GetJobListingsSimple {
+    jobListings {
+      nodes {
+        id
+        title
+        slug
+        date
+        excerpt
+      }
+    }
+  }
+`;
