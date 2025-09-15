@@ -64,11 +64,11 @@ const NewsletterSignup = ({ globalData, useHubspot = false }) => {
                 </div>
               </div>
 
-              {/* Terms and Conditions */}
+              {/* Third Row - Terms and Conditions */}
               <div className="newsletter-terms">
                 <input type="checkbox" id="terms" className="newsletter-checkbox" />
                 <label htmlFor="terms" className="newsletter-label">
-                  I agree to the <span className="newsletter-terms-link">Terms and Conditions</span>{' '}and consent to receive email updates and newsletters
+                  I agree to the <span className="newsletter-terms-link">Terms and Conditions</span> and consent to receive email updates and newsletters
                 </label>
               </div>
 

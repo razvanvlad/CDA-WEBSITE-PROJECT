@@ -73,7 +73,7 @@ export default function Footer({ globalOptions }) {
     <footer className="bg-white pt-20">
       <div className="mx-auto max-w-[1620px] px-4">
         {/* CTA Section */}
-        <div className="footer-cta-card relative overflow-visible rounded-2xl border border-gray-200 bg-white">
+        <div className="footer-cta-card relative overflow-visible rounded-2xl bg-white">
           <div className="footer-cta-content py-16 px-6 md:px-12">
             <p className="text-[14px] font-semibold uppercase tracking-wider text-[#0B0B0E]">Take The First Step Toward Something Great</p>
             <h2 className="mt-3 text-[34px] md:text-[44px] leading-tight font-extrabold text-[#0B0B0E] text-center">

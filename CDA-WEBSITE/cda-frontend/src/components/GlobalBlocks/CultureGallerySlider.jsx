@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const CultureGallerySlider = ({ globalData }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Extract data from props
   const title = globalData?.title || 'Our Culture';
@@ -13,31 +13,34 @@ const CultureGallerySlider = ({ globalData }) => {
   const images = globalData?.images?.nodes || globalData?.images || [];
   const useGlobalSocialLinks = globalData?.useGlobalSocialLinks || false;
 
-  // Auto-slide functionality
+  // Handle responsive behavior
   useEffect(() => {
-    if (!isAutoPlaying || images.length <= 1) return;
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
 
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % images.length);
-    }, 4000); // Change slide every 4 seconds
+    // Set initial value
+    handleResize();
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, images.length]);
+  // Calculate slides per view and max slides
+  const slidesPerView = isMobile ? 2 : 4;
+  const maxSlides = Math.max(0, images.length - slidesPerView);
 
-  // Handle slide navigation
-  const goToSlide = (index) => {
-    setCurrentSlide(index);
-    setIsAutoPlaying(false); // Stop auto-play when user manually navigates
-  };
-
+  // Handle slide navigation for multi-image carousel
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % images.length);
-    setIsAutoPlaying(false);
+    setCurrentSlide((prev) => 
+      prev >= maxSlides ? 0 : prev + 1
+    );
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
-    setIsAutoPlaying(false);
+    setCurrentSlide((prev) => 
+      prev <= 0 ? maxSlides : prev - 1
+    );
   };
 
   // Social links (placeholder - can be replaced with actual global social links)
@@ -84,132 +87,101 @@ const CultureGallerySlider = ({ globalData }) => {
   }
 
   return (
-    <section className="culture-gallery-slider bg-gray-50 py-16">
+    <section className="culture-gallery-slider py-16" style={{ backgroundColor: '#F4F4F4' }}>
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="mb-12">
+          {/* First Row: Subtitle on left */}
           {subtitle && (
-            <p className="text-orange-600 font-medium text-sm uppercase tracking-wide mb-2">
-              {subtitle}
-            </p>
-          )}
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            {title}
-          </h2>
-          {useGlobalSocialLinks && (
-            <div className="flex justify-center space-x-4 mt-6">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-orange-600 transition-colors duration-200"
-                  aria-label={social.name}
-                >
-                  {getSocialIcon(social.icon)}
-                </a>
-              ))}
+            <div className="mb-4">
+              <p className="text-black font-medium text-sm uppercase tracking-wide">
+                {subtitle}
+              </p>
             </div>
           )}
+          
+          {/* Second Row: Title on left, Social icons on right */}
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-black">
+              {title}
+            </h2>
+            {useGlobalSocialLinks && (
+              <div className="flex space-x-4">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-black hover:text-orange-600 transition-colors duration-200"
+                    aria-label={social.name}
+                  >
+                    {getSocialIcon(social.icon)}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Slider Container */}
-        <div className="relative overflow-hidden rounded-lg bg-white shadow-lg">
-          {/* Images */}
-          <div className="relative h-96 md:h-[500px] lg:h-[600px]">
-            {images.map((image, index) => (
-              <div
-                key={image.id || index}
-                className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
-                  index === currentSlide ? 'opacity-100' : 'opacity-0'
-                }`}
-              >
-                <Image
-                  src={image.sourceUrl}
-                  alt={image.altText || `Culture image ${index + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                  priority={index === 0} // Priority for first image
-                />
-                {image.caption && (
-                  <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
-                    <p className="text-sm md:text-base">{image.caption}</p>
+        {/* Multi-Image Slider Container */}
+        <div className="relative">
+          {/* Images Container */}
+          <div className="overflow-hidden">
+            <div 
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{
+                transform: `translateX(-${currentSlide * (100 / slidesPerView)}%)`
+              }}
+            >
+              {images.map((image, index) => (
+                <div
+                  key={image.id || index}
+                  className="flex-shrink-0 w-1/2 md:w-1/4 px-2"
+                >
+                  <div className="relative aspect-square rounded-lg overflow-hidden bg-white shadow-lg">
+                    <Image
+                      src={image.sourceUrl}
+                      alt={image.altText || `Culture image ${index + 1}`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                    />
+                    {image.caption && (
+                      <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white p-2">
+                        <p className="text-xs text-center truncate">{image.caption}</p>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Navigation Arrows */}
-          {images.length > 1 && (
+          {images.length > slidesPerView && (
             <>
               <button
                 onClick={prevSlide}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                aria-label="Previous image"
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-3 shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 z-10"
+                aria-label="Previous images"
               >
-                <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
               <button
                 onClick={nextSlide}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                aria-label="Next image"
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-3 shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 z-10"
+                aria-label="Next images"
               >
-                <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
             </>
           )}
-
-          {/* Dots Indicator */}
-          {images.length > 1 && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-              {images.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 ${
-                    index === currentSlide
-                      ? 'bg-orange-600'
-                      : 'bg-white bg-opacity-50 hover:bg-opacity-80'
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-          )}
         </div>
-
-        {/* Auto-play Control */}
-        {images.length > 1 && (
-          <div className="flex justify-center mt-6">
-            <button
-              onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-              className="text-sm text-gray-600 hover:text-gray-800 transition-colors duration-200 flex items-center space-x-2"
-            >
-              {isAutoPlaying ? (
-                <>
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-                  </svg>
-                  <span>Pause</span>
-                </>
-              ) : (
-                <>
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                  <span>Play</span>
-                </>
-              )}
-            </button>
-          </div>
-        )}
       </div>
     </section>
   );
