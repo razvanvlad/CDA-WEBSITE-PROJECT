@@ -1,0 +1,46 @@
+### Job listing query care functioneaza pentru listarea detalii 100% corect
+
+
+query GetAllJobListings($first: Int, $after: String, $where: RootQueryToJobListingConnectionWhereArgs) {
+    jobListings(first: $first, after: $after, where: $where) {
+      nodes {
+        id
+        title
+        slug
+        date
+        excerpt
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+        # Direct access to job listing fields
+        jobListingFields {
+          jobDetails {
+            location
+            salary
+            experienceLevel
+            publishDate
+          }
+      requirements {
+        aboutThePosition
+        ourDreamCandidate
+        requiredSkills {
+          responsability
+        }
+        requiredQualifications {
+          qualification
+        }
+      }
+          jobStatus
+        }
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }

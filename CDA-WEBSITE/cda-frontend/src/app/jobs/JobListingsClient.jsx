@@ -266,12 +266,6 @@ export default function JobListingsClient({ initialItems = [] }) {
                       {jobDetails.location && (
                         <p className="text-sm text-gray-600 mb-2">{jobDetails.location}</p>
                       )}
-                      
-                      {job.excerpt && (
-                        <p className="text-sm text-gray-600 line-clamp-2">
-                          {stripHTML(job.excerpt)}
-                        </p>
-                      )}
                     </div>
                   </Link>
                 );
