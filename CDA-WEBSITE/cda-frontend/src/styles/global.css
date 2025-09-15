@@ -1127,40 +1127,36 @@
 }
 
 .contact-container {
-  max-width: 1400px; /* wider container for better form width */
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr; /* give more space to form content */
-  gap: 80px; /* increase gap for better spacing */
-  align-items: center;
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
 }
 
-@media (max-width: 1024px) {
-  .contact-container {
-    grid-template-columns: 1fr; /* stack on tablet/mobile */
-  }
-}
-
-.contact-content { 
-  text-align: left; 
-  background-color: #F4F4F4;
+.contact-content {
+  height: 771px;
   padding: 40px;
-  border-radius: 8px;
-  max-width: 600px;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+  text-align: left;
 }
 
 .contact-form-wrapper {
-  background-color: #F4F4F4;
+  width: 990px;
+  margin: 0 auto;
 }
 
 .contact-info {
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid #E5E7EB;
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 990px;
 }
 
 .contact-phone {
-  margin-bottom: 16px;
+  margin-bottom: 0;
   font-size: 16px;
   color: #000;
 }
@@ -1178,12 +1174,15 @@
 .contact-social {
   font-size: 16px;
   color: #000;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .social-links {
   display: flex;
   gap: 16px;
-  margin-top: 8px;
+  margin-top: 0;
 }
 
 .social-links a {
@@ -1220,49 +1219,236 @@
   margin: 0;
 }
 
-/* Form grid: first/last/email/tel in two columns on desktop */
-.contact-form { display: flex; flex-direction: column; gap: 24px; max-width: 600px; /* limit form width for better UX */ }
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px 24px; /* consistent gap spacing */
-}
-@media (max-width: 768px) {
-  .contact-grid { grid-template-columns: 1fr; }
-  .contact-form { max-width: 100%; }
+/* Contact Form Layout */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
 }
 
-/* Inputs */
-.contact-input-wrap { width: 100%; }
+/* Row with 3 fields (First Name, Last Name, Email) */
+.contact-form .contact-row-3 {
+  display: flex !important;
+  gap: 25px !important;
+  flex-wrap: nowrap !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  width: 990px !important;
+}
+
+/* Row with 2 fields (Telephone, Reason) */
+.contact-form .contact-row-2 {
+  display: flex !important;
+  gap: 39px !important;
+  flex-wrap: nowrap !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  width: 990px !important;
+}
+
+/* Individual field sizes with stronger specificity */
+.contact-form .contact-input-310 {
+  width: 313.33px !important;
+  height: 50px !important;
+  flex-shrink: 0 !important;
+  min-width: 313.33px !important;
+  max-width: 313.33px !important;
+}
+
+.contact-form .contact-input-475 {
+  width: 475.5px !important;
+  height: 50px !important;
+  flex-shrink: 0 !important;
+  min-width: 475.5px !important;
+  max-width: 475.5px !important;
+}
+
+.contact-form .contact-input-full {
+  width: 990px !important;
+  height: 141.5px !important;
+  min-width: 990px !important;
+  max-width: 990px !important;
+}
+
+/* Bottom row with terms and submit button */
+.contact-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+/* Contact Form Inputs */
+.contact-input-wrap {
+  box-sizing: border-box;
+}
+
+/* Override any conflicting styles */
+.contact-input-310 .contact-input,
+.contact-input-475 .contact-input,
+.contact-input-475 .contact-select,
+.contact-input-full .contact-textarea {
+  width: 100% !important;
+  height: 50px !important;
+  padding: 0 16px !important;
+  border: 1px solid #DBDBDB !important;
+  border-radius: 0 !important;
+  background-color: #FFFFFF !important;
+  font-size: 16px !important;
+  font-family: var(--font-inter), sans-serif !important;
+  color: rgba(0, 0, 0, 1) !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+}
+
 .contact-input,
 .contact-select,
 .contact-textarea {
   width: 100%;
   height: 50px;
-  padding: 0 30px;
-  border: none;
+  padding: 0 16px;
+  border: 1px solid #DBDBDB;
   border-radius: 0;
   background-color: #FFFFFF;
-  font-size: 18px;
-  font-family: 'Inter', sans-serif;
-  color: rgba(0,0,0,0.8);
+  font-size: 16px;
+  font-family: var(--font-inter), sans-serif;
+  color: rgba(0, 0, 0, 1);
   outline: none;
   box-sizing: border-box;
 }
 
-/* Textarea height */
-.contact-textarea { height: 170px; padding: 18px 30px; resize: vertical; }
+.contact-textarea,
+.contact-input-full .contact-textarea {
+  height: 141.5px !important;
+  padding: 16px !important;
+  resize: none !important;
+}
 
-/* Select style with placeholder */
-.contact-select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, #000 50%), linear-gradient(135deg, #000 50%, transparent 50%), linear-gradient(to right, transparent, transparent); background-position: calc(100% - 20px) calc(1.1em), calc(100% - 15px) calc(1.1em), 100% 0; background-size: 5px 5px, 5px 5px, 2.5em 2.5em; background-repeat: no-repeat; }
+.contact-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 12px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
 
-/* Actions */
-.contact-actions { margin-top: 8px; }
-.contact-actions .button-l { width: 240px; height: 52px; }
+/* Terms and Conditions */
+.contact-terms {
+  width: 573px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
 
-/* Right illustration */
-.contact-illustration { display: flex; align-items: center; justify-content: center; }
-.contact-illustration-img { width: 100%; max-width: 540px; height: auto; object-fit: contain; }
+.contact-checkbox {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.contact-label {
+  font-size: 16px;
+  font-family: var(--font-inter), sans-serif;
+  color: rgba(0, 0, 0, 1);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.contact-terms-link {
+  text-decoration: underline;
+  font-weight: 600;
+  color: inherit;
+}
+
+/* Submit Button */
+.contact-submit {
+  width: 235px;
+  height: 53.5px;
+}
+
+/* Contact Illustration */
+.contact-illustration {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.contact-illustration-img {
+  width: 785px;
+  height: 590px;
+  object-fit: contain;
+}
+
+/* Responsive Styles */
+@media (max-width: 1400px) {
+  .contact-content {
+    width: 100%;
+    max-width: 1275px;
+    height: auto;
+  }
+  
+  .contact-form-wrapper {
+    width: 100%;
+    max-width: 990px;
+  }
+  
+  .contact-illustration {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .contact-illustration-img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-row-3,
+  .contact-row-2 {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .contact-input-310,
+  .contact-input-475,
+  .contact-input-full {
+    width: 100%;
+  }
+  
+  .contact-bottom-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .contact-terms {
+    width: 100%;
+  }
+  
+  .contact-submit {
+    width: 100%;
+    max-width: 235px;
+  }
+  
+  .contact-info {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+}
 
 /* Footer CTA interaction */
 /* Footer CTA: bottom-center magnifier with hover swap (overrides previous motion) */
@@ -2086,7 +2272,7 @@
 }
 
 .contact-container {
-  max-width: 1216px; /* same container as newsletter */
+  max-width: 1620px; 
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr; /* form | illustration, similar to SVG balance */

@@ -67,7 +67,7 @@ export default function Header() {
   const fallbackCompanyLinks = [
     { id: 'fallback-about', label: 'About', url: '/about' },
     { id: 'fallback-all-services', label: 'All Services', url: '/services' },
-    { id: 'fallback-sectors', label: 'Sectors', url: '/sectors' },
+    { id: 'fallback-sectors', label: 'Sectors', url: '/services' },
     { id: 'fallback-case-studies', label: 'Case Studies', url: '/case-studies' },
     { id: 'fallback-knowledge-hub', label: 'Knowledge Hub', url: '/knowledge-hub' },
     { id: 'fallback-technologies', label: 'Technologies', url: '/technologies' },

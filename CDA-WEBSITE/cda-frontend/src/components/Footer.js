@@ -92,13 +92,13 @@ export default function Footer({ globalOptions }) {
           <div>
             <h3 className="text-[16px] font-semibold text-[#0B0B0E] mb-4">Have A Browse</h3>
             <div className="flex flex-wrap gap-x-6 gap-y-2">
-              <a href="/work" className="text:[14px] text-[#0B0B0E] hover:underline">
+              <a href="/case-studies" className="text:[14px] text-[#0B0B0E] hover:underline">
                 Work
               </a>
               <a href="/services" className="text:[14px] text-[#0B0B0E] hover:underline">
                 Services
               </a>
-              <a href="/careers" className="text:[14px] text-[#0B0B0E] hover:underline">
+              <a href="/jobs" className="text:[14px] text-[#0B0B0E] hover:underline">
                 Careers
               </a>
               <a href="/policies" className="text:[14px] text-[#0B0B0E] hover:underline">
