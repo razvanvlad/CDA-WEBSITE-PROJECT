@@ -3,6 +3,35 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import JobListingsClient from './JobListingsClient'
 
+// GraphQL query for global content blocks
+const GET_GLOBAL_BLOCKS = `
+  {
+    globalOptions {
+      globalContentBlocks {
+        cultureGallerySlider {
+          title
+          subtitle
+          useGlobalSocialLinks
+          images {
+            nodes {
+              sourceUrl
+              altText
+              caption
+              id
+            }
+          }
+        }
+        newsletterSignup {
+          title
+          subtitle
+          hubspotScript
+          termsText
+        }
+      }
+    }
+  }
+`;
+
 export const metadata = {
   title: 'Career Opportunities - Join CDA Team',
   description: 'Discover exciting career opportunities at CDA. Join our innovative team and help build the future of digital marketing and web development. Find open positions across design, development, marketing, and more.',
@@ -39,11 +68,20 @@ export default async function JobsPage() {
       jobListings = await getJobListingsSimple();
       console.log('Simple query successful, got:', jobListings.length, 'jobs');
     }
+
+    // Fetch global blocks for newsletter signup
+    let globalBlocks = null;
+    try {
+      const globalResult = await executeGraphQLQuery(GET_GLOBAL_BLOCKS);
+      globalBlocks = globalResult.data?.globalOptions?.globalContentBlocks || null;
+    } catch (globalError) {
+      console.log('Failed to fetch global blocks:', globalError.message);
+    }
     
     return (
       <>
         <Header />
-        <JobListingsClient initialItems={jobListings} />
+        <JobListingsClient initialItems={jobListings} globalBlocks={globalBlocks} />
         <Footer />
       </>
     )
