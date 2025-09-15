@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useMemo } from 'react';
+import NewsletterSignup from '../../components/GlobalBlocks/NewsletterSignup';
+import CultureGallerySlider from '../../components/GlobalBlocks/CultureGallerySlider';
 
 function stripHTML(html) {
   if (!html) return '';
@@ -47,7 +49,7 @@ function getExperienceLevelDisplay(level) {
   return levels[level] || level;
 }
 
-export default function JobListingsClient({ initialItems = [] }) {
+export default function JobListingsClient({ initialItems = [], globalBlocks = null }) {
   // Debug logging
   console.log('JobListingsClient received items:', initialItems);
   
@@ -188,36 +190,9 @@ export default function JobListingsClient({ initialItems = [] }) {
                           </div>
                         )}
                         
-                        {jobDetails.salary && (
-                          <div className="flex items-center text-gray-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                            </svg>
-                            <span>{jobDetails.salary}</span>
-                          </div>
-                        )}
-                        
-                        {jobDetails.experienceLevel && (
-                          <div className="flex items-center text-gray-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                            </svg>
-                            <span>{getExperienceLevelDisplay(Array.isArray(jobDetails.experienceLevel) ? jobDetails.experienceLevel[0] : jobDetails.experienceLevel)}</span>
-                          </div>
-                        )}
                       </div>
 
-                      {job.excerpt && (
-                        <p className="text-gray-600 mb-4 line-clamp-2">
-                          {stripHTML(job.excerpt)}
-                        </p>
-                      )}
 
-                      {jobDetails.publishDate && (
-                        <p className="text-sm text-gray-500 mb-4">
-                          Posted on {formatDate(jobDetails.publishDate)}
-                        </p>
-                      )}
 
                       <div className="flex items-center text-blue-600 font-semibold group-hover:text-blue-700">
                         View Position
@@ -318,6 +293,16 @@ export default function JobListingsClient({ initialItems = [] }) {
           </div>
         )}
       </div>
+
+      {/* Culture Gallery Slider (Global) */}
+      {globalBlocks?.cultureGallerySlider && (
+        <CultureGallerySlider globalData={globalBlocks.cultureGallerySlider} />
+      )}
+
+      {/* Newsletter Signup (Global) */}
+      {globalBlocks?.newsletterSignup && (
+        <NewsletterSignup globalData={globalBlocks.newsletterSignup} />
+      )}
     </div>
   );
 }
