@@ -27,7 +27,14 @@ export const metadata = {
 async function getProjectTypes() {
   const query = `
     query GetProjectTypes {
-      projectTypes { nodes { id name slug count } }
+      projectTypes { 
+        nodes { 
+          id 
+          name 
+          slug 
+          count 
+        } 
+      }
     }
   `
   try {
