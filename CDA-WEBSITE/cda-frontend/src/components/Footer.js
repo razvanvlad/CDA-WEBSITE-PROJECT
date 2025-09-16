@@ -75,7 +75,7 @@ export default function Footer({ globalOptions }) {
         {/* CTA Section */}
         <div className="footer-cta-card relative overflow-visible rounded-2xl bg-white">
           <div className="footer-cta-content py-16 px-6 md:px-12">
-            <p className="text-[14px] font-semibold uppercase tracking-wider text-[#0B0B0E]">Take The First Step Toward Something Great</p>
+            <p className="cda-subtitle">Take The First Step Toward Something Great</p>
             <h2 className="mt-3 text-[34px] md:text-[44px] leading-tight font-extrabold text-[#0B0B0E] text-center">
               Ready To Start Your{' '}
               <span className="relative inline-block">
@@ -90,7 +90,7 @@ export default function Footer({ globalOptions }) {
         {/* Bottom Section */}
         <div className="mt-16 pb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
           <div>
-            <h3 className="text-[16px] font-semibold text-[#0B0B0E] mb-4">Have A Browse</h3>
+            <h3 className="cda-subtitle">Have A Browse</h3>
             <div className="flex flex-wrap gap-x-6 gap-y-2">
               <a href="/case-studies" className="text:[14px] text-[#0B0B0E] hover:underline">
                 Work
@@ -109,7 +109,7 @@ export default function Footer({ globalOptions }) {
           </div>
 
           <div className="w-full md:w-auto flex flex-col items-start md:items-end">
-            <h3 className="text-[16px] font-semibold text-[#0B0B0E] mb-4">Let's Connect</h3>
+            <h3 className="cda-subtitle">Let's Connect</h3>
             <div className="flex items-center gap-4 mb-4">
               <a href="https://www.facebook.com/cdagroupUK/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-black hover:opacity-80">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

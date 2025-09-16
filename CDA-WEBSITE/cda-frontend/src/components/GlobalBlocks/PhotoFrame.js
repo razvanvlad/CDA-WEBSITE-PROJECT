@@ -59,10 +59,10 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
           <div className="col-span-12 lg:col-span-6">
             <div className="relative">
               {copy.subtitle && (
-                <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-black mb-3">{copy.subtitle}</p>
+                <p className="cda-subtitle">{copy.subtitle}</p>
               )}
               {copy.title && (
-                <h2 className="text-[32px] leading-[1.15] md:text-[40px] font-bold text-black mb-5">{copy.title}</h2>
+                <h2 className="cda-title">{copy.title}</h2>
               )}
               {copy.text && (
                 <div className="text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] space-y-4 mb-6">
