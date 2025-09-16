@@ -30,10 +30,10 @@ const TechnologiesSlider = ({ globalData, subtitle, title, logos }) => {
         {/* Header Section */}
         <div className="technologies-header">
           {data.subtitle && (
-            <p className="technologies-subtitle">{data.subtitle}</p>
+            <p className="cda-subtitle">{data.subtitle}</p>
           )}
           {data.title && (
-            <h2 className="technologies-title">{data.title}</h2>
+            <h2 className="cda-title">{data.title}</h2>
           )}
         </div>
 

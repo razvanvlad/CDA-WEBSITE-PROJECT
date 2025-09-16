@@ -364,7 +364,7 @@ export default function Home() {
           <div className="home-header-grid mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
             <div className="home-header-text text-center md:text-left">
               <h1
-                className="home-hero-title"
+                className="cda-page-title title-large-light-blue"
                 dangerouslySetInnerHTML={{
                   __html: sanitizeTitleHtml(
                     homepageContent.headerSection.title || 'Welcome to CDA Website'
@@ -427,7 +427,7 @@ export default function Home() {
       ) : (
         <section className="home-hero-section">
           <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 text-center">
-            <h1 className="home-hero-title">
+            <h1 className="cda-page-title title-large-light-blue">
               Welcome to CDA Website
             </h1>
             <p className="home-hero-subtitle">
@@ -528,10 +528,10 @@ export default function Home() {
             <div className="cs-header">
               <div className="cs-head-left">
                 {homepageContent.caseStudiesSection.subtitle && (
-                  <p className="cs-subtitle">{homepageContent.caseStudiesSection.subtitle}</p>
+                  <p className="cda-subtitle">{homepageContent.caseStudiesSection.subtitle}</p>
                 )}
                 {homepageContent.caseStudiesSection.title && (
-                  <h2 className="cs-heading">{homepageContent.caseStudiesSection.title}</h2>
+                  <h2 className="cda-title title-small-orange">{homepageContent.caseStudiesSection.title}</h2>
                 )}
               </div>
               {homepageContent.caseStudiesSection.knowledgeHubLink && (
@@ -585,8 +585,8 @@ export default function Home() {
           <div className="news-carousel-container">
             <div className="news-carousel-header">
               <div className="news-carousel-header-left">
-                <h2 className="news-carousel-subtitle">{globalContentBlocks.newsCarousel.subtitle}</h2>
-                <h2 className="news-carousel-title">{globalContentBlocks.newsCarousel.title}</h2>
+                <p className="cda-subtitle">{globalContentBlocks.newsCarousel.subtitle}</p>
+                <h2 className="cda-title">{globalContentBlocks.newsCarousel.title}</h2>
               </div>
               <a href="/news" className="news-carousel-all">All News</a>
             </div>

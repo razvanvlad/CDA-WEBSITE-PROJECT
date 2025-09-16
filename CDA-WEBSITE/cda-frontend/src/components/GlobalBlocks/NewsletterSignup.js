@@ -27,10 +27,10 @@ const NewsletterSignup = ({ globalData, useHubspot = false }) => {
           {/* Header */}
           <div className="newsletter-header">
             {globalData.subtitle && (
-              <p className="newsletter-subtitle">{globalData.subtitle}</p>
+              <p className="cda-subtitle">{globalData.subtitle}</p>
             )}
             {globalData.title && (
-              <h2 className="newsletter-title">{globalData.title}</h2>
+              <h2 className="cda-title">{globalData.title}</h2>
             )}
           </div>
 

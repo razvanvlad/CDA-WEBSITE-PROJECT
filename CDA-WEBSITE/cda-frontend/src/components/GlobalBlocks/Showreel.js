@@ -41,12 +41,10 @@ const Showreel = ({ globalData }) => {
           <div className="mb-6 md:mb-8 flex items-start justify-between gap-6">
             <div>
               {subtitle && (
-                <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-black mb-1">{subtitle}</p>
+                <p className="cda-subtitle">{subtitle}</p>
               )}
               {title && (
-                <h2 className="text-[#111827] font-bold" style={{ fontFamily: 'Poppins, sans-serif', fontSize: 38, lineHeight: 1.1 }}>
-                  {title}
-                </h2>
+                <h2 className="cda-title">{title}</h2>
               )}
             </div>
             {button?.url && (

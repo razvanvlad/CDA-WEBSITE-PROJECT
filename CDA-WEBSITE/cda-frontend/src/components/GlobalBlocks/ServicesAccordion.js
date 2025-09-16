@@ -27,14 +27,10 @@ const ServicesAccordion = ({ globalData }) => {
           {/* Left: Title, subtitle, optional image */}
           <div className="col-span-12 lg:col-span-4">
             {globalData.subtitle && (
-              <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-black mb-3">{globalData.subtitle}</p>
+              <p className="cda-subtitle">{globalData.subtitle}</p>
             )}
             {globalData.title && (
-              <h2 className="mb-4 font-bold text-black" style={{ fontFamily: 'Poppins, sans-serif', fontSize: 38, lineHeight: 1.1 }}>
-                <span className="relative inline-block align-baseline">
-                  {globalData.title}
-                </span>
-              </h2>
+              <h2 className="cda-title title-small-purple">{globalData.title}</h2>
             )}
             {globalData.illustration?.node?.sourceUrl && (
               <img

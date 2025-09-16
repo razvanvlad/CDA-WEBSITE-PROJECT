@@ -24,6 +24,37 @@ body {
   font-family: var(--font-inter), sans-serif;
 }
 
+/* Typography Classes - CDA Design System */
+/* Subtitle class for consistent subtitle styling */
+.cda-subtitle {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: #000000;
+  text-transform: capitalize;
+  line-height: 33px;
+}
+
+/* H2 Title class */
+.cda-title {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 38px;
+  font-weight: bold;
+  color: #000000;
+  line-height: 57px;
+  text-decoration: underline;
+}
+
+/* H1 Page Title class */
+.cda-page-title {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 50px;
+  font-weight: bold;
+  color: #000000;
+  line-height: 76px;
+  text-decoration: underline;
+}
+
 /* Headings use Poppins, paragraphs default to Inter from body */
 h1, h2, h3, h4, h5, h6 { font-family: var(--font-poppins), var(--font-inter), sans-serif; }
 
