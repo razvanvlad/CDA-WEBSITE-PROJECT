@@ -36,8 +36,10 @@ export default function CaseStudiesClient({ initialItems = [], projectTypes = []
       });
     }
 
-    const allFeatured = items.filter((cs) => !!cs?.caseStudyFields?.featured);
-    const allRegular = items.filter((cs) => !cs?.caseStudyFields?.featured);
+    // Since ACF fields aren't available, we'll treat all as regular case studies for now
+    // TODO: Configure ACF fields to be exposed to GraphQL
+    const allFeatured = []; // items.filter((cs) => !!cs?.caseStudyFields?.featured);
+    const allRegular = items; // items.filter((cs) => !cs?.caseStudyFields?.featured);
     const effectiveRegular = featuredOnly ? [] : allRegular;
 
     return {
@@ -96,17 +98,7 @@ export default function CaseStudiesClient({ initialItems = [], projectTypes = []
                       </div>
                     )}
                     <div className="p-6">
-                      {caseStudy.caseStudyFields?.projectOverview?.clientLogo?.node?.sourceUrl && (
-                        <div className="h-12 mb-4">
-                          <Image
-                            src={caseStudy.caseStudyFields.projectOverview.clientLogo.node.sourceUrl}
-                            alt={caseStudy.caseStudyFields.projectOverview.clientLogo.node.altText || `${caseStudy.title} logo`}
-                            width={120}
-                            height={48}
-                            className="object-contain"
-                          />
-                        </div>
-                      )}
+                      {/* Client logo temporarily removed - requires ACF GraphQL configuration */}
                       <h3 className="text-xl font-bold text-gray-900 mb-2">{caseStudy.title}</h3>
                       <p className="text-gray-600 mb-4">{stripHTML(caseStudy.excerpt) || 'Read about this successful project and its impact.'}</p>
                       <div className="flex items-center text-blue-600 font-semibold">

@@ -428,23 +428,12 @@ export const GET_CASE_STUDIES_WITH_PAGINATION = `
         slug
         date
         excerpt
+        content
         featuredImage {
           node {
             sourceUrl
             altText
           }
-        }
-        caseStudyFields {
-          projectOverview {
-            clientName
-            clientLogo {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-          featured
         }
         projectTypes {
           nodes {
