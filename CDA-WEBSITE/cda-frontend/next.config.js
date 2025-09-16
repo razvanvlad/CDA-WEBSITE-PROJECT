@@ -33,7 +33,7 @@ const getSiteURL = () => {
     return 'http://localhost:3000'
   }
   
-  return 'https://your-production-domain.com' // Replace with your actual domain
+  return 'https://cda-frontend-nine.vercel.app'
 }
 
 const wordpressURL = getWordPressURL()

@@ -65,7 +65,7 @@ Ensure these environment variables are set in your Vercel dashboard:
 ```
 NEXT_PUBLIC_WORDPRESS_URL=https://cdanewwebsite.wpenginepowered.com
 NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT=https://cdanewwebsite.wpenginepowered.com/graphql
-NEXT_PUBLIC_SITE_URL=https://your-vercel-app-name.vercel.app
+NEXT_PUBLIC_SITE_URL=https://cda-frontend-nine.vercel.app
 NEXT_PUBLIC_GRAPHQL_REVALIDATE=3600
 ```
 
