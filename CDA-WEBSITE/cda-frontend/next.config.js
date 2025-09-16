@@ -1,17 +1,62 @@
 /** @type {import('next').NextConfig} */
+
+// Environment detection
+const isDev = process.env.NODE_ENV === 'development'
+const isProduction = process.env.NODE_ENV === 'production'
+const isLocal = process.env.VERCEL !== '1' && process.env.NODE_ENV !== 'production'
+
+// Environment-specific WordPress URLs
+const getWordPressURL = () => {
+  // Priority: explicit env var > environment detection > fallback
+  if (process.env.NEXT_PUBLIC_WORDPRESS_URL) {
+    return process.env.NEXT_PUBLIC_WORDPRESS_URL
+  }
+  
+  if (isLocal || isDev) {
+    return 'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend'
+  }
+  
+  return 'https://cdanewwebsite.wpenginepowered.com'
+}
+
+// Environment-specific Site URLs
+const getSiteURL = () => {
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL
+  }
+  
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`
+  }
+  
+  if (isLocal || isDev) {
+    return 'http://localhost:3000'
+  }
+  
+  return 'https://your-production-domain.com' // Replace with your actual domain
+}
+
+const wordpressURL = getWordPressURL()
+const siteURL = getSiteURL()
+
+// Debug logging (only in development)
+if (isDev) {
+  console.log('🔧 Next.js Config Debug:')
+  console.log('  Environment:', process.env.NODE_ENV)
+  console.log('  Is Local:', isLocal)
+  console.log('  WordPress URL:', wordpressURL)
+  console.log('  Site URL:', siteURL)
+  console.log('  GraphQL Endpoint:', process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT || `${wordpressURL.replace(/\/$/, '')}/graphql`)
+}
+
 const nextConfig = {
   env: {
-    // Prefer environment variables (Vercel or .env.*). Provide sensible defaults.
-    // URL FOR LIVE SERVER select one or the other (working):
-    NEXT_PUBLIC_WORDPRESS_URL: process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://cdanewwebsite.wpenginepowered.com',
-    // URL FOR LIVE SERVER select one or the other (working):
-    // NEXT_PUBLIC_WORDPRESS_URL: process.env.NEXT_PUBLIC_WORDPRESS_URL || 'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend',
-    // URL FOR LIVE SERVER select one or the other (working):
-    NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT:
+    NEXT_PUBLIC_WORDPRESS_URL: wordpressURL,
+    NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT: 
       process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT ||
-      `${(process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://cdanewwebsite.wpenginepowered.com').replace(/\/$/, '')}/graphql`,
-    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'http://127.0.0.1:3000',
-    SITE_URL: process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'http://127.0.0.1:3000',
+      `${wordpressURL.replace(/\/$/, '')}/graphql`,
+    NEXT_PUBLIC_SITE_URL: siteURL,
+    SITE_URL: process.env.SITE_URL || siteURL,
   },
   // Allow Next/Image to optimize images served from WP Engine uploads and local uploads
   images: {
@@ -47,12 +92,11 @@ const nextConfig = {
     ];
   },
   async rewrites() {
-    const wpBase = process.env.NEXT_PUBLIC_WORDPRESS_URL || 'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend';
     return [
       // Proxy GraphQL to WP
       {
         source: '/api/wp-graphql',
-        destination: `${wpBase.replace(/\/$/, '')}/graphql`,
+        destination: `${wordpressURL.replace(/\/$/, '')}/graphql`,
       },
       // Legacy blog permalink structure to Next.js route
       {

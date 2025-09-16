@@ -60,7 +60,6 @@ export default function Home() {
                   }
                 }
               }
-              image { __typename }
               technologiesSlider {
                 title
                 subtitle

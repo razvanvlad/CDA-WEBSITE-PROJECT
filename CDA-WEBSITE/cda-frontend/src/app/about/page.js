@@ -82,10 +82,7 @@ export default function AboutPage() {
                 largeImage { node { sourceUrl altText } }
                 logos { logo { node { sourceUrl altText } } }
               }
-              image {
-                __typename
-              }
-              locationsImage {
+              technologiesSlider {
                 title
                 subtitle
                 countries { countryName offices { name address email phone } }
