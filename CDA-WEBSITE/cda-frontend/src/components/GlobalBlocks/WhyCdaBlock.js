@@ -3,7 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 
 const WhyCdaBlock = ({ globalData }) => {
-  const cards = Array.isArray(globalData?.cards) ? globalData.cards.filter(Boolean) : [];
+  const cards = Array.isArray(globalData?.usp) ? globalData.usp.filter(Boolean) : [];
   if (cards.length === 0 && !globalData?.title && !globalData?.subtitle) return null;
 
   return (
@@ -34,11 +34,11 @@ const WhyCdaBlock = ({ globalData }) => {
                   </div>
 
                   {/* Image - right side touches borders */}
-{card?.image?.node?.sourceUrl && (
+{card?.icon?.node?.sourceUrl && (
                     <div className="w-60 flex-shrink-0 flex items-end">
                       <Image
-                        src={card.image.node.sourceUrl}
-                        alt={card.image.node.altText || card.title || ''}
+                        src={card.icon.node.sourceUrl}
+                        alt={card.icon.node.altText || card.title || ''}
                         width={240}
                         height={180}
                         sizes="(max-width: 1024px) 50vw, 240px"
