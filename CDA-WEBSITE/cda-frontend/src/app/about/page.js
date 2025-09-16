@@ -11,7 +11,9 @@ import ApproachBlock from '../../components/GlobalBlocks/ApproachBlock';
 import TechnologiesSlider from '../../components/GlobalBlocks/TechnologiesSlider';
 import ValuesBlock from '../../components/GlobalBlocks/ValuesBlock';
 import LocationsImage from '../../components/GlobalBlocks/LocationsImage';
+import CultureGallerySlider from '../../components/GlobalBlocks/CultureGallerySlider';
 import { sanitizeTitleHtml } from '../../lib/sanitizeTitleHtml';
+import { executeGraphQLQuery } from '../../lib/graphql-queries';
 
 export default function AboutPage() {
   const [globalData, setGlobalData] = useState(null);
@@ -25,10 +27,6 @@ export default function AboutPage() {
       setError(null);
       
       try {
-        const GRAPHQL_URL =
-          process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT ||
-          '/api/wp-graphql';
-        
         // Configure which WP page to read for About via database ID (same model as homepage)
         const ABOUT_ID = parseInt(process.env.NEXT_PUBLIC_ABOUT_PAGE_ID || '317', 10);
 
@@ -82,7 +80,35 @@ export default function AboutPage() {
                 largeImage { node { sourceUrl altText } }
                 logos { logo { node { sourceUrl altText } } }
               }
-              technologiesSlider {
+              approach {
+                title
+                subtitle
+                steps {
+                  title
+                  image { node { sourceUrl altText } }
+                }
+              }
+              whyCda {
+                title
+                subtitle
+                usp {
+                  title
+                  description
+                  icon { node { sourceUrl altText } }
+                }
+              }
+              cultureGallerySlider {
+                title
+                subtitle
+                useGlobalSocialLinks
+                images {
+                  nodes {
+                    sourceUrl
+                    altText
+                  }
+                }
+              }
+              locationsImage {
                 title
                 subtitle
                 countries { countryName offices { name address email phone } }
@@ -107,7 +133,7 @@ export default function AboutPage() {
           }
         }`;
         
-        // About page query - matching ACF structure
+        // About page query - using working version from test results with correct image field
         const aboutQuery = `{
           page(id: ${ABOUT_ID}, idType: DATABASE_ID) {
             id
@@ -116,28 +142,7 @@ export default function AboutPage() {
               contentPageHeader {
                 title
                 text
-                headerImage {
-                  node {
-                    sourceUrl
-                    altText
-                  }
-                }
-                cta {
-                  url
-                  title
-                  target
-                }
-              }
-              leadershipSection {
-                title
-                subtitle
-                description
-                image {
-                  node {
-                    sourceUrl
-                    altText
-                  }
-                }
+                image { node { sourceUrl altText } }
                 cta { url title target }
               }
               globalContentSelection {
@@ -145,39 +150,32 @@ export default function AboutPage() {
                 enableServicesAccordion
                 enableWhyCda
                 enableShowreel
-                enableCultureGallerySlider
                 enableApproach
-                enableFullVideo
-                enableJoinOurTeam
-                enableThreeColumnsWithIcons
-                enableContactFormLeftImageRight
                 enableTechnologiesSlider
                 enableValues
                 enableStatsImage
                 enableLocationsImage
                 enableNewsCarousel
                 enableNewsletterSignup
+                enableCultureGallerySlider
               }
             }
           }
         }`;
         
-        // Fetch both in parallel
-        const [globalResponse, aboutResponse] = await Promise.all([
-          fetch(GRAPHQL_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ query: globalQuery })
-          }),
-          fetch(GRAPHQL_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ query: aboutQuery })
-          })
+        // Fetch both using centralized GraphQL function
+        const [globalResult, aboutResult] = await Promise.all([
+          executeGraphQLQuery(globalQuery),
+          executeGraphQLQuery(aboutQuery)
         ]);
         
-        const globalResult = await globalResponse.json();
-        const aboutResult = await aboutResponse.json();
+        // Handle errors
+        if (globalResult.errors) {
+          console.error('Global content errors:', globalResult.errors);
+        }
+        if (aboutResult.errors) {
+          console.error('About content errors:', aboutResult.errors);
+        }
         
         // Normalize global blocks (same as homepage)
         const rawBlocks = globalResult?.data?.globalOptions?.globalContentBlocks || {};
@@ -196,18 +194,17 @@ export default function AboutPage() {
                   })),
               }
             : undefined,
-          // Map whyCda and approach from globalContentBlocks
-          whyCdaBlock: rawBlocks?.whyCdaBlock || rawBlocks?.whyCda,
-          approachBlock: rawBlocks?.approachBlock || rawBlocks?.approach,
+          // Map whyCda and approach from globalContentBlocks - use correct field names
+          whyCdaBlock: rawBlocks?.whyCda, // Use 'whyCda' not 'whyCdaBlock'
+          approachBlock: rawBlocks?.approach, // Use 'approach' not 'approachBlock'
+          // Map culture gallery slider from raw blocks
+          cultureGallerySlider: rawBlocks?.cultureGallerySlider,
           // Temporarily disabled fields
-          cultureGallerySlider: null,
           fullVideo: null,
           joinOurTeam: null,
         };
         
-        globalResult.data = { globalOptions: { globalContentBlocks: normalizedBlocks } };
-        
-        setGlobalData(globalResult?.data?.globalOptions?.globalContentBlocks || null);
+        setGlobalData(normalizedBlocks);
         setAboutData(aboutResult?.data?.page?.aboutUsContent || null);
       } catch (err) {
         console.error('Failed to load About page data:', err);
@@ -263,15 +260,15 @@ export default function AboutPage() {
                 )}
               </div>
               <div className="flex justify-center">
-                {aboutContent.contentPageHeader.headerImage?.node?.sourceUrl ? (
+                {aboutContent.contentPageHeader.image?.node?.sourceUrl ? (
                   <img 
-                    src={aboutContent.contentPageHeader.headerImage.node.sourceUrl}
-                    alt={aboutContent.contentPageHeader.headerImage.node.altText || 'About Us'}
+                    src={aboutContent.contentPageHeader.image.node.sourceUrl}
+                    alt={aboutContent.contentPageHeader.image.node.altText || 'About Us'}
                     className="w-full h-auto max-w-md rounded-lg"
                   />
                 ) : (
                   <div className="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center">
-                    <p className="text-gray-500">Add image in WordPress Admin</p>
+                    <p className="text-gray-500">No header image set in WordPress</p>
                   </div>
                 )}
               </div>
@@ -279,51 +276,6 @@ export default function AboutPage() {
           </div>
         </section>
       )}
-
-      {/* Who We Are Section */}
-      {aboutContent?.whoWeAreSection && (
-        <section className="who-we-are-section">
-          <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h2 
-                  className="text-3xl font-bold mb-4"
-                  dangerouslySetInnerHTML={{
-                    __html: sanitizeTitleHtml(
-                      aboutContent.whoWeAreSection.sectionTitle || 'Who We Are'
-                    )
-                  }}
-                />
-                <div 
-                  className="text-lg mb-6"
-                  dangerouslySetInnerHTML={{
-                    __html: aboutContent.whoWeAreSection.sectionText || 'Our story and mission.'
-                  }}
-                />
-                {aboutContent.whoWeAreSection.cta && (
-                  <a 
-                    href={aboutContent.whoWeAreSection.cta.url || '#'} 
-                    className="button-l"
-                    target={aboutContent.whoWeAreSection.cta.target || '_self'}
-                  >
-                    {aboutContent.whoWeAreSection.cta.title || 'Learn More'}
-                  </a>
-                )}
-              </div>
-              <div>
-                {aboutContent.whoWeAreSection.imageWithFrame?.node?.sourceUrl && (
-                  <img 
-                    src={aboutContent.whoWeAreSection.imageWithFrame.node.sourceUrl}
-                    alt={aboutContent.whoWeAreSection.imageWithFrame.node.altText || 'Who we are'}
-                    className="w-full h-auto rounded-lg"
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
 
       {/* Global Content Blocks - Only show if toggles are enabled and data exists */}
       
@@ -345,6 +297,11 @@ export default function AboutPage() {
       {/* Showreel Block */}
       {globalSelection?.enableShowreel && globalContentBlocks?.showreel && (
         <Showreel globalData={globalContentBlocks.showreel} />
+      )}
+      
+      {/* Culture Gallery Slider Block */}
+      {globalSelection?.enableCultureGallerySlider && globalContentBlocks?.cultureGallerySlider && (
+        <CultureGallerySlider globalData={globalContentBlocks.cultureGallerySlider} />
       )}
       
       {/* Approach Block */}

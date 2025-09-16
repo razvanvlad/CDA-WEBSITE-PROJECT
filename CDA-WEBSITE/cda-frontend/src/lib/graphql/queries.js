@@ -122,7 +122,11 @@ export const GET_GLOBAL_CONTENT_BLOCKS = gql`
         whyCdaBlock {
           title
           subtitle
-          cards { title description image { node { sourceUrl altText } } }
+          usp {
+            title
+            description
+            icon { node { sourceUrl altText } }
+          }
         }
         showreel {
           title
@@ -160,7 +164,12 @@ export const GET_GLOBAL_CONTENT_BLOCKS = gql`
           title
           subtitle
           useGlobalSocialLinks
-          images { sourceUrl altText caption }
+          images {
+            nodes {
+              sourceUrl
+              altText
+            }
+          }
         }
         approach {
           title
