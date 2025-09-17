@@ -669,6 +669,46 @@ export const GET_TEAM_MEMBER_SLUGS = `
   }
 `;
 
+// Minimal, schema-safe core queries for Team Members (no ACF)
+export const GET_TEAM_MEMBERS_CORE_WITH_PAGINATION = `
+  query GetTeamMembersCoreWithPagination($first: Int = 12, $after: String, $search: String) {
+    teamMembers(first: $first, after: $after, where: { search: $search }) {
+      nodes {
+        id
+        title
+        slug
+        date
+        modified
+        excerpt
+        featuredImage {
+          node { sourceUrl altText }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+`;
+
+export const GET_TEAM_MEMBER_CORE_BY_SLUG = `
+  query GetTeamMemberCoreBySlug($slug: ID!) {
+    teamMember(id: $slug, idType: SLUG) {
+      id
+      title
+      slug
+      date
+      modified
+      excerpt
+      content
+      featuredImage { node { sourceUrl altText } }
+    }
+  }
+`;
+
 // =============================================================================
 // UTILITY FUNCTIONS
 // =============================================================================
@@ -698,7 +738,8 @@ export async function getCaseStudyBySlug(slug) {
 }
 
 export async function getTeamMemberBySlug(slug) {
-  const response = await executeGraphQLQuery(GET_TEAM_MEMBER_BY_SLUG, { slug });
+  // Prefer core-only query to avoid ACF/SEO dependency
+  const response = await executeGraphQLQuery(GET_TEAM_MEMBER_CORE_BY_SLUG, { slug });
   
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
@@ -706,6 +747,20 @@ export async function getTeamMemberBySlug(slug) {
   }
 
   return response.data?.teamMember || null;
+}
+
+export async function getTeamMembersCoreWithPagination(variables) {
+  const response = await executeGraphQLQuery(GET_TEAM_MEMBERS_CORE_WITH_PAGINATION, variables);
+  
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return { nodes: [], pageInfo: null };
+  }
+
+  return {
+    nodes: response.data?.teamMembers?.nodes || [],
+    pageInfo: response.data?.teamMembers?.pageInfo || null
+  };
 }
 
 export async function getAllServices() {
@@ -938,6 +993,57 @@ export async function getJobListingsSimple() {
 }
 
 // =============================================================================
+// POLICIES UTILITY FUNCTIONS
+// =============================================================================
+
+export async function getPolicyBySlug(slug) {
+  const response = await executeGraphQLQuery(GET_POLICY_BY_SLUG, { slug });
+  
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return null;
+  }
+
+  return response.data?.policy || null;
+}
+
+export async function getAllPolicies() {
+  const response = await executeGraphQLQuery(GET_ALL_POLICIES);
+  
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return [];
+  }
+
+  return response.data?.policies?.nodes || [];
+}
+
+export async function getPoliciesWithPagination(variables) {
+  const response = await executeGraphQLQuery(GET_POLICIES_WITH_PAGINATION, variables);
+  
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return { nodes: [], pageInfo: null };
+  }
+
+  return {
+    nodes: response.data?.policies?.nodes || [],
+    pageInfo: response.data?.policies?.pageInfo || null
+  };
+}
+
+export async function getPolicySlugs() {
+  const response = await executeGraphQLQuery(GET_POLICY_SLUGS);
+  
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return [];
+  }
+
+  return response.data?.policies?.nodes?.map((policy) => policy.slug) || [];
+}
+
+// =============================================================================
 // SERVICES ENHANCED FIELDS (queried separately and merged if available)
 // =============================================================================
 export const GET_SERVICE_ENHANCED_FIELDS = `
@@ -1133,6 +1239,96 @@ export const GET_JOB_LISTINGS_SIMPLE = `
         slug
         date
         excerpt
+      }
+    }
+  }
+`;
+
+// =============================================================================
+// POLICIES QUERIES
+// =============================================================================
+
+export const GET_ALL_POLICIES = `
+  query GetAllPolicies($first: Int, $after: String, $where: RootQueryToPolicyConnectionWhereArgs) {
+    policies(first: $first, after: $after, where: $where) {
+      nodes {
+        id
+        title
+        slug
+        date
+        modified
+        excerpt
+        content
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+`;
+
+export const GET_POLICIES_WITH_PAGINATION = `
+  query GetPoliciesWithPagination($first: Int = 12, $after: String, $search: String) {
+    policies(first: $first, after: $after, where: { search: $search }) {
+      nodes {
+        id
+        title
+        slug
+        date
+        modified
+        excerpt
+        content
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+`;
+
+export const GET_POLICY_BY_SLUG = `
+  query GetPolicyBySlug($slug: ID!) {
+    policy(id: $slug, idType: SLUG) {
+      id
+      title
+      slug
+      date
+      modified
+      content
+      excerpt
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+        }
+      }
+    }
+  }
+`;
+
+export const GET_POLICY_SLUGS = `
+  query GetPolicySlugs {
+    policies {
+      nodes {
+        slug
       }
     }
   }

@@ -102,6 +102,16 @@ cda-frontend/
 
 The website uses several custom post types managed in WordPress:
 
+**📝 WordPress Backend Configuration**:
+Custom post types are defined in: `wp-content/mu-plugins/cda-cms/post-types/`
+- `services.php` → Services post type
+- `case-studies.php` → Case Studies post type  
+- `team-members.php` → Team Members post type
+- `job-listings.php` → Job Listings post type
+- `blog-posts.php` → Blog Posts post type
+- `technologies.php` → Technologies post type
+- `policies.php` → Policies post type
+
 ### 1. Services (`services`)
 **Purpose**: Showcase business services and solutions
 **Fields**: 
@@ -151,10 +161,11 @@ The website uses several custom post types managed in WordPress:
 
 **Frontend**: `/jobs/[slug]`
 
-### 5. Blog Posts (`blogPosts`)
+### 5. Blog Posts (`blog_posts`)
 **Purpose**: News articles and blog content
-**Fields**: Standard WordPress post fields
+**Fields**: Standard WordPress post fields + ACF custom fields
 **Taxonomies**: Blog Categories
+**GraphQL Names**: `blogPost` (singular), `blogPosts` (plural)
 **Frontend**: `/news-article/[slug]`
 
 ### 6. Technologies (`technologies`)
@@ -164,7 +175,15 @@ The website uses several custom post types managed in WordPress:
 
 ### 7. Policies (`policies`)
 **Purpose**: Legal pages (privacy policy, terms, etc.)
+**Fields**:
+- Policy title
+- Policy description (WYSIWYG editor)
+- Last updated date
+- Effective date
+
+**GraphQL Names**: `policy` (singular), `policies` (plural)
 **Frontend**: `/policies/[slug]`
+
 
 ## Global Content Management
 
