@@ -10,7 +10,14 @@ const CultureGallerySlider = ({ globalData }) => {
   // Extract data from props
   const title = globalData?.title || 'Our Culture';
   const subtitle = globalData?.subtitle || 'See life at CDA';
-  const images = globalData?.images?.nodes || globalData?.images || [];
+  const rawImages = globalData?.images;
+  const images = Array.isArray(rawImages)
+    ? rawImages
+    : Array.isArray(rawImages?.nodes)
+      ? rawImages.nodes
+      : Array.isArray(rawImages?.edges)
+        ? (rawImages.edges || []).map((e) => e?.node).filter(Boolean)
+        : [];
   const useGlobalSocialLinks = globalData?.useGlobalSocialLinks || false;
 
   // Handle responsive behavior
@@ -28,7 +35,7 @@ const CultureGallerySlider = ({ globalData }) => {
 
   // Calculate slides per view and max slides
   const slidesPerView = isMobile ? 2 : 4;
-  const maxSlides = Math.max(0, images.length - slidesPerView);
+  const maxSlides = Math.max(0, (Array.isArray(images) ? images.length : 0) - slidesPerView);
 
   // Handle slide navigation for multi-image carousel
   const nextSlide = () => {
@@ -82,7 +89,7 @@ const CultureGallerySlider = ({ globalData }) => {
     }
   };
 
-  if (!images || images.length === 0) {
+  if (!Array.isArray(images) || images.length === 0) {
     return null; // Don't render if no images
   }
 
