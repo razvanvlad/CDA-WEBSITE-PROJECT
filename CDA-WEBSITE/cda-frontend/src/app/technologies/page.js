@@ -1,165 +1,28 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import ApproachBlock from '../../components/GlobalBlocks/ApproachBlock';
 import CaseStudies from '../../components/GlobalBlocks/CaseStudies';
-import { executeGraphQLQuery } from '@/lib/graphql-queries.js';
+import Image from 'next/image'
+import { getTechnologiesWithPagination, getGlobalContent } from '@/lib/graphql-queries.js';
+import GlobalTailSections from '@/components/GlobalBlocks/GlobalTailSections.jsx';
 
-export default function TechnologiesPage() {
-  const [technologies, setTechnologies] = useState([]);
-  const [globalData, setGlobalData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+export const revalidate = 300
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Query for technologies post type and global sections
-        const query = `{
-          technologies(first: 100) {
-            nodes {
-              id
-              title
-              content
-              excerpt
-              uri
-              featuredImage {
-                node {
-                  sourceUrl
-                  altText
-                }
-              }
-            }
-          }
-          globalOptions {
-            globalContentBlocks {
-              approach {
-                title
-                subtitle
-                steps {
-                  title
-                  image { node { sourceUrl altText } }
-                }
-              }
-              caseStudiesSection {
-                title
-                subtitle
-                knowledgeHubLink { url title target }
-                selectedStudies {
-                  nodes {
-                    id
-                    title
-                    excerpt
-                    uri
-                    featuredImage {
-                      node {
-                        sourceUrl
-                        altText
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }`;
-        
-        const result = await executeGraphQLQuery(query);
-        
-        if (result.errors) {
-          console.error('Technologies GraphQL errors:', result.errors);
-          // If there are GraphQL errors, try a simpler query without global sections
-          const simpleQuery = `{
-            technologies(first: 100) {
-              nodes {
-                id
-                title
-                content
-                excerpt
-                uri
-                featuredImage {
-                  node {
-                    sourceUrl
-                    altText
-                  }
-                }
-              }
-            }
-          }`;
-          
-          const simpleResult = await executeGraphQLQuery(simpleQuery);
-          if (simpleResult.errors) {
-            console.error('Simple query also failed:', simpleResult.errors);
-            setError('Failed to load technologies data');
-            return;
-          }
-          
-          // Set technologies data only
-          setTechnologies(simpleResult?.data?.technologies?.nodes || []);
-          setGlobalData({}); // Empty global data
-          return;
-        }
-        
-        // Set technologies data
-        setTechnologies(result?.data?.technologies?.nodes || []);
-        
-        // Set global sections data
-        setGlobalData(result?.data?.globalOptions?.globalContentBlocks || {});
-        
-      } catch (err) {
-        console.error('Failed to load technologies data:', err);
-        setError('Failed to load content.');
-      } finally {
-        setLoading(false);
-      }
-    };
+export const metadata = {
+  title: 'Technologies - CDA Systems',
+  description: 'Technologies and platforms we use.',
+  alternates: { canonical: '/technologies' },
+}
 
-    fetchData();
-  }, []);
+export default async function TechnologiesPage() {
+  const { nodes: technologies } = await getTechnologiesWithPagination({ first: 100 })
+  const globalData = await getGlobalContent()
 
-  // Function to strip HTML tags from content
-  const stripHtml = (html) => {
-    return html?.replace(/<[^>]*>/g, '') || '';
-  };
-
-  // Function to truncate text
+  const stripHtml = (html) => html?.replace(/<[^>]*>/g, '') || ''
   const truncateText = (text, maxLength = 120) => {
-    if (!text) return '';
-    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
-  };
-
-  if (loading) {
-    return (
-      <>
-        <Header />
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">Loading Technologies...</h2>
-            <p className="text-gray-600">Please wait while we load our technologies.</p>
-          </div>
-        </div>
-        <Footer />
-      </>
-    );
+    if (!text) return ''
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text
   }
-
-  if (error) {
-    return (
-      <>
-        <Header />
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-2xl font-semibold text-red-600 mb-2">Error Loading Technologies</h2>
-            <p className="text-gray-600">{error}</p>
-          </div>
-        </div>
-        <Footer />
-      </>
-    );
-  }
-
   return (
     <>
       <Header />
@@ -189,10 +52,11 @@ export default function TechnologiesPage() {
                   {/* Featured Image */}
                   {tech.featuredImage?.node?.sourceUrl && (
                     <div className="aspect-video relative overflow-hidden">
-                      <img
+<Image
                         src={tech.featuredImage.node.sourceUrl}
                         alt={tech.featuredImage.node.altText || tech.title}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
                       />
                     </div>
                   )}
@@ -247,20 +111,8 @@ export default function TechnologiesPage() {
         </div>
       </section>
 
-      {/* Approach Global Section - Only show if data exists */}
-      {globalData?.approach && (
-        <ApproachBlock globalData={globalData.approach} />
-      )}
-      
-      {/* Case Studies Global Section - Only show if data exists */}
-      {globalData?.caseStudiesSection && (
-        <CaseStudies globalData={globalData.caseStudiesSection} />
-      )}
-      
-      {/* Case Studies Global Section */}
-      {globalData?.caseStudiesSection && (
-        <CaseStudies globalData={globalData.caseStudiesSection} />
-      )}
+      {/* Global tail sections (Case Studies, Approach) */}
+      <GlobalTailSections globalData={globalData} />
       
       <Footer />
     </>
