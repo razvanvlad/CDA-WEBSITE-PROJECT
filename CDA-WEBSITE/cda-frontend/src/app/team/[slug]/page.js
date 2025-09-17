@@ -89,6 +89,14 @@ export default async function TeamMemberDetailPage({ params }) {
             </div>
           </div>
         </article>
+        {/* Services Slider at end of team member post */}
+        {member && (
+          <div className="mt-12">
+            {(() => { const ServicesSlider = require('../../../components/GlobalBlocks/ServicesSlider.jsx').default; return (
+              <ServicesSlider title="You May Also Be Interested In" subtitle="Our Services" />
+            ); })()}
+          </div>
+        )}
         <Footer />
       </>
     )

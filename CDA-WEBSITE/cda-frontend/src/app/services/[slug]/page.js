@@ -11,6 +11,7 @@ import Script from 'next/script';
 import HubspotFormEmbed from '../../../components/HubspotFormEmbed';
 import ApproachBlock from '../../../components/GlobalBlocks/ApproachBlock';
 import NewsCarousel from '../../../components/GlobalBlocks/NewsCarousel';
+import ServicesSlider from '../../../components/GlobalBlocks/ServicesSlider.jsx';
 import { useRef, useEffect, useState } from 'react';
 
 // Service color mapping
@@ -350,6 +351,8 @@ export default function ServicePage({ params }) {
 
 
 
+        {/* Services Slider at end of service post */}
+        <ServicesSlider />
       </main>
 
       {/* Contact Form Section */}
