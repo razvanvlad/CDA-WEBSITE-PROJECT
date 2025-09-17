@@ -1314,7 +1314,7 @@ export const GET_ALL_GLOBAL_CONTENT_BLOCKS = `
           useGlobalSocialLinks
           images { edges { node { sourceUrl altText } } }
         }
-        whyCda {
+        whyCda: whyCdaBlock {
           title
           subtitle
           usp {
@@ -1429,7 +1429,49 @@ export async function getAllGlobalContentBlocks() {
 // =============================================================================
 // SMALL GLOBAL SECTION QUERIES (per-section, minimal)
 // =============================================================================
-export const GET_GLOBAL_IMAGE_FRAME = `
+export const GET_GLOBAL_APPROACH = `
+  query GetGlobalApproach {
+    globalOptions { globalContentBlocks {
+      approach {
+        title
+        subtitle
+        steps { title image { node { sourceUrl altText } } }
+      }
+    } }
+  }
+`;
+
+export const GET_GLOBAL_CASE_STUDIES_SECTION_ONLY = `
+  query GetGlobalCaseStudiesSectionOnly {
+    globalOptions { globalContentBlocks {
+      caseStudiesSection {
+        title
+        subtitle
+        knowledgeHubLink { url title target }
+        selectedStudies {
+          nodes {
+            ... on CaseStudy { id title uri excerpt featuredImage { node { sourceUrl altText } } }
+          }
+        }
+      }
+    } }
+  }
+`;
+
+export const GET_GLOBAL_STATS_MIN = `
+  query GetGlobalStatsMin {
+    globalOptions { globalContentBlocks {
+      statsAndNumbers {
+        image { node { sourceUrl altText } }
+        stats { number text }
+        description
+        cta { url title target }
+      }
+    } }
+  }
+`;
+
+export const GET_GLOBAL_IMAGE_FRAME_MIN = `
   query GetGlobalImageFrame {
     globalOptions { globalContentBlocks {
       imageFrameBlock {
@@ -1445,7 +1487,7 @@ export const GET_GLOBAL_IMAGE_FRAME = `
   }
 `;
 
-export const GET_GLOBAL_NEWS_CAROUSEL = `
+export const GET_GLOBAL_NEWS_CAROUSEL_MIN = `
   query GetGlobalNewsCarousel {
     globalOptions { globalContentBlocks {
       newsCarousel {
@@ -1458,7 +1500,7 @@ export const GET_GLOBAL_NEWS_CAROUSEL = `
   }
 `;
 
-export const GET_GLOBAL_THREE_COLUMNS = `
+export const GET_GLOBAL_THREE_COLUMNS_MIN = `
   query GetGlobalThreeColumns {
     globalOptions { globalContentBlocks {
       threeColumnsWithIcons {
@@ -1473,20 +1515,75 @@ export const GET_GLOBAL_THREE_COLUMNS = `
   }
 `;
 
-export async function getGlobalImageFrameBlock() {
-  const res = await executeGraphQLQuery(GET_GLOBAL_IMAGE_FRAME);
+export async function getGlobalApproachBlock() {
+  const res = await executeGraphQLQuery(GET_GLOBAL_APPROACH);
+  return res?.data?.globalOptions?.globalContentBlocks?.approach || null;
+}
+
+export async function getGlobalCaseStudiesSectionOnly() {
+  const res = await executeGraphQLQuery(GET_GLOBAL_CASE_STUDIES_SECTION);
+  return res?.data?.globalOptions?.globalContentBlocks?.caseStudiesSection || null;
+}
+
+export async function getGlobalStatsBlock() {
+  const res = await executeGraphQLQuery(GET_GLOBAL_STATS_MIN);
+  return res?.data?.globalOptions?.globalContentBlocks?.statsAndNumbers || null;
+}
+
+export async function getGlobalImageFrameBlockMin() {
+  const res = await executeGraphQLQuery(GET_GLOBAL_IMAGE_FRAME_MIN);
   return res?.data?.globalOptions?.globalContentBlocks?.imageFrameBlock || null;
 }
 
-export async function getGlobalNewsCarouselConfig() {
-  const res = await executeGraphQLQuery(GET_GLOBAL_NEWS_CAROUSEL);
+export async function getGlobalNewsCarouselConfigMin() {
+  const res = await executeGraphQLQuery(GET_GLOBAL_NEWS_CAROUSEL_MIN);
   return res?.data?.globalOptions?.globalContentBlocks?.newsCarousel || null;
 }
 
-export async function getGlobalThreeColumns() {
-  const res = await executeGraphQLQuery(GET_GLOBAL_THREE_COLUMNS);
+export async function getGlobalThreeColumnsMin() {
+  const res = await executeGraphQLQuery(GET_GLOBAL_THREE_COLUMNS_MIN);
   return res?.data?.globalOptions?.globalContentBlocks?.threeColumnsWithIcons || null;
 }
+
+// =============================================================================
+// ENTRY-LEVEL TOGGLES (per page/post)
+// =============================================================================
+export const GET_PAGE_GLOBAL_TOGGLES = `
+  query GetPageGlobalToggles($uri: ID!) {
+    page(id: $uri, idType: URI) {
+      id
+      title
+      slug
+      globalContentToggles {
+        showApproach
+        showCaseStudies
+        showImageFrame
+        showNewsCarousel
+        showThreeColumns
+        showValues
+        showWhyCda
+        showServicesAccordion
+        showTechnologiesSlider
+        showShowreel
+        showLocationsImage
+        showNewsletterSignup
+        showContactFormLeftImageRight
+        showJoinOurTeam
+        showFullVideo
+        showStatsAndNumbers
+      }
+    }
+  }
+`;
+
+export async function getPageGlobalTogglesByUri(uri) {
+  const res = await executeGraphQLQuery(GET_PAGE_GLOBAL_TOGGLES, { uri });
+  return res?.data?.page?.globalContentToggles || null;
+}
+
+// =============================================================================
+// TECHNOLOGIES UTILITY FUNCTIONS (core)
+// =============================================================================
 
 // =============================================================================
 // TECHNOLOGIES UTILITY FUNCTIONS (core)
