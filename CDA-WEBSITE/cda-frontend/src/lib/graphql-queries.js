@@ -232,6 +232,36 @@ export const GET_SERVICE_BY_SLUG = `
         }
       }
     }
+    globalOptions {
+      globalContentBlocks {
+        approach {
+          title
+          subtitle
+          steps {
+            title
+            image {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+        newsCarousel {
+          title
+          subtitle
+          articleSelection
+          category { nodes { name slug } }
+          manualArticles {
+            nodes {
+              __typename
+              ... on BlogPost { id title excerpt uri featuredImage { node { sourceUrl altText } } }
+              ... on Post { id title excerpt uri featuredImage { node { sourceUrl altText } } }
+            }
+          }
+        }
+      }
+    }
   }
 `;
 

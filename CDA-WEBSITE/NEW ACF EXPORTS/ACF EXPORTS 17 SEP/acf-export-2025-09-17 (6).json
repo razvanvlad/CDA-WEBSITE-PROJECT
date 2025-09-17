@@ -1,0 +1,155 @@
+[
+    {
+        "key": "group_seo_settings",
+        "title": "SEO Settings",
+        "fields": [
+            {
+                "key": "field_seo_title",
+                "label": "SEO Title",
+                "name": "seo_title",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Custom title for SEO (max 60 characters)",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "show_in_graphql": 1,
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_seo_description",
+                "label": "Meta Description",
+                "name": "seo_description",
+                "aria-label": "",
+                "type": "textarea",
+                "instructions": "Custom meta description for SEO (max 160 characters)",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "rows": 3,
+                "show_in_graphql": 1,
+                "default_value": "",
+                "new_lines": "",
+                "maxlength": "",
+                "placeholder": ""
+            },
+            {
+                "key": "field_seo_keywords",
+                "label": "Meta Keywords",
+                "name": "seo_keywords",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Comma-separated keywords for SEO",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "show_in_graphql": 1,
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_noindex",
+                "label": "No Index",
+                "name": "noindex",
+                "aria-label": "",
+                "type": "true_false",
+                "instructions": "Check to prevent search engines from indexing this page",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "ui": 1,
+                "show_in_graphql": 1,
+                "default_value": 0,
+                "message": "",
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_nofollow",
+                "label": "No Follow",
+                "name": "nofollow",
+                "aria-label": "",
+                "type": "true_false",
+                "instructions": "Check to prevent search engines from following links on this page",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "ui": 1,
+                "show_in_graphql": 1,
+                "default_value": 0,
+                "message": "",
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_canonical_url",
+                "label": "Canonical URL",
+                "name": "canonical_url",
+                "aria-label": "",
+                "type": "url",
+                "instructions": "Specify a canonical URL for this page",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "show_in_graphql": 1,
+                "default_value": "",
+                "placeholder": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "page"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": 0,
+        "show_in_graphql": 1,
+        "graphql_field_name": "seoSettings",
+        "map_graphql_types_from_location_rules": 1,
+        "graphql_types": [
+            "Page"
+        ]
+    }
+]
