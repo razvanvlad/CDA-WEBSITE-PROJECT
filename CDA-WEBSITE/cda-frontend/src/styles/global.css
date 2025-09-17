@@ -2520,3 +2520,78 @@ div.w-2.h-2,
 .w-2.h-2.rounded-full {
   border-radius: 0 !important;
 }
+
+/* Policy Content Styles */
+.policy-content h1,
+.policy-content h2,
+.policy-content h3,
+.policy-content h4,
+.policy-content h5,
+.policy-content h6 {
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+.policy-content h1 { font-size: 1.875rem; }
+.policy-content h2 { font-size: 1.5rem; }
+.policy-content h3 { font-size: 1.25rem; }
+.policy-content h4 { font-size: 1.125rem; }
+
+.policy-content p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+  color: #374151;
+}
+
+.policy-content ul,
+.policy-content ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.policy-content li {
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.policy-content a {
+  color: #3B82F6;
+  text-decoration: underline;
+}
+
+.policy-content a:hover {
+  color: #1D4ED8;
+}
+
+.policy-content strong {
+  font-weight: 600;
+  color: #111827;
+}
+
+.policy-content blockquote {
+  border-left: 4px solid #E5E7EB;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #6B7280;
+}
+
+.policy-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.policy-content th,
+.policy-content td {
+  border: 1px solid #E5E7EB;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.policy-content th {
+  background-color: #F9FAFB;
+  font-weight: 600;
+}
