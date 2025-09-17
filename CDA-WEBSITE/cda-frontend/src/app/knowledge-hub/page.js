@@ -207,7 +207,7 @@ const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
                       
                       <div className="flex items-center justify-between">
 <Link
-                          href={`/news-article/${post.slug}`}
+                          href={`/news/${post.slug}`}
 className="button-without-box"
                         >
                           Read More

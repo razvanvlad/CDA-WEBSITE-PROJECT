@@ -17,7 +17,7 @@ export default function NewsCarouselClient({ title, subtitle, articles = [] }) {
     try {
       const parts = (uri || '').split('/').filter(Boolean);
       const slug = parts[parts.length - 1] || '';
-      return slug ? `/news-article/${slug}` : (uri || '#');
+      return slug ? `/news/${slug}` : (uri || '#');
     } catch {
       return uri || '#';
     }
