@@ -1,5 +1,8 @@
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
+import { notFound } from 'next/navigation';
+import GlobalTailSections from '../../../components/GlobalBlocks/GlobalTailSections.jsx';
+import { getGlobalContent } from '../../../lib/graphql-queries';
 
 const GRAPHQL_ENDPOINT =
   process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT ||
@@ -41,21 +44,20 @@ async function fetchBlogPostBySlug(slug) {
   return json.data?.blogPost || null;
 }
 
+
 export default async function NewsArticlePage({ params }) {
-  const slug = decodeURIComponent(params?.slug || '');
+  const resolvedParams = await params;
+  const slug = decodeURIComponent(resolvedParams?.slug || '');
   const post = await fetchBlogPostBySlug(slug);
 
   if (!post) {
-    <div className="min-h-screen bg-white py-16">
-      <div className="mx-auto w-full max-w-[900px] px-4 md:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold text-black mb-4">Article: {slug}</h1>
-        <p className="text-[#4B5563]">News article content will appear here.</p>
-      </div>
-    </div>
+    return notFound();
   }
 
   const dateStr = post.date ? new Date(post.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
   const categories = post.blogCategories?.nodes || [];
+
+  const globalData = await getGlobalContent();
 
   return (
     <div className="min-h-screen bg-white">
@@ -81,9 +83,20 @@ export default async function NewsArticlePage({ params }) {
             <img src={post.featuredImage.node.sourceUrl} alt={post.featuredImage.node.altText || post.title || ''} className="w-full h-auto rounded-lg mb-8" />
           )}
 
-          <div className="prose prose-lg max-w-none prose-headings:font-bold prose-a:text-blue-600 hover:prose-a:underline" dangerouslySetInnerHTML={{ __html: post.content || '' }} />
+          <div
+            className="prose prose-lg max-w-none prose-headings:font-bold prose-a:text-blue-600 hover:prose-a:underline prose-p:text-black prose-li:text-black prose-strong:text-black prose-em:text-black prose-blockquote:text-black prose-h1:text-black prose-h2:text-black prose-h3:text-black prose-h4:text-black prose-h5:text-black prose-h6:text-black prose-figcaption:text-black prose-lead:text-black prose-th:text-black prose-td:text-black"
+            dangerouslySetInnerHTML={{ __html: post.content || '' }}
+          />
         </article>
       </main>
+
+      <GlobalTailSections
+        globalData={globalData}
+        enableStats={false}
+        enableImageFrame={true}
+        enableNewsCarousel={true}
+        enableColumnsWithIcons3X={true}
+      />
 
       <Footer />
     </div>

@@ -1294,6 +1294,201 @@ export async function getJobListingsSimple() {
 }
 
 // =============================================================================
+// ALL GLOBAL CONTENT BLOCKS (full schema)
+// =============================================================================
+export const GET_ALL_GLOBAL_CONTENT_BLOCKS = `
+  query GetAllGlobalContentBlocks {
+    globalOptions {
+      globalContentBlocks {
+        approach {
+          title
+          subtitle
+          steps {
+            title
+            image { node { sourceUrl altText } }
+          }
+        }
+        cultureGallerySlider {
+          title
+          subtitle
+          useGlobalSocialLinks
+          images { edges { node { sourceUrl altText } } }
+        }
+        whyCda {
+          title
+          subtitle
+          usp {
+            title
+            description
+            icon { node { sourceUrl altText } }
+          }
+        }
+        valuesBlock {
+          title
+          subtitle
+          illustration { node { sourceUrl altText } }
+          values { title text }
+        }
+        servicesAccordion {
+          title
+          subtitle
+          illustration { node { sourceUrl altText } }
+          services {
+            edges {
+              node { ... on Service { id title slug } }
+            }
+          }
+        }
+        technologiesSlider {
+          title
+          subtitle
+          logos { edges { node { ... on Technology { id title slug } } } }
+        }
+        showreel {
+          title
+          subtitle
+          button { url title target }
+          largeImage { node { sourceUrl altText } }
+          logos { logo { node { sourceUrl altText } } }
+        }
+        locationsImage {
+          title
+          subtitle
+          illustration { node { sourceUrl altText } }
+          countries {
+            countryName
+            offices { name address email phone }
+          }
+        }
+        newsCarousel {
+          title
+          subtitle
+          articleSelection
+          manualArticles { edges { node { ... on BlogPost { id title slug } } } }
+        }
+        newsletterSignup {
+          title
+          subtitle
+          hubspotScript
+          termsText
+        }
+        contactFormLeftImageRight {
+          title
+          formCode
+          useGlobalContactDetails
+          contactDetailsOverride
+          rightMediaType
+          rightImage { node { sourceUrl altText } }
+          rightVideo { node { sourceUrl } }
+          rightGif { node { sourceUrl altText } }
+        }
+        joinOurTeam {
+          title
+          text
+          button { url title target }
+          leftMediaType
+          leftImage { node { sourceUrl altText } }
+          leftVideo { node { sourceUrl } }
+          leftGif { node { sourceUrl altText } }
+          rightMediaType
+          rightImage { node { sourceUrl altText } }
+          rightVideo { node { sourceUrl } }
+          rightGif { node { sourceUrl altText } }
+        }
+        threeColumnsWithIcons {
+          sectionTitle
+          columns {
+            icon { node { sourceUrl altText } }
+            title
+            text
+          }
+        }
+        fullVideo {
+          url
+          file { node { sourceUrl } }
+        }
+        statsAndNumbers {
+          image { node { sourceUrl altText } }
+          stats { number text }
+          description
+          cta { url title target }
+        }
+      }
+    }
+  }
+`;
+
+export async function getAllGlobalContentBlocks() {
+  const response = await executeGraphQLQuery(GET_ALL_GLOBAL_CONTENT_BLOCKS);
+  if (response.errors) {
+    console.warn('Global content GraphQL warnings:', response.errors);
+  }
+  return response.data?.globalOptions?.globalContentBlocks || null;
+}
+
+// =============================================================================
+// SMALL GLOBAL SECTION QUERIES (per-section, minimal)
+// =============================================================================
+export const GET_GLOBAL_IMAGE_FRAME = `
+  query GetGlobalImageFrame {
+    globalOptions { globalContentBlocks {
+      imageFrameBlock {
+        title
+        subtitle
+        text
+        button { url title target }
+        contentImage { node { sourceUrl altText } }
+        frameImage   { node { sourceUrl altText } }
+        arrowImage   { node { sourceUrl altText } }
+      }
+    } }
+  }
+`;
+
+export const GET_GLOBAL_NEWS_CAROUSEL = `
+  query GetGlobalNewsCarousel {
+    globalOptions { globalContentBlocks {
+      newsCarousel {
+        title
+        subtitle
+        articleSelection
+        manualArticles { edges { node { ... on BlogPost { id title slug } } } }
+      }
+    } }
+  }
+`;
+
+export const GET_GLOBAL_THREE_COLUMNS = `
+  query GetGlobalThreeColumns {
+    globalOptions { globalContentBlocks {
+      threeColumnsWithIcons {
+        sectionTitle
+        columns {
+          icon { node { sourceUrl altText } }
+          title
+          text
+        }
+      }
+    } }
+  }
+`;
+
+export async function getGlobalImageFrameBlock() {
+  const res = await executeGraphQLQuery(GET_GLOBAL_IMAGE_FRAME);
+  return res?.data?.globalOptions?.globalContentBlocks?.imageFrameBlock || null;
+}
+
+export async function getGlobalNewsCarouselConfig() {
+  const res = await executeGraphQLQuery(GET_GLOBAL_NEWS_CAROUSEL);
+  return res?.data?.globalOptions?.globalContentBlocks?.newsCarousel || null;
+}
+
+export async function getGlobalThreeColumns() {
+  const res = await executeGraphQLQuery(GET_GLOBAL_THREE_COLUMNS);
+  return res?.data?.globalOptions?.globalContentBlocks?.threeColumnsWithIcons || null;
+}
+
+// =============================================================================
 // TECHNOLOGIES UTILITY FUNCTIONS (core)
 // =============================================================================
 export async function getTechnologiesWithPagination(variables) {
