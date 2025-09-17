@@ -170,6 +170,28 @@ export const GET_SERVICES_WITH_PAGINATION = `
   }
 `;
 
+// Core-only Services query (safe for client usage)
+export const GET_SERVICES_CORE_WITH_PAGINATION = `
+  query GetServicesCoreWithPagination($first: Int = 12, $after: String, $search: String) {
+    services(first: $first, after: $after, where: { search: $search }) {
+      nodes {
+        id
+        title
+        slug
+        date
+        excerpt
+        featuredImage { node { sourceUrl altText } }
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+`;
+
 export const GET_SERVICE_BY_SLUG = `
   query GetServiceBySlug($slug: ID!) {
     service(id: $slug, idType: SLUG) {
@@ -776,6 +798,20 @@ export async function getAllServices() {
 
 export async function getServicesWithPagination(variables) {
   const response = await executeGraphQLQuery(GET_SERVICES_WITH_PAGINATION, variables);
+  
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return { nodes: [], pageInfo: null };
+  }
+
+  return {
+    nodes: response.data?.services?.nodes || [],
+    pageInfo: response.data?.services?.pageInfo || null
+  };
+}
+
+export async function getServicesCoreWithPagination(variables) {
+  const response = await executeGraphQLQuery(GET_SERVICES_CORE_WITH_PAGINATION, variables);
   
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
