@@ -19,7 +19,8 @@ import HubspotFormClient from '@/components/Embeds/HubspotFormClient.jsx'
 // we gracefully fall back to the latest 2 case studies.
 export default async function GlobalTailSections({
   globalData,
-  enableCaseStudiesFallback = true,
+  enableCaseStudies = false,
+  enableCaseStudiesFallback = false,
   enableStats = true,
   enableImageFrame = false,
   enableNewsCarousel = false,
@@ -39,10 +40,12 @@ export default async function GlobalTailSections({
 }) {
   if (!globalData) return null
 
-  let csData = globalData?.caseStudiesSection || null
+  let csData = null
+  if (enableCaseStudies) {
+    csData = globalData?.caseStudiesSection || null
 
-  // Fallback: fetch latest case studies and adapt to CaseStudies component shape
-  if (!csData && enableCaseStudiesFallback) {
+    // Fallback: fetch latest case studies and adapt to CaseStudies component shape
+    if (!csData && enableCaseStudiesFallback) {
     try {
       const { nodes } = await getCaseStudiesWithPagination({ first: 2 })
       if (nodes && nodes.length > 0) {
@@ -65,6 +68,10 @@ export default async function GlobalTailSections({
       // ignore fallback errors
     }
   }
+}
+
+// Only render Case Studies when enabled
+const showCaseStudiesSection = !!(enableCaseStudies && csData)
 
   // Compute news carousel articles when enabled
   let newsArticles = []
@@ -122,7 +129,7 @@ export default async function GlobalTailSections({
 
   return (
     <>
-      {csData && (
+      {showCaseStudiesSection && (
         <CaseStudies globalData={csData} />
       )}
 
@@ -146,7 +153,7 @@ export default async function GlobalTailSections({
         <ThreeColumnsWithIcons globalData={globalData.threeColumnsWithIcons || globalData.columnsWithIcons3X} />
       )}
 
-      {(enableApproach || globalData?.approach) && globalData?.approach && (
+      {enableApproach && globalData?.approach && (
         <ApproachBlock globalData={globalData.approach} />
       )}
 

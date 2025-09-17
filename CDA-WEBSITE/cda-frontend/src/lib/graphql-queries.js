@@ -1553,7 +1553,7 @@ export const GET_PAGE_GLOBAL_TOGGLES = `
     page(id: $uri, idType: URI) {
       id
       title
-      slug
+      uri
       globalContentToggles {
         showApproach
         showCaseStudies
@@ -1571,14 +1571,108 @@ export const GET_PAGE_GLOBAL_TOGGLES = `
         showJoinOurTeam
         showFullVideo
         showStatsAndNumbers
+        showCultureGallerySlider
+      }
+    }
+  }
+`;
+
+export const GET_PAGE_GLOBAL_TOGGLES_NESTED = `
+  query GetPageGlobalTogglesNested($uri: ID!) {
+    page(id: $uri, idType: URI) {
+      id
+      title
+      uri
+      gLOBALCONTENTBLOCKSTOGGLE {
+        globalContentToggles {
+          showApproach
+          showCaseStudies
+          showImageFrame
+          showNewsCarousel
+          showThreeColumns
+          showValues
+          showWhyCda
+          showServicesAccordion
+          showTechnologiesSlider
+          showShowreel
+          showLocationsImage
+          showNewsletterSignup
+          showContactFormLeftImageRight
+          showJoinOurTeam
+          showFullVideo
+          showStatsAndNumbers
+          showCultureGallerySlider
+        }
+      }
+    }
+  }
+`;
+
+export const GET_PAGE_GLOBAL_TOGGLES_BY_SLUG = `
+  # Note: Many WPGraphQL setups do not support Page idType: SLUG. Use URI instead.
+  query GetPageGlobalTogglesBySlug($uri: ID!) {
+    page(id: $uri, idType: URI) {
+      id
+      title
+      uri
+      globalContentToggles {
+        showApproach
+        showCaseStudies
+        showImageFrame
+        showNewsCarousel
+        showThreeColumns
+        showValues
+        showWhyCda
+        showServicesAccordion
+        showTechnologiesSlider
+        showShowreel
+        showLocationsImage
+        showNewsletterSignup
+        showContactFormLeftImageRight
+        showJoinOurTeam
+        showFullVideo
+        showStatsAndNumbers
+        showCultureGallerySlider
       }
     }
   }
 `;
 
 export async function getPageGlobalTogglesByUri(uri) {
-  const res = await executeGraphQLQuery(GET_PAGE_GLOBAL_TOGGLES, { uri });
-  return res?.data?.page?.globalContentToggles || null;
+  // Try direct mapping first
+  try {
+    const res = await executeGraphQLQuery(GET_PAGE_GLOBAL_TOGGLES, { uri });
+    const page = res?.data?.page;
+    if (page?.globalContentToggles) return page.globalContentToggles;
+  } catch (_) { /* ignore and try nested */ }
+
+  // Fallback to nested mapping
+  try {
+    const res2 = await executeGraphQLQuery(GET_PAGE_GLOBAL_TOGGLES_NESTED, { uri });
+    const page2 = res2?.data?.page;
+    if (page2?.gLOBALCONTENTBLOCKSTOGGLE?.globalContentToggles) return page2.gLOBALCONTENTBLOCKSTOGGLE.globalContentToggles;
+  } catch (_) { /* ignore */ }
+
+  return null;
+}
+
+export async function getPageGlobalTogglesBySlug(slug) {
+  // Try via URI first using common patterns
+  const primary = await getPageGlobalTogglesByUri(`/${slug}/`);
+  if (primary) return primary;
+  const alt = await getPageGlobalTogglesByUri(`/index.php/${slug}/`);
+  if (alt) return alt;
+  // As a final attempt, call the direct-by-URI query explicitly
+  try {
+    const res = await executeGraphQLQuery(GET_PAGE_GLOBAL_TOGGLES_BY_SLUG, { uri: `/${slug}/` });
+    return res?.data?.page?.globalContentToggles || null;
+  } catch (_) { /* ignore */ }
+  // And attempt nested form explicitly
+  try {
+    const res2 = await executeGraphQLQuery(GET_PAGE_GLOBAL_TOGGLES_NESTED, { uri: `/${slug}/` });
+    return res2?.data?.page?.gLOBALCONTENTBLOCKSTOGGLE?.globalContentToggles || null;
+  } catch (_) { /* ignore */ }
+  return null;
 }
 
 // =============================================================================
