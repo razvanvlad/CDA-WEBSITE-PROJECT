@@ -1,0 +1,27 @@
+[
+    {
+        "key": "group_job_test_simple",
+        "title": "Job Test Fields (Simple)",
+        "fields": [],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "job_listings"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": [],
+        "active": true,
+        "description": "Test field group for job listings",
+        "show_in_rest": false,
+        "show_in_graphql": 1,
+        "graphql_field_name": "jobTestFieldsSimple"
+    }
+]

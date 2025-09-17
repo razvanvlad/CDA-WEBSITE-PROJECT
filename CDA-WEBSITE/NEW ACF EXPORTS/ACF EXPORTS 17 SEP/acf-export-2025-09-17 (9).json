@@ -1,0 +1,495 @@
+[
+    {
+        "key": "group_team_page",
+        "title": "Team Page Content",
+        "fields": [
+            {
+                "key": "field_team_content_sections",
+                "label": "Content Sections",
+                "name": "team_content_sections",
+                "aria-label": "",
+                "type": "flexible_content",
+                "instructions": "Add and arrange content sections for the team page",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "show_in_graphql": 1,
+                "layouts": {
+                    "layout_content_page_header": {
+                        "key": "layout_content_page_header",
+                        "name": "content_page_header",
+                        "label": "Content Page Header",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_header_title",
+                                "label": "Title",
+                                "name": "title",
+                                "aria-label": "",
+                                "type": "wysiwyg",
+                                "instructions": "",
+                                "required": 1,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "show_in_graphql": 1,
+                                "default_value": "",
+                                "tabs": "all",
+                                "toolbar": "basic",
+                                "media_upload": 0,
+                                "delay": 0
+                            },
+                            {
+                                "key": "field_header_text",
+                                "label": "Text",
+                                "name": "text",
+                                "aria-label": "",
+                                "type": "wysiwyg",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "show_in_graphql": 1,
+                                "default_value": "",
+                                "tabs": "all",
+                                "toolbar": "basic",
+                                "media_upload": 0,
+                                "delay": 0
+                            },
+                            {
+                                "key": "field_header_cta",
+                                "label": "CTA Button",
+                                "name": "cta",
+                                "aria-label": "",
+                                "type": "link",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "show_in_graphql": 1,
+                                "return_format": "array"
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_meet_founder": {
+                        "key": "layout_meet_founder",
+                        "name": "meet_founder",
+                        "label": "Meet the Founder",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_founder_image",
+                                "label": "Founder Image",
+                                "name": "founder_image",
+                                "aria-label": "",
+                                "type": "image",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "show_in_graphql": 1,
+                                "return_format": "array",
+                                "preview_size": "medium",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": ""
+                            },
+                            {
+                                "key": "field_founder_content",
+                                "label": "Founder Content",
+                                "name": "founder_content",
+                                "aria-label": "",
+                                "type": "group",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "show_in_graphql": 1,
+                                "layout": "block",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_founder_name",
+                                        "label": "Name",
+                                        "name": "name",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 1,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "show_in_graphql": 1,
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": ""
+                                    },
+                                    {
+                                        "key": "field_founder_title",
+                                        "label": "Title",
+                                        "name": "title",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "show_in_graphql": 1,
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": ""
+                                    },
+                                    {
+                                        "key": "field_founder_bio",
+                                        "label": "Bio",
+                                        "name": "bio",
+                                        "aria-label": "",
+                                        "type": "wysiwyg",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "show_in_graphql": 1,
+                                        "default_value": "",
+                                        "tabs": "all",
+                                        "toolbar": "basic",
+                                        "media_upload": 0,
+                                        "delay": 0
+                                    },
+                                    {
+                                        "key": "field_founder_cta",
+                                        "label": "CTA Link",
+                                        "name": "cta",
+                                        "aria-label": "",
+                                        "type": "link",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "show_in_graphql": 1,
+                                        "return_format": "array"
+                                    }
+                                ]
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_team_listing": {
+                        "key": "layout_team_listing",
+                        "name": "team_listing",
+                        "label": "Team Listing",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_team_section_title",
+                                "label": "Section Title",
+                                "name": "section_title",
+                                "aria-label": "",
+                                "type": "wysiwyg",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "show_in_graphql": 1,
+                                "default_value": "",
+                                "tabs": "all",
+                                "toolbar": "basic",
+                                "media_upload": 0,
+                                "delay": 0
+                            },
+                            {
+                                "key": "field_team_members",
+                                "label": "Team Members",
+                                "name": "team_members",
+                                "aria-label": "",
+                                "type": "relationship",
+                                "instructions": "Select team members to display",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "post_type": [
+                                    "team_members"
+                                ],
+                                "post_status": "",
+                                "taxonomy": "",
+                                "filters": [
+                                    "search"
+                                ],
+                                "return_format": "object",
+                                "min": "",
+                                "max": "",
+                                "allow_in_bindings": 1,
+                                "elements": [
+                                    "featured_image"
+                                ],
+                                "bidirectional": 0,
+                                "show_in_graphql": 1,
+                                "graphql_description": "",
+                                "graphql_field_name": "teamMembers",
+                                "graphql_connection_type": "one_to_many",
+                                "bidirectional_target": []
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_join_team": {
+                        "key": "layout_join_team",
+                        "name": "join_team",
+                        "label": "Join Our Team",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_join_team_title",
+                                "label": "Title",
+                                "name": "title",
+                                "aria-label": "",
+                                "type": "wysiwyg",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "show_in_graphql": 1,
+                                "default_value": "",
+                                "tabs": "all",
+                                "toolbar": "basic",
+                                "media_upload": 0,
+                                "delay": 0
+                            },
+                            {
+                                "key": "field_join_team_description",
+                                "label": "Description",
+                                "name": "description",
+                                "aria-label": "",
+                                "type": "wysiwyg",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "show_in_graphql": 1,
+                                "default_value": "",
+                                "tabs": "all",
+                                "toolbar": "full",
+                                "media_upload": 1,
+                                "delay": 0
+                            },
+                            {
+                                "key": "field_join_team_cta",
+                                "label": "CTA Button",
+                                "name": "cta",
+                                "aria-label": "",
+                                "type": "link",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "show_in_graphql": 1,
+                                "return_format": "array"
+                            },
+                            {
+                                "key": "field_join_team_background_image",
+                                "label": "Background Image",
+                                "name": "background_image",
+                                "aria-label": "",
+                                "type": "image",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "show_in_graphql": 1,
+                                "return_format": "array",
+                                "preview_size": "medium",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_video_section": {
+                        "key": "layout_video_section",
+                        "name": "video_section",
+                        "label": "Video Section",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_video_title",
+                                "label": "Section Title",
+                                "name": "title",
+                                "aria-label": "",
+                                "type": "wysiwyg",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "show_in_graphql": 1,
+                                "default_value": "",
+                                "tabs": "all",
+                                "toolbar": "basic",
+                                "media_upload": 0,
+                                "delay": 0
+                            },
+                            {
+                                "key": "field_video_embed",
+                                "label": "Video",
+                                "name": "video",
+                                "aria-label": "",
+                                "type": "oembed",
+                                "instructions": "Add YouTube, Vimeo, or other video URL",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "show_in_graphql": 1,
+                                "width": "",
+                                "height": ""
+                            },
+                            {
+                                "key": "field_video_thumbnail",
+                                "label": "Custom Thumbnail",
+                                "name": "thumbnail",
+                                "aria-label": "",
+                                "type": "image",
+                                "instructions": "Optional custom thumbnail image",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "show_in_graphql": 1,
+                                "return_format": "array",
+                                "preview_size": "medium",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    }
+                },
+                "min": "",
+                "max": "",
+                "button_label": "Add Section"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "template-team.php"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": 0,
+        "show_in_graphql": 1,
+        "graphql_field_name": "teamPageContent",
+        "map_graphql_types_from_location_rules": 1,
+        "graphql_types": [
+            "Page",
+            "Template_Team"
+        ]
+    }
+]

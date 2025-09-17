@@ -1,12 +1,17 @@
+'use client';
+
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import { notFound } from 'next/navigation';
 import { sanitizeTitleHtml } from '../../../lib/sanitizeTitleHtml';
-import { getServiceBySlug } from '../../../lib/graphql-queries';
+import { executeGraphQLQuery, GET_SERVICE_BY_SLUG } from '../../../lib/graphql-queries';
 import Image from 'next/image';
 import Link from 'next/link';
 import Script from 'next/script';
 import HubspotFormEmbed from '../../../components/HubspotFormEmbed';
+import ApproachBlock from '../../../components/GlobalBlocks/ApproachBlock';
+import NewsCarousel from '../../../components/GlobalBlocks/NewsCarousel';
+import { useRef, useEffect, useState } from 'react';
 
 // Service color mapping
 const getServiceColor = (slug) => {
@@ -23,49 +28,88 @@ const getServiceColor = (slug) => {
   return colorMap[slug] || '#7c3aed'; // fallback to purple
 };
 
-// Generate metadata for SEO
-export async function generateMetadata({ params }) {
-  const { slug } = await params;
-  const service = await getServiceBySlug(slug);
+// Note: Metadata generation removed since this is now a client component
+// For SEO, consider using Next.js Head component or converting back to server component
+
+export default function ServicePage({ params }) {
+  const [service, setService] = useState(null);
+  const [globalData, setGlobalData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const newsListRef = useRef(null);
   
-  if (!service) {
-    return {
-      title: 'Service Not Found',
-      description: 'The requested service could not be found.'
-    };
-  }
-
-  return {
-    title: service.title,
-    description: service.excerpt || service.serviceFields?.heroSection?.description || `Learn more about our ${service.title} service.`,
-    openGraph: {
-      title: service.title,
-      description: service.excerpt || service.serviceFields?.heroSection?.description,
-      type: 'article',
-      images: service.featuredImage?.node?.sourceUrl ? [{
-        url: service.featuredImage.node.sourceUrl,
-        width: 1200,
-        height: 630,
-        alt: service.featuredImage.node.altText || service.title
-      }] : []
-    }
+  const scrollNews = (dir) => {
+    if (!newsListRef.current) return;
+    const el = newsListRef.current;
+    const firstCard = el.querySelector('.news-card');
+    const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : el.clientWidth * 0.86;
+    const delta = dir === 'next' ? cardWidth + 16 : -(cardWidth + 16);
+    el.scrollBy({ left: delta, behavior: 'smooth' });
   };
-}
 
-export default async function ServicePage({ params }) {
-  const { slug } = await params;
-  const service = await getServiceBySlug(slug);
-
-  if (!service) {
+  useEffect(() => {
+    async function fetchServiceData() {
+      try {
+        const slug = await params.then(p => p.slug);
+        const result = await executeGraphQLQuery(GET_SERVICE_BY_SLUG, { slug });
+        
+        if (result.errors) {
+          console.error('GraphQL errors:', result.errors);
+          setError('Failed to fetch service data');
+          return;
+        }
+        
+        const serviceData = result.data?.service;
+        const globalData = result.data?.globalOptions;
+        
+        if (!serviceData) {
+          setError('Service not found');
+          return;
+        }
+        
+        setService(serviceData);
+        setGlobalData(globalData);
+      } catch (err) {
+        console.error('Service fetch error:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    fetchServiceData();
+  }, [params]);
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto mb-4"></div>
+          <p>Loading service...</p>
+        </div>
+      </div>
+    );
+  }
+  
+  if (error || !service) {
     notFound();
   }
 
   const serviceFields = service.serviceFields || {};
-          const heroSection = serviceFields.heroSection || {};
-            const serviceBulletPoints = serviceFields.serviceBulletPoints || {};
-            const valueDescription = serviceFields.valueDescription || {};
-            const featuredCaseStudies = serviceFields.caseStudies?.nodes || [];
-            const serviceColor = getServiceColor(service.slug);
+  const heroSection = serviceFields.heroSection || {};
+  const serviceBulletPoints = serviceFields.serviceBulletPoints || {};
+  const valueDescription = serviceFields.valueDescription || {};
+  const featuredCaseStudies = serviceFields.caseStudies?.nodes || [];
+  const serviceColor = getServiceColor(service.slug);
+  
+  // Global content blocks
+  const globalContentBlocks = globalData?.globalContentBlocks || {};
+  // Enable all sections by default since globalContentSelection field doesn't exist in schema
+  const globalSelection = {
+    enableApproach: true,
+    enableCaseStudies: true,
+    enableLatestNews: true
+  };
 
   // Alternate backgrounds for sections after hero: gray -> white -> gray -> ...
   let sectionIndex = 0;
@@ -261,6 +305,48 @@ export default async function ServicePage({ params }) {
           </section>
         )}
 
+        {/* Approach Block */}
+        {globalSelection?.enableApproach && globalData?.globalContentBlocks?.approach && (
+          <ApproachBlock globalData={{
+            title: globalData.globalContentBlocks.approach.title || "Our Approach",
+            subtitle: globalData.globalContentBlocks.approach.subtitle || "How We Deliver Results",
+            steps: globalData.globalContentBlocks.approach.steps?.map((step, index) => ({
+              stepNumber: index + 1,
+              title: step.title,
+              description: step.description || '',
+              image: step.image
+            })) || []
+          }} />
+        )}
+
+        {/* Global Case Studies Section */}
+        {globalSelection?.enableCaseStudies && globalContentBlocks?.caseStudiesSection && (
+          <section className="home-case-studies" style={{padding: '5rem 1rem'}}>
+            <div style={{maxWidth: '1620px', margin: '0 auto'}}>
+              {/* Header: left subtitle + title, right CTA */}
+              <div className="cs-header">
+                <div className="cs-head-left">
+                  <p className="cda-subtitle">Our Work</p>
+                  <h2 className="cda-title title-small-orange">Related Case Studies</h2>
+                </div>
+                <a href="/case-studies" className="button-without-box cs-header-cta">
+                  View All Case Studies
+                </a>
+              </div>
+              
+              <div className="text-center py-8">
+                <p className="text-gray-600 mb-6">Explore our portfolio of successful projects similar to this service.</p>
+                <a href="/case-studies" className="button-l">Browse Case Studies</a>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* News/Latest Articles Section */}
+        {globalSelection?.enableLatestNews && globalData?.globalContentBlocks?.newsCarousel && (
+          <NewsCarousel newsCarousel={globalData.globalContentBlocks.newsCarousel} />
+        )}
+
 
 
 
@@ -280,7 +366,7 @@ export default async function ServicePage({ params }) {
           
           <div className="bg-white rounded-lg shadow-lg p-8 hubspot-form-wrapper">
             {/* Robust client embed to ensure consistent loading */}
-            <HubspotFormEmbed slug={slug} />
+            <HubspotFormEmbed slug={service.slug} />
            </div>
 
           {/* Force form colors: text black, fields white; override submit button colors */}

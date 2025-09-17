@@ -9,6 +9,7 @@ import TechnologiesSlider from '../components/GlobalBlocks/TechnologiesSlider';
 import Showreel from '../components/GlobalBlocks/Showreel';
 import ServicesAccordion from '../components/GlobalBlocks/ServicesAccordion';
 import LocationsImage from '../components/GlobalBlocks/LocationsImage';
+import CaseStudies from '../components/GlobalBlocks/CaseStudies';
 import { sanitizeTitleHtml } from '../lib/sanitizeTitleHtml';
 import NewsletterSignup from '../components/GlobalBlocks/NewsletterSignup';
 
@@ -499,84 +500,11 @@ export default function Home() {
 {/* Locations Block */}
       {globalSelection?.enableLocationsImage && globalContentBlocks?.locationsImage && (
         <LocationsImage globalData={globalContentBlocks.locationsImage} />
-      )}
-      
-      {/* Projects Section from WordPress */}
-      {homepageContent?.projectsSection && (
-        <section style={{padding: '5rem 1rem', backgroundColor: '#f9fafb'}}>
-<div style={{maxWidth: '1620px', margin: '0 auto', textAlign: 'center'}}>
-            <h2 style={{fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem'}}>{homepageContent.projectsSection.title}</h2>
-            <p style={{fontSize: '1.25rem', color: '#4b5563', marginBottom: '2rem'}}>{homepageContent.projectsSection.subtitle}</p>
-            {homepageContent.projectsSection.link && (
-              <a 
-                href={homepageContent.projectsSection.link.url}
-                className="button-l"
-                target={homepageContent.projectsSection.link.target || '_self'}
-              >
-                {homepageContent.projectsSection.link.title}
-              </a>
-            )}
-          </div>
-        </section>
-      )}
-
+      )}      
+   
       {/* Case Studies Section from WordPress */}
       {homepageContent?.caseStudiesSection && (
-        <section className="home-case-studies" style={{padding: '5rem 1rem'}}>
-          <div style={{maxWidth: '1620px', margin: '0 auto'}}>
-            {/* Header: left subtitle + title, right CTA (empty box style) */}
-            <div className="cs-header">
-              <div className="cs-head-left">
-                {homepageContent.caseStudiesSection.subtitle && (
-                  <p className="cda-subtitle">{homepageContent.caseStudiesSection.subtitle}</p>
-                )}
-                {homepageContent.caseStudiesSection.title && (
-                  <h2 className="cda-title title-small-orange">{homepageContent.caseStudiesSection.title}</h2>
-                )}
-              </div>
-              {homepageContent.caseStudiesSection.knowledgeHubLink && (
-                <a
-                  href={homepageContent.caseStudiesSection.knowledgeHubLink.url}
-                  className="button-without-box cs-header-cta"
-                  target={homepageContent.caseStudiesSection.knowledgeHubLink.target || '_self'}
-                >
-                  {homepageContent.caseStudiesSection.knowledgeHubLink.title}
-                </a>
-              )}
-            </div>
-            
-            {/* Selected Case Studies - Alternating two-up layout */}
-            {homepageContent.caseStudiesSection.selectedStudies?.nodes && homepageContent.caseStudiesSection.selectedStudies.nodes.length > 0 && (
-              <div className="cs-list" style={{marginBottom: '3rem'}}>
-                {homepageContent.caseStudiesSection.selectedStudies.nodes.slice(0, 2).map((study, index) => (
-                  <article key={study.id || index} className={`cs-item ${index % 2 === 1 ? 'cs-item--reverse' : ''}`}>
-                    <div className="cs-media">
-{study.featuredImage?.node?.sourceUrl && (
-                        (() => { const Image = require('next/image').default; return (
-                          <Image
-                            src={study.featuredImage.node.sourceUrl}
-                            alt={study.featuredImage.node.altText || study.title}
-                            width={640}
-                            height={400}
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 640px"
-                            className="cs-img"
-                          />
-                        ); })()
-                      )}
-                    </div>
-                    <div className="cs-content">
-                      <h3 className="cs-title">{study.title}</h3>
-                      <div className="cs-excerpt" dangerouslySetInnerHTML={{__html: study.excerpt}} />
-                      <a href={study.uri} className="button-l button-l--white cs-cta">Read Case Study</a>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            )}
-            
-            {/* Removed bottom CTA; moved to header */}
-          </div>
-        </section>
+        <CaseStudies globalData={homepageContent.caseStudiesSection} />
       )}
 
       {/* News Carousel Block */}
@@ -644,158 +572,6 @@ export default function Home() {
       {globalSelection?.enableNewsletterSignup && globalContentBlocks?.newsletterSignup && (
         <NewsletterSignup globalData={globalContentBlocks.newsletterSignup} />
       )}
-      
-      
-      
-      {/* Projects Section from WordPress */}
-      {homepageContent?.projectsSection && (
-        <section style={{padding: '5rem 1rem', backgroundColor: '#f9fafb'}}>
-<div style={{maxWidth: '1620px', margin: '0 auto', textAlign: 'center'}}>
-            <h2 style={{fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem'}}>{homepageContent.projectsSection.title}</h2>
-            <p style={{fontSize: '1.25rem', color: '#4b5563', marginBottom: '2rem'}}>{homepageContent.projectsSection.subtitle}</p>
-            {homepageContent.projectsSection.link && (
-              <a 
-                href={homepageContent.projectsSection.link.url}
-                className="button-l"
-                target={homepageContent.projectsSection.link.target || '_self'}
-              >
-                {homepageContent.projectsSection.link.title}
-              </a>
-            )}
-          </div>
-        </section>
-      )}
-
-      {/* Case Studies Section from WordPress */}
-      {homepageContent?.caseStudiesSection && (
-        <section className="home-case-studies" style={{padding: '5rem 1rem'}}>
-          <div style={{maxWidth: '1620px', margin: '0 auto'}}>
-            {/* Header: left subtitle + title, right CTA (empty box style) */}
-            <div className="cs-header">
-              <div className="cs-head-left">
-                {homepageContent.caseStudiesSection.subtitle && (
-                  <p className="cs-subtitle">{homepageContent.caseStudiesSection.subtitle}</p>
-                )}
-                {homepageContent.caseStudiesSection.title && (
-                  <h2 className="cs-heading">{homepageContent.caseStudiesSection.title}</h2>
-                )}
-              </div>
-              {homepageContent.caseStudiesSection.knowledgeHubLink && (
-                <a
-                  href={homepageContent.caseStudiesSection.knowledgeHubLink.url}
-                  className="button-without-box cs-header-cta"
-                  target={homepageContent.caseStudiesSection.knowledgeHubLink.target || '_self'}
-                >
-                  {homepageContent.caseStudiesSection.knowledgeHubLink.title}
-                </a>
-              )}
-            </div>
-            
-            {/* Selected Case Studies - Alternating two-up layout */}
-            {homepageContent.caseStudiesSection.selectedStudies?.nodes && homepageContent.caseStudiesSection.selectedStudies.nodes.length > 0 && (
-              <div className="cs-list" style={{marginBottom: '3rem'}}>
-                {homepageContent.caseStudiesSection.selectedStudies.nodes.slice(0, 2).map((study, index) => (
-                  <article key={study.id || index} className={`cs-item ${index % 2 === 1 ? 'cs-item--reverse' : ''}`}>
-                    <div className="cs-media">
-                      {study.featuredImage?.node?.sourceUrl && (
-                        <img 
-                          src={study.featuredImage.node.sourceUrl}
-                          alt={study.featuredImage.node.altText || study.title}
-                          className="cs-img"
-                          loading="lazy"
-                        />
-                      )}
-                    </div>
-                    <div className="cs-content">
-                      <h3 className="cs-title">{study.title}</h3>
-                      <div className="cs-excerpt" dangerouslySetInnerHTML={{__html: study.excerpt}} />
-                      <a href={study.uri} className="button-l button-l--white cs-cta">Read Case Study</a>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            )}
-            
-            {/* Removed bottom CTA; moved to header */}
-          </div>
-        </section>
-      )}
-
-      {/* Global Content Debug & Configuration Section */}
-      <div style={{padding: '3rem 1rem', backgroundColor: '#f0f9ff', borderTop: '1px solid #e0e7ff'}}>
-<div style={{maxWidth: '1620px', margin: '0 auto'}}>
-          <h2 style={{fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem', color: '#1e40af'}}>Global Content Status</h2>
-          
-          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem', marginBottom: '2rem'}}>
-            {[
-              { name: 'Values Block', key: 'enableValues', data: globalContentBlocks?.valuesBlock },
-              { name: 'Image Frame Block', key: 'enableImageFrame', data: globalContentBlocks?.imageFrameBlock },
-              { name: 'Technologies Slider', key: 'enableTechnologiesSlider', data: globalContentBlocks?.technologiesSlider },
-              { name: 'Services Accordion', key: 'enableServicesAccordion', data: globalContentBlocks?.servicesAccordion },
-              { name: 'Stats & Image', key: 'enableStatsImage', data: globalContentBlocks?.statsImage || globalContentBlocks?.image },
-              { name: 'Locations', key: 'enableLocationsImage', data: globalContentBlocks?.locationsImage },
-              { name: 'News Carousel', key: 'enableNewsCarousel', data: globalContentBlocks?.newsCarousel },
-              { name: 'Newsletter Signup', key: 'enableNewsletterSignup', data: globalContentBlocks?.newsletterSignup },
-            ].map((block) => {
-              const isEnabled = globalSelection?.[block.key];
-              
-              // Improved data checking for different block types
-              let hasData = false;
-              if (block.data) {
-                if (block.key === 'enableLocationsImage') {
-                  hasData = Array.isArray(block.data.countries) && block.data.countries.length > 0;
-                } else if (block.key === 'enableValues') {
-                  hasData = Array.isArray(block.data.values) && block.data.values.length > 0;
-                } else if (block.key === 'enableTechnologiesSlider') {
-                  hasData = Array.isArray(block.data.logos) && block.data.logos.length > 0;
-                } else if (block.key === 'enableServicesAccordion') {
-                  hasData = !!block.data.title; // schema shows only title for now
-                } else if (block.key === 'enableStatsImage') {
-                  hasData = !!block.data; // presence of object indicates data fetched
-                } else if (block.key === 'enableNewsCarousel') {
-                  hasData = !!block.data.title || !!block.data.subtitle;
-                } else if (block.key === 'enableNewsletterSignup') {
-                  hasData = !!(block.data.title || block.data.hubspotScript);
-                } else {
-                  hasData = !!(block.data.title || block.data.subtitle);
-                }
-              }
-              
-              const willShow = isEnabled && hasData;
-              
-              return (
-                <div key={block.key} style={{padding: '1rem', backgroundColor: 'white', borderRadius: '0.5rem', border: `2px solid ${willShow ? '#10b981' : isEnabled ? '#f59e0b' : '#e5e7eb'}`}}>
-                  <h3 style={{fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.5rem', color: '#374151'}}>{block.name}</h3>
-                  <div style={{fontSize: '0.8rem', lineHeight: '1.4'}}>
-                    <div style={{color: isEnabled ? '#059669' : '#6b7280'}}>Toggle: {isEnabled ? '✅ Enabled' : '❌ Disabled'}</div>
-                    <div style={{color: hasData ? '#059669' : '#6b7280'}}>Data: {hasData ? '✅ Available' : '❌ Missing'}</div>
-                    <div style={{color: willShow ? '#059669' : '#ef4444', fontWeight: '600'}}>Status: {willShow ? '✅ Showing' : '❌ Hidden'}</div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          
-          {Object.keys(globalSelection).length === 0 ? (
-            <div style={{backgroundColor: '#fef3c7', padding: '2rem', borderRadius: '0.5rem', textAlign: 'center'}}>
-              <h3 style={{fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem', color: '#92400e'}}>No Global Content Blocks Enabled</h3>
-              <p style={{color: '#a16207', marginBottom: '1.5rem'}}>Enable global content blocks in WordPress admin to display them here.</p>
-              <div style={{backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.5rem', textAlign: 'left'}}>
-                <h4 style={{fontSize: '1rem', fontWeight: '600', marginBottom: '0.75rem'}}>Quick Setup:</h4>
-                <ol style={{color: '#4b5563', lineHeight: '1.6', fontSize: '0.9rem'}}>
-                  <li>WordPress Admin → Options → Global Content → Fill in content</li>
-                  <li>Pages → Edit Homepage → Global Content Selection → Toggle ON blocks</li>
-                  <li>Save and refresh this page</li>
-                </ol>
-              </div>
-            </div>
-          ) : (
-            <div style={{backgroundColor: '#ecfdf5', padding: '1.5rem', borderRadius: '0.5rem', textAlign: 'center'}}>
-              <p style={{color: '#059669', fontSize: '0.9rem'}}>Global content system is active! Green blocks above are currently showing on the page.</p>
-            </div>
-          )}
-        </div>
-      </div>
       
       <Footer globalOptions={globalData?.globalOptions} />
 

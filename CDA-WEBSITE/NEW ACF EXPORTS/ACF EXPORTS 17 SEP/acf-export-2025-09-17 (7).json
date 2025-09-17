@@ -1,0 +1,761 @@
+[
+    {
+        "key": "group_services_content",
+        "title": "Service Content",
+        "fields": [
+            {
+                "key": "field_service_hero_section",
+                "label": "Hero Section Service",
+                "name": "hero_section",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "Main hero section for this service page",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "show_in_graphql": 1,
+                "graphql_description": "",
+                "graphql_field_name": "heroSection",
+                "graphql_non_null": 0,
+                "sub_fields": [
+                    {
+                        "key": "field_service_hero_subtitle",
+                        "label": "Subtitle",
+                        "name": "subtitle",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_service_hero_description",
+                        "label": "Description",
+                        "name": "description",
+                        "aria-label": "",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "new_lines": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "rows": ""
+                    },
+                    {
+                        "key": "field_service_hero_image",
+                        "label": "Hero Image",
+                        "name": "hero_image",
+                        "aria-label": "",
+                        "type": "image",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "show_in_graphql": 1,
+                        "preview_size": "medium",
+                        "library": "all",
+                        "min_width": 0,
+                        "min_height": 0,
+                        "min_size": 0,
+                        "max_width": 0,
+                        "max_height": 0,
+                        "max_size": 0,
+                        "mime_types": ""
+                    },
+                    {
+                        "key": "field_service_hero_cta",
+                        "label": "Call to Action",
+                        "name": "cta",
+                        "aria-label": "",
+                        "type": "link",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "show_in_graphql": 1,
+                        "return_format": "array"
+                    }
+                ]
+            },
+            {
+                "key": "field_service_statistics",
+                "label": "Key Statistics",
+                "name": "key_statistics",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "Add key metrics and statistics for this service",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "min": 0,
+                "max": 6,
+                "layout": "table",
+                "button_label": "Add Statistic",
+                "show_in_graphql": 1,
+                "rows_per_page": 20,
+                "collapsed": "",
+                "sub_fields": [
+                    {
+                        "key": "field_service_stat_number",
+                        "label": "Number",
+                        "name": "number",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_service_statistics"
+                    },
+                    {
+                        "key": "field_service_stat_label",
+                        "label": "Label",
+                        "name": "label",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_service_statistics"
+                    },
+                    {
+                        "key": "field_service_stat_description",
+                        "label": "Description",
+                        "name": "description",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_service_statistics"
+                    }
+                ]
+            },
+            {
+                "key": "field_service_features",
+                "label": "Service Features",
+                "name": "service_features",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "Key features and benefits of this service",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "min": 0,
+                "max": 8,
+                "layout": "block",
+                "button_label": "Add Feature",
+                "show_in_graphql": 1,
+                "rows_per_page": 20,
+                "collapsed": "",
+                "sub_fields": [
+                    {
+                        "key": "field_service_feature_icon",
+                        "label": "Icon",
+                        "name": "icon",
+                        "aria-label": "",
+                        "type": "image",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "show_in_graphql": 1,
+                        "preview_size": "medium",
+                        "library": "all",
+                        "min_width": 0,
+                        "min_height": 0,
+                        "min_size": 0,
+                        "max_width": 0,
+                        "max_height": 0,
+                        "max_size": 0,
+                        "mime_types": "",
+                        "parent_repeater": "field_service_features"
+                    },
+                    {
+                        "key": "field_service_feature_title",
+                        "label": "Title",
+                        "name": "title",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 1,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_service_features"
+                    },
+                    {
+                        "key": "field_service_feature_description",
+                        "label": "Description",
+                        "name": "description",
+                        "aria-label": "",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "new_lines": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "rows": "",
+                        "parent_repeater": "field_service_features"
+                    }
+                ]
+            },
+            {
+                "key": "field_service_case_studies",
+                "label": "Featured Case Studies",
+                "name": "featured_case_studies",
+                "aria-label": "",
+                "type": "post_object",
+                "instructions": "Select case studies to feature for this service",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "post_type": [
+                    "case_studies"
+                ],
+                "multiple": 1,
+                "max": 4,
+                "return_format": "object",
+                "show_in_graphql": 1,
+                "taxonomy": [],
+                "allow_null": 0,
+                "ui": 1,
+                "bidirectional_target": []
+            },
+            {
+                "key": "field_service_cards",
+                "label": "Service Cards (3 Columns)",
+                "name": "service_cards",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "Cards for overview\/detail layouts; typically shown in a 3-column grid.",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "min": 0,
+                "max": 0,
+                "layout": "table",
+                "button_label": "Add Card",
+                "show_in_graphql": 1,
+                "rows_per_page": 20,
+                "collapsed": "",
+                "sub_fields": [
+                    {
+                        "key": "field_service_card_title",
+                        "label": "Title",
+                        "name": "title",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "30",
+                            "class": "",
+                            "id": ""
+                        },
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_service_cards"
+                    },
+                    {
+                        "key": "field_service_card_description",
+                        "label": "Description",
+                        "name": "description",
+                        "aria-label": "",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "40",
+                            "class": "",
+                            "id": ""
+                        },
+                        "rows": 3,
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "new_lines": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "parent_repeater": "field_service_cards"
+                    },
+                    {
+                        "key": "field_service_card_cta",
+                        "label": "CTA",
+                        "name": "cta",
+                        "aria-label": "",
+                        "type": "link",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "",
+                            "id": ""
+                        },
+                        "show_in_graphql": 1,
+                        "return_format": "array",
+                        "parent_repeater": "field_service_cards"
+                    },
+                    {
+                        "key": "field_service_card_pin_icon",
+                        "label": "Pin Icon",
+                        "name": "pin_icon",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "10",
+                            "class": "",
+                            "id": ""
+                        },
+                        "ui": 1,
+                        "show_in_graphql": 1,
+                        "default_value": 0,
+                        "message": "",
+                        "ui_on_text": "",
+                        "ui_off_text": "",
+                        "parent_repeater": "field_service_cards"
+                    }
+                ]
+            },
+            {
+                "key": "field_service_bullet_points",
+                "label": "Service Bullet Points",
+                "name": "service_bullet_points",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "Title and bullets (often displayed in 2 rows).",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "show_in_graphql": 1,
+                "graphql_field_name": "serviceBulletPoints",
+                "sub_fields": [
+                    {
+                        "key": "field_service_bullets_title",
+                        "label": "Title",
+                        "name": "title",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_service_bullets_list",
+                        "label": "Bullets",
+                        "name": "bullets",
+                        "aria-label": "",
+                        "type": "repeater",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "layout": "table",
+                        "button_label": "Add Bullet",
+                        "show_in_graphql": 1,
+                        "min": 0,
+                        "max": 0,
+                        "rows_per_page": 20,
+                        "collapsed": "",
+                        "sub_fields": [
+                            {
+                                "key": "field_service_bullet_text",
+                                "label": "Text",
+                                "name": "text",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": false,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "show_in_graphql": 1,
+                                "default_value": "",
+                                "maxlength": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "parent_repeater": "field_service_bullets_list"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "key": "field_service_value_description",
+                "label": "Value Description",
+                "name": "value_description",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "Single value section with title, description and CTA.",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "show_in_graphql": 1,
+                "graphql_field_name": "valueDescription",
+                "sub_fields": [
+                    {
+                        "key": "field_service_value_title",
+                        "label": "Title",
+                        "name": "title",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_service_value_desc",
+                        "label": "Description",
+                        "name": "description",
+                        "aria-label": "",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "rows": 4,
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "new_lines": "",
+                        "maxlength": "",
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_service_value_cta",
+                        "label": "CTA",
+                        "name": "cta",
+                        "aria-label": "",
+                        "type": "link",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "show_in_graphql": 1,
+                        "return_format": "array"
+                    }
+                ]
+            },
+            {
+                "key": "field_service_clients_logos",
+                "label": "Clients Logos",
+                "name": "clients_logos",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "Client logos and optional large image.",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "show_in_graphql": 1,
+                "graphql_field_name": "clientsLogos",
+                "sub_fields": [
+                    {
+                        "key": "field_service_clients_title",
+                        "label": "Title",
+                        "name": "title",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_service_clients_description",
+                        "label": "Description",
+                        "name": "description",
+                        "aria-label": "",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "rows": 3,
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "new_lines": "",
+                        "maxlength": "",
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_service_clients_large_image",
+                        "label": "Large Image",
+                        "name": "large_image",
+                        "aria-label": "",
+                        "type": "image",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "preview_size": "large",
+                        "show_in_graphql": 1,
+                        "library": "all",
+                        "min_width": 0,
+                        "min_height": 0,
+                        "min_size": 0,
+                        "max_width": 0,
+                        "max_height": 0,
+                        "max_size": 0,
+                        "mime_types": ""
+                    },
+                    {
+                        "key": "field_service_client_logos_list",
+                        "label": "Client Logos",
+                        "name": "logos",
+                        "aria-label": "",
+                        "type": "repeater",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "layout": "table",
+                        "button_label": "Add Logo",
+                        "show_in_graphql": 1,
+                        "min": 0,
+                        "max": 0,
+                        "rows_per_page": 20,
+                        "collapsed": "",
+                        "sub_fields": [
+                            {
+                                "key": "field_service_client_logo_image",
+                                "label": "Logo",
+                                "name": "logo",
+                                "aria-label": "",
+                                "type": "image",
+                                "instructions": "",
+                                "required": false,
+                                "conditional_logic": false,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "array",
+                                "preview_size": "thumbnail",
+                                "show_in_graphql": 1,
+                                "library": "all",
+                                "min_width": 0,
+                                "min_height": 0,
+                                "min_size": 0,
+                                "max_width": 0,
+                                "max_height": 0,
+                                "max_size": 0,
+                                "mime_types": "",
+                                "parent_repeater": "field_service_client_logos_list"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "services"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Content fields for services",
+        "show_in_rest": 0,
+        "show_in_graphql": 1,
+        "graphql_field_name": "serviceFields",
+        "map_graphql_types_from_location_rules": 1,
+        "graphql_types": ""
+    }
+]
