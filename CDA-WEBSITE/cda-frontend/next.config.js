@@ -89,6 +89,7 @@ const nextConfig = {
     return [
       { source: '/eCommerce', destination: '/services/ecommerce', permanent: true },
       { source: '/sectors', destination: '/services', permanent: true },
+      { source: '/news-article/:slug', destination: '/news/:slug', permanent: true },
     ];
   },
   async rewrites() {
@@ -101,7 +102,7 @@ const nextConfig = {
       // Legacy blog permalink structure to Next.js route
       {
         source: '/blog/:year/:month/:day/:slug',
-        destination: '/news-article/:slug',
+        destination: '/news/:slug',
       },
     ];
   },
