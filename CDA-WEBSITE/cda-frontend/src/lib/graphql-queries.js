@@ -969,6 +969,22 @@ export const GET_GLOBAL_CONTENT = `
   }
 `;
 
+// Query to fetch Global Stats block (manual ACF as statsAndNumbers)
+export const GET_GLOBAL_STATS = `
+  query GetGlobalStatsAndNumbers {
+    globalOptions {
+      globalContentBlocks {
+        statsAndNumbers {
+          image { node { sourceUrl altText } }
+          stats { number text }
+          description
+          cta { url title target }
+        }
+      }
+    }
+  }
+`;
+
 // Optional query for Global Case Studies Section (kept separate to avoid breaking base fetch if not present)
 export const GET_GLOBAL_CASE_STUDIES_SECTION = `
   query GetGlobalCaseStudiesSection {
@@ -1006,19 +1022,27 @@ export async function getGlobalContent() {
   const baseBlocks = response.data?.globalOptions?.globalContentBlocks || null;
 
   // Try to fetch optional case studies section separately; ignore errors
+  let merged = baseBlocks ? { ...baseBlocks } : {}
   try {
     const csRes = await executeGraphQLQuery(GET_GLOBAL_CASE_STUDIES_SECTION);
     if (csRes?.data?.globalOptions?.globalContentBlocks?.caseStudiesSection) {
-      return {
-        ...baseBlocks,
-        caseStudiesSection: csRes.data.globalOptions.globalContentBlocks.caseStudiesSection,
-      };
+      merged.caseStudiesSection = csRes.data.globalOptions.globalContentBlocks.caseStudiesSection
     }
   } catch (e) {
     // ignore
   }
 
-  return baseBlocks;
+  // Try to fetch optional statsAndNumbers separately; ignore errors
+  try {
+    const statsRes = await executeGraphQLQuery(GET_GLOBAL_STATS);
+    if (statsRes?.data?.globalOptions?.globalContentBlocks?.statsAndNumbers) {
+      merged.statsAndNumbers = statsRes.data.globalOptions.globalContentBlocks.statsAndNumbers
+    }
+  } catch (e) {
+    // ignore
+  }
+
+  return Object.keys(merged).length ? merged : baseBlocks;
 }
 
 export async function getJobListingBySlug(slug) {

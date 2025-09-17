@@ -112,6 +112,7 @@ export default async function TechnologiesPage() {
         </div>
       </section>
 
+
       {/* Services Slider (static component fed by Services CPT) */}
       <ServicesSlider />
 

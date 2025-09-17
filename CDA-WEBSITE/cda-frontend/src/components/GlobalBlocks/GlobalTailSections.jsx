@@ -1,5 +1,6 @@
 import ApproachBlock from '@/components/GlobalBlocks/ApproachBlock'
 import CaseStudies from '@/components/GlobalBlocks/CaseStudies'
+import StatsBlock from '@/components/GlobalBlocks/StatsBlock.jsx'
 import { getCaseStudiesWithPagination } from '@/lib/graphql-queries.js'
 
 // Server component that renders common global sections at the end of a page.
@@ -39,6 +40,9 @@ export default async function GlobalTailSections({ globalData, enableCaseStudies
     <>
       {csData && (
         <CaseStudies globalData={csData} />
+      )}
+      {globalData?.statsAndNumbers && (
+        <StatsBlock data={globalData.statsAndNumbers} />
       )}
       {globalData?.approach && (
         <ApproachBlock globalData={globalData.approach} />
