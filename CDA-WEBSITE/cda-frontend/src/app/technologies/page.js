@@ -5,6 +5,7 @@ import CaseStudies from '../../components/GlobalBlocks/CaseStudies';
 import Image from 'next/image'
 import { getTechnologiesWithPagination, getGlobalContent } from '@/lib/graphql-queries.js';
 import GlobalTailSections from '@/components/GlobalBlocks/GlobalTailSections.jsx';
+import ServicesSlider from '@/components/GlobalBlocks/ServicesSlider.jsx';
 
 export const revalidate = 300
 
@@ -110,6 +111,9 @@ export default async function TechnologiesPage() {
           )}
         </div>
       </section>
+
+      {/* Services Slider (static component fed by Services CPT) */}
+      <ServicesSlider />
 
       {/* Global tail sections (Case Studies, Approach) */}
       <GlobalTailSections globalData={globalData} />
