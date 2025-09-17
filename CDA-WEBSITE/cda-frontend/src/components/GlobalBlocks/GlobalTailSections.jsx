@@ -6,7 +6,7 @@ import { getCaseStudiesWithPagination } from '@/lib/graphql-queries.js'
 // Server component that renders common global sections at the end of a page.
 // If the global Case Studies section is not defined in your schema/options,
 // we gracefully fall back to the latest 2 case studies.
-export default async function GlobalTailSections({ globalData, enableCaseStudiesFallback = true }) {
+export default async function GlobalTailSections({ globalData, enableCaseStudiesFallback = true, enableStats = true }) {
   if (!globalData) return null
 
   let csData = globalData?.caseStudiesSection || null
@@ -41,7 +41,7 @@ export default async function GlobalTailSections({ globalData, enableCaseStudies
       {csData && (
         <CaseStudies globalData={csData} />
       )}
-      {globalData?.statsAndNumbers && (
+      {enableStats && globalData?.statsAndNumbers && (
         <StatsBlock data={globalData.statsAndNumbers} />
       )}
       {globalData?.approach && (

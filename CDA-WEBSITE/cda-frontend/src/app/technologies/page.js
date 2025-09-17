@@ -117,7 +117,7 @@ export default async function TechnologiesPage() {
       <ServicesSlider />
 
       {/* Global tail sections (Case Studies, Approach) */}
-      <GlobalTailSections globalData={globalData} />
+      <GlobalTailSections globalData={globalData} enableStats={false} />
       
       <Footer />
     </>

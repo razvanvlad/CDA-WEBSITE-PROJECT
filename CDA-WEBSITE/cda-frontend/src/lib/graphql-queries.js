@@ -548,6 +548,62 @@ export const GET_CASE_STUDY_BY_SLUG = `
   }
 `;
 
+export const GET_CASE_STUDY_BY_URI = `
+  query GetCaseStudyByUri($uri: ID!) {
+    caseStudy(id: $uri, idType: URI) {
+      id
+      title
+      slug
+      date
+      content
+      excerpt
+      featuredImage { node { sourceUrl altText } }
+      caseStudyFields {
+        projectOverview {
+          clientName
+          clientLogo { node { sourceUrl altText } }
+          projectUrl
+          completionDate
+        }
+        challenge
+        solution
+        results
+        featured
+      }
+      projectTypes { nodes { id name slug } }
+    }
+  }
+`;
+
+// Core-only fallback queries (for environments without ACF mappings)
+export const GET_CASE_STUDY_CORE_BY_URI = `
+  query GetCaseStudyCoreByUri($uri: ID!) {
+    caseStudy(id: $uri, idType: URI) {
+      id
+      title
+      slug
+      date
+      content
+      excerpt
+      featuredImage { node { sourceUrl altText } }
+    }
+  }
+`;
+
+export const GET_CASE_STUDY_CORE_BY_SLUG = `
+  query GetCaseStudyCoreBySlug($slug: ID!) {
+    caseStudy(id: $slug, idType: SLUG) {
+      id
+      title
+      slug
+      date
+      content
+      excerpt
+      featuredImage { node { sourceUrl altText } }
+    }
+  }
+`;
+
 export const GET_CASE_STUDY_SLUGS = `
   query GetCaseStudySlugs {
     caseStudies {
@@ -749,14 +805,76 @@ export async function getServiceBySlug(slug) {
 }
 
 export async function getCaseStudyBySlug(slug) {
-  const response = await executeGraphQLQuery(GET_CASE_STUDY_BY_SLUG, { slug });
-  
-  if (response.errors) {
-    console.error('GraphQL errors:', response.errors);
-    return null;
+  // Try enhanced fields first
+  try {
+    const response = await executeGraphQLQuery(GET_CASE_STUDY_BY_SLUG, { slug });
+    if (!response.errors && response.data?.caseStudy) return response.data.caseStudy;
+  } catch (e) {
+    console.warn('Enhanced case study (slug) failed, trying core fallback...', e)
+  }
+  // Fallback to core-only query
+  try {
+    const coreRes = await executeGraphQLQuery(GET_CASE_STUDY_CORE_BY_SLUG, { slug });
+    if (!coreRes.errors && coreRes.data?.caseStudy) return coreRes.data.caseStudy;
+  } catch (e) {
+    console.error('Core case study (slug) failed:', e)
+  }
+  return null;
+}
+
+export async function getCaseStudyByUri(uri) {
+  // Try enhanced fields first
+  try {
+    const response = await executeGraphQLQuery(GET_CASE_STUDY_BY_URI, { uri });
+    if (!response.errors && response.data?.caseStudy) return response.data.caseStudy;
+  } catch (e) {
+    console.warn('Enhanced case study (uri) failed, trying core fallback...', e)
+  }
+  // Fallback to core-only query
+  try {
+    const coreRes = await executeGraphQLQuery(GET_CASE_STUDY_CORE_BY_URI, { uri });
+    if (!coreRes.errors && coreRes.data?.caseStudy) return coreRes.data.caseStudy;
+  } catch (e) {
+    console.error('Core case study (uri) failed:', e)
+  }
+  return null;
+}
+
+export async function getCaseStudyByAny(params) {
+  // Accept either a slug or a uri and try multiple strategies for resilience
+  const slug = typeof params === 'string' ? params : params?.slug
+  const uri = typeof params === 'object' && params?.uri ? params.uri : null
+
+  // 1) If URI provided, try exact URI as-is
+  if (uri) {
+    const byUri = await getCaseStudyByUri(uri)
+    if (byUri) return byUri
   }
 
-  return response.data?.caseStudy || null;
+  // 2) If slug present, try URI patterns commonly used by WP
+  if (slug) {
+    const safe = decodeURIComponent(slug)
+    const candidates = [
+      `/case-studies/${safe}/`,
+      `/case-studies/${safe}`,
+      `case-studies/${safe}/`,
+      `case-studies/${safe}`,
+    ]
+    for (const u of candidates) {
+      try {
+        const byUri = await getCaseStudyByUri(u)
+        if (byUri) return byUri
+      } catch (_) { /* ignore and continue */ }
+    }
+
+    // 3) Fallback to idType: SLUG
+    try {
+      const bySlug = await getCaseStudyBySlug(safe)
+      if (bySlug) return bySlug
+    } catch (_) { /* ignore */ }
+  }
+
+  return null
 }
 
 export async function getTeamMemberBySlug(slug) {
@@ -963,6 +1081,78 @@ export const GET_GLOBAL_CONTENT = `
           rightImage { node { sourceUrl altText } }
           rightGif { node { sourceUrl altText } }
           rightVideo { node { sourceUrl altText } }
+        }
+        # IMAGE FRAME BLOCK
+        imageFrameBlock {
+          title
+          subtitle
+          text
+          button { url title target }
+          contentImage { node { sourceUrl altText } }
+          frameImage { node { sourceUrl altText } }
+          arrowImage { node { sourceUrl altText } }
+        }
+        # SERVICES ACCORDION
+        servicesAccordion {
+          title
+          subtitle
+          illustration { node { sourceUrl altText } }
+          services {
+            nodes {
+              ... on Service { id title uri slug }
+            }
+          }
+        }
+        # TECHNOLOGIES SLIDER
+        technologiesSlider {
+          title
+          subtitle
+          logos {
+            nodes {
+              ... on Technology {
+                id
+                title
+                uri
+                featuredImage { node { sourceUrl altText } }
+              }
+            }
+          }
+        }
+        # SHOWREEL
+        showreel {
+          title
+          subtitle
+          button { url title target }
+          largeImage { node { sourceUrl altText } }
+          logos { logo { node { sourceUrl altText } } }
+        }
+        # LOCATIONS
+        locationsImage {
+          title
+          subtitle
+          countries { countryName offices { name address email phone } }
+          illustration { node { sourceUrl altText } }
+        }
+        # NEWS CAROUSEL
+        newsCarousel {
+          title
+          subtitle
+          articleSelection
+          category { nodes { name slug } }
+          manualArticles {
+            nodes {
+              __typename
+              ... on BlogPost { id title excerpt uri featuredImage { node { sourceUrl altText } } }
+              ... on Post { id title excerpt uri featuredImage { node { sourceUrl altText } } }
+            }
+          }
+        }
+        # NEWSLETTER SIGNUP
+        newsletterSignup {
+          title
+          subtitle
+          hubspotScript
+          termsText
         }
       }
     }

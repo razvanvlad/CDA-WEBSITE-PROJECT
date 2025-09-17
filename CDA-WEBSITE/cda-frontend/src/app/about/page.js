@@ -1,6 +1,3 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import PhotoFrame from '../../components/GlobalBlocks/PhotoFrame';
@@ -12,218 +9,62 @@ import TechnologiesSlider from '../../components/GlobalBlocks/TechnologiesSlider
 import ValuesBlock from '../../components/GlobalBlocks/ValuesBlock';
 import LocationsImage from '../../components/GlobalBlocks/LocationsImage';
 import CultureGallerySlider from '../../components/GlobalBlocks/CultureGallerySlider';
+import StatsBlock from '../../components/GlobalBlocks/StatsBlock';
 import { sanitizeTitleHtml } from '../../lib/sanitizeTitleHtml';
-import { executeGraphQLQuery } from '../../lib/graphql-queries';
+import { executeGraphQLQuery, getGlobalContent } from '../../lib/graphql-queries';
 
-export default function AboutPage() {
-  const [globalData, setGlobalData] = useState(null);
-  const [aboutData, setAboutData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+export const revalidate = 300;
 
-  useEffect(() => {
-    const fetchPageData = async () => {
-      setLoading(true);
-      setError(null);
-      
-      try {
-        // Configure which WP page to read for About via database ID (same model as homepage)
-        const ABOUT_ID = parseInt(process.env.NEXT_PUBLIC_ABOUT_PAGE_ID || '317', 10);
+export default async function AboutPage() {
 
-        // Global content query - identical to homepage
-        const globalQuery = `{
-          globalOptions {
-            globalContentBlocks {
-              imageFrameBlock {
-                title
-                subtitle
-                text
-                button { url title target }
-                contentImage { node { sourceUrl altText } }
-                frameImage { node { sourceUrl altText } }
-                arrowImage { node { sourceUrl altText } }
-              }
-              servicesAccordion {
-                title
-                subtitle
-                illustration { node { sourceUrl altText } }
-                services {
-                  nodes {
-                    ... on Service { id title uri }
-                  }
-                }
-              }
-              technologiesSlider {
-                title
-                subtitle
-                logos {
-                  nodes { 
-                    ... on Technology { 
-                      id
-                      title
-                      uri
-                      featuredImage { node { sourceUrl altText } }
-                    }
-                  }
-                }
-              }
-              valuesBlock {
-                title
-                subtitle
-                values { title text }
-                illustration { node { sourceUrl altText } }
-              }
-              showreel {
-                title
-                subtitle
-                button { url title target }
-                largeImage { node { sourceUrl altText } }
-                logos { logo { node { sourceUrl altText } } }
-              }
-              approach {
-                title
-                subtitle
-                steps {
-                  title
-                  image { node { sourceUrl altText } }
-                }
-              }
-              whyCda {
-                title
-                subtitle
-                usp {
-                  title
-                  description
-                  icon { node { sourceUrl altText } }
-                }
-              }
-              cultureGallerySlider {
-                title
-                subtitle
-                useGlobalSocialLinks
-                images {
-                  nodes {
-                    sourceUrl
-                    altText
-                  }
-                }
-              }
-              locationsImage {
-                title
-                subtitle
-                countries { countryName offices { name address email phone } }
-                illustration { node { sourceUrl altText } }
-              }
-              newsCarousel {
-                title
-                subtitle
-                articleSelection
-                category { nodes { name slug } }
-                manualArticles {
-                  nodes { ... on Post { id title excerpt uri featuredImage { node { sourceUrl altText } } } }
-                }
-              }
-              newsletterSignup {
-                title
-                subtitle
-                hubspotScript
-                termsText
-              }
-            }
-          }
-        }`;
-        
-        // About page query - using working version from test results with correct image field
-        const aboutQuery = `{
-          page(id: ${ABOUT_ID}, idType: DATABASE_ID) {
-            id
-            title
-            aboutUsContent {
-              contentPageHeader {
-                title
-                text
-                image { node { sourceUrl altText } }
-                cta { url title target }
-              }
-              globalContentSelection {
-                enableImageFrame
-                enableServicesAccordion
-                enableWhyCda
-                enableShowreel
-                enableApproach
-                enableTechnologiesSlider
-                enableValues
-                enableStatsImage
-                enableLocationsImage
-                enableNewsCarousel
-                enableNewsletterSignup
-                enableCultureGallerySlider
-              }
-            }
-          }
-        }`;
-        
-        // Fetch both using centralized GraphQL function
-        const [globalResult, aboutResult] = await Promise.all([
-          executeGraphQLQuery(globalQuery),
-          executeGraphQLQuery(aboutQuery)
-        ]);
-        
-        // Handle errors
-        if (globalResult.errors) {
-          console.error('Global content errors:', globalResult.errors);
+  const ABOUT_ID = parseInt(process.env.NEXT_PUBLIC_ABOUT_PAGE_ID || '317', 10);
+
+  // Fetch global blocks (approach, values, statsAndNumbers, etc.)
+  const globalBlocks = await getGlobalContent();
+
+  // Fetch About page content
+  const aboutQuery = `{
+    page(id: ${ABOUT_ID}, idType: DATABASE_ID) {
+      id
+      title
+      aboutUsContent {
+        contentPageHeader { title text image { node { sourceUrl altText } } cta { url title target } }
+        globalContentSelection {
+          enableImageFrame
+          enableServicesAccordion
+          enableWhyCda
+          enableShowreel
+          enableApproach
+          enableTechnologiesSlider
+          enableValues
+          enableStatsImage
+          enableLocationsImage
+          enableNewsCarousel
+          enableNewsletterSignup
+          enableCultureGallerySlider
         }
-        if (aboutResult.errors) {
-          console.error('About content errors:', aboutResult.errors);
-        }
-        
-        // Normalize global blocks (same as homepage)
-        const rawBlocks = globalResult?.data?.globalOptions?.globalContentBlocks || {};
-        const normalizedBlocks = {
-          ...rawBlocks,
-          // Map 'image' field to 'statsImage' for consistency with components
-          statsImage: rawBlocks?.image || rawBlocks?.statsImage,
-          technologiesSlider: rawBlocks?.technologiesSlider
-            ? {
-                ...rawBlocks.technologiesSlider,
-                logos: (rawBlocks.technologiesSlider.logos?.nodes || [])
-                  .map((node) => ({
-                    url: node?.featuredImage?.node?.sourceUrl,
-                    alt: node?.featuredImage?.node?.altText || node?.title || 'Tech logo',
-                    title: node?.title || 'Technology'
-                  })),
-              }
-            : undefined,
-          // Map whyCda and approach from globalContentBlocks - use correct field names
-          whyCdaBlock: rawBlocks?.whyCda, // Use 'whyCda' not 'whyCdaBlock'
-          approachBlock: rawBlocks?.approach, // Use 'approach' not 'approachBlock'
-          // Map culture gallery slider from raw blocks
-          cultureGallerySlider: rawBlocks?.cultureGallerySlider,
-          // Temporarily disabled fields
-          fullVideo: null,
-          joinOurTeam: null,
-        };
-        
-        setGlobalData(normalizedBlocks);
-        setAboutData(aboutResult?.data?.page?.aboutUsContent || null);
-      } catch (err) {
-        console.error('Failed to load About page data:', err);
-        setError('Failed to load content.');
-      } finally {
-        setLoading(false);
       }
-    };
+    }
+  }`;
+  const aboutRes = await executeGraphQLQuery(aboutQuery);
+  const aboutData = aboutRes?.data?.page?.aboutUsContent || {};
 
-    fetchPageData();
-  }, []);
+  // Normalize technologies logos list in globalBlocks
+  const technologiesSlider = globalBlocks?.technologiesSlider
+    ? {
+        ...globalBlocks.technologiesSlider,
+        logos: (globalBlocks.technologiesSlider.logos?.nodes || [])
+          .map((node) => ({
+            url: node?.featuredImage?.node?.sourceUrl,
+            alt: node?.featuredImage?.node?.altText || node?.title || 'Tech logo',
+            title: node?.title || 'Technology'
+          })),
+      }
+    : undefined;
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
-  if (error) return <div className="min-h-screen flex items-center justify-center text-red-600">{error}</div>;
-
-  // Extract data with safe fallbacks
-  const globalContentBlocks = globalData || {};
-  const aboutContent = aboutData || {};
-  const globalSelection = aboutContent?.globalContentSelection || {};
+  const globalContentBlocks = { ...(globalBlocks || {}), ...(technologiesSlider ? { technologiesSlider } : {}) };
+  const globalSelection = aboutData?.globalContentSelection || {};
+  const aboutContent = aboutData;
 
   return (
     <>
@@ -276,7 +117,7 @@ export default function AboutPage() {
           </div>
         </section>
       )}
-
+      
       {/* Global Content Blocks - Only show if toggles are enabled and data exists */}
       
       {/* Image Frame Block */}
@@ -290,8 +131,8 @@ export default function AboutPage() {
       )}
       
       {/* Why CDA Block */}
-      {globalSelection?.enableWhyCda && globalContentBlocks?.whyCdaBlock && (
-        <WhyCdaBlock globalData={globalContentBlocks.whyCdaBlock} />
+      {globalSelection?.enableWhyCda && globalContentBlocks?.whyCda && (
+        <WhyCdaBlock globalData={globalContentBlocks.whyCda} />
       )}
       
       {/* Showreel Block */}
@@ -305,8 +146,8 @@ export default function AboutPage() {
       )}
       
       {/* Approach Block */}
-      {globalSelection?.enableApproach && globalContentBlocks?.approachBlock && (
-        <ApproachBlock globalData={globalContentBlocks.approachBlock} />
+      {globalSelection?.enableApproach && globalContentBlocks?.approach && (
+        <ApproachBlock globalData={globalContentBlocks.approach} />
       )}
       
       {/* Technologies Slider Block */}
@@ -321,6 +162,11 @@ export default function AboutPage() {
       {/* Values Block */}
       {globalSelection?.enableValues && globalContentBlocks?.valuesBlock && (
         <ValuesBlock globalData={globalContentBlocks.valuesBlock} />
+      )}
+
+      {/* Stats & Numbers Block */}
+      {globalSelection?.enableStatsImage && globalContentBlocks?.statsAndNumbers && (
+        <StatsBlock data={globalContentBlocks.statsAndNumbers} />
       )}
       
       {/* Locations Block */}
