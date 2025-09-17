@@ -877,44 +877,80 @@ export const GET_GLOBAL_CONTENT = `
   query GetGlobalContent {
     globalOptions {
       globalContentBlocks {
-        whyCdaBlock {
+        # APPROACH
+        approach {
           title
           subtitle
-        }
-        ctaBlock {
-          pretitle
-          title
-          buttonText
-          buttonUrl
-        }
-        newsletterBlock {
-          title
-          subtitle
-          description
-        }
-        photoFrameBlock {
-          frameImage {
-            node {
-              sourceUrl
-              altText
-            }
+          steps {
+            title
+            image { node { sourceUrl altText } }
           }
-          innerImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-          subtitle
+        }
+        # CULTURE GALLERY SLIDER
+        cultureGallerySlider {
           title
-          text
-          buttonTitle
-          buttonUrl
-          buttonTarget
-          arrowIllustration {
-            node {
-              sourceUrl
-              altText
+          subtitle
+          useGlobalSocialLinks
+          images {
+            edges { node { sourceUrl altText } }
+          }
+        }
+        # WHY CDA
+        whyCda {
+          title
+          subtitle
+          usp {
+            title
+            description
+            icon { node { sourceUrl altText } }
+          }
+        }
+        # VALUES BLOCK
+        valuesBlock {
+          title
+          subtitle
+          illustration { node { sourceUrl altText } }
+          values { title }
+        }
+        # FULL VIDEO
+        fullVideo {
+          url
+          file { node { sourceUrl altText } }
+        }
+        # CONTACT FORM LEFT / IMAGE RIGHT
+        contactFormLeftImageRight {
+          title
+          formCode
+          contactDetailsOverride
+          useGlobalContactDetails
+          rightMediaType
+          rightImage { node { sourceUrl altText } }
+          rightGif { node { sourceUrl altText } }
+          rightVideo { node { sourceUrl altText } }
+        }
+      }
+    }
+  }
+`;
+
+// Optional query for Global Case Studies Section (kept separate to avoid breaking base fetch if not present)
+export const GET_GLOBAL_CASE_STUDIES_SECTION = `
+  query GetGlobalCaseStudiesSection {
+    globalOptions {
+      globalContentBlocks {
+        caseStudiesSection {
+          title
+          subtitle
+          knowledgeHubLink { url title target }
+          selectedStudies {
+            nodes {
+              ... on CaseStudy {
+                id
+                title
+                uri
+                excerpt
+                featuredImage { node { sourceUrl altText } }
+              }
             }
           }
         }
@@ -926,12 +962,27 @@ export const GET_GLOBAL_CONTENT = `
 export async function getGlobalContent() {
   const response = await executeGraphQLQuery(GET_GLOBAL_CONTENT);
   
+  // Be tolerant of partial GraphQL errors – return whatever data we have
   if (response.errors) {
-    console.error('GraphQL errors:', response.errors);
-    return null;
+    console.warn('Global content GraphQL warnings:', response.errors);
   }
 
-  return response.data?.globalOptions?.globalContentBlocks || null;
+  const baseBlocks = response.data?.globalOptions?.globalContentBlocks || null;
+
+  // Try to fetch optional case studies section separately; ignore errors
+  try {
+    const csRes = await executeGraphQLQuery(GET_GLOBAL_CASE_STUDIES_SECTION);
+    if (csRes?.data?.globalOptions?.globalContentBlocks?.caseStudiesSection) {
+      return {
+        ...baseBlocks,
+        caseStudiesSection: csRes.data.globalOptions.globalContentBlocks.caseStudiesSection,
+      };
+    }
+  } catch (e) {
+    // ignore
+  }
+
+  return baseBlocks;
 }
 
 export async function getJobListingBySlug(slug) {
@@ -990,6 +1041,39 @@ export async function getJobListingsSimple() {
   }
 
   return response.data?.jobListings?.nodes || [];
+}
+
+// =============================================================================
+// TECHNOLOGIES UTILITY FUNCTIONS (core)
+// =============================================================================
+export async function getTechnologiesWithPagination(variables) {
+  const response = await executeGraphQLQuery(GET_TECHNOLOGIES_WITH_PAGINATION, variables);
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return { nodes: [], pageInfo: null };
+  }
+  return {
+    nodes: response.data?.technologies?.nodes || [],
+    pageInfo: response.data?.technologies?.pageInfo || null
+  };
+}
+
+export async function getTechnologyBySlug(slug) {
+  const response = await executeGraphQLQuery(GET_TECHNOLOGY_BY_SLUG, { slug });
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return null;
+  }
+  return response.data?.technology || null;
+}
+
+export async function getTechnologySlugs() {
+  const response = await executeGraphQLQuery(GET_TECHNOLOGY_SLUGS);
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return [];
+  }
+  return response.data?.technologies?.nodes?.map(t => t.slug) || [];
 }
 
 // =============================================================================
@@ -1330,6 +1414,55 @@ export const GET_POLICY_SLUGS = `
       nodes {
         slug
       }
+    }
+  }
+`;
+
+// =============================================================================
+// TECHNOLOGIES QUERIES (core fields)
+// =============================================================================
+export const GET_TECHNOLOGIES_WITH_PAGINATION = `
+  query GetTechnologiesWithPagination($first: Int = 50, $after: String, $search: String) {
+    technologies(first: $first, after: $after, where: { search: $search }) {
+      nodes {
+        id
+        title
+        slug
+        date
+        modified
+        excerpt
+        content
+        featuredImage { node { sourceUrl altText } }
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+`;
+
+export const GET_TECHNOLOGY_BY_SLUG = `
+  query GetTechnologyBySlug($slug: ID!) {
+    technology(id: $slug, idType: SLUG) {
+      id
+      title
+      slug
+      date
+      modified
+      excerpt
+      content
+      featuredImage { node { sourceUrl altText } }
+    }
+  }
+`;
+
+export const GET_TECHNOLOGY_SLUGS = `
+  query GetTechnologySlugs {
+    technologies {
+      nodes { slug }
     }
   }
 `;
