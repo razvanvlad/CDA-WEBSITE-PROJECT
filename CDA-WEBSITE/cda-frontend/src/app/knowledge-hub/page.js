@@ -1,4 +1,4 @@
-import { executeGraphQLQuery, GET_ALL_CASE_STUDIES } from '@/lib/graphql-queries.js'
+import { executeGraphQLQuery, GET_CASE_STUDIES_WITH_PAGINATION } from '@/lib/graphql-queries.js'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Link from 'next/link'
@@ -15,10 +15,10 @@ export const metadata = {
   },
 }
 
-// Simple GraphQL query for posts
-const GET_ALL_POSTS = `
-  query GetAllPosts {
-    posts(first: 50) {
+// Simple GraphQL query for Blog Posts (custom post type)
+const GET_ALL_BLOGPOSTS = `
+  query GetAllBlogPosts {
+    blogPosts(first: 50, where: { orderby: { field: DATE, order: DESC } }) {
       nodes {
         id
         title
@@ -31,7 +31,7 @@ const GET_ALL_POSTS = `
             altText
           }
         }
-        categories {
+        blogCategories {
           nodes {
             name
             slug
@@ -46,22 +46,22 @@ export const revalidate = 300
 
 export default async function KnowledgeHubPage() {
   try {
-    // Fetch case studies and posts separately
-    const [caseStudiesResponse, postsResponse] = await Promise.all([
-      executeGraphQLQuery(GET_ALL_CASE_STUDIES),
-      executeGraphQLQuery(GET_ALL_POSTS)
+// Fetch case studies (core fields) and blog posts separately
+    const [caseStudiesResponse, blogPostsResponse] = await Promise.all([
+      executeGraphQLQuery(GET_CASE_STUDIES_WITH_PAGINATION),
+      executeGraphQLQuery(GET_ALL_BLOGPOSTS)
     ])
     
     if (caseStudiesResponse.errors) {
       console.error('Case Studies GraphQL errors:', caseStudiesResponse.errors)
     }
     
-    if (postsResponse.errors) {
-      console.error('Posts GraphQL errors:', postsResponse.errors)
+if (blogPostsResponse.errors) {
+      console.error('BlogPosts GraphQL errors:', blogPostsResponse.errors)
     }
     
-    const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
-    const posts = postsResponse.data?.posts?.nodes || []
+const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
+    const posts = blogPostsResponse.data?.blogPosts?.nodes || []
     
     return (
       <>
@@ -187,9 +187,9 @@ export default async function KnowledgeHubPage() {
                           News
                         </span>
                         
-                        {post.categories?.nodes?.[0]?.name && (
-                          <span className="inline-block px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
-                            {post.categories.nodes[0].name}
+{post.blogCategories?.nodes?.[0]?.name && (
+<span className="inline-block px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
+                            {post.blogCategories.nodes[0].name}
                           </span>
                         )}
                       </div>
@@ -206,9 +206,9 @@ export default async function KnowledgeHubPage() {
                       )}
                       
                       <div className="flex items-center justify-between">
-                        <Link
-                          href={`/news/${post.slug}`}
-                          className="button-without-box"
+<Link
+                          href={`/news-article/${post.slug}`}
+className="button-without-box"
                         >
                           Read More
                         </Link>
