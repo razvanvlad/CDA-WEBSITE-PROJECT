@@ -776,6 +776,7 @@ export const GET_TEAM_MEMBER_CORE_BY_SLUG = `
   query GetTeamMemberCoreBySlug($slug: ID!) {
     teamMember(id: $slug, idType: SLUG) {
       id
+      databaseId
       title
       slug
       date
@@ -783,6 +784,12 @@ export const GET_TEAM_MEMBER_CORE_BY_SLUG = `
       excerpt
       content
       featuredImage { node { sourceUrl altText } }
+      teamMemberFields {
+        jobTitle
+        shortBio
+        featuredImage { node { sourceUrl altText } }
+        contactDetails { icon { node { sourceUrl altText } } text url }
+      }
     }
   }
 `;

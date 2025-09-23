@@ -76,8 +76,10 @@ export default async function TeamMemberDetailPage({ params }) {
               )}
             </header>
 
-            {/* Meetings Scheduler */}
-            <HubspotMeetingsScheduler ownerSlug="stuart-alldis" defaultProvider="zoom" />
+            {/* Meetings Scheduler (only for Stuart Alldis - DB ID 884) */}
+            {Number(member?.databaseId) === 884 && (
+              <HubspotMeetingsScheduler ownerSlug="stuart-alldis" defaultProvider="zoom" />
+            )}
 
             <div className="max-w-none text-gray-800 leading-relaxed">
               {member.content && (
