@@ -14,36 +14,43 @@ export const revalidate = 300;
 
 export default async function AboutPage() {
 
-  const ABOUT_ID = parseInt(process.env.NEXT_PUBLIC_ABOUT_PAGE_ID || '317', 10);
+  // Use provided working query (by DB ID)
+  const ABOUT_ID = String(process.env.NEXT_PUBLIC_ABOUT_PAGE_ID || '317')
 
   // Fetch global blocks (approach, values, statsAndNumbers, etc.)
   const globalBlocks = await getGlobalContent();
 
-  // Fetch About page content
-  const aboutQuery = `{
-    page(id: ${ABOUT_ID}, idType: DATABASE_ID) {
-      id
-      title
-      aboutUsContent {
-        contentPageHeader { title text image { node { sourceUrl altText } } cta { url title target } }
-        globalContentSelection {
-          enableImageFrame
-          enableServicesAccordion
-          enableWhyCda
-          enableShowreel
-          enableApproach
-          enableTechnologiesSlider
-          enableValues
-          enableStatsImage
-          enableLocationsImage
-          enableNewsCarousel
-          enableNewsletterSignup
-          enableCultureGallerySlider
+  // Fetch About page content with working query (includes behindCda)
+  const GET_ABOUT = `
+    query GetAboutUsPage($id: ID!) {
+      page(id: $id, idType: DATABASE_ID) {
+        id
+        title
+        date
+        ... on NodeWithFeaturedImage {
+          featuredImage { node { sourceUrl altText } }
+        }
+        ... on Page {
+          aboutUsContent {
+            contentPageHeader {
+              title
+              text
+              cta { url title target }
+              image { node { sourceUrl altText } }
+            }
+            behindCda {
+              illustration { node { sourceUrl altText } }
+              subtitle
+              title
+              description
+              cta { url title target }
+            }
+          }
         }
       }
     }
-  }`;
-  const aboutRes = await executeGraphQLQuery(aboutQuery);
+  `
+  const aboutRes = await executeGraphQLQuery(GET_ABOUT, { id: ABOUT_ID })
   const aboutData = aboutRes?.data?.page?.aboutUsContent || {};
 
   const globalContentBlocks = { ...(globalBlocks || {}) };
@@ -71,7 +78,7 @@ export default async function AboutPage() {
                 dangerouslySetInnerHTML={{ __html: sanitizeTitleHtml(aboutContent.contentPageHeader.title || 'About Us') }}
               />
               {aboutContent.contentPageHeader.text && (
-                <p className="home-hero-subtitle">{aboutContent.contentPageHeader.text}</p>
+                <div className="home-hero-subtitle" dangerouslySetInnerHTML={{ __html: aboutContent.contentPageHeader.text }} />
               )}
               {aboutContent.contentPageHeader.cta && (
                 <div className="home-header-cta home-hero-cta">
@@ -158,8 +165,47 @@ export default async function AboutPage() {
         </section>
       )}
 
-      {/* 9) Custom individual (placeholder for future) */}
-      {/* Intentionally not rendered until fields are defined */}
+      {/* 9) Custom individual (Behind CDA) */}
+      {aboutContent?.behindCda && (
+        <section className="py-16 bg-white">
+          <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+            <div className="grid grid-cols-12 gap-x-8 gap-y-10 items-center">
+              {/* Left: Image */}
+              <div className="col-span-12 md:col-span-6">
+                {aboutContent.behindCda.illustration?.node?.sourceUrl && (
+                  <img
+                    src={aboutContent.behindCda.illustration.node.sourceUrl}
+                    alt={aboutContent.behindCda.illustration.node.altText || 'Behind CDA illustration'}
+                    width={485}
+                    height={586}
+                    className="w-[485px] h-[586px] object-contain rounded"
+                  />
+                )}
+              </div>
+              {/* Right: Subtitle, Title, Text, CTA */}
+              <div className="col-span-12 md:col-span-6">
+                {aboutContent.behindCda.subtitle && (
+                  <p className="cda-subtitle mb-2">{aboutContent.behindCda.subtitle}</p>
+                )}
+                {aboutContent.behindCda.title && (
+                  <h2 className="cda-title mb-4" style={{ textDecoration: 'none' }}>{aboutContent.behindCda.title}</h2>
+                )}
+                {aboutContent.behindCda.description && (
+                  <div className="wysiwyg-content text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] mb-6"
+                       dangerouslySetInnerHTML={{ __html: aboutContent.behindCda.description }} />
+                )}
+                {aboutContent.behindCda.cta?.url && (
+                  <a href={aboutContent.behindCda.cta.url}
+                     target={aboutContent.behindCda.cta.target || '_self'}
+                     className="button-without-box">
+                    {aboutContent.behindCda.cta.title || 'Learn More'}
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 10) [Global] Showreel Block */}
       {t.showShowreel && globalContentBlocks?.showreel && (
