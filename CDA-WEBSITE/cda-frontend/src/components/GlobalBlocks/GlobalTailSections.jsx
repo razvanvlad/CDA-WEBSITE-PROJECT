@@ -127,6 +127,8 @@ const showCaseStudiesSection = !!(enableCaseStudies && csData)
     }
   }
 
+  // No custom ordering: render sections in fixed, sensible order below
+
   return (
     <>
       {showCaseStudiesSection && (
