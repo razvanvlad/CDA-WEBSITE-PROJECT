@@ -5,9 +5,6 @@ import WhyCdaBlock from '../../components/GlobalBlocks/WhyCdaBlock';
 import ServicesAccordion from '../../components/GlobalBlocks/ServicesAccordion';
 import Showreel from '../../components/GlobalBlocks/Showreel';
 import ApproachBlock from '../../components/GlobalBlocks/ApproachBlock';
-import TechnologiesSlider from '../../components/GlobalBlocks/TechnologiesSlider';
-import ValuesBlock from '../../components/GlobalBlocks/ValuesBlock';
-import LocationsImage from '../../components/GlobalBlocks/LocationsImage';
 import CultureGallerySlider from '../../components/GlobalBlocks/CultureGallerySlider';
 import StatsBlock from '../../components/GlobalBlocks/StatsBlock';
 import { sanitizeTitleHtml } from '../../lib/sanitizeTitleHtml';
@@ -49,21 +46,7 @@ export default async function AboutPage() {
   const aboutRes = await executeGraphQLQuery(aboutQuery);
   const aboutData = aboutRes?.data?.page?.aboutUsContent || {};
 
-  // Normalize technologies logos list in globalBlocks
-  const technologiesSlider = globalBlocks?.technologiesSlider
-    ? {
-        ...globalBlocks.technologiesSlider,
-        logos: (globalBlocks.technologiesSlider.logos?.nodes || [])
-          .map((node) => ({
-            url: node?.featuredImage?.node?.sourceUrl,
-            alt: node?.featuredImage?.node?.altText || node?.title || 'Tech logo',
-            title: node?.title || 'Technology'
-          })),
-      }
-    : undefined;
-
-  const globalContentBlocks = { ...(globalBlocks || {}), ...(technologiesSlider ? { technologiesSlider } : {}) };
-  const globalSelection = aboutData?.globalContentSelection || {};
+  const globalContentBlocks = { ...(globalBlocks || {}) };
   const aboutContent = aboutData;
 
   // Per-page global toggles (same approach as test page)
@@ -78,137 +61,109 @@ export default async function AboutPage() {
     <>
       <Header />
       
-      {/* About Page Header */}
+      {/* 1) Hero individual (uses same classes as homepage hero) */}
       {aboutContent?.contentPageHeader && (
-        <section className="about-hero-section">
-          <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div className="text-center md:text-left">
-                <h1 
-                  className="title-large-pink mb-6"
-                  dangerouslySetInnerHTML={{
-                    __html: sanitizeTitleHtml(
-                      aboutContent.contentPageHeader.title || 'About Us'
-                    )
-                  }}
-                />
-                <div 
-                  className="about-hero-subtitle text-lg mb-6"
-                  dangerouslySetInnerHTML={{
-                    __html: aboutContent.contentPageHeader.text || 'Learn more about our company.'
-                  }}
-                />
-                {aboutContent.contentPageHeader.cta && (
-                  <a 
-                    href={aboutContent.contentPageHeader.cta.url || '#'} 
-                    className="button-l"
-                    target={aboutContent.contentPageHeader.cta.target || '_self'}
-                  >
+        <section className="home-hero-section bg-white">
+          <div className="home-header-grid mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+            <div className="home-header-text text-center md:text-left">
+              <h1
+                className="cda-page-title title-large-light-blue"
+                dangerouslySetInnerHTML={{ __html: sanitizeTitleHtml(aboutContent.contentPageHeader.title || 'About Us') }}
+              />
+              {aboutContent.contentPageHeader.text && (
+                <p className="home-hero-subtitle">{aboutContent.contentPageHeader.text}</p>
+              )}
+              {aboutContent.contentPageHeader.cta && (
+                <div className="home-header-cta home-hero-cta">
+                  <a href={aboutContent.contentPageHeader.cta.url || '#'} className="button-l" target={aboutContent.contentPageHeader.cta.target || '_self'}>
                     {aboutContent.contentPageHeader.cta.title || 'Get Started'}
                   </a>
-                )}
-              </div>
-              <div className="flex justify-center">
-                {aboutContent.contentPageHeader.image?.node?.sourceUrl ? (
-                  <img 
-                    src={aboutContent.contentPageHeader.image.node.sourceUrl}
-                    alt={aboutContent.contentPageHeader.image.node.altText || 'About Us'}
-                    className="w-full h-auto max-w-md rounded-lg"
-                  />
-                ) : (
-                  <div className="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center">
-                    <p className="text-gray-500">No header image set in WordPress</p>
-                  </div>
-                )}
-              </div>
+                </div>
+              )}
+            </div>
+            <div className="home-header-illustration-wrap">
+              {aboutContent.contentPageHeader.image?.node?.sourceUrl ? (
+                <img
+                  src={aboutContent.contentPageHeader.image.node.sourceUrl}
+                  alt={aboutContent.contentPageHeader.image.node.altText || 'About illustration'}
+                  width={700}
+                  height={520}
+                  className="home-header-illustration"
+                />
+              ) : (
+                <div className="home-hero-illustration-placeholder">
+                  <p>Upload illustration in WordPress Admin → Pages → Edit About → Header Section</p>
+                </div>
+              )}
             </div>
           </div>
         </section>
       )}
-      
-      {/* Global Content Blocks - Only show if toggles are enabled and data exists */}
-      
-      {/* Image Frame Block */}
-      {globalSelection?.enableImageFrame && globalContentBlocks?.imageFrameBlock && (
+
+      {/* Order below: 2 Image Frame, 3 WhyCda, 4 Services Accordion, 5 Culture Gallery, 6 Approach, 7 Stats, 8 Full Video, 9 Custom (placeholder), 10 Showreel */}
+
+      {/* 2) [Global] Image Frame Block */}
+      {t.showImageFrame && globalContentBlocks?.imageFrameBlock && (
         <PhotoFrame globalData={globalContentBlocks.imageFrameBlock} />
       )}
 
-      {/* Services Accordion Block */}
-      {globalSelection?.enableServicesAccordion && globalContentBlocks?.servicesAccordion && (
-        <ServicesAccordion globalData={globalContentBlocks.servicesAccordion} />
-      )}
-      
-      {/* Why CDA Block */}
-      {globalSelection?.enableWhyCda && globalContentBlocks?.whyCda && (
-        <WhyCdaBlock globalData={globalContentBlocks.whyCda} />
-      )}
-      
-      {/* Showreel Block */}
-      {globalSelection?.enableShowreel && globalContentBlocks?.showreel && (
-        <Showreel globalData={globalContentBlocks.showreel} />
-      )}
-      
-      {/* Culture Gallery Slider Block */}
-      {globalSelection?.enableCultureGallerySlider && globalContentBlocks?.cultureGallerySlider && (
-        <CultureGallerySlider globalData={globalContentBlocks.cultureGallerySlider} />
-      )}
-      
-      {/* Approach Block */}
-      {globalSelection?.enableApproach && globalContentBlocks?.approach && (
-        <ApproachBlock globalData={globalContentBlocks.approach} />
-      )}
-      
-      {/* Technologies Slider Block */}
-      {globalSelection?.enableTechnologiesSlider && globalContentBlocks?.technologiesSlider && (
-        <TechnologiesSlider 
-          title={globalContentBlocks.technologiesSlider.title}
-          subtitle={globalContentBlocks.technologiesSlider.subtitle}
-          logos={globalContentBlocks.technologiesSlider.logos}
-        />
-      )}
-      
-      {/* Values Block */}
-      {globalSelection?.enableValues && globalContentBlocks?.valuesBlock && (
-        <ValuesBlock globalData={globalContentBlocks.valuesBlock} />
+      {/* 3) [Global] Why CDA Block */}
+      {t.showWhyCda && (globalContentBlocks?.whyCda || globalContentBlocks?.whyCdaBlock) && (
+        <WhyCdaBlock globalData={globalContentBlocks.whyCda || globalContentBlocks.whyCdaBlock} />
       )}
 
-      {/* Stats & Numbers Block */}
-      {globalSelection?.enableStatsImage && globalContentBlocks?.statsAndNumbers && (
+      {/* 4) [Global] Services Accordion */}
+      {t.showServicesAccordion && globalContentBlocks?.servicesAccordion && (
+        <ServicesAccordion globalData={globalContentBlocks.servicesAccordion} />
+      )}
+
+      {/* 5) [Global] Culture Gallery Slider */}
+      {t.showCultureGallerySlider && globalContentBlocks?.cultureGallerySlider && (
+        <CultureGallerySlider globalData={globalContentBlocks.cultureGallerySlider} />
+      )}
+
+      {/* 6) [Global] Approach */}
+      {t.showApproach && globalContentBlocks?.approach && (
+        <ApproachBlock globalData={globalContentBlocks.approach} />
+      )}
+
+      {/* 7) [Global] Stats */}
+      {t.showStatsAndNumbers && globalContentBlocks?.statsAndNumbers && (
         <StatsBlock data={globalContentBlocks.statsAndNumbers} />
       )}
-      
-      {/* Locations Block */}
-      {globalSelection?.enableLocationsImage && globalContentBlocks?.locationsImage && (
-        <LocationsImage globalData={globalContentBlocks.locationsImage} />
+
+      {/* 8) [Global] Full Video */}
+      {t.showFullVideo && globalContentBlocks?.fullVideo && (
+        <section className="py-16 bg-white">
+          <div className="mx-auto w-full max-w-[1280px] px-4">
+            {(() => {
+              const url = globalContentBlocks.fullVideo.file?.node?.sourceUrl || globalContentBlocks.fullVideo.url
+              if (!url) return null
+              const isVimeo = /vimeo\.com/.test(url)
+              const isYouTube = /youtube\.com|youtu\.be/.test(url)
+              if (isVimeo || isYouTube) {
+                return (
+                  <div className="aspect-video w-full rounded overflow-hidden">
+                    <iframe src={url} className="w-full h-full" allow="autoplay; fullscreen; picture-in-picture" />
+                  </div>
+                )
+              }
+              return (
+                <video className="w-full rounded-lg" controls>
+                  <source src={url} />
+                </video>
+              )
+            })()}
+          </div>
+        </section>
       )}
-      
-      {/* Append shared global tail controlled by per-page toggles */}
-      {globalBlocks && (
-        <div className="mt-12">
-          {await import('../../components/GlobalBlocks/GlobalTailSections.jsx').then(({ default: GlobalTailSections }) => (
-            <GlobalTailSections
-              globalData={globalBlocks}
-              enableCaseStudies={!!t.showCaseStudies}
-              enableCaseStudiesFallback={!!t.showCaseStudies}
-              enableImageFrame={!!t.showImageFrame}
-              enableNewsCarousel={!!t.showNewsCarousel}
-              enableColumnsWithIcons3X={!!t.showThreeColumns}
-              enableStats={!!t.showStatsAndNumbers}
-              enableApproach={!!t.showApproach}
-              enableValues={!!t.showValues}
-              enableWhyCda={!!t.showWhyCda}
-              enableServicesAccordion={!!t.showServicesAccordion}
-              enableTechnologiesSlider={!!t.showTechnologiesSlider}
-              enableShowreel={!!t.showShowreel}
-              enableLocationsImage={!!t.showLocationsImage}
-              enableNewsletterSignup={!!t.showNewsletterSignup}
-              enableContactFormLeftImageRight={!!t.showContactFormLeftImageRight}
-              enableJoinOurTeam={!!t.showJoinOurTeam}
-              enableFullVideo={!!t.showFullVideo}
-              enableCultureGallerySlider={!!t.showCultureGallerySlider}
-            />
-          ))}
-        </div>
+
+      {/* 9) Custom individual (placeholder for future) */}
+      {/* Intentionally not rendered until fields are defined */}
+
+      {/* 10) [Global] Showreel Block */}
+      {t.showShowreel && globalContentBlocks?.showreel && (
+        <Showreel globalData={globalContentBlocks.showreel} />
       )}
 
       <Footer />
