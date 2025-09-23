@@ -18,10 +18,11 @@ export default function TeamMembersSlider({ title = "Meet Our Other Team Members
       try {
         const { nodes } = await getTeamMembersWithPagination({ first })
         if (nodes && nodes.length) {
-          setItems(nodes)
+          setItems([...nodes].sort((a, b) => new Date(a?.date || 0) - new Date(b?.date || 0)))
         } else {
           const core = await getTeamMembersCoreWithPagination({ first })
-          setItems(core?.nodes || [])
+          const list = core?.nodes || []
+          setItems([...list].sort((a, b) => new Date(a?.date || 0) - new Date(b?.date || 0)))
         }
       } catch (e) {
         console.warn("TeamMembersSlider: failed to load team members", e)
