@@ -144,20 +144,26 @@ export default async function AboutPage() {
         <section className="py-16 bg-white">
           <div className="mx-auto w-full max-w-[1280px] px-4">
             {(() => {
-              const url = globalContentBlocks.fullVideo.file?.node?.sourceUrl || globalContentBlocks.fullVideo.url
-              if (!url) return null
-              const isVimeo = /vimeo\.com/.test(url)
-              const isYouTube = /youtube\.com|youtu\.be/.test(url)
+              const raw = globalContentBlocks.fullVideo.file?.node?.sourceUrl || globalContentBlocks.fullVideo.url
+              if (!raw) return null
+              const isVimeo = /vimeo\.com/.test(raw)
+              const isYouTube = /youtube\.com|youtu\.be/.test(raw)
               if (isVimeo || isYouTube) {
+                let embedUrl = raw
+                if (isVimeo) {
+                  const m = raw.match(/vimeo\.com\/(?:video\/)?(?:.+\/)?(\d+)/)
+                  const id = m && m[1]
+                  if (id) embedUrl = `https://player.vimeo.com/video/${id}`
+                }
                 return (
                   <div className="aspect-video w-full rounded overflow-hidden">
-                    <iframe src={url} className="w-full h-full" allow="autoplay; fullscreen; picture-in-picture" />
+                    <iframe src={embedUrl} className="w-full h-full" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />
                   </div>
                 )
               }
               return (
                 <video className="w-full rounded-lg" controls>
-                  <source src={url} />
+                  <source src={raw} />
                 </video>
               )
             })()}
