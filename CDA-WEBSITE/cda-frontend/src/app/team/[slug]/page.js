@@ -52,40 +52,100 @@ export default async function TeamMemberDetailPage({ params }) {
     const member = await getTeamMemberBySlug(slug)
     if (!member) notFound()
 
+    // Derive core fields
+    const jobTitle = member?.teamMemberFields?.jobTitle || null
+    const shortBio = member?.teamMemberFields?.shortBio || null
+    const contactDetails = member?.teamMemberFields?.contactDetails || []
+    const profileImage = member?.teamMemberFields?.featuredImage?.node?.sourceUrl || member?.featuredImage?.node?.sourceUrl || null
+    const profileAlt = member?.teamMemberFields?.featuredImage?.node?.altText || member?.featuredImage?.node?.altText || member?.title || 'Team member photo'
+
     return (
       <>
         <Header />
         <article className="min-h-screen bg-white py-16">
-          <div className="mx-auto w-full max-w-[900px] px-4 md:px-6 lg:px-8">
+          <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
             <nav className="mb-8">
-              <Link href="/team" className="text-blue-600 hover:text-blue-800">← Back to Team</Link>
+              <Link href="/team" className="inline-flex items-center gap-2 text-[#111827] hover:text-black">
+                <span aria-hidden>←</span> Back To Team Listing
+              </Link>
             </nav>
 
-            <header className="mb-8">
-              <h1 className="text-4xl font-bold text-black mb-4">{member.title}</h1>
-              {member.featuredImage?.node?.sourceUrl && (
-                <div className="mb-8">
+            <div className="grid grid-cols-12 gap-8 items-start">
+              {/* Left: Profile Image */}
+              <div className="col-span-12 md:col-span-5">
+                {profileImage && (
                   <Image
-                    src={member.featuredImage.node.sourceUrl}
-                    alt={member.featuredImage.node.altText || member.title}
-                    width={900}
-                    height={400}
-                    className="w-full h-auto"
+                    src={profileImage}
+                    alt={profileAlt}
+                    width={600}
+                    height={720}
+                    className="w-full h-auto rounded-lg shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
                   />
-                </div>
-              )}
-            </header>
+                )}
+              </div>
 
-            {/* Meetings Scheduler (only for Stuart Alldis - DB ID 884) */}
+              {/* Right: Name, Title, Bio, Contacts */}
+              <div className="col-span-12 md:col-span-7">
+                {jobTitle && (
+                  <p className="text-sm md:text-base font-semibold tracking-wide uppercase text-[#111827] mb-2">{jobTitle}</p>
+                )}
+                <h1 className="text-4xl md:text-5xl font-extrabold text-black mb-4">{member.title}</h1>
+                {shortBio && (
+                  <div className="prose prose-p:mb-4 max-w-none text-gray-800" dangerouslySetInnerHTML={{ __html: shortBio }} />
+                )}
+
+                {Array.isArray(contactDetails) && contactDetails.length > 0 && (
+                  <ul className="mt-6 space-y-3">
+                    {contactDetails.map((cd, i) => {
+                      const iconUrl = cd?.icon?.node?.sourceUrl || null
+                      const iconAlt = cd?.icon?.node?.altText || ''
+                      const text = cd?.text || ''
+                      const url = cd?.url || ''
+                      const content = (
+                        <span className="inline-flex items-center gap-2">
+                          {iconUrl && (<img src={iconUrl} alt={iconAlt} className="w-5 h-5 inline-block" />)}
+                          <span>{text}</span>
+                        </span>
+                      )
+                      return (
+                        <li key={i} className="text-[#111827]">
+                          {url ? (
+                            <a href={url} className="hover:underline" target="_blank" rel="noopener noreferrer">{content}</a>
+                          ) : content}
+                        </li>
+                      )
+                    })}
+                  </ul>
+                )}
+
+                {/* Meetings Scheduler moved to full-width section below */}
+              </div>
+            </div>
+
+            {/* Full-width Booking Form (only for Stuart Alldis - DB ID 884) */}
             {Number(member?.databaseId) === 884 && (
-              <HubspotMeetingsScheduler ownerSlug="stuart-alldis" defaultProvider="zoom" />
+              <section className="relative mt-16">
+                <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+                  <div className="relative">
+                    <img
+                      src="http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/wp-content/uploads/2025/09/Group-9161.svg"
+                      alt=""
+                      className="hidden md:block absolute -top-6 right-0 w-[200px] h-auto pointer-events-none select-none z-10"
+                    />
+                    <div className="relative z-0">
+                      <HubspotMeetingsScheduler ownerSlug="stuart-alldis" defaultProvider="zoom" />
+                    </div>
+                  </div>
+                </div>
+              </section>
             )}
 
-            <div className="max-w-none text-gray-800 leading-relaxed">
-              {member.content && (
-                <div dangerouslySetInnerHTML={{ __html: member.content }} className="team-member-content" />)
-              }
-            </div>
+            {/* Full content (optional additional information) */}
+            {member.content && (
+              <div className="max-w-none text-gray-800 leading-relaxed mt-12">
+                <div dangerouslySetInnerHTML={{ __html: member.content }} className="team-member-content" />
+              </div>
+            )}
 
             <div className="mt-12 pt-8 border-t border-gray-200">
               <div className="flex justify-between items-center">
