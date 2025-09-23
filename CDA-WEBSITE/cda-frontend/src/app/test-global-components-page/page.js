@@ -122,12 +122,14 @@ export default async function TestGlobalComponentsPage() {
   }
 
   // Build sections from whatever toggles exist on this entry so we never miss newly added ones
-  const sections = Object.keys(t).map((key) => {
-    const map = knownToggleMap[key]
-    const label = map?.label || key.replace(/([A-Z])/g, ' $1').replace(/^./, (c) => c.toUpperCase())
-    const data = map ? map.data(globalData) : false
-    return { key, label, enabled: !!t[key], data }
-  })
+  const sections = Object.keys(t)
+    .filter((k) => k.startsWith('show'))
+    .map((key) => {
+      const map = knownToggleMap[key]
+      const label = map?.label || key.replace(/([A-Z])/g, ' $1').replace(/^./, (c) => c.toUpperCase())
+      const data = map ? map.data(globalData) : false
+      return { key, label, enabled: !!t[key], data }
+    })
 
   const statusClass = (s) => {
     if (!s.enabled) return 'bg-red-100 text-red-700 border-red-300'
@@ -138,6 +140,126 @@ export default async function TestGlobalComponentsPage() {
     return s.data ? 'Fetched' : 'Enabled, no data'
   }
 
+  // 3) Query WP Menus to verify data (primary by location, footer by location, primary by name, company by name)
+  const MENU_BY_LOCATION_PRIMARY = `
+    query MenuByLocationPrimary {
+      primaryMenu: menu(id: PRIMARY, idType: LOCATION) {
+        id
+        name
+        menuItems(first: 100) {
+          nodes {
+            id
+            databaseId
+            label
+            url
+            path
+            parentId
+            order
+            connectedNode { node { __typename ... on MenuItemLinkable { uri } } }
+          }
+        }
+      }
+    }
+  `
+  const MENU_BY_LOCATION_FOOTER = `
+    query MenuByLocationFooter {
+      footerMenu: menu(id: FOOTER, idType: LOCATION) {
+        id
+        name
+        menuItems(first: 100) {
+          nodes {
+            id
+            databaseId
+            label
+            url
+            path
+            parentId
+            order
+            connectedNode { node { __typename ... on MenuItemLinkable { uri } } }
+          }
+        }
+      }
+    }
+  `
+  const MENU_BY_NAME = `
+    query MenuByName($name: ID!) {
+      menu(id: $name, idType: NAME) {
+        id
+        name
+        menuItems(first: 100) {
+          nodes {
+            id
+            databaseId
+            label
+            url
+            path
+            parentId
+            order
+            connectedNode { node { __typename ... on MenuItemLinkable { uri } } }
+          }
+        }
+      }
+    }
+  `
+  const MENU_BY_DBID = `
+    query MenuByDbId($id: ID!) {
+      menu(id: $id, idType: DATABASE_ID) {
+        id
+        name
+        menuItems(first: 100) {
+          nodes {
+            id
+            databaseId
+            label
+            url
+            path
+            parentId
+            order
+            connectedNode { node { __typename ... on MenuItemLinkable { uri } } }
+          }
+        }
+      }
+    }
+  `
+
+  const LIST_MENUS = `
+    query ListMenus {
+      menus(first: 100) {
+        nodes {
+          id
+          databaseId
+          name
+        }
+      }
+    }
+  `
+
+  let menuDebug = {}
+  try {
+    const [locPrimary, locFooter, namePrimary, nameCompany, byIdPrimary, byIdCompany, byIdFooter, menusList] = await Promise.all([
+      executeGraphQLQuery(MENU_BY_LOCATION_PRIMARY),
+      executeGraphQLQuery(MENU_BY_LOCATION_FOOTER),
+      executeGraphQLQuery(MENU_BY_NAME, { name: 'primary' }),
+      executeGraphQLQuery(MENU_BY_NAME, { name: 'company' }),
+      executeGraphQLQuery(MENU_BY_DBID, { id: "4" }),
+      executeGraphQLQuery(MENU_BY_DBID, { id: "18" }),
+      executeGraphQLQuery(MENU_BY_DBID, { id: "41" }),
+      executeGraphQLQuery(LIST_MENUS),
+    ])
+    menuDebug = {
+      locationPrimary: locPrimary?.data?.primaryMenu || null,
+      locationFooter: locFooter?.data?.footerMenu || null,
+      namePrimary: namePrimary?.data?.menu || null,
+      nameCompany: nameCompany?.data?.menu || null,
+      byIdPrimary: byIdPrimary?.data?.menu || null,
+      byIdCompany: byIdCompany?.data?.menu || null,
+      byIdFooter: byIdFooter?.data?.menu || null,
+      menusList: menusList?.data?.menus?.nodes || null,
+    }
+  } catch (e) {
+    menuDebug = { error: String(e?.message || e) }
+  }
+
   return (
     <>
       <Header />
@@ -146,29 +268,37 @@ export default async function TestGlobalComponentsPage() {
           <h1 className="text-3xl font-bold text-black mb-6">Test Global Components Page</h1>
           <p className="text-gray-600 mb-6">Use the GLOBAL CONTENT BLOCKS TOGGLE on this page in WP Admin, then refresh to see sections show/hide.</p>
 
-      {/* Toggle status grid */}
-      <div className="mb-10">
-        <h2 className="text-xl font-semibold text-black mb-3">Toggles</h2>
-        {sections.length === 0 ? (
-          <div className="text-sm text-red-600">No toggle data returned for this page.</div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {sections.map((s) => (
-              <div key={s.key} className={`border rounded px-3 py-2 flex items-center justify-between ${statusClass(s)}`}>
-                <span className="font-medium">{s.label}</span>
-                <span className="text-xs px-2 py-1 rounded border bg-white/50">{statusText(s)}</span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+          {/* Menus debug */}
+          <section className="mb-10">
+            <h2 className="text-xl font-semibold text-black mb-3">Menus (WPGraphQL)</h2>
+            <div className="text-xs text-gray-700 bg-gray-50 border rounded p-3 overflow-auto">
+              <pre>{JSON.stringify(menuDebug, null, 2)}</pre>
+            </div>
+          </section>
 
-      {/* Toggle debug */}
-      <DebugToggles uri={'/test-global-components-page/'} toggles={t} />
+          {/* Toggle status grid */}
+          <div className="mb-10">
+            <h2 className="text-xl font-semibold text-black mb-3">Toggles</h2>
+            {sections.length === 0 ? (
+              <div className="text-sm text-red-600">No toggle data returned for this page.</div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                {sections.map((s) => (
+                  <div key={s.key} className={`border rounded px-3 py-2 flex items-center justify-between ${statusClass(s)}`}>
+                    <span className="font-medium">{s.label} <span className="text-gray-500 text-xs">(order: {s.order ?? 50})</span></span>
+                    <span className="text-xs px-2 py-1 rounded border bg-white/50">{statusText(s)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Toggle debug */}
+          <DebugToggles uri={'/test-global-components-page/'} toggles={t} />
         </div>
       </main>
 
-      <GlobalTailSections
+        <GlobalTailSections
         globalData={globalData}
         enableCaseStudies={!!t.showCaseStudies}
         enableCaseStudiesFallback={!!t.showCaseStudies}

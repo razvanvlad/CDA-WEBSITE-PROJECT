@@ -2,8 +2,50 @@
 'use client'
 
 import { useEffect, useState, useMemo } from 'react'
+import { gql } from '@apollo/client'
 import client from '../lib/graphql/client'
-import { GET_FOOTER_MENU } from '../lib/graphql/queries'
+
+// Local query to fetch menu by DATABASE_ID
+const MENU_BY_DBID = gql`
+  query MenuByDbId($id: ID!) {
+    menu(id: $id, idType: DATABASE_ID) {
+      id
+      name
+      menuItems(first: 100) {
+        nodes {
+          id
+          databaseId
+          label
+          url
+          path
+          parentId
+          order
+        }
+      }
+    }
+  }
+`
+
+// Fallback by name if ID returns empty
+const MENU_BY_NAME = gql`
+  query MenuByName($name: ID!) {
+    menu(id: $name, idType: NAME) {
+      id
+      name
+      menuItems(first: 100) {
+        nodes {
+          id
+          databaseId
+          label
+          url
+          path
+          parentId
+          order
+        }
+      }
+    }
+  }
+`
 
 export default function Footer({ globalOptions }) {
   const [menuItems, setMenuItems] = useState([])
@@ -21,45 +63,48 @@ export default function Footer({ globalOptions }) {
   const normalizePath = (path) => {
     if (!path || typeof path !== 'string') return '/'
     let p = path
-    // If absolute URL, reduce to pathname
+    // Prefer "path" and ensure it is relative
     try {
       if (p.startsWith('http://') || p.startsWith('https://')) {
         p = new URL(p).pathname
       }
     } catch {}
-    // Strip WP base path
     if (wpBasePath && p.startsWith(wpBasePath)) {
       p = p.slice(wpBasePath.length) || '/'
     }
-    // Strip index.php prefix
     if (p.startsWith('/index.php')) {
       p = p.replace(/^\/index\.php/, '') || '/'
     }
-    // Ensure leading slash and collapse duplicates
     if (!p.startsWith('/')) p = '/' + p
     p = p.replace(/\/+/g, '/')
     return p === '' ? '/' : p
   }
 
   const resolveHref = (item) => {
-    const uri = item?.connectedNode?.node?.uri
-    if (typeof uri === 'string' && uri.length > 0) return normalizePath(uri)
-    const url = item?.url
-    try {
-      if (typeof url === 'string' && url.length > 0) {
-        const u = new URL(url, typeof window !== 'undefined' ? window.location.origin : 'http://localhost')
-        return normalizePath(u.pathname || '/')
-      }
-    } catch (e) {}
-    return '/'
+    // Prefer path when provided by WPGraphQL; else use url
+    const raw = item?.path || item?.url || '/'
+    return normalizePath(raw)
   }
 
   useEffect(() => {
     const fetchFooterMenu = async () => {
       try {
-        const response = await client.query({ query: GET_FOOTER_MENU, errorPolicy: 'all' })
-        const items = response.data?.footerMenu?.menuItems?.nodes?.filter(i => !i.parentId) || []
-        setMenuItems(items)
+        // Switch to company menu for testing by database ID 18
+        let response = await client.query({ query: MENU_BY_DBID, variables: { id: "41" }, fetchPolicy: 'no-cache', errorPolicy: 'all' })
+        let raw = response.data?.menu?.menuItems?.nodes || []
+
+        // Fallback by name if ID returned empty (env mismatch)
+        if (!raw.length) {
+          try {
+            const byName = await client.query({ query: MENU_BY_NAME, variables: { name: 'footer' }, fetchPolicy: 'no-cache', errorPolicy: 'all' })
+            raw = byName.data?.menu?.menuItems?.nodes || []
+          } catch (_) { /* keep empty */ }
+        }
+
+        const topLevel = raw.filter(i => !i.parentId)
+        // sort by order if present
+        topLevel.sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0))
+        setMenuItems(topLevel)
       } catch (e) {
         console.error('Footer menu fetch error:', e)
       } finally {
@@ -92,18 +137,14 @@ export default function Footer({ globalOptions }) {
           <div>
             <h3 className="cda-subtitle">Have A Browse</h3>
             <div className="flex flex-wrap gap-x-6 gap-y-2">
-              <a href="/case-studies" className="text:[14px] text-[#0B0B0E] hover:underline">
-                Work
-              </a>
-              <a href="/services" className="text:[14px] text-[#0B0B0E] hover:underline">
-                Services
-              </a>
-              <a href="/jobs" className="text:[14px] text-[#0B0B0E] hover:underline">
-                Careers
-              </a>
-              <a href="/policies" className="text:[14px] text-[#0B0B0E] hover:underline">
-                Policies
-              </a>
+              {!loading && menuItems.length === 0 && (
+                <span className="text-[14px] text-[#0B0B0E]/60">No footer links configured</span>
+              )}
+              {menuItems.map((item) => (
+                <a key={item.id} href={resolveHref(item)} className="text:[14px] text-[#0B0B0E] hover:underline">
+                  {item.label}
+                </a>
+              ))}
             </div>
             <p className="mt-6 text-[14px] text-[#111827]/60">CDA © {new Date().getFullYear()}. All rights reserved.</p>
           </div>

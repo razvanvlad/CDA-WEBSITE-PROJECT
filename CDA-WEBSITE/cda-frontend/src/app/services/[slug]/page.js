@@ -1,5 +1,3 @@
-'use client';
-
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import { notFound } from 'next/navigation';
@@ -7,12 +5,12 @@ import { sanitizeTitleHtml } from '../../../lib/sanitizeTitleHtml';
 import { executeGraphQLQuery, GET_SERVICE_BY_SLUG } from '../../../lib/graphql-queries';
 import Image from 'next/image';
 import Link from 'next/link';
-import Script from 'next/script';
 import HubspotFormEmbed from '../../../components/HubspotFormEmbed';
 import ApproachBlock from '../../../components/GlobalBlocks/ApproachBlock';
 import NewsCarousel from '../../../components/GlobalBlocks/NewsCarousel';
 import ServicesSlider from '../../../components/GlobalBlocks/ServicesSlider.jsx';
-import { useRef, useEffect, useState } from 'react';
+
+export const revalidate = 120;
 
 // Service color mapping
 const getServiceColor = (slug) => {
@@ -29,72 +27,19 @@ const getServiceColor = (slug) => {
   return colorMap[slug] || '#7c3aed'; // fallback to purple
 };
 
-// Note: Metadata generation removed since this is now a client component
-// For SEO, consider using Next.js Head component or converting back to server component
+export default async function ServicePage({ params }) {
+  const slug = params?.slug;
+  if (!slug) notFound();
 
-export default function ServicePage({ params }) {
-  const [service, setService] = useState(null);
-  const [globalData, setGlobalData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const newsListRef = useRef(null);
-  
-  const scrollNews = (dir) => {
-    if (!newsListRef.current) return;
-    const el = newsListRef.current;
-    const firstCard = el.querySelector('.news-card');
-    const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : el.clientWidth * 0.86;
-    const delta = dir === 'next' ? cardWidth + 16 : -(cardWidth + 16);
-    el.scrollBy({ left: delta, behavior: 'smooth' });
-  };
-
-  useEffect(() => {
-    async function fetchServiceData() {
-      try {
-        const slug = await params.then(p => p.slug);
-        const result = await executeGraphQLQuery(GET_SERVICE_BY_SLUG, { slug });
-        
-        if (result.errors) {
-          console.error('GraphQL errors:', result.errors);
-          setError('Failed to fetch service data');
-          return;
-        }
-        
-        const serviceData = result.data?.service;
-        const globalData = result.data?.globalOptions;
-        
-        if (!serviceData) {
-          setError('Service not found');
-          return;
-        }
-        
-        setService(serviceData);
-        setGlobalData(globalData);
-      } catch (err) {
-        console.error('Service fetch error:', err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-    
-    fetchServiceData();
-  }, [params]);
-  
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto mb-4"></div>
-          <p>Loading service...</p>
-        </div>
-      </div>
-    );
-  }
-  
-  if (error || !service) {
+  // Fetch on server for zero client delay
+  const result = await executeGraphQLQuery(GET_SERVICE_BY_SLUG, { slug });
+  if (result?.errors) {
+    console.error('GraphQL errors:', result.errors);
     notFound();
   }
+  const service = result?.data?.service || null;
+  const globalData = result?.data?.globalOptions || null;
+  if (!service) notFound();
 
   const serviceFields = service.serviceFields || {};
   const heroSection = serviceFields.heroSection || {};
@@ -102,10 +47,9 @@ export default function ServicePage({ params }) {
   const valueDescription = serviceFields.valueDescription || {};
   const featuredCaseStudies = serviceFields.caseStudies?.nodes || [];
   const serviceColor = getServiceColor(service.slug);
-  
+
   // Global content blocks
   const globalContentBlocks = globalData?.globalContentBlocks || {};
-  // Enable all sections by default since globalContentSelection field doesn't exist in schema
   const globalSelection = {
     enableApproach: true,
     enableCaseStudies: true,
@@ -119,7 +63,6 @@ export default function ServicePage({ params }) {
   return (
     <>
       <Header />
-      
       <main className="service-detail-page">
         {/* Hero Section */}
         <section className="service-hero">
@@ -128,53 +71,24 @@ export default function ServicePage({ params }) {
               <div className="service-hero-content">
                 <h1 
                   className="service-hero-title text-4xl lg:text-5xl font-bold mb-6"
-                  style={{
-                    textDecoration: 'underline',
-                    textDecorationColor: serviceColor,
-                    textDecorationThickness: '11px'
-                  }}
+                  style={{ textDecoration: 'underline', textDecorationColor: serviceColor, textDecorationThickness: '11px' }}
                 >
                   {sanitizeTitleHtml(service.title)}
                 </h1>
                 {heroSection.description && (
-                  <div 
-                    className="service-hero-description text-lg text-gray-600 mb-8"
-                    dangerouslySetInnerHTML={{ __html: heroSection.description }}
-                  />
+                  <div className="service-hero-description text-lg text-gray-600 mb-8" dangerouslySetInnerHTML={{ __html: heroSection.description }} />
                 )}
                 {heroSection.cta?.title && (
-                  <a 
-                    href="#contact-form"
-                    className="button-l"
-                  >
-                    {heroSection.cta.title}
-                  </a>
+                  <a href="#contact-form" className="button-l">{heroSection.cta.title}</a>
                 )}
               </div>
-              
               <div className="service-hero-image">
-                 {heroSection.heroImage?.node?.sourceUrl ? (
-                    <Image
-                      src={heroSection.heroImage.node.sourceUrl}
-                      alt={heroSection.heroImage.node.altText || service.title}
-                      width={600}
-                      height={400}
-                      className="w-full h-auto rounded-lg"
-                      style={{ maxHeight: '600px', objectFit: 'contain' }}
-                      priority
-                    />
-                 ) : service.featuredImage?.node?.sourceUrl && (
-                   <Image
-                     src={service.featuredImage.node.sourceUrl}
-                     alt={service.featuredImage.node.altText || service.title}
-                     width={600}
-                     height={400}
-                     className="w-full h-auto rounded-lg"
-                     style={{ maxHeight: '600px', objectFit: 'contain' }}
-                     priority
-                   />
-                 )}
-               </div>
+                {heroSection.heroImage?.node?.sourceUrl ? (
+                  <Image src={heroSection.heroImage.node.sourceUrl} alt={heroSection.heroImage.node.altText || service.title} width={600} height={400} className="w-full h-auto rounded-lg" style={{ maxHeight: '600px', objectFit: 'contain' }} priority />
+                ) : service.featuredImage?.node?.sourceUrl && (
+                  <Image src={service.featuredImage.node.sourceUrl} alt={service.featuredImage.node.altText || service.title} width={600} height={400} className="w-full h-auto rounded-lg" style={{ maxHeight: '600px', objectFit: 'contain' }} priority />
+                )}
+              </div>
             </div>
           </div>
         </section>

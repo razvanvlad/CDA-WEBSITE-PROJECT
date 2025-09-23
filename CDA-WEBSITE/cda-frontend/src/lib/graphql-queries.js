@@ -1572,6 +1572,23 @@ export const GET_PAGE_GLOBAL_TOGGLES = `
         showFullVideo
         showStatsAndNumbers
         showCultureGallerySlider
+        orderShowApproach
+        orderShowCaseStudies
+        orderShowImageFrame
+        orderShowNewsCarousel
+        orderShowThreeColumns
+        orderShowValues
+        orderShowWhyCda
+        orderShowServicesAccordion
+        orderShowTechnologiesSlider
+        orderShowShowreel
+        orderShowLocationsImage
+        orderShowNewsletterSignup
+        orderShowContactFormLeftImageRight
+        orderShowJoinOurTeam
+        orderShowFullVideo
+        orderShowStatsAndNumbers
+        orderShowCultureGallerySlider
       }
     }
   }
@@ -1602,6 +1619,23 @@ export const GET_PAGE_GLOBAL_TOGGLES_NESTED = `
           showFullVideo
           showStatsAndNumbers
           showCultureGallerySlider
+          orderShowApproach
+          orderShowCaseStudies
+          orderShowImageFrame
+          orderShowNewsCarousel
+          orderShowThreeColumns
+          orderShowValues
+          orderShowWhyCda
+          orderShowServicesAccordion
+          orderShowTechnologiesSlider
+          orderShowShowreel
+          orderShowLocationsImage
+          orderShowNewsletterSignup
+          orderShowContactFormLeftImageRight
+          orderShowJoinOurTeam
+          orderShowFullVideo
+          orderShowStatsAndNumbers
+          orderShowCultureGallerySlider
         }
       }
     }
@@ -1633,6 +1667,23 @@ export const GET_PAGE_GLOBAL_TOGGLES_BY_SLUG = `
         showFullVideo
         showStatsAndNumbers
         showCultureGallerySlider
+        orderShowApproach
+        orderShowCaseStudies
+        orderShowImageFrame
+        orderShowNewsCarousel
+        orderShowThreeColumns
+        orderShowValues
+        orderShowWhyCda
+        orderShowServicesAccordion
+        orderShowTechnologiesSlider
+        orderShowShowreel
+        orderShowLocationsImage
+        orderShowNewsletterSignup
+        orderShowContactFormLeftImageRight
+        orderShowJoinOurTeam
+        orderShowFullVideo
+        orderShowStatsAndNumbers
+        orderShowCultureGallerySlider
       }
     }
   }
