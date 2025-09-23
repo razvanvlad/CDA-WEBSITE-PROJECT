@@ -13,14 +13,14 @@ Summary Table
   - Status: Server + ISR
   - Data: getGlobalContent + homepageContentClean (GraphQL)
   - Interactivity: NewsCarouselClient (client subcomponent)
-  - Tail: Not appended (per-page composition with toggles)
-  - Notes: TechnologiesSlider marked as client
+  - Tail: YES, GlobalTailSections appended with per-page toggles (same toggle checks as test page)
+  - Notes: TechnologiesSlider marked as client; primary nav zero-delay via server wrapper
 
 - About (/about)
   - Status: Server + ISR
   - Data: getGlobalContent + aboutUsContent (GraphQL)
-  - Interactivity: CultureGallerySlider (client, now hardened)
-  - Tail: Not appended (per-page composition with toggles)
+  - Interactivity: CultureGallerySlider (client, hardened)
+  - Tail: YES, GlobalTailSections appended with per-page toggles (same toggle checks as test page)
 
 - Case Studies (Archive /case-studies)
   - Status: Server (existing); renders a client CaseStudiesClient
@@ -38,9 +38,10 @@ Summary Table
   - Tail: No (per-page composition)
 
 - Service (Single /services/[slug])
-  - Status: Server (dynamic)
+  - Status: Server (dynamic) + ISR (revalidate set)
   - Data: getServiceBySlug (plus enhanced fields where available)
-  - Tail: Not currently
+  - Tail: Not currently; ServicesSlider appended at end
+  - Notes: Converted from client to server to remove loading delay
 
 - Team (Archive /team)
   - Status: Server + ISR
@@ -92,13 +93,14 @@ Summary Table
   - Status: Server
   - Tail: Not used
 
-Refactor Proposals
+Refactor Proposals (updated status)
 1) Consistent global tail via GlobalTailSections
-- Add GlobalTailSections to the end of key content pages where it makes sense: Services (archive), Service (single), Team (archive), Team Member (single), Policies (archive + single), and News pages.
-- Benefit: uniform display of Case Studies, Stats & Numbers, and Approach, controlled via enableStats prop as needed.
+- DONE: Home (/), About (/about) now append GlobalTailSections with per-page toggles (same toggle checks as the test page).
+- TODO: Consider adding to Services (archive), Team (archive/single), Policies (archive/single), and News where appropriate.
+- Benefit: uniform display of Case Studies, Stats & Numbers, and Approach, controlled by toggles.
 
 2) Server page convergence
-- Ensure all major pages use server-side data fetching via helpers in src/lib/graphql-queries.js.
+- DONE: Service single converted back to server fetch with revalidate; header zero-delay via server wrapper + client UI.
 - Keep interactivity in small "use client" subcomponents (e.g., accordions, sliders) that accept precomputed props from the server.
 
 3) GraphQL resilience
@@ -109,18 +111,21 @@ Refactor Proposals
 - Proposal: Move all global blocks into src/components/GlobalBlocks with consistent case and update imports.
 
 5) Toggle-driven rendering audit
-- Continue to respect per-page toggles (e.g., enableStatsImage) but consider a global default for the Tail (enabled unless disabled by page-level props). Keeps UX consistent and reduces conditional rendering boilerplate in pages.
+- DONE: Implemented per-entry toggles via ACF group (GLOBAL CONTENT BLOCKS TOGGLE). Ordering fields and admin DOM sorting removed.
+- DONE: Test page honors toggles and falls back only when no toggle object is returned.
+- DONE: Home and About append GlobalTailSections using the same toggle checks.
 
 6) Remove legacy client fetch patterns
-- The Homepage and About refactor eliminated useEffect-based fetching; scan for any remaining pages using client fetching (e.g., older pages) and convert them to server fetching.
+- DONE: Service single migrated from client fetch (useEffect) to server fetch.
+- Keep scanning for leftover client fetching; Jobs archive still uses a client renderer for UI but fetch can remain server-side.
 
 7) Clean-up plan
 - Remove commented code and leftover fragments uncovered during refactors (e.g., the old News Carousel markup that remained in the homepage before cleanup).
 - Standardize utilities in src/lib/graphql-queries.js, grouping helpers per post type and reusing core fallbacks across types.
 
 Detailed Page Notes
-- Home (/): Good. Keep NewsCarouselClient and consider appending GlobalTailSections if you want uniform footers everywhere.
-- About (/about): Good. CultureGallerySlider hardened. Optional: add GlobalTailSections at end.
+- Home (/): Now appends GlobalTailSections with toggles; NewsCarouselClient kept. If any homepage-specific globalSelection exists, it still controls bespoke blocks before the tail.
+- About (/about): Now appends GlobalTailSections with toggles; CultureGallerySlider kept.
 - Case Studies (single): Good pattern to follow elsewhere (URI/slug fallback + SSG+ISR + Tail).
 - Services (archive/single): Candidate for tail, and to add core fallbacks where querying enhanced fields.
 - Team (archive/single): Candidate for tail (if you want global sections consistently), already using core-only fields.

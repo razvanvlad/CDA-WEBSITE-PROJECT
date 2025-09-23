@@ -1638,6 +1638,56 @@ export const GET_PAGE_GLOBAL_TOGGLES_BY_SLUG = `
   }
 `;
 
+export const GET_PAGE_GLOBAL_TOGGLES_BY_DBID = `
+  query GetPageGlobalTogglesByDbId($id: ID!) {
+    page(id: $id, idType: DATABASE_ID) {
+      id
+      title
+      uri
+      globalContentToggles {
+        showApproach
+        showCaseStudies
+        showImageFrame
+        showNewsCarousel
+        showThreeColumns
+        showValues
+        showWhyCda
+        showServicesAccordion
+        showTechnologiesSlider
+        showShowreel
+        showLocationsImage
+        showNewsletterSignup
+        showContactFormLeftImageRight
+        showJoinOurTeam
+        showFullVideo
+        showStatsAndNumbers
+        showCultureGallerySlider
+      }
+      gLOBALCONTENTBLOCKSTOGGLE {
+        globalContentToggles {
+          showApproach
+          showCaseStudies
+          showImageFrame
+          showNewsCarousel
+          showThreeColumns
+          showValues
+          showWhyCda
+          showServicesAccordion
+          showTechnologiesSlider
+          showShowreel
+          showLocationsImage
+          showNewsletterSignup
+          showContactFormLeftImageRight
+          showJoinOurTeam
+          showFullVideo
+          showStatsAndNumbers
+          showCultureGallerySlider
+        }
+      }
+    }
+  }
+`;
+
 export async function getPageGlobalTogglesByUri(uri) {
   // Try direct mapping first
   try {
@@ -1671,6 +1721,16 @@ export async function getPageGlobalTogglesBySlug(slug) {
   try {
     const res2 = await executeGraphQLQuery(GET_PAGE_GLOBAL_TOGGLES_NESTED, { uri: `/${slug}/` });
     return res2?.data?.page?.gLOBALCONTENTBLOCKSTOGGLE?.globalContentToggles || null;
+  } catch (_) { /* ignore */ }
+  return null;
+}
+
+export async function getPageGlobalTogglesByDbId(id) {
+  try {
+    const res = await executeGraphQLQuery(GET_PAGE_GLOBAL_TOGGLES_BY_DBID, { id });
+    const page = res?.data?.page;
+    if (page?.globalContentToggles) return page.globalContentToggles;
+    if (page?.gLOBALCONTENTBLOCKSTOGGLE?.globalContentToggles) return page.gLOBALCONTENTBLOCKSTOGGLE.globalContentToggles;
   } catch (_) { /* ignore */ }
   return null;
 }
