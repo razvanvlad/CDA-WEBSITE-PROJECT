@@ -1,8 +1,16 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import GlobalTailSections from '../components/GlobalBlocks/GlobalTailSections.jsx'
 import { sanitizeTitleHtml } from '../lib/sanitizeTitleHtml'
-import { executeGraphQLQuery, getAllGlobalContentBlocks, GET_GLOBAL_IMAGE_FRAME_MIN, getPageGlobalTogglesByUri, getPageGlobalTogglesByDbId } from '../lib/graphql-queries'
+import PhotoFrame from '../components/GlobalBlocks/PhotoFrame'
+import ServicesAccordion from '../components/GlobalBlocks/ServicesAccordion'
+import TechnologiesSlider from '../components/GlobalBlocks/TechnologiesSlider'
+import ValuesBlock from '../components/GlobalBlocks/ValuesBlock'
+import Showreel from '../components/GlobalBlocks/Showreel'
+import StatsBlock from '../components/GlobalBlocks/StatsBlock.jsx'
+import CaseStudies from '../components/GlobalBlocks/CaseStudies'
+import LocationsImage from '../components/GlobalBlocks/LocationsImage'
+import NewsletterSignup from '../components/GlobalBlocks/NewsletterSignup'
+import { executeGraphQLQuery, getAllGlobalContentBlocks, GET_GLOBAL_IMAGE_FRAME_MIN, getPageGlobalTogglesByUri, getPageGlobalTogglesByDbId, getCaseStudiesWithPagination } from '../lib/graphql-queries'
 
 export const revalidate = 120
 
@@ -132,7 +140,7 @@ export default async function Home() {
   const hasAny = toggles && typeof toggles === 'object' && knownKeys.some(k => Object.prototype.hasOwnProperty.call(toggles, k))
   const t = hasAny ? toggles : Object.fromEntries(knownKeys.map(k => [k, true]))
 
-  // 2) Fetch all global content blocks and patch missing imageFrame if needed (same as test page)
+  // 2) Fetch all global content blocks and patch missing imageFrame if needed
   let globalData = await getAllGlobalContentBlocks()
   try {
     if (!globalData?.imageFrameBlock) {
@@ -142,15 +150,42 @@ export default async function Home() {
     }
   } catch (_) {}
 
-// 3) Fetch homepage hero (ACF) via DB ID 289
+  // 3) Fetch homepage hero (ACF) via DB ID 289
   const homeRes = await executeGraphQLQuery(GET_HOMEPAGE_CONTENT, { id: HOMEPAGE_ID })
   const hero = homeRes?.data?.page?.homepageContentClean?.headerSection || null
+
+  // 4) Prepare Case Studies (Global with fallback)
+  let csData = null
+  if (t.showCaseStudies) {
+    csData = globalData?.caseStudiesSection || null
+    if (!csData) {
+      try {
+        const { nodes } = await getCaseStudiesWithPagination({ first: 2 })
+        if (nodes && nodes.length > 0) {
+          csData = {
+            title: 'Case Studies',
+            subtitle: 'Our Work',
+            knowledgeHubLink: { url: '/case-studies', title: 'See All', target: '_self' },
+            selectedStudies: {
+              nodes: nodes.map(n => ({
+                id: n.id,
+                title: n.title,
+                uri: `/case-studies/${n.slug}`,
+                excerpt: n.excerpt,
+                featuredImage: n.featuredImage,
+              }))
+            }
+          }
+        }
+      } catch (_) {}
+    }
+  }
 
   return (
     <>
       <Header />
 
-      {/* Hero section (extra on top of test page content) */}
+      {/* 1) Hero individual */}
       {hero && (
         <section className="home-hero-section bg-white">
           <div className="home-header-grid mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
@@ -165,12 +200,12 @@ export default async function Home() {
               <div className="home-header-cta home-hero-cta">
                 {hero.button1 && (
                   <a href={hero.button1.url || '#'} className="button-l" target={hero.button1.target || '_self'}>
-                    {hero.button1.title || 'Get Started'}
+                    {hero.button1.title || 'Start A Project'}
                   </a>
                 )}
                 {hero.button2 && (
                   <a href={hero.button2.url || '#'} className="button-without-box" target={hero.button2.target || '_self'}>
-                    {hero.button2.title || 'Learn More'}
+                    {hero.button2.title || 'View Our Services'}
                   </a>
                 )}
               </div>
@@ -194,28 +229,63 @@ export default async function Home() {
         </section>
       )}
 
-      {/* Global sections below, driven by the homepage toggles (same as test page) */}
-      <GlobalTailSections
-        globalData={globalData}
-        enableCaseStudies={!!t.showCaseStudies}
-        enableCaseStudiesFallback={!!t.showCaseStudies}
-        enableImageFrame={!!t.showImageFrame}
-        enableNewsCarousel={!!t.showNewsCarousel}
-        enableColumnsWithIcons3X={!!t.showThreeColumns}
-        enableStats={!!t.showStatsAndNumbers}
-        enableApproach={!!t.showApproach}
-        enableValues={!!t.showValues}
-        enableWhyCda={!!t.showWhyCda}
-        enableServicesAccordion={!!t.showServicesAccordion}
-        enableTechnologiesSlider={!!t.showTechnologiesSlider}
-        enableShowreel={!!t.showShowreel}
-        enableLocationsImage={!!t.showLocationsImage}
-        enableNewsletterSignup={!!t.showNewsletterSignup}
-        enableContactFormLeftImageRight={!!t.showContactFormLeftImageRight}
-        enableJoinOurTeam={!!t.showJoinOurTeam}
-        enableFullVideo={!!t.showFullVideo}
-        enableCultureGallerySlider={!!t.showCultureGallerySlider}
-      />
+      {/* 2) [Global] Image Frame Block */}
+      {t.showImageFrame && globalData?.imageFrameBlock && (
+        <PhotoFrame globalData={globalData.imageFrameBlock} />
+      )}
+
+      {/* 3) [Global] Services Accordion */}
+      {t.showServicesAccordion && globalData?.servicesAccordion && (
+        <ServicesAccordion globalData={{
+          title: globalData.servicesAccordion.title,
+          subtitle: globalData.servicesAccordion.subtitle,
+          illustration: globalData.servicesAccordion.illustration,
+          services: { nodes: (globalData.servicesAccordion.services?.edges || []).map(e => e?.node).filter(Boolean) }
+        }} />
+      )}
+
+      {/* 4) [Global] Technologies Slider */}
+      {t.showTechnologiesSlider && globalData?.technologiesSlider && (
+        <TechnologiesSlider globalData={{
+          title: globalData.technologiesSlider.title,
+          subtitle: globalData.technologiesSlider.subtitle,
+          logos: (globalData.technologiesSlider.logos?.edges || []).map(e => ({
+            url: e?.node?.featuredImage?.node?.sourceUrl || '',
+            alt: e?.node?.featuredImage?.node?.altText || e?.node?.title || 'Technology logo',
+            title: e?.node?.title || ''
+          }))
+        }} />
+      )}
+
+      {/* 5) [Global] Values Block */}
+      {t.showValues && globalData?.valuesBlock && (
+        <ValuesBlock globalData={globalData.valuesBlock} />
+      )}
+
+      {/* 6) [Global] Showreel Block */}
+      {t.showShowreel && globalData?.showreel && (
+        <Showreel globalData={globalData.showreel} />
+      )}
+
+      {/* 7) [Global] Stats */}
+      {t.showStatsAndNumbers && globalData?.statsAndNumbers && (
+        <StatsBlock data={globalData.statsAndNumbers} />
+      )}
+
+      {/* 8) [Global] Projects / case studies (global or fallback) */}
+      {t.showCaseStudies && csData && (
+        <CaseStudies globalData={csData} />
+      )}
+
+      {/* 9) [Global] Locations with Image (match contact page design) */}
+      {t.showLocationsImage && globalData?.locationsImage && (
+        <LocationsImage globalData={globalData.locationsImage} />
+      )}
+
+      {/* 10) [Global] Newsletter (match contact page design) */}
+      {t.showNewsletterSignup && globalData?.newsletterSignup && (
+        <NewsletterSignup globalData={globalData.newsletterSignup} />
+      )}
 
       <Footer />
     </>

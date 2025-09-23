@@ -69,7 +69,10 @@ const ServicesAccordion = ({ globalData }) => {
                     </button>
                     <div className={`px-5 md:px-6 pb-5 md:pb-6 ${isOpen ? 'block' : 'hidden'}`}>
                       <div className="text-[15px] md:text-[16px] leading-[1.7] text-[#4B5563]">
-                        <p className="mb-4">Learn more about this service and how it helps your business.</p>
+                        {(() => {
+                          const sub = item?.serviceFields?.heroSection?.subtitle || item?.heroSection?.subtitle || item?.subtitle || '';
+                          return sub ? (<p className="mb-4">{sub}</p>) : null;
+                        })()}
                         {item.slug && (
                           <a href={`/services/${item.slug}`} className="button-l inline-flex">Find Out More</a>
                         )}

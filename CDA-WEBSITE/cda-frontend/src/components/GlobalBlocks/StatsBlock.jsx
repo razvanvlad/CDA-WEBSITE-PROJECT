@@ -13,22 +13,29 @@ export default function StatsBlock({ data }) {
           <div className="lg:col-span-7">
             {/* Four stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-              {(stats || []).slice(0,4).map((s, i) => (
-                <div key={i}>
-                  <div className="text-5xl font-extrabold text-black leading-none mb-2">{s?.number}</div>
-                  <div className="text-gray-700 text-lg">{s?.text}</div>
-                </div>
-              ))}
+              {(stats || []).slice(0,4).map((s, i) => {
+                const underlineClasses = ['underline-pink', 'underline-purple', 'underline-light-blue', 'underline-orange']
+                const uClass = underlineClasses[i % underlineClasses.length]
+                return (
+                  <div key={i}>
+                    <div className="text-black" style={{ fontFamily: 'Poppins, sans-serif', fontSize: 70, fontWeight: 700, lineHeight: 1 }}>
+                      <span className={`underline-thick ${uClass}`}>{s?.number}</span>
+                    </div>
+                    <div className="mt-3 text-gray-700 text-lg">{s?.text}</div>
+                  </div>
+                )
+              })}
             </div>
 
-            {description && (
-              <p className="text-gray-700 text-base md:text-lg leading-relaxed max-w-2xl mb-6">{description}</p>
-            )}
-
-            {cta?.url && (
-              <a href={cta.url} target={cta.target || '_self'} className="inline-flex items-center px-6 py-3 border border-black text-black hover:bg-black hover:text-white transition">
-                {cta.title || 'Learn More'}
-              </a>
+            {(description || cta?.url) && (
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                {description && (
+                  <p className="text-gray-700 text-base md:text-lg leading-relaxed max-w-2xl m-0">{description}</p>
+                )}
+                {cta?.url && (
+                  <a href={cta.url} target={cta.target || '_self'} className="button-l md:ml-6 shrink-0">Our Careers</a>
+                )}
+              </div>
             )}
           </div>
 

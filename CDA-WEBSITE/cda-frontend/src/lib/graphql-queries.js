@@ -1335,14 +1335,32 @@ export const GET_ALL_GLOBAL_CONTENT_BLOCKS = `
           illustration { node { sourceUrl altText } }
           services {
             edges {
-              node { ... on Service { id title slug } }
+              node {
+                ... on Service {
+                  id
+                  title
+                  slug
+                  serviceFields { heroSection { subtitle description } }
+                }
+              }
             }
           }
         }
         technologiesSlider {
           title
           subtitle
-          logos { edges { node { ... on Technology { id title slug } } } }
+          logos {
+            edges {
+              node {
+                ... on Technology {
+                  id
+                  title
+                  slug
+                  featuredImage { node { sourceUrl altText } }
+                }
+              }
+            }
+          }
         }
         showreel {
           title
