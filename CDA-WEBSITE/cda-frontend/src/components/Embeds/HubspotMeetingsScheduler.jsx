@@ -49,14 +49,13 @@ export default function HubspotMeetingsScheduler({
 
   // Derived labels
   const displayName = memberName || ownerSlug.replace(/-/g, ' ').replace(/\b\w/g, (m) => m.toUpperCase())
-  const titleSuffix = jobTitle ? ` ${jobTitle}` : ''
+// Do not append job title to booking heading text
+
+  // Decorative images from public folder
+  const carUrl = '/images/Group-9161.svg'
+  const arrowUrl = '/images/Component-113-–-2-1.svg'
 
   const isValid = Boolean(firstName && lastName && /.+@.+\..+/.test(email))
-
-  // Build non-static asset URLs from WordPress base
-  const WP_BASE = (process?.env?.NEXT_PUBLIC_WORDPRESS_URL || '').replace(/\/$/, '')
-  const carUrl = WP_BASE ? `${WP_BASE}/wp-content/uploads/2025/09/Group-9161.svg` : '/wp-content/uploads/2025/09/Group-9161.svg'
-  const arrowUrl = WP_BASE ? `${WP_BASE}/wp-content/uploads/2025/09/Component-113-–-2-1.svg` : '/wp-content/uploads/2025/09/Component-113-–-2-1.svg'
 
   return (
     <section className="relative py-10 pb-28 md:pb-36 bg-[#F4F4F4] overflow-visible">
@@ -64,24 +63,25 @@ export default function HubspotMeetingsScheduler({
       <img
         src={carUrl}
         alt=""
-        className="pointer-events-none select-none absolute right-6 top-0 md:w-[1021px] md:h-[325px] w-[436px] h-[139px] object-contain z-10 md:-translate-y-1/2"
+        className="pointer-events-none select-none absolute top-0 md:w-[860px] md:h-[270px] w-[360px] h-[115px] object-contain z-10 md:-translate-y-1/2"
+        style={{ top: '-50px', left: '42%' }}
       />
-
       {/* Arrow placed under the HubSpot form, overlapping into next section by half its height */}
       <img
         src={arrowUrl}
         alt=""
-        className="pointer-events-none select-none absolute right-8 z-10"
-        style={{ width: '350px', height: '170px', bottom: '-85px' }}
+        className="pointer-events-none select-none absolute z-10"
+        style={{ width: '350px', height: '170px', bottom: '-85px', right: '82px' }}
       />
 
       <div className="relative mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 grid grid-cols-12 gap-y-10 gap-x-10 items-start">
+
         {/* Left: Form */}
         <div className="col-span-12 lg:col-span-6 relative z-20">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            <p className="transition-colors" style={{ textDecoration: 'underline', textDecorationColor: '#FF5C8A', textDecorationThickness: '4px' }} >
-              {`Book Time With ${displayName}${titleSuffix}`}
-            </p>
+            <a className="transition-colors" style={{ textDecoration: 'underline', textDecorationColor: '#FF5C8A', textDecorationThickness: '4px' }} href="/services/outsourced-cmo">
+              {`Book Time With ${displayName}`}
+            </a>
           </h2>
           <p className="text-[#4B5563] mb-6">The first step toward something great.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
