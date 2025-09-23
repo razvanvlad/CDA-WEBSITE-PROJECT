@@ -79,9 +79,9 @@ export default function HubspotMeetingsScheduler({
         {/* Left: Form */}
         <div className="col-span-12 lg:col-span-6 relative z-20">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            <a className="transition-colors" style={{ textDecoration: 'underline', textDecorationColor: '#FF5C8A', textDecorationThickness: '4px' }} href="/services/outsourced-cmo">
+            <p className="transition-colors" style={{ textDecoration: 'underline', textDecorationColor: '#FF5C8A', textDecorationThickness: '4px' }} >
               {`Book Time With ${displayName}${titleSuffix}`}
-            </a>
+            </p>
           </h2>
           <p className="text-[#4B5563] mb-6">The first step toward something great.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">

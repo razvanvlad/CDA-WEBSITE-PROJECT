@@ -328,7 +328,7 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
 
       {/* Booking Modal */}
       {isBookingModalOpen && (
-        <BookingModal onClose={() => setIsBookingModalOpen(false)} />
+        <BookingModal isOpen={isBookingModalOpen} onClose={() => setIsBookingModalOpen(false)} />
       )}
     </>
   )
