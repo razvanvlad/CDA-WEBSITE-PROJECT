@@ -4,6 +4,7 @@ import Footer from '../../../components/Footer'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
+import HubspotMeetingsScheduler from '@/components/Embeds/HubspotMeetingsScheduler.jsx'
 
 export const revalidate = 300
 
@@ -74,6 +75,9 @@ export default async function TeamMemberDetailPage({ params }) {
                 </div>
               )}
             </header>
+
+            {/* Meetings Scheduler */}
+            <HubspotMeetingsScheduler ownerSlug="stuart-alldis" defaultProvider="zoom" />
 
             <div className="max-w-none text-gray-800 leading-relaxed">
               {member.content && (
