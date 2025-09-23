@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const { slug } = params
+  const { slug } = await params
   try {
     const member = await getTeamMemberBySlug(slug)
     if (!member) return { title: 'Team Member - CDA Systems' }
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function TeamMemberDetailPage({ params }) {
-  const { slug } = params
+  const { slug } = await params
   try {
     const member = await getTeamMemberBySlug(slug)
     if (!member) notFound()
@@ -70,26 +70,28 @@ export default async function TeamMemberDetailPage({ params }) {
               </Link>
             </nav>
 
-            <div className="grid grid-cols-12 gap-8 items-start">
+            <div className="grid grid-cols-12 gap-y-10 gap-x-10 items-start">
               {/* Left: Profile Image */}
               <div className="col-span-12 md:col-span-5">
                 {profileImage && (
                   <Image
                     src={profileImage}
                     alt={profileAlt}
-                    width={600}
-                    height={720}
-                    className="w-full h-auto rounded-lg shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
+                    width={788}
+                    height={770}
+                    className="w-[353px] h-[393px] md:w-[788px] md:h-[770px] object-cover object-center rounded-lg shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
                   />
                 )}
               </div>
 
               {/* Right: Name, Title, Bio, Contacts */}
               <div className="col-span-12 md:col-span-7">
-                {jobTitle && (
-                  <p className="text-sm md:text-base font-semibold tracking-wide uppercase text-[#111827] mb-2">{jobTitle}</p>
-                )}
-                <h1 className="text-4xl md:text-5xl font-extrabold text-black mb-4">{member.title}</h1>
+                <h1
+                  className="service-hero-title text-4xl lg:text-5xl font-bold mb-6"
+                  style={{ textDecoration: 'underline', textDecorationColor: '#FF5C8A', textDecorationThickness: '11px' }}
+                >
+                  {member.title} {jobTitle ? (<span className="block lg:inline">{jobTitle}</span>) : null}
+                </h1>
                 {shortBio && (
                   <div className="prose prose-p:mb-4 max-w-none text-gray-800" dangerouslySetInnerHTML={{ __html: shortBio }} />
                 )}
@@ -124,20 +126,9 @@ export default async function TeamMemberDetailPage({ params }) {
 
             {/* Full-width Booking Form (only for Stuart Alldis - DB ID 884) */}
             {Number(member?.databaseId) === 884 && (
-              <section className="relative mt-16">
-                <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-                  <div className="relative">
-                    <img
-                      src="http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/wp-content/uploads/2025/09/Group-9161.svg"
-                      alt=""
-                      className="hidden md:block absolute -top-6 right-0 w-[200px] h-auto pointer-events-none select-none z-10"
-                    />
-                    <div className="relative z-0">
-                      <HubspotMeetingsScheduler ownerSlug="stuart-alldis" defaultProvider="zoom" />
-                    </div>
-                  </div>
-                </div>
-              </section>
+              <div className="mt-16">
+                <HubspotMeetingsScheduler ownerSlug="stuart-alldis" defaultProvider="zoom" memberName={member.title} jobTitle={jobTitle || ''} />
+              </div>
             )}
 
             {/* Full content (optional additional information) */}
@@ -146,18 +137,21 @@ export default async function TeamMemberDetailPage({ params }) {
                 <div dangerouslySetInnerHTML={{ __html: member.content }} className="team-member-content" />
               </div>
             )}
-
-            <div className="mt-12 pt-8 border-t border-gray-200">
-              <div className="flex justify-between items-center">
-                <Link href="/team" className="inline-flex items-center px-6 py-3 bg-gray-100 text-gray-700 hover:bg-gray-200">← All Team Members</Link>
-                <Link href="/contact" className="inline-flex items-center px-6 py-3 bg-blue-600 text-white hover:bg-blue-700">Work With Us</Link>
-              </div>
-            </div>
           </div>
         </article>
+
+        {/* Team Members Slider (below booking form) */}
+        {member && (
+          <div className="mt-12 bg-white">
+            {(() => { const TeamMembersSlider = require('../../../components/GlobalBlocks/TeamMembersSlider.jsx').default; return (
+              <TeamMembersSlider title="Meet More of the Team" subtitle="Our Team" />
+            ); })()}
+          </div>
+        )}
+
         {/* Services Slider at end of team member post */}
         {member && (
-          <div className="mt-12">
+          <div className="mt-12 bg-white">
             {(() => { const ServicesSlider = require('../../../components/GlobalBlocks/ServicesSlider.jsx').default; return (
               <ServicesSlider title="You May Also Be Interested In" subtitle="Our Services" />
             ); })()}
