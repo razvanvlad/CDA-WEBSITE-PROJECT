@@ -635,7 +635,6 @@ export const GET_ALL_TEAM_MEMBERS = `
         teamMemberFields {
           jobTitle
           shortBio
-          featured
         }
         departments {
           nodes {
@@ -671,7 +670,6 @@ export const GET_TEAM_MEMBERS_WITH_PAGINATION = `
         teamMemberFields {
           jobTitle
           shortBio
-          featured
         }
         departments {
           nodes {
@@ -715,7 +713,6 @@ export const GET_TEAM_MEMBER_BY_SLUG = `
           name
           level
         }
-        featured
         publicProfile
       }
       departments {
@@ -793,6 +790,42 @@ export const GET_TEAM_MEMBER_CORE_BY_SLUG = `
     }
   }
 `;
+
+// =============================================================================
+// TEAM MEMBER DETAILS BY DB ID (new)
+// =============================================================================
+export const GET_TEAM_MEMBER_DETAILS_BY_DBID = `
+  query GetTeamMemberDetails($id: ID!) {
+    teamMember(id: $id, idType: DATABASE_ID) {
+      id
+      title
+      slug
+      date
+      content
+      featuredImage { node { sourceUrl altText } }
+      teamMemberFields {
+        featuredImage { node { sourceUrl altText } }
+        name
+        jobTitle
+        shortBio
+        contactDetails {
+          icon { node { sourceUrl altText } }
+          text
+          url
+        }
+      }
+    }
+  }
+`;
+
+export async function getTeamMemberDetailsByDbId(id) {
+  const response = await executeGraphQLQuery(GET_TEAM_MEMBER_DETAILS_BY_DBID, { id });
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return null;
+  }
+  return response.data?.teamMember || null;
+}
 
 // =============================================================================
 // UTILITY FUNCTIONS

@@ -1,4 +1,4 @@
-import { getTeamMemberBySlug, getTeamMemberSlugs } from '@/lib/graphql-queries.js'
+import { getTeamMemberBySlug, getTeamMemberSlugs, getTeamMemberDetailsByDbId } from '@/lib/graphql-queries.js'
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
 import Link from 'next/link'
@@ -49,10 +49,14 @@ export async function generateMetadata({ params }) {
 export default async function TeamMemberDetailPage({ params }) {
   const { slug } = await params
   try {
-    const member = await getTeamMemberBySlug(slug)
-    if (!member) notFound()
+    const core = await getTeamMemberBySlug(slug)
+    if (!core) notFound()
 
-    // Derive core fields
+    // Fetch full details by DB ID using the working query
+    const details = core?.databaseId ? await getTeamMemberDetailsByDbId(core.databaseId) : null
+    const member = details || core
+
+    // Derive fields
     const jobTitle = member?.teamMemberFields?.jobTitle || null
     const shortBio = member?.teamMemberFields?.shortBio || null
     const contactDetails = member?.teamMemberFields?.contactDetails || []
@@ -125,7 +129,7 @@ export default async function TeamMemberDetailPage({ params }) {
             </div>
 
             {/* Full-width Booking Form (only for Stuart Alldis - DB ID 884) */}
-            {Number(member?.databaseId) === 884 && (
+            {Number(core?.databaseId) === 884 && (
               <div className="mt-16">
                 <HubspotMeetingsScheduler ownerSlug="stuart-alldis" defaultProvider="zoom" memberName={member.title} jobTitle={jobTitle || ''} />
               </div>
