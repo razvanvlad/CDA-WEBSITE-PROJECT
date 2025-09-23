@@ -66,7 +66,7 @@ export default async function TeamMemberDetailPage({ params }) {
     return (
       <>
         <Header />
-        <article className="min-h-screen bg-white py-16">
+        <article className="min-h-screen bg-white py-20 md:py-24">
           <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
             <nav className="mb-8">
               <Link href="/team" className="inline-flex items-center gap-2 text-[#111827] hover:text-black">
@@ -74,7 +74,7 @@ export default async function TeamMemberDetailPage({ params }) {
               </Link>
             </nav>
 
-            <div className="grid grid-cols-12 gap-y-10 gap-x-10 items-start">
+            <div className="grid grid-cols-12 gap-y-10 gap-x-10 items-start md:items-center">
               {/* Left: Profile Image */}
               <div className="col-span-12 md:col-span-5">
                 {profileImage && (
@@ -83,19 +83,24 @@ export default async function TeamMemberDetailPage({ params }) {
                     alt={profileAlt}
                     width={788}
                     height={770}
-                    className="w-[353px] h-[393px] md:w-[788px] md:h-[770px] object-cover object-center rounded-lg shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
+                    className="w-[353px] h-[393px] md:w-[788px] md:h-[770px] object-cover object-center rounded-lg"
                   />
                 )}
               </div>
 
               {/* Right: Name, Title, Bio, Contacts */}
-              <div className="col-span-12 md:col-span-7">
-                <h1
-                  className="service-hero-title text-4xl lg:text-5xl font-bold mb-6"
-                  style={{ textDecoration: 'underline', textDecorationColor: '#FF5C8A', textDecorationThickness: '11px' }}
-                >
-                  {member.title} {jobTitle ? (<span className="block lg:inline">{jobTitle}</span>) : null}
-                </h1>
+              <div className="col-span-12 md:col-span-7 md:pl-20 lg:pl-20 md:pr-20 lg:pr-20">
+                <div className="max-w-[620px] mx-auto md:mx-0">
+                  {jobTitle && (
+                    <p className="text-sm md:text-base font-semibold tracking-wide uppercase text-[#111827] mb-2">{jobTitle}</p>
+                  )}
+                  <h1
+                    className="service-hero-title text-4xl lg:text-5xl font-bold mb-6"
+                    style={{ textDecoration: 'underline', textDecorationColor: '#FF5C8A', textDecorationThickness: '11px' }}
+                  >
+                    {member.title}
+                  </h1>
+                </div>
                 {shortBio && (
                   <div className="prose prose-p:mb-4 max-w-none text-gray-800" dangerouslySetInnerHTML={{ __html: shortBio }} />
                 )}
@@ -134,19 +139,13 @@ export default async function TeamMemberDetailPage({ params }) {
                 <HubspotMeetingsScheduler ownerSlug="stuart-alldis" defaultProvider="zoom" memberName={member.title} jobTitle={jobTitle || ''} />
               </div>
             )}
-
-            {/* Full content (optional additional information) */}
-            {member.content && (
-              <div className="max-w-none text-gray-800 leading-relaxed mt-12">
-                <div dangerouslySetInnerHTML={{ __html: member.content }} className="team-member-content" />
-              </div>
-            )}
-          </div>
+            
+          </div> 
         </article>
 
         {/* Team Members Slider (below booking form) */}
         {member && (
-          <div className="mt-12 bg-white">
+          <div className="bg-white">
             {(() => { const TeamMembersSlider = require('../../../components/GlobalBlocks/TeamMembersSlider.jsx').default; return (
               <TeamMembersSlider title="Meet More of the Team" subtitle="Our Team" />
             ); })()}
@@ -155,7 +154,7 @@ export default async function TeamMemberDetailPage({ params }) {
 
         {/* Services Slider at end of team member post */}
         {member && (
-          <div className="mt-12 bg-white">
+          <div className="bg-white">
             {(() => { const ServicesSlider = require('../../../components/GlobalBlocks/ServicesSlider.jsx').default; return (
               <ServicesSlider title="You May Also Be Interested In" subtitle="Our Services" />
             ); })()}
