@@ -11,7 +11,7 @@ import LocationsImage from '../../components/GlobalBlocks/LocationsImage';
 import CultureGallerySlider from '../../components/GlobalBlocks/CultureGallerySlider';
 import StatsBlock from '../../components/GlobalBlocks/StatsBlock';
 import { sanitizeTitleHtml } from '../../lib/sanitizeTitleHtml';
-import { executeGraphQLQuery, getGlobalContent } from '../../lib/graphql-queries';
+import { executeGraphQLQuery, getGlobalContent, getPageGlobalTogglesByUri, getPageGlobalTogglesBySlug } from '../../lib/graphql-queries';
 
 export const revalidate = 300;
 
@@ -65,6 +65,14 @@ export default async function AboutPage() {
   const globalContentBlocks = { ...(globalBlocks || {}), ...(technologiesSlider ? { technologiesSlider } : {}) };
   const globalSelection = aboutData?.globalContentSelection || {};
   const aboutContent = aboutData;
+
+  // Per-page global toggles (same approach as test page)
+  let toggles = await getPageGlobalTogglesByUri('/index.php/about/')
+  if (!toggles) toggles = await getPageGlobalTogglesByUri('/about/')
+  if (!toggles) toggles = await getPageGlobalTogglesBySlug('about')
+  const knownFlags = ['showApproach','showCaseStudies','showImageFrame','showNewsCarousel','showThreeColumns','showValues','showWhyCda','showServicesAccordion','showTechnologiesSlider','showShowreel','showLocationsImage','showNewsletterSignup','showContactFormLeftImageRight','showJoinOurTeam','showFullVideo','showStatsAndNumbers','showCultureGallerySlider']
+  const hasAny = toggles && typeof toggles === 'object' && knownFlags.some(k => Object.prototype.hasOwnProperty.call(toggles,k))
+  const t = hasAny ? toggles : Object.fromEntries(knownFlags.map(k => [k, true]))
 
   return (
     <>
@@ -174,6 +182,35 @@ export default async function AboutPage() {
         <LocationsImage globalData={globalContentBlocks.locationsImage} />
       )}
       
+      {/* Append shared global tail controlled by per-page toggles */}
+      {globalBlocks && (
+        <div className="mt-12">
+          {await import('../../components/GlobalBlocks/GlobalTailSections.jsx').then(({ default: GlobalTailSections }) => (
+            <GlobalTailSections
+              globalData={globalBlocks}
+              enableCaseStudies={!!t.showCaseStudies}
+              enableCaseStudiesFallback={!!t.showCaseStudies}
+              enableImageFrame={!!t.showImageFrame}
+              enableNewsCarousel={!!t.showNewsCarousel}
+              enableColumnsWithIcons3X={!!t.showThreeColumns}
+              enableStats={!!t.showStatsAndNumbers}
+              enableApproach={!!t.showApproach}
+              enableValues={!!t.showValues}
+              enableWhyCda={!!t.showWhyCda}
+              enableServicesAccordion={!!t.showServicesAccordion}
+              enableTechnologiesSlider={!!t.showTechnologiesSlider}
+              enableShowreel={!!t.showShowreel}
+              enableLocationsImage={!!t.showLocationsImage}
+              enableNewsletterSignup={!!t.showNewsletterSignup}
+              enableContactFormLeftImageRight={!!t.showContactFormLeftImageRight}
+              enableJoinOurTeam={!!t.showJoinOurTeam}
+              enableFullVideo={!!t.showFullVideo}
+              enableCultureGallerySlider={!!t.showCultureGallerySlider}
+            />
+          ))}
+        </div>
+      )}
+
       <Footer />
     </>
   );

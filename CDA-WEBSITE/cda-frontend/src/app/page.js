@@ -1,151 +1,185 @@
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import ValuesBlock from '../components/GlobalBlocks/ValuesBlock';
-import PhotoFrame from '../components/GlobalBlocks/PhotoFrame';
-import TechnologiesSlider from '../components/GlobalBlocks/TechnologiesSlider';
-import Showreel from '../components/GlobalBlocks/Showreel';
-import ServicesAccordion from '../components/GlobalBlocks/ServicesAccordion';
-import LocationsImage from '../components/GlobalBlocks/LocationsImage';
-import CaseStudies from '../components/GlobalBlocks/CaseStudies';
-import StatsBlock from '../components/GlobalBlocks/StatsBlock';
-import { sanitizeTitleHtml } from '../lib/sanitizeTitleHtml';
-import NewsletterSignup from '../components/GlobalBlocks/NewsletterSignup';
-import NewsCarouselClient from '../components/GlobalBlocks/NewsCarouselClient.jsx';
-import { executeGraphQLQuery, getGlobalContent } from '../lib/graphql-queries';
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import GlobalTailSections from '../components/GlobalBlocks/GlobalTailSections.jsx'
+import { sanitizeTitleHtml } from '../lib/sanitizeTitleHtml'
+import { executeGraphQLQuery, getAllGlobalContentBlocks, GET_GLOBAL_IMAGE_FRAME_MIN, getPageGlobalTogglesByUri, getPageGlobalTogglesByDbId } from '../lib/graphql-queries'
 
-export const revalidate = 300;
+export const revalidate = 120
 
-export default async function Home() {
-  // Fetch global options via centralized helper (includes approach, case studies section, statsAndNumbers)
-  const globalBlocks = await getGlobalContent();
-
-  // Fetch homepage CMS content
-  const homepageQuery = `{
-    page(id: "289", idType: DATABASE_ID) {
+// Fetch homepage hero (ACF) with the provided working query by DB ID
+const HOMEPAGE_ID = '289'
+const GET_HOMEPAGE_CONTENT = `
+  query GetHomepageContent($id: ID!) {
+    page(id: $id, idType: DATABASE_ID) {
+      id
       title
-      homepageContentClean {
-        headerSection {
-          title
-          text
-          button1 { url title target }
-          button2 { url title target }
-          illustration { node { sourceUrl altText } }
-        }
-        projectsSection { title subtitle link { url title target } }
-        caseStudiesSection {
-          subtitle
-          title
-          knowledgeHubLink { url title target }
-          selectedStudies { nodes { ... on CaseStudy { id title uri excerpt featuredImage { node { sourceUrl altText } } } } }
-        }
-        globalContentSelection {
-          enableValues
-          enableImageFrame
-          enableTechnologiesSlider
-          enableServicesAccordion
-          enableShowreel
-          enableStatsImage
-          enableLocationsImage
-          enableNewsCarousel
-          enableNewsletterSignup
-        }
+      date
+      ... on NodeWithFeaturedImage {
+        featuredImage { node { sourceUrl altText } }
       }
-    }
-  }`;
-  const homepageRes = await executeGraphQLQuery(homepageQuery);
-  const homepageData = homepageRes?.data?.page?.homepageContentClean || {};
-
-  // Compute News Carousel articles server-side (manual / latest / category)
-  let newsCarousel = globalBlocks?.newsCarousel || null;
-  if (newsCarousel) {
-    try {
-      const selection = newsCarousel.articleSelection;
-      let computedArticles = [];
-      if (selection === 'manual') {
-        computedArticles = (newsCarousel.manualArticles?.nodes || [])
-          .filter(n => !!n)
-          .map((n) => ({
-            id: n?.id,
-            title: n?.title,
-            excerpt: n?.excerpt,
-            uri: n?.uri,
-            imageUrl: n?.featuredImage?.node?.sourceUrl || '',
-            imageAlt: n?.featuredImage?.node?.altText || n?.title || 'Article image',
-          }));
-      } else {
-        const selectedSlug = newsCarousel?.category?.nodes?.[0]?.slug;
-        const firstCount = selection === 'category' ? 12 : 6;
-        const blogQuery = `{
-          blogPosts(first: ${firstCount}, where: { orderby: {field: DATE, order: DESC} }) {
-            nodes {
-              id
-              title
-              excerpt
-              uri
-              date
-              featuredImage { node { sourceUrl altText } }
-              blogCategories { nodes { name slug } }
-            }
+      ... on Page {
+        homepageContentClean {
+          headerSection {
+            title
+            text
+            button1 { url title target }
+            button2 { url title target }
+            illustration { node { sourceUrl altText } }
           }
-        }`;
-        const blogRes = await executeGraphQLQuery(blogQuery);
-        const blogNodes = blogRes?.data?.blogPosts?.nodes || [];
-        const filtered = (selection === 'category' && selectedSlug)
-          ? blogNodes.filter((n) => (n?.blogCategories?.nodes || []).some((c) => c?.slug === selectedSlug))
-          : blogNodes;
-        computedArticles = filtered.map((n) => ({
-          id: n?.id,
-          title: n?.title,
-          excerpt: n?.excerpt,
-          uri: n?.uri,
-          date: n?.date,
-          imageUrl: n?.featuredImage?.node?.sourceUrl || '',
-          imageAlt: n?.featuredImage?.node?.altText || n?.title || 'Article image',
-          categories: (n?.blogCategories?.nodes || []).map((c) => c?.name).filter(Boolean),
-        }));
+        }
       }
-      newsCarousel = { ...newsCarousel, computedArticles };
-    } catch (_) {
-      // keep as-is
     }
   }
+`
 
-  // Merge back normalized globalBlocks with computed news carousel
-  const globalContentBlocks = { ...(globalBlocks || {}), ...(newsCarousel ? { newsCarousel } : {}) };
-  const globalSelection = homepageData?.globalContentSelection || {};
+// Robustly resolve homepage toggles even when the site root URI is used
+async function getHomeToggles() {
+  // First, try typical root URIs
+  let t = await getPageGlobalTogglesByUri('/index.php/')
+  if (t) return t
+  t = await getPageGlobalTogglesByUri('/')
+  if (t) return t
+
+  // Next, try to resolve the front page via nodeByUri and then by databaseId
+  const NODE_QUERY = `
+    query HomeNodeToggles($uri: String!) {
+      nodeByUri(uri: $uri) {
+        __typename
+        ... on Page {
+          databaseId
+          uri
+          globalContentToggles {
+            showApproach
+            showCaseStudies
+            showImageFrame
+            showNewsCarousel
+            showThreeColumns
+            showValues
+            showWhyCda
+            showServicesAccordion
+            showTechnologiesSlider
+            showShowreel
+            showLocationsImage
+            showNewsletterSignup
+            showContactFormLeftImageRight
+            showJoinOurTeam
+            showFullVideo
+            showStatsAndNumbers
+            showCultureGallerySlider
+          }
+          gLOBALCONTENTBLOCKSTOGGLE {
+            globalContentToggles {
+              showApproach
+              showCaseStudies
+              showImageFrame
+              showNewsCarousel
+              showThreeColumns
+              showValues
+              showWhyCda
+              showServicesAccordion
+              showTechnologiesSlider
+              showShowreel
+              showLocationsImage
+              showNewsletterSignup
+              showContactFormLeftImageRight
+              showJoinOurTeam
+              showFullVideo
+              showStatsAndNumbers
+              showCultureGallerySlider
+            }
+          }
+        }
+      }
+    }
+  `
+  for (const uri of ['/', '/index.php/']) {
+    try {
+      const res = await executeGraphQLQuery(NODE_QUERY, { uri })
+      const node = res?.data?.nodeByUri
+      const direct = node?.globalContentToggles
+      if (direct) return direct
+      const nested = node?.gLOBALCONTENTBLOCKSTOGGLE?.globalContentToggles
+      if (nested) return nested
+      const dbid = node?.databaseId
+      if (dbid) {
+        const byId = await getPageGlobalTogglesByDbId(String(dbid))
+        if (byId) return byId
+      }
+    } catch (_) { /* continue */ }
+  }
+
+  // Finally, try common slugs used for home pages
+  const slugs = ['home', 'homepage', 'front-page']
+  for (const slug of slugs) {
+    for (const uri of [`/${slug}/`, `/index.php/${slug}/`]) {
+      try {
+        const byUri = await getPageGlobalTogglesByUri(uri)
+        if (byUri) return byUri
+      } catch (_) { /* ignore */ }
+    }
+  }
+  return null
+}
+
+export default async function Home() {
+  // 1) Read per-page toggles for the homepage using a robust resolver
+  let toggles = await getHomeToggles()
+
+  // Known toggle keys used across pages
+  const knownKeys = [
+    'showApproach','showCaseStudies','showImageFrame','showNewsCarousel','showThreeColumns','showValues','showWhyCda','showServicesAccordion','showTechnologiesSlider','showShowreel','showLocationsImage','showNewsletterSignup','showContactFormLeftImageRight','showJoinOurTeam','showFullVideo','showStatsAndNumbers','showCultureGallerySlider'
+  ]
+  const hasAny = toggles && typeof toggles === 'object' && knownKeys.some(k => Object.prototype.hasOwnProperty.call(toggles, k))
+  const t = hasAny ? toggles : Object.fromEntries(knownKeys.map(k => [k, true]))
+
+  // 2) Fetch all global content blocks and patch missing imageFrame if needed (same as test page)
+  let globalData = await getAllGlobalContentBlocks()
+  try {
+    if (!globalData?.imageFrameBlock) {
+      const rawFrame = await executeGraphQLQuery(GET_GLOBAL_IMAGE_FRAME_MIN)
+      const frame = rawFrame?.data?.globalOptions?.globalContentBlocks?.imageFrameBlock || null
+      if (frame) globalData = { ...(globalData || {}), imageFrameBlock: frame }
+    }
+  } catch (_) {}
+
+// 3) Fetch homepage hero (ACF) via DB ID 289
+  const homeRes = await executeGraphQLQuery(GET_HOMEPAGE_CONTENT, { id: HOMEPAGE_ID })
+  const hero = homeRes?.data?.page?.homepageContentClean?.headerSection || null
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: 'white' }}>
+    <>
       <Header />
 
-      {/* Header Section */}
-      {homepageData?.headerSection ? (
-        <section className="home-hero-section">
+      {/* Hero section (extra on top of test page content) */}
+      {hero && (
+        <section className="home-hero-section bg-white">
           <div className="home-header-grid mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
             <div className="home-header-text text-center md:text-left">
               <h1
                 className="cda-page-title title-large-light-blue"
-                dangerouslySetInnerHTML={{ __html: sanitizeTitleHtml(homepageData.headerSection.title || 'Welcome to CDA Website') }}
+                dangerouslySetInnerHTML={{ __html: sanitizeTitleHtml(hero.title || 'Welcome to CDA') }}
               />
-              <p className="home-hero-subtitle">{homepageData.headerSection.text || 'Digital solutions that drive results.'}</p>
+              {hero.text && (
+                <p className="home-hero-subtitle">{hero.text}</p>
+              )}
               <div className="home-header-cta home-hero-cta">
-                {homepageData.headerSection.button1 && (
-                  <a href={homepageData.headerSection.button1.url || '#'} className="button-l" target={homepageData.headerSection.button1.target || '_self'}>
-                    {homepageData.headerSection.button1.title || 'Get Started'}
+                {hero.button1 && (
+                  <a href={hero.button1.url || '#'} className="button-l" target={hero.button1.target || '_self'}>
+                    {hero.button1.title || 'Get Started'}
                   </a>
                 )}
-                {homepageData.headerSection.button2 && (
-                  <a href={homepageData.headerSection.button2.url || '#'} className="button-without-box" target={homepageData.headerSection.button2.target || '_self'}>
-                    {homepageData.headerSection.button2.title || 'Learn More'}
+                {hero.button2 && (
+                  <a href={hero.button2.url || '#'} className="button-without-box" target={hero.button2.target || '_self'}>
+                    {hero.button2.title || 'Learn More'}
                   </a>
                 )}
               </div>
             </div>
             <div className="home-header-illustration-wrap">
-              {homepageData.headerSection.illustration?.node?.sourceUrl ? (
+              {hero.illustration?.node?.sourceUrl ? (
                 <img
-                  src={homepageData.headerSection.illustration.node.sourceUrl}
-                  alt={homepageData.headerSection.illustration.node.altText || 'Header illustration'}
+                  src={hero.illustration.node.sourceUrl}
+                  alt={hero.illustration.node.altText || 'Header illustration'}
                   width={700}
                   height={520}
                   className="home-header-illustration"
@@ -158,62 +192,32 @@ export default async function Home() {
             </div>
           </div>
         </section>
-      ) : null}
-
-      {/* Image Frame Block */}
-      {globalSelection?.enableImageFrame && globalContentBlocks?.imageFrameBlock && (
-        <PhotoFrame globalData={globalContentBlocks.imageFrameBlock} />
       )}
 
-      {/* Services Accordion */}
-      {globalSelection?.enableServicesAccordion && globalContentBlocks?.servicesAccordion && (
-        <ServicesAccordion globalData={globalContentBlocks.servicesAccordion} />
-      )}
+      {/* Global sections below, driven by the homepage toggles (same as test page) */}
+      <GlobalTailSections
+        globalData={globalData}
+        enableCaseStudies={!!t.showCaseStudies}
+        enableCaseStudiesFallback={!!t.showCaseStudies}
+        enableImageFrame={!!t.showImageFrame}
+        enableNewsCarousel={!!t.showNewsCarousel}
+        enableColumnsWithIcons3X={!!t.showThreeColumns}
+        enableStats={!!t.showStatsAndNumbers}
+        enableApproach={!!t.showApproach}
+        enableValues={!!t.showValues}
+        enableWhyCda={!!t.showWhyCda}
+        enableServicesAccordion={!!t.showServicesAccordion}
+        enableTechnologiesSlider={!!t.showTechnologiesSlider}
+        enableShowreel={!!t.showShowreel}
+        enableLocationsImage={!!t.showLocationsImage}
+        enableNewsletterSignup={!!t.showNewsletterSignup}
+        enableContactFormLeftImageRight={!!t.showContactFormLeftImageRight}
+        enableJoinOurTeam={!!t.showJoinOurTeam}
+        enableFullVideo={!!t.showFullVideo}
+        enableCultureGallerySlider={!!t.showCultureGallerySlider}
+      />
 
-      {/* Technologies Slider */}
-      {globalSelection?.enableTechnologiesSlider && globalContentBlocks?.technologiesSlider && (
-        <TechnologiesSlider
-          title={globalContentBlocks.technologiesSlider.title}
-          subtitle={globalContentBlocks.technologiesSlider.subtitle}
-          logos={globalContentBlocks.technologiesSlider.logos}
-        />
-      )}
-
-      {/* Showreel */}
-      {globalSelection?.enableShowreel && globalContentBlocks?.showreel && (
-        <Showreel globalData={globalContentBlocks.showreel} />
-      )}
-
-      {/* Stats & Numbers */}
-      {globalSelection?.enableStatsImage && globalContentBlocks?.statsAndNumbers && (
-        <StatsBlock data={globalContentBlocks.statsAndNumbers} />
-      )}
-
-      {/* Locations */}
-      {globalSelection?.enableLocationsImage && globalContentBlocks?.locationsImage && (
-        <LocationsImage globalData={globalContentBlocks.locationsImage} />
-      )}
-
-      {/* Case Studies (from homepage page) */}
-      {homepageData?.caseStudiesSection && (
-        <CaseStudies globalData={homepageData.caseStudiesSection} />
-      )}
-
-      {/* News Carousel */}
-      {globalSelection?.enableNewsCarousel && globalContentBlocks?.newsCarousel && (
-        <NewsCarouselClient
-          title={globalContentBlocks.newsCarousel.title}
-          subtitle={globalContentBlocks.newsCarousel.subtitle}
-          articles={globalContentBlocks.newsCarousel.computedArticles || []}
-        />
-      )}
-
-      {/* Newsletter Signup */}
-      {globalSelection?.enableNewsletterSignup && globalContentBlocks?.newsletterSignup && (
-        <NewsletterSignup globalData={globalContentBlocks.newsletterSignup} />
-      )}
-
-      <Footer globalOptions={{ globalContentBlocks }} />
-    </div>
-  );
+      <Footer />
+    </>
+  )
 }
