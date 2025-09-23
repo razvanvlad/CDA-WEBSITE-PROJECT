@@ -1050,7 +1050,7 @@ export const GET_GLOBAL_CONTENT = `
           }
         }
         # WHY CDA
-        whyCda {
+        whyCda: whyCdaBlock {
           title
           subtitle
           usp {
