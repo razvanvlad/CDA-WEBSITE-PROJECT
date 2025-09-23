@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { gql } from '@apollo/client'
 import client from '../lib/graphql/client'
 import BookingModal from './BookingModal'
+import { usePathname } from 'next/navigation'
 
 // Client-side queries (used only as background refresh when initial props are missing)
 const MENU_BY_DBID = gql`
@@ -143,6 +144,12 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
   const servicesFromLabels = menuNodes.filter((n) => servicesLabels.includes((n?.label || '').trim()))
   const servicesMenu = (servicesChildren && servicesChildren.length > 0) ? servicesChildren : servicesFromLabels
 
+  const pathname = usePathname()
+  const isHome = pathname === '/' || pathname === ''
+
+  const crumbParts = (pathname || '/').split('/').filter(Boolean)
+  const formatLabel = (seg) => decodeURIComponent(seg).replace(/-/g, ' ').replace(/\b\w/g, (m) => m.toUpperCase())
+
   return (
     <>
       {/* Desktop Sticky Start Project Button - Left Edge */}
@@ -184,8 +191,39 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
               </button>
             </div>
           </div>
+
         </div>
       </header>
+
+      {/* Breadcrumb row (outside header, below the line) */}
+      {!isHome && (
+        <div className="bg-white">
+          <div className="mx-auto max-w-[1620px] px-4 py-2">
+            <nav aria-label="Breadcrumb">
+              <ol className="flex items-center gap-2 text-[14px] md:text-[15px] text-black">
+                <li>
+                  <a href="/" className="underline font-semibold">Home</a>
+                </li>
+                {crumbParts.map((seg, idx) => {
+                  const href = '/' + crumbParts.slice(0, idx + 1).join('/')
+                  const last = idx === crumbParts.length - 1
+                  const label = formatLabel(seg)
+                  return (
+                    <li key={href} className="flex items-center gap-2">
+                      <span className="opacity-60">/</span>
+                      {last ? (
+                        <span>{label}</span>
+                      ) : (
+                        <a href={href} className="underline font-semibold">{label}</a>
+                      )}
+                    </li>
+                  )
+                })}
+              </ol>
+            </nav>
+          </div>
+        </div>
+      )}
 
       {/* Side Menu Overlay */}
       {isSideMenuOpen && (
