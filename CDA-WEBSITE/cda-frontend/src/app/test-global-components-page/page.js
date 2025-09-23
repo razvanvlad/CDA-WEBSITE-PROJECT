@@ -95,10 +95,7 @@ export default async function TestGlobalComponentsPage() {
     }
   } catch (_) {}
 
-  // Default: if toggles missing, treat as all on for testing
-  const t = toggles || {}
-
-  // Build toggle status list (green: enabled+data, yellow: enabled but no data, red: disabled)
+// Build toggle status list (green: enabled+data, yellow: enabled but no data, red: disabled)
   const presence = (key) => !!key
   // Map known toggle keys to labels and their data presence check in the fetched globalData
   const knownToggleMap = {
@@ -120,6 +117,12 @@ export default async function TestGlobalComponentsPage() {
     showStatsAndNumbers: { label: 'Show Stats & Numbers', data: (g) => presence(g?.statsAndNumbers) },
     showCultureGallerySlider: { label: 'Show Culture Gallery Slider', data: (g) => presence(g?.cultureGallerySlider) },
   }
+
+  // Default: if toggles missing entirely, treat all as enabled on this test page
+  const knownKeys = Object.keys(knownToggleMap)
+  const sourceToggles = (toggles && typeof toggles === 'object') ? toggles : {}
+  const hasAnyToggle = knownKeys.some((k) => Object.prototype.hasOwnProperty.call(sourceToggles, k))
+  const t = hasAnyToggle ? sourceToggles : Object.fromEntries(knownKeys.map((k) => [k, true]))
 
   // Build sections from whatever toggles exist on this entry so we never miss newly added ones
   const sections = Object.keys(t)
@@ -268,13 +271,6 @@ export default async function TestGlobalComponentsPage() {
           <h1 className="text-3xl font-bold text-black mb-6">Test Global Components Page</h1>
           <p className="text-gray-600 mb-6">Use the GLOBAL CONTENT BLOCKS TOGGLE on this page in WP Admin, then refresh to see sections show/hide.</p>
 
-          {/* Menus debug */}
-          <section className="mb-10">
-            <h2 className="text-xl font-semibold text-black mb-3">Menus (WPGraphQL)</h2>
-            <div className="text-xs text-gray-700 bg-gray-50 border rounded p-3 overflow-auto">
-              <pre>{JSON.stringify(menuDebug, null, 2)}</pre>
-            </div>
-          </section>
 
           {/* Toggle status grid */}
           <div className="mb-10">
@@ -285,7 +281,7 @@ export default async function TestGlobalComponentsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {sections.map((s) => (
                   <div key={s.key} className={`border rounded px-3 py-2 flex items-center justify-between ${statusClass(s)}`}>
-                    <span className="font-medium">{s.label} <span className="text-gray-500 text-xs">(order: {s.order ?? 50})</span></span>
+                    <span className="font-medium">{s.label}</span>
                     <span className="text-xs px-2 py-1 rounded border bg-white/50">{statusText(s)}</span>
                   </div>
                 ))}
