@@ -1161,6 +1161,20 @@ export const GET_GLOBAL_CONTENT = `
           hubspotScript
           termsText
         }
+        # JOIN OUR TEAM (added to base global content)
+        joinOurTeam {
+          title
+          text
+          button { url title target }
+          leftMediaType
+          leftImage { node { sourceUrl altText } }
+          leftVideo { node { sourceUrl } }
+          leftGif { node { sourceUrl altText } }
+          rightMediaType
+          rightImage { node { sourceUrl altText } }
+          rightVideo { node { sourceUrl } }
+          rightGif { node { sourceUrl altText } }
+        }
       }
     }
   }

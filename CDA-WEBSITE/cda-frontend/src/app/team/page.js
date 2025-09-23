@@ -3,7 +3,7 @@ import Footer from '../../components/Footer'
 import Link from 'next/link'
 import Image from 'next/image'
 import { sanitizeTitleHtml } from '@/lib/sanitizeTitleHtml'
-import { executeGraphQLQuery, getGlobalContent, getPageGlobalTogglesByUri, getPageGlobalTogglesBySlug } from '@/lib/graphql-queries'
+import { executeGraphQLQuery, getGlobalContent, getPageGlobalTogglesByUri, getPageGlobalTogglesBySlug, getTeamMembersWithPagination, getTeamMembersCoreWithPagination } from '@/lib/graphql-queries'
 
 export const metadata = {
   title: 'Team - CDA Systems',
@@ -127,9 +127,20 @@ export default async function TeamPage() {
   const header = teamData?.teamPageHeader || null
   const founder = teamData?.meetTheFounder || null
   const meet = teamData?.meetTheTeam || null
-  const teamNodes = (meet?.teamListing?.nodes || []).filter(Boolean)
+  // Fetch ALL team members (standalone) to render a full grid
+  let allTeam = []
+  try {
+    const { nodes } = await getTeamMembersWithPagination({ first: 100 })
+    if (nodes?.length) allTeam = nodes
+    else {
+      const core = await getTeamMembersCoreWithPagination({ first: 100 })
+      allTeam = core?.nodes || []
+    }
+  } catch (_) { /* ignore */ }
+  // Oldest first (ascending by date)
+  allTeam = [...allTeam].sort((a, b) => new Date(a?.date || 0) - new Date(b?.date || 0))
 
-  const debug = { hasHeader: !!header, hasFounder: !!founder, teamCount: teamNodes.length, gqlErrors: teamResErrors || null, fallbackErrors: (typeof fallbackErrors !== 'undefined' ? fallbackErrors : null) }
+  const debug = { hasHeader: !!header, hasFounder: !!founder, teamCount: allTeam.length, gqlErrors: teamResErrors || null, fallbackErrors: (typeof fallbackErrors !== 'undefined' ? fallbackErrors : null) }
 
   return (
     <>
@@ -203,25 +214,34 @@ export default async function TeamPage() {
               {meet.subtitle && (<p className="cda-subtitle">{meet.subtitle}</p>)}
               {meet.title && (<h2 className="cda-title title-small-purple">{meet.title}</h2>)}
             </div>
-            {teamNodes && teamNodes.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {teamNodes.map((m) => {
-                  const img = m?.teamMemberFields?.featuredImage?.node
-                  const job = m?.teamMemberFields?.jobTitle
-                  const bio = m?.teamMemberFields?.shortBio
+            {allTeam && allTeam.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {allTeam.map((m) => {
+                  const img = m?.featuredImage?.node || m?.teamMemberFields?.featuredImage?.node
+                  const alt = img?.altText || m?.title
+                  const job = m?.teamMemberFields?.jobTitle || m?.jobTitle || ''
                   return (
-                    <Link key={m.id} href={`/team/${m.slug}`} className="block group border border-gray-200 bg-white">
-                      {img?.sourceUrl && (
-                        <div className="relative w-full h-56 overflow-hidden">
-                          <Image src={img.sourceUrl} alt={img.altText || m.title} fill className="object-cover" />
+                    <div key={m.id} className="w-full flex-shrink-0">
+                      <div className="block group text-center">
+                        <Link href={`/team/${m.slug}`} className="block">
+                          <div className="relative w-full pb-[100%] bg-gray-100 overflow-hidden rounded-md">
+                            {img?.sourceUrl && (
+                              <Image src={img.sourceUrl} alt={alt} fill className="object-cover" />
+                            )}
+                          </div>
+                          <div className="mt-3">
+                            <div className="font-semibold text-black leading-tight group-hover:underline">{m.title}</div>
+                            {job && <div className="text-sm text-gray-600">{job}</div>}
+                          </div>
+                        </Link>
+                        <div className="mt-3">
+                          <Link href={`/team/${m.slug}`} className="inline-flex items-center gap-2 font-semibold text-black hover:underline">
+                            <span>View Profile</span>
+                            <span aria-hidden>→</span>
+                          </Link>
                         </div>
-                      )}
-                      <div className="p-6">
-                        <h3 className="text-lg font-semibold text-black group-hover:underline">{m.title}</h3>
-                        {job && (<p className="text-sm text-gray-600 mt-1">{job}</p>)}
-                        {bio && (<div className="text-sm text-gray-700 mt-3" dangerouslySetInnerHTML={{ __html: bio }} />)}
                       </div>
-                    </Link>
+                    </div>
                   )
                 })}
               </div>
