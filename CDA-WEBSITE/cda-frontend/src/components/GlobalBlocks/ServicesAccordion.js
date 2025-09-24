@@ -68,7 +68,7 @@ const ServicesAccordion = ({
                           return sub ? (<p className="mb-4">{sub}</p>) : null;
                         })()}
                         {item.slug && (
-                          <a href={`/services/${item.slug}`} className="button-l inline-flex">Find Out More</a>
+                          <a href={`/services/${item.slug}`} className="button-l-transparent inline-flex">Find Out More</a>
                         )}
                       </div>
                     </div>
