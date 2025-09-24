@@ -1,5 +1,6 @@
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
+import HeroSection from '../../../components/GlobalBlocks/HeroSection';
 import { notFound } from 'next/navigation';
 import { sanitizeTitleHtml } from '../../../lib/sanitizeTitleHtml';
 import { executeGraphQLQuery, GET_SERVICE_BY_SLUG } from '../../../lib/graphql-queries';
@@ -47,6 +48,31 @@ export default async function ServicePage({ params }) {
   const valueDescription = serviceFields.valueDescription || {};
   const featuredCaseStudies = serviceFields.caseStudies?.nodes || [];
   const serviceColor = getServiceColor(service.slug);
+  const heroImageNode = heroSection.heroImage?.node?.sourceUrl
+    ? (
+        <Image
+          src={heroSection.heroImage.node.sourceUrl}
+          alt={heroSection.heroImage.node.altText || service.title}
+          width={600}
+          height={400}
+          className="cda-hero__image-media"
+          style={{ maxHeight: '600px', objectFit: 'contain' }}
+          priority
+        />
+      )
+    : service.featuredImage?.node?.sourceUrl
+      ? (
+          <Image
+            src={service.featuredImage.node.sourceUrl}
+            alt={service.featuredImage.node.altText || service.title}
+            width={600}
+            height={400}
+            className="cda-hero__image-media"
+            style={{ maxHeight: '600px', objectFit: 'contain' }}
+            priority
+          />
+        )
+      : null;
 
   // Global content blocks
   const globalContentBlocks = globalData?.globalContentBlocks || {};
@@ -65,33 +91,26 @@ export default async function ServicePage({ params }) {
       <Header />
       <main className="service-detail-page">
         {/* Hero Section */}
-        <section className="service-hero">
-          <div className="container mx-auto px-4 py-16 lg:py-24">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="service-hero-content">
-                <h1 
-                  className="service-hero-title text-4xl lg:text-5xl font-bold mb-6"
-                  style={{ textDecoration: 'underline', textDecorationColor: serviceColor, textDecorationThickness: '11px' }}
-                >
-                  {sanitizeTitleHtml(service.title)}
-                </h1>
-                {heroSection.description && (
-                  <div className="service-hero-description text-lg text-gray-600 mb-8" dangerouslySetInnerHTML={{ __html: heroSection.description }} />
-                )}
-                {heroSection.cta?.title && (
-                  <a href="#contact-form" className="button-l">{heroSection.cta.title}</a>
-                )}
-              </div>
-              <div className="service-hero-image">
-                {heroSection.heroImage?.node?.sourceUrl ? (
-                  <Image src={heroSection.heroImage.node.sourceUrl} alt={heroSection.heroImage.node.altText || service.title} width={600} height={400} className="w-full h-auto rounded-lg" style={{ maxHeight: '600px', objectFit: 'contain' }} priority />
-                ) : service.featuredImage?.node?.sourceUrl && (
-                  <Image src={service.featuredImage.node.sourceUrl} alt={service.featuredImage.node.altText || service.title} width={600} height={400} className="w-full h-auto rounded-lg" style={{ maxHeight: '600px', objectFit: 'contain' }} priority />
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
+        <HeroSection
+          sectionClassName="bg-white"
+          eyebrow={heroSection.subtitle || ''}
+          eyebrowClassName="service-hero-subtitle"
+          titleHtml={sanitizeTitleHtml(service.title)}
+          titleClassName="service-hero-title text-4xl lg:text-5xl font-bold"
+          titleStyle={{ textDecoration: 'underline', textDecorationColor: serviceColor, textDecorationThickness: '11px' }}
+          descriptionHtml={heroSection.description || ''}
+          descriptionClassName="service-hero-description text-lg text-gray-600"
+          ctas={[
+            heroSection.cta?.title
+              ? {
+                  href: '#contact-form',
+                  label: heroSection.cta.title,
+                  className: 'button-l',
+                }
+              : null,
+          ]}
+          image={heroImageNode}
+        />
 
 
 

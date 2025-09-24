@@ -2,6 +2,7 @@
 import { getServicesWithPagination, executeGraphQLQuery, getServiceOverviewContent, getServiceBySlug } from '@/lib/graphql-queries.js'
 import ServicesClient from './ServicesClient'
 import ApproachBlock from '@/components/GlobalBlocks/ApproachBlock'
+import HeroSection from '@/components/GlobalBlocks/HeroSection'
 import ValuesBlock from '@/components/GlobalBlocks/ValuesBlock'
 import ServicesProcess from '@/components/Sections/ServicesProcess'
 import ServicesStats from '@/components/Sections/ServicesStats'
@@ -159,41 +160,37 @@ export default async function ServicesPage() {
       }
     }
 
+    const heroSectionContent = overviewContent?.heroSection || {}
+    const heroImageNode = heroSectionContent.imageRight?.node?.sourceUrl
+      ? (
+          <Image
+            src={heroSectionContent.imageRight.node.sourceUrl}
+            alt={heroSectionContent.imageRight.node.altText || 'Our Services'}
+            width={600}
+            height={400}
+            className="cda-hero__image-media"
+            priority
+          />
+        )
+      : null
+
+    const heroDescription =
+      heroSectionContent.description ||
+      'Discover our comprehensive range of digital services designed to help your business grow and succeed in the digital landscape.'
+
     return (
       <>
         <Header />
-        <div className="min-h-screen bg-white">
+        <main className="min-h-screen bg-white">
+          <HeroSection
+            sectionClassName="bg-white"
+            title={heroSectionContent.title || 'Our Services'}
+            titleClassName="text-4xl font-bold text-gray-900"
+            description={heroDescription}
+            descriptionClassName="text-xl text-gray-600"
+            image={heroImageNode}
+          />
           <div className="max-w-7xl mx-auto px-4 py-16">
-          {/* Hero Section */}
-          <section className="relative bg-white p-8 mb-12 overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
-              <div className="relative z-10">
-                <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                  {overviewContent?.heroSection?.title || 'Our Services'}
-                </h1>
-                <p className="text-xl text-gray-600 mb-8">
-                  {overviewContent?.heroSection?.description || 'Discover our comprehensive range of digital services designed to help your business grow and succeed in the digital landscape.'}
-                </p>
-              </div>
-              
-              {/* Hero Image Right */}
-              {overviewContent?.heroSection?.imageRight?.node?.sourceUrl && (
-                <div className="relative">
-                  <Image
-                    src={overviewContent.heroSection.imageRight.node.sourceUrl}
-                    alt={overviewContent.heroSection.imageRight.node.altText || 'Our Services'}
-                    width={600}
-                    height={400}
-                    className="w-full h-auto rounded-lg shadow-lg"
-                    priority
-                  />
-                </div>
-              )}
-            </div>
-          </section>
-
-
-
           {/* Service Landing Two-Column Section */}
           {(overviewContent?.featuredServiceSection || overviewContent?.rightColumn) && (
             <section className="mb-12">
@@ -318,7 +315,7 @@ export default async function ServicesPage() {
             </div>
           </section>
           </div>
-        </div>
+        </main>
         <Footer />
       </>
     )
