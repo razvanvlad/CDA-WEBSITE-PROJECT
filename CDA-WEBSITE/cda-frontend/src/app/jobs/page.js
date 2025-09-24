@@ -82,6 +82,29 @@ export default async function JobsPage() {
     return (
       <>
         <Header />
+
+        {/* Standard Hero for Jobs */}
+        <section className="bg-white py-16">
+          <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+              <div>
+                <h1
+                  className="cda-hero__title-text service-hero-title text-4xl lg:text-5xl pb-10 font-bold mb-6"
+                  style={{ textDecoration: 'underline', textDecorationColor: '#FF5C8A', textDecorationThickness: '11px' }}
+                >
+                  Join Our Team
+                </h1>
+                <p className="text-lg text-[#4B5563] leading-relaxed max-w-2xl">
+                  CDA is a place where people flourish. See what roles we have available for you.
+                </p>
+              </div>
+              <div className="flex justify-center lg:justify-end">
+                <img src="/images/bees.svg" alt="Join our team illustration" className="w-full max-w-[600px] max-h-[300px] h-auto object-contain" />
+              </div>
+            </div>
+          </div>
+        </section>
+
         <JobListingsClient initialItems={jobListings} globalBlocks={globalBlocks} />
         <Footer />
       </>
