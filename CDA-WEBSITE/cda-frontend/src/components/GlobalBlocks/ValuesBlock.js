@@ -16,13 +16,13 @@ export default function ValuesBlock({ globalData, pageData, useOverride = false 
         {/* Header */}
         <div className="mb-10 md:mb-12">
           {data?.subtitle && (
-            <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-black mb-2">
+            <p className="cda-subtitle">
               {data.subtitle}
             </p>
           )}
           {data?.title && (
             <h2
-              className="mb-6 font-bold text-black"
+              className="cda-title"
               style={{ fontFamily: 'Poppins, sans-serif', fontSize: 38, lineHeight: 1.1 }}
             >
               <span className="relative inline-block align-baseline">{data.title}</span>

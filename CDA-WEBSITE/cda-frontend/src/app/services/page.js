@@ -1,10 +1,10 @@
 // src/app/services/page.js
-import { getServicesWithPagination, executeGraphQLQuery, getServiceOverviewContent, getServiceBySlug } from '@/lib/graphql-queries.js'
+import { getServicesWithPagination, executeGraphQLQuery, getServiceOverviewContent, getServiceBySlug, getAllGlobalContentBlocks } from '@/lib/graphql-queries.js'
 import ServicesClient from './ServicesClient'
 import ServicesFilters from './ServicesFilters'
 import ApproachBlock from '@/components/GlobalBlocks/ApproachBlock'
 import HeroSection from '@/components/GlobalBlocks/HeroSection'
-import ValuesBlock from '@/components/GlobalBlocks/ValuesBlock'
+import Showreel from '@/components/GlobalBlocks/Showreel'
 import ServicesProcess from '@/components/Sections/ServicesProcess'
 import ServicesStats from '@/components/Sections/ServicesStats'
 import ServicesCaseStudiesPreview from '@/components/Sections/ServicesCaseStudiesPreview'
@@ -83,54 +83,7 @@ async function getServiceTypes() {
   }
 }
 
-// Get global content for Approach Block and Values Block
-async function getGlobalContent() {
-  const query = `
-    query GetGlobalContent {
-      globalOptions {
-        globalContentBlocks {
-          approach {
-            title
-            subtitle
-            steps {
-              stepNumber
-              title
-              description
-              image {
-                node {
-                  sourceUrl
-                  altText
-                }
-              }
-            }
-          }
-          valuesBlock {
-            title
-            subtitle
-            values {
-              title
-              text
-            }
-            illustration {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-        }
-      }
-    }
-  `
-  
-  try {
-    const response = await executeGraphQLQuery(query)
-    return response.data?.globalOptions?.globalContentBlocks || null
-  } catch (error) {
-    console.error('Failed to fetch global content:', error)
-    return null
-  }
-}
+// Get global content for Approach Block and Values Block (use shared util)
 
 export default async function ServicesPage() {
   try {
@@ -144,7 +97,7 @@ export default async function ServicesPage() {
     const serviceTypes = await getServiceTypes()
     
     // Fetch global content for Approach Block
-    const globalContent = await getGlobalContent()
+    const globalContent = await getAllGlobalContentBlocks()
 
     // Resolve featured case study for left column
     let featuredCaseStudy = null
@@ -162,21 +115,37 @@ export default async function ServicesPage() {
     }
 
     const heroSectionContent = overviewContent?.heroSection || {}
-    // Use a static illustration for the Services list header
+    // Use a static illustration for the Services list header with hover swap
     const heroImageNode = (
-      <Image
-        src={'/images/SVG%20images/Chameleon.svg'}
-        alt={'Services illustration'}
-        width={600}
-        height={400}
-        className="cda-hero__image-media"
-        priority
-      />
+      <div className="cameleon-hero" style={{ width: 600 }}>
+        <img
+          src="/images/cameleon-right.svg"
+          alt="Services illustration"
+          width={600}
+          height={400}
+          className="cameleon-hero__img base"
+          loading="eager"
+        />
+        <img
+          src="/images/cameleon-right-hover.svg"
+          alt=""
+          aria-hidden="true"
+          width={600}
+          height={400}
+          className="cameleon-hero__img hover"
+          loading="eager"
+        />
+      </div>
     )
 
     const heroDescription =
       heroSectionContent.description ||
       'Discover our comprehensive range of digital services designed to help your business grow and succeed in the digital landscape.'
+
+    const extraDescription = `
+      <p>With over 30 years’ working in-house and at agencies, our experience goes way back to when it was called ‘that internet thing’.</p>
+      <p>We’ve seen the digital landscape evolve to what it is today and we’re eager to see where it will go next. We believe in putting the user at the centre and creating seamless experiences around them.</p>
+    `
 
     return (
       <>
@@ -184,15 +153,16 @@ export default async function ServicesPage() {
         <main className="min-h-screen bg-white">
           <HeroSection
             sectionClassName="bg-white"
-            title={heroSectionContent.title || 'Our Services'}
+            titleHtml={'The Services We Offer'}
             titleClassName="text-4xl font-bold text-gray-900"
-            description={heroDescription}
+            titleStyle={{ textDecoration: 'underline', textDecorationColor: '#AD80F9', textDecorationThickness: '11px' }}
+            descriptionHtml={`<p>${heroDescription}</p>${extraDescription}`}
             descriptionClassName="text-xl text-gray-600"
             image={heroImageNode}
           />
 
           {/* Service type filter chips */}
-          <ServicesFilters />
+          <ServicesFilters options={(serviceTypes || []).map(t => ({ label: t.name, slug: t.slug }))} />
           <div className="max-w-7xl mx-auto px-4 py-16">
           {/* Service Landing Two-Column Section */}
           {(overviewContent?.featuredServiceSection || overviewContent?.rightColumn) && (
@@ -276,16 +246,7 @@ export default async function ServicesPage() {
           {/* Services Grid - client-side filtering */}
           <ServicesClient initialItems={services} />
 
-          {/* Our Values Global Block */}
-          {globalContent?.valuesBlock && (
-            <ValuesBlock 
-              globalData={globalContent.valuesBlock}
-              pageData={null}
-              useOverride={false}
-            />
-          )}
-
-          {/* Our Approach Global Block */}
+          {/* Our Approach Global Block (placed directly after the services list) */}
           {globalContent?.approach && (
             <ApproachBlock 
               globalData={globalContent.approach}
@@ -294,29 +255,11 @@ export default async function ServicesPage() {
             />
           )}
 
-          {/* Services: Process, Stats, Case Studies Preview */}
+          {/* Showreel Global Block (instead of Values) */}
+          {globalContent?.showreel && (
+            <Showreel globalData={globalContent.showreel} />
+          )}         
 
-          {/* CTA Section */}
-          <section className="mt-16 bg-white border border-gray-200 rounded-lg p-12 text-center">
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">Need a Custom Solution?</h2>
-            <p className="text-xl text-gray-600 mb-8">
-              Can't find exactly what you're looking for? We specialize in creating tailored solutions for unique business needs.
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="button-l"
-              >
-                Discuss Your Project
-              </Link>
-              <Link
-                href="/case-studies"
-                className="button-l"
-              >
-                View Our Work
-              </Link>
-            </div>
-          </section>
           </div>
         </main>
         <Footer />
