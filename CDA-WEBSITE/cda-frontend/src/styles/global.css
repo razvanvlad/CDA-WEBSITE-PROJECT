@@ -6,7 +6,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 3rem;
   font-family: var(--font-poppins), var(--font-inter), sans-serif;
   font-weight: 700;
   font-size: 18px;
@@ -28,7 +28,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 3rem;
   font-family: var(--font-poppins), var(--font-inter), sans-serif;
   font-weight: 700;
   font-size: 18px;
@@ -51,7 +51,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 3rem;
   font-family: var(--font-poppins), var(--font-inter), sans-serif;
   font-weight: 700;
   font-size: 18px;
@@ -93,8 +93,8 @@
 
 /* Hover: keep it transparent, keep black border/text */
 .button-l-transparent:hover {
-  background-color: transparent;
-  color: black;
+  background-color: black;
+  color: white;
   box-shadow: inset 0 0 0 1px black; /* stays black */
 }
 
@@ -128,6 +128,112 @@
   background-color: black;
   color: white;
   box-shadow: none;
+}
+
+
+
+/* Underline: only under text (stops before icon space) */
+.button-without-box::after {
+  content: '';
+  position: absolute;
+  /* baseline offset for 18px Poppins (override via --btn-link-baseline) */
+  bottom: var(--btn-link-baseline);
+  left: 0;
+  width: calc(100% - var(--btn-link-icon) - var(--btn-link-gap));
+  height: var(--btn-link-underline);
+  background-color: #374151;
+  z-index: 1;
+}
+
+/* Icon: design-inspired corner arrow */
+.button-without-box::before {
+  content: '';
+  position: absolute;
+  bottom: var(--btn-link-baseline);
+  right: 0;
+  width: var(--btn-link-icon);
+  height: var(--btn-link-icon);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none' stroke='black' stroke-width='0.5'%3E%3Cpath d='M16.522 15.346V9.038h1.663v9.147H9.038V16.522h6.308L4.293 5.469 5.469 4.293Z' fill='black' stroke='black' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+/* Hover effect */
+.button-without-box:hover {
+  color: #374151;
+}
+
+.button-without-box:hover::after {
+  background-color: #374151;
+}
+
+/* Replace icon on hover */
+.button-without-box:hover::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
+  bottom: 50%;
+  transform: translateY(50%);
+  right: 0;
+  width: 12px;
+  height: 12px;
+}
+
+/* Square badge in the style of button-l */
+.value-badge-l {
+  /* reuse the button-l metrics for crisp lines */
+  --btn-l-line: 1px;           /* outline thickness */
+  --btn-l-offset: 4px;         /* offset for the L outline */
+  --badge-size: 37px;          /* square size (same for mobile & desktop) */
+
+  position: relative;
+  display: inline-grid;        /* easy centering */
+  place-items: center;
+  width: var(--badge-size);
+  height: var(--badge-size);
+
+  background-color: black;
+  color: white;
+
+  /* typography */
+  font-family: var(--font-poppins, Poppins), var(--font-inter, Inter), sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+
+  /* don’t let it collapse inside flex rows */
+  flex: 0 0 auto;
+
+  /* no default borders/hover/box-shadow */
+  border: none;
+  box-shadow: none;
+  cursor: default; /* not a button */
+}
+
+/* Bottom underline (horizontal) — same as button-l */
+.value-badge-l::before {
+  content: '';
+  position: absolute;
+  left: var(--btn-l-offset);
+  bottom: calc(var(--btn-l-offset) * -1);
+  width: calc(100% - var(--btn-l-line));
+  height: var(--btn-l-line);
+  background-color: black;
+  z-index: 1;
+}
+
+/* Right side line (vertical) — same as button-l */
+.value-badge-l::after {
+  content: '';
+  position: absolute;
+  top: var(--btn-l-offset);
+  right: calc(var(--btn-l-offset) * -1);
+  width: var(--btn-l-line);
+  bottom: calc(var(--btn-l-offset) * -1);
+  background-color: black;
+  z-index: 1;
 }
 
 /* Bottom underline (horizontal) */
@@ -184,52 +290,6 @@
   background: none;
 }
 
-/* Underline: only under text (stops before icon space) */
-.button-without-box::after {
-  content: '';
-  position: absolute;
-  /* baseline offset for 18px Poppins (override via --btn-link-baseline) */
-  bottom: var(--btn-link-baseline);
-  left: 0;
-  width: calc(100% - var(--btn-link-icon) - var(--btn-link-gap));
-  height: var(--btn-link-underline);
-  background-color: #374151;
-  z-index: 1;
-}
-
-/* Icon: design-inspired corner arrow */
-.button-without-box::before {
-  content: '';
-  position: absolute;
-  bottom: var(--btn-link-baseline);
-  right: 0;
-  width: var(--btn-link-icon);
-  height: var(--btn-link-icon);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none' stroke='black' stroke-width='0.5'%3E%3Cpath d='M16.522 15.346V9.038h1.663v9.147H9.038V16.522h6.308L4.293 5.469 5.469 4.293Z' fill='black' stroke='black' stroke-width='0.5'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-  z-index: 2;
-  transition: all 0.2s ease;
-}
-
-/* Hover effect */
-.button-without-box:hover {
-  color: #374151;
-}
-
-.button-without-box:hover::after {
-  background-color: #374151;
-}
-
-/* Replace icon on hover */
-.button-without-box:hover::before {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
-  bottom: 50%;
-  transform: translateY(50%);
-  right: 0;
-  width: 12px;
-  height: 12px;
-}
 
 /* Text colored underlines */
 /* Underline Color Classes */
