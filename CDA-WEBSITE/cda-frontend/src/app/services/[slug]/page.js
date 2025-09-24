@@ -29,7 +29,7 @@ const getServiceColor = (slug) => {
 };
 
 export default async function ServicePage({ params }) {
-  const slug = params?.slug;
+  const { slug } = await params;
   if (!slug) notFound();
 
   // Fetch on server for zero client delay
@@ -93,8 +93,6 @@ export default async function ServicePage({ params }) {
         {/* Hero Section */}
         <HeroSection
           sectionClassName="bg-white"
-          eyebrow={heroSection.subtitle || ''}
-          eyebrowClassName="service-hero-subtitle"
           titleHtml={sanitizeTitleHtml(service.title)}
           titleClassName="service-hero-title text-4xl lg:text-5xl font-bold"
           titleStyle={{ textDecoration: 'underline', textDecorationColor: serviceColor, textDecorationThickness: '11px' }}

@@ -170,3 +170,30 @@ html, body {
 .u-thick-9  { --u-thickness: 9px; }
 .u-thick-11 { --u-thickness: 11px; }
 .u-thick-14 { --u-thickness: 14px; }
+
+/* Hover swap for homepage hero illustration */
+.hero-hover-img {
+  position: relative;
+  display: block;
+}
+.hero-hover-img > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: opacity .25s ease;
+}
+.hero-hover-img > img.hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+/* Swap on hover (desktop) */
+.hero-hover-img:hover > img.hover { opacity: 1; }
+.hero-hover-img:hover > img.base  { opacity: 0; }
+
+/* Optional: keep base image on touch devices if you want */
+@media (hover: none) {
+  .hero-hover-img > img.hover { display: none; }
+}
+

@@ -19,8 +19,8 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for individual policy
-export async function generateMetadata({ params }) {
-  const { slug } = params
+export async function generateMetadata(props) {
+  const { slug } = await props.params
   
   try {
     const policy = await getPolicyBySlug(slug)
@@ -64,7 +64,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function PolicyDetailPage({ params }) {
-  const { slug } = params
+  const { slug } = await params
   
   try {
     const policy = await getPolicyBySlug(slug)
