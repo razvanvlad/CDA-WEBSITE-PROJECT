@@ -13,12 +13,12 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
 
   return (
     <SectionBand
-      className="bg-white overflow-visible" // section bg
+      className="bg-white overflow-visible !pb-20"  // <- force bottom padding to 0
       color="bg-gray-100"                   // band color
       position="bottom"                     // <-- put the band on the BOTTOM
       height="h-[280px] md:h-[340px]"       // band thickness (tune to taste)
     >
-      <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 py-16 md:py-20 lg:py-24 relative z-20">
+      <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 relative z-20">
         <div className="grid grid-cols-12 gap-y-10 gap-x-8 items-center">
           {/* Left: Frame */}
           <div className="col-span-12 lg:col-span-6 order-1 lg:order-none">
@@ -50,39 +50,40 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
           </div>
 
           {/* Right: Copy */}
-          <div className="col-span-12 lg:col-span-6 lg:px-20">
-            <div className="relative">
-              {copy.subtitle && <p className="cda-subtitle">{copy.subtitle}</p>}
-              {copy.title && <h2 className="cda-title">{copy.title}</h2>}
-              {copy.text && (
-                <div className="text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] space-y-4 mb-6">
-                  {String(copy.text).split('\n').map((p, i) => p.trim() && <p key={i}>{p.trim()}</p>)}
-                </div>
-              )}
-              {copy.button?.url && copy.button?.title && (
-                <a
-                  href={copy.button.url}
-                  target={copy.button.target === '_blank' ? '_blank' : '_self'}
-                  rel={copy.button.target === '_blank' ? 'noopener noreferrer' : undefined}
-                  className="button-without-box text-black"
-                >
-                  {copy.button.title}
-                </a>
-              )}
+          {/* Right: Copy */}
+<div className="col-span-12 lg:col-span-6 lg:px-20 self-start pt-4 md:pt-6 lg:pt-8">
+  <div className="relative">
+    {copy.subtitle && <p className="cda-subtitle">{copy.subtitle}</p>}
+    {copy.title && <h2 className="cda-title">{copy.title}</h2>}
+    {copy.text && (
+      <div className="text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] space-y-4 mb-6">
+        {String(copy.text).split('\n').map((p, i) => p.trim() && <p key={i}>{p.trim()}</p>)}
+      </div>
+    )}
+    {copy.button?.url && copy.button?.title && (
+      <a
+        href={copy.button.url}
+        target={copy.button.target === '_blank' ? '_blank' : '_self'}
+        rel={copy.button.target === '_blank' ? 'noopener noreferrer' : undefined}
+        className="button-without-box text-black"
+      >
+        {copy.button.title}
+      </a>
+    )}
 
-              {/* Arrow decoration sits ABOVE the band */}
-              {arrowIllustration?.node?.sourceUrl && (
-                <Image
-                  src={arrowIllustration.node.sourceUrl}
-                  alt={arrowIllustration.node.altText || 'Arrow'}
-                  width={100}
-                  height={100}
-                  className="hidden lg:block absolute -bottom-[320px] left-[170px] w-[100px] h-auto pointer-events-none select-none z-30"
-                  draggable={false}
-                />
-              )}
-            </div>
-          </div>
+    {arrowIllustration?.node?.sourceUrl && (
+      <Image
+        src={arrowIllustration.node.sourceUrl}
+        alt={arrowIllustration.node.altText || 'Arrow'}
+        width={200}
+        height={200}
+        className="hidden lg:block absolute -bottom-[320px] left-[170px] w-[200px] h-auto pointer-events-none select-none z-30"
+        draggable={false}
+      />
+    )}
+  </div>
+</div>
+
         </div>
       </div>
 

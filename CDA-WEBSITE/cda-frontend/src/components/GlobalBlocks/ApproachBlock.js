@@ -161,35 +161,7 @@ const ApproachBlock = ({ globalData, pageData, useOverride = false }) => {
         </div>
 
         {/* Mobile vertical (no path) */}
-        <div className="mt-10 md:hidden space-y-10">
-          {steps.map((step, i) => (
-            <div key={`m-${i}`} className="flex flex-col items-start">
-              <div className="relative bg-gray-100 rounded-md w-full h-48 flex items-end justify-center">
-                <div className="absolute top-3 left-3 text-gray-300 font-extrabold text-2xl">
-                  {String(step.stepNumber || i + 1).padStart(2, '0')}
-                </div>
-                {step?.image?.node?.sourceUrl && (
-                  <Image
-                    src={step.image.node.sourceUrl}
-                    alt={step.image.node.altText || step.title || ''}
-                    width={360}
-                    height={260}
-                    sizes="90vw"
-                    className="w-auto h-[76%] object-contain"
-                  />
-                )}
-              </div>
-              {step.title && (
-                <h3 className="mt-3 text-xl font-extrabold text-gray-900">
-                  {step.title}
-                </h3>
-              )}
-              {step.description && (
-                <p className="mt-1 text-gray-600">{step.description}</p>
-              )}
-            </div>
-          ))}
-        </div>
+        
       </div>
     </section>
   );

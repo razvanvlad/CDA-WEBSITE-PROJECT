@@ -44,7 +44,9 @@ export default function ServicesSlider({
       className="bg-white"                 // section bg
       color="bg-gray-100"                  // band color
       position="top"                       // <-- paint the TOP half
-      height="h-[200px] md:h-[260px]"      // band thickness
+      padding="pt-12 md:pt-20 pb-0"
+      mobile={{ color: 'bg-gray-100', height: 'h-[340px]', position: 'top' }}
+      desktop={{ color: 'bg-gray-100', height: 'h-[320px]', position: 'top' }}
     >
       <section className="services-slider">
         <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
