@@ -34,6 +34,7 @@ const GET_HOMEPAGE_CONTENT = `
             button1 { url title target }
             button2 { url title target }
             illustration { node { sourceUrl altText } }
+            hoverIllustration { node { sourceUrl altText } }  # ⬅ NEW
           }
         }
       }
@@ -212,20 +213,34 @@ export default async function Home() {
               : null,
           ]}
           image={
-            hero.illustration?.node?.sourceUrl ? (
-              <img
-                src={hero.illustration.node.sourceUrl}
-                alt={hero.illustration.node.altText || 'Header illustration'}
-                width={700}
-                height={520}
-                className="cda-hero__image-media"
-              />
-            ) : (
-              <div className="cda-hero__image-placeholder">
-                <p>Upload illustration in WordPress Admin → Pages → Edit Homepage → Header Section</p>
-              </div>
-            )
-          }
+  hero.illustration?.node?.sourceUrl ? (
+    <div className="hero-hover-img cda-hero__image-media">
+      {/* Base image */}
+      <img
+        src={hero.illustration.node.sourceUrl}
+        alt={hero.illustration.node.altText || 'Header illustration'}
+        width={700}
+        height={520}
+        className="hero-img base"
+      />
+      {/* Hover image (optional) */}
+      {hero.hoverIllustration?.node?.sourceUrl && (
+        <img
+          src={hero.hoverIllustration.node.sourceUrl}
+          alt=""            /* decorative, since it's a hover variant */
+          aria-hidden="true"
+          width={700}
+          height={520}
+          className="hero-img hover"
+        />
+      )}
+    </div>
+  ) : (
+    <div className="cda-hero__image-placeholder">
+      <p>Upload illustration in WordPress Admin → Pages → Edit Homepage → Header Section</p>
+    </div>
+  )
+}
         />
       )}
 
