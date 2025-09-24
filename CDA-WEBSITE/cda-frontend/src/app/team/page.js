@@ -1,5 +1,6 @@
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import HeroSection from '@/components/GlobalBlocks/HeroSection'
 import Link from 'next/link'
 import Image from 'next/image'
 import { sanitizeTitleHtml } from '@/lib/sanitizeTitleHtml'
@@ -146,32 +147,39 @@ export default async function TeamPage() {
     <>
       <Header />
 
-      {/* 1) Hero Individual (reuse homepage hero classes) */}
+      {/* 1) Hero Individual */}
       {header && (
-        <section className="home-hero-section bg-white">
-          <div className="home-header-grid mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-            <div className="home-header-text text-center md:text-left">
-              <h1 className="cda-page-title title-large-light-blue" dangerouslySetInnerHTML={{ __html: sanitizeTitleHtml(header.title || 'Team') }} />
-              {header.description && (
-                <div className="home-hero-subtitle" dangerouslySetInnerHTML={{ __html: header.description }} />
-              )}
-              {header.cta?.url && (
-                <div className="home-header-cta home-hero-cta">
-                  <a href={header.cta.url} className="button-l" target={header.cta.target || '_self'}>
-                    {header.cta.title || 'Contact Us'}
-                  </a>
-                </div>
-              )}
-            </div>
-            <div className="home-header-illustration-wrap">
-              {header.image?.node?.sourceUrl ? (
-                <img src={header.image.node.sourceUrl} alt={header.image.node.altText || 'Team illustration'} width={700} height={520} className="home-header-illustration" />
-              ) : (
-                <div className="home-hero-illustration-placeholder"><p>Upload illustration in WP → Team → Header Section</p></div>
-              )}
-            </div>
-          </div>
-        </section>
+        <HeroSection
+          sectionClassName="bg-white"
+          titleHtml={sanitizeTitleHtml(header.title || 'Team')}
+          titleClassName="cda-page-title title-large-light-blue"
+          descriptionHtml={header.description || ''}
+          ctas={[
+            header.cta?.url
+              ? {
+                  href: header.cta.url,
+                  label: header.cta.title || 'Contact Us',
+                  target: header.cta.target || '_self',
+                  className: 'button-l',
+                }
+              : null,
+          ]}
+          image={
+            header.image?.node?.sourceUrl ? (
+              <img
+                src={header.image.node.sourceUrl}
+                alt={header.image.node.altText || 'Team illustration'}
+                width={700}
+                height={520}
+                className="cda-hero__image-media"
+              />
+            ) : (
+              <div className="cda-hero__image-placeholder">
+                <p>Upload illustration in WP → Team → Header Section</p>
+              </div>
+            )
+          }
+        />
       )}
 
       {/* 2) Meet the founder */}
