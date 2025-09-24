@@ -56,7 +56,7 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
           </div>
 
           {/* Right: Copy */}
-          <div className="col-span-12 lg:col-span-6">
+          <div className="col-span-12 lg:col-span-6 lg:px-20">
             <div className="relative">
               {copy.subtitle && (
                 <p className="cda-subtitle">{copy.subtitle}</p>
@@ -89,7 +89,7 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
                   alt={arrowIllustration.node.altText || 'Arrow'}
                   width={100}
                   height={100}
-                  className="hidden lg:block absolute -bottom-[150px] left-[50px] w-[100px] h-auto pointer-events-none select-none z-30"
+                  className="hidden lg:block absolute -bottom-[320px] left-[170px] w-[100px] h-auto pointer-events-none select-none z-30"
                   draggable={false}
                 />
               )}
