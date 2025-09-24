@@ -82,7 +82,7 @@ export default async function AboutPage() {
               )}
               {aboutContent.contentPageHeader.cta && (
                 <div className="home-header-cta home-hero-cta">
-                  <a href={aboutContent.contentPageHeader.cta.url || '#'} className="button-l" target={aboutContent.contentPageHeader.cta.target || '_self'}>
+                  <a href={aboutContent.contentPageHeader.cta.url || '#'} className="button-without-box" target={aboutContent.contentPageHeader.cta.target || '_self'}>
                     {aboutContent.contentPageHeader.cta.title || 'Get Started'}
                   </a>
                 </div>
