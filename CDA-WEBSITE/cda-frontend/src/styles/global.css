@@ -838,17 +838,21 @@
   
   .newsletter-content {
     width: 100%;
+    order: 1;
   }
   
   .newsletter-illustration {
-    position: relative;
+    position: static;
     top: auto;
     right: auto;
     transform: none;
     margin-top: 2rem;
     display: flex;
     justify-content: center;
+    order: 2;
+    z-index: auto;
   }
+  .newsletter-illustration-img { max-width: min(640px, 95%); height: auto; }
 }
 
 .newsletter-content {
@@ -882,10 +886,18 @@
   gap: 25px;
 }
 
-.newsletter-row {
+ .newsletter-row {
   display: flex;
   gap: 36px;
   flex-wrap: nowrap;
+ }
+ /* Stack inputs on small screens */
+@media (max-width: 640px) {
+  .newsletter-row { flex-direction: column; gap: 18px; width: 100%; }
+  .newsletter-input-wrap { width: 100%; min-width: 0; max-width: 640px; margin-left: auto; margin-right: auto; }
+  .newsletter-input { width: 100%; }
+  .newsletter-submit { width: 100%; max-width: 640px; margin-left: auto; margin-right: auto; }
+  .newsletter-terms { justify-content: center; align-items: center; text-align: left; max-width: 640px; margin-left: auto; margin-right: auto; }
 }
 
 .newsletter-input-wrap {
@@ -2248,17 +2260,21 @@
   
   .newsletter-content {
     width: 100%;
+    order: 1; /* ensure form comes first */
   }
   
   .newsletter-illustration {
-    position: relative;
+    position: static; /* remove absolute behavior */
     top: auto;
     right: auto;
     transform: none;
     margin-top: 2rem;
     display: flex;
     justify-content: center;
+    order: 2; /* image after form */
+    z-index: auto;
   }
+  .newsletter-illustration-img { max-width: min(640px, 95%); height: auto; }
 }
 
 .newsletter-content {
@@ -2296,6 +2312,18 @@
   display: flex;
   gap: 36px;
   flex-wrap: nowrap;
+}
+/* Stack inputs on small screens */
+@media (max-width: 640px) {
+  .newsletter-row { flex-direction: column; gap: 18px; width: 100%; }
+  .newsletter-input-wrap { width: 100%; min-width: 0; max-width: 640px; margin-left: auto; margin-right: auto; }
+  .newsletter-container { align-items: center; }
+  .newsletter-content { width: 100%; text-align: center; margin: 0 auto; }
+  .newsletter-form { align-items: center; }
+  .newsletter-input, .newsletter-submit { width: 100%; max-width: 640px; }
+  .newsletter-submit { margin-left: auto; margin-right: auto; }
+  .newsletter-terms { justify-content: center; align-items: center; text-align: left; max-width: 640px; margin-left: auto; margin-right: auto; }
+  .newsletter-checkbox { margin-top: 0; }
 }
 
 .newsletter-input-wrap {
