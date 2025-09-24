@@ -74,7 +74,7 @@ export default async function AboutPage() {
           <div className="home-header-grid mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
             <div className="home-header-text text-center md:text-left">
               <h1
-                className="cda-page-title title-large-light-blue"
+                className="cda-page-title title-large-pink"
                 dangerouslySetInnerHTML={{ __html: sanitizeTitleHtml(aboutContent.contentPageHeader.title || 'About Us') }}
               />
               {aboutContent.contentPageHeader.text && (
