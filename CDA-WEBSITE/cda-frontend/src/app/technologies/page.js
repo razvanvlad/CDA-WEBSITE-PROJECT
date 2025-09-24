@@ -28,67 +28,59 @@ export default async function TechnologiesPage() {
     <>
       <Header />
       
-      {/* Page Header */}
+      {/* Standard Hero Section */}
       <section className="bg-white py-16">
         <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-          <div className="text-center">
-            <p className="text-sm font-medium text-[#FF6B35] uppercase tracking-wide mb-4">Technologies</p>
-            <h1 className="text-4xl md:text-5xl font-bold text-black mb-6">
-              Technologies We Use
-            </h1>
-            <p className="text-lg text-[#4B5563] max-w-3xl mx-auto leading-relaxed">
-              Discover the cutting-edge technologies and frameworks we use to build exceptional digital solutions for our clients.
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            {/* Left: Title + Copy */}
+            <div>
+              <h1
+                className="text-4xl md:text-5xl font-bold text-black mb-6"
+                style={{ textDecoration: 'underline', textDecorationColor: '#AD80F9', textDecorationThickness: '11px' }}
+              >
+                The Technologies We Use
+              </h1>
+              <p className="text-lg text-[#4B5563] leading-relaxed max-w-2xl">
+                Discover the cutting-edge technologies and frameworks we use to build exceptional digital solutions for our clients.
+              </p>
+            </div>
+            {/* Right: Illustration */}
+            <div className="flex justify-center lg:justify-end">
+              <img src="/images/drone.svg" alt="Technologies illustration" className="w-full max-w-[600px] h-auto object-contain" />
+            </div>
           </div>
         </div>
       </section>
 
       {/* Technologies Cards Section */}
-      <section className="bg-gray-50 py-16">
+      <section className="bg-white py-16">
         <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
           {technologies.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {technologies.map((tech) => (
-                <div key={tech.id} className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-200">
-                  {/* Featured Image */}
-                  {tech.featuredImage?.node?.sourceUrl && (
-                    <div className="aspect-video relative overflow-hidden">
-<Image
+                <div key={tech.id} className="tech-card bg-white border border-gray-200 p-10 hover:shadow-md transition-shadow duration-300">
+                  {/* Top: Brand/Technology Logo */}
+                  <div className="mb-8">
+                    {tech.featuredImage?.node?.sourceUrl ? (
+                      <img
                         src={tech.featuredImage.node.sourceUrl}
                         alt={tech.featuredImage.node.altText || tech.title}
-                        fill
-                        className="object-cover"
+                        className="h-16 w-auto object-contain"
+                        loading="lazy"
                       />
-                    </div>
-                  )}
-                  
-                  {/* Card Content */}
-                  <div className="p-6">
-                    {/* Title */}
-                    <h3 className="text-xl font-bold text-black mb-3 leading-tight">
-                      {tech.title}
-                    </h3>
-                    
-                    {/* Text/Excerpt */}
-                    <p className="text-gray-600 mb-6 leading-relaxed">
-                      {truncateText(stripHtml(tech.excerpt || tech.content))}
-                    </p>
-                    
-                    {/* Button */}
-                    <a
-                      href={tech.uri}
-                      className="inline-flex items-center px-6 py-3 bg-[#FF6B35] text-white font-medium rounded-lg hover:bg-[#e55a2b] transition-colors duration-300 group"
-                    >
-                      Learn More
-                      <svg 
-                        className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </a>
+                    ) : (
+                      <div className="h-16 w-40 bg-gray-100" />
+                    )}
+                  </div>
+
+                  {/* Body copy */}
+                  <div className="text-black text-2xl leading-relaxed mb-10">
+                    {stripHtml(tech.excerpt || tech.content) || 'Discover how we use this technology to deliver reliable, scalable experiences.'}
+                  </div>
+
+                  {/* CTA */}
+                  <div>
+                    <a href="/contact" className="button-l-transparent">Find Out More</a>
                   </div>
                 </div>
               ))}
@@ -112,6 +104,14 @@ export default async function TechnologiesPage() {
         </div>
       </section>
 
+      {/* Approach Global Block right after technologies */}
+      {globalData?.approach && (
+        <ApproachBlock 
+          globalData={globalData.approach}
+          pageData={null}
+          useOverride={false}
+        />
+      )}
 
       {/* Services Slider (static component fed by Services CPT) */}
       <ServicesSlider />
