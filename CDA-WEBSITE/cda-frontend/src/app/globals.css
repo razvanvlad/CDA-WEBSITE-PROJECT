@@ -153,6 +153,7 @@ html, body {
 .title-large-purple { --u-color: #7B61FF; }
 .title-large-light-blue { --u-color: #4FC3F7; }
 .title-large-green  { --u-color: #34C759; }
+.title-large-roz  { --u-color: #FF60DF; }
 
 /* Width helpers */
 .u-full  { --u-width: 100%; }

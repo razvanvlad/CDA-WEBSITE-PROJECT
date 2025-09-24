@@ -7,7 +7,7 @@ const WhyCdaBlock = ({ globalData }) => {
   if (cards.length === 0 && !globalData?.title && !globalData?.subtitle) return null;
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-white mb-20">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-left mb-12">
           {globalData?.title && (
