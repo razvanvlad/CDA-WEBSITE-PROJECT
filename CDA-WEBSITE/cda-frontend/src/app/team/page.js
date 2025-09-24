@@ -146,13 +146,6 @@ export default async function TeamPage() {
     <>
       <Header />
 
-      {/* Debug (temporary) */}
-      <section className="py-2">
-        <div className="mx-auto w-full max-w-[1620px] px-4">
-          <pre className="text-xs text-gray-600 bg-gray-50 border rounded p-2 overflow-auto">{JSON.stringify(debug, null, 2)}</pre>
-        </div>
-      </section>
-
       {/* 1) Hero Individual (reuse homepage hero classes) */}
       {header && (
         <section className="home-hero-section bg-white">
