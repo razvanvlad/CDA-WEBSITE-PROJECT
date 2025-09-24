@@ -1,6 +1,7 @@
 // src/app/services/page.js
 import { getServicesWithPagination, executeGraphQLQuery, getServiceOverviewContent, getServiceBySlug } from '@/lib/graphql-queries.js'
 import ServicesClient from './ServicesClient'
+import ServicesFilters from './ServicesFilters'
 import ApproachBlock from '@/components/GlobalBlocks/ApproachBlock'
 import HeroSection from '@/components/GlobalBlocks/HeroSection'
 import ValuesBlock from '@/components/GlobalBlocks/ValuesBlock'
@@ -161,18 +162,17 @@ export default async function ServicesPage() {
     }
 
     const heroSectionContent = overviewContent?.heroSection || {}
-    const heroImageNode = heroSectionContent.imageRight?.node?.sourceUrl
-      ? (
-          <Image
-            src={heroSectionContent.imageRight.node.sourceUrl}
-            alt={heroSectionContent.imageRight.node.altText || 'Our Services'}
-            width={600}
-            height={400}
-            className="cda-hero__image-media"
-            priority
-          />
-        )
-      : null
+    // Use a static illustration for the Services list header
+    const heroImageNode = (
+      <Image
+        src={'/images/SVG%20images/Chameleon.svg'}
+        alt={'Services illustration'}
+        width={600}
+        height={400}
+        className="cda-hero__image-media"
+        priority
+      />
+    )
 
     const heroDescription =
       heroSectionContent.description ||
@@ -190,6 +190,9 @@ export default async function ServicesPage() {
             descriptionClassName="text-xl text-gray-600"
             image={heroImageNode}
           />
+
+          {/* Service type filter chips */}
+          <ServicesFilters />
           <div className="max-w-7xl mx-auto px-4 py-16">
           {/* Service Landing Two-Column Section */}
           {(overviewContent?.featuredServiceSection || overviewContent?.rightColumn) && (

@@ -202,7 +202,7 @@ const ServicesAccordion = ({
         <img
           src={globalData.illustration.node.sourceUrl}
           alt={globalData.illustration.node.altText || globalData.title || 'Illustration'}
-          className="hidden md:block absolute bottom-0 left-0 w-[280px] md:w-[340px] lg:w-[380px] pointer-events-none select-none z-[5]"
+          className="hidden md:block absolute bottom-0 left-[-100px] w-[280px] md:w-[340px] lg:w-[580px] pointer-events-none select-none z-[5]"
         />
       )}
     </section>
