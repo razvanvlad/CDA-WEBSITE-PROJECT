@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const getServiceColor = (slug) => {
   const colorMap = {
@@ -19,9 +20,9 @@ const getServiceColor = (slug) => {
 };
 
 export default function ServicesClient({ initialItems = [] }) {
-  const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
-  const searchQuery = params.get('search') || '';
-  const selectedTypes = params.getAll('service_type');
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get('search') || '';
+  const selectedType = searchParams.get('service_type') || null;
 
   const services = useMemo(() => {
     let items = Array.isArray(initialItems) ? initialItems : [];
@@ -35,16 +36,16 @@ export default function ServicesClient({ initialItems = [] }) {
       });
     }
 
-    if (selectedTypes.length > 0) {
+    if (selectedType) {
       items = items.filter((svc) => {
         const nodes = svc?.serviceTypes?.nodes || [];
         const slugs = nodes.map((t) => t.slug);
-        return selectedTypes.some((sel) => slugs.includes(sel));
+        return slugs.includes(selectedType);
       });
     }
 
     return items;
-  }, [initialItems, searchQuery, selectedTypes]);
+  }, [initialItems, searchQuery, selectedType]);
 
   if (!services.length) {
     return (

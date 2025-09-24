@@ -19,17 +19,17 @@ const MAG_CONFIG = {
 
   // Mobile (<768px): no hover; show only the hover art with these settings
   mobile: {
-    width: 680,
-    x: -40,
-    y: 60,
+    width: 880,
+    x: -85,
+    y: 160,
     scale: 1,
-    rotate: 50,
+    rotate: 20,
   },
 
   // Desktop (≥768px): independent positions for base and hover
   desktop: {
-    base:  { width: 680, x: 500, y: 150, scale: 1, rotate: 0 },
-    hover: { width: 680, x: 365, y:   0, scale: 1, rotate: 0 },
+    base:  { width: 680, x: 500, y: 190, scale: 1, rotate: 0 },
+    hover: { width: 680, x: 365, y:  40, scale: 1, rotate: 0 },
   },
 };
 
@@ -171,7 +171,7 @@ const baseVisibleClass = MAG_CONFIG.showBothOnDesktop
   : 'opacity-100 md:group-hover:opacity-0';
   /* --------------------------------- Render -------------------------------- */
   return (
-    <footer className="bg-white pt-20">
+    <footer className="bg-white pt-5">
       <div className="mx-auto max-w-[1620px] px-4">
         {/* CTA Section (group used for desktop hover) */}
         {/* CTA Section */}
@@ -182,7 +182,7 @@ const baseVisibleClass = MAG_CONFIG.showBothOnDesktop
         style={{ zIndex: MAG_CONFIG.layerDesktop === 'front' ? 20 : 10 }}
   >
     <p className="cda-subtitle">Take The First Step Toward Something Great</p>
-    <h2 className="mt-3 text-[34px] md:text-[44px] leading-tight font-extrabold text-[#0B0B0E] text-center">
+    <h2 className="mt-3 text-[34px] md:text-[44px] mb-[40px] leading-tight font-extrabold text-[#0B0B0E] text-center">
       Ready To Start Your{' '}
       <span className="relative inline-block">
         Project?
@@ -261,35 +261,37 @@ const baseVisibleClass = MAG_CONFIG.showBothOnDesktop
 
 
         {/* Bottom Section */}
-        <div className="pb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
-          {/* Left: Links */}
-          <div>
-            <h3 className="cda-subtitle">Have A Browse</h3>
-            <div className="flex flex-wrap gap-x-6 gap-y-2">
-              {!loading && menuItems.length === 0 && (
-                <span className="text-[14px] text-[#0B0B0E]/60">
-                  No footer links configured
-                </span>
-              )}
-              {menuItems.map((item) => (
-                <a
-                  key={item.id}
-                  href={resolveHref(item)}
-                  className="text:[14px] text-[#0B0B0E] hover:underline"
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
-            <p className="mt-6 text-[14px] text-[#111827]/60">
-              CDA © {new Date().getFullYear()}. All rights reserved.
-            </p>
-          </div>
+        <div className="pb-10 mt-10 flex flex-col md:flex-row items-center justify-between gap-10">
+  {/* Left: Links */}
+  <div className="w-full md:w-auto text-center md:text-left">
+    <h3 className="cda-subtitle">Have A Browse</h3>
+
+    <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center md:justify-start">
+      {!loading && menuItems.length === 0 && (
+        <span className="text-[14px] text-[#0B0B0E]/60">
+          No footer links configured
+        </span>
+      )}
+      {menuItems.map((item) => (
+        <a
+          key={item.id}
+          href={resolveHref(item)}
+          className="text:[14px] text-[#0B0B0E] hover:underline"
+        >
+          {item.label}
+        </a>
+      ))}
+    </div>
+
+    <p className="mt-6 text-[14px] text-[#111827]/60">
+      CDA © {new Date().getFullYear()}. All rights reserved.
+    </p>
+  </div>
 
           {/* Right: Social & contact */}
-          <div className="w-full md:w-auto flex flex-col items-start md:items-end">
+          <div className="w-full pb-10 md:w-auto flex flex-col items-center md:items-end text-center md:text-right">
             <h3 className="cda-subtitle">Let&apos;s Connect</h3>
-            <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center gap-4 mb-4 justify-center md:justify-end">
               <a
                 href="https://www.facebook.com/cdagroupUK/"
                 target="_blank"
@@ -346,7 +348,7 @@ const baseVisibleClass = MAG_CONFIG.showBothOnDesktop
                 </svg>
               </a>
             </div>
-            <div className="flex items-center gap-6 text-[14px] text-[#0B0B0E]">
+            <div className="flex items-center gap-6 text-[14px] text-[#0B0B0E] justify-center md:justify-end">
               <a href="/contact" className="hover:underline">
                 Contact Us
               </a>

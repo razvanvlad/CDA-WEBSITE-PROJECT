@@ -2880,6 +2880,16 @@ div.w-2.h-2,
   border-radius: 0 !important;
 }
 
+/* Services filter chip overrides */
+.services-filter-chip { border-radius: 20px !important; }
+
+/* Services hero chameleon hover swap */
+.cameleon-hero { position: relative; display: inline-block; }
+.cameleon-hero__img { display: block; width: 100%; height: auto; }
+.cameleon-hero__img.hover { position: absolute; inset: 0; opacity: 0; transition: opacity 200ms ease-in-out; }
+.cameleon-hero:hover .cameleon-hero__img.hover { opacity: 1; }
+.cameleon-hero:hover .cameleon-hero__img.base { opacity: 0; transition: opacity 200ms ease-in-out; }
+
 /* Policy Content Styles */
 .policy-content h1,
 .policy-content h2,
