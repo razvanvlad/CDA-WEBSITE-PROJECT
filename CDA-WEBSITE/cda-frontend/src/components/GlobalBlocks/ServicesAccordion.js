@@ -115,7 +115,9 @@ const ServicesAccordion = ({
                         )}
                       </div>
                     </div> */}
-<div className={`px-5 md:px-6 pb-5 md:pb-6 ${isOpen ? 'block' : 'hidden'}`}>
+
+                    {/* //2 */}
+{/* <div className={`px-5 md:px-6 pb-5 md:pb-6 ${isOpen ? 'block' : 'hidden'}`}>
   <div className="text-[15px] md:text-[16px] leading-[1.7] text-[#4B5563]">
     {(() => {
       // Prefer the WP ACF field used on service pages
@@ -133,6 +135,38 @@ const ServicesAccordion = ({
       return looksLikeHtml
         ? <div className="mb-4" dangerouslySetInnerHTML={{ __html: sub }} />
         : <p className="mb-4">{sub}</p>;
+    })()}
+
+    {item.slug && (
+      <a href={`/services/${item.slug}`} className="button-l inline-flex">
+        Find Out More
+      </a>
+    )}
+  </div>
+</div> */}
+
+{/* 3 */}
+<div className={`px-5 md:px-6 pb-5 md:pb-6 ${isOpen ? 'block' : 'hidden'}`}>
+  <div className="text-[15px] md:text-[16px] leading-[1.7] text-[#4B5563]">
+    {(() => {
+      // Prefer the ACF subtitle if present, otherwise use WP excerpt, then content
+      const subRaw =
+        item?.serviceFields?.heroSection?.subtitle ||
+        item?.excerpt ||
+        item?.content ||
+        item?.subtitle ||
+        '';
+
+      if (!subRaw) return null;
+
+      const looksLikeHtml =
+        typeof subRaw === 'string' && /<[^>]+>/.test(subRaw);
+
+      return looksLikeHtml ? (
+        <div className="mb-4" dangerouslySetInnerHTML={{ __html: subRaw }} />
+      ) : (
+        <p className="mb-4">{subRaw}</p>
+      );
     })()}
 
     {item.slug && (
