@@ -1,119 +1,38 @@
-'use client';
-import { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import LocationsImage from '../../components/GlobalBlocks/LocationsImage';
 import ContactForm from '@/components/Sections/ContactForm';
 import NewsletterSignup from '../../components/GlobalBlocks/NewsletterSignup';
+import { executeGraphQLQuery } from '@/lib/graphql-queries.js'
 
-const stripHTML = (html) => html ? html.replace(/<[^>]*>/g, '').trim() : '';
+export const revalidate = 300
 
-export default function ContactPage() {
-  const [globalData, setGlobalData] = useState(null);
-  const [contactData, setContactData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+export default async function ContactPage() {
+  const CONTACT_ID = parseInt(process.env.NEXT_PUBLIC_CONTACT_PAGE_ID || '791', 10)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const GRAPHQL_URL = process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT || 'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/graphql';
-        const CONTACT_ID = parseInt(process.env.NEXT_PUBLIC_CONTACT_PAGE_ID || '791', 10);
+  const globalQuery = `{
+    globalOptions { globalContentBlocks {
+      locationsImage { title subtitle countries { countryName offices { name address email phone } } illustration { node { sourceUrl altText } } }
+      newsletterSignup { title subtitle hubspotScript termsText }
+    } }
+  }`
 
-        const globalQuery = `{
-          globalOptions {
-            globalContentBlocks {
-              locationsImage {
-                title
-                subtitle
-                countries { countryName offices { name address email phone } }
-                illustration { node { sourceUrl altText } }
-              }
-              newsletterSignup {
-                title
-                subtitle
-                hubspotScript
-                termsText
-              }
-            }
-          }
-        }`;
+  const contactQuery = `query GetContact($id: ID!) {
+    page(id: $id, idType: DATABASE_ID) {
+      id
+      title
+      contactContent { formSection { title description formShortcode } }
+    }
+  }`
 
-        const contactQuery = `{
-          page(id: ${CONTACT_ID}, idType: DATABASE_ID) {
-            id
-            title
-            contactContent {
-              formSection {
-                title
-                description
-                formShortcode
-              }
-            }
-          }
-        }`;
+  const [globalRes, contactRes] = await Promise.all([
+    executeGraphQLQuery(globalQuery),
+    executeGraphQLQuery(contactQuery, { id: String(CONTACT_ID) })
+  ])
 
-        const [globalRes, contactRes] = await Promise.all([
-          fetch(GRAPHQL_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ query: globalQuery }) }),
-          fetch(GRAPHQL_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ query: contactQuery }) })
-        ]);
-
-        const globalJson = await globalRes.json();
-        const contactJson = await contactRes.json();
-
-        if (globalJson.errors || contactJson.errors) {
-          console.log('GraphQL errors:', globalJson.errors || contactJson.errors);
-          setError(globalJson.errors?.[0] || contactJson.errors?.[0]);
-          setLoading(false);
-          return;
-        }
-
-        setGlobalData(globalJson.data);
-        setContactData(contactJson.data);
-      } catch (e) {
-        setError(e);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-white">
-        <Header />
-        <div className="container mx-auto px-4 py-16 max-w-4xl text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">Contact</h1>
-          <div className="bg-red-50 border border-red-200 rounded-lg p-8 text-left">
-            <h2 className="text-2xl font-semibold text-red-800 mb-4">Error Loading Content</h2>
-            <pre className="text-xs bg-white rounded p-3 overflow-auto border border-red-100">{JSON.stringify(error, null, 2)}</pre>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-
-  const globalBlocks = globalData?.globalOptions?.globalContentBlocks || {};
-  const formSection = contactData?.page?.contactContent?.formSection || null;
-
-  // Decide how to render form: embed vs simple form component
-  const formEmbed = formSection?.formShortcode && /<\/?(form|script|div|iframe)/i.test(String(formSection.formShortcode));
+  const globalBlocks = globalRes?.data?.globalOptions?.globalContentBlocks || {}
+  const formSection = contactRes?.data?.page?.contactContent?.formSection || null
+  const formEmbed = formSection?.formShortcode && /<\/?(form|script|div|iframe)/i.test(String(formSection.formShortcode))
 
   return (
     <div className="min-h-screen bg-white">
@@ -188,8 +107,6 @@ export default function ContactPage() {
       {globalBlocks?.newsletterSignup && (
         <NewsletterSignup globalData={globalBlocks.newsletterSignup} />
       )}
-
-
 
       <Footer />
     </div>

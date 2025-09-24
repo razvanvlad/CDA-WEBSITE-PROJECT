@@ -7,14 +7,14 @@ const WhyCdaBlock = ({ globalData }) => {
   if (cards.length === 0 && !globalData?.title && !globalData?.subtitle) return null;
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-white">
       <div className="container mx-auto px-4 max-w-6xl">
-        <div className="text-center mb-12">
+        <div className="text-left mb-12">
           {globalData?.title && (
-            <h2 className="text-md font-bold text-black">{globalData.title}</h2>
+            <h2 className="cda-subtitle">{globalData.title}</h2>
           )}
           {globalData?.subtitle && (
-            <p className="text-lg font-bold tracking-wider text-black">{globalData.subtitle}</p>
+            <p className="cda-title">{globalData.subtitle}</p>
           )}
         </div>
         {/* card listing CDA */}
@@ -22,14 +22,14 @@ const WhyCdaBlock = ({ globalData }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
             {cards.map((card, index) => (
               <div key={index} className="bg-white square-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-                <div className="flex">
+                <div className="flex items-center">
                   {/* Text content - left side */}
-                  <div className="flex-1 p-6">
+                  <div className="flex-1 p-6 flex flex-col justify-center">
                     {card?.title && (
-                      <h3 className="text-xl font-semibold text-gray-900 mb-3">{card.title}</h3>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-3 pl-10">{card.title}</h3>
                     )}
                     {card?.description && (
-                      <p className="text-gray-600 leading-relaxed">{card.description}</p>
+                      <p className="text-gray-600 leading-relaxed pl-10">{card.description}</p>
                     )}
                   </div>
 

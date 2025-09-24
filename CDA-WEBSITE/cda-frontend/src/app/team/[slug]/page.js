@@ -165,23 +165,8 @@ export default async function TeamMemberDetailPage({ params }) {
     )
   } catch (e) {
     console.error('Error loading team member:', e)
-    return (
-      <>
-        <Header />
-        <div className="min-h-screen bg-white py-16">
-          <div className="mx-auto w-full max-w-[900px] px-4 md:px-6 lg:px-8">
-            <div className="bg-red-50 p-8 rounded-lg text-center">
-              <h1 className="text-2xl font-bold text-red-700 mb-4">Error Loading Team Member</h1>
-              <div className="flex gap-4 justify-center">
-                <Link href="/team" className="px-6 py-3 bg-gray-600 text-white hover:bg-gray-700">Back to Team</Link>
-                <Link href="/contact" className="px-6 py-3 bg-blue-600 text-white hover:bg-blue-700">Contact Us</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-        <Footer />
-      </>
-    )
+    // Show global custom 404 instead of local fallback
+    notFound()
   }
 }
 
