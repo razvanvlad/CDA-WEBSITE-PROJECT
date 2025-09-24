@@ -1,261 +1,196 @@
 'use client';
-// src/components/GlobalBlocks/ApproachBlock.js
-import React from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 
 const ApproachBlock = ({ globalData, pageData, useOverride = false }) => {
-  // Use override data if specified, otherwise use global data
   const data = useOverride && pageData ? pageData : globalData;
-  
-  if (!data?.steps || data.steps.length === 0) return null;
+  if (!data?.steps?.length) return null;
 
-  // Sort steps by step_number to ensure correct order
-  const sortedSteps = [...data.steps].sort((a, b) => a.stepNumber - b.stepNumber);
-
-  // Generate SVG arrow component for connecting steps
-  const Arrow = ({ direction = 'right', className = '' }) => (
-    <svg 
-      className={`arrow ${className}`}
-      width="60" 
-      height="20" 
-      viewBox="0 0 60 20" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {direction === 'right' ? (
-        <path 
-          d="M2 10H58M58 10L52 4M58 10L52 16" 
-          stroke="#FD8721" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-        />
-      ) : (
-        <path 
-          d="M30 2V18M30 18L24 12M30 18L36 12" 
-          stroke="#FD8721" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-        />
-      )}
-    </svg>
+  const steps = useMemo(
+    () => [...data.steps].sort((a, b) => (a.stepNumber || 0) - (b.stepNumber || 0)),
+    [data]
   );
+
+  const containerRef = useRef(null);
+  const panelRefs = useRef([]);
+  panelRefs.current = steps.map((_, i) => panelRefs.current[i] ?? React.createRef());
+
+  const [pathD, setPathD] = useState('');
+  const [svgBox, setSvgBox] = useState({ w: 0, h: 0 });
+
+  // Build a smooth path through points
+  const buildPath = (pts) => {
+    if (pts.length < 2) return '';
+    const tension = 0.35; // curve strength
+    let d = `M ${pts[0].x} ${pts[0].y}`;
+    for (let i = 1; i < pts.length; i++) {
+      const p0 = pts[i - 1];
+      const p1 = pts[i];
+      const dx = p1.x - p0.x;
+      // alternate vertical “wave” for a playful curve
+      const wave = (i % 2 ? 120 : -120);
+      const c1 = { x: p0.x + dx * tension, y: p0.y + wave };
+      const c2 = { x: p1.x - dx * tension, y: p1.y + wave };
+      d += ` C ${c1.x} ${c1.y}, ${c2.x} ${c2.y}, ${p1.x} ${p1.y}`;
+    }
+    return d;
+  };
+
+  // Measure panels and build path to *touch* them
+  const measure = () => {
+    const cont = containerRef.current;
+    if (!cont) return;
+
+    const cRect = cont.getBoundingClientRect();
+    const points = panelRefs.current
+      .map((r) => r.current?.getBoundingClientRect())
+      .filter(Boolean)
+      .map((rect, i) => {
+        // anchor at bottom-center of the gray panel, a few px inside
+        const x = rect.left + rect.width / 2 - cRect.left;
+        const y = rect.bottom - cRect.top - 10; // 10px inside so it “touches” panel
+        return { x, y };
+      });
+
+    setSvgBox({ w: cRect.width, h: cRect.height });
+    setPathD(buildPath(points));
+  };
+
+  useEffect(() => {
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (containerRef.current) ro.observe(containerRef.current);
+    // also re-measure on font/image load
+    const t = setTimeout(measure, 100);
+    window.addEventListener('resize', measure);
+    return () => {
+      window.removeEventListener('resize', measure);
+      clearTimeout(t);
+      ro.disconnect();
+    };
+  }, [steps.length]);
+
+  // stagger on tablet to mimic reference
+  const staggerClass = (i) => (i === 1 || i === 3 ? 'md:mt-20 lg:mt-24' : '');
 
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4 max-w-7xl">
-        {/* Header */}
-        <div className="text-center mb-16">
-          {data.title && (
-            <h2 className="text-md font-bold text-gray-700 mb-2">
-              {data.title}
+        <div className="mb-12 md:mb-16">
+          {data.subtitle && (
+            <h2 className="cda-subtitle">
+              {data.subtitle}
             </h2>
           )}
-          {data.subtitle && (
-            <p className="text-3xl font-bold tracking-wider text-gray-900">
-              {data.subtitle}
+          {data.title && (
+            <p className="cda-title">
+              {data.title}
             </p>
           )}
+          
         </div>
 
-        {/* Desktop Layout - 5 Column Grid with Horizontal Arrows */}
-        <div className="hidden lg:block">
-          <div className="relative">
-            {/* Steps Container */}
-            <div className="grid grid-cols-5 gap-8 items-start">
-              {sortedSteps.map((step, index) => (
-                <div key={index} className="flex flex-col items-center text-center relative">
-                  {/* Step Number Badge */}
-                  <div className="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg mb-4 z-10 relative">
-                    {step.stepNumber || index + 1}
+        {/* Canvas (path + cards) */}
+        <div ref={containerRef} className="relative">
+          {/* Dynamic dashed path (hidden on mobile for clarity) */}
+          <svg
+            className="pointer-events-none absolute inset-0 hidden md:block"
+            width={svgBox.w}
+            height={svgBox.h}
+            viewBox={`0 0 ${svgBox.w} ${svgBox.h}`}
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              d={pathD}
+              fill="none"
+              stroke="#59C3FF"
+              strokeWidth="8"
+              strokeDasharray="16 16"
+              strokeLinecap="round"
+            >
+              <animate
+                attributeName="stroke-dashoffset"
+                from="64"
+                to="0"
+                dur="1.6s"
+                repeatCount="indefinite"
+              />
+            </path>
+          </svg>
+
+          {/* Cards */}
+          <ul className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-6">
+            {steps.map((step, i) => (
+              <li key={i} className={`flex flex-col ${staggerClass(i)} lg:mt-0`}>
+                <div
+                  ref={panelRefs.current[i]}
+                  className="relative bg-gray-100 rounded-md w-full h-56 md:h-60 lg:h-64 flex items-end justify-center overflow-hidden"
+                >
+                  <div className="absolute top-3 left-3 text-gray-300 font-extrabold text-2xl select-none">
+                    {String(step.stepNumber || i + 1).padStart(2, '0')}
                   </div>
-                  
-                  {/* Step Image */}
-{step.image && (
-                      <div className="w-20 h-20 mb-4 flex items-center justify-center">
-                        <Image 
-                          src={step.image.node.sourceUrl}
-                          alt={step.image.node.altText || step.title || ''}
-                          width={80}
-                          height={80}
-                          sizes="80px"
-                          className="w-full h-full object-contain"
-                        />
-                      </div>
-                    )}
-                  
-                  {/* Step Content */}
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {step.title}
-                    </h3>
-                    {step.description && (
-                      <p className="text-sm text-gray-600 leading-relaxed">
-                        {step.description}
-                      </p>
-                    )}
-                  </div>
-                  
-                  {/* Horizontal Arrow - Show for all except last step */}
-                  {index < sortedSteps.length - 1 && (
-                    <div className="absolute top-6 left-full transform -translate-y-1/2 translate-x-4 z-0">
-                      <Arrow direction="right" className="text-orange-500" />
-                    </div>
+
+                  {step?.image?.node?.sourceUrl && (
+                    <Image
+                      src={step.image.node.sourceUrl}
+                      alt={step.image.node.altText || step.title || ''}
+                      width={420}
+                      height={320}
+                      sizes="(min-width: 1024px) 260px, (min-width: 768px) 45vw, 90vw"
+                      className="w-auto h-[78%] md:h-[82%] object-contain"
+                      priority={i === 0}
+                      onLoadingComplete={measure}
+                    />
                   )}
                 </div>
-              ))}
+
+                {step.title && (
+                  <h3 className="mt-4 text-lg md:text-xl font-extrabold text-gray-900">
+                    {step.title}
+                  </h3>
+                )}
+                {step.description && (
+                  <p className="mt-1 text-gray-600 leading-relaxed hidden md:block">
+                    {step.description}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Mobile vertical (no path) */}
+        <div className="mt-10 md:hidden space-y-10">
+          {steps.map((step, i) => (
+            <div key={`m-${i}`} className="flex flex-col items-start">
+              <div className="relative bg-gray-100 rounded-md w-full h-48 flex items-end justify-center">
+                <div className="absolute top-3 left-3 text-gray-300 font-extrabold text-2xl">
+                  {String(step.stepNumber || i + 1).padStart(2, '0')}
+                </div>
+                {step?.image?.node?.sourceUrl && (
+                  <Image
+                    src={step.image.node.sourceUrl}
+                    alt={step.image.node.altText || step.title || ''}
+                    width={360}
+                    height={260}
+                    sizes="90vw"
+                    className="w-auto h-[76%] object-contain"
+                  />
+                )}
+              </div>
+              {step.title && (
+                <h3 className="mt-3 text-xl font-extrabold text-gray-900">
+                  {step.title}
+                </h3>
+              )}
+              {step.description && (
+                <p className="mt-1 text-gray-600">{step.description}</p>
+              )}
             </div>
-          </div>
-        </div>
-
-        {/* Tablet Layout - 3 Column Grid with Mixed Arrows */}
-        <div className="hidden md:block lg:hidden">
-          <div className="grid grid-cols-3 gap-8">
-            {sortedSteps.map((step, index) => (
-              <React.Fragment key={index}>
-                <div className="flex flex-col items-center text-center relative">
-                  {/* Step Number Badge */}
-                  <div className="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg mb-4">
-                    {step.stepNumber || index + 1}
-                  </div>
-                  
-                  {/* Step Image */}
-{step.image && (
-                      <div className="w-20 h-20 mb-4 flex items-center justify-center">
-                        <Image 
-                          src={step.image.node.sourceUrl}
-                          alt={step.image.node.altText || step.title || ''}
-                          width={80}
-                          height={80}
-                          sizes="80px"
-                          className="w-full h-full object-contain"
-                        />
-                      </div>
-                    )}
-                  
-                  {/* Step Content */}
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {step.title}
-                    </h3>
-                    {step.description && (
-                      <p className="text-sm text-gray-600 leading-relaxed">
-                        {step.description}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                
-                {/* Arrow Logic for Tablet */}
-                {index < sortedSteps.length - 1 && (
-                  <div className="flex justify-center items-center">
-                    {/* Horizontal arrow for same row, vertical for row breaks */}
-                    {(index + 1) % 3 === 0 ? (
-                      <Arrow direction="down" className="transform rotate-90" />
-                    ) : (
-                      <Arrow direction="right" />
-                    )}
-                  </div>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
-
-        {/* Mobile Layout - Vertical Stack with Down Arrows */}
-        <div className="block md:hidden">
-          <div className="space-y-8">
-            {sortedSteps.map((step, index) => (
-              <React.Fragment key={index}>
-                <div className="flex flex-col items-center text-center">
-                  {/* Step Number Badge */}
-                  <div className="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg mb-4">
-                    {step.stepNumber || index + 1}
-                  </div>
-                  
-                  {/* Step Image */}
-{step.image && (
-                      <div className="w-24 h-24 mb-4 flex items-center justify-center">
-                        <Image 
-                          src={step.image.node.sourceUrl}
-                          alt={step.image.node.altText || step.title || ''}
-                          width={96}
-                          height={96}
-                          sizes="96px"
-                          className="w-full h-full object-contain"
-                        />
-                      </div>
-                    )}
-                  
-                  {/* Step Content */}
-                  <div className="space-y-3 max-w-sm">
-                    <h3 className="text-xl font-semibold text-gray-900">
-                      {step.title}
-                    </h3>
-                    {step.description && (
-                      <p className="text-gray-600 leading-relaxed">
-                        {step.description}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                
-                {/* Vertical Arrow - Show for all except last step */}
-                {index < sortedSteps.length - 1 && (
-                  <div className="flex justify-center py-4">
-                    <svg 
-                      width="20" 
-                      height="40" 
-                      viewBox="0 0 20 40" 
-                      fill="none" 
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="text-orange-500"
-                    >
-                      <path 
-                        d="M10 2V38M10 38L4 32M10 38L16 32" 
-                        stroke="#FD8721" 
-                        strokeWidth="2" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </div>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
-
-      {/* Custom CSS for arrow animations */}
-      <style jsx>{`
-        .arrow {
-          transition: all 0.3s ease;
-        }
-        
-        .arrow:hover {
-          transform: scale(1.1);
-        }
-        
-        /* Responsive arrow sizing */
-        @media (max-width: 768px) {
-          .arrow {
-            width: 40px;
-            height: 16px;
-          }
-        }
-        
-        /* Add subtle animation to step cards */
-        .step-card {
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .step-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-      `}</style>
     </section>
   );
 };

@@ -19,6 +19,60 @@
   white-space: nowrap;
 }
 
+/* White variant of L-type button (alias: button-l-white) */
+.button-l-white {
+  --btn-l-line: 1px;           /* line thickness */
+  --btn-l-offset: 4px;       /* half-pixel placement for crisp stroke */
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  font-family: var(--font-poppins), var(--font-inter), sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: black;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Bottom underline (horizontal) */
+.button-l-white::before {
+  content: '';
+  position: absolute;
+  left: var(--btn-l-offset);
+  bottom: calc(var(--btn-l-offset) * -1);
+  /* Extend to meet vertical line at bottom-right corner */
+  width: calc(100% - var(--btn-l-line));
+  height: var(--btn-l-line);
+  background-color: black;
+  z-index: 1;
+}
+
+/* Right side line (vertical) */
+.button-l-white::after {
+  content: '';
+  position: absolute;
+  top: var(--btn-l-offset);
+  right: calc(var(--btn-l-offset) * -1);
+  width: var(--btn-l-line);
+  /* Stretch down to the same depth as the bottom underline */
+  bottom: calc(var(--btn-l-offset) * -1);
+  background-color: black;
+  z-index: 1;
+}
+
+.button-l-white:hover {
+  background-color: black;
+  color: white;
+  box-shadow: none;
+}
+
 /* Bottom underline (horizontal) */
 .button-l::before {
   content: '';
