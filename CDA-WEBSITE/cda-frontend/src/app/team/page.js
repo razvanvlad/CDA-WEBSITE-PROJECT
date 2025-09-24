@@ -248,29 +248,75 @@ export default async function TeamPage() {
         </section>
       )}
 
-      {/* 4) [Global] Join Our Team (toggle-controlled) */}
-      {t.showJoinOurTeam && globalData?.joinOurTeam && (
-        <section className="py-16 bg-white">
-          <div className="mx-auto w-full max-w-[1280px] px-4 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div>
-              {globalData.joinOurTeam.title && (
-                <h2 className="text-3xl font-bold text-black mb-4">{globalData.joinOurTeam.title}</h2>
-              )}
-              {globalData.joinOurTeam.text && (
-                <div className="prose prose-sm max-w-none text-black" dangerouslySetInnerHTML={{ __html: globalData.joinOurTeam.text }} />
-              )}
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {globalData.joinOurTeam.leftImage?.node?.sourceUrl && (
-                <img src={globalData.joinOurTeam.leftImage.node.sourceUrl} alt={globalData.joinOurTeam.leftImage.node.altText || ''} className="w-full h-auto rounded" />
-              )}
-              {globalData.joinOurTeam.rightImage?.node?.sourceUrl && (
-                <img src={globalData.joinOurTeam.rightImage.node.sourceUrl} alt={globalData.joinOurTeam.rightImage.node.altText || ''} className="w-full h-auto rounded" />
-              )}
-            </div>
-          </div>
-        </section>
-      )}
+
+{/* join our team section */}
+
+   {t.showJoinOurTeam && globalData?.joinOurTeam && (
+  <section className="relative overflow-hidden bg-white py-24 lg:py-28">
+    {/* full-width gray band */}
+    <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[220px] md:h-[260px] bg-gray-100 z-0" />
+
+    {/* white mask on the left so art sits on white */}
+    <div className="absolute inset-y-0 left-0 w-[36vw] xl:w-[30vw] bg-white hidden md:block z-10" />
+
+    {/* LEFT art (nudged to the right) */}
+    {globalData.joinOurTeam.leftImage?.node?.sourceUrl && (
+      <div className="pointer-events-none absolute top-1/2 -translate-y-1/2 hidden md:block z-20">
+        <Image
+          src={globalData.joinOurTeam.leftImage.node.sourceUrl}
+          alt={globalData.joinOurTeam.leftImage.node.altText || ''}
+          width={700}
+          height={700}
+          className="max-w-none w-[30vw] xl:w-[26vw] 2xl:w-[24vw] min-w-[220px] max-h-[320px] object-contain"
+        />
+      </div>
+    )}
+
+    {/* CONTENT (nudged to the right) */}
+    <div className="relative z-30 mx-auto w-full max-w-[1280px] px-4">
+      <div className="mx-auto w-full max-w-4xl md:translate-x-[3vw] lg:translate-x-[4vw]">
+        <div className="px-6 md:px-10 lg:px-14">
+          {globalData.joinOurTeam.title && (
+            <h2 className="cda-title">
+              {globalData.joinOurTeam.title}
+            </h2>
+          )}
+          {globalData.joinOurTeam.text && (
+            <div
+              className="prose prose-sm md:prose-base max-w-none text-black mt-5"
+              dangerouslySetInnerHTML={{ __html: globalData.joinOurTeam.text }}
+            />
+          )}
+          {globalData.joinOurTeam?.cta?.url && globalData.joinOurTeam?.cta?.title && (
+            <a
+              href={globalData.joinOurTeam.cta.url}
+              target={globalData.joinOurTeam.cta.target || '_self'}
+              className="mt-6 inline-flex items-center gap-2 font-semibold underline underline-offset-4"
+            >
+              {globalData.joinOurTeam.cta.title}
+              <span aria-hidden>↘</span>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* RIGHT bricks (nudged left) */}
+    {globalData.joinOurTeam.rightImage?.node?.sourceUrl && (
+      <>
+        <Image
+          src={globalData.joinOurTeam.rightImage.node.sourceUrl}
+          alt={globalData.joinOurTeam.rightImage.node.altText || ''}
+          width={420}
+          height={280}
+          className="pointer-events-none hidden md:block absolute -bottom-3 right-[9vw] lg:right-[8vw] rotate-12 w-[200px] lg:w-[230px] h-auto z-20"
+        />        
+      </>
+    )}
+  </section>
+)}
+
+
 
       {/* 5) [Global] Video (toggle-controlled) */}
       {t.showFullVideo && globalData?.fullVideo && (

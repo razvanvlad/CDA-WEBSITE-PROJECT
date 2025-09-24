@@ -94,7 +94,7 @@ const CultureGallerySlider = ({ globalData }) => {
   }
 
   return (
-    <section className="culture-gallery-slider py-16" style={{ backgroundColor: '#F4F4F4' }}>
+    <section className="culture-gallery-slider py-16" style={{ backgroundColor: '#ffffffff' }}>
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="mb-12">

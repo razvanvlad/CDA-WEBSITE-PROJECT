@@ -64,6 +64,7 @@ export default function HubspotMeetingsScheduler({
         src={carUrl}
         alt=""
         className="pointer-events-none select-none absolute right-6 top-0 md:w-[1021px] md:h-[325px] w-[436px] h-[139px] object-contain z-10 md:-translate-y-1/2"
+        style={{ top: '-90px', width: '50%'}}
       />
       {/* Arrow placed under the HubSpot form, overlapping into next section by half its height */}
       <img
