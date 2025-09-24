@@ -256,9 +256,23 @@ export default async function ServicesPage() {
           )}
 
           {/* Showreel Global Block (instead of Values) */}
-          {globalContent?.showreel && (
-            <Showreel globalData={globalContent.showreel} />
-          )}         
+     <section className="relative py-16 overflow-visible">
+  {/* Full-bleed bg that paints only the top half */}
+  <div
+    className="absolute inset-0 left-1/2 right-1/2 -mx-[50vw] w-screen -z-10 pointer-events-none"
+    style={{
+      background: "#F4F4F4",        
+    }}
+    aria-hidden="true"
+  />
+  <div className="relative z-10 mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+    <Showreel globalData={globalContent.showreel} />
+  </div>
+</section>
+
+
+
+          {/* Services: Process, Stats, Case Studies Preview */}
 
           </div>
         </main>
