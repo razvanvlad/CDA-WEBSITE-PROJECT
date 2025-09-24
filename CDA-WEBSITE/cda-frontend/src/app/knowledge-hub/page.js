@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import KnowledgeHubClient from './KnowledgeHubClient'
 import ServicesFilters from '../services/ServicesFilters'
+import GlobalTailSections from '@/components/GlobalBlocks/GlobalTailSections.jsx'
+import { getGlobalContent } from '@/lib/graphql-queries'
 
 export const metadata = {
   title: 'Knowledge Hub - CDA Resources & Insights',
@@ -49,9 +51,10 @@ export const revalidate = 300
 export default async function KnowledgeHubPage() {
   try {
 // Fetch case studies (core fields) and blog posts separately
-    const [caseStudiesResponse, blogPostsResponse] = await Promise.all([
+    const [caseStudiesResponse, blogPostsResponse, globalData] = await Promise.all([
       executeGraphQLQuery(GET_CASE_STUDIES_WITH_PAGINATION),
-      executeGraphQLQuery(GET_ALL_BLOGPOSTS)
+      executeGraphQLQuery(GET_ALL_BLOGPOSTS),
+      getGlobalContent()
     ])
     
     if (caseStudiesResponse.errors) {
@@ -84,7 +87,7 @@ const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
                   <p className="text-lg text-[#4B5563] leading-relaxed max-w-2xl">Read more news and articles from CDA, here you can also read our case studies.</p>
                 </div>
                 <div className="flex justify-center lg:justify-end">
-<img src="/images/owl.svg" alt="Knowledge Hub illustration" className="w-full max-h-[300px] md:max-w-[520px] lg:max-w-[600px] h-auto object-contain" />
+                  <img src="/images/owl.svg" alt="Knowledge Hub illustration" className="w-full max-h-[300px] md:max-w-[520px] lg:max-w-[600px] h-auto object-contain" />
                 </div>
               </div>
             </div>
@@ -107,6 +110,68 @@ const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
           {/* Listings (Case Studies + News) with filtering */}
           <KnowledgeHubClient initialCaseStudies={caseStudies} initialPosts={posts} />
 
+          {/* Global Tail: keep Showreel via global content */}
+          <GlobalTailSections
+            globalData={globalData}
+            enableApproach={false}
+            enableStats={false}
+            enableImageFrame={false}
+            enableNewsCarousel={false}
+            enableColumnsWithIcons3X={false}
+            enableValues={false}
+            enableWhyCda={false}
+            enableServicesAccordion={false}
+            enableTechnologiesSlider={false}
+            enableShowreel={!!globalData?.showreel}
+            enableLocationsImage={false}
+            enableNewsletterSignup={false}
+            enableContactFormLeftImageRight={false}
+            enableJoinOurTeam={false}
+            enableFullVideo={false}
+          />
+
+          {/* Static Newsletter Section (not from WordPress) */}
+          <section className="newsletter-section">
+            <div className="newsletter-container">
+              <div className="newsletter-content">
+                <header className="newsletter-header">
+                  <p className="newsletter-subtitle">Stay In The Loop</p>
+                  <h2 className="newsletter-title">Sign Up To Our Newsletter</h2>
+                </header>
+
+                <form className="newsletter-form">
+                  <div className="newsletter-row">
+                    <div className="newsletter-input-wrap">
+                      <input type="text" className="newsletter-input" placeholder="First Name" aria-label="First Name" />
+                    </div>
+                    <div className="newsletter-input-wrap">
+                      <input type="text" className="newsletter-input" placeholder="Last Name" aria-label="Last Name" />
+                    </div>
+                  </div>
+                  <div className="newsletter-row">
+                    <div className="newsletter-input-wrap" style={{ width: '100%' }}>
+                      <input type="email" className="newsletter-input" placeholder="Email Address" aria-label="Email Address" required />
+                    </div>
+                  </div>
+                  <div className="newsletter-terms">
+                    <input id="nl-terms" type="checkbox" className="newsletter-checkbox" required />
+                    <label htmlFor="nl-terms" className="newsletter-label">
+                      I agree to the <a href="/policies/terms-and-conditions" className="newsletter-terms-link">Terms and Conditions</a> and consent to receive email updates and newsletters
+                    </label>
+                  </div>
+                  <div>
+                    <button className="button-l newsletter-submit" type="submit">Sign Up</button>
+                  </div>
+                </form>
+              </div>
+
+              {/* Optional Illustration (if you want an image on the right) */}
+              <div className="newsletter-illustration" aria-hidden="true">
+                <img src="/images/paper-plane.svg" alt="" className="newsletter-illustration-img" />
+              </div>
+            </div>
+          </section>
+          
 
         </main>
         
