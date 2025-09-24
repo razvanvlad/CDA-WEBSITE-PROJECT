@@ -1,5 +1,6 @@
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import HeroSection from '../../components/GlobalBlocks/HeroSection';
 import PhotoFrame from '../../components/GlobalBlocks/PhotoFrame';
 import WhyCdaBlock from '../../components/GlobalBlocks/WhyCdaBlock';
 import ServicesAccordion from '../../components/GlobalBlocks/ServicesAccordion';
@@ -68,43 +69,39 @@ export default async function AboutPage() {
     <>
       <Header />
       
-      {/* 1) Hero individual (uses same classes as homepage hero) */}
+      {/* 1) Hero individual */}
       {aboutContent?.contentPageHeader && (
-        <section className="home-hero-section bg-white">
-          <div className="home-header-grid mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-            <div className="home-header-text text-center md:text-left">
-              <h1
-                className="cda-page-title title-large-pink"
-                dangerouslySetInnerHTML={{ __html: sanitizeTitleHtml(aboutContent.contentPageHeader.title || 'About Us') }}
+        <HeroSection
+          sectionClassName="bg-white"
+          titleHtml={sanitizeTitleHtml(aboutContent.contentPageHeader.title || 'About Us')}
+          titleClassName="cda-page-title title-large-pink"
+          descriptionHtml={aboutContent.contentPageHeader.text || ''}
+          ctas={[
+            aboutContent.contentPageHeader.cta
+              ? {
+                  href: aboutContent.contentPageHeader.cta.url || '#',
+                  label: aboutContent.contentPageHeader.cta.title || 'Get Started',
+                  target: aboutContent.contentPageHeader.cta.target || '_self',
+                  className: 'button-without-box',
+                }
+              : null,
+          ]}
+          image={
+            aboutContent.contentPageHeader.image?.node?.sourceUrl ? (
+              <img
+                src={aboutContent.contentPageHeader.image.node.sourceUrl}
+                alt={aboutContent.contentPageHeader.image.node.altText || 'About illustration'}
+                width={700}
+                height={520}
+                className="cda-hero__image-media"
               />
-              {aboutContent.contentPageHeader.text && (
-                <div className="home-hero-subtitle" dangerouslySetInnerHTML={{ __html: aboutContent.contentPageHeader.text }} />
-              )}
-              {aboutContent.contentPageHeader.cta && (
-                <div className="home-header-cta home-hero-cta">
-                  <a href={aboutContent.contentPageHeader.cta.url || '#'} className="button-without-box" target={aboutContent.contentPageHeader.cta.target || '_self'}>
-                    {aboutContent.contentPageHeader.cta.title || 'Get Started'}
-                  </a>
-                </div>
-              )}
-            </div>
-            <div className="home-header-illustration-wrap">
-              {aboutContent.contentPageHeader.image?.node?.sourceUrl ? (
-                <img
-                  src={aboutContent.contentPageHeader.image.node.sourceUrl}
-                  alt={aboutContent.contentPageHeader.image.node.altText || 'About illustration'}
-                  width={700}
-                  height={520}
-                  className="home-header-illustration"
-                />
-              ) : (
-                <div className="home-hero-illustration-placeholder">
-                  <p>Upload illustration in WordPress Admin → Pages → Edit About → Header Section</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
+            ) : (
+              <div className="cda-hero__image-placeholder">
+                <p>Upload illustration in WordPress Admin → Pages → Edit About → Header Section</p>
+              </div>
+            )
+          }
+        />
       )}
 
       {/* Order below: 2 Image Frame, 3 WhyCda, 4 Services Accordion, 5 Culture Gallery, 6 Approach, 7 Stats, 8 Full Video, 9 Custom (placeholder), 10 Showreel */}

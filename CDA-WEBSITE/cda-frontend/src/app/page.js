@@ -1,5 +1,6 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import HeroSection from '../components/GlobalBlocks/HeroSection'
 import { sanitizeTitleHtml } from '../lib/sanitizeTitleHtml'
 import PhotoFrame from '../components/GlobalBlocks/PhotoFrame'
 import ServicesAccordion from '../components/GlobalBlocks/ServicesAccordion'
@@ -187,46 +188,45 @@ export default async function Home() {
 
       {/* 1) Hero individual */}
       {hero && (
-        <section className="home-hero-section bg-white">
-          <div className="home-header-grid mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-            <div className="home-header-text text-center md:text-left">
-              <h1
-                className="cda-page-title title-large-light-blue"
-                dangerouslySetInnerHTML={{ __html: sanitizeTitleHtml(hero.title || 'Welcome to CDA') }}
+        <HeroSection
+          sectionClassName="bg-white"
+          titleHtml={sanitizeTitleHtml(hero.title || 'Welcome to CDA')}
+          titleClassName="cda-page-title title-large-light-blue"
+          description={hero.text}
+          ctas={[
+            hero.button1
+              ? {
+                  href: hero.button1.url || '#',
+                  label: hero.button1.title || 'Start A Project',
+                  target: hero.button1.target || '_self',
+                  className: 'button-l',
+                }
+              : null,
+            hero.button2
+              ? {
+                  href: hero.button2.url || '#',
+                  label: hero.button2.title || 'View Our Services',
+                  target: hero.button2.target || '_self',
+                  className: 'button-without-box',
+                }
+              : null,
+          ]}
+          image={
+            hero.illustration?.node?.sourceUrl ? (
+              <img
+                src={hero.illustration.node.sourceUrl}
+                alt={hero.illustration.node.altText || 'Header illustration'}
+                width={700}
+                height={520}
+                className="cda-hero__image-media"
               />
-              {hero.text && (
-                <p className="home-hero-subtitle">{hero.text}</p>
-              )}
-              <div className="home-header-cta home-hero-cta">
-                {hero.button1 && (
-                  <a href={hero.button1.url || '#'} className="button-l" target={hero.button1.target || '_self'}>
-                    {hero.button1.title || 'Start A Project'}
-                  </a>
-                )}
-                {hero.button2 && (
-                  <a href={hero.button2.url || '#'} className="button-without-box" target={hero.button2.target || '_self'}>
-                    {hero.button2.title || 'View Our Services'}
-                  </a>
-                )}
+            ) : (
+              <div className="cda-hero__image-placeholder">
+                <p>Upload illustration in WordPress Admin → Pages → Edit Homepage → Header Section</p>
               </div>
-            </div>
-            <div className="home-header-illustration-wrap">
-              {hero.illustration?.node?.sourceUrl ? (
-                <img
-                  src={hero.illustration.node.sourceUrl}
-                  alt={hero.illustration.node.altText || 'Header illustration'}
-                  width={700}
-                  height={520}
-                  className="home-header-illustration"
-                />
-              ) : (
-                <div className="home-hero-illustration-placeholder">
-                  <p>Upload illustration in WordPress Admin → Pages → Edit Homepage → Header Section</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
+            )
+          }
+        />
       )}
 
       {/* 2) [Global] Image Frame Block */}
