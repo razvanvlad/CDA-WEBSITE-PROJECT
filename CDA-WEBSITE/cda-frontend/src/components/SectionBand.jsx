@@ -1,51 +1,72 @@
-// components/SectionBand.jsx
+// src/components/SectionBand.jsx
+import clsx from 'clsx';
+
+function resolveStylePosition(position) {
+  if (typeof position === 'number') return { top: position };
+  if (typeof position === 'string') {
+    if (position === 'top') return { top: 0 };
+    if (position === 'bottom') return { bottom: 0 };
+    if (position === 'center') return { top: '50%', transform: 'translateY(-50%)' };
+    // e.g. '30%' or '120px'
+    return { top: position };
+  }
+  return { top: 0 };
+}
+
+/**
+ * Props
+ * - color, height, position: defaults for all breakpoints
+ * - padding: section padding (can be responsive Tailwind classes)
+ * - mobile:  { color, height, position, className }    // overrides for < md
+ * - desktop: { color, height, position, className }    // overrides for >= md
+ */
 export default function SectionBand({
+  className = '',
+  padding = 'py-20',
+  color = 'bg-gray-100',
+  height = 'h-[220px]',
+  position = 'top',
+  mobile,
+  desktop,
   children,
-  className = "",
-  color = "bg-gray-100",
-  height = "h-[240px] md:h-[260px]",
-  position = "center", // 'center' | 'top' | 'bottom' | number (px) | string (e.g. '30%')
-  maskLeft = false,
-  maskLeftWidth = "w-[30vw]",
-  maskRight = false,
-  maskRightWidth = "w-[30vw]",
 }) {
-  const posClass =
-    position === "center"
-      ? "top-1/2 -translate-y-1/2"
-      : position === "top"
-      ? "top-0"
-      : position === "bottom"
-      ? "bottom-0"
-      : ""; // if you pass a custom style below
+  const m = mobile || {};
+  const d = desktop || {};
+
+  const baseMobileColor = m.color ?? color;
+  const baseMobileHeight = m.height ?? height;
+  const baseMobilePos = m.position ?? position;
+
+  const baseDesktopColor = d.color ?? color;
+  const baseDesktopHeight = d.height ?? height;
+  const baseDesktopPos = d.position ?? position;
 
   return (
-    <section className={`relative overflow-hidden py-20 ${className}`}>
-      {/* band */}
+    <section className={clsx('relative overflow-visible', padding, className)}>
+      {/* Mobile band */}
       <div
+        className={clsx(
+          'absolute left-0 right-0 md:hidden',
+          baseMobileColor,
+          baseMobileHeight,
+          m.className
+        )}
+        style={resolveStylePosition(baseMobilePos)}
         aria-hidden="true"
-        className={`absolute inset-x-0 ${posClass} ${height} ${color} z-0`}
-        style={
-          typeof position === "number" || /%|px|rem/.test(position)
-            ? { top: position, transform: "translateY(0)" }
-            : undefined
-        }
       />
-      {/* optional white masks to keep art on white edges */}
-      {maskLeft && (
-        <div
-          aria-hidden="true"
-          className={`absolute inset-y-0 left-0 ${maskLeftWidth} bg-white z-10 hidden md:block`}
-        />
-      )}
-      {maskRight && (
-        <div
-          aria-hidden="true"
-          className={`absolute inset-y-0 right-0 ${maskRightWidth} bg-white z-10 hidden md:block`}
-        />
-      )}
-      {/* content above */}
-      <div className="relative z-20">{children}</div>
+      {/* Desktop band */}
+      <div
+        className={clsx(
+          'absolute left-0 right-0 hidden md:block',
+          baseDesktopColor,
+          baseDesktopHeight,
+          d.className
+        )}
+        style={resolveStylePosition(baseDesktopPos)}
+        aria-hidden="true"
+      />
+      {/* Content */}
+      <div className="relative z-10">{children}</div>
     </section>
   );
 }
