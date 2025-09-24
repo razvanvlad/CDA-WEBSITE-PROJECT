@@ -14,7 +14,7 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
   return (
     <SectionBand
       className="bg-white overflow-visible !pb-20"  // <- force bottom padding to 0
-      color="bg-gray-100"                   // band color
+      color="bg-[#F4F4F4]"                   // band color
       position="bottom"                     // <-- put the band on the BOTTOM
       height="h-[280px] md:h-[340px]"       // band thickness (tune to taste)
     >

@@ -120,9 +120,34 @@ export default async function AboutPage() {
       )}
 
       {/* 4) [Global] Services Accordion */}
-      {t.showServicesAccordion && globalContentBlocks?.servicesAccordion && (
-        <ServicesAccordion globalData={globalContentBlocks.servicesAccordion} />
-      )}
+      {/* 4) [Global] Services Accordion */}
+{/* 4) [Global] Services Accordion */}
+{t.showServicesAccordion && globalContentBlocks?.servicesAccordion && (
+  <ServicesAccordion
+    globalData={{
+      title: globalContentBlocks.servicesAccordion.title,
+      subtitle: globalContentBlocks.servicesAccordion.subtitle,
+      illustration: globalContentBlocks.servicesAccordion.illustration,
+      services: {
+        nodes: (
+          globalContentBlocks.servicesAccordion?.services?.nodes
+          ?? (globalContentBlocks.servicesAccordion?.services?.edges || []).map(e => e?.node)
+          ?? globalContentBlocks.servicesAccordion?.servicesList?.nodes
+          ?? (globalContentBlocks.servicesAccordion?.servicesList?.edges || []).map(e => e?.node)
+          ?? (Array.isArray(globalContentBlocks.servicesAccordion?.servicesList)
+                ? globalContentBlocks.servicesAccordion.servicesList
+                : [])
+        ).filter(Boolean),
+      },
+    }}
+    overlap={false}
+    bg="bg-white"
+    panelBg="bg-white"
+    className="pt-10 md:pt-12"
+  />
+)}
+
+
 
       {/* 5) [Global] Culture Gallery Slider */}
       {t.showCultureGallerySlider && globalContentBlocks?.cultureGallerySlider && (
