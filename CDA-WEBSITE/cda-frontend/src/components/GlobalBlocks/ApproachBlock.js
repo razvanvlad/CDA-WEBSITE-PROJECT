@@ -146,7 +146,7 @@ const ApproachBlock = ({ globalData, pageData, useOverride = false }) => {
                 </div>
 
                 {step.title && (
-                  <h3 className="mt-4 text-lg md:text-xl font-extrabold text-gray-900">
+                  <h3 className="cda-subtitle mt-4 text-lg md:text-xl text-center lg:pt-10">
                     {step.title}
                   </h3>
                 )}
