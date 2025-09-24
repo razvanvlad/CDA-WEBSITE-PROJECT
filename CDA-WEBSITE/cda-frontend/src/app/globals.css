@@ -11,10 +11,11 @@
   --font-sans: var(--font-inter);
 }
 
+/* Disable automatic dark mode background; keep site background white */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #000000;
+    --background: #ffffff; /* keep white */
+    --foreground: #000000; /* keep text black */
   }
 }
 
