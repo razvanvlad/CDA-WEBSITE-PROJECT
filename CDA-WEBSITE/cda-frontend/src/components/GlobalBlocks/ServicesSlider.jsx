@@ -42,7 +42,7 @@ export default function ServicesSlider({
   return (
     <SectionBand
       className="bg-white"                 // section bg
-      color="bg-gray-100"                  // band color
+      color="bg-[#F4F4F4]"                  // band color
       position="top"                       // <-- paint the TOP half
       padding="pt-12 md:pt-20 pb-0"
       mobile={{ color: 'bg-gray-100', height: 'h-[340px]', position: 'top' }}
