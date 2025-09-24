@@ -1,32 +1,28 @@
 // src/components/GlobalBlocks/PhotoFrame.js
 import React from 'react';
 import Image from 'next/image';
+import SectionBand from '@/components/SectionBand';
 
-/*
-  Pixel-perfect pass for Image Frame Block (desktop + mobile)
-  - Left: decorative frame with inner image masked and centered
-  - Right: subtitle, title, copy, CTA
-  - Arrow/decoration positioned relative to content on desktop, stacked on mobile
-*/
 const PhotoFrame = ({ globalData, contentOverride }) => {
   if (!globalData) return null;
 
   const { frameImage, contentImage, subtitle, title, text, button, arrowImage } = globalData;
-
   const copy = contentOverride || { subtitle, title, text, button };
   const innerImage = contentImage || globalData.innerImage;
   const arrowIllustration = arrowImage || globalData.arrowIllustration;
 
   return (
-    <section className="relative bg-white overflow-visible">
-      {/* Gray background for bottom half of the section */}
-      <div className="absolute left-0 right-0 bottom-0 h-1/2 w-full z-0" style={{backgroundColor: '#f4f4f4'}}></div>
-      <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 py-16 md:py-20 lg:py-24 relative z-10">
+    <SectionBand
+      className="bg-white overflow-visible" // section bg
+      color="bg-gray-100"                   // band color
+      position="bottom"                     // <-- put the band on the BOTTOM
+      height="h-[280px] md:h-[340px]"       // band thickness (tune to taste)
+    >
+      <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 py-16 md:py-20 lg:py-24 relative z-20">
         <div className="grid grid-cols-12 gap-y-10 gap-x-8 items-center">
           {/* Left: Frame */}
           <div className="col-span-12 lg:col-span-6 order-1 lg:order-none">
             <div className="relative mx-auto w-full max-w-[353px] lg:max-w-[822px] aspect-[353/278] lg:aspect-[822/646]">
-              {/* Frame */}
               {frameImage?.node?.sourceUrl && (
                 <Image
                   src={frameImage.node.sourceUrl}
@@ -37,8 +33,6 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
                   draggable={false}
                 />
               )}
-
-              {/* Inner visual (exact proportional sizing inside frame) */}
               {innerImage?.node?.sourceUrl && (
                 <div className="absolute inset-0 z-0 flex items-center justify-center">
                   <div className="relative w-[87.5%] h-[87.5%]">
@@ -58,17 +52,11 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
           {/* Right: Copy */}
           <div className="col-span-12 lg:col-span-6 lg:px-20">
             <div className="relative">
-              {copy.subtitle && (
-                <p className="cda-subtitle">{copy.subtitle}</p>
-              )}
-              {copy.title && (
-                <h2 className="cda-title">{copy.title}</h2>
-              )}
+              {copy.subtitle && <p className="cda-subtitle">{copy.subtitle}</p>}
+              {copy.title && <h2 className="cda-title">{copy.title}</h2>}
               {copy.text && (
                 <div className="text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] space-y-4 mb-6">
-                  {String(copy.text).split('\n').map((p, i) => p.trim() && (
-                    <p key={i}>{p.trim()}</p>
-                  ))}
+                  {String(copy.text).split('\n').map((p, i) => p.trim() && <p key={i}>{p.trim()}</p>)}
                 </div>
               )}
               {copy.button?.url && copy.button?.title && (
@@ -82,7 +70,7 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
                 </a>
               )}
 
-              {/* Arrow decoration (desktop only) - positioned to extend into next section */}
+              {/* Arrow decoration sits ABOVE the band */}
               {arrowIllustration?.node?.sourceUrl && (
                 <Image
                   src={arrowIllustration.node.sourceUrl}
@@ -98,9 +86,9 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
         </div>
       </div>
 
-      {/* Mobile arrow (stacked under content) */}
+      {/* Mobile arrow */}
       {arrowIllustration?.node?.sourceUrl && (
-        <div className="lg:hidden flex justify-center">
+        <div className="lg:hidden flex justify-center z-30 relative">
           <Image
             src={arrowIllustration.node.sourceUrl}
             alt={arrowIllustration.node.altText || 'Arrow'}
@@ -111,7 +99,7 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
           />
         </div>
       )}
-    </section>
+    </SectionBand>
   );
 };
 
