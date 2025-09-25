@@ -121,16 +121,8 @@ export default async function JobDetailPage({ params }) {
     notFound();
   }
 
-  // Debug: Log the complete job data structure
-  console.log('🔍 Complete job data:', JSON.stringify(job, null, 2));
-  
   // Extract ACF fields if they exist
   const { jobDetails, requirements, jobStatus } = job.jobListingFields || {};
-  
-  // Debug: Log ACF fields
-  console.log('🔍 jobListingFields:', job.jobListingFields);
-  console.log('🔍 jobDetails:', jobDetails);
-  console.log('🔍 jobStatus:', jobStatus);
   
   const statusBadge = getStatusBadge(jobStatus || 'open');
   const nextBg = useBgRotation();
@@ -153,7 +145,7 @@ export default async function JobDetailPage({ params }) {
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
                     </svg>
-                    Back to Careers
+                    Back to Jobs
                   </Link>
                   <span className={`px-3 py-1 text-xs font-semibold rounded-full border ${statusBadge.className}`}>
                     {statusBadge.text}
