@@ -1,12 +1,17 @@
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
+import HeroSection from '../../../components/GlobalBlocks/HeroSection';
 import { notFound } from 'next/navigation';
 import { sanitizeTitleHtml } from '../../../lib/sanitizeTitleHtml';
-import { getServiceBySlug } from '../../../lib/graphql-queries';
+import { executeGraphQLQuery, GET_SERVICE_BY_SLUG } from '../../../lib/graphql-queries';
 import Image from 'next/image';
 import Link from 'next/link';
-import Script from 'next/script';
 import HubspotFormEmbed from '../../../components/HubspotFormEmbed';
+import ApproachBlock from '../../../components/GlobalBlocks/ApproachBlock';
+import NewsCarousel from '../../../components/GlobalBlocks/NewsCarousel';
+import ServicesSlider from '../../../components/GlobalBlocks/ServicesSlider.jsx';
+
+export const revalidate = 120;
 
 // Service color mapping
 const getServiceColor = (slug) => {
@@ -23,49 +28,59 @@ const getServiceColor = (slug) => {
   return colorMap[slug] || '#7c3aed'; // fallback to purple
 };
 
-// Generate metadata for SEO
-export async function generateMetadata({ params }) {
-  const { slug } = await params;
-  const service = await getServiceBySlug(slug);
-  
-  if (!service) {
-    return {
-      title: 'Service Not Found',
-      description: 'The requested service could not be found.'
-    };
-  }
-
-  return {
-    title: service.title,
-    description: service.excerpt || service.serviceFields?.heroSection?.description || `Learn more about our ${service.title} service.`,
-    openGraph: {
-      title: service.title,
-      description: service.excerpt || service.serviceFields?.heroSection?.description,
-      type: 'article',
-      images: service.featuredImage?.node?.sourceUrl ? [{
-        url: service.featuredImage.node.sourceUrl,
-        width: 1200,
-        height: 630,
-        alt: service.featuredImage.node.altText || service.title
-      }] : []
-    }
-  };
-}
-
 export default async function ServicePage({ params }) {
   const { slug } = await params;
-  const service = await getServiceBySlug(slug);
+  if (!slug) notFound();
 
-  if (!service) {
+  // Fetch on server for zero client delay
+  const result = await executeGraphQLQuery(GET_SERVICE_BY_SLUG, { slug });
+  if (result?.errors) {
+    console.error('GraphQL errors:', result.errors);
     notFound();
   }
+  const service = result?.data?.service || null;
+  const globalData = result?.data?.globalOptions || null;
+  if (!service) notFound();
 
   const serviceFields = service.serviceFields || {};
-          const heroSection = serviceFields.heroSection || {};
-            const serviceBulletPoints = serviceFields.serviceBulletPoints || {};
-            const valueDescription = serviceFields.valueDescription || {};
-            const featuredCaseStudies = serviceFields.caseStudies?.nodes || [];
-            const serviceColor = getServiceColor(service.slug);
+  const heroSection = serviceFields.heroSection || {};
+  const serviceBulletPoints = serviceFields.serviceBulletPoints || {};
+  const valueDescription = serviceFields.valueDescription || {};
+  const featuredCaseStudies = serviceFields.caseStudies?.nodes || [];
+  const serviceColor = getServiceColor(service.slug);
+  const heroImageNode = heroSection.heroImage?.node?.sourceUrl
+    ? (
+        <Image
+          src={heroSection.heroImage.node.sourceUrl}
+          alt={heroSection.heroImage.node.altText || service.title}
+          width={600}
+          height={400}
+          className="cda-hero__image-media"
+          style={{ maxHeight: '600px', objectFit: 'contain' }}
+          priority
+        />
+      )
+    : service.featuredImage?.node?.sourceUrl
+      ? (
+          <Image
+            src={service.featuredImage.node.sourceUrl}
+            alt={service.featuredImage.node.altText || service.title}
+            width={600}
+            height={400}
+            className="cda-hero__image-media"
+            style={{ maxHeight: '600px', objectFit: 'contain' }}
+            priority
+          />
+        )
+      : null;
+
+  // Global content blocks
+  const globalContentBlocks = globalData?.globalContentBlocks || {};
+  const globalSelection = {
+    enableApproach: true,
+    enableCaseStudies: true,
+    enableLatestNews: true
+  };
 
   // Alternate backgrounds for sections after hero: gray -> white -> gray -> ...
   let sectionIndex = 0;
@@ -74,65 +89,26 @@ export default async function ServicePage({ params }) {
   return (
     <>
       <Header />
-      
       <main className="service-detail-page">
         {/* Hero Section */}
-        <section className="service-hero">
-          <div className="container mx-auto px-4 py-16 lg:py-24">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="service-hero-content">
-                <h1 
-                  className="service-hero-title text-4xl lg:text-5xl font-bold mb-6"
-                  style={{
-                    textDecoration: 'underline',
-                    textDecorationColor: serviceColor,
-                    textDecorationThickness: '11px'
-                  }}
-                >
-                  {sanitizeTitleHtml(service.title)}
-                </h1>
-                {heroSection.description && (
-                  <div 
-                    className="service-hero-description text-lg text-gray-600 mb-8"
-                    dangerouslySetInnerHTML={{ __html: heroSection.description }}
-                  />
-                )}
-                {heroSection.cta?.title && (
-                  <a 
-                    href="#contact-form"
-                    className="button-l"
-                  >
-                    {heroSection.cta.title}
-                  </a>
-                )}
-              </div>
-              
-              <div className="service-hero-image">
-                 {heroSection.heroImage?.node?.sourceUrl ? (
-                    <Image
-                      src={heroSection.heroImage.node.sourceUrl}
-                      alt={heroSection.heroImage.node.altText || service.title}
-                      width={600}
-                      height={400}
-                      className="w-full h-auto rounded-lg"
-                      style={{ maxHeight: '600px', objectFit: 'contain' }}
-                      priority
-                    />
-                 ) : service.featuredImage?.node?.sourceUrl && (
-                   <Image
-                     src={service.featuredImage.node.sourceUrl}
-                     alt={service.featuredImage.node.altText || service.title}
-                     width={600}
-                     height={400}
-                     className="w-full h-auto rounded-lg"
-                     style={{ maxHeight: '600px', objectFit: 'contain' }}
-                     priority
-                   />
-                 )}
-               </div>
-            </div>
-          </div>
-        </section>
+        <HeroSection
+          sectionClassName="bg-white"
+          titleHtml={sanitizeTitleHtml(service.title)}
+          titleClassName="service-hero-title text-4xl lg:text-5xl font-bold"
+          titleStyle={{ textDecoration: 'underline', textDecorationColor: serviceColor, textDecorationThickness: '11px' }}
+          descriptionHtml={heroSection.description || ''}
+          descriptionClassName="service-hero-description text-lg text-gray-600"
+          ctas={[
+            heroSection.cta?.title
+              ? {
+                  href: '#contact-form',
+                  label: heroSection.cta.title,
+                  className: 'button-l',
+                }
+              : null,
+          ]}
+          image={heroImageNode}
+        />
 
 
 
@@ -261,9 +237,53 @@ export default async function ServicePage({ params }) {
           </section>
         )}
 
+        {/* Approach Block */}
+        {globalSelection?.enableApproach && globalData?.globalContentBlocks?.approach && (
+          <ApproachBlock globalData={{
+            title: globalData.globalContentBlocks.approach.title || "Our Approach",
+            subtitle: globalData.globalContentBlocks.approach.subtitle || "How We Deliver Results",
+            steps: globalData.globalContentBlocks.approach.steps?.map((step, index) => ({
+              stepNumber: index + 1,
+              title: step.title,
+              description: step.description || '',
+              image: step.image
+            })) || []
+          }} />
+        )}
+
+        {/* Global Case Studies Section */}
+        {globalSelection?.enableCaseStudies && globalContentBlocks?.caseStudiesSection && (
+          <section className="home-case-studies" style={{padding: '5rem 1rem'}}>
+            <div style={{maxWidth: '1620px', margin: '0 auto'}}>
+              {/* Header: left subtitle + title, right CTA */}
+              <div className="cs-header">
+                <div className="cs-head-left">
+                  <p className="cda-subtitle">Our Work</p>
+                  <h2 className="cda-title title-small-orange">Related Case Studies</h2>
+                </div>
+                <a href="/case-studies" className="button-without-box cs-header-cta">
+                  View All Case Studies
+                </a>
+              </div>
+              
+              <div className="text-center py-8">
+                <p className="text-gray-600 mb-6">Explore our portfolio of successful projects similar to this service.</p>
+                <a href="/case-studies" className="button-l">Browse Case Studies</a>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* News/Latest Articles Section */}
+        {globalSelection?.enableLatestNews && globalData?.globalContentBlocks?.newsCarousel && (
+          <NewsCarousel newsCarousel={globalData.globalContentBlocks.newsCarousel} />
+        )}
 
 
 
+
+        {/* Services Slider at end of service post */}
+        <ServicesSlider />
       </main>
 
       {/* Contact Form Section */}
@@ -280,7 +300,7 @@ export default async function ServicePage({ params }) {
           
           <div className="bg-white rounded-lg shadow-lg p-8 hubspot-form-wrapper">
             {/* Robust client embed to ensure consistent loading */}
-            <HubspotFormEmbed slug={slug} />
+            <HubspotFormEmbed slug={service.slug} />
            </div>
 
           {/* Force form colors: text black, fields white; override submit button colors */}

@@ -123,176 +123,168 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
   return (
     <div className="min-h-screen bg-white py-16">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Career Opportunities</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Join our innovative team and help build the future of digital marketing and web development. 
-            We offer competitive salaries, flexible work arrangements, and opportunities to grow your career.
-          </p>
-        </div>
+  {/* 2-col layout on md+; single column on mobile */}
+  <div className="grid md:grid-cols-12 gap-x-10 gap-y-10 relative">
 
-        {/* Summary */}
-        <div className="mb-6">
-          <p className="text-gray-600">
-            {searchQuery || selectedStatus || selectedLevel ? (
-              <>
-                Showing {openJobs.length + otherJobs.length} of {total} positions
-                {searchQuery && <span> matching "{searchQuery}"</span>}
-                {selectedStatus && <span> with status "{selectedStatus}"</span>}
-                {selectedLevel && <span> for "{getExperienceLevelDisplay(selectedLevel)}" level</span>}
-              </>
-            ) : (
-              `Showing all ${total} positions`
-            )}
-          </p>
-        </div>
+    {/* LEFT COL — 3/12 */}
+    <aside className="md:col-span-3 relative">
+      <p className="cda-subtitle">Careers</p>
+      <h1 className="cda-title">Open Positions</h1>
 
-        {/* Open Positions Section */}
-        {openJobs.length > 0 && (
-          <div className="mb-16">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">Open Positions</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {openJobs.map((job) => {
-                const jobDetails = job.jobListingFields?.jobDetails || {};
-                let status = job.jobListingFields?.jobStatus || 'open';
-                // Handle array format from GraphQL
-                if (Array.isArray(status)) {
-                  status = status[0] || 'open';
-                }
-                const statusBadge = getStatusBadge(status);
+      {/* Left bee */}
+      <img
+        src="/images/bee-left.svg"
+        alt=""
+        className="hidden md:block pointer-events-none select-none absolute -left-2 bottom-[240px] w-[220px] h-auto"
+        aria-hidden="true"
+        draggable="false"
+      />
+    </aside>
 
-                return (
-                  <Link 
-                    key={job.id} 
-                    href={`/jobs/${job.slug}`} 
-                    className="group block bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="p-6">
-                      <div className="flex justify-between items-start mb-4">
-                        <div className="flex-1">
-                          <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                            {job.title}
-                          </h3>
-                        </div>
-                        <span className={`px-3 py-1 text-xs font-semibold rounded-full border ${statusBadge.className}`}>
-                          {statusBadge.text}
-                        </span>
-                      </div>
+    {/* RIGHT COL — 9/12 */}
+    <main className="md:col-span-9 relative overflow-visible">
+      {/* Summary */}
+      <div className="mb-6">
+        <p className="text-sm text-gray-600">
+          {searchQuery || selectedStatus || selectedLevel ? (
+            <>
+              Showing {openJobs.length + otherJobs.length} of {total} positions
+              {searchQuery && <span> matching "{searchQuery}"</span>}
+              {selectedStatus && <span> with status "{selectedStatus}"</span>}
+              {selectedLevel && <span> for "{getExperienceLevelDisplay(selectedLevel)}" level</span>}
+            </>
+          ) : (
+            <>Showing all {total} positions</>
+          )}
+        </p>
+      </div>
 
-                      <div className="space-y-2 mb-4">
-                        {jobDetails.location && (
-                          <div className="flex items-center text-gray-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                            <span>{jobDetails.location}</span>
-                          </div>
-                        )}
-                        
-                      </div>
+      {/* Open Positions (keep your card markup; no extra H2 here) */}
+      {openJobs.length > 0 && (
+        <div className="mb-14">
+          <div className="grid grid-cols-1 gap-6">
+            {openJobs.map((job) => {
+              const jobDetails = job.jobListingFields?.jobDetails || {};
+              let status = job.jobListingFields?.jobStatus || 'open';
+              if (Array.isArray(status)) status = status[0] || 'open';
+              const statusBadge = getStatusBadge(status);
 
-
-
-                      <div className="flex items-center text-blue-600 font-semibold group-hover:text-blue-700">
-                        View Position
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Other Positions (Filled, On Hold, etc.) */}
-        {otherJobs.length > 0 && (
-          <div className="mb-16">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">Other Positions</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {otherJobs.map((job) => {
-                const jobDetails = job.jobListingFields?.jobDetails || {};
-                let status = job.jobListingFields?.jobStatus || 'open';
-                // Handle array format from GraphQL
-                if (Array.isArray(status)) {
-                  status = status[0] || 'open';
-                }
-                const statusBadge = getStatusBadge(status);
-
-                return (
-                  <Link 
-                    key={job.id} 
-                    href={`/jobs/${job.slug}`} 
-                    className="group block bg-gray-50 border border-gray-200 rounded-lg hover:border-gray-300 transition-all duration-300 opacity-75"
-                  >
-                    <div className="p-4">
-                      <div className="flex justify-between items-start mb-3">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-1">
+              return (
+                <Link
+                  key={job.id}
+                  href={`/jobs/${job.slug}`}
+                  className="group block bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-lg transition-all duration-300"
+                >
+                  <div className="p-6">
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#FF5C8A] transition-colors">
                           {job.title}
                         </h3>
-                        <span className={`px-2 py-1 text-xs font-semibold rounded-full border ${statusBadge.className}`}>
-                          {statusBadge.text}
-                        </span>
                       </div>
-                      
+                      <span className={`px-3 py-1 text-xs font-semibold rounded-full border ${statusBadge.className}`}>
+                        {statusBadge.text}
+                      </span>
+                    </div>
+
+                    <div className="space-y-2 mb-4">
                       {jobDetails.location && (
-                        <p className="text-sm text-gray-600 mb-2">{jobDetails.location}</p>
+                        <div className="flex items-center text-gray-600">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                          <span>{jobDetails.location}</span>
+                        </div>
                       )}
                     </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        )}
 
-        {total === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No positions match your filters.</p>
+                    <div className="button-l-transparent">
+                      View Position
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
-        )}
+        </div>
+      )}
 
-        {openJobs.length === 0 && otherJobs.length === 0 && total === 0 && (
-          <div className="text-center py-12">
-            <div className="mb-8">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6" />
-              </svg>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No Open Positions</h3>
-              <p className="text-gray-600 max-w-md mx-auto mb-6">
-                We don't have any open positions right now, but we're always looking for talented people. 
-                Feel free to send us your resume and we'll keep it on file for future opportunities.
-              </p>
-              <Link
-                href="/contact"
-                className="button-l"
-              >
-                Get in Touch
-              </Link>
-            </div>
+      {/* Other Positions */}
+      {otherJobs.length > 0 && (
+        <div className="mb-16">
+          <h2 className="text-xl font-bold text-gray-900 mb-6">Other Positions</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {otherJobs.map((job) => {
+              const jobDetails = job.jobListingFields?.jobDetails || {};
+              let status = job.jobListingFields?.jobStatus || 'open';
+              if (Array.isArray(status)) status = status[0] || 'open';
+              const statusBadge = getStatusBadge(status);
+
+              return (
+                <Link
+                  key={job.id}
+                  href={`/jobs/${job.slug}`}
+                  className="group block bg-gray-50 border border-gray-200 rounded-lg hover:border-gray-300 transition-all duration-300 opacity-75"
+                >
+                  <div className="p-4">
+                    <div className="flex justify-between items-start mb-3">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-1">{job.title}</h3>
+                      <span className={`px-2 py-1 text-xs font-semibold rounded-full border ${statusBadge.className}`}>
+                        {statusBadge.text}
+                      </span>
+                    </div>
+                    {jobDetails.location && (
+                      <p className="text-sm text-gray-600 mb-2">{jobDetails.location}</p>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Call to Action */}
+      {/* CTA card (right column only) + right bee */}
         {(openJobs.length > 0 || otherJobs.length > 0) && (
-          <div className="text-center bg-gray-50 rounded-lg p-8 mt-16">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Join Our Team?</h3>
-            <p className="text-gray-600 max-w-2xl mx-auto mb-6">
-              Can't find the right position? We're always interested in connecting with talented individuals. 
-              Send us your resume and let us know how you can contribute to our team.
-            </p>
-            <Link
-              href="/contact"
-              className="button-l"
-            >
-              Contact Us
-            </Link>
-          </div>
-        )}
+    <div className="relative mt-12 md:mt-16 overflow-visible">
+      {/* Right bee: sits on top of the card and overflows the edge */}
+      <img
+        src="/images/bee-right.svg"
+        alt=""
+        className="hidden md:block pointer-events-none select-none absolute -top-[-170px] -right-8 w-[220px] h-auto z-[2]"
+        aria-hidden="true"
+        draggable="false"
+      />
+
+      {/* Card takes the full width of the jobs column */}
+      <div className="w-full">
+        <div className="relative rounded-xl bg-[#F7F8FA] border border-black/[0.06] shadow-[0_8px_24px_rgba(0,0,0,0.05)] px-6 py-10 md:px-10 md:py-14 text-center z-[1]">
+          <h3 className="cda-hero__title-text service-hero-title text-2xl lg:text-3xl pb-10 font-bold mb-6"
+                  style={{ textDecoration: 'underline', textDecorationColor: '#FF5C8A', textDecorationThickness: '11px' }}
+          >
+            Looking For Another Role?
+          </h3>
+          <p className="text-[#4B5563] text-[15px] md:text-[16px] leading-relaxed max-w-[720px] mx-auto mb-6 md:mb-8">
+            Can’t find the right position? We’re always interested in connecting with talented individuals.
+            Send us your resume and let us know how you can contribute to our team.
+          </p>
+          <Link href="/contact" className="button-l-transparent">Send Us Your CV</Link>
+        </div>
       </div>
+    </div>
+  )}
+
+      {/* Empty/fallback states remain the same below this point if you use them */}
+    </main>
+  </div>
+
+ 
+</div>
+
 
       {/* Culture Gallery Slider (Global) */}
       {globalBlocks?.cultureGallerySlider && (

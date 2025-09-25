@@ -22,19 +22,15 @@ const LocationsImage = ({ globalData }) => {
   const current = countries[active] || null;
 
   return (
-    <section className="py-16 md:py-20 lg:py-24">
+    <section className="py-16 md:py-20 lg:py-24 bg-white">
 <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
         {/* Heading */}
         <div className="mb-8 md:mb-10">
           {globalData.subtitle && (
-            <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-[#111827] mb-2">{globalData.subtitle}</p>
+            <p className="cda-subtitle">{globalData.subtitle}</p>
           )}
           {globalData.title && (
-            <h2 className="font-bold text-[#111827]" style={{ fontFamily: 'Poppins, sans-serif', fontSize: 38, lineHeight: 1.1 }}>
-              <span className="relative inline-block align-baseline">
-                {globalData.title}
-              </span>
-            </h2>
+            <h2 className="cda-title title-small-pink">{globalData.title}</h2>
           )}
         </div>
 

@@ -1,0 +1,224 @@
+[
+    {
+        "key": "group_service_overview_content_2025_09_09",
+        "title": "Service Overview Content",
+        "fields": [
+            {
+                "key": "field_sov_hero_section",
+                "label": "Hero Section",
+                "name": "hero_section",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "Hero for \/services landing page",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "show_in_graphql": 1,
+                "graphql_field_name": "heroSection",
+                "sub_fields": [
+                    {
+                        "key": "field_sov_hero_title",
+                        "label": "Title",
+                        "name": "title",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_sov_hero_description",
+                        "label": "Description",
+                        "name": "description",
+                        "aria-label": "",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "rows": 4,
+                        "show_in_graphql": 1,
+                        "default_value": "",
+                        "new_lines": "",
+                        "maxlength": "",
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_sov_hero_image_right",
+                        "label": "Image (Right)",
+                        "name": "image_right",
+                        "aria-label": "",
+                        "type": "image",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "preview_size": "large",
+                        "show_in_graphql": 1,
+                        "library": "all",
+                        "min_width": 0,
+                        "min_height": 0,
+                        "min_size": 0,
+                        "max_width": 0,
+                        "max_height": 0,
+                        "max_size": 0,
+                        "mime_types": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_sov_global_toggles",
+                "label": "Global Content Toggles",
+                "name": "global_content_toggles",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "Toggle global blocks on the \/services landing.",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "show_in_graphql": 1,
+                "graphql_field_name": "globalContentToggles",
+                "sub_fields": [
+                    {
+                        "key": "field_sov_enable_approach",
+                        "label": "Show Approach Block",
+                        "name": "enable_approach",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "ui": 1,
+                        "default_value": 0,
+                        "show_in_graphql": 1,
+                        "message": "",
+                        "ui_on_text": "",
+                        "ui_off_text": ""
+                    },
+                    {
+                        "key": "field_sov_enable_projects_by_service",
+                        "label": "Show Projects Filtered by Selected Service",
+                        "name": "enable_projects_filtered_by_service",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "ui": 1,
+                        "default_value": 1,
+                        "show_in_graphql": 1,
+                        "message": "",
+                        "ui_on_text": "",
+                        "ui_off_text": ""
+                    },
+                    {
+                        "key": "field_sov_enable_latest_news",
+                        "label": "Show Latest News",
+                        "name": "enable_latest_news",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "ui": 1,
+                        "default_value": 0,
+                        "show_in_graphql": 1,
+                        "message": "",
+                        "ui_on_text": "",
+                        "ui_off_text": ""
+                    },
+                    {
+                        "key": "field_sov_enable_services_slider",
+                        "label": "Show Our Services Slider",
+                        "name": "enable_our_services_slider",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "ui": 1,
+                        "default_value": 0,
+                        "show_in_graphql": 1,
+                        "message": "",
+                        "ui_on_text": "",
+                        "ui_off_text": ""
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "page"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Content for the \/services landing page",
+        "show_in_rest": 0,
+        "show_in_graphql": 1,
+        "graphql_field_name": "serviceOverviewContent",
+        "map_graphql_types_from_location_rules": 1,
+        "graphql_types": [
+            "Page"
+        ]
+    }
+]

@@ -1,59 +1,151 @@
-// src/components/GlobalBlocks/WhyCdaBlock.js
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import SectionBand from '@/components/SectionBand';
 
 const WhyCdaBlock = ({ globalData }) => {
-  const cards = Array.isArray(globalData?.cards) ? globalData.cards.filter(Boolean) : [];
-  if (cards.length === 0 && !globalData?.title && !globalData?.subtitle) return null;
+  const cards = Array.isArray(globalData?.usp) ? globalData.usp.filter(Boolean) : [];
+  if (!cards.length && !globalData?.title && !globalData?.subtitle) return null;
+
+  // simple mobile detector for slider
+  const [isMobile, setIsMobile] = useState(false);
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 1024);
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const perView = 1;
+  const maxIndex = Math.max(0, cards.length - perView);
+  const next = () => setIndex((p) => (p >= maxIndex ? 0 : p + 1));
+  const prev = () => setIndex((p) => (p <= 0 ? maxIndex : p - 1));
 
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="text-center mb-12">
-          {globalData?.title && (
-            <h2 className="text-md font-bold text-black">{globalData.title}</h2>
-          )}
-          {globalData?.subtitle && (
-            <p className="text-lg font-bold tracking-wider text-black">{globalData.subtitle}</p>
-          )}
-        </div>
-        {/* card listing CDA */}
-        {cards.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-            {cards.map((card, index) => (
-              <div key={index} className="bg-white square-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-                <div className="flex">
-                  {/* Text content - left side */}
-                  <div className="flex-1 p-6">
-                    {card?.title && (
-                      <h3 className="text-xl font-semibold text-gray-900 mb-3">{card.title}</h3>
-                    )}
-                    {card?.description && (
-                      <p className="text-gray-600 leading-relaxed">{card.description}</p>
-                    )}
-                  </div>
+    <SectionBand
+      className="bg-white"
+      color="bg-[#F4F4F4]"
+      position="top"
+      padding="pt-12 md:pt-20 pb-0"
+      mobile={{ color: 'bg-[#F4F4F4]', height: 'h-[500px]', position: 'top' }}
+      desktop={{ color: 'bg-[#F4F4F4]', height: 'h-[350px]', position: 'top' }}
+    >
+      <section>
+        <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+          {/* Header */}
+          <div className="text-center md:text-left mb-10">
+            {globalData?.title && <p className="cda-subtitle">{globalData.title}</p>}
+            {globalData?.subtitle && <h2 className="cda-title">{globalData.subtitle}</h2>}
+          </div>
 
-                  {/* Image - right side touches borders */}
-{card?.image?.node?.sourceUrl && (
-                    <div className="w-60 flex-shrink-0 flex items-end">
-                      <Image
-                        src={card.image.node.sourceUrl}
-                        alt={card.image.node.altText || card.title || ''}
-                        width={240}
-                        height={180}
-                        sizes="(max-width: 1024px) 50vw, 240px"
-                        className="w-full h-auto object-contain"
-                      />
-                    </div>
+          {/* MOBILE: slider */}
+          <div className="lg:hidden">
+            {cards.length > 0 && (
+              <>
+                <div className="overflow-hidden">
+                  <div
+                    className="flex transition-transform duration-500"
+                    style={{ transform: `translateX(-${index * (100 / perView)}%)` }}
+                  >
+                    {cards.map((card, i) => (
+                      <div key={i} className="w-full flex-shrink-0 px-3">
+                        <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                          <div className="p-6 text-center">
+                            {card?.title && (
+                              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                                {card.title}
+                              </h3>
+                            )}
+                            {card?.description && (
+                              <p className="text-gray-600 leading-relaxed mb-6">
+                                {card.description}
+                              </p>
+                            )}
+                            {card?.icon?.node?.sourceUrl && (
+                              <div className="w-full">
+                                <Image
+                                  src={card.icon.node.sourceUrl}
+                                  alt={card.icon.node.altText || card.title || ''}
+                                  width={560}
+                                  height={360}
+                                  className="w-full h-auto object-contain"
+                                />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* mobile controls */}
+                {cards.length > 1 && (
+                  <div className="mt-6 flex justify-center gap-4">
+                    <button
+                      onClick={prev}
+                      aria-label="Previous"
+                      className="p-2 border border-gray-300 bg-white hover:bg-gray-50"
+                    >
+                      ←
+                    </button>
+                    <button
+                      onClick={next}
+                      aria-label="Next"
+                      className="p-2 border border-gray-300 bg-white hover:bg-gray-50"
+                    >
+                      →
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+
+          {/* DESKTOP: 2-column grid with image anchored bottom-right */}
+          <div className="hidden lg:grid grid-cols-2 gap-8">
+            {cards.map((card, index) => (
+              <div
+                key={index}
+                className="relative bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden min-h-[260px]"
+              >
+                {/* Text column (leave room on the right for the image) */}
+                <div className="p-8 pr-52">
+                  {card?.title && (
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                      {card.title}
+                    </h3>
+                  )}
+                  {card?.description && (
+                    <p className="text-gray-600 leading-relaxed">
+                      {card.description}
+                    </p>
                   )}
                 </div>
+
+                {/* Illustration anchored to bottom-right */}
+                {card?.icon?.node?.sourceUrl && (
+                  <div className="absolute right-6 bottom-0 h-[160px] lg:h-[180px] pointer-events-none select-none">
+                    <Image
+                      src={card.icon.node.sourceUrl}
+                      alt={card.icon.node.altText || card.title || ''}
+                      width={360}
+                      height={220}
+                      sizes="(min-width: 1024px) 180px"
+                      className="h-full w-auto object-contain"
+                      priority={index < 2}
+                    />
+                  </div>
+                )}
               </div>
             ))}
           </div>
-        )}
-        {/* card listing CDA */}
-      </div>
-    </section>
+        </div>
+      </section>
+    </SectionBand>
   );
 };
 

@@ -6,7 +6,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 3rem;
   font-family: var(--font-poppins), var(--font-inter), sans-serif;
   font-weight: 700;
   font-size: 18px;
@@ -17,6 +17,223 @@
   transition: all 0.2s ease;
   text-align: center;
   white-space: nowrap;
+}
+
+/* White variant of L-type button (alias: button-l-white) */
+.button-l-white {
+  --btn-l-line: 1px;           /* line thickness */
+  --btn-l-offset: 4px;       /* half-pixel placement for crisp stroke */
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 3rem;
+  font-family: var(--font-poppins), var(--font-inter), sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: black;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+
+/* --- Transparent variant of button-l --- */
+.button-l-transparent {
+  --btn-l-line: 1px;
+  --btn-l-offset: 4px;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 3rem;
+  font-family: var(--font-poppins), var(--font-inter), sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+
+  color: black;                 /* text is black */
+  background-color: transparent;/* transparent box */
+  border: none;
+  box-shadow: inset 0 0 0 1px black; /* black border */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* L-shaped lines (share rules with .button-l) */
+.button-l::before,
+.button-l-transparent::before {
+  content: '';
+  position: absolute;
+  left: var(--btn-l-offset);
+  bottom: calc(var(--btn-l-offset) * -1);
+  width: calc(100% - var(--btn-l-line));
+  height: var(--btn-l-line);
+  background-color: black;
+  z-index: 1;
+}
+
+.button-l::after,
+.button-l-transparent::after {
+  content: '';
+  position: absolute;
+  top: var(--btn-l-offset);
+  right: calc(var(--btn-l-offset) * -1);
+  width: var(--btn-l-line);
+  bottom: calc(var(--btn-l-offset) * -1);
+  background-color: black;
+  z-index: 1;
+}
+
+/* Hover: keep it transparent, keep black border/text */
+.button-l-transparent:hover {
+  background-color: black;
+  color: white;
+  box-shadow: inset 0 0 0 1px black; /* stays black */
+}
+
+/* Bottom underline (horizontal) */
+.button-l-white::before {
+  content: '';
+  position: absolute;
+  left: var(--btn-l-offset);
+  bottom: calc(var(--btn-l-offset) * -1);
+  /* Extend to meet vertical line at bottom-right corner */
+  width: calc(100% - var(--btn-l-line));
+  height: var(--btn-l-line);
+  background-color: black;
+  z-index: 1;
+}
+
+/* Right side line (vertical) */
+.button-l-white::after {
+  content: '';
+  position: absolute;
+  top: var(--btn-l-offset);
+  right: calc(var(--btn-l-offset) * -1);
+  width: var(--btn-l-line);
+  /* Stretch down to the same depth as the bottom underline */
+  bottom: calc(var(--btn-l-offset) * -1);
+  background-color: black;
+  z-index: 1;
+}
+
+.button-l-white:hover {
+  background-color: black;
+  color: white;
+  box-shadow: none;
+}
+
+
+
+/* Underline: only under text (stops before icon space) */
+.button-without-box::after {
+  content: '';
+  position: absolute;
+  /* baseline offset for 18px Poppins (override via --btn-link-baseline) */
+  bottom: var(--btn-link-baseline);
+  left: 0;
+  width: calc(100% - var(--btn-link-icon) - var(--btn-link-gap));
+  height: var(--btn-link-underline);
+  background-color: #374151;
+  z-index: 1;
+}
+
+/* Icon: design-inspired corner arrow */
+.button-without-box::before {
+  content: '';
+  position: absolute;
+  bottom: var(--btn-link-baseline);
+  right: 0;
+  width: var(--btn-link-icon);
+  height: var(--btn-link-icon);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none' stroke='black' stroke-width='0.5'%3E%3Cpath d='M16.522 15.346V9.038h1.663v9.147H9.038V16.522h6.308L4.293 5.469 5.469 4.293Z' fill='black' stroke='black' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+/* Hover effect */
+.button-without-box:hover {
+  color: #374151;
+}
+
+.button-without-box:hover::after {
+  background-color: #374151;
+}
+
+/* Replace icon on hover */
+.button-without-box:hover::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
+  bottom: 50%;
+  transform: translateY(50%);
+  right: 0;
+  width: 12px;
+  height: 12px;
+}
+
+/* Square badge in the style of button-l */
+.value-badge-l {
+  /* reuse the button-l metrics for crisp lines */
+  --btn-l-line: 1px;           /* outline thickness */
+  --btn-l-offset: 4px;         /* offset for the L outline */
+  --badge-size: 37px;          /* square size (same for mobile & desktop) */
+
+  position: relative;
+  display: inline-grid;        /* easy centering */
+  place-items: center;
+  width: var(--badge-size);
+  height: var(--badge-size);
+
+  background-color: black;
+  color: white;
+
+  /* typography */
+  font-family: var(--font-poppins, Poppins), var(--font-inter, Inter), sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+
+  /* don’t let it collapse inside flex rows */
+  flex: 0 0 auto;
+
+  /* no default borders/hover/box-shadow */
+  border: none;
+  box-shadow: none;
+  cursor: default; /* not a button */
+}
+
+/* Bottom underline (horizontal) — same as button-l */
+.value-badge-l::before {
+  content: '';
+  position: absolute;
+  left: var(--btn-l-offset);
+  bottom: calc(var(--btn-l-offset) * -1);
+  width: calc(100% - var(--btn-l-line));
+  height: var(--btn-l-line);
+  background-color: black;
+  z-index: 1;
+}
+
+/* Right side line (vertical) — same as button-l */
+.value-badge-l::after {
+  content: '';
+  position: absolute;
+  top: var(--btn-l-offset);
+  right: calc(var(--btn-l-offset) * -1);
+  width: var(--btn-l-line);
+  bottom: calc(var(--btn-l-offset) * -1);
+  background-color: black;
+  z-index: 1;
 }
 
 /* Bottom underline (horizontal) */
@@ -73,52 +290,6 @@
   background: none;
 }
 
-/* Underline: only under text (stops before icon space) */
-.button-without-box::after {
-  content: '';
-  position: absolute;
-  /* baseline offset for 18px Poppins (override via --btn-link-baseline) */
-  bottom: var(--btn-link-baseline);
-  left: 0;
-  width: calc(100% - var(--btn-link-icon) - var(--btn-link-gap));
-  height: var(--btn-link-underline);
-  background-color: #374151;
-  z-index: 1;
-}
-
-/* Icon: design-inspired corner arrow */
-.button-without-box::before {
-  content: '';
-  position: absolute;
-  bottom: var(--btn-link-baseline);
-  right: 0;
-  width: var(--btn-link-icon);
-  height: var(--btn-link-icon);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none' stroke='black' stroke-width='0.5'%3E%3Cpath d='M16.522 15.346V9.038h1.663v9.147H9.038V16.522h6.308L4.293 5.469 5.469 4.293Z' fill='black' stroke='black' stroke-width='0.5'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-  z-index: 2;
-  transition: all 0.2s ease;
-}
-
-/* Hover effect */
-.button-without-box:hover {
-  color: #374151;
-}
-
-.button-without-box:hover::after {
-  background-color: #374151;
-}
-
-/* Replace icon on hover */
-.button-without-box:hover::before {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
-  bottom: 50%;
-  transform: translateY(50%);
-  right: 0;
-  width: 12px;
-  height: 12px;
-}
 
 /* Text colored underlines */
 /* Underline Color Classes */
@@ -667,17 +838,21 @@
   
   .newsletter-content {
     width: 100%;
+    order: 1;
   }
   
   .newsletter-illustration {
-    position: relative;
+    position: static;
     top: auto;
     right: auto;
     transform: none;
     margin-top: 2rem;
     display: flex;
     justify-content: center;
+    order: 2;
+    z-index: auto;
   }
+  .newsletter-illustration-img { max-width: min(640px, 95%); height: auto; }
 }
 
 .newsletter-content {
@@ -711,10 +886,18 @@
   gap: 25px;
 }
 
-.newsletter-row {
+ .newsletter-row {
   display: flex;
   gap: 36px;
   flex-wrap: nowrap;
+ }
+ /* Stack inputs on small screens */
+@media (max-width: 640px) {
+  .newsletter-row { flex-direction: column; gap: 18px; width: 100%; }
+  .newsletter-input-wrap { width: 100%; min-width: 0; max-width: 640px; margin-left: auto; margin-right: auto; }
+  .newsletter-input { width: 100%; }
+  .newsletter-submit { width: 100%; max-width: 640px; margin-left: auto; margin-right: auto; }
+  .newsletter-terms { justify-content: center; align-items: center; text-align: left; max-width: 640px; margin-left: auto; margin-right: auto; }
 }
 
 .newsletter-input-wrap {
@@ -2077,17 +2260,21 @@
   
   .newsletter-content {
     width: 100%;
+    order: 1; /* ensure form comes first */
   }
   
   .newsletter-illustration {
-    position: relative;
+    position: static; /* remove absolute behavior */
     top: auto;
     right: auto;
     transform: none;
     margin-top: 2rem;
     display: flex;
     justify-content: center;
+    order: 2; /* image after form */
+    z-index: auto;
   }
+  .newsletter-illustration-img { max-width: min(640px, 95%); height: auto; }
 }
 
 .newsletter-content {
@@ -2125,6 +2312,18 @@
   display: flex;
   gap: 36px;
   flex-wrap: nowrap;
+}
+/* Stack inputs on small screens */
+@media (max-width: 640px) {
+  .newsletter-row { flex-direction: column; gap: 18px; width: 100%; }
+  .newsletter-input-wrap { width: 100%; min-width: 0; max-width: 640px; margin-left: auto; margin-right: auto; }
+  .newsletter-container { align-items: center; }
+  .newsletter-content { width: 100%; text-align: center; margin: 0 auto; }
+  .newsletter-form { align-items: center; }
+  .newsletter-input, .newsletter-submit { width: 100%; max-width: 640px; }
+  .newsletter-submit { margin-left: auto; margin-right: auto; }
+  .newsletter-terms { justify-content: center; align-items: center; text-align: left; max-width: 640px; margin-left: auto; margin-right: auto; }
+  .newsletter-checkbox { margin-top: 0; }
 }
 
 .newsletter-input-wrap {
@@ -2457,34 +2656,194 @@
   color: #fff;
 }
 
-/* Service Hero Section Styles */
-.service-hero {
-  background-color: #ffffff;
-  padding: 5rem 1rem;
-}
-
+/* Service hero typography helpers */
 .service-hero-title {
-  color: #000000 !important;
-}
-
-.service-hero-content {
-  max-width: 1620px;
-  margin: 0 auto;
+  color: #000000;
 }
 
 .service-hero-subtitle {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-poppins), var(--font-inter), sans-serif;
   font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 12px;
 }
 
 .service-hero-description {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
-.service-hero-image {
+/* Shared hero layout */
+.cda-hero {
+  background-color: #ffffff;
+  padding: 24px 0 40px;
+}
+
+@media (min-width: 768px) {
+  .cda-hero {
+    padding: 88px 0;
+  }
+}
+
+.cda-hero__container {
+  width: 100%;
+  max-width: 1620px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+  .cda-hero__container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cda-hero__container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.cda-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "title"
+    "image"
+    "text"
+    "cta";
+  row-gap: 24px;
+  column-gap: 0;
+  justify-items: center;
+}
+
+.cda-hero__title,
+.cda-hero__text,
+.cda-hero__cta {
+  width: 100%;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cda-hero__title {
+  grid-area: title;
+  text-align: center;
+}
+
+.cda-hero__title-text {
+  margin: 0;
+}
+
+.cda-hero__eyebrow {
+  font-family: var(--font-poppins), var(--font-inter), sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 0.75rem;
+}
+
+.cda-hero__image {
+  grid-area: image;
   display: flex;
   justify-content: center;
+}
+
+.cda-hero__image-media {
+  width: min(560px, 100%);
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  .cda-hero__image-media {
+    width: min(320px, 90%);
+  }
+}
+
+.cda-hero__image-placeholder {
+  width: min(520px, 100%);
+  min-height: 260px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  text-align: center;
+  gap: 12px;
+  border: 1px dashed #d1d5db;
+  background-color: #f9fafb;
+  color: #4b5563;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.cda-hero__text {
+  grid-area: text;
+  text-align: center;
+}
+
+.cda-hero__text-content {
+  margin: 0;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: #4b5563;
+}
+
+@media (min-width: 768px) {
+  .cda-hero__text-content {
+    font-size: 1.0625rem;
+  }
+}
+
+.cda-hero__cta {
+  grid-area: cta;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px 24px;
+}
+
+.cda-hero__cta-item {
+  display: inline-flex;
+}
+
+@media (min-width: 1024px) {
+  .cda-hero__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "title image"
+      "text image"
+      "cta image";
+    column-gap: 4rem;
+    row-gap: 24px;
+    justify-items: stretch;
+    align-items: center;
+  }
+
+  .cda-hero__title,
+  .cda-hero__text,
+  .cda-hero__cta {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+    justify-self: flex-start;
+  }
+
+  .cda-hero__image {
+    justify-content: flex-end;
+  }
+
+  .cda-hero__cta {
+    justify-content: flex-start;
+  }
 }
 
 /* Global override: Remove all border-radius from the website */
@@ -2519,4 +2878,89 @@
 div.w-2.h-2,
 .w-2.h-2.rounded-full {
   border-radius: 0 !important;
+}
+
+/* Services filter chip overrides */
+.services-filter-chip { border-radius: 20px !important; }
+
+/* Services hero chameleon hover swap */
+.cameleon-hero { position: relative; display: inline-block; }
+.cameleon-hero__img { display: block; width: 100%; height: auto; }
+.cameleon-hero__img.hover { position: absolute; inset: 0; opacity: 0; transition: opacity 200ms ease-in-out; }
+.cameleon-hero:hover .cameleon-hero__img.hover { opacity: 1; }
+.cameleon-hero:hover .cameleon-hero__img.base { opacity: 0; transition: opacity 200ms ease-in-out; }
+
+/* Policy Content Styles */
+.policy-content h1,
+.policy-content h2,
+.policy-content h3,
+.policy-content h4,
+.policy-content h5,
+.policy-content h6 {
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+.policy-content h1 { font-size: 1.875rem; }
+.policy-content h2 { font-size: 1.5rem; }
+.policy-content h3 { font-size: 1.25rem; }
+.policy-content h4 { font-size: 1.125rem; }
+
+.policy-content p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+  color: #374151;
+}
+
+.policy-content ul,
+.policy-content ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.policy-content li {
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.policy-content a {
+  color: #3B82F6;
+  text-decoration: underline;
+}
+
+.policy-content a:hover {
+  color: #1D4ED8;
+}
+
+.policy-content strong {
+  font-weight: 600;
+  color: #111827;
+}
+
+.policy-content blockquote {
+  border-left: 4px solid #E5E7EB;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #6B7280;
+}
+
+.policy-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.policy-content th,
+.policy-content td {
+  border: 1px solid #E5E7EB;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.policy-content th {
+  background-color: #F9FAFB;
+  font-weight: 600;
 }
