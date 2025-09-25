@@ -5,6 +5,10 @@ import { getJobListingBySlug, getJobListingSlugs, getJobListingsSimple } from '.
 import Image from 'next/image';
 import Link from 'next/link';
 import JobApplicationForm from '../../../components/JobApplicationForm';
+import shieldSvg from '../../../../public/images/shield.svg';
+import targetSvg from '../../../../public/images/target.svg';
+import wilburySvg from '../../../../public/images/wilbury-way.svg';
+
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }) {
@@ -250,142 +254,178 @@ export default async function JobDetailPage({ params }) {
           </div>
         </section>
 
-        {/* About the Position */}
+        {/* === ROW 1: About the Position (8/12) + Shield (4/12) === */}
         {requirements?.aboutThePosition && (
           <section className={`py-16 ${nextBg()}`}>
-            <div className="max-w-4xl mx-auto px-4">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">About the Position</h2>
-              <div 
-                className="prose prose-lg max-w-none"
-                dangerouslySetInnerHTML={{ __html: requirements.aboutThePosition }}
-              />
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="grid grid-cols-12 gap-10 items-start">
+                <div className="col-span-12 md:col-span-8">
+                  <h2 className="text-3xl font-bold text-gray-900 mb-6">About The Position</h2>
+                  <div
+                    className="prose prose-lg max-w-none"
+                    dangerouslySetInnerHTML={{ __html: requirements.aboutThePosition }}
+                  />
+                </div>
+
+                <div className="col-span-12 md:col-span-4">
+                  <div className="relative w-full">
+                    <Image
+                      src={shieldSvg}
+                      alt="Shield"
+                      className="w-full h-auto max-h-[300px]"
+                      priority={false}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         )}
 
-        {/* Our Dream Candidate */}
+
+       {/* === ROW 2: Our Dream Candidate (8/12) + Target (4/12) === */}
         {requirements?.ourDreamCandidate && (
           <section className={`py-16 ${nextBg()}`}>
-            <div className="max-w-4xl mx-auto px-4">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Dream Candidate</h2>
-              <div 
-                className="prose prose-lg max-w-none"
-                dangerouslySetInnerHTML={{ __html: requirements.ourDreamCandidate }}
-              />
+            <div className="max-w-7xl mx-auto px-4">              
+              <div className="grid grid-cols-12 gap-10 items-start">
+                <div className="col-span-12 md:col-span-4">
+                  <div className="relative w-full">
+                    <Image
+                      src={targetSvg}
+                      alt="Target"
+                      className="w-full h-auto max-h-[300px]"
+                      priority={false}
+                    />
+                  </div>
+                </div>
+                <div className="col-span-12 md:col-span-8">
+                  <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Dream Candidate</h2>
+                  <div
+                    className="prose prose-lg max-w-none"
+                    dangerouslySetInnerHTML={{ __html: requirements.ourDreamCandidate }}
+                  />
+                </div>                
+              </div>
             </div>
           </section>
         )}
 
-        {/* Key Responsibilities */}
-        {requirements?.requiredSkills && requirements.requiredSkills.length > 0 && (
+       
+        
+
+        {/* === ROW 3: Responsibilities (6/12) + Qualifications (6/12) === */}
+        {(requirements?.requiredSkills?.length || requirements?.requiredQualifications?.length) ? (
           <section className={`py-16 ${nextBg()}`}>
-            <div className="max-w-4xl mx-auto px-4">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Key Responsibilities</h2>
-              <ul className="space-y-3">
-                {requirements.requiredSkills.map((skill, index) => (
-                  <li key={index} className="flex items-start">
-                    <svg className="h-6 w-6 text-blue-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-700">{skill.responsability}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="grid grid-cols-12 gap-10">
+                {/* Key Responsibilities */}
+                {requirements?.requiredSkills?.length > 0 && (
+                  <div className="col-span-12 md:col-span-6">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-6">Key Responsibilities</h2>
+                    <ul className="space-y-3">
+                      {requirements.requiredSkills.map((item, i) => (
+                        <li key={i} className="flex items-start">
+                          <svg className="h-6 w-6 text-blue-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span className="text-gray-700">{item?.responsability || item?.text || ''}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Qualifications and Experience */}
+                {requirements?.requiredQualifications?.length > 0 && (
+                  <div className="col-span-12 md:col-span-6">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-6">Qualifications and Experience</h2>
+                    <ul className="space-y-3">
+                      {requirements.requiredQualifications.map((item, i) => (
+                        <li key={i} className="flex items-start">
+                          <svg className="h-6 w-6 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4" />
+                          </svg>
+                          <span className="text-gray-700">{item?.qualification || item?.text || ''}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
           </section>
-        )}
+        ) : null}
 
-        {/* Qualifications and Experience */}
-        {requirements?.requiredQualifications && requirements.requiredQualifications.length > 0 && (
-          <section className={`py-16 ${nextBg()}`}>
-            <div className="max-w-4xl mx-auto px-4">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Qualifications and Experience</h2>
-              <ul className="space-y-3">
-                {requirements.requiredQualifications.map((qual, index) => (
-                  <li key={index} className="flex items-start">
-                    <svg className="h-6 w-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                    </svg>
-                    <span className="text-gray-700">{qual.qualification}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        )}
 
-        {/* Main Content (fallback) */}
-        {/* {job.content && (
-          <section className={`py-16 ${nextBg()}`}>
-            <div className="max-w-4xl mx-auto px-4">
-              <div 
-                className="prose prose-lg max-w-none"
-                dangerouslySetInnerHTML={{ __html: job.content }}
-              />
-            </div>
-          </section>
-        )} */}
+       
+        {/* === ROW 5: Apply Form — left image 4/12, form 8/12 === */}
+<section id="apply" className={`py-16 ${nextBg()}`}>
+  <div className="max-w-4xl mx-auto px-4">
+    
 
-        {/* Job Application Form Section */}
-        <section id="apply" className={`py-16 ${nextBg()}`}>
-          <div className="max-w-4xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Apply for {job.title}
-              </h2>
-              <p className="text-lg text-gray-600">
-                Ready to join our team? Fill out the form below and we'll get back to you within 24 hours.
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-lg shadow-lg p-8 hubspot-form-wrapper">
-              <JobApplicationForm jobTitle={job.title} />
-            </div>
+    <div className="grid grid-cols-12 gap-10 items-start">
+      {/* Left image (4/12) */}
+      <div className="col-span-12 md:col-span-4">
+        <div className="text-center mb-12">
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">Apply for {job.title}</h2>
+      <p className="text-lg text-gray-600">
+        Ready to join our team? Fill out the form below and we'll get back to you within 24 hours.
+      </p>
+    </div>
+        <Image
+          src={wilburySvg}
+          alt="Wilbury Way"
+          className="w-full h-auto"
+          priority={false}
+        />
+      </div>
 
-            {/* Force form colors: text black, fields white; override submit button colors */}
-            <style>{`
-              .hubspot-form-wrapper, .hubspot-form-wrapper * { color: #000; }
-              .hubspot-form-wrapper label { color: #000 !important; }
-              .hubspot-form-wrapper input[type="text"],
-              .hubspot-form-wrapper input[type="email"],
-              .hubspot-form-wrapper input[type="tel"],
-              .hubspot-form-wrapper input[type="number"],
-              .hubspot-form-wrapper input[type="url"],
-              .hubspot-form-wrapper input[type="password"],
-              .hubspot-form-wrapper input[type="file"],
-              .hubspot-form-wrapper select,
-              .hubspot-form-wrapper textarea {
-                background-color: #fff !important;
-                color: #000 !important;
-                border: 1px solid #e5e7eb !important;
-                border-radius: 0 !important;
-                padding: 0.75rem 1rem !important;
-              }
-              .hubspot-form-wrapper .hs-error-msg, .hubspot-form-wrapper .hs-form-required {
-                color: #b91c1c !important;
-              }
-              /* Submit button (proxy and native) — white text on black; invert on hover */
-              .hubspot-form-wrapper .hs-custom-submit.button-l,
-              .hubspot-form-wrapper .hs-submit .hs-button {
-                background-color: #000 !important;
-                color: #fff !important;
-                box-shadow: none !important;
-              }
-              .hubspot-form-wrapper .hs-custom-submit.button-l:hover,
-              .hubspot-form-wrapper .hs-submit .hs-button:hover {
-                background-color: #fff !important;
-                color: #000 !important;
-                box-shadow: inset 0 0 0 1px #000 !important;
-              }
-              .hubspot-form-wrapper .button-l,
-              .hubspot-form-wrapper .hs-button.button-l {
-                /* Ensure our styled submit stands out if HubSpot overwrites */
-                background-image: none !important;
-              }
-              .hubspot-form-wrapper .hs-hidden { display: none !important; }
-            `}</style>
-          </div>
-        </section>      
+      {/* Form (8/12) */}
+      <div className="col-span-12 md:col-span-8">
+        <div className="bg-white rounded-lg shadow-lg p-8 hubspot-form-wrapper">
+          <JobApplicationForm jobTitle={job.title} />
+        </div>
+      </div>
+    </div>
+
+    {/* Keep your form style overrides */}
+    <style>{`
+      .hubspot-form-wrapper, .hubspot-form-wrapper * { color: #000; }
+      .hubspot-form-wrapper label { color: #000 !important; }
+      .hubspot-form-wrapper input[type="text"],
+      .hubspot-form-wrapper input[type="email"],
+      .hubspot-form-wrapper input[type="tel"],
+      .hubspot-form-wrapper input[type="number"],
+      .hubspot-form-wrapper input[type="url"],
+      .hubspot-form-wrapper input[type="password"],
+      .hubspot-form-wrapper input[type="file"],
+      .hubspot-form-wrapper select,
+      .hubspot-form-wrapper textarea {
+        background-color: #fff !important;
+        color: #000 !important;
+        border: 1px solid #e5e7eb !important;
+        border-radius: 0 !important;
+        padding: 0.75rem 1rem !important;
+      }
+      .hubspot-form-wrapper .hs-error-msg, .hubspot-form-wrapper .hs-form-required {
+        color: #b91c1c !important;
+      }
+      .hubspot-form-wrapper .hs-custom-submit.button-l,
+      .hubspot-form-wrapper .hs-submit .hs-button {
+        background-color: #000 !important;
+        color: #fff !important;
+        box-shadow: none !important;
+      }
+      .hubspot-form-wrapper .hs-custom-submit.button-l:hover,
+      .hubspot-form-wrapper .hs-submit .hs-button:hover {
+        background-color: #fff !important;
+        color: #000 !important;
+        box-shadow: inset 0 0 0 1px #000 !important;
+      }
+      .hubspot-form-wrapper .hs-hidden { display: none !important; }
+    `}</style>
+  </div>
+</section>    
       </main>
       
       <Footer />

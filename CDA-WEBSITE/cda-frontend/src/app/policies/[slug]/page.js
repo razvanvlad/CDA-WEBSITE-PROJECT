@@ -85,7 +85,7 @@ export default async function PolicyDetailPage({ params }) {
           <div className="mx-auto w-full max-w-[900px] px-4 md:px-6 lg:px-8">
             {/* Breadcrumb */}
             <nav className="mb-8">
-              <Link href="/policies" className="text-blue-600 hover:text-blue-800">
+              <Link href="/policies" className="button-witthout-box">
                 ← Back to Policies
               </Link>
             </nav>
@@ -139,13 +139,13 @@ export default async function PolicyDetailPage({ params }) {
               <div className="flex justify-between items-center">
                 <Link 
                   href="/policies"
-                  className="inline-flex items-center px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                  className="button-l"
                 >
                   ← All Policies
                 </Link>
                 <Link 
                   href="/contact"
-                  className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="button-l-transparent"
                 >
                   Questions? Contact Us
                 </Link>
