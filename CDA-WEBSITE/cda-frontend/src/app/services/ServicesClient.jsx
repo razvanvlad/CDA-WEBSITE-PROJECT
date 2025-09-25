@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const getServiceColor = (slug) => {
   const colorMap = {
@@ -19,9 +20,9 @@ const getServiceColor = (slug) => {
 };
 
 export default function ServicesClient({ initialItems = [] }) {
-  const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
-  const searchQuery = params.get('search') || '';
-  const selectedTypes = params.getAll('service_type');
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get('search') || '';
+  const selectedType = searchParams.get('service_type') || null;
 
   const services = useMemo(() => {
     let items = Array.isArray(initialItems) ? initialItems : [];
@@ -35,16 +36,16 @@ export default function ServicesClient({ initialItems = [] }) {
       });
     }
 
-    if (selectedTypes.length > 0) {
+    if (selectedType) {
       items = items.filter((svc) => {
         const nodes = svc?.serviceTypes?.nodes || [];
         const slugs = nodes.map((t) => t.slug);
-        return selectedTypes.some((sel) => slugs.includes(sel));
+        return slugs.includes(selectedType);
       });
     }
 
     return items;
-  }, [initialItems, searchQuery, selectedTypes]);
+  }, [initialItems, searchQuery, selectedType]);
 
   if (!services.length) {
     return (
@@ -55,11 +56,11 @@ export default function ServicesClient({ initialItems = [] }) {
           </svg>
           <h3 className="mt-4 text-lg font-medium text-gray-900">No services found</h3>
           <p className="mt-2 text-gray-500">
-            {searchQuery || selectedTypes.length > 0
+            {searchQuery || (selectedType && selectedType.length > 0)
               ? 'Try adjusting your search criteria or clearing filters.'
               : 'No services are available at the moment. Please check back later.'}
           </p>
-          {(searchQuery || selectedTypes.length > 0) && (
+          {(searchQuery || (selectedType && selectedType.length > 0)) && (
             <Link
               href="/services"
               className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"

@@ -1,0 +1,543 @@
+[
+    {
+        "key": "group_homepage_content_clean",
+        "title": "Homepage Content",
+        "fields": [
+            {
+                "key": "field_hp_header_section_clean",
+                "label": "Header Section",
+                "name": "header_section",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "Individual header section for homepage only (8.2)",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "show_in_graphql": 1,
+                "sub_fields": [
+                    {
+                        "key": "field_hp_header_title_clean",
+                        "label": "Title",
+                        "name": "title",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "Admin can set which text is underlined and in which colour",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_header_text_clean",
+                        "label": "Text",
+                        "name": "text",
+                        "aria-label": "",
+                        "type": "textarea",
+                        "instructions": "Block must expand to show all text entered in admin and must NOT cut off text",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "maxlength": "",
+                        "rows": 4,
+                        "new_lines": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_header_button1_clean",
+                        "label": "Button 1",
+                        "name": "button1",
+                        "aria-label": "",
+                        "type": "link",
+                        "instructions": "Admin has full control over title, URL and if it opens in the current or new tab",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_header_button2_clean",
+                        "label": "Button 2",
+                        "name": "button2",
+                        "aria-label": "",
+                        "type": "link",
+                        "instructions": "Admin has full control over title, URL and if it opens in the current or new tab",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_header_illustration_clean",
+                        "label": "Illustration",
+                        "name": "illustration",
+                        "aria-label": "",
+                        "type": "image",
+                        "instructions": "Illustration image \/ video \/ GIF – will be a file that's uploaded and will play when the user gets to that section",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "preview_size": "medium",
+                        "library": "all",
+                        "min_width": "",
+                        "min_height": "",
+                        "min_size": "",
+                        "max_width": "",
+                        "max_height": "",
+                        "max_size": "",
+                        "mime_types": "",
+                        "show_in_graphql": 1
+                    }
+                ]
+            },
+            {
+                "key": "field_hp_projects_section_clean",
+                "label": "Projects Section",
+                "name": "projects_section",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "Individual projects section for homepage - Complete with missing fields needed",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "show_in_graphql": 1,
+                "sub_fields": [
+                    {
+                        "key": "field_hp_projects_title_clean",
+                        "label": "Title",
+                        "name": "title",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_projects_subtitle_clean",
+                        "label": "Subtitle",
+                        "name": "subtitle",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_projects_link_clean",
+                        "label": "Link",
+                        "name": "link",
+                        "aria-label": "",
+                        "type": "link",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "show_in_graphql": 1
+                    }
+                ]
+            },
+            {
+                "key": "field_hp_case_studies_section_clean",
+                "label": "Case Studies Section",
+                "name": "case_studies_section",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "Individual case studies section for homepage (8.9)",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "show_in_graphql": 1,
+                "sub_fields": [
+                    {
+                        "key": "field_hp_cs_subtitle_clean",
+                        "label": "Subtitle",
+                        "name": "subtitle",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_cs_title_clean",
+                        "label": "Title",
+                        "name": "title",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_cs_knowledge_hub_link_clean",
+                        "label": "Knowledge Hub Link",
+                        "name": "knowledge_hub_link",
+                        "aria-label": "",
+                        "type": "link",
+                        "instructions": "Link to the Knowledge hub filtered by Case Studies type",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_cs_selected_studies_clean",
+                        "label": "Selected Case Studies",
+                        "name": "selected_studies",
+                        "aria-label": "",
+                        "type": "post_object",
+                        "instructions": "Admin will select 2 to show (intro text must be a field in the case study). Fields to show: Client Name, The Challenge, View Project Button with url from the project, Project Gallery",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "post_type": [
+                            "case_studies"
+                        ],
+                        "taxonomy": [],
+                        "allow_null": 1,
+                        "multiple": 1,
+                        "return_format": "object",
+                        "ui": 1,
+                        "show_in_graphql": 1,
+                        "bidirectional_target": []
+                    }
+                ]
+            },
+            {
+                "key": "field_hp_global_content_selection_clean",
+                "label": "Global Content Selection",
+                "name": "global_content_selection",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "Select which global content blocks to display on this page. These will be displayed between the Header and Projects sections in the order they appear in your specifications (8.3-8.12).",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "show_in_graphql": 1,
+                "sub_fields": [
+                    {
+                        "key": "field_hp_enable_image_frame_clean",
+                        "label": "8.3 - Enable Image & Frame Block",
+                        "name": "enable_image_frame",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "Show the Image & Frame Left, Text & CTA Right block",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "",
+                        "default_value": 0,
+                        "ui": 1,
+                        "ui_on_text": "",
+                        "ui_off_text": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_enable_services_accordion_clean",
+                        "label": "8.4 - Enable Services Accordion",
+                        "name": "enable_services_accordion",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "Show the Services Accordion block",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "",
+                        "default_value": 0,
+                        "ui": 1,
+                        "ui_on_text": "",
+                        "ui_off_text": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_enable_technologies_slider_clean",
+                        "label": "8.5 - Enable Technologies Slider",
+                        "name": "enable_technologies_slider",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "Show the Technologies Slider block",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "",
+                        "default_value": 0,
+                        "ui": 1,
+                        "ui_on_text": "",
+                        "ui_off_text": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_enable_values_clean",
+                        "label": "8.6 - Enable Values Block",
+                        "name": "enable_values",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "Show the Values block",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "",
+                        "default_value": 0,
+                        "ui": 1,
+                        "ui_on_text": "",
+                        "ui_off_text": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_enable_showreel_clean",
+                        "label": "8.7 - Enable Showreel Block",
+                        "name": "enable_showreel",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "Show the Showreel block",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "",
+                        "default_value": 0,
+                        "ui": 1,
+                        "ui_on_text": "",
+                        "ui_off_text": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_enable_stats_image_clean",
+                        "label": "8.8 - Enable Stats & Image",
+                        "name": "enable_stats_image",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "Show the Stats & Image block",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "",
+                        "default_value": 0,
+                        "ui": 1,
+                        "ui_on_text": "",
+                        "ui_off_text": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_enable_locations_image_clean",
+                        "label": "8.10 - Enable Locations with Image",
+                        "name": "enable_locations_image",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "Show the Locations with Image block",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "",
+                        "default_value": 0,
+                        "ui": 1,
+                        "ui_on_text": "",
+                        "ui_off_text": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_enable_news_carousel_clean",
+                        "label": "8.11 - Enable News Carousel",
+                        "name": "enable_news_carousel",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "Show the News Carousel block",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "",
+                        "default_value": 0,
+                        "ui": 1,
+                        "ui_on_text": "",
+                        "ui_off_text": "",
+                        "show_in_graphql": 1
+                    },
+                    {
+                        "key": "field_hp_enable_newsletter_signup_clean",
+                        "label": "8.12 - Enable Newsletter Signup",
+                        "name": "enable_newsletter_signup",
+                        "aria-label": "",
+                        "type": "true_false",
+                        "instructions": "Show the Newsletter Signup block",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "",
+                        "default_value": 0,
+                        "ui": 1,
+                        "ui_on_text": "",
+                        "ui_off_text": "",
+                        "show_in_graphql": 1
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "template-homepage.php"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Clean homepage content structure with individual sections and global content toggles",
+        "show_in_rest": 1,
+        "show_in_graphql": 1,
+        "graphql_field_name": "homepageContentClean",
+        "map_graphql_types_from_location_rules": 1,
+        "graphql_types": [
+            "Page",
+            "Template_Homepage"
+        ]
+    }
+]

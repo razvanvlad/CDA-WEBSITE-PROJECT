@@ -1,8 +1,10 @@
 // src/app/services/page.js
-import { getServicesWithPagination, executeGraphQLQuery, getServiceOverviewContent, getServiceBySlug } from '@/lib/graphql-queries.js'
+import { getServicesWithPagination, executeGraphQLQuery, getServiceOverviewContent, getServiceBySlug, getAllGlobalContentBlocks } from '@/lib/graphql-queries.js'
 import ServicesClient from './ServicesClient'
+import ServicesFilters from './ServicesFilters'
 import ApproachBlock from '@/components/GlobalBlocks/ApproachBlock'
-import ValuesBlock from '@/components/GlobalBlocks/ValuesBlock'
+import HeroSection from '@/components/GlobalBlocks/HeroSection'
+import Showreel from '@/components/GlobalBlocks/Showreel'
 import ServicesProcess from '@/components/Sections/ServicesProcess'
 import ServicesStats from '@/components/Sections/ServicesStats'
 import ServicesCaseStudiesPreview from '@/components/Sections/ServicesCaseStudiesPreview'
@@ -11,6 +13,7 @@ import Footer from '../../components/Footer'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
 
 export const revalidate = 300
 
@@ -81,54 +84,7 @@ async function getServiceTypes() {
   }
 }
 
-// Get global content for Approach Block and Values Block
-async function getGlobalContent() {
-  const query = `
-    query GetGlobalContent {
-      globalOptions {
-        globalContentBlocks {
-          approach {
-            title
-            subtitle
-            steps {
-              stepNumber
-              title
-              description
-              image {
-                node {
-                  sourceUrl
-                  altText
-                }
-              }
-            }
-          }
-          valuesBlock {
-            title
-            subtitle
-            values {
-              title
-              text
-            }
-            illustration {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-          }
-        }
-      }
-    }
-  `
-  
-  try {
-    const response = await executeGraphQLQuery(query)
-    return response.data?.globalOptions?.globalContentBlocks || null
-  } catch (error) {
-    console.error('Failed to fetch global content:', error)
-    return null
-  }
-}
+// Get global content for Approach Block and Values Block (use shared util)
 
 export default async function ServicesPage() {
   try {
@@ -142,7 +98,7 @@ export default async function ServicesPage() {
     const serviceTypes = await getServiceTypes()
     
     // Fetch global content for Approach Block
-    const globalContent = await getGlobalContent()
+    const globalContent = await getAllGlobalContentBlocks()
 
     // Resolve featured case study for left column
     let featuredCaseStudy = null
@@ -159,41 +115,58 @@ export default async function ServicesPage() {
       }
     }
 
+    const heroSectionContent = overviewContent?.heroSection || {}
+    // Use a static illustration for the Services list header with hover swap
+    const heroImageNode = (
+      <div className="cameleon-hero" style={{ width: 600 }}>
+        <img
+          src="/images/cameleon-right.svg"
+          alt="Services illustration"
+          width={600}
+          height={400}
+          className="cameleon-hero__img base"
+          loading="eager"
+        />
+        <img
+          src="/images/cameleon-right-hover.svg"
+          alt=""
+          aria-hidden="true"
+          width={600}
+          height={400}
+          className="cameleon-hero__img hover"
+          loading="eager"
+        />
+      </div>
+    )
+
+    const heroDescription =
+      heroSectionContent.description ||
+      'Discover our comprehensive range of digital services designed to help your business grow and succeed in the digital landscape.'
+
+    const extraDescription = `
+      <p>With over 30 years’ working in-house and at agencies, our experience goes way back to when it was called ‘that internet thing’.</p>
+      <p>We’ve seen the digital landscape evolve to what it is today and we’re eager to see where it will go next. We believe in putting the user at the centre and creating seamless experiences around them.</p>
+    `
+
     return (
       <>
         <Header />
-        <div className="min-h-screen bg-white">
+        <main className="min-h-screen bg-white">
+          <HeroSection
+            sectionClassName="bg-white"
+            titleHtml={'The Services We Offer'}
+            titleClassName="text-4xl font-bold text-gray-900"
+            titleStyle={{ textDecoration: 'underline', textDecorationColor: '#AD80F9', textDecorationThickness: '11px' }}
+            descriptionHtml={`<p>${heroDescription}</p>${extraDescription}`}
+            descriptionClassName="text-xl text-gray-600"
+            image={heroImageNode}
+          />
+
+          {/* Service type filter chips */}
+          <Suspense fallback={<div className="max-w-7xl mx-auto px-4 mt-2 mb-8 text-gray-500">Loading filters…</div>}>
+            <ServicesFilters options={(serviceTypes || []).map(t => ({ label: t.name, slug: t.slug }))} />
+          </Suspense>
           <div className="max-w-7xl mx-auto px-4 py-16">
-          {/* Hero Section */}
-          <section className="relative bg-white p-8 mb-12 overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
-              <div className="relative z-10">
-                <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                  {overviewContent?.heroSection?.title || 'Our Services'}
-                </h1>
-                <p className="text-xl text-gray-600 mb-8">
-                  {overviewContent?.heroSection?.description || 'Discover our comprehensive range of digital services designed to help your business grow and succeed in the digital landscape.'}
-                </p>
-              </div>
-              
-              {/* Hero Image Right */}
-              {overviewContent?.heroSection?.imageRight?.node?.sourceUrl && (
-                <div className="relative">
-                  <Image
-                    src={overviewContent.heroSection.imageRight.node.sourceUrl}
-                    alt={overviewContent.heroSection.imageRight.node.altText || 'Our Services'}
-                    width={600}
-                    height={400}
-                    className="w-full h-auto rounded-lg shadow-lg"
-                    priority
-                  />
-                </div>
-              )}
-            </div>
-          </section>
-
-
-
           {/* Service Landing Two-Column Section */}
           {(overviewContent?.featuredServiceSection || overviewContent?.rightColumn) && (
             <section className="mb-12">
@@ -274,18 +247,11 @@ export default async function ServicesPage() {
 
 
           {/* Services Grid - client-side filtering */}
-          <ServicesClient initialItems={services} />
+          <Suspense fallback={<div className="max-w-7xl mx-auto px-4 py-16 text-gray-500">Loading services…</div>}>
+            <ServicesClient initialItems={services} />
+          </Suspense>
 
-          {/* Our Values Global Block */}
-          {globalContent?.valuesBlock && (
-            <ValuesBlock 
-              globalData={globalContent.valuesBlock}
-              pageData={null}
-              useOverride={false}
-            />
-          )}
-
-          {/* Our Approach Global Block */}
+          {/* Our Approach Global Block (placed directly after the services list) */}
           {globalContent?.approach && (
             <ApproachBlock 
               globalData={globalContent.approach}
@@ -294,31 +260,27 @@ export default async function ServicesPage() {
             />
           )}
 
+          {/* Showreel Global Block (instead of Values) */}
+     <section className="relative py-16 overflow-visible">
+  {/* Full-bleed bg that paints only the top half */}
+  <div
+    className="absolute inset-0 left-1/2 right-1/2 -mx-[50vw] w-screen -z-10 pointer-events-none"
+    style={{
+      background: "#F4F4F4",        
+    }}
+    aria-hidden="true"
+  />
+  <div className="relative z-10 mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+    <Showreel globalData={globalContent.showreel} />
+  </div>
+</section>
+
+
+
           {/* Services: Process, Stats, Case Studies Preview */}
 
-          {/* CTA Section */}
-          <section className="mt-16 bg-white border border-gray-200 rounded-lg p-12 text-center">
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">Need a Custom Solution?</h2>
-            <p className="text-xl text-gray-600 mb-8">
-              Can't find exactly what you're looking for? We specialize in creating tailored solutions for unique business needs.
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="button-l"
-              >
-                Discuss Your Project
-              </Link>
-              <Link
-                href="/case-studies"
-                className="button-l"
-              >
-                View Our Work
-              </Link>
-            </div>
-          </section>
           </div>
-        </div>
+        </main>
         <Footer />
       </>
     )

@@ -1,8 +1,13 @@
-import { executeGraphQLQuery, GET_ALL_CASE_STUDIES } from '@/lib/graphql-queries.js'
+import { executeGraphQLQuery, GET_CASE_STUDIES_WITH_PAGINATION } from '@/lib/graphql-queries.js'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Link from 'next/link'
 import Image from 'next/image'
+import KnowledgeHubClient from './KnowledgeHubClient'
+import ServicesFilters from '../services/ServicesFilters'
+import GlobalTailSections from '@/components/GlobalBlocks/GlobalTailSections.jsx'
+import { getGlobalContent } from '@/lib/graphql-queries'
+import { Suspense } from 'react'
 
 export const metadata = {
   title: 'Knowledge Hub - CDA Resources & Insights',
@@ -15,10 +20,10 @@ export const metadata = {
   },
 }
 
-// Simple GraphQL query for posts
-const GET_ALL_POSTS = `
-  query GetAllPosts {
-    posts(first: 50) {
+// Simple GraphQL query for Blog Posts (custom post type)
+const GET_ALL_BLOGPOSTS = `
+  query GetAllBlogPosts {
+    blogPosts(first: 50, where: { orderby: { field: DATE, order: DESC } }) {
       nodes {
         id
         title
@@ -31,7 +36,7 @@ const GET_ALL_POSTS = `
             altText
           }
         }
-        categories {
+        blogCategories {
           nodes {
             name
             slug
@@ -46,189 +51,132 @@ export const revalidate = 300
 
 export default async function KnowledgeHubPage() {
   try {
-    // Fetch case studies and posts separately
-    const [caseStudiesResponse, postsResponse] = await Promise.all([
-      executeGraphQLQuery(GET_ALL_CASE_STUDIES),
-      executeGraphQLQuery(GET_ALL_POSTS)
+// Fetch case studies (core fields) and blog posts separately
+    const [caseStudiesResponse, blogPostsResponse, globalData] = await Promise.all([
+      executeGraphQLQuery(GET_CASE_STUDIES_WITH_PAGINATION),
+      executeGraphQLQuery(GET_ALL_BLOGPOSTS),
+      getGlobalContent()
     ])
     
     if (caseStudiesResponse.errors) {
       console.error('Case Studies GraphQL errors:', caseStudiesResponse.errors)
     }
     
-    if (postsResponse.errors) {
-      console.error('Posts GraphQL errors:', postsResponse.errors)
+if (blogPostsResponse.errors) {
+      console.error('BlogPosts GraphQL errors:', blogPostsResponse.errors)
     }
     
-    const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
-    const posts = postsResponse.data?.posts?.nodes || []
+const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
+    const posts = blogPostsResponse.data?.blogPosts?.nodes || []
     
     return (
       <>
         <Header />
         
         <main className="knowledge-hub-page">
-          {/* Hero Section */}
+          {/* Standard Hero */}
           <section className="bg-white py-16">
-            <div className="max-w-7xl mx-auto px-4">
-              <div className="text-center mb-12">
-                <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                  Knowledge Hub
-                </h1>
-                <p className="text-xl text-gray-600 mb-8">
-                  Explore our comprehensive collection of case studies, insights, and expert resources
-                </p>
+            <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div>
+                  <h1
+                    className="text-4xl md:text-5xl font-bold text-black mb-6"
+                    style={{ textDecoration: 'underline', textDecorationColor: '#01E486', textDecorationThickness: '11px' }}
+                  >
+                    Knowledge Hub
+                  </h1>
+                  <p className="text-lg text-[#4B5563] leading-relaxed max-w-2xl">Read more news and articles from CDA, here you can also read our case studies.</p>
+                </div>
+                <div className="flex justify-center lg:justify-end">
+                  <img src="/images/owl.svg" alt="Knowledge Hub illustration" className="w-full max-h-[300px] md:max-w-[520px] lg:max-w-[600px] h-auto object-contain" />
+                </div>
               </div>
             </div>
           </section>
 
-          {/* Case Studies Section */}
-          <section className="py-16 bg-gray-50">
-            <div className="max-w-7xl mx-auto px-4">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">Case Studies</h2>
-                <p className="text-xl text-gray-600">Real projects, real results</p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {caseStudies.map((caseStudy) => (
-                  <article key={caseStudy.id} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-                    {caseStudy.featuredImage?.node?.sourceUrl && (
-                      <div className="relative h-48">
-                        <Image
-                          src={caseStudy.featuredImage.node.sourceUrl}
-                          alt={caseStudy.featuredImage.node.altText || caseStudy.title}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    )}
-                    
-                    <div className="p-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="inline-block px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                          Case Study
-                        </span>
-                        
-                        {caseStudy.projectTypes?.nodes?.[0]?.name && (
-                          <span className="inline-block px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
-                            {caseStudy.projectTypes.nodes[0].name}
-                          </span>
-                        )}
-                      </div>
-                      
-                      <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                        {caseStudy.title}
-                      </h3>
-                      
-                      {caseStudy.excerpt && (
-                        <div 
-                          className="text-gray-600 mb-4 line-clamp-3"
-                          dangerouslySetInnerHTML={{ __html: caseStudy.excerpt }}
-                        />
-                      )}
-                      
-                      {caseStudy.caseStudyFields?.projectOverview?.clientName && (
-                        <p className="text-sm text-gray-500 mb-4">
-                          Client: {caseStudy.caseStudyFields.projectOverview.clientName}
-                        </p>
-                      )}
-                      
-                      <div className="flex items-center justify-between">
-                        <Link
-                          href={`/case-studies/${caseStudy.slug}`}
-                          className="button-without-box"
-                        >
-                          Read More
-                        </Link>
-                        
-                        <time className="text-sm text-gray-500">
-                          {new Date(caseStudy.date).toLocaleDateString()}
-                        </time>
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </div>
-              
-              {caseStudies.length === 0 && (
-                <div className="text-center py-12">
-                  <p className="text-gray-500 text-lg">No case studies available at the moment.</p>
-                </div>
-              )}
-            </div>
-          </section>
+          {/* Filter chips (single-select, reuse ServicesFilters) */}
+          <Suspense fallback={<div className="max-w-7xl mx-auto px-4 mt-2 mb-8 text-gray-500">Loading filters…</div>}>
+            <ServicesFilters
+              theme="light"
+              options={[
+                { label: 'Case Studies', slug: 'case-studies' },
+                { label: 'Company News', slug: 'company-news' },
+                { label: 'Digital Marketing', slug: 'digital-marketing' },
+                { label: 'Industry Insights', slug: 'industry-insights' },
+                { label: 'Technology', slug: 'technology' },
+                { label: 'Tutorials & Guides', slug: 'tutorials-guides' },
+                { label: 'Web Development', slug: 'web-development' },
+              ]}
+            />
+          </Suspense>
 
-          {/* News & Insights Section */}
-          <section className="py-16 bg-white">
-            <div className="max-w-7xl mx-auto px-4">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">News & Insights</h2>
-                <p className="text-xl text-gray-600">Latest updates and industry insights</p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {posts.map((post) => (
-                  <article key={post.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-                    {post.featuredImage?.node?.sourceUrl && (
-                      <div className="relative h-48">
-                        <Image
-                          src={post.featuredImage.node.sourceUrl}
-                          alt={post.featuredImage.node.altText || post.title}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    )}
-                    
-                    <div className="p-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="inline-block px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
-                          News
-                        </span>
-                        
-                        {post.categories?.nodes?.[0]?.name && (
-                          <span className="inline-block px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
-                            {post.categories.nodes[0].name}
-                          </span>
-                        )}
-                      </div>
-                      
-                      <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                        {post.title}
-                      </h3>
-                      
-                      {post.excerpt && (
-                        <div 
-                          className="text-gray-600 mb-4 line-clamp-3"
-                          dangerouslySetInnerHTML={{ __html: post.excerpt }}
-                        />
-                      )}
-                      
-                      <div className="flex items-center justify-between">
-                        <Link
-                          href={`/news/${post.slug}`}
-                          className="button-without-box"
-                        >
-                          Read More
-                        </Link>
-                        
-                        <time className="text-sm text-gray-500">
-                          {new Date(post.date).toLocaleDateString()}
-                        </time>
-                      </div>
+          {/* Listings (Case Studies + News) with filtering */}
+          <Suspense fallback={<div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 py-12 text-gray-500">Loading content…</div>}>
+            <KnowledgeHubClient initialCaseStudies={caseStudies} initialPosts={posts} />
+          </Suspense>
+
+          {/* Global Tail: keep Showreel via global content */}
+          <GlobalTailSections
+            globalData={globalData}
+            enableApproach={false}
+            enableStats={false}
+            enableImageFrame={false}
+            enableNewsCarousel={false}
+            enableColumnsWithIcons3X={false}
+            enableValues={false}
+            enableWhyCda={false}
+            enableServicesAccordion={false}
+            enableTechnologiesSlider={false}
+            enableShowreel={!!globalData?.showreel}
+            enableLocationsImage={false}
+            enableNewsletterSignup={false}
+            enableContactFormLeftImageRight={false}
+            enableJoinOurTeam={false}
+            enableFullVideo={false}
+          />
+
+          {/* Static Newsletter Section (not from WordPress) */}
+          <section className="newsletter-section">
+            <div className="newsletter-container">
+              <div className="newsletter-content">
+                <header className="newsletter-header">
+                  <p className="newsletter-subtitle">Stay In The Loop</p>
+                  <h2 className="newsletter-title">Sign Up To Our Newsletter</h2>
+                </header>
+
+                <form className="newsletter-form">
+                  <div className="newsletter-row">
+                    <div className="newsletter-input-wrap">
+                      <input type="text" className="newsletter-input" placeholder="First Name" aria-label="First Name" />
                     </div>
-                  </article>
-                ))}
+                    <div className="newsletter-input-wrap">
+                      <input type="text" className="newsletter-input" placeholder="Last Name" aria-label="Last Name" />
+                    </div>
+                  </div>
+                  <div className="newsletter-row">
+                    <div className="newsletter-input-wrap" style={{ width: '100%' }}>
+                      <input type="email" className="newsletter-input" placeholder="Email Address" aria-label="Email Address" required />
+                    </div>
+                  </div>
+                  <div className="newsletter-terms">
+                    <input id="nl-terms" type="checkbox" className="newsletter-checkbox" required />
+                    <label htmlFor="nl-terms" className="newsletter-label">
+                      I agree to the <a href="/policies/terms-and-conditions" className="newsletter-terms-link">Terms and Conditions</a> and consent to receive email updates and newsletters
+                    </label>
+                  </div>
+                  <div>
+                    <button className="button-l newsletter-submit" type="submit">Sign Up</button>
+                  </div>
+                </form>
               </div>
-              
-              {posts.length === 0 && (
-                <div className="text-center py-12">
-                  <p className="text-gray-500 text-lg">No news articles available at the moment.</p>
-                </div>
-              )}
+
+              {/* Optional Illustration (if you want an image on the right) */}
+              <div className="newsletter-illustration" aria-hidden="true">
+                <img src="/images/paper-plane.svg" alt="" className="newsletter-illustration-img" />
+              </div>
             </div>
           </section>
+          
 
         </main>
         

@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import Image from 'next/image';
 
@@ -30,10 +31,10 @@ const TechnologiesSlider = ({ globalData, subtitle, title, logos }) => {
         {/* Header Section */}
         <div className="technologies-header">
           {data.subtitle && (
-            <p className="technologies-subtitle">{data.subtitle}</p>
+            <p className="cda-subtitle">{data.subtitle}</p>
           )}
           {data.title && (
-            <h2 className="technologies-title">{data.title}</h2>
+            <h2 className="cda-title">{data.title}</h2>
           )}
         </div>
 
@@ -73,7 +74,7 @@ const TechnologiesSlider = ({ globalData, subtitle, title, logos }) => {
       <style jsx>{`
         .technologies-slider {
           padding: 80px 0;
-          background: #f8f9fa;
+          background: #ffffff;
           position: relative;
         }
 

@@ -1,13 +1,28 @@
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import { notFound } from 'next/navigation';
-import { getCaseStudyBySlug } from '../../../lib/graphql-queries';
+import { getCaseStudyByAny, getGlobalContent, getCaseStudySlugs } from '../../../lib/graphql-queries';
 import Image from 'next/image';
 import Link from 'next/link';
+import GlobalTailSections from '../../../components/GlobalBlocks/GlobalTailSections.jsx';
+
+export const revalidate = 300
+
+export async function generateStaticParams() {
+  try {
+    const slugs = await getCaseStudySlugs()
+    return (slugs || []).map((slug) => ({ slug }))
+  } catch (e) {
+    console.warn('Failed to pre-generate case study slugs:', e)
+    return []
+  }
+}
 
 // Generate metadata for SEO
-export async function generateMetadata({ params }) {
-  const caseStudy = await getCaseStudyBySlug(params.slug);
+export async function generateMetadata(props) {
+  const { slug } = await props.params
+  const safe = decodeURIComponent(slug)
+  const caseStudy = await getCaseStudyByAny({ uri: `/case-studies/${safe}/`, slug: safe });
   
   if (!caseStudy) {
     return {
@@ -30,8 +45,11 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function CaseStudyPage({ params }) {
-  const caseStudy = await getCaseStudyBySlug(params.slug);
+export default async function CaseStudyPage(props) {
+  const { slug } = await props.params
+  const safe = decodeURIComponent(slug)
+  const caseStudy = await getCaseStudyByAny({ uri: `/case-studies/${safe}/`, slug: safe });
+  const globalData = await getGlobalContent();
 
   if (!caseStudy) {
     notFound();
@@ -239,6 +257,8 @@ export default async function CaseStudyPage({ params }) {
           </div>
         </section>
       </main>
+
+      <GlobalTailSections globalData={globalData} />
       
       <Footer />
     </>
