@@ -56,11 +56,11 @@ export default function ServicesClient({ initialItems = [] }) {
           </svg>
           <h3 className="mt-4 text-lg font-medium text-gray-900">No services found</h3>
           <p className="mt-2 text-gray-500">
-            {searchQuery || selectedTypes.length > 0
+            {searchQuery || (selectedType && selectedType.length > 0)
               ? 'Try adjusting your search criteria or clearing filters.'
               : 'No services are available at the moment. Please check back later.'}
           </p>
-          {(searchQuery || selectedTypes.length > 0) && (
+          {(searchQuery || (selectedType && selectedType.length > 0)) && (
             <Link
               href="/services"
               className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"

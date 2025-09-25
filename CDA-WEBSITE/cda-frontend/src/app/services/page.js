@@ -13,6 +13,7 @@ import Footer from '../../components/Footer'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
 
 export const revalidate = 300
 
@@ -162,7 +163,9 @@ export default async function ServicesPage() {
           />
 
           {/* Service type filter chips */}
-          <ServicesFilters options={(serviceTypes || []).map(t => ({ label: t.name, slug: t.slug }))} />
+          <Suspense fallback={<div className="max-w-7xl mx-auto px-4 mt-2 mb-8 text-gray-500">Loading filters…</div>}>
+            <ServicesFilters options={(serviceTypes || []).map(t => ({ label: t.name, slug: t.slug }))} />
+          </Suspense>
           <div className="max-w-7xl mx-auto px-4 py-16">
           {/* Service Landing Two-Column Section */}
           {(overviewContent?.featuredServiceSection || overviewContent?.rightColumn) && (
@@ -244,7 +247,9 @@ export default async function ServicesPage() {
 
 
           {/* Services Grid - client-side filtering */}
-          <ServicesClient initialItems={services} />
+          <Suspense fallback={<div className="max-w-7xl mx-auto px-4 py-16 text-gray-500">Loading services…</div>}>
+            <ServicesClient initialItems={services} />
+          </Suspense>
 
           {/* Our Approach Global Block (placed directly after the services list) */}
           {globalContent?.approach && (
