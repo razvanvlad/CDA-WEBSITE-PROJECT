@@ -2172,6 +2172,14 @@ export const GET_POLICY_BY_SLUG = `
           altText
         }
       }
+      policyFields {
+        policyFields {
+          title
+          description
+          lastUpdated
+          effectiveDate
+        }
+      }
     }
   }
 `;
