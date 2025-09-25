@@ -73,11 +73,15 @@ export default async function PolicyDetailPage({ params }) {
       notFound()
     }
 
-    const policyTitle = policy.title
-    const policyDescription = policy.content
-    const lastUpdated = null
-    const effectiveDate = null
+    // Strictly use ACF: policyFields.policyFields
+    const info = policy?.policyFields?.policyFields || null
 
+    if (!info?.title && !info?.description) {
+      notFound()
+    }
+
+    const policyTitle = info?.title
+    const policyDescription = info?.description
     return (
       <>
         <Header />
@@ -85,30 +89,14 @@ export default async function PolicyDetailPage({ params }) {
           <div className="mx-auto w-full max-w-[900px] px-4 md:px-6 lg:px-8">
             {/* Breadcrumb */}
             <nav className="mb-8">
-              <Link href="/policies" className="button-witthout-box">
+              <Link href="/policies" className="button-without-box">
                 ← Back to Policies
               </Link>
             </nav>
 
             {/* Policy Header */}
             <header className="mb-8">
-              <h1 className="text-4xl font-bold text-black mb-4">{policyTitle}</h1>
-              
-              {/* Policy Dates */}
-              <div className="flex flex-wrap gap-6 text-sm text-gray-600 mb-6">
-                {effectiveDate && (
-                  <div>
-                    <span className="font-semibold">Effective Date:</span>{' '}
-                    {new Date(effectiveDate).toLocaleDateString()}
-                  </div>
-                )}
-                {lastUpdated && (
-                  <div>
-                    <span className="font-semibold">Last Updated:</span>{' '}
-                    {new Date(lastUpdated).toLocaleDateString()}
-                  </div>
-                )}
-              </div>
+              <h1 className="text-4xl font-bold text-black mb-2">{policyTitle}</h1>
 
               {/* Featured Image */}
               {policy.featuredImage?.node?.sourceUrl && (
@@ -124,10 +112,10 @@ export default async function PolicyDetailPage({ params }) {
               )}
             </header>
 
-            {/* Policy Content */}
+            {/* Policy Content (from ACF description) */}
             <div className="max-w-none">
               {policyDescription && (
-                <div 
+                <div
                   dangerouslySetInnerHTML={{ __html: policyDescription }}
                   className="policy-content text-gray-800 leading-relaxed"
                 />
