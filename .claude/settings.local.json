@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl:*)",
+      "Bash(node:*)",
+      "Bash(npm install:*)",
+      "Bash(echo $APPDATA)",
+      "Bash(tasklist)",
+      "Bash(npm ci:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run lint)",
+      "Bash(tee:*)",
+      "Bash(cat:*)",
+      "Bash(awk:*)",
+      "Bash(npm run typecheck:*)",
+      "Bash(git checkout:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
