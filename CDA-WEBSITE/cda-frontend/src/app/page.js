@@ -3,6 +3,7 @@ import Footer from '../components/Footer'
 import HeroSection from '../components/GlobalBlocks/HeroSection'
 import { sanitizeTitleHtml } from '../lib/sanitizeTitleHtml'
 import PhotoFrame from '../components/GlobalBlocks/PhotoFrame'
+import WhyCdaBlock from '../components/GlobalBlocks/WhyCdaBlock'
 import ServicesAccordion from '../components/GlobalBlocks/ServicesAccordion'
 import TechnologiesSlider from '../components/GlobalBlocks/TechnologiesSlider'
 import ValuesBlock from '../components/GlobalBlocks/ValuesBlock'
@@ -247,6 +248,11 @@ export default async function Home() {
       {/* 2) [Global] Image Frame Block */}
       {t.showImageFrame && globalData?.imageFrameBlock && (
         <PhotoFrame globalData={globalData.imageFrameBlock} />
+      )}
+
+      {/* 2.5) [Global] Why CDA Block - "What Makes Us The Right Choice" */}
+      {t.showWhyCda && globalData?.whyCdaBlock && (
+        <WhyCdaBlock globalData={globalData.whyCdaBlock} />
       )}
 
       {/* 3) [Global] Services Accordion */}

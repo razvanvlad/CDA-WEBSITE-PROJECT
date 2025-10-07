@@ -1,0 +1,212 @@
+
+> cda-frontend@0.1.0 lint
+> next lint
+
+
+./src/app/about/page.js
+91:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+204:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/case-studies/[slug]/page.js
+241:18  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./src/app/contact/page.js
+96:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/jobs/page.js
+102:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/jobs/[slug]/page.js
+4:31  Warning: 'getJobListingSlugs' is defined but never used.  @typescript-eslint/no-unused-vars
+21:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+52:14  Warning: 'acfError' is defined but never used.  @typescript-eslint/no-unused-vars
+128:18  Error: React Hook "useBgRotation" cannot be called in an async function.  react-hooks/rules-of-hooks
+364:63  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./src/app/knowledge-hub/page.js
+4:8  Warning: 'Link' is defined but never used.  @typescript-eslint/no-unused-vars
+5:8  Warning: 'Image' is defined but never used.  @typescript-eslint/no-unused-vars
+91:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+164:38  Error: Do not use an `<a>` element to navigate to `/policies/terms-and-conditions/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+175:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/news/[slug]/page.js
+1:8  Warning: 'Header' is defined but never used.  @typescript-eslint/no-unused-vars
+102:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/not-found.tsx
+29:15  Error: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+31:15  Error: Do not use an `<a>` element to navigate to `/services/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+32:15  Error: Do not use an `<a>` element to navigate to `/case-studies/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+40:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/page.js
+118:14  Warning: '_' is defined but never used.  @typescript-eslint/no-unused-vars
+128:16  Warning: '_' is defined but never used.  @typescript-eslint/no-unused-vars
+153:12  Warning: '_' is defined but never used.  @typescript-eslint/no-unused-vars
+182:16  Warning: '_' is defined but never used.  @typescript-eslint/no-unused-vars
+219:7  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+228:9  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/policies/page.js
+42:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+66:33  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+92:19  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./src/app/policies/[slug]/page.js
+157:19  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./src/app/services/page.js
+8:8  Warning: 'ServicesProcess' is defined but never used.  @typescript-eslint/no-unused-vars
+9:8  Warning: 'ServicesStats' is defined but never used.  @typescript-eslint/no-unused-vars
+10:8  Warning: 'ServicesCaseStudiesPreview' is defined but never used.  @typescript-eslint/no-unused-vars
+15:10  Warning: 'notFound' is defined but never used.  @typescript-eslint/no-unused-vars
+21:7  Warning: 'getServiceColor' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+122:9  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+130:9  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+296:15  Error: Do not use an `<a>` element to navigate to `/services/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+./src/app/services/[slug]/page.js
+195:18  Error: Do not use an `<a>` element to navigate to `/case-studies/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+206:26  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+264:17  Error: Do not use an `<a>` element to navigate to `/case-studies/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+271:17  Error: Do not use an `<a>` element to navigate to `/case-studies/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+297:45  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./src/app/team/page.js
+122:16  Warning: 'e' is defined but never used.  @typescript-eslint/no-unused-vars
+140:12  Warning: '_' is defined but never used.  @typescript-eslint/no-unused-vars
+144:9  Warning: 'debug' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+169:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+192:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/team/[slug]/page.js
+112:40  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+144:49  Error: A `require()` style import is forbidden.  @typescript-eslint/no-require-imports
+153:46  Error: A `require()` style import is forbidden.  @typescript-eslint/no-require-imports
+
+./src/app/technologies/page.js
+4:8  Warning: 'CaseStudies' is defined but never used.  @typescript-eslint/no-unused-vars
+5:8  Warning: 'Image' is defined but never used.  @typescript-eslint/no-unused-vars
+23:9  Warning: 'truncateText' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+49:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+65:23  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+99:21  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./src/components/BookingModal.js
+32:68  Warning: '_' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/components/ErrorFallbacks.tsx
+28:11  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+126:9  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+186:9  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+186:52  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+217:13  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+237:9  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+256:67  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./src/components/Footer.js
+165:9  Warning: 'hoverVisibleClass' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+169:7  Warning: 'baseVisibleClass' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+202:10  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+212:7  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+227:9  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+243:9  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/components/GlobalBlocks/ApproachBlock.js
+9:17  Error: React Hook "useMemo" is called conditionally. React Hooks must be called in the exact same order in every component render.  react-hooks/rules-of-hooks
+14:24  Error: React Hook "useRef" is called conditionally. React Hooks must be called in the exact same order in every component render.  react-hooks/rules-of-hooks
+15:21  Error: React Hook "useRef" is called conditionally. React Hooks must be called in the exact same order in every component render.  react-hooks/rules-of-hooks
+18:29  Error: React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.  react-hooks/rules-of-hooks
+19:31  Error: React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.  react-hooks/rules-of-hooks
+48:19  Warning: 'i' is defined but never used.  @typescript-eslint/no-unused-vars
+59:3  Error: React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render.  react-hooks/rules-of-hooks
+71:6  Warning: React Hook useEffect has a missing dependency: 'measure'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/GlobalBlocks/LocationsImage.js
+16:21  Error: React Hook "useMemo" is called conditionally. React Hooks must be called in the exact same order in every component render.  react-hooks/rules-of-hooks
+20:31  Error: React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.  react-hooks/rules-of-hooks
+120:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/components/GlobalBlocks/NewsletterSignup.js
+16:31  Error: React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.  react-hooks/rules-of-hooks
+82:11  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/components/GlobalBlocks/ServicesAccordion.js
+16:20  Error: React Hook "useMemo" is called conditionally. React Hooks must be called in the exact same order in every component render.  react-hooks/rules-of-hooks
+30:37  Error: React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.  react-hooks/rules-of-hooks
+75:23  Warning: 'looksLikeHtml' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+191:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+202:9  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/components/GlobalBlocks/Showreel.js
+60:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+85:23  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+100:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/components/GlobalBlocks/ValuesBlock.js
+35:11  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+70:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/components/GlobalBlocks/WhyCdaBlock.js
+12:10  Warning: 'isMobile' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+12:35  Error: React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.  react-hooks/rules-of-hooks
+13:29  Error: React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.  react-hooks/rules-of-hooks
+15:3  Error: React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render.  react-hooks/rules-of-hooks
+
+./src/components/HeaderClient.js
+61:10  Warning: 'menuItems' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+67:10  Warning: 'isMobileMenuOpen' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+67:28  Warning: 'setIsMobileMenuOpen' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+69:10  Warning: 'isCompanyMenuOpen' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+145:9  Warning: 'servicesMenu' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+170:15  Error: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+187:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+205:19  Error: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+238:13  Error: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+./src/components/HubSpotForm.js
+130:17  Warning: The ref value 'formRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'formRef.current' to a variable inside the effect, and use that variable in the cleanup function.  react-hooks/exhaustive-deps
+
+./src/components/HubspotFormEmbed.js
+94:28  Warning: The ref value 'ref.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'ref.current' to a variable inside the effect, and use that variable in the cleanup function.  react-hooks/exhaustive-deps
+
+./src/components/HubSpotModal.js
+61:45  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./src/components/JobApplicationForm.js
+105:28  Warning: The ref value 'ref.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'ref.current' to a variable inside the effect, and use that variable in the cleanup function.  react-hooks/exhaustive-deps
+
+./src/hooks/useErrorHandler.js
+174:24  Warning: '_' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./src/hooks/useErrorHandler.ts
+15:18  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+15:61  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+19:18  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+59:21  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+208:24  Warning: '_' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./src/lib/graphql-queries.js
+23:14  Warning: 'e' is defined but never used.  @typescript-eslint/no-unused-vars
+32:14  Warning: 'e' is defined but never used.  @typescript-eslint/no-unused-vars
+41:12  Warning: 'e' is defined but never used.  @typescript-eslint/no-unused-vars
+907:16  Warning: '_' is defined but never used.  @typescript-eslint/no-unused-vars
+914:14  Warning: '_' is defined but never used.  @typescript-eslint/no-unused-vars
+1275:12  Warning: 'e' is defined but never used.  @typescript-eslint/no-unused-vars
+1285:12  Warning: 'e' is defined but never used.  @typescript-eslint/no-unused-vars
+1769:12  Warning: '_' is defined but never used.  @typescript-eslint/no-unused-vars
+1776:12  Warning: '_' is defined but never used.  @typescript-eslint/no-unused-vars
+1791:12  Warning: '_' is defined but never used.  @typescript-eslint/no-unused-vars
+1796:12  Warning: '_' is defined but never used.  @typescript-eslint/no-unused-vars
+1806:12  Warning: '_' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./src/lib/graphql-test.ts
+6:31  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+21:10  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+44:72  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+45:11  Warning: 'startTime' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+74:32  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+764:11  Warning: 'totalFailed' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules

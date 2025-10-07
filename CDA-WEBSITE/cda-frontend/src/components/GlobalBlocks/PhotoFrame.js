@@ -77,7 +77,7 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
         alt={arrowIllustration.node.altText || 'Arrow'}
         width={200}
         height={200}
-        className="hidden lg:block absolute -bottom-[320px] left-[170px] w-[200px] h-auto pointer-events-none select-none z-30"
+        className="hidden lg:block absolute -bottom-[240px] left-[170px] w-[200px] h-auto pointer-events-none select-none z-30"
         draggable={false}
       />
     )}
