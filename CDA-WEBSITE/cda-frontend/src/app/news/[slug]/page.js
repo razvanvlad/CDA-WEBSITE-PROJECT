@@ -1,4 +1,3 @@
-import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import { notFound } from 'next/navigation';
 import GlobalTailSections from '../../../components/GlobalBlocks/GlobalTailSections.jsx';

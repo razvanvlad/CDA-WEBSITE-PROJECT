@@ -4,6 +4,7 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Link from 'next/link';
 
 export const metadata = { title: '404 – Page Not Found' };
 
@@ -26,10 +27,10 @@ export default function NotFound() {
 
             {/* Links */}
             <nav className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
-              <a href="/" className="button-without-box">Home</a>
-              <a href="/about" className="button-without-box">About</a>
-              <a href="/services" className="button-without-box">All Services</a>
-              <a href="/case-studies" className="button-without-box">Case Studies</a>
+              <Link href="/" className="button-without-box">Home</Link>
+              <Link href="/about" className="button-without-box">About</Link>
+              <Link href="/services" className="button-without-box">All Services</Link>
+              <Link href="/case-studies" className="button-without-box">Case Studies</Link>
             </nav>
           </div>
         </section>

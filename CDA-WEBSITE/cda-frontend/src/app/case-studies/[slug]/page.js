@@ -238,7 +238,7 @@ export default async function CaseStudyPage(props) {
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">Ready to Start Your Project?</h2>
             <p className="text-xl text-gray-300 mb-8">
-              Let's discuss how we can help you achieve similar results for your business.
+              Let&apos;s discuss how we can help you achieve similar results for your business.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link

@@ -1,7 +1,7 @@
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import { notFound } from 'next/navigation';
-import { getJobListingBySlug, getJobListingSlugs, getJobListingsSimple } from '../../../lib/graphql-queries';
+import { getJobListingBySlug, getJobListingsSimple } from '../../../lib/graphql-queries';
 import Image from 'next/image';
 import Link from 'next/link';
 import JobApplicationForm from '../../../components/JobApplicationForm';
@@ -18,7 +18,7 @@ export async function generateMetadata({ params }) {
   
   try {
     job = await getJobListingBySlug(resolvedParams.slug);
-  } catch (error) {
+  } catch {
     const allJobs = await getJobListingsSimple();
     job = allJobs.find(j => j.slug === resolvedParams.slug);
   }
@@ -49,7 +49,7 @@ export async function generateStaticParams() {
     try {
       const result = await getJobListingsWithPagination({ first: 100 });
       jobs = result.nodes;
-    } catch (acfError) {
+    } catch {
       jobs = await getJobListingsSimple();
     }
     return jobs.map((job) => ({ slug: job.slug }));
@@ -361,7 +361,7 @@ export default async function JobDetailPage({ params }) {
         <div className="text-center mb-12">
       <h2 className="text-3xl font-bold text-gray-900 mb-4">Apply for {job.title}</h2>
       <p className="text-lg text-gray-600">
-        Ready to join our team? Fill out the form below and we'll get back to you within 24 hours.
+        Ready to join our team? Fill out the form below and we&apos;ll get back to you within 24 hours.
       </p>
     </div>
         <Image

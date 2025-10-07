@@ -192,9 +192,9 @@ export default async function ServicePage({ params }) {
                    <p className="cs-subtitle">Projects</p>
                    <h2 className="cs-heading">Some Of Our Outsourced CMO Case Studies</h2>
                  </div>
-                 <a href="/case-studies" className="button-without-box cs-header-cta">
+                 <Link href="/case-studies" className="button-without-box cs-header-cta">
                    View All Case Studies
-                 </a>
+                 </Link>
                </div>
                
                {/* Selected Case Studies - Alternating two-up layout */}
@@ -261,14 +261,14 @@ export default async function ServicePage({ params }) {
                   <p className="cda-subtitle">Our Work</p>
                   <h2 className="cda-title title-small-orange">Related Case Studies</h2>
                 </div>
-                <a href="/case-studies" className="button-without-box cs-header-cta">
+                <Link href="/case-studies" className="button-without-box cs-header-cta">
                   View All Case Studies
-                </a>
+                </Link>
               </div>
-              
+
               <div className="text-center py-8">
                 <p className="text-gray-600 mb-6">Explore our portfolio of successful projects similar to this service.</p>
-                <a href="/case-studies" className="button-l">Browse Case Studies</a>
+                <Link href="/case-studies" className="button-l">Browse Case Studies</Link>
               </div>
             </div>
           </section>
@@ -294,7 +294,7 @@ export default async function ServicePage({ params }) {
               Get Started with {service.title}
             </h2>
             <p className="text-lg text-gray-600">
-              Fill out the form below and we'll get back to you within 24 hours.
+              Fill out the form below and we&apos;ll get back to you within 24 hours.
             </p>
           </div>
           

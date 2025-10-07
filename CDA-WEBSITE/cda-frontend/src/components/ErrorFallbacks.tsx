@@ -214,7 +214,7 @@ export const EmptyServicesState = () => (
     </div>
     <h3 className="text-lg font-semibold text-gray-900 mb-2">No Services Available</h3>
     <p className="text-gray-600 mb-6">
-      We don't have any services to display at the moment. Please check back later.
+      We don&apos;t have any services to display at the moment. Please check back later.
     </p>
     <Link
       href="/contact"

@@ -2,7 +2,6 @@ import { executeGraphQLQuery, GET_CASE_STUDIES_WITH_PAGINATION } from '@/lib/gra
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Link from 'next/link'
-import Image from 'next/image'
 import KnowledgeHubClient from './KnowledgeHubClient'
 import ServicesFilters from '../services/ServicesFilters'
 import GlobalTailSections from '@/components/GlobalBlocks/GlobalTailSections.jsx'
@@ -161,7 +160,7 @@ const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
                   <div className="newsletter-terms">
                     <input id="nl-terms" type="checkbox" className="newsletter-checkbox" required />
                     <label htmlFor="nl-terms" className="newsletter-label">
-                      I agree to the <a href="/policies/terms-and-conditions" className="newsletter-terms-link">Terms and Conditions</a> and consent to receive email updates and newsletters
+                      I agree to the <Link href="/policies/terms-and-conditions" className="newsletter-terms-link">Terms and Conditions</Link> and consent to receive email updates and newsletters
                     </label>
                   </div>
                   <div>

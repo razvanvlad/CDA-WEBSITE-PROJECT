@@ -293,7 +293,7 @@ export default async function ServicesPage() {
             <h1 className="text-3xl md:text-4xl font-semibold">Services</h1>
             <p className="mt-4 text-lg text-gray-600">We’re having trouble loading services right now. Please try again in a moment.</p>
             <div className="mt-8">
-              <a href="/services" className="inline-flex items-center rounded-md bg-black px-5 py-3 text-white hover:bg-gray-800 transition">Retry</a>
+              <Link href="/services" className="inline-flex items-center rounded-md bg-black px-5 py-3 text-white hover:bg-gray-800 transition">Retry</Link>
             </div>
           </div>
         </section>

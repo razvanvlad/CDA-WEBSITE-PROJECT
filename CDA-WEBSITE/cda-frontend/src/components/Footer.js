@@ -199,7 +199,7 @@ const baseVisibleClass = MAG_CONFIG.showBothOnDesktop
          active:scale-[1.02]
     " 
     >
-      Let's Talk</a>
+      Let&apos;s Talk</a>
   </div>
 
   {/* 🔒 Magnifier canvas — this is what guarantees no extra scrollbar */}

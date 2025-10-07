@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { gql } from '@apollo/client'
 import client from '../lib/graphql/client'
 import BookingModal from './BookingModal'
@@ -167,9 +168,9 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center">
-              <a href="/" aria-label="Go to homepage">
+              <Link href="/" aria-label="Go to homepage">
                 <Image src="/images/cda-logo.svg" alt="CDA Logo" width={120} height={32} priority />
-              </a>
+              </Link>
             </div>
 
             {/* Desktop Navigation - primary menu */}
@@ -202,7 +203,7 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
             <nav aria-label="Breadcrumb">
               <ol className="flex items-center gap-2 text-[14px] md:text-[15px] text-black">
                 <li>
-                  <a href="/" className="underline font-semibold">Home</a>
+                  <Link href="/" className="underline font-semibold">Home</Link>
                 </li>
                 {crumbParts.map((seg, idx) => {
                   const href = '/' + crumbParts.slice(0, idx + 1).join('/')
@@ -235,9 +236,9 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
         <div className="flex flex-col h-full">
           {/* Side Menu Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-800">
-            <a href="/" aria-label="Go to homepage">
+            <Link href="/" aria-label="Go to homepage">
               <Image src="/images/cda-logo-white.svg" alt="CDA Logo" width={120} height={32} />
-            </a>
+            </Link>
             <button onClick={() => { setIsSideMenuOpen(false); setIsCompanyMenuOpen(false); }} className="p-2 hover:bg-white/10 rounded-lg transition-colors" aria-label="Close side menu">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
