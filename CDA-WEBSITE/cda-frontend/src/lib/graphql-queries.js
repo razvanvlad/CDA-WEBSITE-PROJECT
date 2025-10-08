@@ -368,23 +368,18 @@ export const GET_SERVICE_BY_SLUG_WITH_ACF = `
             description
           }
         }
-        caseStudiesSection {
+        caseStudies {
           title
-          caseStudies {
-            ... on CaseStudy {
-              id
-              title
-              slug
-              caseStudyFields {
-                projectOverview {
-                  clientName
-                  clientLogo {
-                    node {
-                      sourceUrl
-                      altText
-                    }
-                  }
-                }
+          subtitle
+          cta { url title target }
+          caseStudy {
+            nodes {
+              ... on CaseStudy {
+                id
+                title
+                slug
+                excerpt
+                featuredImage { node { sourceUrl altText } }
               }
             }
           }
@@ -1234,16 +1229,16 @@ export const GET_GLOBAL_CASE_STUDIES_SECTION = `
   query GetGlobalCaseStudiesSection {
     globalOptions {
       globalContentBlocks {
-        caseStudiesSection {
+        caseStudies {
           title
           subtitle
-          knowledgeHubLink { url title target }
-          selectedStudies {
+          cta { url title target }
+          caseStudy {
             nodes {
               ... on CaseStudy {
                 id
                 title
-                uri
+                slug
                 excerpt
                 featuredImage { node { sourceUrl altText } }
               }
@@ -1485,6 +1480,22 @@ export const GET_ALL_GLOBAL_CONTENT_BLOCKS = `
           description
           cta { url title target }
         }
+        caseStudies {
+          title
+          subtitle
+          cta { url title target }
+          caseStudy {
+            nodes {
+              ... on CaseStudy {
+                id
+                title
+                slug
+                excerpt
+                featuredImage { node { sourceUrl altText } }
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -1520,10 +1531,8 @@ export const GET_GLOBAL_CASE_STUDIES_SECTION_ONLY = `
         title
         subtitle
         knowledgeHubLink { url title target }
-        selectedStudies {
-          nodes {
-            ... on CaseStudy { id title uri excerpt featuredImage { node { sourceUrl altText } } }
-          }
+        caseStudies {
+          ... on CaseStudy { id title uri excerpt featuredImage { node { sourceUrl altText } } }
         }
       }
     } }

@@ -145,6 +145,8 @@ export default async function Home() {
 
   // 2) Fetch all global content blocks and patch missing imageFrame if needed
   let globalData = await getAllGlobalContentBlocks()
+  console.log('🌍 Global Data Keys:', globalData ? Object.keys(globalData) : 'null')
+  console.log('🔍 Has caseStudiesSection?:', !!globalData?.caseStudiesSection)
   try {
     if (!globalData?.imageFrameBlock) {
       const rawFrame = await executeGraphQLQuery(GET_GLOBAL_IMAGE_FRAME_MIN)
@@ -160,27 +162,47 @@ export default async function Home() {
   // 4) Prepare Case Studies (Global with fallback)
   let csData = null
   if (t.showCaseStudies) {
-    csData = globalData?.caseStudiesSection || null
-    if (!csData) {
+    const wpData = globalData?.caseStudies || null
+    console.log('📊 Case Studies Data Source:', wpData ? 'WordPress ACF' : 'Will use fallback')
+    console.log('📦 globalData.caseStudies:', wpData)
+
+    if (wpData && wpData.caseStudy?.nodes && wpData.caseStudy.nodes.length > 0) {
+      // Transform WordPress data to component format
+      csData = {
+        title: wpData.title,
+        subtitle: wpData.subtitle,
+        knowledgeHubLink: wpData.cta,
+        caseStudies: wpData.caseStudy.nodes.map(n => ({
+          id: n.id,
+          title: n.title,
+          uri: `/case-studies/${n.slug}`,
+          excerpt: n.excerpt,
+          featuredImage: n.featuredImage,
+        }))
+      }
+      console.log('✅ Using WordPress ACF data:', csData.title)
+    } else {
+      console.log('⚠️ Using fallback case studies from database')
       try {
         const { nodes } = await getCaseStudiesWithPagination({ first: 2 })
         if (nodes && nodes.length > 0) {
           csData = {
-            title: 'Case Studies',
-            subtitle: 'Our Work',
-            knowledgeHubLink: { url: '/case-studies', title: 'See All', target: '_self' },
-            selectedStudies: {
-              nodes: nodes.map(n => ({
-                id: n.id,
-                title: n.title,
-                uri: `/case-studies/${n.slug}`,
-                excerpt: n.excerpt,
-                featuredImage: n.featuredImage,
-              }))
-            }
+            title: 'Some Of Our Case Studies',
+            subtitle: 'Projects',
+            knowledgeHubLink: { url: '/case-studies', title: 'View All Case Studies', target: '_self' },
+            caseStudies: nodes.map(n => ({
+              id: n.id,
+              title: n.title,
+              uri: `/case-studies/${n.slug}`,
+              excerpt: n.excerpt,
+              featuredImage: n.featuredImage,
+            }))
           }
+          console.log('✅ Fallback data created:', csData.title)
         }
-      } catch (_) {}
+      } catch (err) {
+        console.error('❌ Failed to get fallback case studies:', err)
+      }
     }
   }
 

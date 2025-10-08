@@ -24,15 +24,15 @@ const CaseStudies = ({ globalData }) => {
     title,
     subtitle,
     knowledgeHubLink,
-    selectedStudies
+    caseStudies
   } = globalData;
 
   // Don't render if no essential content
-  if (!title && !subtitle && (!selectedStudies?.nodes || selectedStudies.nodes.length === 0)) {
+  if (!title && !subtitle && (!caseStudies || caseStudies.length === 0)) {
     return null;
   }
 
-  const studies = selectedStudies?.nodes || [];
+  const studies = caseStudies || [];
 
   return (
     <section className="home-case-studies">
@@ -101,7 +101,7 @@ const CaseStudies = ({ globalData }) => {
                 <div className="cs-content">
                   <h3 className="cs-case-title">{study.title}</h3>
                   <div className="cs-excerpt" dangerouslySetInnerHTML={{__html: study.excerpt}} />
-                  <a href={study.uri} className="cs-cta">View Project</a>
+                  <a href={study.uri} className="button-l-transparent cs-cta">View Project</a>
                 </div>
               </article>
             ))}
@@ -177,34 +177,29 @@ const CaseStudies = ({ globalData }) => {
         }
 
         .cs-item--reverse .cs-media {
-          order: 1;
-        }
-
-        .cs-item--reverse .cs-content {
-          order: 2;
+          order: -1;
         }
 
         .cs-media {
           position: relative;
           width: 100%;
           aspect-ratio: 16 / 10;
-          overflow: visible;
-          transform-style: preserve-3d;
-          perspective: 1000px;
+          overflow: hidden;
         }
 
         .cs-media :global(.cs-img) {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          border-radius: 0;
-          transform: rotateY(-15deg) rotateX(5deg);
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         .cs-content {
-          padding: 2rem 0;
-          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+          padding: 2rem;
+          text-align: left;
         }
 
         .cs-case-title {
@@ -222,6 +217,7 @@ const CaseStudies = ({ globalData }) => {
           font-size: 1rem;
           line-height: 1.6;
           margin-bottom: 2rem;
+          width: 100%;
         }
 
         .cs-excerpt :global(p) {
@@ -232,26 +228,6 @@ const CaseStudies = ({ globalData }) => {
           margin-bottom: 0;
         }
 
-        .cs-cta {
-          display: inline-block;
-          padding: 14px 32px;
-          background: #ffffff;
-          border: 2px solid #000000;
-          color: #000000;
-          font-family: var(--font-poppins), sans-serif;
-          font-weight: 600;
-          font-size: 16px;
-          text-decoration: none;
-          transition: all 0.3s ease;
-          border-radius: 0;
-        }
-
-        .cs-cta:hover {
-          background: #000000;
-          color: #ffffff;
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
 
         /* Responsive Design */
         @media (max-width: 1024px) {
@@ -261,14 +237,12 @@ const CaseStudies = ({ globalData }) => {
             gap: 2rem;
           }
 
-          .cs-item--reverse .cs-media,
-          .cs-item--reverse .cs-content {
-            order: initial;
+          .cs-item--reverse .cs-media {
+            order: -1;
           }
 
-          .cs-media :global(.cs-img) {
-            transform: none;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          .cs-item--reverse .cs-content {
+            order: 0;
           }
         }
 
