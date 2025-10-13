@@ -653,7 +653,7 @@
 
 .side-menu-divider {
   border: 0;
-  border-top: 1px solid #DBDBDB; /* matches SVG */
+  border-top: 1px solid #FFFFFF; /* matches SVG */
 }
 
 .side-menu-item {
@@ -706,7 +706,7 @@
   color: #FFFFFF;
 }
 .side-menu-divider {
-  border-color: #2A2A2A;
+  border-color: #FFFFFF;
 }
 .side-menu-item {
   color: #FFFFFF;
@@ -2076,7 +2076,7 @@
 
 .side-menu-divider {
   border: 0;
-  border-top: 1px solid #DBDBDB; /* matches SVG */
+  border-top: 1px solid #FFFFFF; /* matches SVG */
 }
 
 .side-menu-item {
@@ -2129,7 +2129,7 @@
   color: #FFFFFF;
 }
 .side-menu-divider {
-  border-color: #2A2A2A;
+  border-color: #FFFFFF;
 }
 .side-menu-item {
   color: #FFFFFF;
