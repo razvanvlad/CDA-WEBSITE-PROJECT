@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16.941" height="16.941" viewBox="0 0 16.941 16.941">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        stroke: #fff;
+        stroke-width: 0.5px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="_9110843_arrow_bottom_right_icon_1_" data-name="9110843_arrow_bottom_right_icon (1)" class="cls-1" d="M1.362,2.325V7.49H0V0H7.49V1.362H2.325l9.051,9.051-.963.963Z" transform="translate(16.588 8.471) rotate(135)"/>
+</svg>
