@@ -16,7 +16,7 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
       className="bg-white overflow-visible !pb-20"  // <- force bottom padding to 0
       color="bg-[#F4F4F4]"                   // band color
       position="bottom"                     // <-- put the band on the BOTTOM
-      height="h-[280px] md:h-[340px]"       // band thickness (tune to taste)
+      height="h-[350px] md:h-[270px]"       // band thickness (tune to taste)
     >
       <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 relative z-20">
         <div className="grid grid-cols-12 gap-y-10 gap-x-8 items-center">
