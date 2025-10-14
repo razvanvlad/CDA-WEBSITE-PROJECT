@@ -270,7 +270,7 @@
 
 .button-without-box {
   --btn-link-underline: 0.5px;   /* underline thickness from design */
-  --btn-link-icon: 12px;         /* icon size */
+  --btn-link-icon: 14px;         /* icon size - updated to 14x14px per spec */
   --btn-link-gap: 3px;           /* gap between underline end and icon */
   --btn-link-baseline: 2px;      /* distance from text baseline to underline/icon */
 
@@ -482,7 +482,8 @@
 /* Desktop: Vertical text */
 @media (min-width: 768px) {
   .button-without-box-vertical-black {
-    writing-mode: vertical-lr;
+    writing-mode: vertical-rl; /* Changed from vertical-lr to vertical-rl */
+    transform: rotate(180deg); /* Rotate 180deg to read bottom→top per spec */
     text-orientation: mixed;
     padding: 20px 15px;
     width: auto;
@@ -652,7 +653,7 @@
 
 .side-menu-divider {
   border: 0;
-  border-top: 1px solid #DBDBDB; /* matches SVG */
+  border-top: 1px solid #FFFFFF; /* matches SVG */
 }
 
 .side-menu-item {
@@ -705,7 +706,7 @@
   color: #FFFFFF;
 }
 .side-menu-divider {
-  border-color: #2A2A2A;
+  border-color: #FFFFFF;
 }
 .side-menu-item {
   color: #FFFFFF;
@@ -1904,7 +1905,8 @@
 /* Desktop: Vertical text */
 @media (min-width: 768px) {
   .button-without-box-vertical-black {
-    writing-mode: vertical-lr;
+    writing-mode: vertical-rl; /* Changed from vertical-lr to vertical-rl */
+    transform: rotate(180deg); /* Rotate 180deg to read bottom→top per spec */
     text-orientation: mixed;
     padding: 20px 15px;
     width: auto;
@@ -2074,7 +2076,7 @@
 
 .side-menu-divider {
   border: 0;
-  border-top: 1px solid #DBDBDB; /* matches SVG */
+  border-top: 1px solid #FFFFFF; /* matches SVG */
 }
 
 .side-menu-item {
@@ -2127,7 +2129,7 @@
   color: #FFFFFF;
 }
 .side-menu-divider {
-  border-color: #2A2A2A;
+  border-color: #FFFFFF;
 }
 .side-menu-item {
   color: #FFFFFF;
@@ -2716,7 +2718,7 @@
     "image"
     "text"
     "cta";
-  row-gap: 24px;
+  row-gap: 16px; /* Reduced from 24px to tighten spacing per spec */
   column-gap: 0;
   justify-items: center;
 }
@@ -2791,14 +2793,16 @@
 .cda-hero__text-content {
   margin: 0;
   font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 0.9375rem;
+  font-size: 1rem;
+  font-weight: 400;
   line-height: 1.75;
   color: #4b5563;
 }
 
 @media (min-width: 768px) {
   .cda-hero__text-content {
-    font-size: 1.0625rem;
+    font-size: 18px; /* Inter Regular 18px from spec */
+    font-weight: 400;
   }
 }
 
@@ -2823,7 +2827,7 @@
       "text image"
       "cta image";
     column-gap: 4rem;
-    row-gap: 24px;
+    row-gap: 16px; /* Reduced from 24px to tighten spacing per spec */
     justify-items: stretch;
     align-items: center;
   }
