@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>[#CDA-2] [WIP] Menu bugs</title>
+    <meta http-equiv="Content-Type" Content="application/vnd.ms-word; charset=UTF-8">
+        <style type="text/css">
+
+.tableBorder, .grid
+{
+    background-color: #fff;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tableBorder td, .grid td
+{
+    vertical-align: top;
+    padding: 2px;
+    border: 1px solid #ccc;
+}
+
+.noPadding
+{
+    padding: 0 !important;
+}
+
+h3 .subText
+{
+    font-size: 60%;
+    font-weight: normal;
+}
+
+.tabLabel
+{
+    font-weight: bold;
+    border: 1px solid #ccc;
+    border-bottom:none;
+    padding: 2px;
+    display: inline;
+}
+
+td.blank
+{
+    padding: 0;
+    margin: 0;
+}
+
+.blank td
+{
+    border: none;
+}
+
+#descriptionArea
+{
+    margin: 0;
+    padding: 2px;
+    border: 1px solid #ccc;
+}
+
+hr
+{
+    border-top:1px solid #aaa;
+}
+
+hr.fullcontent
+{
+  height: 15px;
+  padding: 10px 0;
+  background: #fff url('https://floating-dots.atlassian.net/images/icons/hr.gif') no-repeat scroll center;
+}
+
+</style>
+
+</head>
+<body>
+
+<table class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+                            <h3 class="formtitle">
+                        [CDA-2]&nbsp;<a href="https://floating-dots.atlassian.net/browse/CDA-2">[WIP] Menu bugs</a>
+            <span class="subText">
+               Created: 30/Sep/25                   &nbsp;Updated: 01/Oct/25
+
+                                            </span>
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Status:</b></td>
+        <td width="80%">To Do</td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Project:</b></td>
+        <td width="80%"><a href="https://floating-dots.atlassian.net/secure/BrowseProject.jspa?id=10000">CDA</a></td>
+    </tr>
+
+        <tr>
+            <td><b>Components:</b></td>
+            <td>
+                            None
+                </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Affects versions:</b></td>
+            <td>
+                            None
+                </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Fix versions:</b></td>
+            <td>
+                            None
+                </td>
+    </tr>
+    
+    
+    </table>
+
+<br />
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td bgcolor="#f0f0f0" valign="top" width="20%">
+            <b>Type:</b>
+        </td>
+        <td bgcolor="#ffffff" valign="top"  width="30%" >
+            Bug
+        </td>
+
+                    <td bgcolor="#f0f0f0">
+                <b>Priority:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap>
+                Medium
+            </td>
+            </tr>
+    <tr>
+                        <td bgcolor="#f0f0f0" valign="top" width="20%">
+                <b>Reporter:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top"  width="30%" >
+                                        
+                
+        
+            <a class="user-hover" rel="712020:f2f16f2c-c198-4d5a-9803-d4b2437d6220"
+                id="word_reporter_712020:f2f16f2c-c198-4d5a-9803-d4b2437d6220"
+                href="https://floating-dots.atlassian.net/secure/ViewProfile.jspa?accountId=712020%3Af2f16f2c-c198-4d5a-9803-d4b2437d6220">
+                    Paula Lupes
+                </a>
+
+                            </td>
+        
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Assignee:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >
+                                    Unassigned
+                            </td>
+            </tr>
+    	<tr>
+		<td bgcolor="#f0f0f0" width="20%">
+			<b>Resolution:</b>
+		</td>
+		<td bgcolor="#ffffff" valign="top" width="30%" nowrap>
+            				Unresolved
+                    </td>
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Votes:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" width="30%" nowrap>
+                0
+            </td>
+        
+    </tr>
+    
+        <tr>
+        <td bgcolor="#f0f0f0" width="20%">
+            <b>Labels:</b>
+        </td>
+        <td id="labels-10033-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>
+                            None
+                    </td>
+    </tr>
+    
+    	<tr>
+        		<td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+        <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">
+                            Not Specified
+            		</td>
+    </tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">
+                            Not Specified
+            		</td>
+	</tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Original estimate:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">
+                            Not Specified
+            		</td>
+    </tr>
+    
+    </table>
+
+
+
+    <br />
+
+    	<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+            
+
+                <tr>
+            <td bgcolor="#f0f0f0" width=20% valign=top>
+                <b>Attachments:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top">
+                                    <img src="https://floating-dots.atlassian.net/images/icons/attach/image.gif" height="16" width="16" border="0" alt="PNG File">
+                    Pasted Graphic 3-20250929-213606.png &nbsp;&nbsp;&nbsp;
+                                    <img src="https://floating-dots.atlassian.net/images/icons/attach/image.gif" height="16" width="16" border="0" alt="PNG File">
+                    CDA-20250930-162635.png &nbsp;&nbsp;&nbsp;
+                                    <img src="https://floating-dots.atlassian.net/images/icons/attach/file.gif" height="16" width="16" border="0" alt="File">
+                    welcome to-20250930-165500.tiff &nbsp;&nbsp;&nbsp;
+                                    <img src="https://floating-dots.atlassian.net/images/icons/attach/image.gif" height="16" width="16" border="0" alt="PNG File">
+                    image-20250930-181526.png &nbsp;&nbsp;&nbsp;
+                                    <img src="https://floating-dots.atlassian.net/images/icons/attach/image.gif" height="16" width="16" border="0" alt="PNG File">
+                    All Services-20250930-162716.png &nbsp;&nbsp;&nbsp;
+                                    <img src="https://floating-dots.atlassian.net/images/icons/attach/image.gif" height="16" width="16" border="0" alt="PNG File">
+                    Pasted Graphic 9-20250930-173815.png &nbsp;&nbsp;&nbsp;
+                                    <img src="https://floating-dots.atlassian.net/images/icons/attach/image.gif" height="16" width="16" border="0" alt="PNG File">
+                    Title That Links To-20250930-165707.png &nbsp;&nbsp;&nbsp;
+                                    <img src="https://floating-dots.atlassian.net/images/icons/attach/image.gif" height="16" width="16" border="0" alt="PNG File">
+                    Pasted Graphic 4-20250929-213645.png &nbsp;&nbsp;&nbsp;
+                                    <img src="https://floating-dots.atlassian.net/images/icons/attach/image.gif" height="16" width="16" border="0" alt="PNG File">
+                    image-20251001-094954.png &nbsp;&nbsp;&nbsp;
+                                    <img src="https://floating-dots.atlassian.net/images/icons/attach/image.gif" height="16" width="16" border="0" alt="PNG File">
+                    image-20251001-095744.png &nbsp;&nbsp;&nbsp;
+                            </td>
+        </tr>
+        
+    
+
+
+    
+</table>
+
+    <br/>
+
+    <table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+    <tr>
+        <td bgcolor="#bbbbbb" width="1%" nowrap align="center">
+            &nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td id="descriptionArea">
+            <ol>
+	<li><b>Social icons in menu not matching design</b></li>
+</ol>
+
+
+<ul>
+	<li><b>Steps to Reproduce:</b>
+	<ol>
+		<li>Open the menu and check the social media icons.</li>
+	</ol>
+	</li>
+	<li><b>Actual Result:</b> Social icons are <b>not in the same order</b> as in the design. The <b>Facebook and LinkedIn icons do not match</b> the design.</li>
+	<li><b>Expected Result:</b> Social icons should be in the correct order, and should visually match the design specifications.</li>
+	<li><b>Screenshots - actual vs expected</b><br/>
+<span class="image-wrap" style=""><img src="/rest/api/3/attachment/content/10002" alt="Pasted Graphic 3-20250929-213606.png" width="277" style="border: 0px solid black" /></span><br/>
+<span class="image-wrap" style=""><img src="/rest/api/3/attachment/content/10011" alt="Pasted Graphic 4-20250929-213645.png" width="275" style="border: 0px solid black" /></span></li>
+</ul>
+
+
+
+<hr />
+
+<ol>
+	<li><b>“Our Services” option inconsistent across web and mobile</b></li>
+</ol>
+
+
+<ul>
+	<li><b>Steps to Reproduce:</b>
+	<ol>
+		<li>Open the website menu on desktop and mobile.</li>
+	</ol>
+	</li>
+	<li><b>Actual Result:</b> On desktop/web, <em>“Our Services”</em> is displayed in the menu, but according to design it should only appear on mobile.</li>
+</ul>
+
+
+<p><span class="image-wrap" style=""><img src="/rest/api/3/attachment/content/10003" alt="CDA-20250930-162635.png" width="383" style="border: 0px solid black" /></span></p>
+
+<ul>
+	<li><b>Expected Result:</b> <em>“Our Services”</em> menu option should only appear on mobile, as specified in the design.</li>
+</ul>
+
+
+<p><span class="image-wrap" style=""><img src="/rest/api/3/attachment/content/10007" alt="All Services-20250930-162716.png" width="413" style="border: 0px solid black" /></span></p>
+
+<hr />
+
+<ol>
+	<li><b>Mobile layout issues with title, text, and buttons</b></li>
+</ol>
+
+
+<ul>
+	<li><b>Steps to Reproduce:</b>
+	<ol>
+		<li>Open the mobile version of the page.</li>
+	</ol>
+	</li>
+	<li><b>Actual Result:</b>
+	<ul>
+		<li><b>Title too large</b> compared to the design.</li>
+		<li>Description text (lorem ipsum…) is shown <b>under the image</b> instead of <b>under the title.</b></li>
+		<li><b>Placeholder text</b> is not replaced with real content.</li>
+		<li><em>“Start a project”</em> and <em>“View our services”</em> buttons are displayed <b>one below the other.</b></li>
+		<li>The <b>arrow</b> next to <em>“Start a project”</em> is <b>too small</b> and below the Start a project text.</li>
+		<li><b>Underline</b> below <em>“Start a project”</em> - line too long, too much space between line and Start a project.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<p><span class="image-wrap" style=""><img src="/rest/api/3/attachment/content/10005" alt="welcome to-20250930-165500.tiff" width="321" style="border: 0px solid black" /></span></p>
+<ul>
+	<li><b>Expected Result:</b>
+	<ul>
+		<li>Smaller title</li>
+		<li><b>Text below the title</b>, not below the image.</li>
+		<li>Real content should replace placeholder text.</li>
+		<li><b>Buttons</b> should be displayed <b>side by side.</b></li>
+		<li><b>Arrow and underline</b> should match the design below:</li>
+	</ul>
+	</li>
+</ul>
+
+
+<p><span class="image-wrap" style=""><img src="/rest/api/3/attachment/content/10010" alt="Title That Links To-20250930-165707.png" width="353" style="border: 0px solid black" /></span></p>
+
+<hr />
+
+<ol>
+	<li><b>Mobile header and burger menu text issues</b></li>
+</ol>
+
+
+<ul>
+	<li><b>Steps to Reproduce:</b>
+	<ol>
+		<li>Open the mobile burger menu.</li>
+	</ol>
+	</li>
+	<li><b>Actual Result:</b>
+	<ul>
+		<li>CDA <b>text is too large</b>; All texts in the burger menu are too large.</li>
+		<li><b>There is a line</b> between CDA text and <em>“Our Services”</em>.</li>
+		<li><b>Arrow</b> next to <em>“Our Services”</em> is missing its tail, only the arrowhead is visible.</li>
+		<li><b>Line</b> under <em>“Our Services”</em> is not visible as in the design (too grey let’s say; more white)</li>
+	</ul>
+	</li>
+	<li><b>Expected Result:</b>
+	<ul>
+		<li><b>Smaller texts</b> - CDA text and burger menu texts - should match design sizes.</li>
+		<li><b>No line</b> should appear between CDA text and <em>“Our Services”</em>.</li>
+		<li><b>Arrow</b> should be complete.</li>
+		<li><b>Line</b> under <em>“Our Services”</em> - color #DBDBDB</li>
+	</ul>
+	</li>
+	<li>Expected vs actual :</li>
+	<li><span class="image-wrap" style=""><img src="/rest/api/3/attachment/content/10009" alt="Pasted Graphic 9-20250930-173815.png" width="655" style="border: 0px solid black" /></span><br/>
+<span class="image-wrap" style=""><img src="/rest/api/3/attachment/content/10036" alt="image-20251001-094954.png" width="884" style="border: 0px solid black" /></span></li>
+</ul>
+
+
+
+<hr />
+
+<ol>
+	<li><b>Mobile “Back” option issues</b></li>
+</ol>
+
+
+<ul>
+	<li><b>Steps to Reproduce:</b>
+	<ol>
+		<li>Open the mobile burger menu and navigate to a submenu with the <em>“Back”</em> option.</li>
+	</ol>
+	</li>
+	<li><b>Actual Result:</b>
+	<ul>
+		<li>The Back button shows an <b>arrow pointing left/forward.</b></li>
+		<li><em>“</em><b><em>Back”</em></b> <b>underline not visible</b> - same issue as in bug above.</li>
+		<li><b>There is a line</b> between CDA and <em>“Back”</em>.</li>
+		<li>The label for back button should be underlined.</li>
+	</ul>
+	</li>
+	<li><b>Expected Result:</b>
+	<ul>
+		<li>The Back button should display an <b>arrow pointing downwards.</b></li>
+		<li>There should be <b>no line between CDA and</b> <b><em>“Back”</em></b><b>.</b></li>
+		<li>Line under <em>“Back”</em> should be more visible, “more white”  - color #DBDBDB</li>
+		<li>The label for the back button is not underlined.</li>
+	</ul>
+	</li>
+</ul>
+
+
+<p><span class="image-wrap" style=""><img src="/rest/api/3/attachment/content/10006" alt="image-20250930-181526.png" width="655" style="border: 0px solid black" /></span></p>
+
+<p><span class="image-wrap" style=""><img src="/rest/api/3/attachment/content/10037" alt="image-20251001-095744.png" width="908" style="border: 0px solid black" /></span></p>
+            <br/>
+        </td>
+    </tr>
+    </table>
+
+Generated at Thu Oct 02 22:06:14 UTC 2025 by Razvan Vlad Pop using Jira 1001.0.0-SNAPSHOT#100290-rev:75a1202a5b7f1758c99b2e92c539089dd1c81727.
+
+</body>
+</html>
