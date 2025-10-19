@@ -23,6 +23,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
+  font-weight: 400; /* Inter Regular - explicit weight for body text */
 }
 
 /* Typography Classes - CDA Design System */
@@ -55,8 +56,23 @@ body {
   text-decoration: underline;
 }
 
-/* Headings use Poppins, paragraphs default to Inter from body */
-h1, h2, h3, h4, h5, h6 { font-family: var(--font-poppins), var(--font-inter), sans-serif; }
+/* Headings use Poppins Bold, paragraphs default to Inter from body */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 700; /* Poppins Bold - explicit weight for titles */
+}
+
+/* Body text elements use Inter Regular */
+p, span, div, li, a {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400; /* Inter Regular - explicit weight for body text */
+}
+
+/* Buttons use Inter Regular for labels */
+button {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400; /* Inter Regular - explicit weight for button labels */
+}
 
 /* Prevent accidental horizontal scrollbars sitewide */
 html, body {

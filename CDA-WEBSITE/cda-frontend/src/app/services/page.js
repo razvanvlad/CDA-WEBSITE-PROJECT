@@ -155,8 +155,8 @@ export default async function ServicesPage() {
           <HeroSection
             sectionClassName="bg-white"
             titleHtml={'The Services We Offer'}
-            titleClassName="text-4xl font-bold text-gray-900"
-            titleStyle={{ textDecoration: 'underline', textDecorationColor: '#AD80F9', textDecorationThickness: '11px' }}
+            titleClassName="font-bold text-gray-900"
+            titleStyle={{ textDecoration: 'underline', textDecorationColor: '#AD80F9', textDecorationThickness: '11px', fontSize: '50px' }}
             descriptionHtml={`<p>${heroDescription}</p>${extraDescription}`}
             descriptionClassName="text-xl text-gray-600"
             image={heroImageNode}

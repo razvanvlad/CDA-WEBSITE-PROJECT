@@ -7,8 +7,8 @@
   align-items: center;
   justify-content: center;
   padding: 0.75rem 3rem;
-  font-family: var(--font-poppins), var(--font-inter), sans-serif;
-  font-weight: 700;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
   font-size: 18px;
   color: white;
   background-color: black;
@@ -29,8 +29,8 @@
   align-items: center;
   justify-content: center;
   padding: 0.75rem 3rem;
-  font-family: var(--font-poppins), var(--font-inter), sans-serif;
-  font-weight: 700;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
   font-size: 18px;
   color: black;
   background-color: white;
@@ -52,8 +52,8 @@
   align-items: center;
   justify-content: center;
   padding: 0.75rem 3rem;
-  font-family: var(--font-poppins), var(--font-inter), sans-serif;
-  font-weight: 700;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
   font-size: 18px;
 
   color: black;                 /* text is black */
@@ -277,8 +277,8 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  font-family: var(--font-poppins), var(--font-inter), sans-serif;
-  font-weight: 700;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
   font-size: 18px;
   color: #374151;
   text-decoration: none;
@@ -466,8 +466,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
   font-size: 18px;
   color: white;
   text-decoration: none;
@@ -1889,8 +1889,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
   font-size: 18px;
   color: white;
   text-decoration: none;
@@ -2068,8 +2068,8 @@
 }
 
 .side-menu-heading {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
   font-size: 18px;
   color: #000;
 }
@@ -2096,8 +2096,8 @@
 }
 
 .side-menu-connect-heading {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
   font-size: 18px;
   color: #000;
 }
