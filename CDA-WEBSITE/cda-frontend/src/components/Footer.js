@@ -29,8 +29,8 @@ const MAG_CONFIG = {
 
   // Desktop (≥768px): independent positions for base and hover
   desktop: {
-    base:  { width: 680, x: 500, y: 190, scale: 1, rotate: 0 },
-    hover: { width: 680, x: 365, y:  40, scale: 1, rotate: 0 },
+    base: { width: 680, x: 500, y: 190, scale: 1, rotate: 0 },
+    hover: { width: 680, x: 365, y: 40, scale: 1, rotate: 0 },
   },
 };
 
@@ -98,7 +98,7 @@ export default function Footer() {
     try {
       const url = process.env.NEXT_PUBLIC_WORDPRESS_URL;
       if (url) return new URL(url).pathname.replace(/\/$/, '');
-    } catch {}
+    } catch { }
     return '';
   }, []);
 
@@ -109,7 +109,7 @@ export default function Footer() {
       if (p.startsWith('http://') || p.startsWith('https://')) {
         p = new URL(p).pathname;
       }
-    } catch {}
+    } catch { }
     if (wpBasePath && p.startsWith(wpBasePath)) {
       p = p.slice(wpBasePath.length) || '/';
     }
@@ -148,7 +148,7 @@ export default function Footer() {
               errorPolicy: 'all',
             });
             raw = byName.data?.menu?.menuItems?.nodes || [];
-          } catch {}
+          } catch { }
         }
 
         const topLevel = raw.filter((i) => !i.parentId);
@@ -166,147 +166,145 @@ export default function Footer() {
   const hoverVisibleClass = MAG_CONFIG.showBothOnDesktop
     ? 'opacity-100'
     : 'opacity-0 md:group-hover:opacity-100';
-// When not aligning, hide the base on desktop hover (cross-fade with hover image)
-const baseVisibleClass = MAG_CONFIG.showBothOnDesktop
-  ? 'opacity-100'
-  : 'opacity-100 md:group-hover:opacity-0';
+  // When not aligning, hide the base on desktop hover (cross-fade with hover image)
+  const baseVisibleClass = MAG_CONFIG.showBothOnDesktop
+    ? 'opacity-100'
+    : 'opacity-100 md:group-hover:opacity-0';
   /* --------------------------------- Render -------------------------------- */
   return (
     <footer className="bg-white pt-5">
       <div className="mx-auto max-w-[1620px] px-4">
         {/* CTA Section (group used for desktop hover) */}
         {/* CTA Section */}
-<div className="footer-cta-card relative rounded-2xl bg-white group"
-  style={{ paddingBottom: isMobile ? 0 : (MAG_CONFIG.reserveBottomDesktop || 0) }}
->
-  <div className="footer-cta-content py-16 px-6 md:px-12 relative"
-        style={{ zIndex: MAG_CONFIG.layerDesktop === 'front' ? 20 : 10 }}
-  >
-    <p className="cda-subtitle">Take The First Step Toward Something Great</p>
-    <h2 className="mt-3 text-[34px] md:text-[44px] mb-[40px] leading-tight font-extrabold text-[#0B0B0E] text-center">
-      Ready To Start Your{' '}
-      <span className="relative inline-block">
-        Project?
-        <span className="absolute left-0 bottom-1 h-2 w-full bg-[#FF6A00] -z-10"></span>
-      </span>
-    </h2>
-    <a 
-      href="/contact" 
-        className="
+        <div className="footer-cta-card relative rounded-2xl bg-white group"
+          style={{ paddingBottom: isMobile ? 0 : (MAG_CONFIG.reserveBottomDesktop || 0) }}
+        >
+          <div className="footer-cta-content py-16 px-6 md:px-12 relative"
+            style={{ zIndex: MAG_CONFIG.layerDesktop === 'front' ? 20 : 10 }}
+          >
+            <p className="cda-subtitle">Take The First Step Toward Something Great</p>
+            <h2 className="cda-page-title-clean text-center">
+              Ready To Start Your{' '}
+              <span className="relative inline-block">
+                <span class="cda-page-title-clean">Project?</span>
+                <span className="absolute left-0 bottom-4 h-2 w-full bg-[#FD8721] -z-10"></span>
+              </span>
+            </h2>
+            <a
+              href="/contact"
+              className="
          button-l footer-cta-btn mt-6 inline-flex items-center justify-center
          transform-gpu transition-transform duration-300 ease-out will-change-transform
          motion-safe:md:hover:scale-[1.06] motion-safe:md:group-hover:scale-[1.06]
          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/70
          active:scale-[1.02]
-    " 
-    >
-      Let's Talk</a>
-  </div>
+    "
+            >
+              Let's Talk</a>
+          </div>
 
-  {/* 🔒 Magnifier canvas — this is what guarantees no extra scrollbar */}
-  <div
-    className="absolute inset-0 overflow-hidden pointer-events-none z-0"
-        style={{ contain: 'paint', zIndex: MAG_CONFIG.layerDesktop === 'front' ? 30 : 0 }}
-  >
-    {/* MOBILE: single image (no hover on touch) */}
-    {isMobile ? (
-      <img
-        src={MAG_CONFIG.hoverSrc}
-        alt=""
-        className="absolute select-none will-change-transform"
-        style={{
-          left: MAG_CONFIG.mobile.x,
-          top: MAG_CONFIG.mobile.y,
-          width: MAG_CONFIG.mobile.width,
-          transform: `scale(${MAG_CONFIG.mobile.scale}) rotate(${MAG_CONFIG.mobile.rotate}deg)`,
-        }}
-        draggable={false}
-      />
-    ) : (
-      <>
-        {/* DESKTOP: base */}
-        <img
-          src={MAG_CONFIG.baseSrc}
-          alt=""
-          className={`absolute select-none will-change-transform transition-opacity duration-300 ease-out ${
-            MAG_CONFIG.showBothOnDesktop ? 'opacity-100' : 'md:group-hover:opacity-0'
-          }`}
-          style={{
-            left: MAG_CONFIG.desktop.base.x,
-            top: MAG_CONFIG.desktop.base.y,
-            width: MAG_CONFIG.desktop.base.width,
-            transform: `scale(${MAG_CONFIG.desktop.base.scale}) rotate(${MAG_CONFIG.desktop.base.rotate}deg)`,
-          }}
-          draggable={false}
-        />
+          {/* Magnifier canvas — this is what guarantees no extra scrollbar */}
+          <div
+            className="absolute inset-0 overflow-hidden pointer-events-none z-0"
+            style={{ contain: 'paint', zIndex: MAG_CONFIG.layerDesktop === 'front' ? 30 : 0 }}
+          >
+            {/* MOBILE: single image (no hover on touch) */}
+            {isMobile ? (
+              <img
+                src={MAG_CONFIG.hoverSrc}
+                alt=""
+                className="absolute select-none will-change-transform"
+                style={{
+                  left: MAG_CONFIG.mobile.x,
+                  top: MAG_CONFIG.mobile.y,
+                  width: MAG_CONFIG.mobile.width,
+                  transform: `scale(${MAG_CONFIG.mobile.scale}) rotate(${MAG_CONFIG.mobile.rotate}deg)`,
+                }}
+                draggable={false}
+              />
+            ) : (
+              <>
+                {/* DESKTOP: base */}
+                <img
+                  src={MAG_CONFIG.baseSrc}
+                  alt=""
+                  className={`absolute select-none will-change-transform transition-opacity duration-300 ease-out ${MAG_CONFIG.showBothOnDesktop ? 'opacity-100' : 'md:group-hover:opacity-0'
+                    }`}
+                  style={{
+                    left: MAG_CONFIG.desktop.base.x,
+                    top: MAG_CONFIG.desktop.base.y,
+                    width: MAG_CONFIG.desktop.base.width,
+                    transform: `scale(${MAG_CONFIG.desktop.base.scale}) rotate(${MAG_CONFIG.desktop.base.rotate}deg)`,
+                  }}
+                  draggable={false}
+                />
 
-        {/* DESKTOP: hover */}
-        <img
-          src={MAG_CONFIG.hoverSrc}
-          alt=""
-          className={`absolute select-none will-change-transform transition-opacity duration-300 ease-out ${
-            MAG_CONFIG.showBothOnDesktop ? 'opacity-100' : 'opacity-0 md:group-hover:opacity-100'
-          }`}
-          style={{
-            left: MAG_CONFIG.desktop.hover.x,
-            top: MAG_CONFIG.desktop.hover.y,
-            width: MAG_CONFIG.desktop.hover.width,
-            transform: `scale(${MAG_CONFIG.desktop.hover.scale}) rotate(${MAG_CONFIG.desktop.hover.rotate}deg)`,
-          }}
-          draggable={false}
-        />
-      </>
-    )}
-  </div>
-</div>
+                {/* DESKTOP: hover */}
+                <img
+                  src={MAG_CONFIG.hoverSrc}
+                  alt=""
+                  className={`absolute select-none will-change-transform transition-opacity duration-300 ease-out ${MAG_CONFIG.showBothOnDesktop ? 'opacity-100' : 'opacity-0 md:group-hover:opacity-100'
+                    }`}
+                  style={{
+                    left: MAG_CONFIG.desktop.hover.x,
+                    top: MAG_CONFIG.desktop.hover.y,
+                    width: MAG_CONFIG.desktop.hover.width,
+                    transform: `scale(${MAG_CONFIG.desktop.hover.scale}) rotate(${MAG_CONFIG.desktop.hover.rotate}deg)`,
+                  }}
+                  draggable={false}
+                />
+              </>
+            )}
+          </div>
+        </div>
 
 
         {/* Bottom Section */}
         <div className="pb-10 mt-10 flex flex-col md:flex-row items-center justify-between gap-10">
-  {/* Left: Links */}
-  <div className="w-full md:w-auto text-center md:text-left">
-    <h3 className="cda-subtitle mb-6">Have A Browse</h3>
+          {/* Left: Links */}
+          <div className="w-full md:w-auto text-center md:text-left">
+            <h3 className="cda-subtitle mb-6">Have A Browse</h3>
 
-    <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center md:justify-start">
-      {!loading && menuItems.length === 0 && (
-        <span className="text-[14px] text-[#0B0B0E]/60">
-          No footer links configured
-        </span>
-      )}
-      {menuItems.map((item) => (
-        <a
-          key={item.id}
-          href={resolveHref(item)}
-          className="text:[14px] text-[#0B0B0E] hover:underline"
-        >
-          {item.label}
-        </a>
-      ))}
-    </div>
+            <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center md:justify-start">
+              {!loading && menuItems.length === 0 && (
+                <span className="text-[14px] text-[#0B0B0E]/60">
+                  No footer links configured
+                </span>
+              )}
+              {menuItems.map((item) => (
+                <a
+                  key={item.id}
+                  href={resolveHref(item)}
+                  className="text:[14px] text-[#0B0B0E] hover:underline"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
 
-    <p className="mt-6 text-[14px] text-[#111827]/60">
-      CDA © {new Date().getFullYear()}. All rights reserved.
-    </p>
-  </div>
+            <p className="mt-6 text-[14px] text-[#111827]/60">
+              CDA © {new Date().getFullYear()}. All rights reserved.
+            </p>
+          </div>
 
           {/* Right: Social & contact */}
           <div className="w-full pb-10 md:w-auto flex flex-col items-center md:items-end text-center md:text-right">
             <h3 className="cda-subtitle mb-8">Let&apos;s Connect</h3>
             <div className="flex items-center gap-5 mb-4 justify-center md:justify-end">
               <a href="https://www.facebook.com/cdagroupUK/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="side-menu-social">
-                <Image src="/images/social-icons/facebook.svg" alt="" width={9} height={20} aria-hidden="true" />
+                <Image src="/images/social-icons/black/facebook.svg" alt="" width={9} height={20} aria-hidden="true" />
               </a>
               <a href="https://www.tiktok.com/@cdagroupuk" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="side-menu-social">
-                <Image src="/images/social-icons/tiktok.svg" alt="" width={17} height={20} aria-hidden="true" />
+                <Image src="/images/social-icons/black/tiktok.svg" alt="" width={17} height={20} aria-hidden="true" />
               </a>
               <a href="https://www.instagram.com/cdagroupUK/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="side-menu-social">
-                <Image src="/images/social-icons/instagram.svg" alt="" width={18} height={20} aria-hidden="true" />
+                <Image src="/images/social-icons/black/instagram.svg" alt="" width={18} height={20} aria-hidden="true" />
               </a>
               <a href="https://www.linkedin.com/company/cdagroup/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="side-menu-social">
-                <Image src="/images/social-icons/linkedin.svg" alt="" width={18} height={20} aria-hidden="true" />
+                <Image src="/images/social-icons/black/linkedin.svg" alt="" width={18} height={20} aria-hidden="true" />
               </a>
               <a href="https://www.youtube.com/@CDAGroupUK" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="side-menu-social">
-                <Image src="/images/social-icons/youtube.svg" alt="" width={26} height={20} aria-hidden="true" />
+                <Image src="/images/social-icons/black/youtube.svg" alt="" width={26} height={20} aria-hidden="true" />
               </a>
             </div>
             <div className="flex items-center gap-6 text-[14px] text-[#0B0B0E] justify-center md:justify-end">

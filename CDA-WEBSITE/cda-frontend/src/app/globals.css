@@ -14,8 +14,10 @@
 /* Disable automatic dark mode background; keep site background white */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ffffff; /* keep white */
-    --foreground: #000000; /* keep text black */
+    --background: #ffffff;
+    /* keep white */
+    --foreground: #000000;
+    /* keep text black */
   }
 }
 
@@ -23,7 +25,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
-  font-weight: 400; /* Inter Regular - explicit weight for body text */
+  font-weight: 400;
+  /* Inter Regular - explicit weight for body text */
 }
 
 /* Typography Classes - CDA Design System */
@@ -56,26 +59,47 @@ body {
   text-decoration: underline;
 }
 
-/* Headings use Poppins Bold, paragraphs default to Inter from body */
-h1, h2, h3, h4, h5, h6 {
+/* H1 Page Title class */
+.cda-page-title-clean {
   font-family: var(--font-poppins), sans-serif;
-  font-weight: 700; /* Poppins Bold - explicit weight for titles */
+  font-size: 50px;
+  font-weight: bold;
+  color: #000000;
+}
+
+/* Headings use Poppins Bold, paragraphs default to Inter from body */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 700;
+  /* Poppins Bold - explicit weight for titles */
 }
 
 /* Body text elements use Inter Regular */
-p, span, div, li, a {
+p,
+span,
+div,
+li,
+a {
   font-family: var(--font-inter), sans-serif;
-  font-weight: 400; /* Inter Regular - explicit weight for body text */
+  font-weight: 400;
+  /* Inter Regular - explicit weight for body text */
 }
 
 /* Buttons use Inter Regular for labels */
 button {
   font-family: var(--font-inter), sans-serif;
-  font-weight: 400; /* Inter Regular - explicit weight for button labels */
+  font-weight: 400;
+  /* Inter Regular - explicit weight for button labels */
 }
 
 /* Prevent accidental horizontal scrollbars sitewide */
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 
@@ -103,12 +127,13 @@ html, body {
 
 /* Add to your global CSS file */
 .wysiwyg-content {
+
   /* Remove default paragraph styling */
   p {
     margin: 0;
     padding: 0;
   }
-  
+
   /* Ensure proper line height */
   line-height: 1.6;
 }
@@ -126,7 +151,9 @@ html, body {
 }
 
 /* Sitewide max-width override: design uses 1620px */
-.max-w-6xl, .max-w-7xl, .max-w-5xl {
+.max-w-6xl,
+.max-w-7xl,
+.max-w-5xl {
   max-width: 1620px !important;
 }
 
@@ -138,10 +165,14 @@ html, body {
 /* Title underline utilities */
 .title-underline {
   /* Defaults: can be overridden by helpers below */
-  --u-color: #FD8721;      /* underline color */
-  --u-thickness: 11px;     /* underline thickness */
-  --u-offset: 10px;        /* gap between text and underline (can be negative) */
-  --u-width: 100%;         /* underline width: 100%, 50%, etc. */
+  --u-color: #FD8721;
+  /* underline color */
+  --u-thickness: 11px;
+  /* underline thickness */
+  --u-offset: 10px;
+  /* gap between text and underline (can be negative) */
+  --u-width: 100%;
+  /* underline width: 100%, 50%, etc. */
 
   position: relative;
   display: inline-block;
@@ -164,53 +195,106 @@ html, body {
   background-color: var(--u-color);
   border-radius: calc(var(--u-thickness) / 2);
 }
+
 /* Color variants */
-.title-large-orange { --u-color: #FD8721; }
-.title-large-pink   { --u-color: #FF5FA0; }
-.title-large-purple { --u-color: #7B61FF; }
-.title-large-light-blue { --u-color: #4FC3F7; }
-.title-large-green  { --u-color: #34C759; }
-.title-large-roz  { --u-color: #FF60DF; }
+.title-large-orange {
+  --u-color: #FD8721;
+}
+
+.title-large-pink {
+  --u-color: #FF5FA0;
+}
+
+.title-large-purple {
+  --u-color: #7B61FF;
+}
+
+.title-large-light-blue {
+  --u-color: #4FC3F7;
+}
+
+.title-large-green {
+  --u-color: #34C759;
+}
+
+.title-large-roz {
+  --u-color: #FF60DF;
+}
 
 /* Width helpers */
-.u-full  { --u-width: 100%; }
-.u-half  { --u-width: 50%; }
-.u-third { --u-width: 33.3333%; }
+.u-full {
+  --u-width: 100%;
+}
+
+.u-half {
+  --u-width: 50%;
+}
+
+.u-third {
+  --u-width: 33.3333%;
+}
 
 /* Gap helpers */
-.u-gap-6  { --u-offset: 6px; }
-.u-gap-10 { --u-offset: 10px; }
-.u-gap-12 { --u-offset: -12px; }
-.u-gap-14 { --u-offset: 14px; }
+.u-gap-6 {
+  --u-offset: 6px;
+}
+
+.u-gap-10 {
+  --u-offset: 10px;
+}
+
+.u-gap-12 {
+  --u-offset: -12px;
+}
+
+.u-gap-14 {
+  --u-offset: 14px;
+}
 
 /* Thickness helpers */
-.u-thick-9  { --u-thickness: 9px; }
-.u-thick-11 { --u-thickness: 11px; }
-.u-thick-14 { --u-thickness: 14px; }
+.u-thick-9 {
+  --u-thickness: 9px;
+}
+
+.u-thick-11 {
+  --u-thickness: 11px;
+}
+
+.u-thick-14 {
+  --u-thickness: 14px;
+}
 
 /* Hover swap for homepage hero illustration */
 .hero-hover-img {
   position: relative;
   display: block;
 }
-.hero-hover-img > img {
+
+.hero-hover-img>img {
   display: block;
   width: 100%;
   height: auto;
   transition: opacity .25s ease;
 }
-.hero-hover-img > img.hover {
+
+.hero-hover-img>img.hover {
   position: absolute;
   inset: 0;
   opacity: 0;
 }
 
 /* Swap on hover (desktop) */
-.hero-hover-img:hover > img.hover { opacity: 1; }
-.hero-hover-img:hover > img.base  { opacity: 0; }
+.hero-hover-img:hover>img.hover {
+  opacity: 1;
+}
+
+.hero-hover-img:hover>img.base {
+  opacity: 0;
+}
 
 /* Optional: keep base image on touch devices if you want */
 @media (hover: none) {
-  .hero-hover-img > img.hover { display: none; }
+  .hero-hover-img>img.hover {
+    display: none;
+  }
 }
-
