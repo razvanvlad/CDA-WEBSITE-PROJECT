@@ -183,11 +183,11 @@ export default function Footer() {
             style={{ zIndex: MAG_CONFIG.layerDesktop === 'front' ? 20 : 10 }}
           >
             <p className="cda-subtitle">Take The First Step Toward Something Great</p>
-            <h2 className="cda-page-title-clean text-center">
-              Ready To Start Your{' '}
-              <span className="relative inline-block">
+            <h2 class="cda-page-title-clean text-center my-5">
+              Ready To Start Your
+              <span class="relative inline-block">
                 <span class="cda-page-title-clean">Project?</span>
-                <span className="absolute left-0 bottom-4 h-2 w-full bg-[#FD8721] -z-10"></span>
+                <span class="absolute left-0 bottom-2 md:bottom-4 h-2 w-full bg-[#FD8721] -z-10"></span>
               </span>
             </h2>
             <a
@@ -267,7 +267,7 @@ export default function Footer() {
 
             <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center md:justify-start">
               {!loading && menuItems.length === 0 && (
-                <span className="text-[14px] text-[#0B0B0E]/60">
+                <span className="text-[14px] text-[#000000]/60">
                   No footer links configured
                 </span>
               )}
@@ -275,14 +275,14 @@ export default function Footer() {
                 <a
                   key={item.id}
                   href={resolveHref(item)}
-                  className="text:[14px] text-[#0B0B0E] hover:underline"
+                  className="text:[14px] text-[#000000] hover:underline"
                 >
                   {item.label}
                 </a>
               ))}
             </div>
 
-            <p className="mt-6 text-[14px] text-[#111827]/60">
+            <p className="mt-6 text-[14px] text-[#000000]/60">
               CDA © {new Date().getFullYear()}. All rights reserved.
             </p>
           </div>
@@ -307,7 +307,7 @@ export default function Footer() {
                 <Image src="/images/social-icons/black/youtube.svg" alt="" width={26} height={20} aria-hidden="true" />
               </a>
             </div>
-            <div className="flex items-center gap-6 text-[14px] text-[#0B0B0E] justify-center md:justify-end">
+            <div className="flex items-center gap-6 text-[14px] text-[#000000] justify-center md:justify-end">
               <a href="/contact" className="hover:underline">
                 Contact Us
               </a>
