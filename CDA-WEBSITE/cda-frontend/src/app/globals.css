@@ -62,9 +62,17 @@ body {
 /* H1 Page Title class */
 .cda-page-title-clean {
   font-family: var(--font-poppins), sans-serif;
-  font-size: 50px;
+  font-size: 32px;
+  /* Mobile default */
   font-weight: bold;
   color: #000000;
+}
+
+@media (min-width: 768px) {
+  .cda-page-title-clean {
+    font-size: 50px;
+    /* Desktop */
+  }
 }
 
 /* Headings use Poppins Bold, paragraphs default to Inter from body */
