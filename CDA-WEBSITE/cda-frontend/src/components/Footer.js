@@ -12,6 +12,7 @@ import client from '../lib/graphql/client';
 const MAG_CONFIG = {
   baseSrc: '/images/magnifying-glass.svg',
   hoverSrc: '/images/magnifying-glass-hover.svg',
+  mobileSrc: '/images/footer/mobile-glass-cropped.png', // Mobile-specific cropped image
 
   // While aligning on desktop keep both visible; set to false afterwards
   showBothOnDesktop: false,
@@ -20,11 +21,11 @@ const MAG_CONFIG = {
 
   // Mobile (<768px): no hover; show only the hover art with these settings
   mobile: {
-    width: 880,
+    width: 680,
     x: -85,
     y: 160,
     scale: 1,
-    rotate: 20,
+    rotate: 0,
   },
 
   // Desktop (≥768px): independent positions for base and hover
@@ -211,7 +212,7 @@ export default function Footer() {
             {/* MOBILE: single image (no hover on touch) */}
             {isMobile ? (
               <img
-                src={MAG_CONFIG.hoverSrc}
+                src={MAG_CONFIG.mobileSrc}
                 alt=""
                 className="absolute select-none will-change-transform"
                 style={{
