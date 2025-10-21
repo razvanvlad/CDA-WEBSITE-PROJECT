@@ -5,6 +5,7 @@ import { getCaseStudyByAny, getGlobalContent, getCaseStudySlugs } from '../../..
 import Image from 'next/image';
 import Link from 'next/link';
 import GlobalTailSections from '../../../components/GlobalBlocks/GlobalTailSections.jsx';
+import TestimonialCard from '@/components/TestimonialCard';
 
 export const revalidate = 300
 
@@ -256,6 +257,9 @@ export default async function CaseStudyPage(props) {
             </div>
           </div>
         </section>
+
+        {/* Testimonial Section */}
+        <TestimonialCard />
       </main>
 
       <GlobalTailSections globalData={globalData} />
