@@ -8,6 +8,7 @@ import Showreel from '../../components/GlobalBlocks/Showreel';
 import ApproachBlock from '../../components/GlobalBlocks/ApproachBlock';
 import CultureGallerySlider from '../../components/GlobalBlocks/CultureGallerySlider';
 import StatsBlock from '../../components/GlobalBlocks/StatsBlock';
+import UnderlinedTitle from '../../components/UnderlinedTitle';
 import { sanitizeTitleHtml } from '../../lib/sanitizeTitleHtml';
 import { executeGraphQLQuery, getGlobalContent, getPageGlobalTogglesByUri, getPageGlobalTogglesBySlug } from '../../lib/graphql-queries';
 
@@ -73,8 +74,16 @@ export default async function AboutPage() {
       {aboutContent?.contentPageHeader && (
         <HeroSection
           sectionClassName="bg-white"
-          titleHtml={sanitizeTitleHtml(aboutContent.contentPageHeader.title || 'About Us')}
-          titleClassName="cda-page-title title-large-pink"
+          title={
+            <UnderlinedTitle
+              as="h1"
+              className="cda-hero__title-text cda-page-title"
+              underlineColor="#FF60DF"
+              size="large"
+            >
+              {aboutContent.contentPageHeader.title || 'Learn More About Us'}
+            </UnderlinedTitle>
+          }
           descriptionHtml={aboutContent.contentPageHeader.text || ''}
           ctas={[
             aboutContent.contentPageHeader.cta
@@ -216,7 +225,13 @@ export default async function AboutPage() {
                   <p className="cda-subtitle mb-2">{aboutContent.behindCda.subtitle}</p>
                 )}
                 {aboutContent.behindCda.title && (
-                  <h2 className="cda-title mb-4" style={{ textDecoration: 'none' }}>{aboutContent.behindCda.title}</h2>
+                  <UnderlinedTitle
+                    as="h2"
+                    className="cda-title mb-4"
+                    underlineColor="#FF60DF"
+                  >
+                    {aboutContent.behindCda.title}
+                  </UnderlinedTitle>
                 )}
                 {aboutContent.behindCda.description && (
                   <div className="wysiwyg-content text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] mb-6"

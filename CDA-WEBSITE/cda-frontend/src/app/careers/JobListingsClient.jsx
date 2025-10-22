@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useMemo } from 'react';
 import NewsletterSignup from '../../components/GlobalBlocks/NewsletterSignup';
 import CultureGallerySlider from '../../components/GlobalBlocks/CultureGallerySlider';
+import UnderlinedTitle from '@/components/UnderlinedTitle';
 
 function stripHTML(html) {
   if (!html) return '';
@@ -52,7 +53,7 @@ function getExperienceLevelDisplay(level) {
 export default function JobListingsClient({ initialItems = [], globalBlocks = null }) {
   // Debug logging
   console.log('JobListingsClient received items:', initialItems);
-  
+
   // Read filters from URL on the client
   const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
   const searchQuery = params.get('search') || '';
@@ -103,7 +104,7 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
       }
       return ['open', 'urgent', 'closing_soon'].includes(status);
     });
-    
+
     const otherPositions = items.filter((job) => {
       let status = job.jobListingFields?.jobStatus || 'open';
       // Handle array format from GraphQL
@@ -172,7 +173,7 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
               return (
                 <Link
                   key={job.id}
-                  href={`/jobs/${job.slug}`}
+                  href={`/careers/${job.slug}`}
                   className="group block bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-lg transition-all duration-300"
                 >
                   <div className="p-6">
@@ -227,7 +228,7 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
               return (
                 <Link
                   key={job.id}
-                  href={`/jobs/${job.slug}`}
+                  href={`/careers/${job.slug}`}
                   className="group block bg-gray-50 border border-gray-200 rounded-lg hover:border-gray-300 transition-all duration-300 opacity-75"
                 >
                   <div className="p-4">
@@ -263,13 +264,13 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
       {/* Card takes the full width of the jobs column */}
       <div className="w-full">
         <div className="relative rounded-xl bg-[#F7F8FA] border border-black/[0.06] shadow-[0_8px_24px_rgba(0,0,0,0.05)] px-6 py-10 md:px-10 md:py-14 text-center z-[1]">
-          <h3 className="cda-hero__title-text service-hero-title text-2xl lg:text-3xl pb-10 font-bold mb-6"
-                  style={{ textDecoration: 'underline', textDecorationColor: '#FF5C8A', textDecorationThickness: '11px' }}
-          >
-            Looking For Another Role?
+          <h3 className="cda-hero__title-text service-hero-title text-2xl lg:text-3xl pb-10 font-bold mb-6">
+            <UnderlinedTitle size="h2" underlineColor="#FF5FA0">
+              Looking For Another Role?
+            </UnderlinedTitle>
           </h3>
           <p className="text-[#4B5563] text-[15px] md:text-[16px] leading-relaxed max-w-[720px] mx-auto mb-6 md:mb-8">
-            Can’t find the right position? We’re always interested in connecting with talented individuals.
+            Can't find the right position? We're always interested in connecting with talented individuals.
             Send us your resume and let us know how you can contribute to our team.
           </p>
           <Link href="/contact" className="button-l-transparent">Send Us Your CV</Link>
@@ -282,7 +283,7 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
     </main>
   </div>
 
- 
+
 </div>
 
 

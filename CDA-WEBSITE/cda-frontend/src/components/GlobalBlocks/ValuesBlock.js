@@ -1,6 +1,7 @@
 'use client';
 // src/components/GlobalBlocks/ValuesBlock.js
 import React from 'react';
+import UnderlinedTitle from '../UnderlinedTitle';
 
 export default function ValuesBlock({ globalData, pageData, useOverride = false }) {
   const data = useOverride && pageData ? pageData : globalData;
@@ -21,12 +22,16 @@ export default function ValuesBlock({ globalData, pageData, useOverride = false 
             </p>
           )}
           {data?.title && (
-            <h2
-              className="cda-title"
-              style={{ fontFamily: 'Poppins, sans-serif', fontSize: 38, lineHeight: 1.1 }}
-            >
-              <span className="relative inline-block align-baseline">{data.title}</span>
-            </h2>
+            <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 38, lineHeight: 1.1 }}>
+              <UnderlinedTitle
+                as="h2"
+                className="cda-title"
+                size="medium"
+                underlineColor="#FF60DF"
+              >
+                {data.title}
+              </UnderlinedTitle>
+            </div>
           )}
         </div>
 

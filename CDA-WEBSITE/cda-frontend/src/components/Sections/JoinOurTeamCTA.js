@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function JoinOurTeamCTA({ title = 'Join Our Team', description = 'We are always looking for passionate people to join our mission.', primary = { title: 'Open Positions', url: '/jobs' } }) {
+export default function JoinOurTeamCTA({ title = 'Join Our Team', description = 'We are always looking for passionate people to join our mission.', primary = { title: 'Open Positions', url: '/careers' } }) {
   return (
     <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white">
       <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 text-center">

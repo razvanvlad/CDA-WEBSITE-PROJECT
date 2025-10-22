@@ -1,10 +1,12 @@
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
+import UnderlinedTitle from '../../../components/UnderlinedTitle';
 import { notFound } from 'next/navigation';
 import { getCaseStudyByAny, getGlobalContent, getCaseStudySlugs } from '../../../lib/graphql-queries';
 import Image from 'next/image';
 import Link from 'next/link';
 import GlobalTailSections from '../../../components/GlobalBlocks/GlobalTailSections.jsx';
+import TestimonialCard from '@/components/TestimonialCard';
 
 export const revalidate = 300
 
@@ -80,9 +82,14 @@ export default async function CaseStudyPage(props) {
                   </div>
                 )}
 
-                <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-black">
+                <UnderlinedTitle
+                  as="h1"
+                  className="cda-page-title mb-6"
+                  underlineColor="#AD80F9"
+                  size="large"
+                >
                   {caseStudy.title}
-                </h1>
+                </UnderlinedTitle>
 
                 {projectOverview?.clientName && (
                   <p className="text-xl text-gray-600 mb-6">
@@ -197,8 +204,14 @@ export default async function CaseStudyPage(props) {
         {solution && (
           <section className="py-16 bg-white">
             <div className="max-w-4xl mx-auto px-4">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Solution</h2>
-              <div 
+              <UnderlinedTitle
+                as="h2"
+                className="cda-title mb-6"
+                underlineColor="#AD80F9"
+              >
+                Our Solution
+              </UnderlinedTitle>
+              <div
                 className="prose prose-lg max-w-none text-gray-600"
                 dangerouslySetInnerHTML={{ __html: solution }}
               />
@@ -256,6 +269,9 @@ export default async function CaseStudyPage(props) {
             </div>
           </div>
         </section>
+
+        {/* Testimonial Section */}
+        <TestimonialCard />
       </main>
 
       <GlobalTailSections globalData={globalData} />

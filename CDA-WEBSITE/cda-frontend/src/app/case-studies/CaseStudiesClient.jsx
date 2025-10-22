@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import UnderlinedTitle from '../../components/UnderlinedTitle';
 import { useMemo } from 'react';
 
 function stripHTML(html) {
@@ -53,7 +54,14 @@ export default function CaseStudiesClient({ initialItems = [], projectTypes = []
     <div className="min-h-screen bg-white py-16">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Case Studies</h1>
+          <UnderlinedTitle
+            as="h1"
+            className="cda-page-title mb-4"
+            underlineColor="#FD8721"
+            size="large"
+          >
+            Some Of Our Case Studies
+          </UnderlinedTitle>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Discover how we&apos;ve helped businesses transform and grow through our innovative solutions and strategic partnerships.
           </p>
