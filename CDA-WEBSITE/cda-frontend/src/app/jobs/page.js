@@ -2,6 +2,7 @@ import { getJobListingsWithPagination, getJobListingsSimple, executeGraphQLQuery
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import JobListingsClient from './JobListingsClient'
+import UnderlinedTitle from '@/components/UnderlinedTitle'
 
 // GraphQL query for global content blocks
 const GET_GLOBAL_BLOCKS = `
@@ -88,11 +89,10 @@ export default async function JobsPage() {
           <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
               <div>
-                <h1
-                  className="cda-hero__title-text service-hero-title text-4xl lg:text-5xl pb-10 font-bold mb-6"
-                  style={{ textDecoration: 'underline', textDecorationColor: '#FF5C8A', textDecorationThickness: '11px' }}
-                >
-                  Join Our Team
+                <h1 className="cda-hero__title-text service-hero-title text-4xl lg:text-5xl pb-10 font-bold mb-6">
+                  <UnderlinedTitle size="h1" underlineColor="#FF5FA0">
+                    Join Our Team
+                  </UnderlinedTitle>
                 </h1>
                 <p className="text-lg text-[#4B5563] leading-relaxed max-w-2xl">
                   CDA is a place where people flourish. See what roles we have available for you.

@@ -3,6 +3,7 @@ import Footer from '../../components/Footer';
 import LocationsImage from '../../components/GlobalBlocks/LocationsImage';
 import ContactForm from '@/components/Sections/ContactForm';
 import NewsletterSignup from '../../components/GlobalBlocks/NewsletterSignup';
+import UnderlinedTitle from '@/components/UnderlinedTitle';
 import { executeGraphQLQuery } from '@/lib/graphql-queries.js'
 
 export const revalidate = 300
@@ -43,7 +44,11 @@ export default async function ContactPage() {
         <div className="contact-container">
           <div className="contact-content">
             <div className="contact-header">
-              <h1 className="contact-title" style={{textDecoration:'underline', textDecorationColor:'#FF6A00', textDecorationThickness:'11px'}}>Send Us A Message</h1>
+              <h1 className="contact-title">
+                <UnderlinedTitle size="h1" underlineColor="#FD8721">
+                  Send Us A Message
+                </UnderlinedTitle>
+              </h1>
             </div>
 
             <div className="contact-form-wrapper">

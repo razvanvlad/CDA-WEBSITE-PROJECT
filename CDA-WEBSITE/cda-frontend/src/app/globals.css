@@ -1,14 +1,36 @@
+/* ═══════════════════════════════════════════════════════════════════
+   GLOBAL STYLES - Main Entry Point
+   ═══════════════════════════════════════════════════════════════════ */
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Import Modular CSS */
+@import '../styles/typography.css';
+@import '../styles/buttons.css';
+@import '../styles/utilities.css';
+@import '../styles/components.css';
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COLOR SYSTEM
+   ───────────────────────────────────────────────────────────────── */
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Brand Colors */
+  --color-orange: #FD8721;
+  --color-pink: #FF5FA0;
+  --color-purple: #7B61FF;
+  --color-light-blue: #4FC3F7;
+  --color-green: #34C759;
+  --color-roz: #FF60DF;
 }
 
 /* Disable automatic dark mode background; keep site background white */
@@ -24,138 +46,27 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
-  font-weight: 400;
-  /* Inter Regular - explicit weight for body text */
 }
 
-/* Typography Classes - CDA Design System */
-/* Subtitle class for consistent subtitle styling */
-.cda-subtitle {
-  font-family: var(--font-poppins), sans-serif;
-  font-size: 22px;
-  font-weight: bold;
-  color: #000000;
-  text-transform: capitalize;
-  line-height: 33px;
-}
+/* ─────────────────────────────────────────────────────────────────
+   COLOR UTILITY CLASSES
+   ───────────────────────────────────────────────────────────────── */
 
-/* H2 Title class */
-.cda-title {
-  font-family: var(--font-poppins), sans-serif;
-  font-size: 38px;
-  font-weight: bold;
-  color: #000000;
-  line-height: 57px;
-}
+.title-large-orange { --u-color: #FD8721; }
+.title-large-pink { --u-color: #FF5FA0; }
+.title-large-purple { --u-color: #7B61FF; }
+.title-large-light-blue { --u-color: #4FC3F7; }
+.title-large-green { --u-color: #34C759; }
+.title-large-roz { --u-color: #FF60DF; }
 
-/* H1 Page Title class */
-.cda-page-title {
-  font-family: var(--font-poppins), sans-serif;
-  font-size: 50px;
-  font-weight: bold;
-  color: #000000;
-  line-height: 76px;
-  text-decoration: underline;
-}
-
-/* H1 Page Title class */
-.cda-page-title-clean {
-  font-family: var(--font-poppins), sans-serif;
-  font-size: 32px;
-  /* Mobile default */
-  font-weight: bold;
-  color: #000000;
-}
-
-@media (min-width: 768px) {
-  .cda-page-title-clean {
-    font-size: 50px;
-    /* Desktop */
-  }
-}
-
-/* Headings use Poppins Bold, paragraphs default to Inter from body */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-poppins), sans-serif;
-  font-weight: 700;
-  /* Poppins Bold - explicit weight for titles */
-}
-
-/* Body text elements use Inter Regular */
-p,
-span,
-div,
-li,
-a {
-  font-family: var(--font-inter), sans-serif;
-  font-weight: 400;
-  /* Inter Regular - explicit weight for body text */
-}
-
-/* Buttons use Inter Regular for labels */
-button {
-  font-family: var(--font-inter), sans-serif;
-  font-weight: 400;
-  /* Inter Regular - explicit weight for button labels */
-}
+/* ─────────────────────────────────────────────────────────────────
+   LAYOUT UTILITIES
+   ───────────────────────────────────────────────────────────────── */
 
 /* Prevent accidental horizontal scrollbars sitewide */
 html,
 body {
   overflow-x: hidden;
-}
-
-/* css for photo frame */
-.image-container {
-  position: relative;
-  width: 100%;
-  height: auto;
-}
-
-.image-container img {
-  max-width: 100%;
-  height: auto;
-}
-
-
-.content-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Add to your global CSS file */
-.wysiwyg-content {
-
-  /* Remove default paragraph styling */
-  p {
-    margin: 0;
-    padding: 0;
-  }
-
-  /* Ensure proper line height */
-  line-height: 1.6;
-}
-
-/* Handle strong text */
-.wysiwyg-content strong {
-  font-weight: bold;
-}
-
-/* Handle links */
-.wysiwyg-content a {
-  color: #0000ff;
-  text-decoration: underline;
-  cursor: pointer;
 }
 
 /* Sitewide max-width override: design uses 1620px */
@@ -170,106 +81,29 @@ body {
   max-width: 1620px !important;
 }
 
-/* Title underline utilities */
-.title-underline {
-  /* Defaults: can be overridden by helpers below */
-  --u-color: #FD8721;
-  /* underline color */
-  --u-thickness: 11px;
-  /* underline thickness */
-  --u-offset: 10px;
-  /* gap between text and underline (can be negative) */
-  --u-width: 100%;
-  /* underline width: 100%, 50%, etc. */
+/* ─────────────────────────────────────────────────────────────────
+   IMAGE UTILITIES
+   ───────────────────────────────────────────────────────────────── */
 
+/* Photo frame utilities */
+.image-container {
   position: relative;
-  display: inline-block;
-  /* Fallback: simple sum (may be invalid if negative) */
-  padding-bottom: calc(var(--u-offset) + var(--u-thickness));
-  /* Clamp so negative offsets don't cause negative padding */
-  padding-bottom: calc(var(--u-thickness) + max(var(--u-offset), 0px));
+  width: 100%;
+  height: auto;
 }
 
-.title-underline::after {
-  content: "";
+.image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.content-image {
   position: absolute;
+  top: 0;
   left: 0;
-  /* Default position */
-  bottom: 0;
-  /* If offset is negative, move the underline upward into the text area by that amount */
-  bottom: max(calc(-1 * var(--u-offset)), 0px);
-  height: var(--u-thickness);
-  width: var(--u-width);
-  background-color: var(--u-color);
-  border-radius: calc(var(--u-thickness) / 2);
-}
-
-/* Color variants */
-.title-large-orange {
-  --u-color: #FD8721;
-}
-
-.title-large-pink {
-  --u-color: #FF5FA0;
-}
-
-.title-large-purple {
-  --u-color: #7B61FF;
-}
-
-.title-large-light-blue {
-  --u-color: #4FC3F7;
-}
-
-.title-large-green {
-  --u-color: #34C759;
-}
-
-.title-large-roz {
-  --u-color: #FF60DF;
-}
-
-/* Width helpers */
-.u-full {
-  --u-width: 100%;
-}
-
-.u-half {
-  --u-width: 50%;
-}
-
-.u-third {
-  --u-width: 33.3333%;
-}
-
-/* Gap helpers */
-.u-gap-6 {
-  --u-offset: 6px;
-}
-
-.u-gap-10 {
-  --u-offset: 10px;
-}
-
-.u-gap-12 {
-  --u-offset: -12px;
-}
-
-.u-gap-14 {
-  --u-offset: 14px;
-}
-
-/* Thickness helpers */
-.u-thick-9 {
-  --u-thickness: 9px;
-}
-
-.u-thick-11 {
-  --u-thickness: 11px;
-}
-
-.u-thick-14 {
-  --u-thickness: 14px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Hover swap for homepage hero illustration */
@@ -305,4 +139,26 @@ body {
   .hero-hover-img>img.hover {
     display: none;
   }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   WYSIWYG CONTENT
+   ───────────────────────────────────────────────────────────────── */
+
+.wysiwyg-content {
+  /* Remove default paragraph styling */
+  p {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Ensure proper line height */
+  line-height: 1.6;
+}
+
+/* Handle links */
+.wysiwyg-content a {
+  color: #0000ff;
+  text-decoration: underline;
+  cursor: pointer;
 }

@@ -3,6 +3,7 @@ import Footer from '../../components/Footer';
 import ApproachBlock from '../../components/GlobalBlocks/ApproachBlock';
 import CaseStudies from '../../components/GlobalBlocks/CaseStudies';
 import Image from 'next/image'
+import UnderlinedTitle from '@/components/UnderlinedTitle';
 import { getTechnologiesWithPagination, getGlobalContent } from '@/lib/graphql-queries.js';
 import GlobalTailSections from '@/components/GlobalBlocks/GlobalTailSections.jsx';
 import ServicesSlider from '@/components/GlobalBlocks/ServicesSlider.jsx';
@@ -34,11 +35,10 @@ export default async function TechnologiesPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             {/* Left: Title + Copy */}
             <div>
-              <h1
-                className="text-4xl md:text-5xl font-bold text-black mb-6"
-                style={{ textDecoration: 'underline', textDecorationColor: '#AD80F9', textDecorationThickness: '11px' }}
-              >
-                The Technologies We Use
+              <h1 className="text-4xl md:text-5xl font-bold text-black mb-6">
+                <UnderlinedTitle size="h1" underlineColor="#7B61FF">
+                  The Technologies We Use
+                </UnderlinedTitle>
               </h1>
               <p className="text-lg text-[#4B5563] leading-relaxed max-w-2xl">
                 Discover the cutting-edge technologies and frameworks we use to build exceptional digital solutions for our clients.

@@ -1,0 +1,13 @@
+/* ═══════════════════════════════════════════════════════════════════
+   BUTTON SYSTEM - Unified Styles
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Base Button Styles */
+button {
+  font-family: var(--font-poppins);
+  /* NO font-weight here - let button classes control it */
+}
+
+/* NOTE: Button implementations (.button-l, .button-l-white, .button-l-transparent, etc.)
+   remain in global.css due to their complex pseudo-element structures.
+   They have been updated to use consistent Poppins Bold (font-weight: 700) */

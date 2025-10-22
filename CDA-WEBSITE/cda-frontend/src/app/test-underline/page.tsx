@@ -13,8 +13,7 @@ const colors = [
 
 export default function TestUnderlinePage() {
   const [selectedColor, setSelectedColor] = useState('#FF60DF');
-  const [selectedSize, setSelectedSize] = useState<'small' | 'medium' | 'large'>('large');
-  const [strokeWidth, setStrokeWidth] = useState(11);
+  const [selectedSize, setSelectedSize] = useState<'h1' | 'h2'>('h1');
   const [curveIntensity, setCurveIntensity] = useState(0.01);
   const [underlineOffset, setUnderlineOffset] = useState(-8);
 
@@ -60,31 +59,22 @@ export default function TestUnderlinePage() {
             </label>
             <div className="flex gap-3">
               <button
-                onClick={() => setSelectedSize('small')}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${selectedSize === 'small'
+                onClick={() => setSelectedSize('h2')}
+                className={`px-6 py-3 rounded-lg font-medium transition-all ${selectedSize === 'h2'
                     ? 'bg-blue-500 text-white ring-2 ring-blue-500 ring-offset-2'
                     : 'bg-gray-200 hover:bg-gray-300'
                   }`}
               >
-                Small (18px / 7px stroke)
+                H2 (Desktop 38px/9px, Mobile 28px/7px)
               </button>
               <button
-                onClick={() => setSelectedSize('medium')}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${selectedSize === 'medium'
+                onClick={() => setSelectedSize('h1')}
+                className={`px-6 py-3 rounded-lg font-medium transition-all ${selectedSize === 'h1'
                     ? 'bg-blue-500 text-white ring-2 ring-blue-500 ring-offset-2'
                     : 'bg-gray-200 hover:bg-gray-300'
                   }`}
               >
-                Medium (38px / 9px stroke)
-              </button>
-              <button
-                onClick={() => setSelectedSize('large')}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${selectedSize === 'large'
-                    ? 'bg-blue-500 text-white ring-2 ring-blue-500 ring-offset-2'
-                    : 'bg-gray-200 hover:bg-gray-300'
-                  }`}
-              >
-                Large (50px / 11px stroke)
+                H1 (Desktop 50px/11px, Mobile 38px/9px)
               </button>
             </div>
           </div>
@@ -92,17 +82,12 @@ export default function TestUnderlinePage() {
           {/* Stroke Width Slider */}
           <div className="mb-8">
             <label className="block text-sm font-medium mb-2">
-              Stroke Width: <span className="font-bold">{strokeWidth}px</span>
+              Stroke Width: <span className="font-bold">Auto (Responsive)</span>
             </label>
-            <input
-              type="range"
-              min="5"
-              max="20"
-              step="1"
-              value={strokeWidth}
-              onChange={(e) => setStrokeWidth(Number(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-            />
+            <p className="text-xs text-gray-500 mt-1">
+              Desktop: {selectedSize === 'h1' ? '11px' : '9px'} | Mobile: {selectedSize === 'h1' ? '9px' : '7px'}
+            </p>
+            <p className="text-xs text-gray-500 mt-1">Stroke width automatically adjusts based on screen size</p>
           </div>
 
           {/* Curve Intensity Slider */}
@@ -153,7 +138,6 @@ export default function TestUnderlinePage() {
               <UnderlinedTitle
                 size={selectedSize}
                 underlineColor={selectedColor}
-                strokeWidth={strokeWidth}
                 curveIntensity={curveIntensity}
                 underlineOffset={underlineOffset}
               >
@@ -168,7 +152,6 @@ export default function TestUnderlinePage() {
               <UnderlinedTitle
                 size={selectedSize}
                 underlineColor={selectedColor}
-                strokeWidth={strokeWidth}
                 curveIntensity={curveIntensity}
                 underlineOffset={underlineOffset}
               >
@@ -183,7 +166,6 @@ export default function TestUnderlinePage() {
               <UnderlinedTitle
                 size={selectedSize}
                 underlineColor={selectedColor}
-                strokeWidth={strokeWidth}
                 curveIntensity={curveIntensity}
                 underlineOffset={underlineOffset}
               >
@@ -198,7 +180,6 @@ export default function TestUnderlinePage() {
               <UnderlinedTitle
                 size={selectedSize}
                 underlineColor={selectedColor}
-                strokeWidth={strokeWidth}
                 curveIntensity={curveIntensity}
                 underlineOffset={underlineOffset}
               >
@@ -213,7 +194,6 @@ export default function TestUnderlinePage() {
               <UnderlinedTitle
                 size={selectedSize}
                 underlineColor={selectedColor}
-                strokeWidth={strokeWidth}
                 curveIntensity={curveIntensity}
                 underlineOffset={underlineOffset}
               >
@@ -225,14 +205,14 @@ export default function TestUnderlinePage() {
 
         {/* Size Preset Examples */}
         <div className="mt-24 pt-12 border-t border-gray-200">
-          <h2 className="text-3xl font-bold mb-8">Size Preset Examples</h2>
+          <h2 className="text-3xl font-bold mb-8">Size Preset Examples (Manual Controls)</h2>
 
-          {/* Large - 50px */}
+          {/* H1 Size */}
           <div className="mb-12">
-            <p className="text-sm text-gray-500 mb-2">Large (50px text / 11px stroke)</p>
+            <p className="text-sm text-gray-500 mb-2">H1 Size (with manual adjustments)</p>
             <h1 className="text-5xl font-bold">
               <UnderlinedTitle
-                size="large"
+                size="h1"
                 underlineColor="#FF60DF"
                 curveIntensity={curveIntensity}
                 underlineOffset={underlineOffset}
@@ -242,12 +222,12 @@ export default function TestUnderlinePage() {
             </h1>
           </div>
 
-          {/* Medium - 38px */}
+          {/* H2 Size */}
           <div className="mb-12">
-            <p className="text-sm text-gray-500 mb-2">Medium (38px text / 9px stroke)</p>
+            <p className="text-sm text-gray-500 mb-2">H2 Size (with manual adjustments)</p>
             <h2 className="text-4xl font-bold">
               <UnderlinedTitle
-                size="medium"
+                size="h2"
                 underlineColor="#7B61FF"
                 curveIntensity={curveIntensity}
                 underlineOffset={underlineOffset}
@@ -256,20 +236,44 @@ export default function TestUnderlinePage() {
               </UnderlinedTitle>
             </h2>
           </div>
+        </div>
 
-          {/* Small - 18px */}
+        {/* Responsive Size Examples */}
+        <div className="mt-24 pt-12 border-t border-gray-200">
+          <h2 className="text-3xl font-bold mb-8">Responsive Sizing Test</h2>
+
+          {/* H1 - Desktop 50px/11px, Mobile 38px/9px */}
           <div className="mb-12">
-            <p className="text-sm text-gray-500 mb-2">Small (18px text / 7px stroke)</p>
-            <h3 className="text-lg font-bold">
-              <UnderlinedTitle
-                size="small"
-                underlineColor="#FD8721"
-                curveIntensity={curveIntensity}
-                underlineOffset={underlineOffset}
-              >
-                Small Heading Example
+            <p className="text-sm text-gray-500 mb-2">
+              H1: Desktop (50px/11px stroke) | Mobile (38px/9px stroke)
+            </p>
+            <h1 className="font-bold">
+              <UnderlinedTitle size="h1" underlineColor="#FF60DF">
+                Large Heading Responsive Test
               </UnderlinedTitle>
-            </h3>
+            </h1>
+          </div>
+
+          {/* H2 - Desktop 38px/9px, Mobile 28px/7px */}
+          <div className="mb-12">
+            <p className="text-sm text-gray-500 mb-2">
+              H2: Desktop (38px/9px stroke) | Mobile (28px/7px stroke)
+            </p>
+            <h2 className="font-bold">
+              <UnderlinedTitle size="h2" underlineColor="#7B61FF">
+                Medium Heading Responsive Test
+              </UnderlinedTitle>
+            </h2>
+          </div>
+
+          {/* Multi-line Test */}
+          <div className="mb-12">
+            <p className="text-sm text-gray-500 mb-2">Multi-line Test (resize window)</p>
+            <h1 className="font-bold max-w-2xl">
+              <UnderlinedTitle size="h1" underlineColor="#FD8721">
+                This Is A Very Long Heading That Should Wrap To Multiple Lines And Show Underlines On Each Line
+              </UnderlinedTitle>
+            </h1>
           </div>
         </div>
       </div>
