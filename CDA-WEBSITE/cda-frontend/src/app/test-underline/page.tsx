@@ -61,31 +61,28 @@ export default function TestUnderlinePage() {
             <div className="flex gap-3">
               <button
                 onClick={() => setSelectedSize('small')}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                  selectedSize === 'small'
+                className={`px-6 py-3 rounded-lg font-medium transition-all ${selectedSize === 'small'
                     ? 'bg-blue-500 text-white ring-2 ring-blue-500 ring-offset-2'
                     : 'bg-gray-200 hover:bg-gray-300'
-                }`}
+                  }`}
               >
                 Small (18px / 7px stroke)
               </button>
               <button
                 onClick={() => setSelectedSize('medium')}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                  selectedSize === 'medium'
+                className={`px-6 py-3 rounded-lg font-medium transition-all ${selectedSize === 'medium'
                     ? 'bg-blue-500 text-white ring-2 ring-blue-500 ring-offset-2'
                     : 'bg-gray-200 hover:bg-gray-300'
-                }`}
+                  }`}
               >
                 Medium (38px / 9px stroke)
               </button>
               <button
                 onClick={() => setSelectedSize('large')}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                  selectedSize === 'large'
+                className={`px-6 py-3 rounded-lg font-medium transition-all ${selectedSize === 'large'
                     ? 'bg-blue-500 text-white ring-2 ring-blue-500 ring-offset-2'
                     : 'bg-gray-200 hover:bg-gray-300'
-                }`}
+                  }`}
               >
                 Large (50px / 11px stroke)
               </button>
@@ -240,7 +237,7 @@ export default function TestUnderlinePage() {
                 curveIntensity={curveIntensity}
                 underlineOffset={underlineOffset}
               >
-                Large Heading Example
+                Learn More About Us
               </UnderlinedTitle>
             </h1>
           </div>
