@@ -1,6 +1,7 @@
 import { executeGraphQLQuery, GET_CASE_STUDIES_WITH_PAGINATION } from '@/lib/graphql-queries.js'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import HeroSection from '../../components/GlobalBlocks/HeroSection'
 import Link from 'next/link'
 import Image from 'next/image'
 import KnowledgeHubClient from './KnowledgeHubClient'
@@ -73,29 +74,45 @@ const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
     return (
       <>
         <Header />
-        
+
         <main className="knowledge-hub-page">
-          {/* Standard Hero */}
-          <section className="bg-white py-16">
-            <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-                <div>
-                  <UnderlinedTitle
-                    as="h1"
-                    className="cda-page-title mb-6"
-                    underlineColor="#01E486"
-                    size="large"
-                  >
-                    Knowledge Hub
-                  </UnderlinedTitle>
-                  <p className="text-lg text-[#4B5563] leading-relaxed max-w-2xl">Read more news and articles from CDA, here you can also read our case studies.</p>
-                </div>
-                <div className="flex justify-center lg:justify-end">
-                  <img src="/images/owl.svg" alt="Knowledge Hub illustration" className="w-full max-h-[300px] md:max-w-[520px] lg:max-w-[600px] h-auto object-contain" />
-                </div>
-              </div>
-            </div>
-          </section>
+          {/* Hero Section */}
+          <HeroSection
+            sectionClassName="bg-white"
+            title={
+              <UnderlinedTitle
+                as="h1"
+                className="cda-hero__title-text cda-page-title"
+                underlineColor="#01E486"
+                size="large"
+              >
+                Knowledge Hub
+              </UnderlinedTitle>
+            }
+            description="Read more news and articles from CDA. Explore our case studies, industry insights, and expert resources to help your business grow."
+            descriptionClassName="text-lg text-gray-600"
+            ctas={[
+              {
+                label: 'View Case Studies',
+                href: '/case-studies',
+                className: 'button-l',
+              },
+              {
+                label: 'Contact Us',
+                href: '/contact',
+                className: 'button-secondary',
+              },
+            ]}
+            image={
+              <img
+                src="/images/owl.svg"
+                alt="Knowledge Hub illustration"
+                width={600}
+                height={400}
+                className="cda-hero__image-media"
+              />
+            }
+          />
 
           {/* Filter chips (single-select, reuse ServicesFilters) */}
           <Suspense fallback={<div className="max-w-7xl mx-auto px-4 mt-2 mb-8 text-gray-500">Loading filters…</div>}>
