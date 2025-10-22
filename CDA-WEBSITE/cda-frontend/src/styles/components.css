@@ -5,3 +5,229 @@
    NOTE: Component styles remain in global.css for now.
    TODO: Gradually migrate component-specific styles here from global.css
    ═══════════════════════════════════════════════════════════════════ */
+
+/* ============================================
+   HERO SECTION - 60/40 Layout
+   ============================================ */
+
+.cda-hero {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .cda-hero {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+.cda-hero__container {
+  /* Container classes applied via prop */
+}
+
+.cda-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .cda-hero__grid {
+    grid-template-columns: 7fr 5fr; /* 60/40 split */
+    gap: 3rem;
+  }
+}
+
+/* ============================================
+   MOBILE LAYOUT ORDER
+   ============================================ */
+
+/* Title - Order 1 on mobile, Order 1 on desktop */
+.cda-hero__title {
+  order: 1;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .cda-hero__title {
+    order: 1;
+    text-align: left;
+    grid-column: 1;
+    grid-row: 1 / span 3; /* Span all 3 rows */
+  }
+}
+
+/* Image - Order 2 on mobile, Order 2 on desktop (right column) */
+.cda-hero__image {
+  order: 2;
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .cda-hero__image {
+    order: 2;
+    grid-column: 2;
+    grid-row: 1 / span 3; /* Span all 3 rows */
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Text - Order 3 on mobile, Part of left column on desktop */
+.cda-hero__text {
+  order: 3;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .cda-hero__text {
+    order: 3;
+    text-align: left;
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+
+/* CTAs - Order 4 on mobile, Part of left column on desktop */
+.cda-hero__cta {
+  order: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 640px) {
+  .cda-hero__cta {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cda-hero__cta {
+    order: 4;
+    justify-content: flex-start;
+    grid-column: 1;
+    grid-row: 3;
+  }
+}
+
+.cda-hero__cta-item {
+  display: inline-flex;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+.cda-hero__eyebrow {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  color: #6B7280;
+}
+
+.cda-hero__title-text {
+  font-size: 2.25rem; /* text-4xl */
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .cda-hero__title-text {
+    font-size: 3rem; /* text-5xl */
+  }
+}
+
+@media (min-width: 1280px) {
+  .cda-hero__title-text {
+    font-size: 3.75rem; /* text-6xl */
+  }
+}
+
+.cda-hero__text-content {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #374151;
+  margin-bottom: 2rem;
+  max-width: 42rem; /* max-w-2xl */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1024px) {
+  .cda-hero__text-content {
+    font-size: 1.125rem; /* text-lg */
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/* ============================================
+   IMAGE SIZING
+   ============================================ */
+
+.cda-hero__image img {
+  max-width: 320px;
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 640px) {
+  .cda-hero__image img {
+    max-width: 400px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cda-hero__image img {
+    max-width: 100%;
+  }
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.cda-hero__cta a.button-l,
+.cda-hero__cta .button-l {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  min-width: 160px;
+}
+
+.cda-hero__cta a.button-secondary,
+.cda-hero__cta .button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  min-width: 160px;
+  border: 2px solid #111827;
+  color: #111827;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.cda-hero__cta a.button-secondary:hover,
+.cda-hero__cta .button-secondary:hover {
+  background-color: #111827;
+  color: #FFFFFF;
+}

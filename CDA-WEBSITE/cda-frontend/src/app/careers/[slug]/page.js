@@ -2,7 +2,7 @@ import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import UnderlinedTitle from '../../../components/UnderlinedTitle';
 import { notFound } from 'next/navigation';
-import { getJobListingBySlug, getJobListingSlugs, getJobListingsSimple } from '../../../lib/graphql-queries';
+import { getJobListingBySlug, getJobListingSlugs, getJobListingsSimple, getJobListingsWithPagination } from '../../../lib/graphql-queries';
 import Image from 'next/image';
 import Link from 'next/link';
 import JobApplicationForm from '../../../components/JobApplicationForm';
@@ -16,14 +16,14 @@ export async function generateMetadata({ params }) {
   // Await params in Next.js 15
   const resolvedParams = await params;
   let job;
-  
+
   try {
     job = await getJobListingBySlug(resolvedParams.slug);
   } catch (error) {
     const allJobs = await getJobListingsSimple();
     job = allJobs.find(j => j.slug === resolvedParams.slug);
   }
-  
+
   if (!job) {
     return {
       title: 'Job Not Found',
@@ -55,7 +55,7 @@ export async function generateStaticParams() {
     }
     return jobs.map((job) => ({ slug: job.slug }));
   } catch (error) {
-    console.error('Error generating static params for jobs:', error);
+    console.error('Error generating static params for careers:', error);
     return [];
   }
 }
@@ -105,11 +105,11 @@ function useBgRotation() {
   return () => backgrounds[currentIndex++ % backgrounds.length];
 }
 
-export default async function JobDetailPage({ params }) {
+export default async function CareerDetailPage({ params }) {
   // Await params in Next.js 15
   const resolvedParams = await params;
   let job;
-  
+
   try {
     job = await getJobListingBySlug(resolvedParams.slug);
   } catch (error) {
@@ -124,14 +124,14 @@ export default async function JobDetailPage({ params }) {
 
   // Extract ACF fields if they exist
   const { jobDetails, requirements, jobStatus } = job.jobListingFields || {};
-  
+
   const statusBadge = getStatusBadge(jobStatus || 'open');
   const nextBg = useBgRotation();
 
   return (
     <>
       <Header />
-      
+
       <main className="job-detail-page">
         {/* Hero Section */}
         <section className={`relative ${nextBg()} text-black`}>
@@ -140,13 +140,13 @@ export default async function JobDetailPage({ params }) {
               <div className="lg:col-span-2">
                 <div className="flex items-center gap-4 mb-6">
                   <Link
-                    href="/jobs"
+                    href="/careers"
                     className="text-blue-600 hover:text-blue-800 font-medium flex items-center"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
                     </svg>
-                    Back to Jobs
+                    Back to Careers
                   </Link>
                   <span className={`px-3 py-1 text-xs font-semibold rounded-full border ${statusBadge.className}`}>
                     {statusBadge.text}
@@ -163,7 +163,7 @@ export default async function JobDetailPage({ params }) {
                 </UnderlinedTitle>
 
                 {job.excerpt && (
-                  <div 
+                  <div
                     className="text-lg text-gray-600 mb-8"
                     dangerouslySetInnerHTML={{ __html: job.excerpt }}
                   />
@@ -177,7 +177,7 @@ export default async function JobDetailPage({ params }) {
                     Apply Now
                   </Link>
                   <Link
-                    href="/jobs"
+                    href="/careers"
                     className="button-without-box"
                   >
                     View All Positions
@@ -188,7 +188,7 @@ export default async function JobDetailPage({ params }) {
               <div className="lg:col-span-1">
                 <div className="bg-white rounded-lg shadow-lg p-6 sticky top-8">
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">Position Details</h3>
-                  
+
                   <div className="space-y-4">
                     <div>
                       <dt className="text-sm font-medium text-gray-500 flex items-center mb-1">
@@ -284,7 +284,7 @@ export default async function JobDetailPage({ params }) {
        {/* === ROW 2: Our Dream Candidate (8/12) + Target (4/12) === */}
         {requirements?.ourDreamCandidate && (
           <section className={`py-16 ${nextBg()}`}>
-            <div className="max-w-7xl mx-auto px-4">              
+            <div className="max-w-7xl mx-auto px-4">
               <div className="grid grid-cols-12 gap-10 items-start">
                 <div className="col-span-12 md:col-span-4">
                   <div className="relative w-full">
@@ -302,14 +302,13 @@ export default async function JobDetailPage({ params }) {
                     className="prose prose-lg max-w-none"
                     dangerouslySetInnerHTML={{ __html: requirements.ourDreamCandidate }}
                   />
-                </div>                
+                </div>
               </div>
             </div>
           </section>
         )}
 
-       
-        
+
 
         {/* === ROW 3: Responsibilities (6/12) + Qualifications (6/12) === */}
         {(requirements?.requiredSkills?.length || requirements?.requiredQualifications?.length) ? (
@@ -355,11 +354,11 @@ export default async function JobDetailPage({ params }) {
         ) : null}
 
 
-       
+
         {/* === ROW 5: Apply Form — left image 4/12, form 8/12 === */}
 <section id="apply" className={`py-16 ${nextBg()}`}>
   <div className="max-w-4xl mx-auto px-4">
-    
+
 
     <div className="grid grid-cols-12 gap-10 items-start">
       {/* Left image (4/12) */}
@@ -423,11 +422,10 @@ export default async function JobDetailPage({ params }) {
       .hubspot-form-wrapper .hs-hidden { display: none !important; }
     `}</style>
   </div>
-</section>    
+</section>
       </main>
-      
+
       <Footer />
     </>
   );
 }
-
