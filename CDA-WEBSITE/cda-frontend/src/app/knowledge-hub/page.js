@@ -80,11 +80,14 @@ const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
             <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                 <div>
-                  <h1 className="text-4xl md:text-5xl font-bold text-black mb-6">
-                    <UnderlinedTitle size="h1" underlineColor="#34C759">
-                      Knowledge Hub
-                    </UnderlinedTitle>
-                  </h1>
+                  <UnderlinedTitle
+                    as="h1"
+                    className="cda-page-title mb-6"
+                    underlineColor="#01E486"
+                    size="large"
+                  >
+                    Knowledge Hub
+                  </UnderlinedTitle>
                   <p className="text-lg text-[#4B5563] leading-relaxed max-w-2xl">Read more news and articles from CDA, here you can also read our case studies.</p>
                 </div>
                 <div className="flex justify-center lg:justify-end">

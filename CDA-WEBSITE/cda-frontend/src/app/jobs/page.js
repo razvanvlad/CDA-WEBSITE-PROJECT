@@ -89,11 +89,14 @@ export default async function JobsPage() {
           <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
               <div>
-                <h1 className="cda-hero__title-text service-hero-title text-4xl lg:text-5xl pb-10 font-bold mb-6">
-                  <UnderlinedTitle size="h1" underlineColor="#FF5FA0">
-                    Join Our Team
-                  </UnderlinedTitle>
-                </h1>
+                <UnderlinedTitle
+                  as="h1"
+                  className="cda-hero__title-text cda-page-title pb-10 mb-6"
+                  underlineColor="#FF5C8A"
+                  size="large"
+                >
+                  JOIN OUR Team
+                </UnderlinedTitle>
                 <p className="text-lg text-[#4B5563] leading-relaxed max-w-2xl">
                   CDA is a place where people flourish. See what roles we have available for you.
                 </p>

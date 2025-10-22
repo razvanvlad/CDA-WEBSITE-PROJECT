@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import SectionBand from '@/components/SectionBand'
+import UnderlinedTitle from '../UnderlinedTitle'
 
 /**
  * StatsBlock with adjustable gray band.
@@ -35,13 +36,13 @@ export default function StatsBlock({
               {/* Four stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
                 {(stats || []).slice(0, 4).map((s, i) => {
-                  const underlineClasses = [
-                    'underline-pink',
-                    'underline-purple',
-                    'underline-light-blue',
-                    'underline-orange',
+                  const underlineColors = [
+                    '#FF60DF', // 1. Pink
+                    '#AD80F9', // 2. Purple
+                    '#3CBEEB', // 3. Blue
+                    '#FF5C8A', // 4. RedishPink
                   ]
-                  const uClass = underlineClasses[i % underlineClasses.length]
+                  const color = underlineColors[i % underlineColors.length]
                   return (
                     <div key={i}>
                       <div
@@ -53,7 +54,14 @@ export default function StatsBlock({
                           lineHeight: 1,
                         }}
                       >
-                        <span className={`underline-thick ${uClass}`}>{s?.number}</span>
+                        <UnderlinedTitle
+                          as="span"
+                          underlineColor={color}
+                          underlineThickness={6}
+                          underlineOffset={2}
+                        >
+                          {s?.number}
+                        </UnderlinedTitle>
                       </div>
                       <div className="mt-3 text-gray-700 text-lg">{s?.text}</div>
                     </div>

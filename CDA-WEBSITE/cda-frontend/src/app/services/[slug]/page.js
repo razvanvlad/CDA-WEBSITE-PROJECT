@@ -1,6 +1,7 @@
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import HeroSection from '../../../components/GlobalBlocks/HeroSection';
+import UnderlinedTitle from '../../../components/UnderlinedTitle';
 import { notFound } from 'next/navigation';
 import { sanitizeTitleHtml } from '../../../lib/sanitizeTitleHtml';
 import { executeGraphQLQuery, GET_SERVICE_BY_SLUG } from '../../../lib/graphql-queries';
@@ -94,9 +95,16 @@ export default async function ServicePage({ params }) {
         {/* Hero Section */}
         <HeroSection
           sectionClassName="bg-white"
-          titleHtml={sanitizeTitleHtml(service.title)}
-          titleClassName="service-hero-title text-4xl lg:text-5xl font-bold"
-          titleStyle={{ textDecoration: 'underline', textDecorationColor: serviceColor, textDecorationThickness: '11px' }}
+          title={
+            <UnderlinedTitle
+              as="h1"
+              className="cda-hero__title-text cda-page-title"
+              underlineColor={serviceColor}
+              size="large"
+            >
+              {service.title}
+            </UnderlinedTitle>
+          }
           descriptionHtml={heroSection.description || ''}
           descriptionClassName="service-hero-description text-lg text-gray-600"
           ctas={[

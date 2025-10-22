@@ -1,6 +1,7 @@
 import { getPolicyBySlug, getPolicySlugs } from '@/lib/graphql-queries.js'
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
+import UnderlinedTitle from '../../../components/UnderlinedTitle'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -96,7 +97,14 @@ export default async function PolicyDetailPage({ params }) {
 
             {/* Policy Header */}
             <header className="mb-8">
-              <h1 className="text-4xl font-bold text-black mb-2">{policyTitle}</h1>
+              <UnderlinedTitle
+                as="h1"
+                className="cda-page-title mb-2"
+                underlineColor="#AD80F9"
+                size="large"
+              >
+                {policyTitle}
+              </UnderlinedTitle>
 
               {/* Featured Image */}
               {policy.featuredImage?.node?.sourceUrl && (

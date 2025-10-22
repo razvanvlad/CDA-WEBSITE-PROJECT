@@ -10,6 +10,7 @@ import ServicesStats from '@/components/Sections/ServicesStats'
 import ServicesCaseStudiesPreview from '@/components/Sections/ServicesCaseStudiesPreview'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import UnderlinedTitle from '../../components/UnderlinedTitle'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -154,9 +155,16 @@ export default async function ServicesPage() {
         <main className="min-h-screen bg-white">
           <HeroSection
             sectionClassName="bg-white"
-            titleHtml={'The Services We Offer'}
-            titleClassName="font-bold text-gray-900"
-            titleStyle={{fontSize: '50px'}}
+            title={
+              <UnderlinedTitle
+                as="h1"
+                className="cda-hero__title-text cda-page-title"
+                underlineColor="#AD80F9"
+                size="large"
+              >
+                The Services We Offer
+              </UnderlinedTitle>
+            }
             descriptionHtml={`<p>${heroDescription}</p>${extraDescription}`}
             descriptionClassName="text-xl text-gray-600"
             image={heroImageNode}

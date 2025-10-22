@@ -4,145 +4,167 @@ import { useRef, useEffect, useState } from 'react';
 interface UnderlinedTitleProps {
   children: React.ReactNode;
   className?: string;
-  size?: 'h1' | 'h2';
   underlineColor?: string;
+  size?: 'small' | 'medium' | 'large';
+  strokeWidth?: number;
   curveIntensity?: number;
   underlineOffset?: number;
+  centered?: boolean;
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'div';
 }
 
 export default function UnderlinedTitle({
   children,
   className = '',
-  size = 'h1',
-  underlineColor = '#FF60DF',
+  underlineColor = '#FF5C8A',
+  size = 'large',
+  strokeWidth,
   curveIntensity = 0.01,
-  underlineOffset = -40
+  underlineOffset = 20,
+  centered = false,
+  as: Component = 'h2',
 }: UnderlinedTitleProps) {
-  const textRef = useRef<HTMLSpanElement>(null);
-  const [lines, setLines] = useState<Array<{ width: number; top: number; left: number }>>([]);
+  const containerRef = useRef<HTMLSpanElement>(null);
+  const [words, setWords] = useState<{ text: string; width: number; left: number; top: number }[]>([]);
 
-  // Responsive stroke widths based on size and screen
-  const getStrokeWidth = () => {
-    if (typeof window === 'undefined') return size === 'h1' ? 11 : 9;
-
-    const isMobile = window.innerWidth < 1024;
-
-    if (size === 'h1') {
-      return isMobile ? 9 : 11;  // Desktop H1: 11px, Mobile H1: 9px
-    } else {
-      return isMobile ? 7 : 9;   // Desktop H2: 9px, Mobile H2: 7px
-    }
+  const strokeSizes = {
+    large: 11,
+    medium: 9,
+    small: 7
   };
-
-  const [strokeWidth, setStrokeWidth] = useState(getStrokeWidth());
+  const finalStrokeWidth = strokeWidth ?? strokeSizes[size];
 
   useEffect(() => {
-    const calculateLines = () => {
-      if (!textRef.current) return;
+    if (!containerRef.current) return;
 
-      const element = textRef.current;
-      const range = document.createRange();
-      const textNodes: Text[] = [];
+    const measureWords = () => {
+      const container = containerRef.current;
+      if (!container) return;
 
-      // Get all text nodes
-      const walker = document.createTreeWalker(
-        element,
-        NodeFilter.SHOW_TEXT,
-        null
-      );
+      // Get all word elements
+      const wordElements = container.querySelectorAll('.word-measure');
+      const wordsData: { text: string; width: number; left: number; top: number }[] = [];
 
-      let node;
-      while ((node = walker.nextNode())) {
-        if (node.textContent?.trim()) {
-          textNodes.push(node as Text);
-        }
-      }
+      wordElements.forEach((element) => {
+        const rect = element.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
 
-      if (textNodes.length === 0) return;
-
-      // Group text into lines based on Y position
-      const lineMap = new Map<number, { rects: DOMRect[], minLeft: number, maxRight: number }>();
-
-      textNodes.forEach(textNode => {
-        range.selectNodeContents(textNode);
-        const rects = Array.from(range.getClientRects());
-
-        rects.forEach(rect => {
-          const roundedTop = Math.round(rect.top);
-
-          if (!lineMap.has(roundedTop)) {
-            lineMap.set(roundedTop, { rects: [], minLeft: rect.left, maxRight: rect.right });
-          }
-
-          const line = lineMap.get(roundedTop)!;
-          line.rects.push(rect);
-          line.minLeft = Math.min(line.minLeft, rect.left);
-          line.maxRight = Math.max(line.maxRight, rect.right);
+        wordsData.push({
+          text: element.textContent || '',
+          width: rect.width,
+          left: rect.left - containerRect.left,
+          top: rect.top - containerRect.top,
         });
       });
 
-      // Convert to underline format
-      const containerRect = element.getBoundingClientRect();
-      const newLines = Array.from(lineMap.entries())
-        .sort(([a], [b]) => a - b)
-        .map(([top, data]) => ({
-          width: data.maxRight - data.minLeft,
-          top: top - containerRect.top,
-          left: data.minLeft - containerRect.left
-        }));
-
-      setLines(newLines);
-      setStrokeWidth(getStrokeWidth());
+      setWords(wordsData);
     };
 
-    calculateLines();
-    window.addEventListener('resize', calculateLines);
+    measureWords();
 
-    return () => window.removeEventListener('resize', calculateLines);
-  }, [children, size]);
+    const resizeObserver = new ResizeObserver(measureWords);
+    resizeObserver.observe(containerRef.current);
 
-  const generatePath = (width: number) => {
-    const curveDepth = width * curveIntensity;
-    const startY = curveDepth + strokeWidth;
-    const controlY = strokeWidth;
-    const endY = curveDepth + strokeWidth;
-    return `M 0 ${startY} Q ${width / 2} ${controlY} ${width} ${endY}`;
+    return () => resizeObserver.disconnect();
+  }, [children]);
+
+  // Group words by line (same top position)
+  const lineGroups: { text: string; width: number; left: number; top: number }[][] = [];
+  words.forEach((word) => {
+    const existingLine = lineGroups.find(
+      (line) => Math.abs(line[0].top - word.top) < 5
+    );
+    if (existingLine) {
+      existingLine.push(word);
+    } else {
+      lineGroups.push([word]);
+    }
+  });
+
+  // Calculate line dimensions (from first to last word in each line)
+  const lines = lineGroups.map((lineWords) => {
+    const firstWord = lineWords[0];
+    const lastWord = lineWords[lineWords.length - 1];
+    return {
+      width: lastWord.left + lastWord.width - firstWord.left,
+      left: firstWord.left,
+      top: firstWord.top,
+    };
+  });
+
+  const renderUnderline = (lineWidth: number, lineLeft: number, lineTop: number, index: number) => {
+    const curveDepth = lineWidth * curveIntensity;
+    const svgHeight = Math.max(curveDepth + finalStrokeWidth * 2, finalStrokeWidth * 2);
+    const startY = curveDepth + finalStrokeWidth;
+    const controlY = finalStrokeWidth;
+    const endY = curveDepth + finalStrokeWidth;
+    const path = `M 0 ${startY} Q ${lineWidth / 2} ${controlY} ${lineWidth} ${endY}`;
+
+    return (
+      <svg
+        key={index}
+        width={lineWidth}
+        height={svgHeight}
+        style={{
+          position: 'absolute',
+          bottom: `${underlineOffset}px`,
+          left: centered ? '50%' : `${lineLeft}px`,
+          transform: centered ? 'translateX(-50%)' : 'none',
+          top: `${lineTop}px`,
+        }}
+        preserveAspectRatio="none"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d={path}
+          stroke={underlineColor}
+          strokeWidth={finalStrokeWidth}
+          strokeLinecap="round"
+          fill="none"
+        />
+      </svg>
+    );
   };
 
-  return (
-    <span className={`relative inline ${className}`} ref={textRef}>
-      <span className="relative" style={{ zIndex: 10 }}>
-        {children}
-      </span>
-      {lines.map((line, index) => {
-        const svgHeight = Math.max(line.width * curveIntensity + strokeWidth * 2, strokeWidth * 2);
+  // Split text into words for measurement
+  const renderText = () => {
+    if (typeof children !== 'string') return children;
 
-        return (
-          <svg
-            key={index}
-            width={line.width}
-            height={svgHeight}
-            style={{
-              position: 'absolute',
-              left: `${line.left}px`,
-              top: `${line.top}px`,
-              transform: `translateY(${-underlineOffset}px)`,
-              zIndex: 0
-            }}
-            preserveAspectRatio="none"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d={generatePath(line.width)}
-              stroke={underlineColor}
-              strokeWidth={strokeWidth}
-              strokeLinecap="round"
-              fill="none"
-            />
-          </svg>
-        );
-      })}
-    </span>
+    const wordArray = children.split(' ');
+    return wordArray.map((word, index) => (
+      <span key={index}>
+        <span className="word-measure">{word}</span>
+        {index < wordArray.length - 1 && ' '}
+      </span>
+    ));
+  };
+
+  if (centered) {
+    return (
+      <Component className={`${className} flex justify-center text-center`}>
+        <span ref={containerRef} className="relative inline-block">
+          <span className="relative z-10">
+            {renderText()}
+          </span>
+          {lines.map((line, index) =>
+            renderUnderline(line.width, line.left, line.top, index)
+          )}
+        </span>
+      </Component>
+    );
+  }
+
+  return (
+    <Component className={className}>
+      <span ref={containerRef} className="relative inline-block">
+        <span className="relative z-10">
+          {renderText()}
+        </span>
+        {lines.map((line, index) =>
+          renderUnderline(line.width, line.left, line.top, index)
+        )}
+      </span>
+    </Component>
   );
 }
