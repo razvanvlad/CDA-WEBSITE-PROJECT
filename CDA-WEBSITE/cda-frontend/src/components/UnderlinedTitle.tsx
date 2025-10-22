@@ -17,7 +17,7 @@ export default function UnderlinedTitle({
   underlineColor = '#FF60DF',
   size = 'large',
   strokeWidth,
-  curveIntensity = 0.02,
+  curveIntensity = 0.01,
   underlineOffset = -8
 }: UnderlinedTitleProps) {
   const textRef = useRef<HTMLSpanElement>(null);
@@ -37,9 +37,13 @@ export default function UnderlinedTitle({
     }
   }, [children]);
 
-  // Calculate curve path
-  const height = textWidth * curveIntensity;
-  const path = `M 0 ${height} Q ${textWidth / 2} 0 ${textWidth} ${height}`;
+  // Calculate curve path with proper dimensions
+  const curveDepth = textWidth * curveIntensity;
+  const svgHeight = Math.max(curveDepth + finalStrokeWidth * 2, finalStrokeWidth * 2);
+  const startY = curveDepth + finalStrokeWidth;
+  const controlY = finalStrokeWidth;
+  const endY = curveDepth + finalStrokeWidth;
+  const path = `M 0 ${startY} Q ${textWidth / 2} ${controlY} ${textWidth} ${endY}`;
 
   return (
     <span className={`relative inline-block ${className}`}>
@@ -49,7 +53,7 @@ export default function UnderlinedTitle({
       {textWidth > 0 && (
         <svg
           width={textWidth}
-          height={height}
+          height={svgHeight}
           style={{
             position: 'absolute',
             bottom: `${underlineOffset}px`,
