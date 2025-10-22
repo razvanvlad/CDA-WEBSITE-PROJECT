@@ -156,7 +156,7 @@ export default async function ServicesPage() {
             sectionClassName="bg-white"
             titleHtml={'The Services We Offer'}
             titleClassName="font-bold text-gray-900"
-            titleStyle={{ textDecoration: 'underline', textDecorationColor: '#AD80F9', textDecorationThickness: '11px', fontSize: '50px' }}
+            titleStyle={{fontSize: '50px'}}
             descriptionHtml={`<p>${heroDescription}</p>${extraDescription}`}
             descriptionClassName="text-xl text-gray-600"
             image={heroImageNode}

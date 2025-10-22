@@ -40,8 +40,8 @@
   align-items: center;
   justify-content: center;
   padding: 0.75rem 3rem;
-  font-family: var(--font-inter), sans-serif;
-  font-weight: 400;
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 700;
   font-size: 18px;
   color: black;
   background-color: white;
@@ -63,8 +63,8 @@
   align-items: center;
   justify-content: center;
   padding: 0.75rem 3rem;
-  font-family: var(--font-inter), sans-serif;
-  font-weight: 400;
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 700;
   font-size: 18px;
 
   color: black;                 /* text is black */
@@ -302,133 +302,7 @@
 }
 
 
-/* Text colored underlines */
-/* Underline Color Classes */
-.underline-orange {
-  text-decoration: underline;
-  text-decoration-color: #FD8721;
-}
-
-.underline-pink {
-  text-decoration: underline;
-  text-decoration-color: #FF5C8A;
-}
-
-.underline-purple {
-  text-decoration: underline;
-  text-decoration-color: #AD80F9;
-}
-
-.underline-light-blue {
-  text-decoration: underline;
-  text-decoration-color: #3CBEEB;
-}
-
-.underline-green {
-  text-decoration: underline;
-  text-decoration-color: #01E486;
-}
-
-/* Underline Thickness Classes */
-.underline-thin {
-  text-decoration-thickness: 9px;
-}
-
-.underline-thick {
-  text-decoration-thickness: 11px;
-}
-
-/* Combined Classes for H1 and Title Usage */
-.title-small {
-  font-size: 38px;
-  font-weight: bold;
-}
-
-.title-large {
-  font-size: 50px;
-  font-weight: bold;
-}
-
-/* Utility combinations - you can use these directly */
-.title-small-orange {
-  font-size: 38px;
-  font-weight: bold;
-  text-decoration: underline;
-  text-decoration-color: #FD8721;
-  text-decoration-thickness: 9px;
-}
-
-.title-small-pink {
-  font-size: 38px;
-  font-weight: bold;
-  text-decoration: underline;
-  text-decoration-color: #FF5C8A;
-  text-decoration-thickness: 9px;
-}
-
-.title-small-purple {
-  font-size: 38px;
-  font-weight: bold;
-  text-decoration: underline;
-  text-decoration-color: #AD80F9;
-  text-decoration-thickness: 9px;
-}
-
-.title-small-light-blue {
-  font-size: 38px;
-  font-weight: bold;
-  text-decoration: underline;
-  text-decoration-color: #3CBEEB;
-  text-decoration-thickness: 9px;
-}
-
-.title-small-green {
-  font-size: 38px;
-  font-weight: bold;
-  text-decoration: underline;
-  text-decoration-color: #01E486;
-  text-decoration-thickness: 9px;
-}
-
-.title-large-orange {
-  font-size: 50px;
-  font-weight: bold;
-  text-decoration: underline;
-  text-decoration-color: #FD8721;
-  text-decoration-thickness: 11px;
-}
-
-.title-large-pink {
-  font-size: 50px;
-  font-weight: bold;
-  text-decoration: underline;
-  text-decoration-color: #FF5C8A;
-  text-decoration-thickness: 11px;
-}
-
-.title-large-purple {
-  font-size: 50px;
-  font-weight: bold;
-  text-decoration: underline;
-  text-decoration-color: #AD80F9;
-  text-decoration-thickness: 11px;
-}
-
-.title-large-light-blue {
-  font-size: 50px;
-  font-weight: bold;
-  text-decoration: underline;
-  text-decoration-color: #3CBEEB;
-  text-decoration-thickness: 11px;
-}
-
-.title-large-green {
-  font-size: 50px;
-  font-weight: bold;
-  text-decoration: underline;
-  text-decoration-color: #01E486;
-  text-decoration-thickness: 11px;
-}
+/* OLD underline classes removed - superseded by UnderlinedTitle component */
 
 .nav-link {
   color: #000000;
@@ -1853,45 +1727,7 @@
 
 
 
-.nav-link {
-  color: #000000;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.nav-link:hover,
-.nav-link.active {
-  color: #000000;
-  text-decoration: underline;
-  text-decoration-color: #3CBEEB;
-  text-decoration-thickness: 4px;
-}
-
-/* Title underline svg helper */
-.underline-svg {
-  position: absolute;
-  left: 0;
-  bottom: -10px; /* tight against glyphs */
-  width: 100%;
-  height: auto;
-  pointer-events: none;
-  user-select: none;
-}
-
-/* Values number badge */
-.value-badge {
-  width: 75px;
-  height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  color: #fff;
-  background: #000000; /* black */
-  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #000000; /* double outline */
-}
+/* Duplicate nav-link and helpers removed */
 
 /* CSS FOR VERTICAL BUTTON */
 
