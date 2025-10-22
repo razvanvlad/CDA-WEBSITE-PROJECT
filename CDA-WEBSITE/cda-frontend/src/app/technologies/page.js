@@ -28,7 +28,7 @@ export default async function TechnologiesPage() {
   return (
     <>
       <Header />
-      
+
       {/* Standard Hero Section */}
       <section className="bg-white py-16">
         <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
@@ -36,7 +36,7 @@ export default async function TechnologiesPage() {
             {/* Left: Title + Copy */}
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-black mb-6">
-                <UnderlinedTitle size="h1" underlineColor="#7B61FF">
+                <UnderlinedTitle size="h1" underlineColor="#AD80F9">
                   The Technologies We Use
                 </UnderlinedTitle>
               </h1>
@@ -106,7 +106,7 @@ export default async function TechnologiesPage() {
 
       {/* Approach Global Block right after technologies */}
       {globalData?.approach && (
-        <ApproachBlock 
+        <ApproachBlock
           globalData={globalData.approach}
           pageData={null}
           useOverride={false}
@@ -118,7 +118,7 @@ export default async function TechnologiesPage() {
 
       {/* Global tail sections (Case Studies, Approach) */}
       <GlobalTailSections globalData={globalData} enableStats={false} />
-      
+
       <Footer />
     </>
   );
