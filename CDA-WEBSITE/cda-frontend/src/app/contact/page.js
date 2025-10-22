@@ -44,11 +44,14 @@ export default async function ContactPage() {
         <div className="contact-container">
           <div className="contact-content">
             <div className="contact-header">
-              <h1 className="contact-title">
-                <UnderlinedTitle size="h1" underlineColor="#FD8721">
-                  Send Us A Message
-                </UnderlinedTitle>
-              </h1>
+              <UnderlinedTitle
+                as="h1"
+                className="contact-title"
+                underlineColor="#FD8721"
+                size="large"
+              >
+                Send Us A Message
+              </UnderlinedTitle>
             </div>
 
             <div className="contact-form-wrapper">

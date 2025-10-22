@@ -35,11 +35,14 @@ export default async function TechnologiesPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             {/* Left: Title + Copy */}
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-black mb-6">
-                <UnderlinedTitle size="h1" underlineColor="#AD80F9">
-                  The Technologies We Use
-                </UnderlinedTitle>
-              </h1>
+              <UnderlinedTitle
+                as="h1"
+                className="cda-page-title mb-6"
+                underlineColor="#AD80F9"
+                size="large"
+              >
+                The Technologies We Use
+              </UnderlinedTitle>
               <p className="text-lg text-[#4B5563] leading-relaxed max-w-2xl">
                 Discover the cutting-edge technologies and frameworks we use to build exceptional digital solutions for our clients.
               </p>

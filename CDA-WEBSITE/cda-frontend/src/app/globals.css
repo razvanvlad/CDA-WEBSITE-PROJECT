@@ -14,6 +14,14 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
+
+  /* CDA Brand Colors */
+  --color-brand-blue: #3CBEEB;
+  --color-brand-green: #01E486;
+  --color-brand-orange: #FD8721;
+  --color-brand-pink: #FF60DF;
+  --color-brand-redish-pink: #FF5C8A;
+  --color-brand-purple: #AD80F9;
 }
 
 /* ─────────────────────────────────────────────────────────────────
@@ -52,12 +60,29 @@ body {
    COLOR UTILITY CLASSES
    ───────────────────────────────────────────────────────────────── */
 
-.title-large-orange { --u-color: #FD8721; }
-.title-large-pink { --u-color: #FF5FA0; }
-.title-large-purple { --u-color: #7B61FF; }
-.title-large-light-blue { --u-color: #4FC3F7; }
-.title-large-green { --u-color: #34C759; }
-.title-large-roz { --u-color: #FF60DF; }
+.title-large-orange {
+  --u-color: #FD8721;
+}
+
+.title-large-pink {
+  --u-color: #FF5FA0;
+}
+
+.title-large-purple {
+  --u-color: #7B61FF;
+}
+
+.title-large-light-blue {
+  --u-color: #4FC3F7;
+}
+
+.title-large-green {
+  --u-color: #34C759;
+}
+
+.title-large-roz {
+  --u-color: #FF60DF;
+}
 
 /* ─────────────────────────────────────────────────────────────────
    LAYOUT UTILITIES
@@ -146,6 +171,7 @@ body {
    ───────────────────────────────────────────────────────────────── */
 
 .wysiwyg-content {
+
   /* Remove default paragraph styling */
   p {
     margin: 0;

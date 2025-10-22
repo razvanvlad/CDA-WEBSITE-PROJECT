@@ -1,5 +1,6 @@
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
+import UnderlinedTitle from '../../../components/UnderlinedTitle';
 import { notFound } from 'next/navigation';
 import { getJobListingBySlug, getJobListingSlugs, getJobListingsSimple } from '../../../lib/graphql-queries';
 import Image from 'next/image';
@@ -152,9 +153,14 @@ export default async function JobDetailPage({ params }) {
                   </span>
                 </div>
 
-                <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-black">
+                <UnderlinedTitle
+                  as="h1"
+                  className="cda-page-title mb-6"
+                  underlineColor="#3CBEEB"
+                  size="large"
+                >
                   {job.title}
-                </h1>
+                </UnderlinedTitle>
 
                 {job.excerpt && (
                   <div 

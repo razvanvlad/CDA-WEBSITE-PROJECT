@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import UnderlinedTitle from '../UnderlinedTitle';
 
 const ApproachBlock = ({ globalData, pageData, useOverride = false }) => {
   const data = useOverride && pageData ? pageData : globalData;
@@ -63,9 +64,13 @@ const ApproachBlock = ({ globalData, pageData, useOverride = false }) => {
             </h2>
           )}
           {data.title && (
-            <p className="cda-title">
+            <UnderlinedTitle
+              as="h2"
+              className="cda-title"
+              underlineColor="#FF60DF"
+            >
               {data.title}
-            </p>
+            </UnderlinedTitle>
           )}
         </div>
 

@@ -2,6 +2,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import UnderlinedTitle from '../UnderlinedTitle';
 
 const ServicesAccordion = ({
   globalData,
@@ -48,7 +49,13 @@ const ServicesAccordion = ({
           <div className="col-span-12 lg:col-span-4">
             {globalData.subtitle && <p className="cda-subtitle">{globalData.subtitle}</p>}
             {globalData.title && (
-              <h2 className="cda-title title-small-purple">{globalData.title}</h2>
+              <UnderlinedTitle
+                as="h2"
+                className="cda-title title-small-purple"
+                underlineColor="#AD80F9"
+              >
+                {globalData.title}
+              </UnderlinedTitle>
             )}
           </div>
 

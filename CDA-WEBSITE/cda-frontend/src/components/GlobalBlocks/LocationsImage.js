@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import UnderlinedTitle from '../UnderlinedTitle';
 
 /*
   LocationsImage (Global block)
@@ -30,7 +31,13 @@ const LocationsImage = ({ globalData }) => {
             <p className="cda-subtitle">{globalData.subtitle}</p>
           )}
           {globalData.title && (
-            <h2 className="cda-title title-small-pink">{globalData.title}</h2>
+            <UnderlinedTitle
+              as="h2"
+              className="cda-title title-small-pink"
+              underlineColor="#FF5C8A"
+            >
+              {globalData.title}
+            </UnderlinedTitle>
           )}
         </div>
 
@@ -44,11 +51,21 @@ const LocationsImage = ({ globalData }) => {
                   key={idx}
                   type="button"
                   onClick={() => setActive(idx)}
-                  className="relative pb-1 text-[24px] font-semibold shrink-0"
+                  className="relative pb-1 shrink-0"
                   aria-pressed={isActive}
                 >
-                  <span className={isActive ? 'text-[#111827]' : 'text-[#9CA3AF]'}>{c.countryName}</span>
-                  {isActive && <span className="absolute left-0 right-0 -bottom-0.5 h-[6px] bg-[#FF3B80]"></span>}
+                  {isActive ? (
+                    <UnderlinedTitle
+                      as="span"
+                      className="text-[24px] font-semibold text-[#111827]"
+                      underlineColor="#FF5C8A"
+                      strokeWidth={6}
+                    >
+                      {c.countryName}
+                    </UnderlinedTitle>
+                  ) : (
+                    <span className="text-[24px] font-semibold text-[#9CA3AF]">{c.countryName}</span>
+                  )}
                 </button>
               );
             })}
@@ -67,11 +84,21 @@ const LocationsImage = ({ globalData }) => {
                       key={idx}
                       type="button"
                       onClick={() => setActive(idx)}
-                      className="relative text-left pb-1 text-[28px] font-semibold"
+                      className="relative text-left pb-1"
                       aria-pressed={isActive}
                     >
-                      <span className={isActive ? 'text-[#111827]' : 'text-[#9CA3AF]'}>{c.countryName}</span>
-                      {isActive && <span className="title-underline title-large-pink u-full u-gap-12"></span>}
+                      {isActive ? (
+                        <UnderlinedTitle
+                          as="span"
+                          className="text-[28px] font-semibold text-[#111827]"
+                          underlineColor="#FF5C8A"
+                          strokeWidth={6}
+                        >
+                          {c.countryName}
+                        </UnderlinedTitle>
+                      ) : (
+                        <span className="text-[28px] font-semibold text-[#9CA3AF]">{c.countryName}</span>
+                      )}
                     </button>
                   );
                 })}
