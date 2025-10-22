@@ -6,7 +6,9 @@
       "Bash(dir /b)",
       "Bash(git log --name-only --pretty=format:\"COMMIT: %h - %s\" -10)",
       "Bash(git checkout -b backup-before-typography-fix)",
-      "Bash(git add .)"
+      "Bash(git add .)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: Typography system refactor with responsive underlines\n\n- Implement responsive UnderlinedTitle component with multi-line support\n- Split CSS into modular files (typography, buttons, components, utilities)\n- Fix font-weight conflicts (font-bold now works everywhere)\n- Standardize button styles (all use Poppins Bold)\n- Migrate 8 pages to new UnderlinedTitle component\n- Remove duplicate and conflicting CSS\n- Add responsive typography (desktop/mobile sizes)\n- H1: Desktop 50px/11px stroke, Mobile 38px/9px stroke\n- H2: Desktop 38px/9px stroke, Mobile 28px/7px stroke\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push origin fix/cda-5-services-page-bugs)"
     ],
     "deny": [],
     "ask": []

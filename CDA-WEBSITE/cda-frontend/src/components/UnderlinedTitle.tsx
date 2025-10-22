@@ -16,7 +16,7 @@ export default function UnderlinedTitle({
   size = 'h1',
   underlineColor = '#FF60DF',
   curveIntensity = 0.01,
-  underlineOffset = -8
+  underlineOffset = -40
 }: UnderlinedTitleProps) {
   const textRef = useRef<HTMLSpanElement>(null);
   const [lines, setLines] = useState<Array<{ width: number; top: number; left: number }>>([]);
@@ -111,7 +111,9 @@ export default function UnderlinedTitle({
 
   return (
     <span className={`relative inline ${className}`} ref={textRef}>
-      {children}
+      <span className="relative" style={{ zIndex: 10 }}>
+        {children}
+      </span>
       {lines.map((line, index) => {
         const svgHeight = Math.max(line.width * curveIntensity + strokeWidth * 2, strokeWidth * 2);
 
@@ -122,9 +124,10 @@ export default function UnderlinedTitle({
             height={svgHeight}
             style={{
               position: 'absolute',
-              bottom: `${underlineOffset}px`,
               left: `${line.left}px`,
-              top: `${line.top + 10}px`
+              top: `${line.top}px`,
+              transform: `translateY(${-underlineOffset}px)`,
+              zIndex: 0
             }}
             preserveAspectRatio="none"
             fill="none"
