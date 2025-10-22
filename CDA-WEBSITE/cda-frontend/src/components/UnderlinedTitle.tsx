@@ -20,7 +20,7 @@ export default function UnderlinedTitle({
   size = 'large',
   strokeWidth,
   curveIntensity = 0.01,
-  underlineOffset = 20,
+  underlineOffset = 37,
   centered = false,
   as: Component = 'h2',
 }: UnderlinedTitleProps) {
@@ -107,10 +107,9 @@ export default function UnderlinedTitle({
         height={svgHeight}
         style={{
           position: 'absolute',
-          bottom: `${underlineOffset}px`,
+          top: `${lineTop + underlineOffset}px`,
           left: centered ? '50%' : `${lineLeft}px`,
           transform: centered ? 'translateX(-50%)' : 'none',
-          top: `${lineTop}px`,
         }}
         preserveAspectRatio="none"
         fill="none"
