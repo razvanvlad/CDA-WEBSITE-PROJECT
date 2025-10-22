@@ -1,5 +1,7 @@
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import HeroSection from '../../components/GlobalBlocks/HeroSection'
+import UnderlinedTitle from '../../components/UnderlinedTitle'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -45,12 +47,47 @@ export default async function NewsArchivePage() {
   return (
     <>
       <Header />
+
+      {/* Hero Section */}
+      <HeroSection
+        sectionClassName="bg-white"
+        title={
+          <UnderlinedTitle
+            as="h1"
+            className="cda-hero__title-text cda-page-title"
+            underlineColor="#FF60DF"
+            size="large"
+          >
+            News & Insights
+          </UnderlinedTitle>
+        }
+        description="Stay up to date with the latest news, updates, and industry insights from CDA. Discover trends, tips, and expert advice."
+        descriptionClassName="text-lg text-gray-600"
+        ctas={[
+          {
+            label: 'Subscribe to Newsletter',
+            href: '#newsletter',
+            className: 'button-l',
+          },
+          {
+            label: 'View Case Studies',
+            href: '/case-studies',
+            className: 'button-secondary',
+          },
+        ]}
+        image={
+          <img
+            src="/images/news-hero.svg"
+            alt="News and Insights illustration"
+            width={600}
+            height={400}
+            className="cda-hero__image-media"
+          />
+        }
+      />
+
       <main className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">News & Insights</h1>
-            <p className="text-lg text-gray-600">Latest updates and industry insights</p>
-          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map((post) => (

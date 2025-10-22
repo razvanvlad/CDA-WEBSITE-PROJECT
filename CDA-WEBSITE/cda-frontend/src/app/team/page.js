@@ -3,6 +3,7 @@ import Footer from '../../components/Footer'
 import HeroSection from '@/components/GlobalBlocks/HeroSection'
 import Link from 'next/link'
 import Image from 'next/image'
+import UnderlinedTitle from '../../components/UnderlinedTitle'
 import { sanitizeTitleHtml } from '@/lib/sanitizeTitleHtml'
 import { executeGraphQLQuery, getGlobalContent, getPageGlobalTogglesByUri, getPageGlobalTogglesBySlug, getTeamMembersWithPagination, getTeamMembersCoreWithPagination } from '@/lib/graphql-queries'
 
@@ -151,8 +152,16 @@ export default async function TeamPage() {
       {header && (
         <HeroSection
           sectionClassName="bg-white"
-          titleHtml={sanitizeTitleHtml(header.title || 'Team')}
-          titleClassName="cda-page-title title-large-light-blue"
+          title={
+            <UnderlinedTitle
+              as="h1"
+              className="cda-hero__title-text cda-page-title"
+              underlineColor="#FD8721"
+              size="large"
+            >
+              {header.title || 'The Team Behind The Work'}
+            </UnderlinedTitle>
+          }
           descriptionHtml={header.description || ''}
           ctas={[
             header.cta?.url
@@ -213,7 +222,15 @@ export default async function TeamPage() {
           <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
             <div className="mb-8">
               {meet.subtitle && (<p className="cda-subtitle">{meet.subtitle}</p>)}
-              {meet.title && (<h2 className="cda-title title-small-purple">{meet.title}</h2>)}
+              {meet.title && (
+                <UnderlinedTitle
+                  as="h2"
+                  className="cda-title"
+                  underlineColor="#FF60DF"
+                >
+                  {meet.title}
+                </UnderlinedTitle>
+              )}
             </div>
             {allTeam && allTeam.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

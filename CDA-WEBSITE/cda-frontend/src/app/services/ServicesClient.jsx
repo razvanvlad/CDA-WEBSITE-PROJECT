@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
+import UnderlinedTitle from '@/components/UnderlinedTitle';
 
 const getServiceColor = (slug) => {
   const colorMap = {
@@ -88,17 +89,11 @@ export default function ServicesClient({ initialItems = [] }) {
                 ))}
               </div>
 
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                <Link
-                  href={`/services/${service.slug}`}
-                  className="transition-colors"
-                  style={{
-                    textDecoration: 'underline',
-                    textDecorationColor: getServiceColor(service.slug),
-                    textDecorationThickness: '4px',
-                  }}
-                >
-                  {service.title}
+              <h2 className="font-bold text-gray-900 mb-4" style={{ fontSize: '38px', lineHeight: '1.2' }}>
+                <Link href={`/services/${service.slug}`} className="transition-colors">
+                  <UnderlinedTitle size="h2" underlineColor={getServiceColor(service.slug)}>
+                    {service.title}
+                  </UnderlinedTitle>
                 </Link>
               </h2>
 
@@ -118,10 +113,6 @@ export default function ServicesClient({ initialItems = [] }) {
 
             {/* Right Section - Content */}
             <div className="lg:w-2/3 p-6">
-              {service.excerpt && (
-                <div className="text-gray-600 mb-4" dangerouslySetInnerHTML={{ __html: service.excerpt }} />
-              )}
-
               {service.serviceFields?.heroSection?.description && (
                 <div className="mb-6">
                   {service.serviceFields?.serviceBulletPoints?.title && (
@@ -137,26 +128,22 @@ export default function ServicesClient({ initialItems = [] }) {
 
               {service.serviceFields?.serviceBulletPoints?.bullets && service.serviceFields.serviceBulletPoints.bullets.length > 0 && (
                 <div className="mb-6">
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 list-disc pl-5">
                     {service.serviceFields.serviceBulletPoints.bullets.slice(0, 6).map((bullet, index) => (
-                      <li key={index} className="flex items-start space-x-2">
-                        <div
-                          className="flex-shrink-0 w-2 h-2 rounded-full mt-2"
-                          style={{ backgroundColor: getServiceColor(service.slug) }}
-                        ></div>
-                        <span className="text-gray-700 text-sm">{bullet.text}</span>
+                      <li key={index} className="text-gray-700" style={{ color: getServiceColor(service.slug), fontSize: '18px' }}>
+                        <span className="text-gray-700">{bullet.text}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               )}
 
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-8">
                 <Link href={`/services/${service.slug}#contact-form`} className="button-l">
-                  Get Started
+                  Find Out More
                 </Link>
                 <Link href={`/services/${service.slug}`} className="button-without-box">
-                  Learn more
+                  Speak To Us
                 </Link>
               </div>
             </div>

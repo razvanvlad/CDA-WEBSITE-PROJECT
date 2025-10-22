@@ -1,6 +1,7 @@
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import HeroSection from '../../../components/GlobalBlocks/HeroSection';
+import UnderlinedTitle from '../../../components/UnderlinedTitle';
 import { notFound } from 'next/navigation';
 import { sanitizeTitleHtml } from '../../../lib/sanitizeTitleHtml';
 import { executeGraphQLQuery, GET_SERVICE_BY_SLUG } from '../../../lib/graphql-queries';
@@ -10,6 +11,7 @@ import HubspotFormEmbed from '../../../components/HubspotFormEmbed';
 import ApproachBlock from '../../../components/GlobalBlocks/ApproachBlock';
 import NewsCarousel from '../../../components/GlobalBlocks/NewsCarousel';
 import ServicesSlider from '../../../components/GlobalBlocks/ServicesSlider.jsx';
+import SellOnline from '@/components/SellOnline';
 
 export const revalidate = 120;
 
@@ -93,9 +95,16 @@ export default async function ServicePage({ params }) {
         {/* Hero Section */}
         <HeroSection
           sectionClassName="bg-white"
-          titleHtml={sanitizeTitleHtml(service.title)}
-          titleClassName="service-hero-title text-4xl lg:text-5xl font-bold"
-          titleStyle={{ textDecoration: 'underline', textDecorationColor: serviceColor, textDecorationThickness: '11px' }}
+          title={
+            <UnderlinedTitle
+              as="h1"
+              className="cda-hero__title-text cda-page-title"
+              underlineColor={serviceColor}
+              size="large"
+            >
+              {service.title}
+            </UnderlinedTitle>
+          }
           descriptionHtml={heroSection.description || ''}
           descriptionClassName="service-hero-description text-lg text-gray-600"
           ctas={[
@@ -250,6 +259,9 @@ export default async function ServicePage({ params }) {
             })) || []
           }} />
         )}
+
+        {/* Sell Online CTA */}
+        <SellOnline />
 
         {/* Global Case Studies Section */}
         {globalSelection?.enableCaseStudies && globalContentBlocks?.caseStudiesSection && (

@@ -10,6 +10,7 @@ import ServicesStats from '@/components/Sections/ServicesStats'
 import ServicesCaseStudiesPreview from '@/components/Sections/ServicesCaseStudiesPreview'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import UnderlinedTitle from '../../components/UnderlinedTitle'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -74,7 +75,7 @@ async function getServiceTypes() {
       }
     }
   `
-  
+
   try {
     const response = await executeGraphQLQuery(query)
     return response.data?.serviceTypes?.nodes || []
@@ -96,7 +97,7 @@ export default async function ServicesPage() {
 
     // Fetch service types (if you later want to expose UI filters)
     const serviceTypes = await getServiceTypes()
-    
+
     // Fetch global content for Approach Block
     const globalContent = await getAllGlobalContentBlocks()
 
@@ -154,9 +155,16 @@ export default async function ServicesPage() {
         <main className="min-h-screen bg-white">
           <HeroSection
             sectionClassName="bg-white"
-            titleHtml={'The Services We Offer'}
-            titleClassName="text-4xl font-bold text-gray-900"
-            titleStyle={{ textDecoration: 'underline', textDecorationColor: '#AD80F9', textDecorationThickness: '11px' }}
+            title={
+              <UnderlinedTitle
+                as="h1"
+                className="cda-hero__title-text cda-page-title"
+                underlineColor="#AD80F9"
+                size="large"
+              >
+                The Services We Offer
+              </UnderlinedTitle>
+            }
             descriptionHtml={`<p>${heroDescription}</p>${extraDescription}`}
             descriptionClassName="text-xl text-gray-600"
             image={heroImageNode}
@@ -167,117 +175,117 @@ export default async function ServicesPage() {
             <ServicesFilters options={(serviceTypes || []).map(t => ({ label: t.name, slug: t.slug }))} />
           </Suspense>
           <div className="max-w-7xl mx-auto px-4 py-16">
-          {/* Service Landing Two-Column Section */}
-          {(overviewContent?.featuredServiceSection || overviewContent?.rightColumn) && (
-            <section className="mb-12">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-                {/* Left column 1/3 - Featured Case Study */}
-                <div className="lg:col-span-1">
-                  <div className="bg-white rounded-lg shadow p-6 h-full">
-                    {overviewContent?.featuredServiceSection?.leftColumnTitle && (
-                      <h2 className="text-lg font-semibold text-gray-900 mb-4">{overviewContent.featuredServiceSection.leftColumnTitle}</h2>
-                    )}
-                    {featuredCaseStudy ? (
-                      <div>
-                        {featuredCaseStudy?.featuredImage?.node?.sourceUrl && (
-                          <div className="relative w-full h-40 mb-4 overflow-hidden rounded-md">
-                            <Image
-                              src={featuredCaseStudy.featuredImage.node.sourceUrl}
-                              alt={featuredCaseStudy.featuredImage.node.altText || featuredCaseStudy.title}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                        )}
-                        <h3 className="text-md font-semibold mb-2">{featuredCaseStudy.title}</h3>
-                        <Link
-                          href={`/case-studies/${featuredCaseStudy.slug}`}
-                          className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                        >
-                          {overviewContent?.featuredServiceSection?.caseStudyCtaLabel || 'Explore Case Study'}
-                        </Link>
-                      </div>
-                    ) : (
-                      <p className="text-gray-500">Configure a featured case study in Service Overview Content.</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Right column 2/3 - From service post */}
-                <div className="lg:col-span-2">
-                  <div className="bg-white rounded-lg shadow p-6 h-full">
-                    {overviewContent?.rightColumn?.title && (
-                      <h2 className="text-2xl font-bold text-gray-900 mb-3">{overviewContent.rightColumn.title}</h2>
-                    )}
-                    {overviewContent?.rightColumn?.description && (
-                      <p className="text-gray-700 mb-4">{overviewContent.rightColumn.description}</p>
-                    )}
-
-                    {/* Bullets */}
-                    {overviewContent?.rightColumn?.bulletPoints && overviewContent.rightColumn.bulletPoints.length > 0 && (
-                      <div className={`grid gap-2 ${overviewContent.rightColumn.bulletsTwoRows ? 'sm:grid-cols-2' : 'sm:grid-cols-1'}`}>
-                        {overviewContent.rightColumn.bulletPoints.map((b, i) => (
-                          <div key={i} className="flex items-start gap-2">
-                            <span className="mt-1 inline-block w-2 h-2 rounded-full bg-blue-600"></span>
-                            <span className="text-gray-700">{b.text}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* CTAs */}
-                    <div className="mt-6 flex flex-wrap gap-3">
-                      {overviewContent?.rightColumn?.ctaServiceLink?.url && (
-                        <Link href={overviewContent.rightColumn.ctaServiceLink.url} className="px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                          {overviewContent.rightColumn.ctaServiceLink.title || 'View Service'}
-                        </Link>
+            {/* Service Landing Two-Column Section */}
+            {(overviewContent?.featuredServiceSection || overviewContent?.rightColumn) && (
+              <section className="mb-12">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                  {/* Left column 1/3 - Featured Case Study */}
+                  <div className="lg:col-span-1">
+                    <div className="bg-white rounded-lg shadow p-6 h-full">
+                      {overviewContent?.featuredServiceSection?.leftColumnTitle && (
+                        <h2 className="text-lg font-semibold text-gray-400 mb-4">{overviewContent.featuredServiceSection.leftColumnTitle}</h2>
                       )}
-                      {overviewContent?.rightColumn?.ctaContactUs?.url && (
-                        <Link href={overviewContent.rightColumn.ctaContactUs.url} className="px-5 py-2 border border-blue-600 text-blue-700 rounded hover:bg-blue-50">
-                          {overviewContent.rightColumn.ctaContactUs.title || 'Speak To Us'}
-                        </Link>
+                      {featuredCaseStudy ? (
+                        <div>
+                          {featuredCaseStudy?.featuredImage?.node?.sourceUrl && (
+                            <div className="relative w-full h-40 mb-4 overflow-hidden rounded-md">
+                              <Image
+                                src={featuredCaseStudy.featuredImage.node.sourceUrl}
+                                alt={featuredCaseStudy.featuredImage.node.altText || featuredCaseStudy.title}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                          )}
+                          <h3 className="text-md font-semibold mb-2">{featuredCaseStudy.title}</h3>
+                          <Link
+                            href={`/case-studies/${featuredCaseStudy.slug}`}
+                            className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                          >
+                            {overviewContent?.featuredServiceSection?.caseStudyCtaLabel || 'Explore Case Study'}
+                          </Link>
+                        </div>
+                      ) : (
+                        <p className="text-gray-500">Configure a featured case study in Service Overview Content.</p>
                       )}
                     </div>
                   </div>
+
+                  {/* Right column 2/3 - From service post */}
+                  <div className="lg:col-span-2">
+                    <div className="bg-white rounded-lg shadow p-6 h-full">
+                      {overviewContent?.rightColumn?.title && (
+                        <h2 className="text-2xl font-bold text-gray-900 mb-3">{overviewContent.rightColumn.title}</h2>
+                      )}
+                      {overviewContent?.rightColumn?.description && (
+                        <p className="text-gray-700 mb-4">{overviewContent.rightColumn.description}</p>
+                      )}
+
+                      {/* Bullets */}
+                      {overviewContent?.rightColumn?.bulletPoints && overviewContent.rightColumn.bulletPoints.length > 0 && (
+                        <div className={`grid gap-2 ${overviewContent.rightColumn.bulletsTwoRows ? 'sm:grid-cols-2' : 'sm:grid-cols-1'}`}>
+                          {overviewContent.rightColumn.bulletPoints.map((b, i) => (
+                            <div key={i} className="flex items-start gap-2">
+                              <span className="mt-1 inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+                              <span className="text-gray-700">{b.text}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* CTAs */}
+                      <div className="mt-6 flex flex-wrap gap-3">
+                        {overviewContent?.rightColumn?.ctaServiceLink?.url && (
+                          <Link href={overviewContent.rightColumn.ctaServiceLink.url} className="px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                            {overviewContent.rightColumn.ctaServiceLink.title || 'View Service'}
+                          </Link>
+                        )}
+                        {overviewContent?.rightColumn?.ctaContactUs?.url && (
+                          <Link href={overviewContent.rightColumn.ctaContactUs.url} className="px-5 py-2 border border-blue-600 text-blue-700 rounded hover:bg-blue-50">
+                            {overviewContent.rightColumn.ctaContactUs.title || 'Speak To Us'}
+                          </Link>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </section>
+            )}
+
+
+
+            {/* Services Grid - client-side filtering */}
+            <Suspense fallback={<div className="max-w-7xl mx-auto px-4 py-16 text-gray-500">Loading services…</div>}>
+              <ServicesClient initialItems={services} />
+            </Suspense>
+
+            {/* Our Approach Global Block (placed directly after the services list) */}
+            {globalContent?.approach && (
+              <ApproachBlock
+                globalData={globalContent.approach}
+                pageData={null}
+                useOverride={false}
+              />
+            )}
+
+            {/* Showreel Global Block (instead of Values) */}
+            <section className="relative py-16 overflow-visible">
+              {/* Full-bleed bg that paints only the top half */}
+              <div
+                className="absolute inset-0 left-1/2 right-1/2 -mx-[50vw] w-screen -z-10 pointer-events-none"
+                style={{
+                  background: "#F4F4F4",
+                }}
+                aria-hidden="true"
+              />
+              <div className="relative z-10 mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+                <Showreel globalData={globalContent.showreel} />
               </div>
             </section>
-          )}
 
 
 
-          {/* Services Grid - client-side filtering */}
-          <Suspense fallback={<div className="max-w-7xl mx-auto px-4 py-16 text-gray-500">Loading services…</div>}>
-            <ServicesClient initialItems={services} />
-          </Suspense>
-
-          {/* Our Approach Global Block (placed directly after the services list) */}
-          {globalContent?.approach && (
-            <ApproachBlock 
-              globalData={globalContent.approach}
-              pageData={null}
-              useOverride={false}
-            />
-          )}
-
-          {/* Showreel Global Block (instead of Values) */}
-     <section className="relative py-16 overflow-visible">
-  {/* Full-bleed bg that paints only the top half */}
-  <div
-    className="absolute inset-0 left-1/2 right-1/2 -mx-[50vw] w-screen -z-10 pointer-events-none"
-    style={{
-      background: "#F4F4F4",        
-    }}
-    aria-hidden="true"
-  />
-  <div className="relative z-10 mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-    <Showreel globalData={globalContent.showreel} />
-  </div>
-</section>
-
-
-
-          {/* Services: Process, Stats, Case Studies Preview */}
+            {/* Services: Process, Stats, Case Studies Preview */}
 
           </div>
         </main>
