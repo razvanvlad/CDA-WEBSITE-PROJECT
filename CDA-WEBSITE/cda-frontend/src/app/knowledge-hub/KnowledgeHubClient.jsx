@@ -3,9 +3,63 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useRef, useEffect, useState } from 'react';
 
 function stripHtml(html) {
   return html?.replace(/<[^>]*>/g, '') || '';
+}
+
+// Badge component with SVG underline
+function BadgeWithUnderline({ children, color }) {
+  const textRef = useRef(null);
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    if (textRef.current) {
+      setWidth(textRef.current.offsetWidth);
+    }
+  }, [children]);
+
+  const curveIntensity = 0.01;
+  const strokeWidth = 5;
+  const underlineOffset = 16;
+
+  const curveDepth = width * curveIntensity;
+  const svgHeight = Math.max(curveDepth + strokeWidth * 2, strokeWidth * 2);
+  const startY = curveDepth + strokeWidth;
+  const controlY = strokeWidth;
+  const endY = curveDepth + strokeWidth;
+  const path = `M 0 ${startY} Q ${width / 2} ${controlY} ${width} ${endY}`;
+
+  return (
+    <span className="knowledge-hub-card__badge-wrapper">
+      <span ref={textRef} className="knowledge-hub-card__badge">
+        {children}
+      </span>
+      {width > 0 && (
+        <svg
+          width={width}
+          height={svgHeight}
+          style={{
+            position: 'absolute',
+            top: `${underlineOffset}px`,
+            left: 0,
+          }}
+          preserveAspectRatio="none"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d={path}
+            stroke={color}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            fill="none"
+          />
+        </svg>
+      )}
+    </span>
+  );
 }
 
 export default function KnowledgeHubClient({ initialCaseStudies = [], initialPosts = [] }) {
@@ -38,14 +92,23 @@ export default function KnowledgeHubClient({ initialCaseStudies = [], initialPos
   }
 
   // Sorting and pagination
-  const sort = (searchParams.get('sort') || 'newest').toLowerCase(); // 'newest' | 'oldest'
+  const sortDate = searchParams.get('sortDate') || 'newest'; // 'newest' | 'oldest'
+  const sortType = searchParams.get('sortType') || 'all'; // 'all' | 'case-study' | 'news'
   const page = Math.max(parseInt(searchParams.get('page') || '1', 10) || 1, 1);
-  const perPage = 12; // 4 rows x 3 columns
+  const perPage = 15; // 6 rows (2+3+2+3+2+3 = 15 articles)
 
+  // Filter by type first
+  if (sortType === 'case-study') {
+    items = items.filter(item => item.kind === 'case-study');
+  } else if (sortType === 'news') {
+    items = items.filter(item => item.kind === 'post');
+  }
+
+  // Sort by date
   items.sort((a, b) => {
     const ad = new Date(a.data?.date || 0).getTime();
     const bd = new Date(b.data?.date || 0).getTime();
-    return sort === 'oldest' ? ad - bd : bd - ad;
+    return sortDate === 'oldest' ? ad - bd : bd - ad;
   });
 
   const totalPages = Math.max(1, Math.ceil(items.length / perPage));
@@ -62,8 +125,12 @@ export default function KnowledgeHubClient({ initialCaseStudies = [], initialPos
     router.replace(`${pathname}?${next.toString()}`, { scroll: false });
   };
 
-  const handleSortChange = (e) => {
-    updateParam({ sort: e.target.value, page: 1 });
+  const handleSortDateChange = (e) => {
+    updateParam({ sortDate: e.target.value, page: 1 });
+  };
+
+  const handleSortTypeChange = (e) => {
+    updateParam({ sortType: e.target.value, page: 1 });
   };
 
   const goto = (p) => updateParam({ page: p });
@@ -71,77 +138,155 @@ export default function KnowledgeHubClient({ initialCaseStudies = [], initialPos
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Controls row */}
-        <div className="mb-6 flex items-center justify-between gap-4">
-          <div className="text-sm text-gray-600">{items.length} results</div>
-          <div className="flex items-center gap-2">
-            <label className="text-sm text-gray-700">Sort by:</label>
-            <select value={sort} onChange={handleSortChange} className="border border-gray-300 bg-white px-3 py-2 text-sm">
-              <option value="newest">Newest First</option>
-              <option value="oldest">Oldest First</option>
-            </select>
+        {/* Controls row - Sorting LEFT, Pagination RIGHT */}
+        <div className="mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          {/* LEFT: Result count + Sorting Controls */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="text-sm text-gray-600 font-medium">{items.length} results</div>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <label className="text-sm text-gray-700 whitespace-nowrap">Sort by Date:</label>
+                <select
+                  value={sortDate}
+                  onChange={handleSortDateChange}
+                  className="border border-gray-300 bg-white px-3 py-2 text-sm rounded"
+                >
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                </select>
+              </div>
+              <div className="flex items-center gap-2">
+                <label className="text-sm text-gray-700 whitespace-nowrap">Article Type:</label>
+                <select
+                  value={sortType}
+                  onChange={handleSortTypeChange}
+                  className="border border-gray-300 bg-white px-3 py-2 text-sm rounded"
+                >
+                  <option value="all">All Types</option>
+                  <option value="case-study">Case Studies</option>
+                  <option value="news">News</option>
+                </select>
+              </div>
+            </div>
           </div>
+
+          {/* RIGHT: Pagination - Always show if there are multiple pages */}
+          {totalPages > 1 && (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => goto(Math.max(1, currentPage - 1))}
+                disabled={currentPage <= 1}
+                className="w-10 h-10 flex items-center justify-center border border-gray-300 bg-white text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+                aria-label="Previous page"
+              >
+                &lt;
+              </button>
+              {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+                let pageNum;
+                if (totalPages <= 5) {
+                  pageNum = i + 1;
+                } else if (currentPage <= 3) {
+                  pageNum = i + 1;
+                } else if (currentPage >= totalPages - 2) {
+                  pageNum = totalPages - 4 + i;
+                } else {
+                  pageNum = currentPage - 2 + i;
+                }
+                return (
+                  <button
+                    key={pageNum}
+                    onClick={() => goto(pageNum)}
+                    className={`w-10 h-10 flex items-center justify-center border text-sm font-medium transition-colors ${pageNum === currentPage
+                      ? 'bg-black text-white border-black'
+                      : 'bg-white border-gray-300 hover:bg-gray-50'
+                      }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+              <button
+                onClick={() => goto(Math.min(totalPages, currentPage + 1))}
+                disabled={currentPage >= totalPages}
+                className="w-10 h-10 flex items-center justify-center border border-gray-300 bg-white text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+                aria-label="Next page"
+              >
+                &gt;
+              </button>
+            </div>
+          )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {pagedItems.map((item) => {
+        {/* Masonry Grid Layout - 2-3-2-3-2-3 pattern */}
+        <div className="knowledge-hub-masonry-grid">
+          {pagedItems.map((item, index) => {
             if (item.kind === 'case-study') {
               const cs = item.data;
+              const imageUrl = cs.featuredImage?.node?.sourceUrl || '/images/placeholder.jpg';
+              // Rotate colors for underline
+              const colors = ['#3CBEEB', '#01E486', '#FD8721', '#FF60DF', '#AD80F9'];
+              const underlineColor = colors[index % colors.length];
+
               return (
-                <article key={item.id} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-gray-200">
-                  {cs.featuredImage?.node?.sourceUrl && (
-                    <div className="relative h-48">
-                      <Image src={cs.featuredImage.node.sourceUrl} alt={cs.featuredImage.node.altText || cs.title} fill className="object-cover" />
+                <Link href={`/case-studies/${cs.slug}`} key={item.id}>
+                  <article className="knowledge-hub-card knowledge-hub-card--case-study">
+                    <div className="knowledge-hub-card__image-wrapper">
+                      <Image
+                        src={imageUrl}
+                        alt={cs.featuredImage?.node?.altText || cs.title}
+                        fill
+                        className="knowledge-hub-card__image"
+                      />
+                      <div className="knowledge-hub-card__overlay"></div>
                     </div>
-                  )}
-                  <div className="p-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="inline-block px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">Case Study</span>
-                      {cs.projectTypes?.nodes?.[0]?.name && (
-                        <span className="inline-block px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">{cs.projectTypes.nodes[0].name}</span>
-                      )}
+                    {/* Top left: Tag */}
+                    <div className="knowledge-hub-card__top">
+                      <BadgeWithUnderline color={underlineColor}>
+                        Case Study
+                      </BadgeWithUnderline>
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">{cs.title}</h3>
-                    {cs.excerpt && (
-                      <div className="text-gray-600 mb-4 line-clamp-3" dangerouslySetInnerHTML={{ __html: cs.excerpt }} />
-                    )}
-                    {cs.caseStudyFields?.projectOverview?.clientName && (
-                      <p className="text-sm text-gray-500 mb-4">Client: {cs.caseStudyFields.projectOverview.clientName}</p>
-                    )}
-                    <div className="flex items-center justify-between">
-                      <Link href={`/case-studies/${cs.slug}`} className="button-without-box">Read More</Link>
-                      <time className="text-sm text-gray-500">{new Date(cs.date).toLocaleDateString()}</time>
+                    {/* Bottom left: Title */}
+                    <div className="knowledge-hub-card__bottom knowledge-hub-card__bottom--left">
+                      <h3 className="knowledge-hub-card__title">{cs.title}</h3>
                     </div>
-                  </div>
-                </article>
+                  </article>
+                </Link>
               );
             }
 
             const p = item.data;
+            const imageUrl = p.featuredImage?.node?.sourceUrl || '/images/placeholder.jpg';
+            // Rotate colors for underline
+            const colors = ['#3CBEEB', '#01E486', '#FD8721', '#FF60DF', '#AD80F9'];
+            const underlineColor = colors[index % colors.length];
+
             return (
-              <article key={item.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-                {p.featuredImage?.node?.sourceUrl && (
-                  <div className="relative h-48">
-                    <Image src={p.featuredImage.node.sourceUrl} alt={p.featuredImage.node.altText || p.title} fill className="object-cover" />
+              <Link href={`/news/${p.slug}`} key={item.id}>
+                <article className="knowledge-hub-card knowledge-hub-card--news">
+                  <div className="knowledge-hub-card__image-wrapper">
+                    <Image
+                      src={imageUrl}
+                      alt={p.featuredImage?.node?.altText || p.title}
+                      fill
+                      className="knowledge-hub-card__image"
+                    />
+                    <div className="knowledge-hub-card__overlay"></div>
                   </div>
-                )}
-                <div className="p-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="inline-block px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">News</span>
-                    {p.blogCategories?.nodes?.[0]?.name && (
-                      <span className="inline-block px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">{p.blogCategories.nodes[0].name}</span>
-                    )}
+                  {/* Top: Tag left, Date right */}
+                  <div className="knowledge-hub-card__top knowledge-hub-card__top--spread">
+                    <BadgeWithUnderline color={underlineColor}>
+                      News
+                    </BadgeWithUnderline>
+                    <time className="knowledge-hub-card__date">
+                      {new Date(p.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </time>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{p.title}</h3>
-                  {p.excerpt && (
-                    <div className="text-gray-600 mb-4 line-clamp-3" dangerouslySetInnerHTML={{ __html: p.excerpt }} />
-                  )}
-                  <div className="flex items-center justify-between">
-                    <Link href={`/news/${p.slug}`} className="button-without-box">Read More</Link>
-                    <time className="text-sm text-gray-500">{new Date(p.date).toLocaleDateString()}</time>
+                  {/* Bottom center: Title */}
+                  <div className="knowledge-hub-card__bottom knowledge-hub-card__bottom--center">
+                    <h3 className="knowledge-hub-card__title">{p.title}</h3>
                   </div>
-                </div>
-              </article>
+                </article>
+              </Link>
             );
           })}
         </div>
@@ -149,35 +294,6 @@ export default function KnowledgeHubClient({ initialCaseStudies = [], initialPos
         {items.length === 0 && (
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">No content matches the selected filter.</p>
-          </div>
-        )}
-
-        {/* Pagination */}
-        {items.length > 0 && (
-          <div className="mt-8 flex items-center justify-center gap-2">
-            <button
-              onClick={() => goto(Math.max(1, currentPage - 1))}
-              disabled={currentPage <= 1}
-              className="px-3 py-2 border border-gray-300 bg-white text-sm disabled:opacity-50"
-            >
-              Previous
-            </button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-              <button
-                key={p}
-                onClick={() => goto(p)}
-                className={`px-3 py-2 border text-sm ${p === currentPage ? 'bg-black text-white border-black' : 'bg-white border-gray-300'}`}
-              >
-                {p}
-              </button>
-            ))}
-            <button
-              onClick={() => goto(Math.min(totalPages, currentPage + 1))}
-              disabled={currentPage >= totalPages}
-              className="px-3 py-2 border border-gray-300 bg-white text-sm disabled:opacity-50"
-            >
-              Next
-            </button>
           </div>
         )}
       </div>

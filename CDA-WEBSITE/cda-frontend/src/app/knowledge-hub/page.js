@@ -8,6 +8,7 @@ import KnowledgeHubClient from './KnowledgeHubClient'
 import UnderlinedTitle from '@/components/UnderlinedTitle'
 import ServicesFilters from '../services/ServicesFilters'
 import GlobalTailSections from '@/components/GlobalBlocks/GlobalTailSections.jsx'
+import NewsletterSignup from '@/components/GlobalBlocks/NewsletterSignup.js'
 import { getGlobalContent } from '@/lib/graphql-queries'
 import { Suspense } from 'react'
 
@@ -155,47 +156,14 @@ const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
             enableFullVideo={false}
           />
 
-          {/* Static Newsletter Section (not from WordPress) */}
-          <section className="newsletter-section">
-            <div className="newsletter-container">
-              <div className="newsletter-content">
-                <header className="newsletter-header">
-                  <p className="newsletter-subtitle">Stay In The Loop</p>
-                  <h2 className="newsletter-title">Sign Up To Our Newsletter</h2>
-                </header>
-
-                <form className="newsletter-form">
-                  <div className="newsletter-row">
-                    <div className="newsletter-input-wrap">
-                      <input type="text" className="newsletter-input" placeholder="First Name" aria-label="First Name" />
-                    </div>
-                    <div className="newsletter-input-wrap">
-                      <input type="text" className="newsletter-input" placeholder="Last Name" aria-label="Last Name" />
-                    </div>
-                  </div>
-                  <div className="newsletter-row">
-                    <div className="newsletter-input-wrap" style={{ width: '100%' }}>
-                      <input type="email" className="newsletter-input" placeholder="Email Address" aria-label="Email Address" required />
-                    </div>
-                  </div>
-                  <div className="newsletter-terms">
-                    <input id="nl-terms" type="checkbox" className="newsletter-checkbox" required />
-                    <label htmlFor="nl-terms" className="newsletter-label">
-                      I agree to the <a href="/policies/terms-and-conditions" className="newsletter-terms-link">Terms and Conditions</a> and consent to receive email updates and newsletters
-                    </label>
-                  </div>
-                  <div>
-                    <button className="button-l newsletter-submit" type="submit">Sign Up</button>
-                  </div>
-                </form>
-              </div>
-
-              {/* Optional Illustration (if you want an image on the right) */}
-              <div className="newsletter-illustration" aria-hidden="true">
-                <img src="/images/paper-plane.svg" alt="" className="newsletter-illustration-img" />
-              </div>
-            </div>
-          </section>
+          {/* Newsletter Section - Reusable Component */}
+          <NewsletterSignup
+            globalData={{
+              subtitle: 'Stay In The Loop',
+              title: 'Sign Up To Our Newsletter'
+            }}
+            useHubspot={false}
+          />
           
 
         </main>
