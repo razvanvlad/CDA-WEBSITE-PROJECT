@@ -423,7 +423,7 @@
 }
 
 /* ============================================
-   PAGINATION BUTTONS (L-button style, square)
+   PAGINATION BUTTONS (L-shaped border design)
    ============================================ */
 
 .pagination-btn {
@@ -434,63 +434,101 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   padding: 0;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
-  font-size: 18px;
-  color: black;
-  background-color: white;
-  border: 1px solid #d1d5db;
+  font-size: 16px;
+  color: #000000;
+  background-color: #ffffff;
+  border: none;
   border-radius: 0;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-/* L-shape bottom line */
+/* Bottom line (horizontal) - matches button-l */
 .pagination-btn::before {
   content: '';
   position: absolute;
   left: var(--btn-l-offset);
   bottom: calc(var(--btn-l-offset) * -1);
-  width: calc(100% - var(--btn-l-line));
+  right: calc(var(--btn-l-offset) * -1);
   height: var(--btn-l-line);
   background-color: black;
-  z-index: 1;
 }
 
-/* L-shape right line */
+/* Right line (vertical) - matches button-l */
 .pagination-btn::after {
   content: '';
   position: absolute;
   top: var(--btn-l-offset);
   right: calc(var(--btn-l-offset) * -1);
-  width: var(--btn-l-line);
   bottom: calc(var(--btn-l-offset) * -1);
+  width: var(--btn-l-line);
   background-color: black;
-  z-index: 1;
 }
 
-.pagination-btn:hover:not(:disabled) {
-  background-color: #f3f4f6;
+/* Hover state for inactive buttons */
+.pagination-btn:hover:not(:disabled):not(.pagination-btn--active) {
+  background-color: #f9fafb;
 }
 
+/* Disabled state - keep arrows black */
 .pagination-btn:disabled {
-  opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* Active page button */
+/* Active/Current page button */
 .pagination-btn--active {
-  background-color: black;
-  color: white;
-  border-color: black;
+  background-color: #000000;
+  color: #ffffff;
 }
 
+/* Active button has WHITE L-border */
 .pagination-btn--active::before,
 .pagination-btn--active::after {
-  background-color: white;
+  background-color: #ffffff;
+}
+
+.pagination-btn--active:hover {
+  background-color: #1f2937;
+}
+
+/* Arrow buttons - NO L-BORDER */
+.pagination-btn--arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Remove L-border from arrow buttons */
+.pagination-btn--arrow::before,
+.pagination-btn--arrow::after {
+  display: none;
+}
+
+/* Arrow icon styling - ALWAYS BLACK */
+.pagination-arrow-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  filter: brightness(0);
+}
+
+/* Ellipsis spacing */
+.pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #6b7280;
+  user-select: none;
 }
 
 /* ============================================
