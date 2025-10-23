@@ -20,7 +20,7 @@ export default function UnderlinedTitle({
   size = 'large',
   strokeWidth,
   curveIntensity = 0.01,
-  underlineOffset = 37,
+  underlineOffset = 48,
   centered = false,
   as: Component = 'h2',
 }: UnderlinedTitleProps) {

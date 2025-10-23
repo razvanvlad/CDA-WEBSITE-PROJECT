@@ -1,6 +1,7 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import HeroSection from '../components/GlobalBlocks/HeroSection'
+import UnderlinedTitle from '../components/UnderlinedTitle'
 import { sanitizeTitleHtml } from '../lib/sanitizeTitleHtml'
 import PhotoFrame from '../components/GlobalBlocks/PhotoFrame'
 import ServicesAccordion from '../components/GlobalBlocks/ServicesAccordion'
@@ -191,8 +192,16 @@ export default async function Home() {
       {hero && (
         <HeroSection
           sectionClassName="bg-white"
-          titleHtml={sanitizeTitleHtml(hero.title || 'Welcome to CDA')}
-          titleClassName="cda-page-title title-large-light-blue"
+          title={
+            <UnderlinedTitle
+              as="h1"
+              className="cda-hero__title-text cda-page-title"
+              underlineColor="#3CBEEB"
+              size="large"
+            >
+              {hero.title || 'Welcome to CDA'}
+            </UnderlinedTitle>
+          }
           description={hero.text}
           ctas={[
             hero.button1

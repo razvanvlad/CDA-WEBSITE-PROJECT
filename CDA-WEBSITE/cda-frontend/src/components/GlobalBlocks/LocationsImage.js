@@ -24,7 +24,7 @@ const LocationsImage = ({ globalData }) => {
 
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-white">
-<div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
         {/* Heading */}
         <div className="mb-8 md:mb-10">
           {globalData.subtitle && (
@@ -35,6 +35,9 @@ const LocationsImage = ({ globalData }) => {
               as="h2"
               className="cda-title title-small-pink"
               underlineColor="#FF5C8A"
+              underlineHeight={1}
+              underlineOffset={29}
+              underlineWidth={100}
             >
               {globalData.title}
             </UnderlinedTitle>
@@ -56,12 +59,13 @@ const LocationsImage = ({ globalData }) => {
                 >
                   {isActive ? (
                     <UnderlinedTitle
-                      as="span"
-                      className="text-[24px] font-semibold text-[#111827]"
+                      as="h2"
+                      className="cda-title title-small-pink"
                       underlineColor="#FF5C8A"
-                      strokeWidth={6}
+                      strokeWidth={4}
+                      underlineOffset={29}
                     >
-                      {c.countryName}
+                      {globalData.title}
                     </UnderlinedTitle>
                   ) : (
                     <span className="text-[24px] font-semibold text-[#9CA3AF]">{c.countryName}</span>
@@ -93,6 +97,7 @@ const LocationsImage = ({ globalData }) => {
                           className="text-[28px] font-semibold text-[#111827]"
                           underlineColor="#FF5C8A"
                           strokeWidth={6}
+                          underlineOffset={24}
                         >
                           {c.countryName}
                         </UnderlinedTitle>
@@ -123,14 +128,14 @@ const LocationsImage = ({ globalData }) => {
                           <p className="text-[16px] leading-[1.8] text-[#111827] whitespace-pre-line">{office.address}</p>
                         )}
 
-                          <p className="text-[18px] font-semibold text-[#111827] mb-2">Email</p>
-                          {office.email && (
-                            <p className="text-[16px] text-[#111827]">{office.email}</p>
-                          )}
-                                                    <p className="text-[18px] font-semibold text-[#111827] mb-2">Phone</p>
-                          {office.phone && (
-                            <p className="text-[16px] text-[#111827]">{office.phone}</p>
-                          )}
+                        <p className="text-[18px] font-semibold text-[#111827] mb-2">Email</p>
+                        {office.email && (
+                          <p className="text-[16px] text-[#111827]">{office.email}</p>
+                        )}
+                        <p className="text-[18px] font-semibold text-[#111827] mb-2">Phone</p>
+                        {office.phone && (
+                          <p className="text-[16px] text-[#111827]">{office.phone}</p>
+                        )}
                       </div>
                     </div>
                   </div>
