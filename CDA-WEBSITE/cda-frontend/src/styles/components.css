@@ -35,7 +35,8 @@
 
 @media (min-width: 1024px) {
   .cda-hero__grid {
-    grid-template-columns: 7fr 5fr; /* 60/40 split */
+    grid-template-columns: 7fr 5fr;
+    /* 60/40 split */
     gap: 3rem;
   }
 }
@@ -55,7 +56,8 @@
     order: 1;
     text-align: left;
     grid-column: 1;
-    grid-row: 1 / span 3; /* Span all 3 rows */
+    grid-row: 1 / span 3;
+    /* Span all 3 rows */
   }
 }
 
@@ -70,7 +72,8 @@
   .cda-hero__image {
     order: 2;
     grid-column: 2;
-    grid-row: 1 / span 3; /* Span all 3 rows */
+    grid-row: 1 / span 3;
+    /* Span all 3 rows */
     justify-content: flex-end;
     display: flex;
     align-items: center;
@@ -136,7 +139,8 @@
 }
 
 .cda-hero__title-text {
-  font-size: 2.25rem; /* text-4xl */
+  font-size: 2.25rem;
+  /* text-4xl */
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 1.5rem;
@@ -144,13 +148,15 @@
 
 @media (min-width: 1024px) {
   .cda-hero__title-text {
-    font-size: 3rem; /* text-5xl */
+    font-size: 3rem;
+    /* text-5xl */
   }
 }
 
 @media (min-width: 1280px) {
   .cda-hero__title-text {
-    font-size: 3.75rem; /* text-6xl */
+    font-size: 3.75rem;
+    /* text-6xl */
   }
 }
 
@@ -159,14 +165,16 @@
   line-height: 1.6;
   color: #374151;
   margin-bottom: 2rem;
-  max-width: 42rem; /* max-w-2xl */
+  max-width: 42rem;
+  /* max-w-2xl */
   margin-left: auto;
   margin-right: auto;
 }
 
 @media (min-width: 1024px) {
   .cda-hero__text-content {
-    font-size: 1.125rem; /* text-lg */
+    font-size: 1.125rem;
+    /* text-lg */
     margin-left: 0;
     margin-right: 0;
   }
@@ -255,7 +263,8 @@
 /* Masonry grid with 2-3-2-3-2-3 pattern (alternating rows) */
 .knowledge-hub-masonry-grid {
   display: grid;
-  grid-template-columns: 1fr; /* Mobile: 1 column only */
+  grid-template-columns: 1fr;
+  /* Mobile: 1 column only */
   gap: 1.5rem;
 }
 
@@ -272,15 +281,15 @@
      etc. */
 
   /* Positions 1, 2, 6, 7, 11, 12, etc. (pattern: 5n+1, 5n+2) - 2 per row */
-  .knowledge-hub-masonry-grid > *:nth-child(5n + 1),
-  .knowledge-hub-masonry-grid > *:nth-child(5n + 2) {
+  .knowledge-hub-masonry-grid>*:nth-child(5n + 1),
+  .knowledge-hub-masonry-grid>*:nth-child(5n + 2) {
     grid-column: span 3;
   }
 
   /* Positions 3, 4, 5, 8, 9, 10, 13, 14, 15, etc. (pattern: 5n+3, 5n+4, 5n+5) - 3 per row */
-  .knowledge-hub-masonry-grid > *:nth-child(5n + 3),
-  .knowledge-hub-masonry-grid > *:nth-child(5n + 4),
-  .knowledge-hub-masonry-grid > *:nth-child(5n + 5) {
+  .knowledge-hub-masonry-grid>*:nth-child(5n + 3),
+  .knowledge-hub-masonry-grid>*:nth-child(5n + 4),
+  .knowledge-hub-masonry-grid>*:nth-child(5n + 5) {
     grid-column: span 2;
   }
 }
@@ -411,4 +420,106 @@
   .knowledge-hub-card {
     height: 450px;
   }
+}
+
+/* ============================================
+   PAGINATION BUTTONS (L-button style, square)
+   ============================================ */
+
+.pagination-btn {
+  --btn-l-line: 1px;
+  --btn-l-offset: 4px;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: black;
+  background-color: white;
+  border: 1px solid #d1d5db;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* L-shape bottom line */
+.pagination-btn::before {
+  content: '';
+  position: absolute;
+  left: var(--btn-l-offset);
+  bottom: calc(var(--btn-l-offset) * -1);
+  width: calc(100% - var(--btn-l-line));
+  height: var(--btn-l-line);
+  background-color: black;
+  z-index: 1;
+}
+
+/* L-shape right line */
+.pagination-btn::after {
+  content: '';
+  position: absolute;
+  top: var(--btn-l-offset);
+  right: calc(var(--btn-l-offset) * -1);
+  width: var(--btn-l-line);
+  bottom: calc(var(--btn-l-offset) * -1);
+  background-color: black;
+  z-index: 1;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #f3f4f6;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Active page button */
+.pagination-btn--active {
+  background-color: black;
+  color: white;
+  border-color: black;
+}
+
+.pagination-btn--active::before,
+.pagination-btn--active::after {
+  background-color: white;
+}
+
+/* ============================================
+   SORT DROPDOWN (No border, bold text)
+   ============================================ */
+
+.sort-dropdown {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #000000;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.sort-dropdown:focus {
+  outline: none;
+}
+
+/* Add custom dropdown arrow */
+.sort-dropdown {
+  padding-right: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23374151' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
 }
