@@ -30,15 +30,32 @@ export default function TextLinkButton({
   const variantClass = isWhite ? 'button-without-box-white' : '';
   const fullClass = `${baseClass} ${variantClass} ${className}`.trim();
 
+  // Determine icon paths based on variant
+  const defaultIcon = isWhite
+    ? '/images/arrow-icons/diagonal-right-arrow-white.svg'
+    : '/images/arrow-icons/diagonal-right-arrow.svg';
+
+  const hoverIcon = isWhite
+    ? '/images/arrow-icons/right-arrow-white.svg'
+    : '/images/arrow-icons/right-arrow.svg';
+
   const content = (
     <>
       <span className="button-text">{children}</span>
-      <img
-        src="/images/arrow-icons/diagonal-right-arrow.svg"
-        alt=""
-        className="button-icon"
-        aria-hidden="true"
-      />
+      <span className="button-icon-wrapper">
+        <img
+          src={defaultIcon}
+          alt=""
+          className="button-icon button-icon-default"
+          aria-hidden="true"
+        />
+        <img
+          src={hoverIcon}
+          alt=""
+          className="button-icon button-icon-hover"
+          aria-hidden="true"
+        />
+      </span>
     </>
   );
 
