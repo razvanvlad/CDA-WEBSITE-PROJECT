@@ -57,19 +57,17 @@ const LocationsImage = ({ globalData }) => {
                   className="relative pb-1 shrink-0"
                   aria-pressed={isActive}
                 >
-                  {isActive ? (
-                    <UnderlinedTitle
-                      as="h2"
-                      className="cda-title title-small-pink"
-                      underlineColor="#FF5C8A"
-                      strokeWidth={4}
-                      underlineOffset={29}
-                    >
-                      {globalData.title}
-                    </UnderlinedTitle>
-                  ) : (
-                    <span className="text-[24px] font-semibold text-[#9CA3AF]">{c.countryName}</span>
-                  )}
+                  <UnderlinedTitle
+                    as="h2"
+                    className="cda-title title-small-pink"
+                    underlineColor={isActive ? "#FF5C8A" : "#9CA3AF"}
+                    strokeWidth={4}
+                    underlineOffset={29}
+                  >
+                    <span className={isActive ? "text-[24px] font-semibold text-[#111827]" : "text-[24px] font-semibold text-[#9CA3AF]"}>
+                      {c.countryName}
+                    </span>
+                  </UnderlinedTitle>
                 </button>
               );
             })}
