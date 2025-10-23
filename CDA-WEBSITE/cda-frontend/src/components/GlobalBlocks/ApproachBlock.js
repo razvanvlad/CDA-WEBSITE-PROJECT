@@ -59,9 +59,9 @@ const ApproachBlock = ({ globalData, pageData, useOverride = false }) => {
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="mb-12 md:mb-16 text-center lg:text-left">
           {data.subtitle && (
-            <h2 className="cda-subtitle">
+            <p className="cda-subtitle">
               {data.subtitle}
-            </h2>
+            </p>
           )}
           {data.title && (
             <ResponsiveUnderlinedTitle
