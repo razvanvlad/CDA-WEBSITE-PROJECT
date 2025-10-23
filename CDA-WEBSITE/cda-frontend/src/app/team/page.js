@@ -3,7 +3,7 @@ import Footer from '../../components/Footer'
 import HeroSection from '@/components/GlobalBlocks/HeroSection'
 import Link from 'next/link'
 import Image from 'next/image'
-import UnderlinedTitle from '../../components/UnderlinedTitle'
+import ResponsiveUnderlinedTitle from '../../components/ResponsiveUnderlinedTitle'
 import { sanitizeTitleHtml } from '@/lib/sanitizeTitleHtml'
 import { executeGraphQLQuery, getGlobalContent, getPageGlobalTogglesByUri, getPageGlobalTogglesBySlug, getTeamMembersWithPagination, getTeamMembersCoreWithPagination } from '@/lib/graphql-queries'
 
@@ -153,14 +153,13 @@ export default async function TeamPage() {
         <HeroSection
           sectionClassName="bg-white"
           title={
-            <UnderlinedTitle
+            <ResponsiveUnderlinedTitle
               as="h1"
-              className="cda-hero__title-text cda-page-title"
+              className="cda-title"
               underlineColor="#FD8721"
-              size="large"
             >
               {header.title || 'The Team Behind The Work'}
-            </UnderlinedTitle>
+            </ResponsiveUnderlinedTitle>
           }
           descriptionHtml={header.description || ''}
           ctas={[
@@ -223,13 +222,13 @@ export default async function TeamPage() {
             <div className="mb-8">
               {meet.subtitle && (<p className="cda-subtitle">{meet.subtitle}</p>)}
               {meet.title && (
-                <UnderlinedTitle
+                <ResponsiveUnderlinedTitle
                   as="h2"
-                  className="cda-title"
+                  className="section-title"
                   underlineColor="#FF60DF"
                 >
                   {meet.title}
-                </UnderlinedTitle>
+                </ResponsiveUnderlinedTitle>
               )}
             </div>
             {allTeam && allTeam.length > 0 ? (

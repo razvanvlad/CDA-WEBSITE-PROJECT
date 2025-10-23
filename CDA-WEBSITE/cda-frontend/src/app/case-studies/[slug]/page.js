@@ -1,6 +1,6 @@
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
-import UnderlinedTitle from '../../../components/UnderlinedTitle';
+import ResponsiveUnderlinedTitle from '../../../components/ResponsiveUnderlinedTitle';
 import { notFound } from 'next/navigation';
 import { getCaseStudyByAny, getGlobalContent, getCaseStudySlugs } from '../../../lib/graphql-queries';
 import Image from 'next/image';
@@ -82,14 +82,13 @@ export default async function CaseStudyPage(props) {
                   </div>
                 )}
 
-                <UnderlinedTitle
+                <ResponsiveUnderlinedTitle
                   as="h1"
-                  className="cda-page-title mb-6"
+                  className="cda-title mb-6"
                   underlineColor="#AD80F9"
-                  size="large"
                 >
                   {caseStudy.title}
-                </UnderlinedTitle>
+                </ResponsiveUnderlinedTitle>
 
                 {projectOverview?.clientName && (
                   <p className="text-xl text-gray-600 mb-6">
@@ -204,13 +203,13 @@ export default async function CaseStudyPage(props) {
         {solution && (
           <section className="py-16 bg-white">
             <div className="max-w-4xl mx-auto px-4">
-              <UnderlinedTitle
+              <ResponsiveUnderlinedTitle
                 as="h2"
-                className="cda-title mb-6"
+                className="section-title mb-6"
                 underlineColor="#AD80F9"
               >
                 Our Solution
-              </UnderlinedTitle>
+              </ResponsiveUnderlinedTitle>
               <div
                 className="prose prose-lg max-w-none text-gray-600"
                 dangerouslySetInnerHTML={{ __html: solution }}

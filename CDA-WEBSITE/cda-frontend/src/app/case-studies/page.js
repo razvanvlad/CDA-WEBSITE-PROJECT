@@ -2,7 +2,7 @@ import { getCaseStudiesWithPagination, executeGraphQLQuery } from '@/lib/graphql
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import HeroSection from '../../components/GlobalBlocks/HeroSection'
-import UnderlinedTitle from '../../components/UnderlinedTitle'
+import ResponsiveUnderlinedTitle from '../../components/ResponsiveUnderlinedTitle'
 import CaseStudiesClient from './CaseStudiesClient'
 
 export const metadata = {
@@ -64,14 +64,13 @@ export default async function CaseStudiesPage() {
         <HeroSection
           sectionClassName="bg-white"
           title={
-            <UnderlinedTitle
+            <ResponsiveUnderlinedTitle
               as="h1"
-              className="cda-hero__title-text cda-page-title"
+              className="cda-title"
               underlineColor="#3CBEEB"
-              size="large"
             >
               Our Case Studies
-            </UnderlinedTitle>
+            </ResponsiveUnderlinedTitle>
           }
           description="Explore our portfolio of successful digital projects. Discover how we've helped businesses achieve their goals through strategic solutions and measurable results."
           descriptionClassName="text-lg text-gray-600"

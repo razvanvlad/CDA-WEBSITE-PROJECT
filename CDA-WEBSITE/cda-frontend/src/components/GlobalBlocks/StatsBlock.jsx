@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import SectionBand from '@/components/SectionBand'
-import UnderlinedTitle from '../UnderlinedTitle'
+import ResponsiveUnderlinedTitle from '../ResponsiveUnderlinedTitle'
 
 /**
  * StatsBlock with adjustable gray band.
@@ -54,14 +54,12 @@ export default function StatsBlock({
                           lineHeight: 1,
                         }}
                       >
-                        <UnderlinedTitle
+                        <ResponsiveUnderlinedTitle
                           as="span"
                           underlineColor={color}
-                          underlineThickness={6}
-                          underlineOffset={2}
                         >
                           {s?.number}
-                        </UnderlinedTitle>
+                        </ResponsiveUnderlinedTitle>
                       </div>
                       <div className="mt-3 text-gray-700 text-lg">{s?.text}</div>
                     </div>

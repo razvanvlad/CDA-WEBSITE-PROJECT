@@ -2,7 +2,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react';
-import UnderlinedTitle from './UnderlinedTitle';
+import ResponsiveUnderlinedTitle from './ResponsiveUnderlinedTitle';
 
 export default function BookingModal({ isOpen = true, onClose }) {
   const [firstName, setFirstName] = useState('')
@@ -549,9 +549,9 @@ export default function BookingModal({ isOpen = true, onClose }) {
         <div className="grid grid-cols-12 gap-0 h-full">
           {/* Left: Form */}
           <div className="col-span-12 lg:col-span-5 p-6 lg:p-8 overflow-y-auto">
-            <UnderlinedTitle className="text-2xl font-bold text-gray-900 mb-4">
+            <ResponsiveUnderlinedTitle className="text-2xl font-bold text-gray-900 mb-4">
               Book Time With Us
-            </UnderlinedTitle>
+            </ResponsiveUnderlinedTitle>
             <p className="text-[#4B5563] mb-6">The first step toward something great.</p>
 
             <div className="grid grid-cols-2 gap-4 mb-4">

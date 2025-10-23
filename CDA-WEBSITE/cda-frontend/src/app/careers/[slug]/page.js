@@ -1,6 +1,6 @@
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
-import UnderlinedTitle from '../../../components/UnderlinedTitle';
+import ResponsiveUnderlinedTitle from '../../../components/ResponsiveUnderlinedTitle';
 import { notFound } from 'next/navigation';
 import { getJobListingBySlug, getJobListingSlugs, getJobListingsSimple, getJobListingsWithPagination } from '../../../lib/graphql-queries';
 import Image from 'next/image';
@@ -153,14 +153,13 @@ export default async function CareerDetailPage({ params }) {
                   </span>
                 </div>
 
-                <UnderlinedTitle
+                <ResponsiveUnderlinedTitle
                   as="h1"
-                  className="cda-page-title mb-6"
+                  className="cda-title mb-6"
                   underlineColor="#3CBEEB"
-                  size="large"
                 >
                   {job.title}
-                </UnderlinedTitle>
+                </ResponsiveUnderlinedTitle>
 
                 {job.excerpt && (
                   <div

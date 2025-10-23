@@ -4,7 +4,7 @@ import HeroSection from '../../components/GlobalBlocks/HeroSection';
 import ApproachBlock from '../../components/GlobalBlocks/ApproachBlock';
 import CaseStudies from '../../components/GlobalBlocks/CaseStudies';
 import Image from 'next/image'
-import UnderlinedTitle from '@/components/UnderlinedTitle';
+import ResponsiveUnderlinedTitle from '@/components/ResponsiveUnderlinedTitle';
 import { getTechnologiesWithPagination, getGlobalContent } from '@/lib/graphql-queries.js';
 import GlobalTailSections from '@/components/GlobalBlocks/GlobalTailSections.jsx';
 import ServicesSlider from '@/components/GlobalBlocks/ServicesSlider.jsx';
@@ -34,14 +34,13 @@ export default async function TechnologiesPage() {
       <HeroSection
         sectionClassName="bg-white"
         title={
-          <UnderlinedTitle
+          <ResponsiveUnderlinedTitle
             as="h1"
-            className="cda-hero__title-text cda-page-title"
+            className="cda-title"
             underlineColor="#AD80F9"
-            size="large"
           >
             The Technologies We Use
-          </UnderlinedTitle>
+          </ResponsiveUnderlinedTitle>
         }
         description="Discover the cutting-edge technologies and frameworks we use to build exceptional digital solutions for our clients."
         descriptionClassName="text-lg text-gray-600"

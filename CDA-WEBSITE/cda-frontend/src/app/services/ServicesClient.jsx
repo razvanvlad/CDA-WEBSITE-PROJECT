@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
-import UnderlinedTitle from '@/components/UnderlinedTitle';
+import ResponsiveUnderlinedTitle from '@/components/ResponsiveUnderlinedTitle';
 
 const getServiceColor = (slug) => {
   const colorMap = {
@@ -91,9 +91,9 @@ export default function ServicesClient({ initialItems = [] }) {
 
               <h2 className="font-bold text-gray-900 mb-4" style={{ fontSize: '38px', lineHeight: '1.2' }}>
                 <Link href={`/services/${service.slug}`} className="transition-colors">
-                  <UnderlinedTitle size="h2" underlineColor={getServiceColor(service.slug)}>
+                  <ResponsiveUnderlinedTitle as="h2" underlineColor={getServiceColor(service.slug)}>
                     {service.title}
-                  </UnderlinedTitle>
+                  </ResponsiveUnderlinedTitle>
                 </Link>
               </h2>
 

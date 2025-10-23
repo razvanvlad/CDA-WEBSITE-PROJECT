@@ -17,26 +17,36 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
-/* H1 - Responsive */
-h1 {
-  font-size: 38px;
-  line-height: 1.2;
+/* H1 - Responsive Typography
+   Mobile (≤768px): 32px
+   Desktop (>768px): 50px
+   Font-weight: 800 (Extra Bold)
+   ───────────────────────────────────────────────────────────────── */
+h1, .h1 {
+  font-size: 32px;
+  line-height: 1.1;
+  font-weight: 800;
 }
 
-@media (min-width: 1024px) {
-  h1 {
+@media (min-width: 769px) {
+  h1, .h1 {
     font-size: 50px;
   }
 }
 
-/* H2 - Responsive */
-h2 {
+/* H2 - Responsive Typography
+   Mobile (≤768px): 28px
+   Desktop (>768px): 38px
+   Font-weight: 700 (Bold)
+   ───────────────────────────────────────────────────────────────── */
+h2, .h2 {
   font-size: 28px;
-  line-height: 1.3;
+  line-height: 1.2;
+  font-weight: 700;
 }
 
-@media (min-width: 1024px) {
-  h2 {
+@media (min-width: 769px) {
+  h2, .h2 {
     font-size: 38px;
   }
 }
@@ -72,11 +82,42 @@ p, span, div, li, a {
 }
 
 /* ─────────────────────────────────────────────────────────────────
+   TITLE UTILITY CLASSES
+   ───────────────────────────────────────────────────────────────── */
+
+/* CDA Title - H1 Level (50px desktop, 32px mobile) */
+.cda-title {
+  font-family: var(--font-poppins);
+  font-size: 32px;
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+@media (min-width: 769px) {
+  .cda-title {
+    font-size: 50px;
+  }
+}
+
+/* Section Title - H2 Level (38px desktop, 28px mobile) */
+.section-title {
+  font-family: var(--font-poppins);
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+@media (min-width: 769px) {
+  .section-title {
+    font-size: 38px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
    LEGACY CDA CLASSES (Keep for backwards compatibility)
    ───────────────────────────────────────────────────────────────── */
 
 .cda-subtitle,
-.cda-title,
 .cda-page-title,
 .cda-page-title-clean {
   font-family: var(--font-poppins);

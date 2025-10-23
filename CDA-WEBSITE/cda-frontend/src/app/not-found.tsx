@@ -4,7 +4,7 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import UnderlinedTitle from '@/components/UnderlinedTitle';
+import ResponsiveUnderlinedTitle from '@/components/ResponsiveUnderlinedTitle';
 
 export const metadata = { title: '404 – Page Not Found' };
 
@@ -17,14 +17,13 @@ export default function NotFound() {
         {/* Copy */}
         <section className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 py-16 md:py-20">
           <div className="text-center max-w-3xl mx-auto">
-            <UnderlinedTitle
+            <ResponsiveUnderlinedTitle
               as="h1"
-              className="cda-page-title mb-4"
+              className="cda-title mb-4"
               underlineColor="#FF60DF"
-              size="large"
             >
               Oops, Page Not Found
-            </UnderlinedTitle>
+            </ResponsiveUnderlinedTitle>
 
             <p className="text-[16px] md:text-[18px] text-[#0B0B0E]/70 leading-relaxed mb-8">
               Looks like the page you're looking for cannot be found

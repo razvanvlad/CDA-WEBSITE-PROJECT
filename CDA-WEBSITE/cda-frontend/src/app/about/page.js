@@ -8,7 +8,7 @@ import Showreel from '../../components/GlobalBlocks/Showreel';
 import ApproachBlock from '../../components/GlobalBlocks/ApproachBlock';
 import CultureGallerySlider from '../../components/GlobalBlocks/CultureGallerySlider';
 import StatsBlock from '../../components/GlobalBlocks/StatsBlock';
-import UnderlinedTitle from '../../components/UnderlinedTitle';
+import ResponsiveUnderlinedTitle from '../../components/ResponsiveUnderlinedTitle';
 import { sanitizeTitleHtml } from '../../lib/sanitizeTitleHtml';
 import { executeGraphQLQuery, getGlobalContent, getPageGlobalTogglesByUri, getPageGlobalTogglesBySlug } from '../../lib/graphql-queries';
 
@@ -75,14 +75,13 @@ export default async function AboutPage() {
         <HeroSection
           sectionClassName="bg-white"
           title={
-            <UnderlinedTitle
+            <ResponsiveUnderlinedTitle
               as="h1"
-              className="cda-hero__title-text cda-page-title"
+              className="cda-title"
               underlineColor="#FF60DF"
-              size="large"
             >
               {aboutContent.contentPageHeader.title || 'Learn More About Us'}
-            </UnderlinedTitle>
+            </ResponsiveUnderlinedTitle>
           }
           descriptionHtml={aboutContent.contentPageHeader.text || ''}
           ctas={[
@@ -225,13 +224,13 @@ export default async function AboutPage() {
                   <p className="cda-subtitle mb-2">{aboutContent.behindCda.subtitle}</p>
                 )}
                 {aboutContent.behindCda.title && (
-                  <UnderlinedTitle
+                  <ResponsiveUnderlinedTitle
                     as="h2"
-                    className="cda-title mb-4"
+                    className="section-title mb-4"
                     underlineColor="#FF60DF"
                   >
                     {aboutContent.behindCda.title}
-                  </UnderlinedTitle>
+                  </ResponsiveUnderlinedTitle>
                 )}
                 {aboutContent.behindCda.description && (
                   <div className="wysiwyg-content text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] mb-6"

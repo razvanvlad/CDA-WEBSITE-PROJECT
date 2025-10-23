@@ -1,7 +1,7 @@
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import HeroSection from '../../components/GlobalBlocks/HeroSection'
-import UnderlinedTitle from '../../components/UnderlinedTitle'
+import ResponsiveUnderlinedTitle from '../../components/ResponsiveUnderlinedTitle'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -52,14 +52,13 @@ export default async function NewsArchivePage() {
       <HeroSection
         sectionClassName="bg-white"
         title={
-          <UnderlinedTitle
+          <ResponsiveUnderlinedTitle
             as="h1"
-            className="cda-hero__title-text cda-page-title"
+            className="cda-title"
             underlineColor="#FF60DF"
-            size="large"
           >
             News & Insights
-          </UnderlinedTitle>
+          </ResponsiveUnderlinedTitle>
         }
         description="Stay up to date with the latest news, updates, and industry insights from CDA. Discover trends, tips, and expert advice."
         descriptionClassName="text-lg text-gray-600"
