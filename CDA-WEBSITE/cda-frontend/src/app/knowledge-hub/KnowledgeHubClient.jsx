@@ -135,86 +135,93 @@ export default function KnowledgeHubClient({ initialCaseStudies = [], initialPos
 
   const goto = (p) => updateParam({ page: p });
 
+  // Sorting controls component - reusable for top and bottom
+  const SortingControls = () => (
+    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+
+      <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          <label className="text-sm text-gray-700 whitespace-nowrap">Sort by Date:</label>
+          <select
+            value={sortDate}
+            onChange={handleSortDateChange}
+            className="sort-dropdown"
+          >
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+          </select>
+        </div>
+        <div className="flex items-center gap-2">
+          <label className="text-sm text-gray-700 whitespace-nowrap">Article Type:</label>
+          <select
+            value={sortType}
+            onChange={handleSortTypeChange}
+            className="sort-dropdown"
+          >
+            <option value="all">All Types</option>
+            <option value="case-study">Case Studies</option>
+            <option value="news">News</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Pagination component - reusable for top and bottom
+  const PaginationControls = () => (
+    <div className="flex items-center gap-2">
+      <button
+        onClick={() => goto(Math.max(1, currentPage - 1))}
+        disabled={currentPage <= 1}
+        className="pagination-btn"
+        aria-label="Previous page"
+      >
+        &lt;
+      </button>
+      {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+        let pageNum;
+        if (totalPages <= 5) {
+          pageNum = i + 1;
+        } else if (currentPage <= 3) {
+          pageNum = i + 1;
+        } else if (currentPage >= totalPages - 2) {
+          pageNum = totalPages - 4 + i;
+        } else {
+          pageNum = currentPage - 2 + i;
+        }
+        return (
+          <button
+            key={pageNum}
+            onClick={() => goto(pageNum)}
+            className={pageNum === currentPage ? 'pagination-btn pagination-btn--active' : 'pagination-btn'}
+          >
+            {pageNum}
+          </button>
+        );
+      })}
+      <button
+        onClick={() => goto(Math.min(totalPages, currentPage + 1))}
+        disabled={currentPage >= totalPages}
+        className="pagination-btn"
+        aria-label="Next page"
+      >
+        &gt;
+      </button>
+    </div>
+  );
+
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         {/* Controls row - Sorting LEFT, Pagination RIGHT */}
         <div className="mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          {/* LEFT: Result count + Sorting Controls */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <div className="text-sm text-gray-600 font-medium">{items.length} results</div>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <label className="text-sm text-gray-700 whitespace-nowrap">Sort by Date:</label>
-                <select
-                  value={sortDate}
-                  onChange={handleSortDateChange}
-                  className="border border-gray-300 bg-white px-3 py-2 text-sm rounded"
-                >
-                  <option value="newest">Newest First</option>
-                  <option value="oldest">Oldest First</option>
-                </select>
-              </div>
-              <div className="flex items-center gap-2">
-                <label className="text-sm text-gray-700 whitespace-nowrap">Article Type:</label>
-                <select
-                  value={sortType}
-                  onChange={handleSortTypeChange}
-                  className="border border-gray-300 bg-white px-3 py-2 text-sm rounded"
-                >
-                  <option value="all">All Types</option>
-                  <option value="case-study">Case Studies</option>
-                  <option value="news">News</option>
-                </select>
-              </div>
-            </div>
-          </div>
+          {/* LEFT: Top Sorting Controls */}
+          <SortingControls />
 
-          {/* RIGHT: Pagination - Always show if there are multiple pages */}
-          {totalPages > 1 && (
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => goto(Math.max(1, currentPage - 1))}
-                disabled={currentPage <= 1}
-                className="w-10 h-10 flex items-center justify-center border border-gray-300 bg-white text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-                aria-label="Previous page"
-              >
-                &lt;
-              </button>
-              {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
-                let pageNum;
-                if (totalPages <= 5) {
-                  pageNum = i + 1;
-                } else if (currentPage <= 3) {
-                  pageNum = i + 1;
-                } else if (currentPage >= totalPages - 2) {
-                  pageNum = totalPages - 4 + i;
-                } else {
-                  pageNum = currentPage - 2 + i;
-                }
-                return (
-                  <button
-                    key={pageNum}
-                    onClick={() => goto(pageNum)}
-                    className={`w-10 h-10 flex items-center justify-center border text-sm font-medium transition-colors ${pageNum === currentPage
-                      ? 'bg-black text-white border-black'
-                      : 'bg-white border-gray-300 hover:bg-gray-50'
-                      }`}
-                  >
-                    {pageNum}
-                  </button>
-                );
-              })}
-              <button
-                onClick={() => goto(Math.min(totalPages, currentPage + 1))}
-                disabled={currentPage >= totalPages}
-                className="w-10 h-10 flex items-center justify-center border border-gray-300 bg-white text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-                aria-label="Next page"
-              >
-                &gt;
-              </button>
-            </div>
-          )}
+          {/* RIGHT: Top Pagination - ALWAYS SHOW */}
+          <div className="self-end md:self-auto">
+            <PaginationControls />
+          </div>
         </div>
 
         {/* Masonry Grid Layout - 2-3-2-3-2-3 pattern */}
@@ -296,6 +303,17 @@ export default function KnowledgeHubClient({ initialCaseStudies = [], initialPos
             <p className="text-gray-500 text-lg">No content matches the selected filter.</p>
           </div>
         )}
+
+        {/* Bottom Controls - Sorting LEFT, Pagination RIGHT */}
+        <div className="mt-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          {/* LEFT: Bottom Sorting Controls */}
+          <SortingControls />
+
+          {/* RIGHT: Bottom Pagination */}
+          <div className="self-end md:self-auto">
+            <PaginationControls />
+          </div>
+        </div>
       </div>
     </section>
   );
