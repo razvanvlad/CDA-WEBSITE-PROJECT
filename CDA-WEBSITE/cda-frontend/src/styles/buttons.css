@@ -8,6 +8,431 @@ button {
   /* NO font-weight here - let button classes control it */
 }
 
-/* NOTE: Button implementations (.button-l, .button-l-white, .button-l-transparent, etc.)
-   remain in global.css due to their complex pseudo-element structures.
-   They have been updated to use consistent Poppins Bold (font-weight: 700) */
+/* ============================================
+   PRIMARY L-TYPE BUTTON
+   ============================================ */
+
+.button-l {
+  --btn-l-line: 1px;
+  /* line thickness */
+  --btn-l-offset: 4px;
+  /* half-pixel placement for crisp stroke */
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 230.94px;
+  height: 50px;
+  padding: 0;
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
+  background-color: black;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Mobile styles for button-l */
+@media (max-width: 767px) {
+  .button-l {
+    width: 151.83px;
+    height: 46px;
+    font-size: 14px;
+  }
+}
+
+.button-l:hover:not(:disabled) {
+  background-color: white;
+  color: black;
+  box-shadow: inset 0 0 0 1px black;
+}
+
+.button-l:disabled {
+  background-color: #808080;
+  color: white;
+  cursor: not-allowed;
+}
+
+.button-l:disabled::before,
+.button-l:disabled::after {
+  background-color: #808080;
+}
+
+/* L-decoration: bottom line */
+.button-l::before,
+.button-l-transparent::before {
+  content: '';
+  position: absolute;
+  left: var(--btn-l-offset);
+  bottom: calc(var(--btn-l-offset) * -1);
+  width: calc(100% - var(--btn-l-line));
+  height: var(--btn-l-line);
+  background-color: black;
+  z-index: 1;
+}
+
+/* L-decoration: right line */
+.button-l::after,
+.button-l-transparent::after {
+  content: '';
+  position: absolute;
+  top: var(--btn-l-offset);
+  right: calc(var(--btn-l-offset) * -1);
+  width: var(--btn-l-line);
+  bottom: calc(var(--btn-l-offset) * -1);
+  background-color: black;
+  z-index: 1;
+}
+
+/* ============================================
+   BUTTON-L VARIANTS
+   ============================================ */
+
+/* White variant */
+.button-l-white {
+  --btn-l-line: 1px;
+  --btn-l-offset: 4px;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 3rem;
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: black;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.button-l-white::before {
+  content: '';
+  position: absolute;
+  left: var(--btn-l-offset);
+  bottom: calc(var(--btn-l-offset) * -1);
+  width: calc(100% - var(--btn-l-line));
+  height: var(--btn-l-line);
+  background-color: black;
+  z-index: 1;
+}
+
+.button-l-white::after {
+  content: '';
+  position: absolute;
+  top: var(--btn-l-offset);
+  right: calc(var(--btn-l-offset) * -1);
+  width: var(--btn-l-line);
+  bottom: calc(var(--btn-l-offset) * -1);
+  background-color: black;
+  z-index: 1;
+}
+
+.button-l-white:hover {
+  background-color: black;
+  color: white;
+  box-shadow: none;
+}
+
+/* Transparent variant */
+.button-l-transparent {
+  --btn-l-line: 1px;
+  --btn-l-offset: 4px;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 3rem;
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: black;
+  background-color: transparent;
+  border: none;
+  box-shadow: inset 0 0 0 1px black;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.button-l-transparent:hover {
+  background-color: black;
+  color: white;
+  box-shadow: inset 0 0 0 1px black;
+}
+
+/* Modern white variant (black accent) */
+.button-l--white {
+  background-color: #fff;
+  color: #000;
+  box-shadow: inset 0 0 0 1px #000;
+}
+
+.button-l.button-l--white::before,
+.button-l.button-l--white::after {
+  background-color: #000;
+}
+
+.button-l.button-l--white:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.button-l.button-l--white:hover::before,
+.button-l.button-l--white:hover::after {
+  background-color: #fff;
+}
+
+/* ============================================
+   BUTTON WITHOUT BOX (TEXT LINK STYLE)
+   ============================================ */
+
+.button-without-box {
+  --btn-link-underline: 0.5px;
+  --btn-link-icon: 14px;
+  --btn-link-gap: 3px;
+  --btn-link-baseline: 2px;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #374151;
+  text-decoration: none;
+  padding: 0 calc(var(--btn-link-icon) + var(--btn-link-gap)) 0 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1.2;
+  border: none;
+  background: none;
+}
+
+/* Underline decoration */
+.button-without-box::after {
+  content: '';
+  position: absolute;
+  bottom: var(--btn-link-baseline);
+  left: 0;
+  width: calc(100% - var(--btn-link-icon) - var(--btn-link-gap));
+  height: var(--btn-link-underline);
+  background-color: #374151;
+  z-index: 1;
+}
+
+/* Icon decoration */
+.button-without-box::before {
+  content: '';
+  position: absolute;
+  bottom: var(--btn-link-baseline);
+  right: 0;
+  width: var(--btn-link-icon);
+  height: var(--btn-link-icon);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none' stroke='black' stroke-width='0.5'%3E%3Cpath d='M16.522 15.346V9.038h1.663v9.147H9.038V16.522h6.308L4.293 5.469 5.469 4.293Z' fill='black' stroke='black' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.button-without-box:hover {
+  color: #374151;
+}
+
+.button-without-box:hover::after {
+  background-color: #374151;
+}
+
+.button-without-box:hover::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
+  bottom: 50%;
+  transform: translateY(50%);
+  right: 0;
+  width: 12px;
+  height: 12px;
+}
+
+/* ============================================
+   VERTICAL BUTTON (BLACK BACKGROUND)
+   ============================================ */
+
+.button-without-box-vertical-black {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+  background-color: black;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1.2;
+  border: none;
+}
+
+/* Desktop: Vertical text */
+@media (min-width: 768px) {
+  .button-without-box-vertical-black {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-orientation: mixed;
+    padding: 20px 15px;
+    width: auto;
+    height: auto;
+  }
+
+  .button-without-box-vertical-black:hover::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
+  }
+}
+
+/* Mobile: Horizontal text, full width */
+@media (max-width: 767px) {
+  .button-without-box-vertical-black {
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+    padding: 15px 20px;
+    width: 100vw;
+    margin: 0;
+    left: 0;
+    transform: translateX(0);
+    position: relative;
+  }
+
+  .button-without-box-vertical-black::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 1px;
+    background-color: white;
+    z-index: 1;
+  }
+
+  .button-without-box-vertical-black::before {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: calc(50% + 85px);
+    width: 12px;
+    height: 12px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7L17 17"/><path d="M7 17H17"/><path d="M17 7V17"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 2;
+    transition: all 0.2s ease;
+  }
+
+  .button-without-box-vertical-black:hover::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
+    bottom: 50%;
+    transform: translateY(50%);
+  }
+}
+
+/* ============================================
+   HUBSPOT FORM BUTTONS
+   ============================================ */
+
+/* Submit button - button-l styling */
+.contact-form-wrapper input[type="submit"],
+.contact-form-wrapper button[type="submit"],
+.contact-form-wrapper .hs-button {
+  --btn-l-line: 1px;
+  --btn-l-offset: 4px;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 230.94px;
+  height: 50px;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
+  background-color: black;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .contact-form-wrapper input[type="submit"],
+  .contact-form-wrapper button[type="submit"],
+  .contact-form-wrapper .hs-button {
+    width: 176px;
+  }
+}
+
+.contact-form-wrapper input[type="submit"]::before,
+.contact-form-wrapper button[type="submit"]::before,
+.contact-form-wrapper .hs-button::before {
+  content: '';
+  position: absolute;
+  left: var(--btn-l-offset);
+  bottom: calc(var(--btn-l-offset) * -1);
+  right: calc(var(--btn-l-offset) * -1);
+  height: var(--btn-l-line);
+  background-color: white;
+}
+
+.contact-form-wrapper input[type="submit"]::after,
+.contact-form-wrapper button[type="submit"]::after,
+.contact-form-wrapper .hs-button::after {
+  content: '';
+  position: absolute;
+  top: var(--btn-l-offset);
+  right: calc(var(--btn-l-offset) * -1);
+  bottom: calc(var(--btn-l-offset) * -1);
+  width: var(--btn-l-line);
+  background-color: white;
+}
+
+.contact-form-wrapper input[type="submit"]:hover,
+.contact-form-wrapper button[type="submit"]:hover,
+.contact-form-wrapper .hs-button:hover {
+  background-color: #1f2937;
+}
+
+.hubspot-form-wrapper .hs-custom-submit.button-l {
+  align-self: start;
+}
+
+/* ============================================
+   CONTEXT-SPECIFIC BUTTON OVERRIDES
+   ============================================ */
+
+.footer-cta-btn.button-l {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+}
+
+.contact-actions .button-l {
+  width: 240px;
+  height: 52px;
+}

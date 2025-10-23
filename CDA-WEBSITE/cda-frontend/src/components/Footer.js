@@ -188,7 +188,7 @@ export default function Footer() {
               Ready To Start Your
               <span class="relative inline-block">
                 <span class="cda-page-title-clean">Project?</span>
-                <span class="absolute left-0 bottom-2 md:bottom-4 h-2 w-full bg-[#FD8721] -z-10"></span>
+
               </span>
             </h2>
             <a

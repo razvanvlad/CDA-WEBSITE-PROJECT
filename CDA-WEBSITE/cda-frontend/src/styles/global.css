@@ -1,221 +1,3 @@
-.button-l {
-  --btn-l-line: 1px;
-  /* line thickness */
-  --btn-l-offset: 4px;
-  /* half-pixel placement for crisp stroke */
-
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 230.94px;
-  height: 50px;
-  padding: 0;
-  font-family: var(--font-poppins), sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  color: white;
-  background-color: black;
-  border: none;
-  border-radius: 0;
-  /* Sharp corners */
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.button-l:hover:not(:disabled) {
-  background-color: #000000;
-}
-
-.button-l:disabled {
-  background-color: #808080;
-  color: white;
-  cursor: not-allowed;
-}
-
-.button-l:disabled::before,
-.button-l:disabled::after {
-  background-color: #808080;
-  /* Match the disabled button background */
-}
-
-/* Mobile styles for button-l */
-@media (max-width: 767px) {
-  .button-l {
-    width: 151.83px;
-    height: 46px;
-    font-size: 14px;
-  }
-}
-
-/* White variant of L-type button (alias: button-l-white) */
-.button-l-white {
-  --btn-l-line: 1px;
-  /* line thickness */
-  --btn-l-offset: 4px;
-  /* half-pixel placement for crisp stroke */
-
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 3rem;
-  font-family: var(--font-poppins), sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  color: black;
-  background-color: white;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: center;
-  white-space: nowrap;
-}
-
-
-/* --- Transparent variant of button-l --- */
-.button-l-transparent {
-  --btn-l-line: 1px;
-  --btn-l-offset: 4px;
-
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 3rem;
-  font-family: var(--font-poppins), sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-
-  color: black;
-  /* text is black */
-  background-color: transparent;
-  /* transparent box */
-  border: none;
-  box-shadow: inset 0 0 0 1px black;
-  /* black border */
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: center;
-  white-space: nowrap;
-}
-
-/* L-shaped lines (share rules with .button-l) */
-.button-l::before,
-.button-l-transparent::before {
-  content: '';
-  position: absolute;
-  left: var(--btn-l-offset);
-  bottom: calc(var(--btn-l-offset) * -1);
-  width: calc(100% - var(--btn-l-line));
-  height: var(--btn-l-line);
-  background-color: black;
-  z-index: 1;
-}
-
-.button-l::after,
-.button-l-transparent::after {
-  content: '';
-  position: absolute;
-  top: var(--btn-l-offset);
-  right: calc(var(--btn-l-offset) * -1);
-  width: var(--btn-l-line);
-  bottom: calc(var(--btn-l-offset) * -1);
-  background-color: black;
-  z-index: 1;
-}
-
-/* Hover: keep it transparent, keep black border/text */
-.button-l-transparent:hover {
-  background-color: black;
-  color: white;
-  box-shadow: inset 0 0 0 1px black;
-  /* stays black */
-}
-
-/* Bottom underline (horizontal) */
-.button-l-white::before {
-  content: '';
-  position: absolute;
-  left: var(--btn-l-offset);
-  bottom: calc(var(--btn-l-offset) * -1);
-  /* Extend to meet vertical line at bottom-right corner */
-  width: calc(100% - var(--btn-l-line));
-  height: var(--btn-l-line);
-  background-color: black;
-  z-index: 1;
-}
-
-/* Right side line (vertical) */
-.button-l-white::after {
-  content: '';
-  position: absolute;
-  top: var(--btn-l-offset);
-  right: calc(var(--btn-l-offset) * -1);
-  width: var(--btn-l-line);
-  /* Stretch down to the same depth as the bottom underline */
-  bottom: calc(var(--btn-l-offset) * -1);
-  background-color: black;
-  z-index: 1;
-}
-
-.button-l-white:hover {
-  background-color: black;
-  color: white;
-  box-shadow: none;
-}
-
-
-
-/* Underline: only under text (stops before icon space) */
-.button-without-box::after {
-  content: '';
-  position: absolute;
-  /* baseline offset for 18px Poppins (override via --btn-link-baseline) */
-  bottom: var(--btn-link-baseline);
-  left: 0;
-  width: calc(100% - var(--btn-link-icon) - var(--btn-link-gap));
-  height: var(--btn-link-underline);
-  background-color: #374151;
-  z-index: 1;
-}
-
-/* Icon: design-inspired corner arrow */
-.button-without-box::before {
-  content: '';
-  position: absolute;
-  bottom: var(--btn-link-baseline);
-  right: 0;
-  width: var(--btn-link-icon);
-  height: var(--btn-link-icon);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none' stroke='black' stroke-width='0.5'%3E%3Cpath d='M16.522 15.346V9.038h1.663v9.147H9.038V16.522h6.308L4.293 5.469 5.469 4.293Z' fill='black' stroke='black' stroke-width='0.5'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-  z-index: 2;
-  transition: all 0.2s ease;
-}
-
-/* Hover effect */
-.button-without-box:hover {
-  color: #374151;
-}
-
-.button-without-box:hover::after {
-  background-color: #374151;
-}
-
-/* Replace icon on hover */
-.button-without-box:hover::before {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
-  bottom: 50%;
-  transform: translateY(50%);
-  right: 0;
-  width: 12px;
-  height: 12px;
-}
-
 /* Square badge in the style of button-l */
 .value-badge-l {
   /* reuse the button-l metrics for crisp lines */
@@ -278,66 +60,6 @@
   z-index: 1;
 }
 
-/* Bottom underline (horizontal) */
-.button-l::before {
-  content: '';
-  position: absolute;
-  left: var(--btn-l-offset);
-  bottom: calc(var(--btn-l-offset) * -1);
-  /* Extend to meet vertical line at bottom-right corner */
-  width: calc(100% - var(--btn-l-line));
-  height: var(--btn-l-line);
-  background-color: black;
-  z-index: 1;
-}
-
-/* Right side line (vertical) */
-.button-l::after {
-  content: '';
-  position: absolute;
-  top: var(--btn-l-offset);
-  right: calc(var(--btn-l-offset) * -1);
-  width: var(--btn-l-line);
-  /* Stretch down to the same depth as the bottom underline */
-  bottom: calc(var(--btn-l-offset) * -1);
-  background-color: black;
-  z-index: 1;
-}
-
-.button-l:hover {
-  background-color: white;
-  color: black;
-  box-shadow: inset 0 0 0 1px black;
-}
-
-.button-without-box {
-  --btn-link-underline: 0.5px;
-  /* underline thickness from design */
-  --btn-link-icon: 14px;
-  /* icon size - updated to 14x14px per spec */
-  --btn-link-gap: 3px;
-  /* gap between underline end and icon */
-  --btn-link-baseline: 2px;
-  /* distance from text baseline to underline/icon */
-
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  font-family: var(--font-inter), sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  color: #374151;
-  text-decoration: none;
-  padding: 0 calc(var(--btn-link-icon) + var(--btn-link-gap)) 0 0;
-  /* space for icon */
-  cursor: pointer;
-  transition: all 0.2s ease;
-  line-height: 1.2;
-  border: none;
-  background: none;
-}
-
-
 /* OLD underline classes removed - superseded by UnderlinedTitle component */
 
 .nav-link {
@@ -382,97 +104,6 @@
   box-shadow: 0 0 0 2px #fff, 0 0 0 3px #000000;
   /* double outline */
 }
-
-/* CSS FOR VERTICAL BUTTON */
-
-.button-without-box-vertical-black {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-inter), sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  color: white;
-  text-decoration: none;
-  background-color: black;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  line-height: 1.2;
-  border: none;
-  font-family: inherit;
-}
-
-/* Desktop: Vertical text */
-@media (min-width: 768px) {
-  .button-without-box-vertical-black {
-    writing-mode: vertical-rl;
-    /* Changed from vertical-lr to vertical-rl */
-    transform: rotate(180deg);
-    /* Rotate 180deg to read bottom→top per spec */
-    text-orientation: mixed;
-    padding: 20px 15px;
-    width: auto;
-    height: auto;
-  }
-
-  /* Desktop hover effect */
-  .button-without-box-vertical-black:hover::before {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
-  }
-}
-
-/* Mobile: Horizontal text, full width */
-@media (max-width: 767px) {
-  .button-without-box-vertical-black {
-    writing-mode: horizontal-tb;
-    text-orientation: mixed;
-    padding: 15px 20px;
-    width: 100vw;
-    margin: 0;
-    left: 0;
-    transform: translateX(0);
-    position: relative;
-  }
-
-  /* Underline: centered under text on mobile */
-  .button-without-box-vertical-black::after {
-    content: '';
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 150px;
-    height: 1px;
-    background-color: white;
-    z-index: 1;
-  }
-
-  /* Arrow icon positioned right of underline on mobile */
-  .button-without-box-vertical-black::before {
-    content: '';
-    position: absolute;
-    bottom: 2px;
-    left: calc(50% + 85px);
-    /* Center + half underline width + gap */
-    width: 12px;
-    height: 12px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7L17 17"/><path d="M7 17H17"/><path d="M17 7V17"/></svg>');
-    background-size: contain;
-    background-repeat: no-repeat;
-    z-index: 2;
-    transition: all 0.2s ease;
-  }
-
-  /* Mobile hover effect */
-  .button-without-box-vertical-black:hover::before {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
-    bottom: 50%;
-    transform: translateY(50%);
-  }
-}
-
-/* CSS FOR VERTICAL BUTTON */
 
 /* Homepage header illustration sizing */
 .home-header-illustration {
@@ -1408,74 +1039,6 @@
   grid-column: 1 / -1;
 }
 
-/* Submit button - button-l styling */
-.contact-form-wrapper input[type="submit"],
-.contact-form-wrapper button[type="submit"],
-.contact-form-wrapper .hs-button {
-  --btn-l-line: 1px;
-  --btn-l-offset: 4px;
-
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 230.94px;
-  height: 50px;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  color: white;
-  background-color: black;
-  border: none;
-  border-radius: 0;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: center;
-  white-space: nowrap;
-}
-
-@media (max-width: 768px) {
-
-  .contact-form-wrapper input[type="submit"],
-  .contact-form-wrapper button[type="submit"],
-  .contact-form-wrapper .hs-button {
-    width: 176px;
-  }
-}
-
-/* Button L-border - bottom line */
-.contact-form-wrapper input[type="submit"]::before,
-.contact-form-wrapper button[type="submit"]::before,
-.contact-form-wrapper .hs-button::before {
-  content: '';
-  position: absolute;
-  left: var(--btn-l-offset);
-  bottom: calc(var(--btn-l-offset) * -1);
-  right: calc(var(--btn-l-offset) * -1);
-  height: var(--btn-l-line);
-  background-color: white;
-}
-
-/* Button L-border - right line */
-.contact-form-wrapper input[type="submit"]::after,
-.contact-form-wrapper button[type="submit"]::after,
-.contact-form-wrapper .hs-button::after {
-  content: '';
-  position: absolute;
-  top: var(--btn-l-offset);
-  right: calc(var(--btn-l-offset) * -1);
-  bottom: calc(var(--btn-l-offset) * -1);
-  width: var(--btn-l-line);
-  background-color: white;
-}
-
-.contact-form-wrapper input[type="submit"]:hover,
-.contact-form-wrapper button[type="submit"]:hover,
-.contact-form-wrapper .hs-button:hover {
-  background-color: #1f2937;
-}
-
 /* Error messages */
 .contact-form-wrapper .hs-error-msgs {
   color: #ef4444;
@@ -1599,10 +1162,6 @@
   text-align: center;
 }
 
-.footer-cta-btn.button-l {
-  margin-left: auto;
-  margin-right: auto;
-}
 
 /* Remove magnifier rules entirely */
 /* (Intentionally blank - previously .footer-cta-magnifier rules removed) */
@@ -1627,12 +1186,6 @@
   text-align: center;
 }
 
-.footer-cta-btn.button-l {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-inline: auto;
-}
 
 /* Magnifier container: positioned within the CTA card */
 .footer-cta-magnifier {
@@ -1704,36 +1257,6 @@
   }
 }
 
-/* L-type button white variant */
-.button-l--white {
-  background-color: #fff;
-  color: #7c3aed;
-  box-shadow: inset 0 0 0 1px #7c3aed;
-}
-
-.button-l.button-l--white::before,
-.button-l.button-l--white::after {
-  background-color: #7c3aed;
-}
-
-.button-l.button-l--white:hover {
-  background-color: #7c3aed;
-  color: #fff;
-}
-
-.button-l.button-l--white:hover::before,
-.button-l.button-l--white:hover::after {
-  background-color: #fff;
-}
-
-.button-l.button-l--white:hover::after {
-  background-color: #fff;
-}
-
-.button-l.button-l--white:hover::after {
-  background-color: #fff;
-}
-
 /* --- Home Case Studies: list + item layout (fix stacking) --- */
 .home-case-studies .cs-list {
   display: flex;
@@ -1794,10 +1317,6 @@
   .home-case-studies .cs-media {
     height: clamp(200px, 52vw, 320px);
   }
-}
-
-.button-l.button-l--white:hover::after {
-  background-color: #fff;
 }
 
 /* Home Case Studies: header layout + overrides */
@@ -1886,11 +1405,6 @@
   white-space: nowrap !important;
 }
 
-/* Make the proxy button look exactly like .button-l */
-.hubspot-form-wrapper .hs-custom-submit.button-l {
-  align-self: start;
-}
-
 /* Enforce square images (no rounded corners) */
 .home-case-studies .cs-media {
   border-radius: 0 !important;
@@ -1908,97 +1422,6 @@
 
 
 /* Duplicate nav-link and helpers removed */
-
-/* CSS FOR VERTICAL BUTTON */
-
-.button-without-box-vertical-black {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-inter), sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  color: white;
-  text-decoration: none;
-  background-color: black;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  line-height: 1.2;
-  border: none;
-  font-family: inherit;
-}
-
-/* Desktop: Vertical text */
-@media (min-width: 768px) {
-  .button-without-box-vertical-black {
-    writing-mode: vertical-rl;
-    /* Changed from vertical-lr to vertical-rl */
-    transform: rotate(180deg);
-    /* Rotate 180deg to read bottom→top per spec */
-    text-orientation: mixed;
-    padding: 20px 15px;
-    width: auto;
-    height: auto;
-  }
-
-  /* Desktop hover effect */
-  .button-without-box-vertical-black:hover::before {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
-  }
-}
-
-/* Mobile: Horizontal text, full width */
-@media (max-width: 767px) {
-  .button-without-box-vertical-black {
-    writing-mode: horizontal-tb;
-    text-orientation: mixed;
-    padding: 15px 20px;
-    width: 100vw;
-    margin: 0;
-    left: 0;
-    transform: translateX(0);
-    position: relative;
-  }
-
-  /* Underline: centered under text on mobile */
-  .button-without-box-vertical-black::after {
-    content: '';
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 150px;
-    height: 1px;
-    background-color: white;
-    z-index: 1;
-  }
-
-  /* Arrow icon positioned right of underline on mobile */
-  .button-without-box-vertical-black::before {
-    content: '';
-    position: absolute;
-    bottom: 2px;
-    left: calc(50% + 85px);
-    /* Center + half underline width + gap */
-    width: 12px;
-    height: 12px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7L17 17"/><path d="M7 17H17"/><path d="M17 7V17"/></svg>');
-    background-size: contain;
-    background-repeat: no-repeat;
-    z-index: 2;
-    transition: all 0.2s ease;
-  }
-
-  /* Mobile hover effect */
-  .button-without-box-vertical-black:hover::before {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>');
-    bottom: 50%;
-    transform: translateY(50%);
-  }
-}
-
-/* CSS FOR VERTICAL BUTTON */
 
 /* Homepage header illustration sizing */
 .home-header-illustration {
@@ -2111,7 +1534,7 @@
 
 .side-menu-heading {
   font-family: var(--font-inter), sans-serif;
-  font-weight: 400;
+  font-weight: 700;
   font-size: 18px;
   color: #000;
 }
@@ -2712,11 +2135,6 @@
   margin-top: 8px;
 }
 
-.contact-actions .button-l {
-  width: 240px;
-  height: 52px;
-}
-
 /* Right illustration */
 .contact-illustration {
   display: flex;
@@ -2745,10 +2163,6 @@
   text-align: center;
 }
 
-.footer-cta-btn.button-l {
-  margin-left: auto;
-  margin-right: auto;
-}
 
 /* Remove magnifier rules entirely */
 /* (Intentionally blank - previously .footer-cta-magnifier rules removed) */
@@ -2773,12 +2187,6 @@
   text-align: center;
 }
 
-.footer-cta-btn.button-l {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-inline: auto;
-}
 
 /* Magnifier container: positioned within the CTA card */
 .footer-cta-magnifier {
@@ -2848,23 +2256,6 @@
   .footer-cta-magnifier {
     width: clamp(120px, 45vw, 220px);
   }
-}
-
-/* L-type button white variant */
-.button-l--white {
-  background-color: #fff;
-  color: #000;
-  box-shadow: inset 0 0 0 1px #000;
-}
-
-.button-l.button-l--white::before,
-.button-l.button-l--white::after {
-  background-color: #000;
-}
-
-.button-l.button-l--white:hover {
-  background-color: #000;
-  color: #fff;
 }
 
 /* Service hero typography helpers */
