@@ -168,47 +168,107 @@ export default function KnowledgeHubClient({ initialCaseStudies = [], initialPos
   );
 
   // Pagination component - reusable for top and bottom
-  const PaginationControls = () => (
-    <div className="flex items-center gap-2">
-      <button
-        onClick={() => goto(Math.max(1, currentPage - 1))}
-        disabled={currentPage <= 1}
-        className="pagination-btn"
-        aria-label="Previous page"
-      >
-        &lt;
-      </button>
-      {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
-        let pageNum;
-        if (totalPages <= 5) {
-          pageNum = i + 1;
-        } else if (currentPage <= 3) {
-          pageNum = i + 1;
-        } else if (currentPage >= totalPages - 2) {
-          pageNum = totalPages - 4 + i;
-        } else {
-          pageNum = currentPage - 2 + i;
+  const PaginationControls = () => {
+    const renderPageNumbers = () => {
+      const pages = [];
+      const maxVisible = 5;
+
+      if (totalPages <= maxVisible + 2) {
+        // Show all pages if total is small
+        for (let i = 1; i <= totalPages; i++) {
+          pages.push(
+            <button
+              key={i}
+              onClick={() => goto(i)}
+              className={i === currentPage ? 'pagination-btn pagination-btn--active' : 'pagination-btn'}
+            >
+              {i}
+            </button>
+          );
         }
-        return (
+      } else {
+        // Always show first page
+        pages.push(
           <button
-            key={pageNum}
-            onClick={() => goto(pageNum)}
-            className={pageNum === currentPage ? 'pagination-btn pagination-btn--active' : 'pagination-btn'}
+            key={1}
+            onClick={() => goto(1)}
+            className={1 === currentPage ? 'pagination-btn pagination-btn--active' : 'pagination-btn'}
           >
-            {pageNum}
+            1
           </button>
         );
-      })}
-      <button
-        onClick={() => goto(Math.min(totalPages, currentPage + 1))}
-        disabled={currentPage >= totalPages}
-        className="pagination-btn"
-        aria-label="Next page"
-      >
-        &gt;
-      </button>
-    </div>
-  );
+
+        // Show ellipsis or pages around current
+        if (currentPage > 3) {
+          pages.push(
+            <span key="ellipsis-start" className="pagination-ellipsis">
+              ...
+            </span>
+          );
+        }
+
+        // Show pages around current page
+        const startPage = Math.max(2, currentPage - 1);
+        const endPage = Math.min(totalPages - 1, currentPage + 1);
+
+        for (let i = startPage; i <= endPage; i++) {
+          pages.push(
+            <button
+              key={i}
+              onClick={() => goto(i)}
+              className={i === currentPage ? 'pagination-btn pagination-btn--active' : 'pagination-btn'}
+            >
+              {i}
+            </button>
+          );
+        }
+
+        // Show ellipsis before last page
+        if (currentPage < totalPages - 2) {
+          pages.push(
+            <span key="ellipsis-end" className="pagination-ellipsis">
+              ...
+            </span>
+          );
+        }
+
+        // Always show last page
+        pages.push(
+          <button
+            key={totalPages}
+            onClick={() => goto(totalPages)}
+            className={totalPages === currentPage ? 'pagination-btn pagination-btn--active' : 'pagination-btn'}
+          >
+            {totalPages}
+          </button>
+        );
+      }
+
+      return pages;
+    };
+
+    return (
+      <div className="flex items-center gap-3">
+        <button
+          onClick={() => goto(Math.max(1, currentPage - 1))}
+          disabled={currentPage <= 1}
+          className="pagination-btn pagination-btn--arrow"
+          aria-label="Previous page"
+        >
+          <img src="/images/arrow-icons/left-arrow.svg" alt="Previous" className="pagination-arrow-icon" />
+        </button>
+        {renderPageNumbers()}
+        <button
+          onClick={() => goto(Math.min(totalPages, currentPage + 1))}
+          disabled={currentPage >= totalPages}
+          className="pagination-btn pagination-btn--arrow"
+          aria-label="Next page"
+        >
+          <img src="/images/arrow-icons/right-arrow.svg" alt="Next" className="pagination-arrow-icon" />
+        </button>
+      </div>
+    );
+  };
 
   return (
     <section className="py-16 bg-white">
