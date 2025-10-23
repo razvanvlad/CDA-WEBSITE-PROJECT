@@ -159,8 +159,8 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
       </div>
 
       {/* Mobile Sticky Start Project Button - Bottom Edge */}
-      <div className="fixed bottom-0 left-0 z-50 md:hidden">
-        <button onClick={() => setIsBookingModalOpen(true)} className="button-without-box-vertical-black shadow-lg hover:shadow-xl transition-shadow duration-300">Start A Project</button>
+      <div className="fixed bottom-0 left-0 w-full z-50 md:hidden bg-black py-3 flex justify-center">
+        <button onClick={() => setIsBookingModalOpen(true)} className="button-without-box-white">Start A Project</button>
       </div>
 
       <header className="bg-white" style={{ borderBottom: '1px solid #EBEBEB' }}>

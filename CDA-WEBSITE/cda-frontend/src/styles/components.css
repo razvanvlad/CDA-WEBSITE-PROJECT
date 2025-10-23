@@ -100,9 +100,8 @@
   order: 4;
   display: flex;
   flex-direction: row;
-  /* ← Changed from 'column' to 'row' */
-  flex-wrap: wrap;
-  /* ← Allow wrapping if needed */
+  flex-wrap: nowrap;
+  /* Don't wrap buttons on same line */
   gap: 1rem;
   justify-content: center;
   align-items: center;
@@ -125,10 +124,8 @@
 }
 
 .cda-hero__cta-item {
-  flex: 1 1 48%;
-  /* Two items per line on tiny screens */
-  min-width: 140px;
-  /* Prevent too narrow */
+  flex: 0 0 auto;
+  /* Don't grow or shrink, use natural button size */
 }
 
 /* ============================================
@@ -228,39 +225,8 @@
    BUTTONS
    ============================================ */
 
-.cda-hero__cta a.button-l,
-.cda-hero__cta .button-l {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  text-align: center;
-  min-width: 160px;
-}
-
-.cda-hero__cta a.button-secondary,
-.cda-hero__cta .button-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  text-align: center;
-  min-width: 160px;
-  border: 2px solid #111827;
-  color: #111827;
-  background-color: transparent;
-  transition: all 0.2s ease;
-}
-
-.cda-hero__cta a.button-secondary:hover,
-.cda-hero__cta .button-secondary:hover {
-  background-color: #111827;
-  color: #FFFFFF;
-}
+/* Button styles are now defined in buttons.css */
+/* No overrides needed here - buttons use their global styles */
 
 /* ============================================
    KNOWLEDGE HUB MASONRY GRID
