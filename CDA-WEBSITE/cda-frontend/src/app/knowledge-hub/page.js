@@ -5,7 +5,7 @@ import HeroSection from '../../components/GlobalBlocks/HeroSection'
 import Link from 'next/link'
 import Image from 'next/image'
 import KnowledgeHubClient from './KnowledgeHubClient'
-import UnderlinedTitle from '@/components/UnderlinedTitle'
+import ResponsiveUnderlinedTitle from '@/components/ResponsiveUnderlinedTitle'
 import ServicesFilters from '../services/ServicesFilters'
 import GlobalTailSections from '@/components/GlobalBlocks/GlobalTailSections.jsx'
 import NewsletterSignup from '@/components/GlobalBlocks/NewsletterSignup.js'
@@ -81,14 +81,13 @@ const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
           <HeroSection
             sectionClassName="bg-white"
             title={
-              <UnderlinedTitle
+              <ResponsiveUnderlinedTitle
                 as="h1"
-                className="cda-hero__title-text cda-page-title"
+                className="cda-title"
                 underlineColor="#01E486"
-                size="large"
               >
                 Knowledge Hub
-              </UnderlinedTitle>
+              </ResponsiveUnderlinedTitle>
             }
             description="Read more news and articles from CDA. Explore our case studies, industry insights, and expert resources to help your business grow."
             descriptionClassName="text-lg text-gray-600"

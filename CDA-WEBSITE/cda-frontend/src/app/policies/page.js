@@ -2,7 +2,7 @@ import { getPoliciesWithPagination } from '@/lib/graphql-queries.js'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Link from 'next/link'
-import UnderlinedTitle from '@/components/UnderlinedTitle'
+import ResponsiveUnderlinedTitle from '@/components/ResponsiveUnderlinedTitle'
 
 export const metadata = {
   title: 'Policies - CDA Systems',
@@ -29,14 +29,13 @@ export default async function PoliciesLandingPage() {
           <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-10">
               <div>
-                <UnderlinedTitle
+                <ResponsiveUnderlinedTitle
                   as="h1"
-                  className="cda-page-title pb-10 mb-10"
+                  className="cda-title pb-10 mb-10"
                   underlineColor="#FD8721"
-                  size="large"
                 >
                   Our Policies
-                </UnderlinedTitle>
+                </ResponsiveUnderlinedTitle>
                 <p className="text-lg text-[#4B5563] leading-relaxed max-w-2xl">
                   Browse our company policies, terms of service, privacy policy, and other important legal documents.
                 </p>

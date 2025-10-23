@@ -3,7 +3,7 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import HeroSection from '../../components/GlobalBlocks/HeroSection'
 import JobListingsClient from './JobListingsClient'
-import UnderlinedTitle from '../../components/UnderlinedTitle'
+import ResponsiveUnderlinedTitle from '../../components/ResponsiveUnderlinedTitle'
 
 // GraphQL query for global content blocks
 const GET_GLOBAL_BLOCKS = `
@@ -89,14 +89,13 @@ export default async function CareersPage() {
         <HeroSection
           sectionClassName="bg-white"
           title={
-            <UnderlinedTitle
+            <ResponsiveUnderlinedTitle
               as="h1"
-              className="cda-hero__title-text cda-page-title"
+              className="cda-title"
               underlineColor="#FF5C8A"
-              size="large"
             >
               JOIN OUR Team
-            </UnderlinedTitle>
+            </ResponsiveUnderlinedTitle>
           }
           description="CDA is a place where people flourish. Discover exciting career opportunities and see what roles we have available for you."
           descriptionClassName="text-lg text-gray-600"

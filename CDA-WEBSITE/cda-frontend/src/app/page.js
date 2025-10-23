@@ -1,7 +1,7 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import HeroSection from '../components/GlobalBlocks/HeroSection'
-import UnderlinedTitle from '../components/UnderlinedTitle'
+import ResponsiveUnderlinedTitle from '../components/ResponsiveUnderlinedTitle'
 import { sanitizeTitleHtml } from '../lib/sanitizeTitleHtml'
 import PhotoFrame from '../components/GlobalBlocks/PhotoFrame'
 import ServicesAccordion from '../components/GlobalBlocks/ServicesAccordion'
@@ -193,14 +193,13 @@ export default async function Home() {
         <HeroSection
           sectionClassName="bg-white"
           title={
-            <UnderlinedTitle
+            <ResponsiveUnderlinedTitle
               as="h1"
-              className="cda-hero__title-text cda-page-title"
+              className="cda-hero__title-text cda-title"
               underlineColor="#3CBEEB"
-              size="large"
             >
               {hero.title || 'Welcome to CDA'}
-            </UnderlinedTitle>
+            </ResponsiveUnderlinedTitle>
           }
           description={hero.text}
           ctas={[

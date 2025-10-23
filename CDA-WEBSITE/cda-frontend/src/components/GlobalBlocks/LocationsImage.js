@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import UnderlinedTitle from '../UnderlinedTitle';
+import ResponsiveUnderlinedTitle from '../ResponsiveUnderlinedTitle';
 
 /*
   LocationsImage (Global block)
@@ -31,16 +31,13 @@ const LocationsImage = ({ globalData }) => {
             <p className="cda-subtitle">{globalData.subtitle}</p>
           )}
           {globalData.title && (
-            <UnderlinedTitle
+            <ResponsiveUnderlinedTitle
               as="h2"
-              className="cda-title title-small-pink"
+              className="section-title"
               underlineColor="#FF5C8A"
-              underlineHeight={1}
-              underlineOffset={29}
-              underlineWidth={100}
             >
               {globalData.title}
-            </UnderlinedTitle>
+            </ResponsiveUnderlinedTitle>
           )}
         </div>
 
@@ -57,17 +54,15 @@ const LocationsImage = ({ globalData }) => {
                   className="relative pb-1 shrink-0"
                   aria-pressed={isActive}
                 >
-                  <UnderlinedTitle
+                  <ResponsiveUnderlinedTitle
                     as="h2"
-                    className="cda-title title-small-pink"
+                    className="section-title"
                     underlineColor={isActive ? "#FF5C8A" : "#9CA3AF"}
-                    strokeWidth={4}
-                    underlineOffset={29}
                   >
                     <span className={isActive ? "text-[24px] font-semibold text-[#111827]" : "text-[24px] font-semibold text-[#9CA3AF]"}>
                       {c.countryName}
                     </span>
-                  </UnderlinedTitle>
+                  </ResponsiveUnderlinedTitle>
                 </button>
               );
             })}
@@ -90,15 +85,13 @@ const LocationsImage = ({ globalData }) => {
                       aria-pressed={isActive}
                     >
                       {isActive ? (
-                        <UnderlinedTitle
+                        <ResponsiveUnderlinedTitle
                           as="span"
                           className="text-[28px] font-semibold text-[#111827]"
                           underlineColor="#FF5C8A"
-                          strokeWidth={6}
-                          underlineOffset={24}
                         >
                           {c.countryName}
-                        </UnderlinedTitle>
+                        </ResponsiveUnderlinedTitle>
                       ) : (
                         <span className="text-[28px] font-semibold text-[#9CA3AF]">{c.countryName}</span>
                       )}
