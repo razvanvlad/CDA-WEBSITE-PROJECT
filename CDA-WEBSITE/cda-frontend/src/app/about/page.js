@@ -9,6 +9,7 @@ import ApproachBlock from '../../components/GlobalBlocks/ApproachBlock';
 import CultureGallerySlider from '../../components/GlobalBlocks/CultureGallerySlider';
 import StatsBlock from '../../components/GlobalBlocks/StatsBlock';
 import ResponsiveUnderlinedTitle from '../../components/ResponsiveUnderlinedTitle';
+import TextLinkButton from '../../components/ui/TextLinkButton';
 import { sanitizeTitleHtml } from '../../lib/sanitizeTitleHtml';
 import { executeGraphQLQuery, getGlobalContent, getPageGlobalTogglesByUri, getPageGlobalTogglesBySlug } from '../../lib/graphql-queries';
 
@@ -237,11 +238,12 @@ export default async function AboutPage() {
                        dangerouslySetInnerHTML={{ __html: aboutContent.behindCda.description }} />
                 )}
                 {aboutContent.behindCda.cta?.url && (
-                  <a href={aboutContent.behindCda.cta.url}
-                     target={aboutContent.behindCda.cta.target || '_self'}
-                     className="button-without-box">
+                  <TextLinkButton
+                    href={aboutContent.behindCda.cta.url}
+                    target={aboutContent.behindCda.cta.target || '_self'}
+                  >
                     {aboutContent.behindCda.cta.title || 'Learn More'}
-                  </a>
+                  </TextLinkButton>
                 )}
               </div>
             </div>

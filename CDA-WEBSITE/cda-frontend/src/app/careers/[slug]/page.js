@@ -1,6 +1,7 @@
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import ResponsiveUnderlinedTitle from '../../../components/ResponsiveUnderlinedTitle';
+import TextLinkButton from '../../../components/ui/TextLinkButton';
 import { notFound } from 'next/navigation';
 import { getJobListingBySlug, getJobListingSlugs, getJobListingsSimple, getJobListingsWithPagination } from '../../../lib/graphql-queries';
 import Image from 'next/image';
@@ -175,12 +176,9 @@ export default async function CareerDetailPage({ params }) {
                   >
                     Apply Now
                   </Link>
-                  <Link
-                    href="/careers"
-                    className="button-without-box"
-                  >
+                  <TextLinkButton href="/careers">
                     View All Positions
-                  </Link>
+                  </TextLinkButton>
                 </div>
               </div>
 

@@ -25,6 +25,43 @@ const normalizeCtas = (ctas) => {
         if (!content) return null
         const finalTarget = target || '_self'
         const finalRel = rel || (finalTarget === '_blank' ? 'noopener noreferrer' : undefined)
+
+        // Special handling for button-without-box: use real HTML elements
+        if (className.includes('button-without-box')) {
+          const isWhite = className.includes('white');
+          const defaultIcon = '/images/arrow-icons/diagonal-right-arrow.svg';
+          const hoverIcon = '/images/arrow-icons/right-arrow.svg';
+
+          return {
+            key: `cta-link-${index}`,
+            node: (
+              <a
+                href={url || href}
+                target={finalTarget}
+                rel={finalRel}
+                className={className}
+              >
+                <span className="button-text">{content}</span>
+                <span className="button-icon-wrapper">
+                  <img
+                    src={defaultIcon}
+                    alt=""
+                    className="button-icon button-icon-default"
+                    aria-hidden="true"
+                  />
+                  <img
+                    src={hoverIcon}
+                    alt=""
+                    className="button-icon button-icon-hover"
+                    aria-hidden="true"
+                  />
+                </span>
+              </a>
+            ),
+          };
+        }
+
+        // Default button rendering
         return {
           key: `cta-link-${index}`,
           node: (

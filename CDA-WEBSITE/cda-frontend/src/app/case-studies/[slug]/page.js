@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import GlobalTailSections from '../../../components/GlobalBlocks/GlobalTailSections.jsx';
 import TestimonialCard from '@/components/TestimonialCard';
+import TextLinkButton from '../../../components/ui/TextLinkButton';
 
 export const revalidate = 300
 
@@ -114,12 +115,9 @@ export default async function CaseStudyPage(props) {
                       View Site Live
                     </Link>
                   )}
-                  <Link
-                    href="/case-studies"
-                    className="button-without-box"
-                  >
+                  <TextLinkButton href="/case-studies">
                     View All Case Studies
-                  </Link>
+                  </TextLinkButton>
                 </div>
               </div>
 
@@ -259,12 +257,9 @@ export default async function CaseStudyPage(props) {
               >
                 Get Started Today
               </Link>
-              <Link
-                href="/case-studies"
-                className="button-without-box text-white"
-              >
+              <TextLinkButton href="/case-studies" variant="white">
                 View More Case Studies
-              </Link>
+              </TextLinkButton>
             </div>
           </div>
         </section>

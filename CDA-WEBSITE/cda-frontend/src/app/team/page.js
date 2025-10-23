@@ -1,6 +1,7 @@
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import HeroSection from '@/components/GlobalBlocks/HeroSection'
+import TextLinkButton from '../../components/ui/TextLinkButton'
 import Link from 'next/link'
 import Image from 'next/image'
 import ResponsiveUnderlinedTitle from '../../components/ResponsiveUnderlinedTitle'
@@ -207,7 +208,7 @@ export default async function TeamPage() {
                   <div className="wysiwyg-content text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] mb-6" dangerouslySetInnerHTML={{ __html: founder.description }} />
                 )}
                 {founder.cta?.url && (
-                  <a href={founder.cta.url} target={founder.cta.target || '_self'} className="button-without-box">{founder.cta.title || 'Learn More'}</a>
+                  <TextLinkButton href={founder.cta.url} target={founder.cta.target || '_self'}>{founder.cta.title || 'Learn More'}</TextLinkButton>
                 )}
               </div>
             </div>

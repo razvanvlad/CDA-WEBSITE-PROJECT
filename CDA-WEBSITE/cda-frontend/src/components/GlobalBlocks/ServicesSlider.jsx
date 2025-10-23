@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getServicesCoreWithPagination } from '@/lib/graphql-queries.js'
-import SectionBand from '@/components/SectionBand' // ⬅ make sure path matches your file
+import SectionBand from '@/components/SectionBand'
+import TextLinkButton from '../ui/TextLinkButton'
 
 export default function ServicesSlider({
   title = 'The Services We Offer',
@@ -81,12 +82,9 @@ export default function ServicesSlider({
                   </button>
                 </div>
               )}
-              <Link
-                href="/services"
-                className="button-without-box"
-              >
+              <TextLinkButton href="/services">
                 All Services
-              </Link>
+              </TextLinkButton>
             </div>
           </div>
 

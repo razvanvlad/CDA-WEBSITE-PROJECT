@@ -2,6 +2,7 @@
 
 import React from 'react';
 import SectionBand from '@/components/SectionBand';
+import TextLinkButton from '../ui/TextLinkButton';
 
 const Showreel = ({ globalData }) => {
   if (!globalData) return null;
@@ -42,14 +43,13 @@ const Showreel = ({ globalData }) => {
             </div>
 
             {button?.url && (
-              <a
+              <TextLinkButton
                 href={button.url}
                 target={button.target === '_blank' ? '_blank' : '_self'}
-                rel={button.target === '_blank' ? 'noopener noreferrer' : undefined}
-                className="button-without-box self-center md:self-auto"
+                className="self-center md:self-auto"
               >
                 {button.title || 'View Our Work'}
-              </a>
+              </TextLinkButton>
             )}
           </div>
         )}

@@ -2,6 +2,7 @@ import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import HeroSection from '../../../components/GlobalBlocks/HeroSection';
 import ResponsiveUnderlinedTitle from '../../../components/ResponsiveUnderlinedTitle';
+import TextLinkButton from '../../../components/ui/TextLinkButton';
 import { notFound } from 'next/navigation';
 import { sanitizeTitleHtml } from '../../../lib/sanitizeTitleHtml';
 import { executeGraphQLQuery, GET_SERVICE_BY_SLUG } from '../../../lib/graphql-queries';
@@ -272,9 +273,9 @@ export default async function ServicePage({ params }) {
                   <p className="cda-subtitle">Our Work</p>
                   <h2 className="cda-title title-small-orange">Related Case Studies</h2>
                 </div>
-                <a href="/case-studies" className="button-without-box cs-header-cta">
+                <TextLinkButton href="/case-studies" className="cs-header-cta">
                   View All Case Studies
-                </a>
+                </TextLinkButton>
               </div>
               
               <div className="text-center py-8">
