@@ -2,6 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import SectionBand from '@/components/SectionBand';
+import TextLinkButton from '../ui/TextLinkButton';
 
 const PhotoFrame = ({ globalData, contentOverride }) => {
   if (!globalData) return null;
@@ -61,14 +62,13 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
       </div>
     )}
     {copy.button?.url && copy.button?.title && (
-      <a
+      <TextLinkButton
         href={copy.button.url}
         target={copy.button.target === '_blank' ? '_blank' : '_self'}
-        rel={copy.button.target === '_blank' ? 'noopener noreferrer' : undefined}
-        className="button-without-box text-black"
+        className="text-black"
       >
         {copy.button.title}
-      </a>
+      </TextLinkButton>
     )}
 
     {arrowIllustration?.node?.sourceUrl && (

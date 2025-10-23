@@ -4,6 +4,7 @@ import HeroSection from '../../components/GlobalBlocks/HeroSection'
 import ResponsiveUnderlinedTitle from '../../components/ResponsiveUnderlinedTitle'
 import Link from 'next/link'
 import Image from 'next/image'
+import TextLinkButton from '../../components/ui/TextLinkButton'
 
 const GRAPHQL_ENDPOINT =
   process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT ||
@@ -115,7 +116,7 @@ export default async function NewsArchivePage() {
                     <div className="text-gray-600 mb-4 line-clamp-3" dangerouslySetInnerHTML={{ __html: post.excerpt }} />
                   )}
                   <div className="flex items-center justify-between">
-                    <Link href={`/news/${post.slug}`} className="button-without-box">Read More</Link>
+                    <TextLinkButton href={`/news/${post.slug}`}>Read More</TextLinkButton>
                     <time className="text-sm text-gray-500">{new Date(post.date).toLocaleDateString()}</time>
                   </div>
                 </div>

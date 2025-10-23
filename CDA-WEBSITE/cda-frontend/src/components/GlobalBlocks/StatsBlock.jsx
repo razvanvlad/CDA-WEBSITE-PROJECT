@@ -57,6 +57,7 @@ export default function StatsBlock({
                         <ResponsiveUnderlinedTitle
                           as="span"
                           underlineColor={color}
+                          underlineOffset={64}
                         >
                           {s?.number}
                         </ResponsiveUnderlinedTitle>

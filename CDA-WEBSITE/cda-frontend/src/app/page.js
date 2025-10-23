@@ -138,7 +138,7 @@ export default async function Home() {
 
   // Known toggle keys used across pages
   const knownKeys = [
-    'showApproach','showCaseStudies','showImageFrame','showNewsCarousel','showThreeColumns','showValues','showWhyCda','showServicesAccordion','showTechnologiesSlider','showShowreel','showLocationsImage','showNewsletterSignup','showContactFormLeftImageRight','showJoinOurTeam','showFullVideo','showStatsAndNumbers','showCultureGallerySlider'
+    'showApproach', 'showCaseStudies', 'showImageFrame', 'showNewsCarousel', 'showThreeColumns', 'showValues', 'showWhyCda', 'showServicesAccordion', 'showTechnologiesSlider', 'showShowreel', 'showLocationsImage', 'showNewsletterSignup', 'showContactFormLeftImageRight', 'showJoinOurTeam', 'showFullVideo', 'showStatsAndNumbers', 'showCultureGallerySlider'
   ]
   const hasAny = toggles && typeof toggles === 'object' && knownKeys.some(k => Object.prototype.hasOwnProperty.call(toggles, k))
   const t = hasAny ? toggles : Object.fromEntries(knownKeys.map(k => [k, true]))
@@ -151,7 +151,7 @@ export default async function Home() {
       const frame = rawFrame?.data?.globalOptions?.globalContentBlocks?.imageFrameBlock || null
       if (frame) globalData = { ...(globalData || {}), imageFrameBlock: frame }
     }
-  } catch (_) {}
+  } catch (_) { }
 
   // 3) Fetch homepage hero (ACF) via DB ID 289
   const homeRes = await executeGraphQLQuery(GET_HOMEPAGE_CONTENT, { id: HOMEPAGE_ID })
@@ -180,7 +180,7 @@ export default async function Home() {
             }
           }
         }
-      } catch (_) {}
+      } catch (_) { }
     }
   }
 
@@ -195,8 +195,9 @@ export default async function Home() {
           title={
             <ResponsiveUnderlinedTitle
               as="h1"
-              className="cda-hero__title-text cda-title"
+              className="cda-title"
               underlineColor="#3CBEEB"
+
             >
               {hero.title || 'Welcome to CDA'}
             </ResponsiveUnderlinedTitle>
@@ -205,50 +206,50 @@ export default async function Home() {
           ctas={[
             hero.button1
               ? {
-                  href: hero.button1.url || '#',
-                  label: hero.button1.title || 'Start A Project',
-                  target: hero.button1.target || '_self',
-                  className: 'button-l',
-                }
+                href: hero.button1.url || '#',
+                label: hero.button1.title || 'Start A Project',
+                target: hero.button1.target || '_self',
+                className: 'button-l',
+              }
               : null,
             hero.button2
               ? {
-                  href: hero.button2.url || '#',
-                  label: hero.button2.title || 'View Our Services',
-                  target: hero.button2.target || '_self',
-                  className: 'button-without-box',
-                }
+                href: hero.button2.url || '#',
+                label: hero.button2.title || 'View Our Services',
+                target: hero.button2.target || '_self',
+                className: 'button-without-box',
+              }
               : null,
           ]}
           image={
-  hero.illustration?.node?.sourceUrl ? (
-    <div className="hero-hover-img cda-hero__image-media">
-      {/* Base image */}
-      <img
-        src={hero.illustration.node.sourceUrl}
-        alt={hero.illustration.node.altText || 'Header illustration'}
-        width={700}
-        height={520}
-        className="hero-img base"
-      />
-      {/* Hover image (optional) */}
-      {hero.hoverIllustration?.node?.sourceUrl && (
-        <img
-          src={hero.hoverIllustration.node.sourceUrl}
-          alt=""            /* decorative, since it's a hover variant */
-          aria-hidden="true"
-          width={700}
-          height={520}
-          className="hero-img hover"
-        />
-      )}
-    </div>
-  ) : (
-    <div className="cda-hero__image-placeholder">
-      <p>Upload illustration in WordPress Admin → Pages → Edit Homepage → Header Section</p>
-    </div>
-  )
-}
+            hero.illustration?.node?.sourceUrl ? (
+              <div className="hero-hover-img cda-hero__image-media">
+                {/* Base image */}
+                <img
+                  src={hero.illustration.node.sourceUrl}
+                  alt={hero.illustration.node.altText || 'Header illustration'}
+                  width={700}
+                  height={520}
+                  className="hero-img base"
+                />
+                {/* Hover image (optional) */}
+                {hero.hoverIllustration?.node?.sourceUrl && (
+                  <img
+                    src={hero.hoverIllustration.node.sourceUrl}
+                    alt=""            /* decorative, since it's a hover variant */
+                    aria-hidden="true"
+                    width={700}
+                    height={520}
+                    className="hero-img hover"
+                  />
+                )}
+              </div>
+            ) : (
+              <div className="cda-hero__image-placeholder">
+                <p>Upload illustration in WordPress Admin → Pages → Edit Homepage → Header Section</p>
+              </div>
+            )
+          }
         />
       )}
 

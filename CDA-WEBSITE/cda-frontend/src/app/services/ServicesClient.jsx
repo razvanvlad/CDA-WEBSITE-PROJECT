@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ResponsiveUnderlinedTitle from '@/components/ResponsiveUnderlinedTitle';
+import TextLinkButton from '@/components/ui/TextLinkButton';
 
 const getServiceColor = (slug) => {
   const colorMap = {
@@ -139,12 +140,12 @@ export default function ServicesClient({ initialItems = [] }) {
               )}
 
               <div className="flex flex-wrap gap-8">
-                <Link href={`/services/${service.slug}#contact-form`} className="button-l">
+                <Link href={`/services/${service.slug}#contact-form`} className="button-l-white">
                   Find Out More
                 </Link>
-                <Link href={`/services/${service.slug}`} className="button-without-box">
+                <TextLinkButton href={`/services/${service.slug}`}>
                   Speak To Us
-                </Link>
+                </TextLinkButton>
               </div>
             </div>
           </div>

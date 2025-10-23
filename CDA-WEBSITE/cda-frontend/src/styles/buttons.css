@@ -112,7 +112,7 @@ button {
    font-size: 18px;
    color: black;
    background-color: white;
-   border: none;
+   border: 1px solid black;
    cursor: pointer;
    transition: all 0.2s ease;
    text-align: center;
@@ -230,11 +230,10 @@ button {
    --btn-link-icon-mobile: 11.4px;
    --btn-link-gap: 8px;
 
-   position: relative;
    display: inline-flex;
-   align-items: baseline;
+   align-items: center;
+   gap: var(--btn-link-gap);
    width: fit-content;
-   padding-right: calc(var(--btn-link-icon-desktop) + var(--btn-link-gap));
    padding-bottom: 2px;
    font-family: var(--font-poppins), sans-serif;
    font-weight: 700;
@@ -251,65 +250,103 @@ button {
 /* Mobile styles for button-without-box */
 @media (max-width: 767px) {
    .button-without-box {
-      padding-right: calc(var(--btn-link-icon-mobile) + var(--btn-link-gap));
       font-size: 14px;
    }
 }
 
-/* Underline decoration - 1px below text */
-.button-without-box::after {
+/* Text wrapper - for underline */
+.button-without-box .button-text {
+   position: relative;
+   display: inline-block;
+}
+
+/* Underline decoration - ONLY under text, 1px below */
+.button-without-box .button-text::after {
    content: '';
    position: absolute;
-   bottom: 1px;
+   bottom: -1px;
    left: 0;
-   right: calc(var(--btn-link-icon-desktop) + var(--btn-link-gap));
+   width: 100%;
    height: var(--btn-link-underline);
    background-color: #374151;
    z-index: 1;
    transition: all 0.2s ease;
 }
 
-@media (max-width: 767px) {
-   .button-without-box::after {
-      right: calc(var(--btn-link-icon-mobile) + var(--btn-link-gap));
-   }
+.button-without-box:hover .button-text::after {
+   background-color: #374151;
 }
 
-/* Icon decoration - Diagonal arrow (default) */
-.button-without-box::before {
-   content: '';
-   position: absolute;
-   right: 0;
-   bottom: 1px;
+/* Icon - Diagonal arrow (default) */
+.button-without-box .button-icon {
+   display: block;
    width: var(--btn-link-icon-desktop);
    height: var(--btn-link-icon-desktop);
-   background-image: url('/images/arrow-icons/diagonal-right-arrow.svg');
-   background-size: contain;
-   background-repeat: no-repeat;
-   background-position: center bottom;
-   z-index: 2;
+   min-width: var(--btn-link-icon-desktop);
+   min-height: var(--btn-link-icon-desktop);
+   max-width: var(--btn-link-icon-desktop);
+   max-height: var(--btn-link-icon-desktop);
+   flex-shrink: 0;
+   object-fit: contain;
    transition: all 0.2s ease;
 }
 
 @media (max-width: 767px) {
-   .button-without-box::before {
+   .button-without-box .button-icon {
+      width: var(--btn-link-icon-mobile);
+      height: var(--btn-link-icon-mobile);
+      min-width: var(--btn-link-icon-mobile);
+      min-height: var(--btn-link-icon-mobile);
+      max-width: var(--btn-link-icon-mobile);
+      max-height: var(--btn-link-icon-mobile);
+   }
+}
+
+
+/* === NEW: Icon wrapper for hover swap === */
+.button-without-box .button-icon-wrapper,
+.button-without-box-white .button-icon-wrapper {
+   position: relative;
+   width: var(--btn-link-icon-desktop);
+   height: var(--btn-link-icon-desktop);
+   flex-shrink: 0;
+}
+
+.button-without-box .button-icon,
+.button-without-box-white .button-icon {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   transition: opacity 0.2s ease;
+}
+
+.button-without-box .button-icon-hover,
+.button-without-box-white .button-icon-hover {
+   opacity: 0;
+}
+
+.button-without-box:hover .button-icon-default,
+.button-without-box-white:hover .button-icon-default {
+   opacity: 0;
+}
+
+.button-without-box:hover .button-icon-hover,
+.button-without-box-white:hover .button-icon-hover {
+   opacity: 1;
+}
+
+/* Mobile sizing for icon wrapper */
+@media (max-width: 767px) {
+
+   .button-without-box .button-icon-wrapper,
+   .button-without-box-white .button-icon-wrapper {
       width: var(--btn-link-icon-mobile);
       height: var(--btn-link-icon-mobile);
    }
 }
 
-.button-without-box:hover {
-   color: #374151;
-}
-
-.button-without-box:hover::after {
-   background-color: #374151;
-}
-
-/* Icon decoration - Right arrow (on hover) */
-.button-without-box:hover::before {
-   background-image: url('/images/arrow-icons/right-arrow.svg');
-}
 
 /* ============================================
    BUTTON WITHOUT BOX - WHITE VARIANT (INVERTED)
@@ -321,11 +358,10 @@ button {
    --btn-link-icon-mobile: 11.4px;
    --btn-link-gap: 8px;
 
-   position: relative;
    display: inline-flex;
-   align-items: baseline;
+   align-items: center;
+   gap: var(--btn-link-gap);
    width: fit-content;
-   padding-right: calc(var(--btn-link-icon-desktop) + var(--btn-link-gap));
    padding-bottom: 2px;
    font-family: var(--font-poppins), sans-serif;
    font-weight: 700;
@@ -342,69 +378,64 @@ button {
 /* Mobile styles for button-without-box-white */
 @media (max-width: 767px) {
    .button-without-box-white {
-      padding-right: calc(var(--btn-link-icon-mobile) + var(--btn-link-gap));
       font-size: 14px;
    }
 }
 
-/* Underline decoration - white, 1px below text */
-.button-without-box-white::after {
+/* Text wrapper - for underline */
+.button-without-box-white .button-text {
+   position: relative;
+   display: inline-block;
+}
+
+/* Underline decoration - ONLY under text, 1px below */
+.button-without-box-white .button-text::after {
    content: '';
    position: absolute;
-   bottom: 1px;
+   bottom: -1px;
    left: 0;
-   right: calc(var(--btn-link-icon-desktop) + var(--btn-link-gap));
+   width: 100%;
    height: var(--btn-link-underline);
    background-color: white;
    z-index: 1;
    transition: all 0.2s ease;
 }
 
-@media (max-width: 767px) {
-   .button-without-box-white::after {
-      right: calc(var(--btn-link-icon-mobile) + var(--btn-link-gap));
-   }
+.button-without-box-white:hover .button-text::after {
+   background-color: white;
 }
 
-/* Icon decoration - Diagonal arrow (white - inverted) */
-.button-without-box-white::before {
-   content: '';
-   position: absolute;
-   right: 0;
-   bottom: 1px;
+/* Icon - Diagonal arrow (white - inverted) */
+.button-without-box-white .button-icon {
+   display: block;
    width: var(--btn-link-icon-desktop);
    height: var(--btn-link-icon-desktop);
-   background-image: url('/images/arrow-icons/diagonal-right-arrow.svg');
-   background-size: contain;
-   background-repeat: no-repeat;
-   background-position: center bottom;
+   min-width: var(--btn-link-icon-desktop);
+   min-height: var(--btn-link-icon-desktop);
+   max-width: var(--btn-link-icon-desktop);
+   max-height: var(--btn-link-icon-desktop);
+   flex-shrink: 0;
+   object-fit: contain;
    filter: invert(1) brightness(2);
    /* Inverts black to white */
-   z-index: 2;
    transition: all 0.2s ease;
 }
 
 @media (max-width: 767px) {
-   .button-without-box-white::before {
+   .button-without-box-white .button-icon {
       width: var(--btn-link-icon-mobile);
       height: var(--btn-link-icon-mobile);
+      min-width: var(--btn-link-icon-mobile);
+      min-height: var(--btn-link-icon-mobile);
+      max-width: var(--btn-link-icon-mobile);
+      max-height: var(--btn-link-icon-mobile);
    }
 }
 
-.button-without-box-white:hover {
-   color: white;
-}
-
-.button-without-box-white:hover::after {
-   background-color: white;
-}
-
-/* Icon decoration - Right arrow (on hover) - white */
-.button-without-box-white:hover::before {
-   background-image: url('/images/arrow-icons/right-arrow.svg');
+.button-without-box-white .button-icon-wrapper {
    filter: invert(1) brightness(2);
-   /* Keep white on hover */
 }
+
 
 /* ============================================
    VERTICAL BUTTON (BLACK BACKGROUND)

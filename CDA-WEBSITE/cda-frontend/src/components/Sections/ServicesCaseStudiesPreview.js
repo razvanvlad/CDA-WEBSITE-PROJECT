@@ -1,4 +1,5 @@
 import React from 'react';
+import TextLinkButton from '../ui/TextLinkButton';
 
 export default function ServicesCaseStudiesPreview({ title = 'Success Stories', items = [] }) {
   const safeItems = items && items.length ? items : [
@@ -17,7 +18,7 @@ export default function ServicesCaseStudiesPreview({ title = 'Success Stories', 
               <h3 className="text-lg font-semibold text-black mb-2">{cs.title}</h3>
               <p className="text-[16px] leading-[1.7] text-[#4B5563]">Client: {cs.client}</p>
               <div className="mt-4">
-                <a href="#" className="button-without-box">View case study</a>
+                <TextLinkButton href="#">View case study</TextLinkButton>
               </div>
             </div>
           ))}

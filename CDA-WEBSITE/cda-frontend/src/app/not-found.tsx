@@ -5,6 +5,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ResponsiveUnderlinedTitle from '@/components/ResponsiveUnderlinedTitle';
+import TextLinkButton from '@/components/ui/TextLinkButton';
 
 export const metadata = { title: '404 – Page Not Found' };
 
@@ -31,10 +32,10 @@ export default function NotFound() {
 
             {/* Links */}
             <nav className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
-              <a href="/" className="button-without-box">Home</a>
-              <a href="/about" className="button-without-box">About</a>
-              <a href="/services" className="button-without-box">All Services</a>
-              <a href="/case-studies" className="button-without-box">Case Studies</a>
+              <TextLinkButton href="/">Home</TextLinkButton>
+              <TextLinkButton href="/about">About</TextLinkButton>
+              <TextLinkButton href="/services">All Services</TextLinkButton>
+              <TextLinkButton href="/case-studies">Case Studies</TextLinkButton>
             </nav>
           </div>
         </section>
