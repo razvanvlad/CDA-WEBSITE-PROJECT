@@ -22,9 +22,9 @@ button {
    display: inline-flex;
    align-items: center;
    justify-content: center;
-   min-width: 235px;
+   width: 235px;
    height: 54px;
-   padding: 0 2rem;
+   padding: 0;
    font-family: var(--font-poppins), sans-serif;
    font-weight: 700;
    font-size: 18px;
@@ -41,9 +41,9 @@ button {
 /* Mobile styles for button-l */
 @media (max-width: 767px) {
    .button-l {
-      min-width: 177px;
+      width: 176px;
       height: 46px;
-      padding: 0 1.5rem;
+      padding: 0;
       font-size: 14px;
    }
 }
@@ -72,7 +72,7 @@ button {
    position: absolute;
    left: var(--btn-l-offset);
    bottom: calc(var(--btn-l-offset) * -1);
-   width: calc(100% - var(--btn-l-line));
+   width: calc(100% - (var(--btn-l-offset) * 0));
    height: var(--btn-l-line);
    background-color: black;
    z-index: 1;
@@ -535,74 +535,13 @@ button {
    HUBSPOT FORM BUTTONS
    ============================================ */
 
-/* Submit button - button-l styling */
-.contact-form-wrapper input[type="submit"],
-.contact-form-wrapper button[type="submit"],
-.contact-form-wrapper .hs-button {
-   --btn-l-line: 1px;
-   --btn-l-offset: 4px;
 
-   position: relative;
-   display: inline-flex;
-   align-items: center;
-   justify-content: center;
-   min-width: 235px;
-   height: 54px;
-   padding: 0 2rem;
-   font-family: 'Poppins', sans-serif;
-   font-weight: 700;
-   font-size: 18px;
-   color: white;
-   background-color: black;
-   border: none;
-   border-radius: 0;
-   cursor: pointer;
-   transition: all 0.2s ease;
-   text-align: center;
-   white-space: nowrap;
-}
-
-@media (max-width: 767px) {
-
-   .contact-form-wrapper input[type="submit"],
-   .contact-form-wrapper button[type="submit"],
-   .contact-form-wrapper .hs-button {
-      min-width: 177px;
-      height: 46px;
-      padding: 0 1.5rem;
-      font-size: 14px;
-   }
-}
-
-.contact-form-wrapper input[type="submit"]::before,
-.contact-form-wrapper button[type="submit"]::before,
-.contact-form-wrapper .hs-button::before {
-   content: '';
-   position: absolute;
-   left: var(--btn-l-offset);
-   bottom: calc(var(--btn-l-offset) * -1);
-   right: calc(var(--btn-l-offset) * -1);
-   height: var(--btn-l-line);
-   background-color: white;
-}
-
-.contact-form-wrapper input[type="submit"]::after,
-.contact-form-wrapper button[type="submit"]::after,
-.contact-form-wrapper .hs-button::after {
-   content: '';
-   position: absolute;
-   top: var(--btn-l-offset);
-   right: calc(var(--btn-l-offset) * -1);
-   bottom: calc(var(--btn-l-offset) * -1);
-   width: var(--btn-l-line);
-   background-color: white;
-}
-
-.contact-form-wrapper input[type="submit"]:hover,
+/* REMOVED: Conflicting HubSpot hover rule - now using .button-l class */
+/* .contact-form-wrapper input[type="submit"]:hover,
 .contact-form-wrapper button[type="submit"]:hover,
 .contact-form-wrapper .hs-button:hover {
    background-color: #1f2937;
-}
+} */
 
 .hubspot-form-wrapper .hs-custom-submit.button-l {
    align-self: start;
