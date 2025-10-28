@@ -3,16 +3,20 @@
 import Link from 'next/link';
 
 /**
+ * @typedef {Object} TextLinkButtonProps
+ * @property {string} [href] - Link destination (omit for button element)
+ * @property {React.ReactNode} children - Button text
+ * @property {string} [className] - Additional CSS classes
+ * @property {'default' | 'white'} [variant='default'] - Button style variant
+ * @property {string} [target] - Link target (_self, _blank, etc.)
+ * @property {boolean} [external] - Force use of <a> tag instead of Next Link
+ * @property {() => void} [onClick] - Click handler (for button elements)
+ * @property {'button' | 'submit' | 'reset'} [type='button'] - Button type when using as button
+ */
+
+/**
  * Reusable text-link button with icon and underline
- * @param {string} [href] - Link destination (omit for button element)
- * @param {React.ReactNode} children - Button text
- * @param {string} [className] - Additional CSS classes
- * @param {'default' | 'white'} [variant='default'] - Button style variant
- * @param {string} [target] - Link target (_self, _blank, etc.)
- * @param {boolean} [external] - Force use of <a> tag instead of Next Link
- * @param {Function} [onClick] - Click handler (for button elements)
- * @param {'button' | 'submit' | 'reset'} [type='button'] - Button type when using as button
- * @param {Object} props - Additional props passed to Link/a/button
+ * @param {TextLinkButtonProps} props
  */
 export default function TextLinkButton({
   href,

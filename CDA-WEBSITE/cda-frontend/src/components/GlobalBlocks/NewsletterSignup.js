@@ -70,7 +70,7 @@ const NewsletterSignup = ({ globalData, useHubspot = false }) => {
                 <label htmlFor="terms" className="newsletter-label">
                   I agree to the{' '}
                   <a
-                    href={`${window.location.origin}/policies/terms-conditions`}
+                    href="/policies/terms-conditions"
                     className="newsletter-terms-link"
                     target="_blank"
                     rel="noopener noreferrer"
