@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-
 export default function ContactForm({ onSubmit }) {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -9,11 +8,11 @@ export default function ContactForm({ onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit} className="contact-form" aria-label="Contact form">
-      {/* 2nd row: First Name, Last Name, Email Address (310x50) */}
-      <div className="contact-row-3">
-        <div className="contact-input-wrap contact-input-310">
+      {/* Row 1: First Name, Last Name, Email Address */}
+      <div className="contact-row-1">
+        <div className="contact-input-wrap">
           <input
-            className="contact-input"
+            className="contact-input contact-input-310"
             type="text"
             name="firstName"
             placeholder="First Name*"
@@ -21,9 +20,9 @@ export default function ContactForm({ onSubmit }) {
             required
           />
         </div>
-        <div className="contact-input-wrap contact-input-310">
+        <div className="contact-input-wrap">
           <input
-            className="contact-input"
+            className="contact-input contact-input-310"
             type="text"
             name="lastName"
             placeholder="Last Name*"
@@ -31,9 +30,9 @@ export default function ContactForm({ onSubmit }) {
             required
           />
         </div>
-        <div className="contact-input-wrap contact-input-310">
+        <div className="contact-input-wrap">
           <input
-            className="contact-input"
+            className="contact-input contact-input-310"
             type="email"
             name="email"
             placeholder="Email Address*"
@@ -43,11 +42,11 @@ export default function ContactForm({ onSubmit }) {
         </div>
       </div>
 
-      {/* 3rd row: Telephone Number, Reason dropdown (475.5x50) */}
+      {/* Row 2: Telephone Number, Reason dropdown */}
       <div className="contact-row-2">
-        <div className="contact-input-wrap contact-input-475">
+        <div className="contact-input-wrap">
           <input
-            className="contact-input"
+            className="contact-input contact-input-475"
             type="tel"
             name="telephone"
             placeholder="Telephone Number*"
@@ -55,8 +54,8 @@ export default function ContactForm({ onSubmit }) {
             required
           />
         </div>
-        <div className="contact-input-wrap contact-input-475">
-          <select className="contact-select" name="reason" defaultValue="">
+        <div className="contact-input-wrap">
+          <select className="contact-select contact-input-475" name="reason" defaultValue="">
             <option value="" disabled>
               Reason
             </option>
@@ -69,26 +68,30 @@ export default function ContactForm({ onSubmit }) {
         </div>
       </div>
 
-      {/* 4th row: Message (990x141.5) */}
-      <div className="contact-input-wrap contact-input-full">
-        <textarea
-          className="contact-textarea"
-          name="message"
-          placeholder="Message*"
-          rows={6}
-          required
-        />
+      {/* Row 3: Message */}
+      <div className="contact-message-row">
+        <div className="contact-input-wrap">
+          <textarea
+            className="contact-textarea contact-input-full"
+            name="message"
+            placeholder="Message*"
+            rows={6}
+            required
+          />
+        </div>
       </div>
 
-      {/* 5th row: Checkbox + Terms + Submit button */}
-      <div className="contact-bottom-row">
-        <div className="contact-terms">
-          <input type="checkbox" id="contact-terms" className="contact-checkbox" required />
-          <label htmlFor="contact-terms" className="contact-label">
-            I agree to the <span className="contact-terms-link">Terms and Conditions</span> and consent to receive email<br />updates and newsletters
-          </label>
-        </div>
-        <button type="submit" className="button-l contact-submit">Submit</button>
+      {/* Row 4: Terms and Conditions */}
+      <div className="contact-terms-row">
+        <input type="checkbox" id="contact-terms" className="contact-checkbox" required />
+        <label htmlFor="contact-terms" className="contact-label">
+          I agree to the <span className="contact-terms-link">Terms and Conditions</span> and consent to receive email updates and newsletters
+        </label>
+      </div>
+
+      {/* Row 5: Submit button */}
+      <div className="contact-submit-row">
+        <button type="submit" className="button-l">Submit</button>
       </div>
     </form>
   );

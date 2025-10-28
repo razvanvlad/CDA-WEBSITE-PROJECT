@@ -911,146 +911,8 @@
 }
 
 /* ============================================
-   HUBSPOT FORM STYLING
+   HUBSPOT CSS REMOVED - Using Custom ContactForm Component
    ============================================ */
-
-.contact-form-wrapper {
-  width: 100%;
-  max-width: 1000px;
-}
-
-/* Form Grid - 2 columns on desktop */
-.contact-form-wrapper form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  width: 100%;
-}
-
-@media (max-width: 768px) {
-  .contact-form-wrapper form {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    max-width: 353px;
-    margin: 0 auto;
-  }
-}
-
-/* Remove default fieldset styling */
-.contact-form-wrapper fieldset {
-  border: none;
-  padding: 0;
-  margin: 0;
-  display: contents;
-}
-
-/* Form field wrapper */
-.contact-form-wrapper .hs-form-field {
-  width: 100%;
-  position: relative;
-  margin: 0 !important;
-}
-
-/* Message textarea spans full width */
-.contact-form-wrapper .hs-form-field:has(textarea) {
-  grid-column: 1 / -1;
-}
-
-/* Input styling */
-.contact-form-wrapper input,
-.contact-form-wrapper select,
-.contact-form-wrapper textarea {
-  width: 100%;
-  padding: 14px 16px;
-  border: 1px solid #E5E7EB;
-  border-radius: 0;
-  font-size: 16px;
-  font-family: 'Inter', sans-serif;
-  background-color: #FFFFFF;
-  transition: border-color 0.2s ease;
-  box-sizing: border-box;
-}
-
-.contact-form-wrapper input,
-.contact-form-wrapper select {
-  height: 54px;
-}
-
-.contact-form-wrapper textarea {
-  min-height: 150px;
-  resize: vertical;
-}
-
-.contact-form-wrapper input:focus,
-.contact-form-wrapper select:focus,
-.contact-form-wrapper textarea:focus {
-  outline: none;
-  border-color: #FD8721;
-}
-
-/* Placeholder styling */
-.contact-form-wrapper ::placeholder {
-  color: #9CA3AF;
-  font-size: 16px;
-}
-
-/* Select dropdown with custom arrow */
-.contact-form-wrapper select {
-  appearance: none;
-  background-image: url('/images/arrow-icons/down-arrow.svg');
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  background-size: 16px;
-  padding-right: 48px;
-  cursor: pointer;
-}
-
-/* Checkbox field - full width */
-.contact-form-wrapper .hs-form-booleancheckbox,
-.contact-form-wrapper .hs-form-field:has(input[type="checkbox"]) {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.contact-form-wrapper input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  min-width: 20px;
-  margin: 0;
-  margin-top: 2px;
-  cursor: pointer;
-}
-
-.contact-form-wrapper .hs-form-booleancheckbox label,
-.contact-form-wrapper label:has(+ input[type="checkbox"]) {
-  font-size: 14px;
-  color: #374151;
-  font-family: 'Inter', sans-serif;
-  line-height: 1.5;
-  margin-bottom: 8px;
-  display: block;
-  cursor: pointer;
-}
-
-/* Submit button container - full width */
-.contact-form-wrapper .hs-submit,
-.contact-form-wrapper .hs-form-field:has(input[type="submit"]),
-.contact-form-wrapper .hs-form-field:has(button[type="submit"]) {
-  grid-column: 1 / -1;
-}
-
-/* Error messages */
-.contact-form-wrapper .hs-error-msgs {
-  color: #ef4444;
-  font-size: 14px;
-  margin-top: 4px;
-}
-
-.contact-form-wrapper .hs-form-required {
-  color: #ef4444;
-}
 
 /* ============================================
    CONTACT INFO (Telephone & Social Media)
@@ -1123,54 +985,62 @@
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  width: 100%;
-}
-
-/* Row with 3 fields (First Name, Last Name, Email) */
-.contact-form .contact-row-3 {
-  display: flex;
-  gap: 25px;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
+  gap: 20px;
   width: 100%;
   max-width: 990px;
 }
 
-/* Row with 2 fields (Telephone, Reason) */
+/* Row 1: 3 fields of 310px each */
+.contact-form .contact-row-1 {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* Row 2: 2 fields of 475.5px each */
 .contact-form .contact-row-2 {
   display: flex;
-  gap: 39px;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
+  gap: 16px;
   width: 100%;
-  max-width: 990px;
+  justify-content: space-between;
 }
 
-/* Individual field sizes - Desktop */
-.contact-form .contact-input-310 {
-  width: 313.33px;
-  height: 50px;
+/* Fixed Width Classes for Desktop */
+.contact-input-310 {
+  width: 310px;
+  max-width: 310px;
   flex-shrink: 0;
-  min-width: 313.33px;
-  max-width: 313.33px;
 }
 
-.contact-form .contact-input-475 {
+.contact-input-475 {
   width: 475.5px;
-  height: 50px;
-  flex-shrink: 0;
-  min-width: 475.5px;
   max-width: 475.5px;
+  flex-shrink: 0;
 }
 
-.contact-form .contact-input-full {
-  width: 100%;
-  height: 141.5px;
-  min-width: 990px;
+.contact-input-full {
+  width: 990px;
   max-width: 990px;
+  flex-shrink: 0;
+}
+
+/* Row 3: Message (full width) */
+.contact-message-row {
+  width: 100%;
+}
+
+/* Row 4: Terms and Conditions (full width) */
+.contact-terms-row {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* Row 5: Submit button (full width) */
+.contact-submit-row {
+  width: 100%;
 }
 
 /* Contact Form Inputs */
@@ -1197,7 +1067,7 @@
 }
 
 .contact-textarea {
-  height: 141.5px;
+  height: 141.57px;
   padding: 16px;
   resize: none;
 }
@@ -1261,7 +1131,10 @@
 
 /* Contact Illustration - Desktop Bird */
 .contact-illustration {
-  flex: 0 1 auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1269,8 +1142,8 @@
 }
 
 .contact-illustration-img {
-  width: 100%;
-  max-width: 785px;
+  position: relative;
+  width: 785px;
   height: auto;
   object-fit: contain;
 }
@@ -1321,27 +1194,22 @@
   /* Form rows stack vertically and center at 353px */
   .contact-form {
     gap: 16px !important;
+    max-width: 353px;
+    margin: 0 auto;
   }
 
-  .contact-row-3,
+  .contact-row-1,
   .contact-row-2 {
+    display: flex !important;
     flex-direction: column !important;
     gap: 16px !important;
     width: 100% !important;
-    min-width: unset !important;
-    max-width: unset !important;
-    align-items: center !important;
   }
 
-  .contact-input-310,
-  .contact-input-475,
-  .contact-input-full {
-    width: 310px !important;
-    min-width: unset !important;
-    max-width: 353px !important;
-    height: auto !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+  .contact-message-row,
+  .contact-terms-row,
+  .contact-submit-row {
+    width: 100% !important;
   }
 
   .contact-input,
@@ -1355,13 +1223,6 @@
     width: 100% !important;
   }
 
-  .contact-input-wrap {
-    position: relative;
-    width: 353px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
   .contact-select {
     appearance: none;
     -webkit-appearance: none;
@@ -1373,22 +1234,11 @@
     padding-right: 48px !important;
   }
 
-  /* Checkbox and submit button stack vertically */
-  .contact-bottom-row {
-    flex-direction: column !important;
-    gap: 16px !important;
-    align-items: center !important;
-    width: 100% !important;
-  }
-
-  .contact-terms {
-    flex: none !important;
-    width: 353px !important;
+  /* Terms row */
+  .contact-terms-row {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    margin-left: auto !important;
-    margin-right: auto !important;
   }
 
   .contact-checkbox {
@@ -1401,30 +1251,15 @@
     line-height: 1.5;
   }
 
-  .contact-submit {
-    width: 176px !important;
-    min-width: unset !important;
-    height: 53.5px !important;
-    flex-shrink: 0;
-    margin-top: 8px;
-    background-color: #000 !important;
-    color: #fff !important;
-    border: 2px solid #000 !important;
-    font-size: 16px !important;
-    font-weight: 600 !important;
-    font-family: 'Poppins', sans-serif !important;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-    padding: 12px 32px !important;
+  /* Submit button row - centered button on mobile */
+  .contact-submit-row {
+    display: flex;
+    justify-content: center;
   }
 
-  .contact-submit:hover {
-    background-color: #333 !important;
-    border-color: #333 !important;
+  .contact-submit-row .button-l {
+    width: 176px !important;
+    min-width: unset !important;
   }
 
   /* Contact info section mobile */
