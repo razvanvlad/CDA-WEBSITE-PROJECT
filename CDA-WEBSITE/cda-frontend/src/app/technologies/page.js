@@ -1,8 +1,10 @@
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import HeroSection from '../../components/GlobalBlocks/HeroSection';
 import ApproachBlock from '../../components/GlobalBlocks/ApproachBlock';
 import CaseStudies from '../../components/GlobalBlocks/CaseStudies';
 import Image from 'next/image'
+import ResponsiveUnderlinedTitle from '@/components/ResponsiveUnderlinedTitle';
 import { getTechnologiesWithPagination, getGlobalContent } from '@/lib/graphql-queries.js';
 import GlobalTailSections from '@/components/GlobalBlocks/GlobalTailSections.jsx';
 import ServicesSlider from '@/components/GlobalBlocks/ServicesSlider.jsx';
@@ -27,30 +29,43 @@ export default async function TechnologiesPage() {
   return (
     <>
       <Header />
-      
-      {/* Standard Hero Section */}
-      <section className="bg-white py-16">
-        <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            {/* Left: Title + Copy */}
-            <div>
-              <h1
-                className="text-4xl md:text-5xl font-bold text-black mb-6"
-                style={{ textDecoration: 'underline', textDecorationColor: '#AD80F9', textDecorationThickness: '11px' }}
-              >
-                The Technologies We Use
-              </h1>
-              <p className="text-lg text-[#4B5563] leading-relaxed max-w-2xl">
-                Discover the cutting-edge technologies and frameworks we use to build exceptional digital solutions for our clients.
-              </p>
-            </div>
-            {/* Right: Illustration */}
-            <div className="flex justify-center lg:justify-end">
-              <img src="/images/drone.svg" alt="Technologies illustration" className="w-full max-w-[600px] h-auto object-contain" />
-            </div>
-          </div>
-        </div>
-      </section>
+
+      {/* Hero Section */}
+      <HeroSection
+        sectionClassName="bg-white"
+        title={
+          <ResponsiveUnderlinedTitle
+            as="h1"
+            className="cda-title"
+            underlineColor="#AD80F9"
+          >
+            The Technologies We Use
+          </ResponsiveUnderlinedTitle>
+        }
+        description="Discover the cutting-edge technologies and frameworks we use to build exceptional digital solutions for our clients."
+        descriptionClassName="text-lg text-gray-600"
+        ctas={[
+          {
+            label: 'Get Started',
+            href: '/contact',
+            className: 'button-l',
+          },
+          {
+            label: 'View Services',
+            href: '/services',
+            className: 'button-secondary',
+          },
+        ]}
+        image={
+          <img
+            src="/images/drone.svg"
+            alt="Technologies illustration"
+            width={600}
+            height={400}
+            className="cda-hero__image-media"
+          />
+        }
+      />
 
       {/* Technologies Cards Section */}
       <section className="bg-white py-16">
@@ -106,7 +121,7 @@ export default async function TechnologiesPage() {
 
       {/* Approach Global Block right after technologies */}
       {globalData?.approach && (
-        <ApproachBlock 
+        <ApproachBlock
           globalData={globalData.approach}
           pageData={null}
           useOverride={false}
@@ -118,7 +133,7 @@ export default async function TechnologiesPage() {
 
       {/* Global tail sections (Case Studies, Approach) */}
       <GlobalTailSections globalData={globalData} enableStats={false} />
-      
+
       <Footer />
     </>
   );

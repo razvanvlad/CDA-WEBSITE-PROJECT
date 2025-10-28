@@ -1,7 +1,10 @@
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import HeroSection from '../../components/GlobalBlocks/HeroSection'
+import ResponsiveUnderlinedTitle from '../../components/ResponsiveUnderlinedTitle'
 import Link from 'next/link'
 import Image from 'next/image'
+import TextLinkButton from '../../components/ui/TextLinkButton'
 
 const GRAPHQL_ENDPOINT =
   process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT ||
@@ -45,12 +48,46 @@ export default async function NewsArchivePage() {
   return (
     <>
       <Header />
+
+      {/* Hero Section */}
+      <HeroSection
+        sectionClassName="bg-white"
+        title={
+          <ResponsiveUnderlinedTitle
+            as="h1"
+            className="cda-title"
+            underlineColor="#FF60DF"
+          >
+            News & Insights
+          </ResponsiveUnderlinedTitle>
+        }
+        description="Stay up to date with the latest news, updates, and industry insights from CDA. Discover trends, tips, and expert advice."
+        descriptionClassName="text-lg text-gray-600"
+        ctas={[
+          {
+            label: 'Subscribe to Newsletter',
+            href: '#newsletter',
+            className: 'button-l',
+          },
+          {
+            label: 'View Case Studies',
+            href: '/case-studies',
+            className: 'button-secondary',
+          },
+        ]}
+        image={
+          <img
+            src="/images/news-hero.svg"
+            alt="News and Insights illustration"
+            width={600}
+            height={400}
+            className="cda-hero__image-media"
+          />
+        }
+      />
+
       <main className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">News & Insights</h1>
-            <p className="text-lg text-gray-600">Latest updates and industry insights</p>
-          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map((post) => (
@@ -79,7 +116,7 @@ export default async function NewsArchivePage() {
                     <div className="text-gray-600 mb-4 line-clamp-3" dangerouslySetInnerHTML={{ __html: post.excerpt }} />
                   )}
                   <div className="flex items-center justify-between">
-                    <Link href={`/news/${post.slug}`} className="button-without-box">Read More</Link>
+                    <TextLinkButton href={`/news/${post.slug}`}>Read More</TextLinkButton>
                     <time className="text-sm text-gray-500">{new Date(post.date).toLocaleDateString()}</time>
                   </div>
                 </div>

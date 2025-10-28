@@ -1,69 +1,116 @@
+/* ═══════════════════════════════════════════════════════════════════
+   GLOBAL STYLES - Main Entry Point
+   ═══════════════════════════════════════════════════════════════════ */
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Import Modular CSS */
+@import '../styles/typography.css';
+@import '../styles/buttons.css';
+@import '../styles/utilities.css';
+@import '../styles/components.css';
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
+
+  /* CDA Brand Colors */
+  --color-brand-blue: #3CBEEB;
+  --color-brand-green: #01E486;
+  --color-brand-orange: #FD8721;
+  --color-brand-pink: #FF60DF;
+  --color-brand-redish-pink: #FF5C8A;
+  --color-brand-purple: #AD80F9;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COLOR SYSTEM
+   ───────────────────────────────────────────────────────────────── */
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Brand Colors */
+  --color-orange: #FD8721;
+  --color-pink: #FF5FA0;
+  --color-purple: #7B61FF;
+  --color-light-blue: #4FC3F7;
+  --color-green: #34C759;
+  --color-roz: #FF60DF;
 }
 
 /* Disable automatic dark mode background; keep site background white */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ffffff; /* keep white */
-    --foreground: #000000; /* keep text black */
+    --background: #ffffff;
+    /* keep white */
+    --foreground: #000000;
+    /* keep text black */
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
 }
 
-/* Typography Classes - CDA Design System */
-/* Subtitle class for consistent subtitle styling */
-.cda-subtitle {
-  font-family: var(--font-poppins), sans-serif;
-  font-size: 22px;
-  font-weight: bold;
-  color: #000000;
-  text-transform: capitalize;
-  line-height: 33px;
+/* ─────────────────────────────────────────────────────────────────
+   COLOR UTILITY CLASSES
+   ───────────────────────────────────────────────────────────────── */
+
+.title-large-orange {
+  --u-color: #FD8721;
 }
 
-/* H2 Title class */
-.cda-title {
-  font-family: var(--font-poppins), sans-serif;
-  font-size: 38px;
-  font-weight: bold;
-  color: #000000;
-  line-height: 57px;
+.title-large-pink {
+  --u-color: #FF5FA0;
 }
 
-/* H1 Page Title class */
-.cda-page-title {
-  font-family: var(--font-poppins), sans-serif;
-  font-size: 50px;
-  font-weight: bold;
-  color: #000000;
-  line-height: 76px;
-  text-decoration: underline;
+.title-large-purple {
+  --u-color: #7B61FF;
 }
 
-/* Headings use Poppins, paragraphs default to Inter from body */
-h1, h2, h3, h4, h5, h6 { font-family: var(--font-poppins), var(--font-inter), sans-serif; }
+.title-large-light-blue {
+  --u-color: #4FC3F7;
+}
+
+.title-large-green {
+  --u-color: #34C759;
+}
+
+.title-large-roz {
+  --u-color: #FF60DF;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   LAYOUT UTILITIES
+   ───────────────────────────────────────────────────────────────── */
 
 /* Prevent accidental horizontal scrollbars sitewide */
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 
-/* css for photo frame */
+/* Sitewide max-width override: design uses 1620px */
+.max-w-6xl,
+.max-w-7xl,
+.max-w-5xl {
+  max-width: 1620px !important;
+}
+
+/* Also bump any legacy 1200px containers to 1620px if present */
+.max-w-\[1200px\] {
+  max-width: 1620px !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   IMAGE UTILITIES
+   ───────────────────────────────────────────────────────────────── */
+
+/* Photo frame utilities */
 .image-container {
   position: relative;
   width: 100%;
@@ -75,7 +122,6 @@ html, body {
   height: auto;
 }
 
-
 .content-image {
   position: absolute;
   top: 0;
@@ -85,21 +131,55 @@ html, body {
   object-fit: cover;
 }
 
-/* Add to your global CSS file */
+/* Hover swap for homepage hero illustration */
+.hero-hover-img {
+  position: relative;
+  display: block;
+}
+
+.hero-hover-img>img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: opacity .25s ease;
+}
+
+.hero-hover-img>img.hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+/* Swap on hover (desktop) */
+.hero-hover-img:hover>img.hover {
+  opacity: 1;
+}
+
+.hero-hover-img:hover>img.base {
+  opacity: 0;
+}
+
+/* Optional: keep base image on touch devices if you want */
+@media (hover: none) {
+  .hero-hover-img>img.hover {
+    display: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   WYSIWYG CONTENT
+   ───────────────────────────────────────────────────────────────── */
+
 .wysiwyg-content {
+
   /* Remove default paragraph styling */
   p {
     margin: 0;
     padding: 0;
   }
-  
+
   /* Ensure proper line height */
   line-height: 1.6;
-}
-
-/* Handle strong text */
-.wysiwyg-content strong {
-  font-weight: bold;
 }
 
 /* Handle links */
@@ -108,93 +188,3 @@ html, body {
   text-decoration: underline;
   cursor: pointer;
 }
-
-/* Sitewide max-width override: design uses 1620px */
-.max-w-6xl, .max-w-7xl, .max-w-5xl {
-  max-width: 1620px !important;
-}
-
-/* Also bump any legacy 1200px containers to 1620px if present */
-.max-w-\[1200px\] {
-  max-width: 1620px !important;
-}
-
-/* Title underline utilities */
-.title-underline {
-  /* Defaults: can be overridden by helpers below */
-  --u-color: #FD8721;      /* underline color */
-  --u-thickness: 11px;     /* underline thickness */
-  --u-offset: 10px;        /* gap between text and underline (can be negative) */
-  --u-width: 100%;         /* underline width: 100%, 50%, etc. */
-
-  position: relative;
-  display: inline-block;
-  /* Fallback: simple sum (may be invalid if negative) */
-  padding-bottom: calc(var(--u-offset) + var(--u-thickness));
-  /* Clamp so negative offsets don't cause negative padding */
-  padding-bottom: calc(var(--u-thickness) + max(var(--u-offset), 0px));
-}
-
-.title-underline::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  /* Default position */
-  bottom: 0;
-  /* If offset is negative, move the underline upward into the text area by that amount */
-  bottom: max(calc(-1 * var(--u-offset)), 0px);
-  height: var(--u-thickness);
-  width: var(--u-width);
-  background-color: var(--u-color);
-  border-radius: calc(var(--u-thickness) / 2);
-}
-/* Color variants */
-.title-large-orange { --u-color: #FD8721; }
-.title-large-pink   { --u-color: #FF5FA0; }
-.title-large-purple { --u-color: #7B61FF; }
-.title-large-light-blue { --u-color: #4FC3F7; }
-.title-large-green  { --u-color: #34C759; }
-.title-large-roz  { --u-color: #FF60DF; }
-
-/* Width helpers */
-.u-full  { --u-width: 100%; }
-.u-half  { --u-width: 50%; }
-.u-third { --u-width: 33.3333%; }
-
-/* Gap helpers */
-.u-gap-6  { --u-offset: 6px; }
-.u-gap-10 { --u-offset: 10px; }
-.u-gap-12 { --u-offset: -12px; }
-.u-gap-14 { --u-offset: 14px; }
-
-/* Thickness helpers */
-.u-thick-9  { --u-thickness: 9px; }
-.u-thick-11 { --u-thickness: 11px; }
-.u-thick-14 { --u-thickness: 14px; }
-
-/* Hover swap for homepage hero illustration */
-.hero-hover-img {
-  position: relative;
-  display: block;
-}
-.hero-hover-img > img {
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: opacity .25s ease;
-}
-.hero-hover-img > img.hover {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-}
-
-/* Swap on hover (desktop) */
-.hero-hover-img:hover > img.hover { opacity: 1; }
-.hero-hover-img:hover > img.base  { opacity: 0; }
-
-/* Optional: keep base image on touch devices if you want */
-@media (hover: none) {
-  .hero-hover-img > img.hover { display: none; }
-}
-

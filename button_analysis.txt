@@ -1,0 +1,254 @@
+================================================================================
+BUTTON SELECTORS FOUND IN global.css
+================================================================================
+
+.button-l
+  Found 2 time(s) at line(s): 1, 46
+  ** DUPLICATE DETECTED **
+
+.button-l--white
+  Found 2 time(s) at line(s): 1708, 2854
+  ** DUPLICATE DETECTED **
+
+.button-l-transparent
+  Found 1 time(s) at line(s): 79
+
+.button-l-transparent::after
+  Found 1 time(s) at line(s): 119
+
+.button-l-transparent::before
+  Found 1 time(s) at line(s): 107
+
+.button-l-transparent:hover
+  Found 1 time(s) at line(s): 131
+
+.button-l-white
+  Found 1 time(s) at line(s): 54
+
+.button-l-white::after
+  Found 1 time(s) at line(s): 152
+
+.button-l-white::before
+  Found 1 time(s) at line(s): 139
+
+.button-l-white:hover
+  Found 1 time(s) at line(s): 164
+
+.button-l.button-l--white::after
+  Found 2 time(s) at line(s): 1715, 2861
+  ** DUPLICATE DETECTED **
+
+.button-l.button-l--white:hover
+  Found 2 time(s) at line(s): 1719, 2865
+  ** DUPLICATE DETECTED **
+
+.button-l.button-l--white:hover::after
+  Found 4 time(s) at line(s): 1725, 1729, 1733, 1799
+  ** DUPLICATE DETECTED **
+
+.button-l::after
+  Found 1 time(s) at line(s): 295
+
+.button-l::before
+  Found 1 time(s) at line(s): 282
+
+.button-l:disabled
+  Found 1 time(s) at line(s): 32
+
+.button-l:disabled::after
+  Found 1 time(s) at line(s): 39
+
+.button-l:hover
+  Found 1 time(s) at line(s): 307
+
+.button-l:hover:not(:disabled)
+  Found 1 time(s) at line(s): 28
+
+.button-without-box
+  Found 1 time(s) at line(s): 313
+
+.button-without-box-vertical-black
+  Found 6 time(s) at line(s): 388, 408, 427, 1914, 1934, 1953
+  ** DUPLICATE DETECTED **
+
+.button-without-box-vertical-black::after
+  Found 2 time(s) at line(s): 439, 1965
+  ** DUPLICATE DETECTED **
+
+.button-without-box-vertical-black::before
+  Found 2 time(s) at line(s): 452, 1978
+  ** DUPLICATE DETECTED **
+
+.button-without-box-vertical-black:hover::before
+  Found 4 time(s) at line(s): 420, 468, 1946, 1994
+  ** DUPLICATE DETECTED **
+
+.button-without-box::after
+  Found 1 time(s) at line(s): 173
+
+.button-without-box::before
+  Found 1 time(s) at line(s): 186
+
+.button-without-box:hover
+  Found 1 time(s) at line(s): 201
+
+.button-without-box:hover::after
+  Found 1 time(s) at line(s): 205
+
+.button-without-box:hover::before
+  Found 1 time(s) at line(s): 210
+
+.contact-actions .button-l
+  Found 1 time(s) at line(s): 2715
+
+.contact-form-wrapper .hs-form-field:has(button[type="submit"])
+  Found 1 time(s) at line(s): 1407
+
+.footer-cta-btn.button-l
+  Found 4 time(s) at line(s): 1602, 1630, 2748, 2776
+  ** DUPLICATE DETECTED **
+
+.hubspot-form-wrapper .hs-custom-submit.button-l
+  Found 1 time(s) at line(s): 1890
+
+================================================================================
+DUPLICATE ANALYSIS
+================================================================================
+
+.button-l
+
+  Occurrence #1 (Line 1):
+  ----------------------------------------------------------------------
+  .button-l {
+    --btn-l-line: 1px;
+    /* line thickness */
+    --btn-l-offset: 4px;
+    /* half-pixel placement for crisp stroke */
+  
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+  Occurrence #2 (Line 46):
+  ----------------------------------------------------------------------
+    .button-l {
+      width: 151.83px;
+      height: 46px;
+      font-size: 14px;
+    }
+  
+
+.button-l--white
+
+  Occurrence #1 (Line 1708):
+  ----------------------------------------------------------------------
+  .button-l--white {
+    background-color: #fff;
+    color: #7c3aed;
+    box-shadow: inset 0 0 0 1px #7c3aed;
+  }
+  
+
+  Occurrence #2 (Line 2854):
+  ----------------------------------------------------------------------
+  .button-l--white {
+    background-color: #fff;
+    color: #000;
+    box-shadow: inset 0 0 0 1px #000;
+  }
+  
+
+.button-l.button-l--white::after
+
+  Occurrence #1 (Line 1715):
+  ----------------------------------------------------------------------
+  .button-l.button-l--white::after {
+    background-color: #7c3aed;
+  }
+  
+
+  Occurrence #2 (Line 2861):
+  ----------------------------------------------------------------------
+  .button-l.button-l--white::after {
+    background-color: #000;
+  }
+  
+
+.button-l.button-l--white:hover
+
+  Occurrence #1 (Line 1719):
+  ----------------------------------------------------------------------
+  .button-l.button-l--white:hover {
+    background-color: #7c3aed;
+    color: #fff;
+  }
+  
+
+  Occurrence #2 (Line 2865):
+  ----------------------------------------------------------------------
+  .button-l.button-l--white:hover {
+    background-color: #000;
+    color: #fff;
+  }
+  
+
+.button-l.button-l--white:hover::after
+
+  Occurrence #1 (Line 1725):
+  ----------------------------------------------------------------------
+  .button-l.button-l--white:hover::after {
+    background-color: #fff;
+  }
+  
+
+  Occurrence #2 (Line 1729):
+  ----------------------------------------------------------------------
+  .button-l.button-l--white:hover::after {
+    background-color: #fff;
+  }
+  
+
+  Occurrence #3 (Line 1733):
+  ----------------------------------------------------------------------
+  .button-l.button-l--white:hover::after {
+    background-color: #fff;
+  }
+  
+
+  Occurrence #4 (Line 1799):
+  ----------------------------------------------------------------------
+  .button-l.button-l--white:hover::after {
+    background-color: #fff;
+  }
+  
+
+.button-without-box-vertical-black
+
+  Occurrence #1 (Line 388):
+  ----------------------------------------------------------------------
+  .button-without-box-vertical-black {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-inter), sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+
+  Occurrence #2 (Line 408):
+  ----------------------------------------------------------------------
+    .button-without-box-vertical-black {
+      writing-mode: vertical-rl;
+      /* Changed from vertical-lr to vertical-rl */
+      transform: rotate(180deg);
+Traceback (most recent call last):
+  File "C:\xampp\htdocs\CDA-WEBSITE-PROJECT\extract_buttons.py", line 63, in <module>
+    print(f"  {line}")
+    ~~~~~^^^^^^^^^^^^^
+  File "C:\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2192' in position 37: character maps to <undefined>

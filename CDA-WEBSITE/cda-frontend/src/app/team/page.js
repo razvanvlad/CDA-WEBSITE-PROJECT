@@ -1,8 +1,10 @@
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import HeroSection from '@/components/GlobalBlocks/HeroSection'
+import TextLinkButton from '../../components/ui/TextLinkButton'
 import Link from 'next/link'
 import Image from 'next/image'
+import ResponsiveUnderlinedTitle from '../../components/ResponsiveUnderlinedTitle'
 import { sanitizeTitleHtml } from '@/lib/sanitizeTitleHtml'
 import { executeGraphQLQuery, getGlobalContent, getPageGlobalTogglesByUri, getPageGlobalTogglesBySlug, getTeamMembersWithPagination, getTeamMembersCoreWithPagination } from '@/lib/graphql-queries'
 
@@ -151,8 +153,15 @@ export default async function TeamPage() {
       {header && (
         <HeroSection
           sectionClassName="bg-white"
-          titleHtml={sanitizeTitleHtml(header.title || 'Team')}
-          titleClassName="cda-page-title title-large-light-blue"
+          title={
+            <ResponsiveUnderlinedTitle
+              as="h1"
+              className="cda-title"
+              underlineColor="#FD8721"
+            >
+              {header.title || 'The Team Behind The Work'}
+            </ResponsiveUnderlinedTitle>
+          }
           descriptionHtml={header.description || ''}
           ctas={[
             header.cta?.url
@@ -199,7 +208,7 @@ export default async function TeamPage() {
                   <div className="wysiwyg-content text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] mb-6" dangerouslySetInnerHTML={{ __html: founder.description }} />
                 )}
                 {founder.cta?.url && (
-                  <a href={founder.cta.url} target={founder.cta.target || '_self'} className="button-without-box">{founder.cta.title || 'Learn More'}</a>
+                  <TextLinkButton href={founder.cta.url} target={founder.cta.target || '_self'}>{founder.cta.title || 'Learn More'}</TextLinkButton>
                 )}
               </div>
             </div>
@@ -213,7 +222,15 @@ export default async function TeamPage() {
           <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
             <div className="mb-8">
               {meet.subtitle && (<p className="cda-subtitle">{meet.subtitle}</p>)}
-              {meet.title && (<h2 className="cda-title title-small-purple">{meet.title}</h2>)}
+              {meet.title && (
+                <ResponsiveUnderlinedTitle
+                  as="h2"
+                  className="section-title"
+                  underlineColor="#FF60DF"
+                >
+                  {meet.title}
+                </ResponsiveUnderlinedTitle>
+              )}
             </div>
             {allTeam && allTeam.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

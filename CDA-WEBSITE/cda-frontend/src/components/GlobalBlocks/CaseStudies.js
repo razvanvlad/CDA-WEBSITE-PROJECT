@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import TextLinkButton from '../ui/TextLinkButton';
 
 /**
  * CaseStudies Global Block Component
@@ -48,13 +49,13 @@ const CaseStudies = ({ globalData }) => {
             )}
           </div>
           {knowledgeHubLink && (
-            <a
+            <TextLinkButton
               href={knowledgeHubLink.url}
-              className="button-without-box cs-header-cta"
+              className="cs-header-cta"
               target={knowledgeHubLink.target || '_self'}
             >
               {knowledgeHubLink.title}
-            </a>
+            </TextLinkButton>
           )}
         </div>
         

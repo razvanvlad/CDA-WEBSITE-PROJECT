@@ -1,6 +1,7 @@
 import { getTeamMemberBySlug, getTeamMemberSlugs, getTeamMemberDetailsByDbId } from '@/lib/graphql-queries.js'
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
+import ResponsiveUnderlinedTitle from '../../../components/ResponsiveUnderlinedTitle'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -90,12 +91,13 @@ export default async function TeamMemberDetailPage({ params }) {
 
               {/* Right: Name, Title, Bio, Contacts */}
               <div className="col-span-12 md:col-span-7">
-                <h1
-                  className="service-hero-title text-4xl lg:text-5xl font-bold mb-6"
-                  style={{ textDecoration: 'underline', textDecorationColor: '#FF5C8A', textDecorationThickness: '11px' }}
+                <ResponsiveUnderlinedTitle
+                  as="h1"
+                  className="cda-title"
+                  underlineColor="#FF5C8A"
                 >
                   {member.title} {jobTitle ? (<span className="block lg:inline">{jobTitle}</span>) : null}
-                </h1>
+                </ResponsiveUnderlinedTitle>
                 {shortBio && (
                   <div className="prose prose-p:mb-4 max-w-none text-gray-800" dangerouslySetInnerHTML={{ __html: shortBio }} />
                 )}

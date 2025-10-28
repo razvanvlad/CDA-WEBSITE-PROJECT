@@ -1,6 +1,8 @@
 import { getCaseStudiesWithPagination, executeGraphQLQuery } from '@/lib/graphql-queries.js'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import HeroSection from '../../components/GlobalBlocks/HeroSection'
+import ResponsiveUnderlinedTitle from '../../components/ResponsiveUnderlinedTitle'
 import CaseStudiesClient from './CaseStudiesClient'
 
 export const metadata = {
@@ -57,6 +59,44 @@ export default async function CaseStudiesPage() {
     return (
       <>
         <Header />
+
+        {/* Hero Section */}
+        <HeroSection
+          sectionClassName="bg-white"
+          title={
+            <ResponsiveUnderlinedTitle
+              as="h1"
+              className="cda-title"
+              underlineColor="#3CBEEB"
+            >
+              Our Case Studies
+            </ResponsiveUnderlinedTitle>
+          }
+          description="Explore our portfolio of successful digital projects. Discover how we've helped businesses achieve their goals through strategic solutions and measurable results."
+          descriptionClassName="text-lg text-gray-600"
+          ctas={[
+            {
+              label: 'Start Your Project',
+              href: '/contact',
+              className: 'button-l',
+            },
+            {
+              label: 'View Services',
+              href: '/services',
+              className: 'button-secondary',
+            },
+          ]}
+          image={
+            <img
+              src="/images/case-studies-hero.svg"
+              alt="Case Studies illustration"
+              width={600}
+              height={400}
+              className="cda-hero__image-media"
+            />
+          }
+        />
+
         <CaseStudiesClient initialItems={caseStudies} projectTypes={projectTypes} />
         <Footer />
       </>

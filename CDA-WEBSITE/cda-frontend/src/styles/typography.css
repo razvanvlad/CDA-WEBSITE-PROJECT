@@ -1,0 +1,134 @@
+/* ═══════════════════════════════════════════════════════════════════
+   TYPOGRAPHY SYSTEM
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Font Families */
+:root {
+  --font-poppins: var(--font-poppins), sans-serif;
+  --font-inter: var(--font-inter), sans-serif;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   HEADINGS - Poppins Bold
+   ───────────────────────────────────────────────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-poppins);
+  font-weight: 700;
+}
+
+/* H1 - Responsive Typography
+   Mobile (≤768px): 32px
+   Desktop (>768px): 50px
+   Font-weight: 800 (Extra Bold)
+   ───────────────────────────────────────────────────────────────── */
+h1, .h1 {
+  font-size: 32px;
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+@media (min-width: 769px) {
+  h1, .h1 {
+    font-size: 50px;
+  }
+}
+
+/* H2 - Responsive Typography
+   Mobile (≤768px): 28px
+   Desktop (>768px): 38px
+   Font-weight: 700 (Bold)
+   ───────────────────────────────────────────────────────────────── */
+h2, .h2 {
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+@media (min-width: 769px) {
+  h2, .h2 {
+    font-size: 38px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   BODY TEXT - Inter
+   ───────────────────────────────────────────────────────────────── */
+
+body {
+  font-family: var(--font-inter);
+  font-weight: 400;
+}
+
+p, span, div, li, a {
+  font-family: var(--font-inter);
+  /* NO font-weight here - let Tailwind control it */
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SUBTITLE CLASSES
+   ───────────────────────────────────────────────────────────────── */
+
+.subtitle {
+  font-family: var(--font-poppins);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+@media (min-width: 1024px) {
+  .subtitle {
+    font-size: 22px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   TITLE UTILITY CLASSES
+   ───────────────────────────────────────────────────────────────── */
+
+/* CDA Title - H1 Level (50px desktop, 32px mobile) */
+.cda-title {
+  font-family: var(--font-poppins);
+  font-size: 32px;
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+@media (min-width: 769px) {
+  .cda-title {
+    font-size: 50px;
+  }
+}
+
+/* Section Title - H2 Level (38px desktop, 28px mobile) */
+.section-title {
+  font-family: var(--font-poppins);
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+@media (min-width: 769px) {
+  .section-title {
+    font-size: 38px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   LEGACY CDA CLASSES (Keep for backwards compatibility)
+   ───────────────────────────────────────────────────────────────── */
+
+.cda-subtitle,
+.cda-page-title,
+.cda-page-title-clean {
+  font-family: var(--font-poppins);
+  font-weight: 700;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   WYSIWYG CONTENT
+   ───────────────────────────────────────────────────────────────── */
+
+.wysiwyg-content strong,
+.wysiwyg-content b {
+  font-weight: 700;
+}
