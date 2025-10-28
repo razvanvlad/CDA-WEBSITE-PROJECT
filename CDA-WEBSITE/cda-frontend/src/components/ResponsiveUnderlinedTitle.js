@@ -14,7 +14,7 @@
 
 'use client';
 
-import { useIsMobile } from '@/hooks/useIsMobile';
+import { useState, useEffect } from 'react';
 import UnderlinedTitle from './UnderlinedTitle';
 
 export default function ResponsiveUnderlinedTitle({
@@ -22,25 +22,38 @@ export default function ResponsiveUnderlinedTitle({
   children,
   className = '',
   underlineColor = '#FF5C8A',
-  size,
   ...props
 }) {
-  const isMobile = useIsMobile();
+  const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Avoid hydration mismatch by only checking mobile after mount
+  useEffect(() => {
+    setMounted(true);
+    // Check if window is defined (client-side only)
+    if (typeof window !== 'undefined') {
+      const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+      return () => window.removeEventListener('resize', checkMobile);
+    }
+  }, []);
 
   // Determine if this is H1 or H2 based on 'as' prop
   const isH1 = as === 'h1';
 
   // Set responsive values based on heading level
+  // During SSR and initial render, use desktop values to avoid hydration mismatch
   const responsiveProps = isH1
     ? {
-      strokeWidth: isMobile ? 8 : 11,
-      underlineOffset: isMobile ? 25 : 41,
-      size: isMobile ? 'small' : 'large'
+      strokeWidth: (mounted && isMobile) ? 8 : 11,
+      underlineOffset: (mounted && isMobile) ? 25 : 41,
+      size: (mounted && isMobile) ? 'small' : 'large'
     }
     : {
-      strokeWidth: isMobile ? 7 : 9,
-      underlineOffset: isMobile ? 22 : 32,
-      size: isMobile ? 'small' : 'medium'
+      strokeWidth: (mounted && isMobile) ? 7 : 9,
+      underlineOffset: (mounted && isMobile) ? 22 : 32,
+      size: (mounted && isMobile) ? 'small' : 'medium'
     };
 
   return (
