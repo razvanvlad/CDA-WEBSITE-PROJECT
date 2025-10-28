@@ -864,7 +864,7 @@
   max-width: 1620px;
   position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 40px;
 }
@@ -876,9 +876,10 @@
 }
 
 .contact-content {
-  flex: 1;
+  flex: 0 0 auto;
   width: 100%;
   max-width: 990px;
+  min-width: 0;
 }
 
 @media (max-width: 768px) {
@@ -915,6 +916,7 @@
 
 .contact-form-wrapper {
   width: 100%;
+  max-width: 1000px;
 }
 
 /* Form Grid - 2 columns on desktop */
@@ -1114,31 +1116,168 @@
 }
 
 /* ============================================
-   BIRD ILLUSTRATIONS
+   CONTACT FORM - ContactForm Component Styles
    ============================================ */
 
-/* Desktop bird - HIDDEN */
+/* Contact Form Layout - Desktop */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+}
+
+/* Row with 3 fields (First Name, Last Name, Email) */
+.contact-form .contact-row-3 {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 990px;
+}
+
+/* Row with 2 fields (Telephone, Reason) */
+.contact-form .contact-row-2 {
+  display: flex;
+  gap: 39px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 990px;
+}
+
+/* Individual field sizes - Desktop */
+.contact-form .contact-input-310 {
+  width: 313.33px;
+  height: 50px;
+  flex-shrink: 0;
+  min-width: 313.33px;
+  max-width: 313.33px;
+}
+
+.contact-form .contact-input-475 {
+  width: 475.5px;
+  height: 50px;
+  flex-shrink: 0;
+  min-width: 475.5px;
+  max-width: 475.5px;
+}
+
+.contact-form .contact-input-full {
+  width: 100%;
+  height: 141.5px;
+  min-width: 990px;
+  max-width: 990px;
+}
+
+/* Contact Form Inputs */
+.contact-input-wrap {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+}
+
+.contact-input,
+.contact-select,
+.contact-textarea {
+  width: 100%;
+  height: 50px;
+  padding: 0 16px;
+  border: 1px solid #DBDBDB;
+  border-radius: 0;
+  background-color: #FFFFFF;
+  font-size: 16px;
+  font-family: var(--font-inter), sans-serif;
+  color: rgba(0, 0, 0, 1);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.contact-textarea {
+  height: 141.5px;
+  padding: 16px;
+  resize: none;
+}
+
+.contact-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 12px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+
+/* Bottom row with terms and submit button - Desktop */
+.contact-bottom-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 990px;
+  flex-wrap: wrap;
+}
+
+.contact-terms {
+  flex: 1;
+  min-width: 200px;
+  width: 100%;
+  max-width: 990px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.contact-checkbox {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.contact-label {
+  font-size: 16px;
+  font-family: var(--font-inter), sans-serif;
+  color: rgba(0, 0, 0, 1);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.contact-terms-link {
+  text-decoration: underline;
+  font-weight: 600;
+  color: inherit;
+}
+
+.contact-submit {
+  width: 235px;
+  height: 53.5px;
+  white-space: nowrap;
+}
+
+/* Contact Illustration - Desktop Bird */
 .contact-illustration {
-  display: none !important;
+  flex: 0 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 785px;
 }
 
 .contact-illustration-img {
-  display: none !important;
+  width: 100%;
+  max-width: 785px;
+  height: auto;
+  object-fit: contain;
 }
 
-/* Mobile bird */
+/* Mobile Bird Illustration - Hidden on Desktop */
 .contact-illustration-mobile {
   display: none;
-}
-
-@media (max-width: 1024px) {
-  .contact-illustration-mobile {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 40px;
-    padding: 0 16px;
-  }
 }
 
 .contact-illustration-img-mobile {
@@ -1146,6 +1285,210 @@
   height: 300px;
   max-width: 100%;
   object-fit: contain;
+}
+
+/* ============================================
+   CONTACT FORM - Mobile Responsive Overrides
+   ============================================ */
+
+@media (max-width: 768px) {
+
+  /* Hide desktop bird on mobile */
+  .contact-illustration {
+    display: none !important;
+  }
+
+  /* Show mobile bird on mobile */
+  .contact-illustration-mobile {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    margin-top: 32px;
+    margin-bottom: 24px;
+    padding: 0 16px;
+  }
+
+  .contact-illustration-img-mobile {
+    width: 100%;
+    max-width: 399px;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+
+  /* Form rows stack vertically and center at 353px */
+  .contact-form {
+    gap: 16px !important;
+  }
+
+  .contact-row-3,
+  .contact-row-2 {
+    flex-direction: column !important;
+    gap: 16px !important;
+    width: 100% !important;
+    min-width: unset !important;
+    max-width: unset !important;
+    align-items: center !important;
+  }
+
+  .contact-input-310,
+  .contact-input-475,
+  .contact-input-full {
+    width: 310px !important;
+    min-width: unset !important;
+    max-width: 353px !important;
+    height: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .contact-input,
+  .contact-select {
+    height: 50px !important;
+    width: 100% !important;
+  }
+
+  .contact-textarea {
+    height: 120px !important;
+    width: 100% !important;
+  }
+
+  .contact-input-wrap {
+    position: relative;
+    width: 353px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .contact-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('/images/arrow-icons/down-arrow.svg');
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px 16px;
+    padding-right: 48px !important;
+  }
+
+  /* Checkbox and submit button stack vertically */
+  .contact-bottom-row {
+    flex-direction: column !important;
+    gap: 16px !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  .contact-terms {
+    flex: none !important;
+    width: 353px !important;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .contact-checkbox {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .contact-label {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .contact-submit {
+    width: 176px !important;
+    min-width: unset !important;
+    height: 53.5px !important;
+    flex-shrink: 0;
+    margin-top: 8px;
+    background-color: #000 !important;
+    color: #fff !important;
+    border: 2px solid #000 !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    font-family: 'Poppins', sans-serif !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 12px 32px !important;
+  }
+
+  .contact-submit:hover {
+    background-color: #333 !important;
+    border-color: #333 !important;
+  }
+
+  /* Contact info section mobile */
+  .contact-info {
+    flex-direction: column !important;
+    gap: 16px !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin-top: 32px !important;
+  }
+
+  .contact-info>.contact {
+    width: 353px !important;
+    text-align: center;
+  }
+
+  .contact-social {
+    width: 353px !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .contact-social strong {
+    flex-shrink: 0;
+  }
+
+  .social-links {
+    display: flex !important;
+    gap: 12px !important;
+    margin-top: 0 !important;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  .social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea,
+  .contact-input-310,
+  .contact-input-475,
+  .contact-input-full,
+  .contact-input-wrap,
+  .contact-terms,
+  .contact-info>.contact,
+  .contact-social {
+    max-width: calc(100vw - 32px) !important;
+  }
+
+  .contact-submit {
+    max-width: 160px !important;
+  }
 }
 
 /* Footer CTA interaction */
