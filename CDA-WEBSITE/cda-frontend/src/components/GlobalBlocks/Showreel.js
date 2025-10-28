@@ -2,6 +2,7 @@
 
 import React from 'react';
 import SectionBand from '@/components/SectionBand';
+import TextLinkButton from '../ui/TextLinkButton';
 
 const Showreel = ({ globalData }) => {
   if (!globalData) return null;
@@ -42,14 +43,13 @@ const Showreel = ({ globalData }) => {
             </div>
 
             {button?.url && (
-              <a
+              <TextLinkButton
                 href={button.url}
                 target={button.target === '_blank' ? '_blank' : '_self'}
-                rel={button.target === '_blank' ? 'noopener noreferrer' : undefined}
-                className="button-without-box self-center md:self-auto"
+                className="self-center md:self-auto"
               >
                 {button.title || 'View Our Work'}
-              </a>
+              </TextLinkButton>
             )}
           </div>
         )}
@@ -94,13 +94,14 @@ const Showreel = ({ globalData }) => {
             </div>
 
             {/* DESKTOP grid */}
-            <div className="hidden md:grid mt-8 grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-x-10 gap-y-6 items-center">
+            <div className="hidden md:flex mt-12 flex-wrap justify-between items-center gap-6">
               {logos.map((logo, i) => (
-                <div key={i} className="flex items-center justify-center">
+                <div key={i} className="flex items-center justify-center" style={{ maxWidth: '220px', flex: '0 1 auto' }}>
                   <img
                     src={logo.sourceUrl}
                     alt={logo.altText || 'Client logo'}
-                    className="h-8 sm:h-9 md:h-10 lg:h-12 object-contain grayscale hover:grayscale-0 transition"
+                    className="h-8 sm:h-9 md:h-10 lg:h-12 w-full object-contain grayscale hover:grayscale-0 transition"
+                    style={{ maxWidth: '220px' }}
                   />
                 </div>
               ))}

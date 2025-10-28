@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import TextLinkButton from './ui/TextLinkButton'
 
 export default function KnowledgeHubClient({ caseStudies, posts, searchSection }) {
   const [activeTab, setActiveTab] = useState('all')
@@ -157,13 +158,12 @@ export default function KnowledgeHubClient({ caseStudies, posts, searchSection }
                     )}
                     
                     <div className="flex items-center justify-between">
-                      <Link
+                      <TextLinkButton
                         href={item.type === 'case-study' ? `/case-studies/${item.slug}` : `/news/${item.slug}`}
-                        className="button-without-box"
                       >
                         Read More
-                      </Link>
-                      
+                      </TextLinkButton>
+
                       <time className="text-sm text-gray-500">
                         {new Date(item.date).toLocaleDateString()}
                       </time>

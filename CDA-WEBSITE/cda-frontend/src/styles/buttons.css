@@ -1,0 +1,564 @@
+/* ═══════════════════════════════════════════════════════════════════
+   BUTTON SYSTEM - Unified Styles
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Base Button Styles */
+button {
+   font-family: var(--font-poppins);
+   /* NO font-weight here - let button classes control it */
+}
+
+/* ============================================
+   PRIMARY L-TYPE BUTTON
+   ============================================ */
+
+.button-l {
+   --btn-l-line: 1px;
+   /* line thickness */
+   --btn-l-offset: 4px;
+   /* half-pixel placement for crisp stroke */
+
+   position: relative;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 235px;
+   height: 54px;
+   padding: 0;
+   font-family: var(--font-poppins), sans-serif;
+   font-weight: 700;
+   font-size: 18px;
+   color: white;
+   background-color: black;
+   border: none;
+   border-radius: 0;
+   cursor: pointer;
+   transition: all 0.2s ease;
+   text-align: center;
+   white-space: nowrap;
+}
+
+/* Mobile styles for button-l */
+@media (max-width: 767px) {
+   .button-l {
+      width: 176px;
+      height: 46px;
+      padding: 0;
+      font-size: 14px;
+   }
+}
+
+.button-l:hover:not(:disabled) {
+   background-color: white;
+   color: black;
+   box-shadow: inset 0 0 0 1px black;
+}
+
+.button-l:disabled {
+   background-color: #808080;
+   color: white;
+   cursor: not-allowed;
+}
+
+.button-l:disabled::before,
+.button-l:disabled::after {
+   background-color: #808080;
+}
+
+/* L-decoration: bottom line */
+.button-l::before,
+.button-l-transparent::before {
+   content: '';
+   position: absolute;
+   left: var(--btn-l-offset);
+   bottom: calc(var(--btn-l-offset) * -1);
+   width: calc(100% - (var(--btn-l-offset) * 0));
+   height: var(--btn-l-line);
+   background-color: black;
+   z-index: 1;
+}
+
+/* L-decoration: right line */
+.button-l::after,
+.button-l-transparent::after {
+   content: '';
+   position: absolute;
+   top: var(--btn-l-offset);
+   right: calc(var(--btn-l-offset) * -1);
+   width: var(--btn-l-line);
+   bottom: calc(var(--btn-l-offset) * -1);
+   background-color: black;
+   z-index: 1;
+}
+
+/* ============================================
+   BUTTON-L VARIANTS
+   ============================================ */
+
+/* White variant */
+.button-l-white {
+   --btn-l-line: 1px;
+   --btn-l-offset: 4px;
+
+   position: relative;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   min-width: 235px;
+   height: 54px;
+   padding: 0 2rem;
+   font-family: var(--font-poppins), sans-serif;
+   font-weight: 700;
+   font-size: 18px;
+   color: black;
+   background-color: white;
+   border: 1px solid black;
+   cursor: pointer;
+   transition: all 0.2s ease;
+   text-align: center;
+   white-space: nowrap;
+}
+
+/* Mobile styles for button-l-white */
+@media (max-width: 767px) {
+   .button-l-white {
+      min-width: 177px;
+      height: 46px;
+      padding: 0 1.5rem;
+      font-size: 14px;
+   }
+}
+
+.button-l-white::before {
+   content: '';
+   position: absolute;
+   left: var(--btn-l-offset);
+   bottom: calc(var(--btn-l-offset) * -1);
+   width: calc(100% - var(--btn-l-line));
+   height: var(--btn-l-line);
+   background-color: black;
+   z-index: 1;
+}
+
+.button-l-white::after {
+   content: '';
+   position: absolute;
+   top: var(--btn-l-offset);
+   right: calc(var(--btn-l-offset) * -1);
+   width: var(--btn-l-line);
+   bottom: calc(var(--btn-l-offset) * -1);
+   background-color: black;
+   z-index: 1;
+}
+
+.button-l-white:hover {
+   background-color: black;
+   color: white;
+   box-shadow: none;
+}
+
+/* Transparent variant */
+.button-l-transparent {
+   --btn-l-line: 1px;
+   --btn-l-offset: 4px;
+
+   position: relative;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   min-width: 235px;
+   height: 54px;
+   padding: 0 2rem;
+   font-family: var(--font-poppins), sans-serif;
+   font-weight: 700;
+   font-size: 18px;
+   color: black;
+   background-color: transparent;
+   border: none;
+   box-shadow: inset 0 0 0 1px black;
+   cursor: pointer;
+   transition: all 0.2s ease;
+   text-align: center;
+   white-space: nowrap;
+}
+
+/* Mobile styles for button-l-transparent */
+@media (max-width: 767px) {
+   .button-l-transparent {
+      min-width: 177px;
+      height: 46px;
+      padding: 0 1.5rem;
+      font-size: 14px;
+   }
+}
+
+.button-l-transparent:hover {
+   background-color: black;
+   color: white;
+   box-shadow: inset 0 0 0 1px black;
+}
+
+/* Modern white variant (black accent) */
+.button-l--white {
+   background-color: #fff;
+   color: #000;
+   box-shadow: inset 0 0 0 1px #000;
+}
+
+.button-l.button-l--white::before,
+.button-l.button-l--white::after {
+   background-color: #000;
+}
+
+.button-l.button-l--white:hover {
+   background-color: #000;
+   color: #fff;
+}
+
+.button-l.button-l--white:hover::before,
+.button-l.button-l--white:hover::after {
+   background-color: #fff;
+}
+
+/* ============================================
+   BUTTON WITHOUT BOX (TEXT LINK STYLE)
+   ============================================ */
+
+.button-without-box {
+   --btn-link-underline: 1px;
+   --btn-link-icon-desktop: 13.9px;
+   --btn-link-icon-mobile: 11.4px;
+   --btn-link-gap: 8px;
+
+   display: inline-flex;
+   align-items: center;
+   gap: var(--btn-link-gap);
+   width: fit-content;
+   padding-bottom: 2px;
+   font-family: var(--font-poppins), sans-serif;
+   font-weight: 700;
+   font-size: 18px;
+   line-height: 1;
+   color: #374151;
+   text-decoration: none;
+   cursor: pointer;
+   transition: all 0.2s ease;
+   border: none;
+   background: none;
+}
+
+/* Mobile styles for button-without-box */
+@media (max-width: 767px) {
+   .button-without-box {
+      font-size: 14px;
+   }
+}
+
+/* Text wrapper - for underline */
+.button-without-box .button-text {
+   position: relative;
+   display: inline-block;
+}
+
+/* Underline decoration - ONLY under text, 1px below */
+.button-without-box .button-text::after {
+   content: '';
+   position: absolute;
+   bottom: -1px;
+   left: 0;
+   width: 100%;
+   height: var(--btn-link-underline);
+   background-color: #374151;
+   z-index: 1;
+   transition: all 0.2s ease;
+}
+
+.button-without-box:hover .button-text::after {
+   background-color: #374151;
+}
+
+/* Icon - Diagonal arrow (default) */
+.button-without-box .button-icon {
+   display: block;
+   width: var(--btn-link-icon-desktop);
+   height: var(--btn-link-icon-desktop);
+   min-width: var(--btn-link-icon-desktop);
+   min-height: var(--btn-link-icon-desktop);
+   max-width: var(--btn-link-icon-desktop);
+   max-height: var(--btn-link-icon-desktop);
+   flex-shrink: 0;
+   object-fit: contain;
+   transition: all 0.2s ease;
+}
+
+@media (max-width: 767px) {
+   .button-without-box .button-icon {
+      width: var(--btn-link-icon-mobile);
+      height: var(--btn-link-icon-mobile);
+      min-width: var(--btn-link-icon-mobile);
+      min-height: var(--btn-link-icon-mobile);
+      max-width: var(--btn-link-icon-mobile);
+      max-height: var(--btn-link-icon-mobile);
+   }
+}
+
+
+/* === NEW: Icon wrapper for hover swap === */
+.button-without-box .button-icon-wrapper,
+.button-without-box-white .button-icon-wrapper {
+   position: relative;
+   width: var(--btn-link-icon-desktop);
+   height: var(--btn-link-icon-desktop);
+   flex-shrink: 0;
+}
+
+.button-without-box .button-icon,
+.button-without-box-white .button-icon {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   transition: opacity 0.2s ease;
+}
+
+.button-without-box .button-icon-hover,
+.button-without-box-white .button-icon-hover {
+   opacity: 0;
+}
+
+.button-without-box:hover .button-icon-default,
+.button-without-box-white:hover .button-icon-default {
+   opacity: 0;
+}
+
+.button-without-box:hover .button-icon-hover,
+.button-without-box-white:hover .button-icon-hover {
+   opacity: 1;
+}
+
+/* Mobile sizing for icon wrapper */
+@media (max-width: 767px) {
+
+   .button-without-box .button-icon-wrapper,
+   .button-without-box-white .button-icon-wrapper {
+      width: var(--btn-link-icon-mobile);
+      height: var(--btn-link-icon-mobile);
+   }
+}
+
+
+/* ============================================
+   BUTTON WITHOUT BOX - WHITE VARIANT (INVERTED)
+   ============================================ */
+
+.button-without-box-white {
+   --btn-link-underline: 1px;
+   --btn-link-icon-desktop: 13.9px;
+   --btn-link-icon-mobile: 11.4px;
+   --btn-link-gap: 8px;
+
+   display: inline-flex;
+   align-items: center;
+   gap: var(--btn-link-gap);
+   width: fit-content;
+   padding-bottom: 2px;
+   font-family: var(--font-poppins), sans-serif;
+   font-weight: 700;
+   font-size: 18px;
+   line-height: 1;
+   color: white;
+   text-decoration: none;
+   cursor: pointer;
+   transition: all 0.2s ease;
+   border: none;
+   background: none;
+}
+
+/* Mobile styles for button-without-box-white */
+@media (max-width: 767px) {
+   .button-without-box-white {
+      font-size: 14px;
+   }
+}
+
+/* Text wrapper - for underline */
+.button-without-box-white .button-text {
+   position: relative;
+   display: inline-block;
+}
+
+/* Underline decoration - ONLY under text, 1px below */
+.button-without-box-white .button-text::after {
+   content: '';
+   position: absolute;
+   bottom: -1px;
+   left: 0;
+   width: 100%;
+   height: var(--btn-link-underline);
+   background-color: white;
+   z-index: 1;
+   transition: all 0.2s ease;
+}
+
+.button-without-box-white:hover .button-text::after {
+   background-color: white;
+}
+
+/* Icon - Diagonal arrow (white - inverted) */
+.button-without-box-white .button-icon {
+   display: block;
+   width: var(--btn-link-icon-desktop);
+   height: var(--btn-link-icon-desktop);
+   min-width: var(--btn-link-icon-desktop);
+   min-height: var(--btn-link-icon-desktop);
+   max-width: var(--btn-link-icon-desktop);
+   max-height: var(--btn-link-icon-desktop);
+   flex-shrink: 0;
+   object-fit: contain;
+   filter: invert(1) brightness(2);
+   /* Inverts black to white */
+   transition: all 0.2s ease;
+}
+
+@media (max-width: 767px) {
+   .button-without-box-white .button-icon {
+      width: var(--btn-link-icon-mobile);
+      height: var(--btn-link-icon-mobile);
+      min-width: var(--btn-link-icon-mobile);
+      min-height: var(--btn-link-icon-mobile);
+      max-width: var(--btn-link-icon-mobile);
+      max-height: var(--btn-link-icon-mobile);
+   }
+}
+
+.button-without-box-white .button-icon-wrapper {
+   filter: invert(1) brightness(1.2);
+}
+
+
+/* ============================================
+   VERTICAL BUTTON (BLACK BACKGROUND)
+   ============================================ */
+
+.button-without-box-vertical-black {
+   --btn-link-underline: 1px;
+   --btn-link-icon-desktop: 13.9px;
+   --btn-link-icon-mobile: 11.4px;
+   --btn-link-gap: 8px;
+
+   position: relative;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   gap: var(--btn-link-gap);
+   font-family: var(--font-poppins), sans-serif;
+   font-weight: 700;
+   font-size: 18px;
+   color: white;
+   text-decoration: none;
+   background-color: black;
+   cursor: pointer;
+   transition: all 0.2s ease;
+   line-height: 1;
+   border: none;
+}
+
+/* Desktop: Vertical text on left edge */
+@media (min-width: 768px) {
+   .button-without-box-vertical-black {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-orientation: mixed;
+      padding: 20px 15px;
+      width: auto;
+      height: auto;
+   }
+}
+
+/* Mobile: Horizontal text at bottom, full width */
+@media (max-width: 767px) {
+   .button-without-box-vertical-black {
+      writing-mode: horizontal-tb;
+      text-orientation: mixed;
+      padding: 15px 20px;
+      width: 100vw;
+      margin: 0;
+      left: 0;
+      transform: translateX(0);
+      position: relative;
+      font-size: 14px;
+   }
+
+   /* Underline decoration */
+   .button-without-box-vertical-black::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: var(--btn-link-underline);
+      background-color: white;
+      z-index: 1;
+      transition: all 0.2s ease;
+   }
+
+   /* Icon decoration - Diagonal arrow */
+   .button-without-box-vertical-black::before {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: calc(50% + 85px);
+      width: var(--btn-link-icon-mobile);
+      height: var(--btn-link-icon-mobile);
+      background-image: url('/images/arrow-icons/diagonal-right-arrow.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: invert(1) brightness(2);
+      /* Makes icon white */
+      z-index: 2;
+      transition: all 0.2s ease;
+   }
+
+   /* Icon decoration - Right arrow (on hover) */
+   .button-without-box-vertical-black:hover::before {
+      background-image: url('/images/arrow-icons/right-arrow.svg');
+      filter: invert(1) brightness(2);
+      bottom: 50%;
+      transform: translateY(50%);
+   }
+}
+
+/* ============================================
+   HUBSPOT FORM BUTTONS
+   ============================================ */
+
+
+/* REMOVED: Conflicting HubSpot hover rule - now using .button-l class */
+/* .contact-form-wrapper input[type="submit"]:hover,
+.contact-form-wrapper button[type="submit"]:hover,
+.contact-form-wrapper .hs-button:hover {
+   background-color: #1f2937;
+} */
+
+.hubspot-form-wrapper .hs-custom-submit.button-l {
+   align-self: start;
+}
+
+/* ============================================
+   CONTEXT-SPECIFIC BUTTON OVERRIDES
+   ============================================ */
+
+.footer-cta-btn.button-l {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   margin-inline: auto;
+}
+
+.contact-actions .button-l {
+   min-width: 240px;
+   height: 54px;
+}

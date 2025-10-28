@@ -8,6 +8,7 @@ import { gql } from '@apollo/client'
 import client from '../lib/graphql/client'
 import BookingModal from './BookingModal'
 import { usePathname } from 'next/navigation'
+import TextLinkButton from './ui/TextLinkButton'
 
 // Client-side queries (used only as background refresh when initial props are missing)
 const MENU_BY_DBID = gql`
@@ -159,8 +160,10 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
       </div>
 
       {/* Mobile Sticky Start Project Button - Bottom Edge */}
-      <div className="fixed bottom-0 left-0 z-50 md:hidden">
-        <button onClick={() => setIsBookingModalOpen(true)} className="button-without-box-vertical-black shadow-lg hover:shadow-xl transition-shadow duration-300">Start A Project</button>
+      <div className="fixed bottom-0 left-0 w-full z-50 md:hidden bg-black py-3 flex justify-center">
+        <TextLinkButton onClick={() => setIsBookingModalOpen(true)} variant="white">
+          Start A Project
+        </TextLinkButton>
       </div>
 
       <header className="bg-white" style={{ borderBottom: '1px solid #EBEBEB' }}>

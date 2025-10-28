@@ -1,6 +1,8 @@
 import { getPolicyBySlug, getPolicySlugs } from '@/lib/graphql-queries.js'
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
+import ResponsiveUnderlinedTitle from '../../../components/ResponsiveUnderlinedTitle'
+import TextLinkButton from '../../../components/ui/TextLinkButton'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -89,14 +91,20 @@ export default async function PolicyDetailPage({ params }) {
           <div className="mx-auto w-full max-w-[900px] px-4 md:px-6 lg:px-8">
             {/* Breadcrumb */}
             <nav className="mb-8">
-              <Link href="/policies" className="button-without-box">
+              <TextLinkButton href="/policies">
                 ← Back to Policies
-              </Link>
+              </TextLinkButton>
             </nav>
 
             {/* Policy Header */}
             <header className="mb-8">
-              <h1 className="text-4xl font-bold text-black mb-2">{policyTitle}</h1>
+              <ResponsiveUnderlinedTitle
+                as="h1"
+                className="cda-title mb-2"
+                underlineColor="#AD80F9"
+              >
+                {policyTitle}
+              </ResponsiveUnderlinedTitle>
 
               {/* Featured Image */}
               {policy.featuredImage?.node?.sourceUrl && (

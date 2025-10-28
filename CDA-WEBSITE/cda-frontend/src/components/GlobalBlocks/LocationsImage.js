@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import ResponsiveUnderlinedTitle from '../ResponsiveUnderlinedTitle';
 
 /*
   LocationsImage (Global block)
@@ -23,14 +24,20 @@ const LocationsImage = ({ globalData }) => {
 
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-white">
-<div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
         {/* Heading */}
         <div className="mb-8 md:mb-10">
           {globalData.subtitle && (
             <p className="cda-subtitle">{globalData.subtitle}</p>
           )}
           {globalData.title && (
-            <h2 className="cda-title title-small-pink">{globalData.title}</h2>
+            <ResponsiveUnderlinedTitle
+              as="h2"
+              className="section-title"
+              underlineColor="#FF5C8A"
+            >
+              {globalData.title}
+            </ResponsiveUnderlinedTitle>
           )}
         </div>
 
@@ -44,11 +51,18 @@ const LocationsImage = ({ globalData }) => {
                   key={idx}
                   type="button"
                   onClick={() => setActive(idx)}
-                  className="relative pb-1 text-[24px] font-semibold shrink-0"
+                  className="relative pb-1 shrink-0"
                   aria-pressed={isActive}
                 >
-                  <span className={isActive ? 'text-[#111827]' : 'text-[#9CA3AF]'}>{c.countryName}</span>
-                  {isActive && <span className="absolute left-0 right-0 -bottom-0.5 h-[6px] bg-[#FF3B80]"></span>}
+                  <ResponsiveUnderlinedTitle
+                    as="h2"
+                    className="section-title"
+                    underlineColor={isActive ? "#FF5C8A" : "#9CA3AF"}
+                  >
+                    <span className={isActive ? "text-[24px] font-semibold text-[#111827]" : "text-[24px] font-semibold text-[#9CA3AF]"}>
+                      {c.countryName}
+                    </span>
+                  </ResponsiveUnderlinedTitle>
                 </button>
               );
             })}
@@ -67,11 +81,20 @@ const LocationsImage = ({ globalData }) => {
                       key={idx}
                       type="button"
                       onClick={() => setActive(idx)}
-                      className="relative text-left pb-1 text-[28px] font-semibold"
+                      className="relative text-left pb-1"
                       aria-pressed={isActive}
                     >
-                      <span className={isActive ? 'text-[#111827]' : 'text-[#9CA3AF]'}>{c.countryName}</span>
-                      {isActive && <span className="title-underline title-large-pink u-full u-gap-12"></span>}
+                      {isActive ? (
+                        <ResponsiveUnderlinedTitle
+                          as="span"
+                          className="text-[28px] font-semibold text-[#111827]"
+                          underlineColor="#FF5C8A"
+                        >
+                          {c.countryName}
+                        </ResponsiveUnderlinedTitle>
+                      ) : (
+                        <span className="text-[28px] font-semibold text-[#9CA3AF]">{c.countryName}</span>
+                      )}
                     </button>
                   );
                 })}
@@ -96,14 +119,14 @@ const LocationsImage = ({ globalData }) => {
                           <p className="text-[16px] leading-[1.8] text-[#111827] whitespace-pre-line">{office.address}</p>
                         )}
 
-                          <p className="text-[18px] font-semibold text-[#111827] mb-2">Email</p>
-                          {office.email && (
-                            <p className="text-[16px] text-[#111827]">{office.email}</p>
-                          )}
-                                                    <p className="text-[18px] font-semibold text-[#111827] mb-2">Phone</p>
-                          {office.phone && (
-                            <p className="text-[16px] text-[#111827]">{office.phone}</p>
-                          )}
+                        <p className="text-[18px] font-semibold text-[#111827] mb-2">Email</p>
+                        {office.email && (
+                          <p className="text-[16px] text-[#111827]">{office.email}</p>
+                        )}
+                        <p className="text-[18px] font-semibold text-[#111827] mb-2">Phone</p>
+                        {office.phone && (
+                          <p className="text-[16px] text-[#111827]">{office.phone}</p>
+                        )}
                       </div>
                     </div>
                   </div>

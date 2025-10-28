@@ -1,11 +1,14 @@
 import { executeGraphQLQuery, GET_CASE_STUDIES_WITH_PAGINATION } from '@/lib/graphql-queries.js'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import HeroSection from '../../components/GlobalBlocks/HeroSection'
 import Link from 'next/link'
 import Image from 'next/image'
 import KnowledgeHubClient from './KnowledgeHubClient'
+import ResponsiveUnderlinedTitle from '@/components/ResponsiveUnderlinedTitle'
 import ServicesFilters from '../services/ServicesFilters'
 import GlobalTailSections from '@/components/GlobalBlocks/GlobalTailSections.jsx'
+import NewsletterSignup from '@/components/GlobalBlocks/NewsletterSignup.js'
 import { getGlobalContent } from '@/lib/graphql-queries'
 import { Suspense } from 'react'
 
@@ -72,27 +75,44 @@ const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
     return (
       <>
         <Header />
-        
+
         <main className="knowledge-hub-page">
-          {/* Standard Hero */}
-          <section className="bg-white py-16">
-            <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-                <div>
-                  <h1
-                    className="text-4xl md:text-5xl font-bold text-black mb-6"
-                    style={{ textDecoration: 'underline', textDecorationColor: '#01E486', textDecorationThickness: '11px' }}
-                  >
-                    Knowledge Hub
-                  </h1>
-                  <p className="text-lg text-[#4B5563] leading-relaxed max-w-2xl">Read more news and articles from CDA, here you can also read our case studies.</p>
-                </div>
-                <div className="flex justify-center lg:justify-end">
-                  <img src="/images/owl.svg" alt="Knowledge Hub illustration" className="w-full max-h-[300px] md:max-w-[520px] lg:max-w-[600px] h-auto object-contain" />
-                </div>
-              </div>
-            </div>
-          </section>
+          {/* Hero Section */}
+          <HeroSection
+            sectionClassName="bg-white"
+            title={
+              <ResponsiveUnderlinedTitle
+                as="h1"
+                className="cda-title"
+                underlineColor="#01E486"
+              >
+                Knowledge Hub
+              </ResponsiveUnderlinedTitle>
+            }
+            description="Read more news and articles from CDA. Explore our case studies, industry insights, and expert resources to help your business grow."
+            descriptionClassName="text-lg text-gray-600"
+            ctas={[
+              {
+                label: 'View Case Studies',
+                href: '/case-studies',
+                className: 'button-l',
+              },
+              {
+                label: 'Contact Us',
+                href: '/contact',
+                className: 'button-secondary',
+              },
+            ]}
+            image={
+              <img
+                src="/images/owl.svg"
+                alt="Knowledge Hub illustration"
+                width={600}
+                height={400}
+                className="cda-hero__image-media"
+              />
+            }
+          />
 
           {/* Filter chips (single-select, reuse ServicesFilters) */}
           <Suspense fallback={<div className="max-w-7xl mx-auto px-4 mt-2 mb-8 text-gray-500">Loading filters…</div>}>
@@ -135,47 +155,14 @@ const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
             enableFullVideo={false}
           />
 
-          {/* Static Newsletter Section (not from WordPress) */}
-          <section className="newsletter-section">
-            <div className="newsletter-container">
-              <div className="newsletter-content">
-                <header className="newsletter-header">
-                  <p className="newsletter-subtitle">Stay In The Loop</p>
-                  <h2 className="newsletter-title">Sign Up To Our Newsletter</h2>
-                </header>
-
-                <form className="newsletter-form">
-                  <div className="newsletter-row">
-                    <div className="newsletter-input-wrap">
-                      <input type="text" className="newsletter-input" placeholder="First Name" aria-label="First Name" />
-                    </div>
-                    <div className="newsletter-input-wrap">
-                      <input type="text" className="newsletter-input" placeholder="Last Name" aria-label="Last Name" />
-                    </div>
-                  </div>
-                  <div className="newsletter-row">
-                    <div className="newsletter-input-wrap" style={{ width: '100%' }}>
-                      <input type="email" className="newsletter-input" placeholder="Email Address" aria-label="Email Address" required />
-                    </div>
-                  </div>
-                  <div className="newsletter-terms">
-                    <input id="nl-terms" type="checkbox" className="newsletter-checkbox" required />
-                    <label htmlFor="nl-terms" className="newsletter-label">
-                      I agree to the <a href="/policies/terms-and-conditions" className="newsletter-terms-link">Terms and Conditions</a> and consent to receive email updates and newsletters
-                    </label>
-                  </div>
-                  <div>
-                    <button className="button-l newsletter-submit" type="submit">Sign Up</button>
-                  </div>
-                </form>
-              </div>
-
-              {/* Optional Illustration (if you want an image on the right) */}
-              <div className="newsletter-illustration" aria-hidden="true">
-                <img src="/images/paper-plane.svg" alt="" className="newsletter-illustration-img" />
-              </div>
-            </div>
-          </section>
+          {/* Newsletter Section - Reusable Component */}
+          <NewsletterSignup
+            globalData={{
+              subtitle: 'Stay In The Loop',
+              title: 'Sign Up To Our Newsletter'
+            }}
+            useHubspot={false}
+          />
           
 
         </main>

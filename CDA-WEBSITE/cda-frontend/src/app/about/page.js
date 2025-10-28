@@ -8,6 +8,8 @@ import Showreel from '../../components/GlobalBlocks/Showreel';
 import ApproachBlock from '../../components/GlobalBlocks/ApproachBlock';
 import CultureGallerySlider from '../../components/GlobalBlocks/CultureGallerySlider';
 import StatsBlock from '../../components/GlobalBlocks/StatsBlock';
+import ResponsiveUnderlinedTitle from '../../components/ResponsiveUnderlinedTitle';
+import TextLinkButton from '../../components/ui/TextLinkButton';
 import { sanitizeTitleHtml } from '../../lib/sanitizeTitleHtml';
 import { executeGraphQLQuery, getGlobalContent, getPageGlobalTogglesByUri, getPageGlobalTogglesBySlug } from '../../lib/graphql-queries';
 
@@ -73,8 +75,15 @@ export default async function AboutPage() {
       {aboutContent?.contentPageHeader && (
         <HeroSection
           sectionClassName="bg-white"
-          titleHtml={sanitizeTitleHtml(aboutContent.contentPageHeader.title || 'About Us')}
-          titleClassName="cda-page-title title-large-pink"
+          title={
+            <ResponsiveUnderlinedTitle
+              as="h1"
+              className="cda-title"
+              underlineColor="#FF60DF"
+            >
+              {aboutContent.contentPageHeader.title || 'Learn More About Us'}
+            </ResponsiveUnderlinedTitle>
+          }
           descriptionHtml={aboutContent.contentPageHeader.text || ''}
           ctas={[
             aboutContent.contentPageHeader.cta
@@ -216,18 +225,25 @@ export default async function AboutPage() {
                   <p className="cda-subtitle mb-2">{aboutContent.behindCda.subtitle}</p>
                 )}
                 {aboutContent.behindCda.title && (
-                  <h2 className="cda-title mb-4" style={{ textDecoration: 'none' }}>{aboutContent.behindCda.title}</h2>
+                  <ResponsiveUnderlinedTitle
+                    as="h2"
+                    className="section-title mb-4"
+                    underlineColor="#FF60DF"
+                  >
+                    {aboutContent.behindCda.title}
+                  </ResponsiveUnderlinedTitle>
                 )}
                 {aboutContent.behindCda.description && (
                   <div className="wysiwyg-content text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] mb-6"
                        dangerouslySetInnerHTML={{ __html: aboutContent.behindCda.description }} />
                 )}
                 {aboutContent.behindCda.cta?.url && (
-                  <a href={aboutContent.behindCda.cta.url}
-                     target={aboutContent.behindCda.cta.target || '_self'}
-                     className="button-without-box">
+                  <TextLinkButton
+                    href={aboutContent.behindCda.cta.url}
+                    target={aboutContent.behindCda.cta.target || '_self'}
+                  >
                     {aboutContent.behindCda.cta.title || 'Learn More'}
-                  </a>
+                  </TextLinkButton>
                 )}
               </div>
             </div>
