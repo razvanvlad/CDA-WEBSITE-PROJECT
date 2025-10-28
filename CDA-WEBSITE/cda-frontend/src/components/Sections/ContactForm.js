@@ -81,17 +81,17 @@ export default function ContactForm({ onSubmit }) {
         </div>
       </div>
 
-      {/* Row 4: Terms and Conditions */}
-      <div className="contact-terms-row">
-        <input type="checkbox" id="contact-terms" className="contact-checkbox" required />
-        <label htmlFor="contact-terms" className="contact-label">
-          I agree to the <span className="contact-terms-link">Terms and Conditions</span> and consent to receive email updates and newsletters
-        </label>
-      </div>
-
-      {/* Row 5: Submit button */}
-      <div className="contact-submit-row">
-        <button type="submit" className="button-l">Submit</button>
+      {/* Combined Terms + Submit Row */}
+      <div className="contact-terms-submit-row">
+        <div className="contact-terms-left">
+          <input type="checkbox" id="contact-terms" className="contact-checkbox" required />
+          <label htmlFor="contact-terms" className="contact-label">
+            I agree to the <span className="contact-terms-link">Terms and Conditions</span> and consent to receive email updates and newsletters
+          </label>
+        </div>
+        <div className="contact-submit-right">
+          <button type="submit" className="button-l">Submit</button>
+        </div>
       </div>
     </form>
   );

@@ -941,8 +941,8 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 16px;
-  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .contact strong,
@@ -1030,17 +1030,26 @@
   width: 100%;
 }
 
-/* Row 4: Terms and Conditions (full width) */
-.contact-terms-row {
+/* Row 4: Terms + Submit Row - Side by Side on Desktop */
+.contact-terms-submit-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
   width: 100%;
+  max-width: 990px;
+}
+
+.contact-terms-left {
   display: flex;
   align-items: flex-start;
   gap: 12px;
+  flex: 1;
+  min-width: 0;
 }
 
-/* Row 5: Submit button (full width) */
-.contact-submit-row {
-  width: 100%;
+.contact-submit-right {
+  flex-shrink: 0;
 }
 
 /* Contact Form Inputs */
@@ -1207,8 +1216,7 @@
   }
 
   .contact-message-row,
-  .contact-terms-row,
-  .contact-submit-row {
+  .contact-terms-submit-row {
     width: 100% !important;
   }
 
@@ -1234,11 +1242,12 @@
     padding-right: 48px !important;
   }
 
-  /* Terms row */
-  .contact-terms-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
+  /* Terms + Submit Row - Stack vertically on mobile */
+  .contact-terms-submit-row {
+    flex-direction: column;
+    gap: 16px;
+    max-width: 353px;
+    margin: 0 auto;
   }
 
   .contact-checkbox {
@@ -1251,13 +1260,14 @@
     line-height: 1.5;
   }
 
-  /* Submit button row - centered button on mobile */
-  .contact-submit-row {
+  /* Submit button - centered on mobile */
+  .contact-submit-right {
+    width: 100%;
     display: flex;
     justify-content: center;
   }
 
-  .contact-submit-row .button-l {
+  .contact-submit-right .button-l {
     width: 176px !important;
     min-width: unset !important;
   }
