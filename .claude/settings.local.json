@@ -11,7 +11,11 @@
       "Bash(git push origin fix/cda-5-services-page-bugs)",
       "Bash(powershell -Command \"Move-Item -Path ''C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\src\\app\\jobs'' -Destination ''C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\src\\app\\careers'' -Force\")",
       "Bash(find ./src -type f ( -name \"*.js\" -o -name \"*.jsx\" -o -name \"*.ts\" -o -name \"*.tsx\" ) -exec grep -l '\"\"/jobs' {} ;)",
-      "Read(//c//**)"
+      "Read(//c//**)",
+      "Bash(cat:*)",
+      "Bash(node --version)",
+      "Bash(npm --version:*)",
+      "Bash(python add_puppeteer_mcp.py:*)"
     ],
     "deny": [],
     "ask": []
