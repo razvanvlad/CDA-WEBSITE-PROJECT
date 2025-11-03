@@ -1,7 +1,7 @@
 // tests/visual/utils.js
 const fs = require('fs-extra');
 const { PNG } = require('pngjs');
-const pixelmatch = require('pixelmatch');
+const pixelmatch = require('pixelmatch').default || require('pixelmatch'); // Safe import
 
 // Take screenshot of a specific element (not full page)
 async function captureElement(page, selector, outputPath) {

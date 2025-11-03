@@ -25,9 +25,9 @@ export default async function PoliciesLandingPage() {
     return (
       <>
         <Header />
-        <div className="min-h-screen bg-white py-16">
+        <div className="bg-white py-16">
           <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
               <div>
                 <ResponsiveUnderlinedTitle
                   as="h1"
@@ -44,31 +44,17 @@ export default async function PoliciesLandingPage() {
                 <img src="/images/policies.svg" alt="Policies illustration" className="w-full max-w-[600px] max-h-[350px] h-auto object-contain" />
               </div>
             </div>
-            
+
             {policies && policies.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {policies.map((policy) => (
-                  <article key={policy.id} className="bg-white border border-gray-200 p-6 hover:shadow-sm transition-shadow">
-                    <h3 className="text-lg font-semibold text-black mb-2">{policy.title}</h3>
-                    <div className="text-[#4B5563] text-sm mb-6">
-                      {policy.excerpt ? (
-                        <div dangerouslySetInnerHTML={{ __html: policy.excerpt }} />
-                      ) : (
-                        'View policy details'
-                      )}
-                    </div>
-                    <a href={`/policies/${policy.slug}`} className="button-l-transparent">Find Out More</a>
-                  </article>
-                ))}
-              </div>
+              <></>
             ) : (
               <div className="bg-gray-50 p-8 rounded-lg text-center">
                 <h2 className="text-xl font-semibold text-gray-700 mb-2">No Policies Found</h2>
                 <p className="text-gray-600 mb-4">
                   Policies haven't been added yet. Check back later or contact us if you need specific policy information.
                 </p>
-                <Link 
-                  href="/contact" 
+                <Link
+                  href="/contact"
                   className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Contact Us
@@ -77,6 +63,26 @@ export default async function PoliciesLandingPage() {
             )}
           </div>
         </div>
+
+        {/* Policies Listing Section with Full-Width Gray Background */}
+        {policies && policies.length > 0 && (
+          <div className="policies-section w-full bg-[#F4F4F4] py-16">
+            <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+
+
+              {/* Policies Grid */}
+              <div className="policies-grid grid grid-cols-1 gap-6">
+                {policies.map((policy) => (
+                  <article key={policy.id} className="bg-transparent border-t border-gray-300 py-6 flex items-center justify-between">
+                    <h3 className="text-2xl font-bold text-black">{policy.title}</h3>
+                    <a href={`/policies/${policy.slug}`} className="button-l-transparent">Find Out More</a>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
         <Footer />
       </>
     )
@@ -93,8 +99,8 @@ export default async function PoliciesLandingPage() {
               <p className="text-red-600 mb-4">
                 We're having trouble loading our policies right now. Please try again later.
               </p>
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="inline-block px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
               >
                 Contact Us
