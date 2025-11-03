@@ -23,10 +23,10 @@ export async function generateStaticParams() {
 // Generate metadata for individual policy
 export async function generateMetadata(props) {
   const { slug } = await props.params
-  
+
   try {
     const policy = await getPolicyBySlug(slug)
-    
+
     if (!policy) {
       return {
         title: 'Policy Not Found',
@@ -36,7 +36,7 @@ export async function generateMetadata(props) {
 
     const title = policy.title || 'Policy'
     const description = policy.excerpt || 'Company policy document'
-    
+
     return {
       title: `${title} - CDA Systems`,
       description,
@@ -67,10 +67,10 @@ export async function generateMetadata(props) {
 
 export default async function PolicyDetailPage({ params }) {
   const { slug } = await params
-  
+
   try {
     const policy = await getPolicyBySlug(slug)
-    
+
     if (!policy) {
       notFound()
     }
@@ -88,23 +88,32 @@ export default async function PolicyDetailPage({ params }) {
       <>
         <Header />
         <article className="min-h-screen bg-white py-16">
-          <div className="mx-auto w-full max-w-[900px] px-4 md:px-6 lg:px-8">
+
+          <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-4">
             {/* Breadcrumb */}
             <nav className="mb-8">
               <TextLinkButton href="/policies">
-                ← Back to Policies
+                Back to Policies
               </TextLinkButton>
             </nav>
 
-            {/* Policy Header */}
+            {/* Policy Header - Title and Homepage Button */}
             <header className="mb-8">
-              <ResponsiveUnderlinedTitle
-                as="h1"
-                className="cda-title mb-2"
-                underlineColor="#AD80F9"
-              >
-                {policyTitle}
-              </ResponsiveUnderlinedTitle>
+              <div className="flex items-center justify-between gap-6 mb-8">
+                <ResponsiveUnderlinedTitle
+                  as="h1"
+                  className="cda-title mb-0"
+                  underlineColor="#AD80F9"
+                >
+                  {policyTitle}
+                </ResponsiveUnderlinedTitle>
+                <Link
+                  href="/"
+                  className="button-l whitespace-nowrap"
+                >
+                  Homepage
+                </Link>
+              </div>
 
               {/* Featured Image */}
               {policy.featuredImage?.node?.sourceUrl && (
@@ -130,23 +139,7 @@ export default async function PolicyDetailPage({ params }) {
               )}
             </div>
 
-            {/* Navigation */}
-            <div className="mt-12 pt-8 border-t border-gray-200">
-              <div className="flex justify-between items-center">
-                <Link 
-                  href="/policies"
-                  className="button-l"
-                >
-                  ← All Policies
-                </Link>
-                <Link 
-                  href="/contact"
-                  className="button-l-transparent"
-                >
-                  Questions? Contact Us
-                </Link>
-              </div>
-            </div>
+
           </div>
         </article>
         <Footer />
@@ -158,20 +151,20 @@ export default async function PolicyDetailPage({ params }) {
       <>
         <Header />
         <div className="min-h-screen bg-white py-16">
-          <div className="mx-auto w-full max-w-[900px] px-4 md:px-6 lg:px-8">
+          <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
             <div className="bg-red-50 p-8 rounded-lg text-center">
               <h1 className="text-2xl font-bold text-red-700 mb-4">Error Loading Policy</h1>
               <p className="text-red-600 mb-6">
                 We're having trouble loading this policy right now. Please try again later.
               </p>
               <div className="flex gap-4 justify-center">
-                <Link 
+                <Link
                   href="/policies"
                   className="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
                 >
                   Back to Policies
                 </Link>
-                <Link 
+                <Link
                   href="/contact"
                   className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
                 >
