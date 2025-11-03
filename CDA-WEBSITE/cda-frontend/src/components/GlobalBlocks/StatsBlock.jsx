@@ -29,7 +29,7 @@ export default function StatsBlock({
       height={bandHeight}
     >
       <section className="stats-block py-16">
-        <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 relative z-10">
+        <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             {/* Left: Stats and description */}
             <div className="lg:col-span-7">

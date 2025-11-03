@@ -174,7 +174,7 @@ export default function Footer() {
   /* --------------------------------- Render -------------------------------- */
   return (
     <footer className="bg-white pt-5">
-      <div className="mx-auto max-w-[1620px] px-4">
+      <div className="mx-auto max-w-[1620px] px-[38px]">
         {/* CTA Section (group used for desktop hover) */}
         {/* CTA Section */}
         <div className="footer-cta-card relative rounded-2xl bg-white group"

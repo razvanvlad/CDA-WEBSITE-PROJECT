@@ -87,58 +87,58 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
   // Background fetch only if props were empty
   useEffect(() => {
     let mounted = true
-    ;(async () => {
-      if (primaryLinks.length && companyLinks.length) {
-        return
-      }
-      try {
-        // Primary (id 4)
-        if (!primaryLinks.length) {
-          try {
-            const res = await client.query({ query: MENU_BY_DBID, variables: { id: '4' }, fetchPolicy: 'no-cache', errorPolicy: 'all' })
-            const nodes = res?.data?.menu?.menuItems?.nodes || []
-            const norm = normalizeNodes(nodes)
-            if (mounted) {
-              setPrimaryLinks(norm)
-              setMenuNodes(nodes)
-              setMenuItems(nodes.filter(n => !n?.parentId))
-            }
-          } catch {}
+      ; (async () => {
+        if (primaryLinks.length && companyLinks.length) {
+          return
         }
-
-        // Company (id 18 -> name 'company' -> auto-resolve)
-        if (!companyLinks.length) {
-          let company = []
-          try {
-            const resCompany = await client.query({ query: MENU_BY_DBID, variables: { id: '18' }, fetchPolicy: 'no-cache', errorPolicy: 'all' })
-            company = normalizeNodes(resCompany?.data?.menu?.menuItems?.nodes || [])
-          } catch {}
-          if (!company.length) {
+        try {
+          // Primary (id 4)
+          if (!primaryLinks.length) {
             try {
-              const resByName = await client.query({ query: MENU_BY_NAME, variables: { name: 'company' }, fetchPolicy: 'no-cache', errorPolicy: 'all' })
-              company = normalizeNodes(resByName?.data?.menu?.menuItems?.nodes || [])
-            } catch {}
-          }
-          if (!company.length) {
-            try {
-              const resList = await client.query({ query: LIST_MENUS, fetchPolicy: 'no-cache', errorPolicy: 'all' })
-              const menus = resList?.data?.menus?.nodes || []
-              const match = menus.find(m => typeof m?.name === 'string' && /company|sidebar/i.test(m.name))
-              if (match?.databaseId) {
-                const resAuto = await client.query({ query: MENU_BY_DBID, variables: { id: String(match.databaseId) }, fetchPolicy: 'no-cache', errorPolicy: 'all' })
-                company = normalizeNodes(resAuto?.data?.menu?.menuItems?.nodes || [])
+              const res = await client.query({ query: MENU_BY_DBID, variables: { id: '4' }, fetchPolicy: 'no-cache', errorPolicy: 'all' })
+              const nodes = res?.data?.menu?.menuItems?.nodes || []
+              const norm = normalizeNodes(nodes)
+              if (mounted) {
+                setPrimaryLinks(norm)
+                setMenuNodes(nodes)
+                setMenuItems(nodes.filter(n => !n?.parentId))
               }
-            } catch {}
+            } catch { }
           }
-          if (mounted) setCompanyLinks(company)
-        }
-      } catch {}
-    })()
+
+          // Company (id 18 -> name 'company' -> auto-resolve)
+          if (!companyLinks.length) {
+            let company = []
+            try {
+              const resCompany = await client.query({ query: MENU_BY_DBID, variables: { id: '18' }, fetchPolicy: 'no-cache', errorPolicy: 'all' })
+              company = normalizeNodes(resCompany?.data?.menu?.menuItems?.nodes || [])
+            } catch { }
+            if (!company.length) {
+              try {
+                const resByName = await client.query({ query: MENU_BY_NAME, variables: { name: 'company' }, fetchPolicy: 'no-cache', errorPolicy: 'all' })
+                company = normalizeNodes(resByName?.data?.menu?.menuItems?.nodes || [])
+              } catch { }
+            }
+            if (!company.length) {
+              try {
+                const resList = await client.query({ query: LIST_MENUS, fetchPolicy: 'no-cache', errorPolicy: 'all' })
+                const menus = resList?.data?.menus?.nodes || []
+                const match = menus.find(m => typeof m?.name === 'string' && /company|sidebar/i.test(m.name))
+                if (match?.databaseId) {
+                  const resAuto = await client.query({ query: MENU_BY_DBID, variables: { id: String(match.databaseId) }, fetchPolicy: 'no-cache', errorPolicy: 'all' })
+                  company = normalizeNodes(resAuto?.data?.menu?.menuItems?.nodes || [])
+                }
+              } catch { }
+            }
+            if (mounted) setCompanyLinks(company)
+          }
+        } catch { }
+      })()
     return () => { mounted = false }
   }, [primaryLinks.length, companyLinks.length])
 
   // Derive Services submenu from primary menu if needed
-  const servicesLabels = ['eCommerce','B2B Lead Generation','Software Development','Booking Systems','Digital Marketing','Outsourced CMO','AI']
+  const servicesLabels = ['eCommerce', 'B2B Lead Generation', 'Software Development', 'Booking Systems', 'Digital Marketing', 'Outsourced CMO', 'AI']
   const servicesParent = menuNodes.find(
     (n) => (n?.label || '').toLowerCase() === 'services' || (typeof n?.url === 'string' && n.url.toLowerCase().includes('/services'))
   )
@@ -167,7 +167,7 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
       </div>
 
       <header className="bg-white" style={{ borderBottom: '1px solid #EBEBEB' }}>
-        <div className="mx-auto max-w-[1620px] px-4 py-4">
+        <div className="mx-auto max-w-[1620px] px-[38px] md:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center">
@@ -187,7 +187,7 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
 
             {/* Side Menu and Mobile Menu Buttons */}
             <div className="flex items-center space-x-4">
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors" onClick={() => setIsSideMenuOpen(true)} aria-label="Open side menu">
+              <button className="hover:bg-gray-100 rounded-lg transition-colors" onClick={() => setIsSideMenuOpen(true)} aria-label="Open side menu">
                 <img src="/images/menu-icon.svg" alt="" className="w-6 h-6" aria-hidden="true" />
               </button>
               <button className="hidden" aria-hidden="true" tabIndex={-1} aria-label="Open mobile menu" style={{ display: 'none' }}>
@@ -202,7 +202,7 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
       {/* Breadcrumb row (outside header, below the line) */}
       {!isHome && (
         <div className="bg-white">
-          <div className="mx-auto max-w-[1620px] px-4 py-2">
+          <div className="mx-auto max-w-[1620px] px-[38px] md:px-6 lg:px-8 py-2">
             <nav aria-label="Breadcrumb">
               <ol className="flex items-center gap-2 text-[14px] md:text-[15px] text-black">
                 <li>
@@ -256,7 +256,7 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
               <Image src="/images/cda-logo-white.svg" alt="CDA Logo" width={120} height={32} />
             </Link>
             <button onClick={() => { setIsSideMenuOpen(false); setIsCompanyMenuOpen(false); }} className="p-2 hover:bg-white/10 rounded-lg transition-colors" aria-label="Close side menu">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
           </div>
 
@@ -268,15 +268,15 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
                   <button type="button" onClick={() => setIsServicesOpen(true)} className="md:hidden w-full flex items-center justify-between mb-3 text-left" aria-expanded={isServicesOpen} aria-controls="side-menu-services">
                     <div className="flex items-center gap-3">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <rect x="3" y="3" width="4" height="4" fill="#fff"/>
-                        <rect x="10" y="3" width="4" height="4" fill="#fff"/>
-                        <rect x="17" y="3" width="4" height="4" fill="#fff"/>
-                        <rect x="3" y="10" width="4" height="4" fill="#fff"/>
-                        <rect x="10" y="10" width="4" height="4" fill="#fff"/>
-                        <rect x="17" y="10" width="4" height="4" fill="#fff"/>
-                        <rect x="3" y="17" width="4" height="4" fill="#fff"/>
-                        <rect x="10" y="17" width="4" height="4" fill="#fff"/>
-                        <rect x="17" y="17" width="4" height="4" fill="#fff"/>
+                        <rect x="3" y="3" width="4" height="4" fill="#fff" />
+                        <rect x="10" y="3" width="4" height="4" fill="#fff" />
+                        <rect x="17" y="3" width="4" height="4" fill="#fff" />
+                        <rect x="3" y="10" width="4" height="4" fill="#fff" />
+                        <rect x="10" y="10" width="4" height="4" fill="#fff" />
+                        <rect x="17" y="10" width="4" height="4" fill="#fff" />
+                        <rect x="3" y="17" width="4" height="4" fill="#fff" />
+                        <rect x="10" y="17" width="4" height="4" fill="#fff" />
+                        <rect x="17" y="17" width="4" height="4" fill="#fff" />
                       </svg>
                       <span className="side-menu-heading">Our Services</span>
                     </div>

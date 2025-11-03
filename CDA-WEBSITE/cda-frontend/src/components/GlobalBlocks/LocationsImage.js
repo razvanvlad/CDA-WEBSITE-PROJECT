@@ -24,7 +24,7 @@ const LocationsImage = ({ globalData }) => {
 
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-white">
-      <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
         {/* Heading */}
         <div className="mb-8 md:mb-10">
           {globalData.subtitle && (

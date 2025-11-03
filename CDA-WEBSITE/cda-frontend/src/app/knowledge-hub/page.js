@@ -131,7 +131,7 @@ const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
           </Suspense>
 
           {/* Listings (Case Studies + News) with filtering */}
-          <Suspense fallback={<div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 py-12 text-gray-500">Loading content…</div>}>
+          <Suspense fallback={<div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8 py-12 text-gray-500">Loading content…</div>}>
             <KnowledgeHubClient initialCaseStudies={caseStudies} initialPosts={posts} />
           </Suspense>
 

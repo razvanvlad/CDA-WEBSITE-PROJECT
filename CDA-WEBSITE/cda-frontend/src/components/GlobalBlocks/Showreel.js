@@ -33,7 +33,7 @@ const Showreel = ({ globalData }) => {
       height="h-[300px] md:h-[850px]"
       className="bg-white py-12 md:py-16 lg:py-20"
     >
-      <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
         {/* Header: mobile stacked/centered; desktop split */}
         {(subtitle || title || button) && (
           <div className="mb-6 md:mb-8 flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">

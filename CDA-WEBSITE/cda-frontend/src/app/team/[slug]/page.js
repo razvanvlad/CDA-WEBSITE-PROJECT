@@ -67,7 +67,7 @@ export default async function TeamMemberDetailPage({ params }) {
       <>
         <Header backButton={{ href: '/team', label: 'Back To Team' }} />
         <article className="min-h-screen bg-white py-20 md:py-24">
-          <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+          <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
 
             <div className="grid grid-cols-12 gap-y-10 gap-x-10 items-start md:items-center">
               {/* Left: Profile Image */}

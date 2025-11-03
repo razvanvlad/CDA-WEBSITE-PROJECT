@@ -74,7 +74,7 @@ export default function HubspotMeetingsScheduler({
         style={{ width: '350px', height: '170px', bottom: '-85px', right: '82px' }}
       />
 
-      <div className="relative mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 grid grid-cols-12 gap-y-10 gap-x-10 items-start">
+      <div className="relative mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8 grid grid-cols-12 gap-y-10 gap-x-10 items-start">
 
         {/* Left: Form */}
         <div className="col-span-12 lg:col-span-6 relative z-20">

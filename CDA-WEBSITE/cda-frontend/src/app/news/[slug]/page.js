@@ -83,7 +83,7 @@ export default async function NewsArticlePage({ params }) {
     <div className="min-h-screen bg-white">
 
       <main className="py-12">
-        <article className="mx-auto w-full max-w-[900px] px-4 md:px-6 lg:px-8">
+        <article className="mx-auto w-full max-w-[900px] px-[38px] md:px-6 lg:px-8">
           {categories.length > 0 && (
             <div className="mb-4 flex flex-wrap gap-2">
               {categories.map((cat) => (

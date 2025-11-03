@@ -9,7 +9,7 @@ export default function ServicesStats({ title = 'Key Results', stats = [] }) {
 
   return (
     <section className="py-16 bg-gray-50">
-      <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-black">{title}</h2>
         </div>

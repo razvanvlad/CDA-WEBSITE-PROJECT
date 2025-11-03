@@ -3,3 +3,30 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 /* Remove all old underline utilities - superseded by UnderlinedTitle component */
+
+/* ─────────────────────────────────────────────────────────────────
+   CONTAINER PADDING
+   ───────────────────────────────────────────────────────────────── */
+
+/* Standard container horizontal padding
+   Mobile: 38px (354px content on 430px screen)
+   Tablet: 24px
+   Desktop: 32px */
+.container-padding {
+  padding-left: var(--spacing-container-mobile);
+  padding-right: var(--spacing-container-mobile);
+}
+
+@media (min-width: 768px) {
+  .container-padding {
+    padding-left: var(--spacing-container-tablet);
+    padding-right: var(--spacing-container-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-padding {
+    padding-left: var(--spacing-container-desktop);
+    padding-right: var(--spacing-container-desktop);
+  }
+}

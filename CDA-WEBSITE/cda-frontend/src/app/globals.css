@@ -22,6 +22,14 @@
   --color-brand-pink: #FF60DF;
   --color-brand-redish-pink: #FF5C8A;
   --color-brand-purple: #AD80F9;
+
+  /* Container Spacing - Mobile-first responsive padding */
+  /* Mobile: 38px sides (354px content on 430px screen) */
+  /* Tablet: 24px sides (md) */
+  /* Desktop: 32px sides (lg) */
+  --spacing-container-mobile: 38px;
+  --spacing-container-tablet: 24px;
+  --spacing-container-desktop: 32px;
 }
 
 /* ─────────────────────────────────────────────────────────────────

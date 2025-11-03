@@ -205,7 +205,7 @@ export default async function AboutPage() {
       {/* 9) Custom individual (Behind CDA) */}
       {aboutContent?.behindCda && (
         <section className="py-16 bg-white">
-          <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+          <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
             <div className="grid grid-cols-12 gap-x-8 gap-y-10 items-center">
               {/* Left: Image */}
               <div className="col-span-12 md:col-span-6">

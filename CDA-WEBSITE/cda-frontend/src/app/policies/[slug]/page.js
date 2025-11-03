@@ -88,11 +88,11 @@ export default async function PolicyDetailPage({ params }) {
         <Header backButton={{ href: '/policies', label: 'Back To Policies' }} />
         <article className="min-h-screen bg-white py-16">
 
-          <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-4">
+          <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-4">
 
             {/* Policy Header - Title and Homepage Button */}
             <header className="mb-8">
-              <div className="flex items-center justify-between gap-6 mb-8">
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
                 <ResponsiveUnderlinedTitle
                   as="h1"
                   className="cda-title mb-0"
@@ -102,7 +102,7 @@ export default async function PolicyDetailPage({ params }) {
                 </ResponsiveUnderlinedTitle>
                 <Link
                   href="/"
-                  className="button-l whitespace-nowrap"
+                  className="button-l whitespace-nowrap self-start lg:self-auto"
                 >
                   Homepage
                 </Link>
@@ -144,7 +144,7 @@ export default async function PolicyDetailPage({ params }) {
       <>
         <Header />
         <div className="min-h-screen bg-white py-16">
-          <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+          <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
             <div className="bg-red-50 p-8 rounded-lg text-center">
               <h1 className="text-2xl font-bold text-red-700 mb-4">Error Loading Policy</h1>
               <p className="text-red-600 mb-6">

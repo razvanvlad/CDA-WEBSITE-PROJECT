@@ -34,7 +34,7 @@ const WhyCdaBlock = ({ globalData }) => {
       desktop={{ color: 'bg-[#F4F4F4]', height: 'h-[350px]', position: 'top' }}
     >
       <section>
-        <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center md:text-left mb-10">
             {globalData?.title && <p className="cda-subtitle">{globalData.title}</p>}

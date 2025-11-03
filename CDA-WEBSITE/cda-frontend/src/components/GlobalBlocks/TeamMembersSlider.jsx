@@ -48,7 +48,7 @@ export default function TeamMembersSlider({ title = "Meet Our Other Team Members
 
   return (
     <section className="services-slider py-16 bg-white">
-      <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
