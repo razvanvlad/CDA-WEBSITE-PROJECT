@@ -2,7 +2,6 @@ import { getPolicyBySlug, getPolicySlugs } from '@/lib/graphql-queries.js'
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
 import ResponsiveUnderlinedTitle from '../../../components/ResponsiveUnderlinedTitle'
-import TextLinkButton from '../../../components/ui/TextLinkButton'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -86,16 +85,10 @@ export default async function PolicyDetailPage({ params }) {
     const policyDescription = info?.description
     return (
       <>
-        <Header />
+        <Header backButton={{ href: '/policies', label: 'Back To Policies' }} />
         <article className="min-h-screen bg-white py-16">
 
           <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-4">
-            {/* Breadcrumb */}
-            <nav className="mb-8">
-              <TextLinkButton href="/policies">
-                Back to Policies
-              </TextLinkButton>
-            </nav>
 
             {/* Policy Header - Title and Homepage Button */}
             <header className="mb-8">

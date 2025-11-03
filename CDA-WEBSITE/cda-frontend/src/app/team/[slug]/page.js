@@ -2,7 +2,6 @@ import { getTeamMemberBySlug, getTeamMemberSlugs, getTeamMemberDetailsByDbId } f
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
 import ResponsiveUnderlinedTitle from '../../../components/ResponsiveUnderlinedTitle'
-import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import HubspotMeetingsScheduler from '@/components/Embeds/HubspotMeetingsScheduler.jsx'
@@ -66,14 +65,9 @@ export default async function TeamMemberDetailPage({ params }) {
 
     return (
       <>
-        <Header />
+        <Header backButton={{ href: '/team', label: 'Back To Team' }} />
         <article className="min-h-screen bg-white py-20 md:py-24">
           <div className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8">
-            <nav className="mb-8">
-              <Link href="/team" className="inline-flex items-center gap-2 text-[#111827] hover:text-black">
-                <span aria-hidden>←</span> Back To Team Listing
-              </Link>
-            </nav>
 
             <div className="grid grid-cols-12 gap-y-10 gap-x-10 items-start md:items-center">
               {/* Left: Profile Image */}

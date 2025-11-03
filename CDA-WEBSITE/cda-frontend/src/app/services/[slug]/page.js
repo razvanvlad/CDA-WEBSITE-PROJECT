@@ -91,7 +91,7 @@ export default async function ServicePage({ params }) {
 
   return (
     <>
-      <Header />
+      <Header backButton={{ href: '/services', label: 'Back To Services' }} />
       <main className="service-detail-page">
         {/* Hero Section */}
         <HeroSection

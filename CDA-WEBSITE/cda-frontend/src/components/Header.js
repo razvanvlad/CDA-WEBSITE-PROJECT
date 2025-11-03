@@ -92,13 +92,17 @@ async function fetchMenuSmart({ id, name, autoMatch }) {
   return []
 }
 
-export default async function Header() {
+export default async function Header({ backButton = null }) {
   const [primary, company] = await Promise.all([
     fetchMenuSmart({ id: '4', name: 'primary', autoMatch: /primary/i }),
     fetchMenuSmart({ id: '18', name: 'company', autoMatch: /company|sidebar/i }),
   ])
 
   return (
-    <HeaderClient initialPrimaryLinks={primary} initialCompanyLinks={company} />
+    <HeaderClient
+      initialPrimaryLinks={primary}
+      initialCompanyLinks={company}
+      backButton={backButton}
+    />
   )
 }

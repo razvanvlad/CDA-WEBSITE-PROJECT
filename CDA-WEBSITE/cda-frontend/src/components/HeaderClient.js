@@ -59,7 +59,7 @@ const LIST_MENUS = gql`
   }
 `
 
-export default function Header({ initialPrimaryLinks = [], initialCompanyLinks = [] }) {
+export default function Header({ initialPrimaryLinks = [], initialCompanyLinks = [], backButton = null }) {
   const [menuItems, setMenuItems] = useState([])
   const [menuNodes, setMenuNodes] = useState([])
 
@@ -225,6 +225,19 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
                 })}
               </ol>
             </nav>
+
+            {/* Back Button - appears directly under breadcrumb on detail pages */}
+            {backButton && (
+              <div className="mt-4">
+                <TextLinkButton
+                  href={backButton.href}
+                  iconPosition="left"
+                  variant={backButton.variant || 'default'}
+                >
+                  {backButton.label}
+                </TextLinkButton>
+              </div>
+            )}
           </div>
         </div>
       )}

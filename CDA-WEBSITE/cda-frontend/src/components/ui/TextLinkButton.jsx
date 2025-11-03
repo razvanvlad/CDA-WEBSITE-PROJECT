@@ -8,6 +8,7 @@ import Link from 'next/link';
  * @property {React.ReactNode} children - Button text
  * @property {string} [className] - Additional CSS classes
  * @property {'default' | 'white'} [variant='default'] - Button style variant
+ * @property {'left' | 'right'} [iconPosition='right'] - Icon position (left or right of text)
  * @property {string} [target] - Link target (_self, _blank, etc.)
  * @property {boolean} [external] - Force use of <a> tag instead of Next Link
  * @property {() => void} [onClick] - Click handler (for button elements)
@@ -23,6 +24,7 @@ export default function TextLinkButton({
   children,
   className = '',
   variant = 'default',
+  iconPosition = 'right',
   target,
   external = false,
   onClick,
@@ -30,36 +32,42 @@ export default function TextLinkButton({
   ...props
 }) {
   const isWhite = variant === 'white';
+  const isLeftIcon = iconPosition === 'left';
   const baseClass = 'button-without-box';
   const variantClass = isWhite ? 'button-without-box-white' : '';
   const fullClass = `${baseClass} ${variantClass} ${className}`.trim();
 
-  // Determine icon paths based on variant
+  // Determine icon paths based on variant and position
   const defaultIcon = isWhite
-    ? '/images/arrow-icons/diagonal-right-arrow-white.svg'
-    : '/images/arrow-icons/diagonal-right-arrow.svg';
+    ? (isLeftIcon ? '/images/arrow-icons/diagonal-left-arrow-white.svg' : '/images/arrow-icons/diagonal-right-arrow-white.svg')
+    : (isLeftIcon ? '/images/arrow-icons/diagonal-left-arrow.svg' : '/images/arrow-icons/diagonal-right-arrow.svg');
 
   const hoverIcon = isWhite
-    ? '/images/arrow-icons/right-arrow-white.svg'
-    : '/images/arrow-icons/right-arrow.svg';
+    ? (isLeftIcon ? '/images/arrow-icons/left-arrow-white.svg' : '/images/arrow-icons/right-arrow-white.svg')
+    : (isLeftIcon ? '/images/arrow-icons/left-arrow.svg' : '/images/arrow-icons/right-arrow.svg');
+
+  const iconElement = (
+    <span className="button-icon-wrapper">
+      <img
+        src={defaultIcon}
+        alt=""
+        className="button-icon button-icon-default"
+        aria-hidden="true"
+      />
+      <img
+        src={hoverIcon}
+        alt=""
+        className="button-icon button-icon-hover"
+        aria-hidden="true"
+      />
+    </span>
+  );
 
   const content = (
     <>
+      {isLeftIcon && iconElement}
       <span className="button-text">{children}</span>
-      <span className="button-icon-wrapper">
-        <img
-          src={defaultIcon}
-          alt=""
-          className="button-icon button-icon-default"
-          aria-hidden="true"
-        />
-        <img
-          src={hoverIcon}
-          alt=""
-          className="button-icon button-icon-hover"
-          aria-hidden="true"
-        />
-      </span>
+      {!isLeftIcon && iconElement}
     </>
   );
 
