@@ -1826,31 +1826,36 @@
   flex-wrap: nowrap;
 }
 
-/* Stack inputs on small screens */
+/* Mobile styles (≤640px) */
 @media (max-width: 640px) {
-  .newsletter-row {
-    flex-direction: column;
-    gap: 18px;
-    width: 100%;
-  }
-
-  .newsletter-input-wrap {
-    width: 100%;
-    min-width: 0;
-  }
-
+  /* Container layout */
   .newsletter-container {
+    flex-direction: column;
     align-items: flex-start;
+    margin-bottom: 200px;
   }
 
   .newsletter-content {
     width: 100%;
     text-align: left;
     margin: 0;
+    order: 1;
+  }
+
+  /* Form layout */
+  .newsletter-row {
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
   }
 
   .newsletter-form {
     align-items: flex-start;
+  }
+
+  .newsletter-input-wrap {
+    width: 100%;
+    min-width: 0;
   }
 
   .newsletter-input,
@@ -1873,6 +1878,28 @@
 
   .newsletter-checkbox {
     margin-top: 0;
+  }
+
+  /* Hide desktop submit button */
+  .newsletter-submit-wrap-desktop {
+    display: none;
+  }
+
+  /* Show mobile submit button wrapper */
+  .newsletter-submit-wrapper-mobile {
+    display: block;
+    width: 50%;
+  }
+
+  /* Make email field full width on mobile */
+  .newsletter-email-submit-row .newsletter-input-wrap:first-child {
+    width: 100%;
+  }
+
+  /* Position illustration at bottom */
+  .newsletter-illustration {
+    top: 120%;
+    transform: none;
   }
 }
 
@@ -1963,41 +1990,6 @@
   display: none;
 }
 
-@media (max-width: 640px) {
-
-  /* Container layout */
-  .newsletter-container {
-    flex-direction: column;
-    margin-bottom: 200px;
-  }
-
-  .newsletter-content {
-    width: 100%;
-    order: 1;
-  }
-
-  /* Hide desktop submit button */
-  .newsletter-submit-wrap-desktop {
-    display: none;
-  }
-
-  /* Show mobile submit button wrapper */
-  .newsletter-submit-wrapper-mobile {
-    display: block;
-    width: 50%;
-  }
-
-  /* Make email field full width on mobile */
-  .newsletter-email-submit-row .newsletter-input-wrap:first-child {
-    width: 100%;
-  }
-
-  /* Position illustration at bottom - keeps absolute positioning from desktop */
-  .newsletter-illustration {
-    top: 100%;
-    transform: none;
-  }
-}
 
 
 
