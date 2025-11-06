@@ -94,23 +94,12 @@ export default async function CareersPage() {
               className="cda-title"
               underlineColor="#FF5C8A"
             >
-              JOIN OUR Team
+              JOIN OUR TEAM
             </ResponsiveUnderlinedTitle>
           }
           description="CDA is a place where people flourish. Discover exciting career opportunities and see what roles we have available for you."
           descriptionClassName="text-lg text-gray-600"
-          ctas={[
-            {
-              label: 'View Open Positions',
-              href: '#careers',
-              className: 'button-l',
-            },
-            {
-              label: 'Learn About Our Culture',
-              href: '/about',
-              className: 'button-secondary',
-            },
-          ]}
+
           image={
             <img
               src="/images/bees.svg"

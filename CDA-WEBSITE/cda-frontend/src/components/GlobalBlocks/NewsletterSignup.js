@@ -55,11 +55,11 @@ const NewsletterSignup = ({ globalData, useHubspot = false }) => {
               </div>
 
               {/* Second Row - Email and Submit */}
-              <div className="newsletter-row">
+              <div className="newsletter-row newsletter-email-submit-row">
                 <div className="newsletter-input-wrap">
                   <input type="email" placeholder="Email Address" className="newsletter-input" />
                 </div>
-                <div className="newsletter-input-wrap">
+                <div className="newsletter-input-wrap newsletter-submit-wrap-desktop">
                   <button type="submit" className="button-l newsletter-submit">Sign Up</button>
                 </div>
               </div>
@@ -79,6 +79,11 @@ const NewsletterSignup = ({ globalData, useHubspot = false }) => {
                   </a>{' '}
                   and consent to receive email updates and newsletters
                 </label>
+              </div>
+
+              {/* Fourth Row - Submit Button (mobile only, half width, left-aligned) */}
+              <div className="newsletter-submit-wrapper-mobile">
+                <button type="submit" className="button-l newsletter-submit">Sign Up</button>
               </div>
 
               {status && <div className="newsletter-status">{status}</div>}

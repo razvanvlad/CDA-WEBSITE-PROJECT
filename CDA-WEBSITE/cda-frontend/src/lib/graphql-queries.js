@@ -1962,7 +1962,8 @@ export const GET_ALL_JOB_LISTINGS = `
           jobDetails {
             location
             salary
-            experienceLevel
+            working
+            hours
             publishDate
           }
           requirements {
@@ -2007,7 +2008,8 @@ export const GET_JOB_LISTINGS_WITH_PAGINATION = `
           jobDetails {
             location
             salary
-            experienceLevel
+            working
+            hours
             publishDate
           }
           requirements {
@@ -2052,7 +2054,8 @@ export const GET_JOB_LISTING_BY_SLUG = `
         jobDetails {
           location
           salary
-          experienceLevel
+          working
+          hours
           publishDate
         }
         requirements {
