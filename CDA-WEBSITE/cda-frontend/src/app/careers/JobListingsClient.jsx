@@ -140,7 +140,7 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
 
   return (
     <div className="min-h-screen bg-white py-16">
-      <div className="max-w-[1620px] mx-auto px-[38px]">
+      <div className="max-w-7xl mx-auto px-4">
         {/* 2-col layout on md+; single column on mobile */}
         <div className="grid md:grid-cols-12 gap-x-10 gap-y-10 relative">
 
@@ -225,7 +225,7 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
 
             {/* CTA card (right column only) + right bee */}
             {(openJobs.length > 0 || otherJobs.length > 0) && (
-              <div className="relative mt-12 md:mt-16 mb-[100px] overflow-visible">
+              <div className="relative mt-12 md:mt-16 overflow-visible">
                 {/* Right bee: sits on bottom of card (mobile) / top of card (desktop) */}
                 {/* Mobile: centered horizontally at bottom, Desktop: positioned on right at top */}
                 <img
@@ -246,7 +246,7 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
                         Looking For Another Role?
                       </ResponsiveUnderlinedTitle>
                     </h3>
-                    <Link href="/contact" className="button-l-transparent mb-[60px] md:mb-0 inline-block">Send Us Your CV</Link>
+                    <Link href="/contact" className="button-l-transparent">Send Us Your CV</Link>
                   </div>
                 </div>
               </div>
