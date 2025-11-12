@@ -23,6 +23,9 @@
   --color-brand-redish-pink: #FF5C8A;
   --color-brand-purple: #AD80F9;
 
+  /* Custom Gray Override - Override default gray-50 with site standard */
+  --color-gray-50: #F4F4F4;
+
   /* Container Spacing - Mobile-first responsive padding */
   /* Mobile: 38px sides (354px content on 430px screen) */
   /* Tablet: 24px sides (md) */
@@ -112,6 +115,15 @@ body {
 /* Also bump any legacy 1200px containers to 1620px if present */
 .max-w-\[1200px\] {
   max-width: 1620px !important;
+}
+
+/* Standard Container Class - Use this for consistent site-wide spacing */
+.cda-container {
+  max-width: 1620px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 38px;
+  padding-right: 38px;
 }
 
 /* ─────────────────────────────────────────────────────────────────

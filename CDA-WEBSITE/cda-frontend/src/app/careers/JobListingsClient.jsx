@@ -163,47 +163,49 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
 
           {/* RIGHT COL — 8/12 (2/3) */}
           <main className="md:col-span-8 relative overflow-visible">
-
-            {/* Open Positions (keep your card markup; no extra H2 here) */}
+            {/* Open Positions */}
             {openJobs.length > 0 && (
               <div className="mb-14">
-                <div className="grid grid-cols-1 gap-6">
-                  {openJobs.map((job) => {
+                {/* 🔥 Container: top border + divide-y for shared middle lines */}
+                <div className="divide-y divide-gray-200 border-t border-gray-200">
+                  {openJobs.map((job, index) => {
                     const jobDetails = job.jobListingFields?.jobDetails || {};
                     let status = job.jobListingFields?.jobStatus || 'open';
                     if (Array.isArray(status)) status = status[0] || 'open';
                     const statusBadge = getStatusBadge(status);
 
+                    // Determine if this is the last item
+                    const isLast = index === openJobs.length - 1;
+
                     return (
                       <Link
                         key={job.id}
                         href={`/careers/${job.slug}`}
-                        className="group block bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-lg transition-all duration-300"
+                        // Add border-b only to last item to ensure bottom line
+                        className={`group block bg-white ${isLast ? 'border-b border-gray-200' : ''} hover:border-gray-300 hover:shadow-lg transition-all duration-300`}
                       >
-                        <div className="p-6">
+                        <div className="p-8">
                           {/* Row 1: Title on left, Button on right (desktop) / Title only (mobile) */}
-                          <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                          <div className="flex flex-col md:flex-row md:justify-between md:items-start">
                             <div className="flex-1">
                               <h3 className="text-xl font-bold text-gray-900 group-hover:text-[#FF5C8A] transition-colors mb-4 md:mb-0">
                                 {job.title}
                               </h3>
                             </div>
                             <div className="hidden md:block ml-4 flex-shrink-0">
-                              <div className="button-l-transparent">
-                                Find Out More
-                              </div>
+                              <div className="button-l-transparent">Find Out More</div>
                             </div>
                           </div>
 
                           {/* Row 2: Labels */}
-                          <div className="flex flex-wrap gap-2 mb-4 md:mb-0">
+                          <div className="flex flex-wrap gap-4 mb-4 md:mb-0">
                             {jobDetails.hours && (
-                              <span className="px-3 py-1 text-sm bg-gray-100 text-gray-700" style={{ borderRadius: '20px' }}>
+                              <span className="px-3 py-1 text-sm bg-gray-100 text-gray-700 force-rounded">
                                 {getHoursDisplay(jobDetails.hours)}
                               </span>
                             )}
                             {jobDetails.working && (
-                              <span className="px-3 py-1 text-sm bg-blue-50 text-blue-700" style={{ borderRadius: '20px' }}>
+                              <span className="px-3 py-1 text-sm bg-gray-100 text-gray-700 force-rounded">
                                 {getWorkingDisplay(jobDetails.working)}
                               </span>
                             )}
@@ -211,9 +213,7 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
 
                           {/* Row 3: Button (mobile only) */}
                           <div className="block md:hidden">
-                            <div className="button-l-transparent">
-                              Find Out More
-                            </div>
+                            <div className="button-l-transparent">Find Out More</div>
                           </div>
                         </div>
                       </Link>
@@ -223,24 +223,20 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
               </div>
             )}
 
-            {/* CTA card (right column only) + right bee */}
+            {/* CTA card (unchanged) */}
             {(openJobs.length > 0 || otherJobs.length > 0) && (
               <div className="relative mt-12 md:mt-16 overflow-visible">
-                {/* Right bee: sits on bottom of card (mobile) / top of card (desktop) */}
-                {/* Mobile: centered horizontally at bottom, Desktop: positioned on right at top */}
                 <img
                   src="/images/bee-right.svg"
                   alt=""
                   className="pointer-events-none select-none absolute z-[2] w-[180px] md:w-[220px] h-auto
-                    -bottom-[85px] left-1/2 -translate-x-1/2
-                    md:bottom-auto md:-top-[-170px] md:left-auto md:-right-8 md:translate-x-0"
+          -bottom-[85px] left-1/2 -translate-x-1/2
+          md:bottom-auto md:-top-[-170px] md:left-auto md:-right-8 md:translate-x-0"
                   aria-hidden="true"
                   draggable="false"
                 />
-
-                {/* Card takes the full width of the jobs column */}
                 <div className="w-full">
-                  <div className="relative rounded-xl bg-[#F7F8FA] border border-black/[0.06] shadow-[0_8px_24px_rgba(0,0,0,0.05)] px-6 py-10 md:px-10 md:py-14 text-center z-[1]">
+                  <div className="relative rounded-xl bg-[#F4F4F4]  px-6 py-12 md:px-10 md:py-14 text-center z-[1]">
                     <h3 className="cda-hero__title-text service-hero-title text-2xl lg:text-3xl pb-10 font-bold mb-6">
                       <ResponsiveUnderlinedTitle as="h2" underlineColor="#FF5FA0">
                         Looking For Another Role?
@@ -251,8 +247,6 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
                 </div>
               </div>
             )}
-
-            {/* Empty/fallback states remain the same below this point if you use them */}
           </main>
         </div>
 

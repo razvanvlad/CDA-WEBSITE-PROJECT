@@ -1828,6 +1828,7 @@
 
 /* Mobile styles (≤640px) */
 @media (max-width: 640px) {
+
   /* Container layout */
   .newsletter-container {
     flex-direction: column;
@@ -2628,4 +2629,8 @@ div.w-2.h-2,
 .policy-content th {
   background-color: #F9FAFB;
   font-weight: 600;
+}
+
+.force-rounded {
+  border-radius: 20px !important;
 }

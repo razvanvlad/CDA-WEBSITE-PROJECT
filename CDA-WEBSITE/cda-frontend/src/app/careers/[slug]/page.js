@@ -141,7 +141,7 @@ export default async function CareerDetailPage({ params }) {
       <main className="job-detail-page">
         {/* Hero Section */}
         <section className="relative bg-white text-black">
-          <div className="max-w-7xl mx-auto px-4 py-24">
+          <div className="cda-container py-4">
             <ResponsiveUnderlinedTitle
               as="h1"
               className="cda-title mb-6"
@@ -150,58 +150,49 @@ export default async function CareerDetailPage({ params }) {
               {job.title}
             </ResponsiveUnderlinedTitle>
 
-            {job.excerpt && (
-              <div
-                className="text-lg text-gray-600 mb-8"
-                dangerouslySetInnerHTML={{ __html: job.excerpt }}
-              />
-            )}
-
-            <div className="flex flex-wrap gap-4 mb-12">
+            <div className="flex flex-wrap gap-4 mb-4">
               <Link
                 href="#apply"
                 className="button-l"
               >
                 Apply Now
               </Link>
-              <TextLinkButton href="/careers">
-                View All Positions
-              </TextLinkButton>
+
             </div>
           </div>
         </section>
 
         {/* Position Details - Full Width Gray Background */}
         <section className="bg-gray-50 py-8">
-          <div className="max-w-7xl mx-auto px-4">
+          <div className="cda-container">
             {/* Desktop: Single Row */}
             <div className="hidden md:flex md:flex-wrap md:gap-x-8 md:gap-y-2 text-sm">
               <div>
-                <span className="font-medium text-gray-500">Publish Date: </span>
-                <span className="text-gray-900">{formatDate(jobDetails?.publishDate || job.date)}</span>
+                <span className="font-bold text-black-500">Publish Date: </span>
+                <span className="text-black-900">{formatDate(jobDetails?.publishDate || job.date)}</span>
               </div>
               {jobDetails?.location && (
                 <div>
-                  <span className="font-medium text-gray-500">Location: </span>
-                  <span className="text-gray-900">{jobDetails.location}</span>
+                  <span className="font-bold text-black-500">Location: </span>
+                  <span className="text-black-900">{jobDetails.location}</span>
                 </div>
               )}
               {jobDetails?.working && (
                 <div>
-                  <span className="font-medium text-gray-500">Working: </span>
-                  <span className="text-gray-900">{getWorkingDisplay(jobDetails.working)}</span>
+                  <span className="font-bold text-black-500">Working: </span>
+                  <span className="text-black-900">{getWorkingDisplay(jobDetails.working)}</span>
                 </div>
               )}
               {jobDetails?.hours && (
                 <div>
-                  <span className="font-medium text-gray-500">Hours: </span>
-                  <span className="text-gray-900">{getHoursDisplay(jobDetails.hours)}</span>
+                  <span className="font-bold text-black-500">Hours: </span>
+                  <span className="text-black-900">{getHoursDisplay(jobDetails.hours)}</span>
                 </div>
               )}
               {jobDetails?.salary && (
                 <div>
-                  <span className="font-medium text-gray-500">Salary: </span>
-                  <span className="text-gray-900">{jobDetails.salary}</span>
+                  <span className="font-bold text-black-500">Salary: </span>
+                  <span className="text-black-900">{jobDetails.salary}</span>
                 </div>
               )}
             </div>
@@ -209,30 +200,30 @@ export default async function CareerDetailPage({ params }) {
             {/* Mobile: 2 Columns */}
             <div className="grid grid-cols-2 gap-x-4 gap-y-3 md:hidden text-sm">
               <div>
-                <div className="font-medium text-gray-500">Publish Date:</div>
+                <div className="font-bold text-gray-500">Publish Date:</div>
                 <div className="text-gray-900">{formatDate(jobDetails?.publishDate || job.date)}</div>
               </div>
               {jobDetails?.location && (
                 <div>
-                  <div className="font-medium text-gray-500">Location:</div>
+                  <div className="font-bold text-gray-500">Location:</div>
                   <div className="text-gray-900">{jobDetails.location}</div>
                 </div>
               )}
               {jobDetails?.working && (
                 <div>
-                  <div className="font-medium text-gray-500">Working:</div>
+                  <div className="font-bold text-gray-500">Working:</div>
                   <div className="text-gray-900">{getWorkingDisplay(jobDetails.working)}</div>
                 </div>
               )}
               {jobDetails?.hours && (
                 <div>
-                  <div className="font-medium text-gray-500">Hours:</div>
+                  <div className="font-bold text-gray-500">Hours:</div>
                   <div className="text-gray-900">{getHoursDisplay(jobDetails.hours)}</div>
                 </div>
               )}
               {jobDetails?.salary && (
                 <div className="col-span-2">
-                  <div className="font-medium text-gray-500">Salary:</div>
+                  <div className="font-bold text-gray-500">Salary:</div>
                   <div className="text-gray-900">{jobDetails.salary}</div>
                 </div>
               )}
@@ -243,8 +234,8 @@ export default async function CareerDetailPage({ params }) {
         {/* === ROW 1: About the Position (8/12) + Shield (4/12) === */}
         {requirements?.aboutThePosition && (
           <section className={`py-16 ${nextBg()}`}>
-            <div className="max-w-7xl mx-auto px-4">
-              <div className="grid grid-cols-12 gap-10 items-start">
+            <div className="cda-container">
+              <div className="grid grid-cols-12 gap-6 md:gap-10 items-start">
                 <div className="col-span-12 md:col-span-8">
                   <h2 className="text-3xl font-bold text-gray-900 mb-6">About The Position</h2>
                   <div
@@ -269,11 +260,11 @@ export default async function CareerDetailPage({ params }) {
         )}
 
 
-       {/* === ROW 2: Our Dream Candidate (8/12) + Target (4/12) === */}
+        {/* === ROW 2: Our Dream Candidate (8/12) + Target (4/12) === */}
         {requirements?.ourDreamCandidate && (
           <section className={`py-16 ${nextBg()}`}>
-            <div className="max-w-7xl mx-auto px-4">
-              <div className="grid grid-cols-12 gap-10 items-start">
+            <div className="cda-container">
+              <div className="grid grid-cols-12 gap-6 md:gap-10 items-start">
                 <div className="col-span-12 md:col-span-4">
                   <div className="relative w-full">
                     <Image
@@ -301,8 +292,8 @@ export default async function CareerDetailPage({ params }) {
         {/* === ROW 3: Responsibilities (6/12) + Qualifications (6/12) === */}
         {(requirements?.requiredSkills?.length || requirements?.requiredQualifications?.length) ? (
           <section className={`py-16 ${nextBg()}`}>
-            <div className="max-w-7xl mx-auto px-4">
-              <div className="grid grid-cols-12 gap-10">
+            <div className="cda-container">
+              <div className="grid grid-cols-12 gap-6 md:gap-10">
                 {/* Key Responsibilities */}
                 {requirements?.requiredSkills?.length > 0 && (
                   <div className="col-span-12 md:col-span-6">
@@ -344,37 +335,37 @@ export default async function CareerDetailPage({ params }) {
 
 
         {/* === ROW 5: Apply Form — left image 4/12, form 8/12 === */}
-<section id="apply" className={`py-16 ${nextBg()}`}>
-  <div className="max-w-4xl mx-auto px-4">
+        <section id="apply" className={`py-16 ${nextBg()}`}>
+          <div className="cda-container">
 
 
-    <div className="grid grid-cols-12 gap-10 items-start">
-      {/* Left image (4/12) */}
-      <div className="col-span-12 md:col-span-4">
-        <div className="text-center mb-12">
-      <h2 className="text-3xl font-bold text-gray-900 mb-4">Apply for {job.title}</h2>
-      <p className="text-lg text-gray-600">
-        Ready to join our team? Fill out the form below and we'll get back to you within 24 hours.
-      </p>
-    </div>
-        <Image
-          src={wilburySvg}
-          alt="Wilbury Way"
-          className="w-full h-auto"
-          priority={false}
-        />
-      </div>
+            <div className="grid grid-cols-12 gap-6 md:gap-10 items-start">
+              {/* Left image (4/12) */}
+              <div className="col-span-12 md:col-span-4">
+                <div className="text-center mb-12">
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Apply for {job.title}</h2>
+                  <p className="text-lg text-gray-600">
+                    Ready to join our team? Fill out the form below and we'll get back to you within 24 hours.
+                  </p>
+                </div>
+                <Image
+                  src={wilburySvg}
+                  alt="Wilbury Way"
+                  className="w-full h-auto"
+                  priority={false}
+                />
+              </div>
 
-      {/* Form (8/12) */}
-      <div className="col-span-12 md:col-span-8">
-        <div className="bg-white rounded-lg shadow-lg p-8 hubspot-form-wrapper">
-          <JobApplicationForm jobTitle={job.title} />
-        </div>
-      </div>
-    </div>
+              {/* Form (8/12) */}
+              <div className="col-span-12 md:col-span-8">
+                <div className="bg-white rounded-lg shadow-lg p-8 hubspot-form-wrapper">
+                  <JobApplicationForm jobTitle={job.title} />
+                </div>
+              </div>
+            </div>
 
-    {/* Keep your form style overrides */}
-    <style>{`
+            {/* Keep your form style overrides */}
+            <style>{`
       .hubspot-form-wrapper, .hubspot-form-wrapper * { color: #000; }
       .hubspot-form-wrapper label { color: #000 !important; }
       .hubspot-form-wrapper input[type="text"],
@@ -409,8 +400,8 @@ export default async function CareerDetailPage({ params }) {
       }
       .hubspot-form-wrapper .hs-hidden { display: none !important; }
     `}</style>
-  </div>
-</section>
+          </div>
+        </section>
       </main>
 
       <Footer />
