@@ -225,7 +225,7 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
 
             {/* CTA card (unchanged) */}
             {(openJobs.length > 0 || otherJobs.length > 0) && (
-              <div className="relative mt-12 md:mt-16 overflow-visible">
+              <div className="relative my-12 md:mt-16 overflow-visible">
                 <img
                   src="/images/bee-right.svg"
                   alt=""
@@ -236,7 +236,7 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
                   draggable="false"
                 />
                 <div className="w-full">
-                  <div className="relative rounded-xl bg-[#F4F4F4]  px-6 py-12 md:px-10 md:py-14 text-center z-[1]">
+                  <div className="relative rounded-xl bg-[#F4F4F4] px-6 py-12 pb-25 md:px-10 md:py-14 text-center z-[1]">
                     <h3 className="cda-hero__title-text service-hero-title text-2xl lg:text-3xl pb-10 font-bold mb-6">
                       <ResponsiveUnderlinedTitle as="h2" underlineColor="#FF5FA0">
                         Looking For Another Role?
