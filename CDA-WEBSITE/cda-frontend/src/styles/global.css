@@ -279,6 +279,13 @@
   color: #FFFFFF;
 }
 
+/* Back button in side menu - specific styling */
+button .side-menu-heading.group-hover\:underline {
+  text-decoration: underline;
+  font-size: 14px;
+  font-weight: 700;
+}
+
 .side-menu-divider {
   border-color: #FFFFFF;
 }
@@ -1548,7 +1555,7 @@
 
 .side-menu-connect-heading {
   font-family: var(--font-inter), sans-serif;
-  font-weight: 400;
+  font-weight: 800;
   font-size: 18px;
   color: #000;
 }
@@ -1578,6 +1585,13 @@
 /* Side menu dark theme adjustments */
 .side-menu-heading {
   color: #FFFFFF;
+}
+
+/* Back button in side menu - specific styling */
+button .side-menu-heading.group-hover\:underline {
+  text-decoration: underline;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .side-menu-divider {
