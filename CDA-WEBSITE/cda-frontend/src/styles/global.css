@@ -1826,6 +1826,15 @@
   flex-wrap: nowrap;
 }
 
+/* Desktop: Show desktop submit button, hide mobile submit button */
+.newsletter-submit-wrap-desktop {
+  display: block;
+}
+
+.newsletter-submit-wrapper-mobile {
+  display: none;
+}
+
 /* Mobile styles (≤640px) */
 @media (max-width: 640px) {
 
@@ -1890,6 +1899,11 @@
   .newsletter-submit-wrapper-mobile {
     display: block;
     width: 50%;
+  }
+
+  /* Button inside mobile wrapper should fill the wrapper */
+  .newsletter-submit-wrapper-mobile .newsletter-submit {
+    width: 100% !important;
   }
 
   /* Make email field full width on mobile */
@@ -1979,16 +1993,6 @@
   margin-top: 1rem;
   font-size: 0.8rem;
   color: #10b981;
-}
-
-/* Desktop: Show submit button in row with email */
-.newsletter-submit-wrap-desktop {
-  display: block;
-}
-
-/* Mobile: Hide desktop submit button, show mobile submit button */
-.newsletter-submit-wrapper-mobile {
-  display: none;
 }
 
 
