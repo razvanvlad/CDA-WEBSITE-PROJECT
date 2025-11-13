@@ -8,7 +8,7 @@ import { getTeamMembersWithPagination, getTeamMembersCoreWithPagination } from "
 // - Matches the style/structure of ServicesSlider
 // - 4 cards per view on desktop, 1 per view on mobile
 // - Shows profile image, name (title), job title, and links to profile
-export default function TeamMembersSlider({ title = "Meet Our Other Team Members", subtitle = "The Leadership Team", first = 24 }) {
+export default function TeamMembersSlider({ title = "Meet Our Other Team Members", subtitle = "The Leadership Team", illustration = null, first = 24 }) {
   const [items, setItems] = useState([])
   const [isMobile, setIsMobile] = useState(false)
   const [index, setIndex] = useState(0)
@@ -46,15 +46,32 @@ export default function TeamMembersSlider({ title = "Meet Our Other Team Members
 
   if (!items || items.length === 0) return null
 
+  const illustrationSrc = illustration?.node?.sourceUrl || illustration?.sourceUrl
+  const illustrationAlt = illustration?.node?.altText || illustration?.altText || 'Team illustration'
+
   return (
     <section className="services-slider py-16 bg-white">
       <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
+        <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-6">
+          {/* Text content - centered on mobile, left on desktop */}
+          <div className="text-center md:text-left flex-1 order-1 md:order-none">
             <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide">{subtitle}</p>
             <h2 className="text-3xl md:text-4xl font-extrabold text-black">{title}</h2>
           </div>
+
+          {/* Flag illustration - shown below text on mobile, right side on desktop */}
+          {illustrationSrc && (
+            <div className="order-2 md:order-none">
+              <img
+                src={illustrationSrc}
+                alt={illustrationAlt}
+                className="w-[225px] h-[272px] md:w-[180px] md:h-auto object-contain"
+              />
+            </div>
+          )}
+
+          {/* Navigation arrows - desktop only */}
           {items.length > perView && (
             <div className="hidden md:flex items-center gap-4">
               <button onClick={prev} aria-label="Previous" className="p-2 border border-gray-300 hover:bg-gray-50">←</button>

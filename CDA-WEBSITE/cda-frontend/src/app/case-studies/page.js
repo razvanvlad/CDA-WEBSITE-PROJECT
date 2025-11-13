@@ -67,7 +67,7 @@ export default async function CaseStudiesPage() {
             <ResponsiveUnderlinedTitle
               as="h1"
               className="cda-title"
-              underlineColor="#3CBEEB"
+              underlineColor="#FD8721"
             >
               Our Case Studies
             </ResponsiveUnderlinedTitle>
@@ -86,15 +86,15 @@ export default async function CaseStudiesPage() {
               className: 'button-secondary',
             },
           ]}
-          image={
-            <img
-              src="/images/case-studies-hero.svg"
-              alt="Case Studies illustration"
-              width={600}
-              height={400}
-              className="cda-hero__image-media"
-            />
-          }
+        // image={
+        //   <img
+        //     src="/images/booking.svg"
+        //     alt="Case Studies illustration"
+        //     width={600}
+        //     height={400}
+        //     className="cda-hero__image-media"
+        //   />
+        // }
         />
 
         <CaseStudiesClient initialItems={caseStudies} projectTypes={projectTypes} />

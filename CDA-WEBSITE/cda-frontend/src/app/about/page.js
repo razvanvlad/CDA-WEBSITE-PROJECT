@@ -63,14 +63,14 @@ export default async function AboutPage() {
   let toggles = await getPageGlobalTogglesByUri('/index.php/about/')
   if (!toggles) toggles = await getPageGlobalTogglesByUri('/about/')
   if (!toggles) toggles = await getPageGlobalTogglesBySlug('about')
-  const knownFlags = ['showApproach','showCaseStudies','showImageFrame','showNewsCarousel','showThreeColumns','showValues','showWhyCda','showServicesAccordion','showTechnologiesSlider','showShowreel','showLocationsImage','showNewsletterSignup','showContactFormLeftImageRight','showJoinOurTeam','showFullVideo','showStatsAndNumbers','showCultureGallerySlider']
-  const hasAny = toggles && typeof toggles === 'object' && knownFlags.some(k => Object.prototype.hasOwnProperty.call(toggles,k))
+  const knownFlags = ['showApproach', 'showCaseStudies', 'showImageFrame', 'showNewsCarousel', 'showThreeColumns', 'showValues', 'showWhyCda', 'showServicesAccordion', 'showTechnologiesSlider', 'showShowreel', 'showLocationsImage', 'showNewsletterSignup', 'showContactFormLeftImageRight', 'showJoinOurTeam', 'showFullVideo', 'showStatsAndNumbers', 'showCultureGallerySlider']
+  const hasAny = toggles && typeof toggles === 'object' && knownFlags.some(k => Object.prototype.hasOwnProperty.call(toggles, k))
   const t = hasAny ? toggles : Object.fromEntries(knownFlags.map(k => [k, true]))
 
   return (
     <>
       <Header />
-      
+
       {/* 1) Hero individual */}
       {aboutContent?.contentPageHeader && (
         <HeroSection
@@ -88,11 +88,11 @@ export default async function AboutPage() {
           ctas={[
             aboutContent.contentPageHeader.cta
               ? {
-                  href: aboutContent.contentPageHeader.cta.url || '#',
-                  label: aboutContent.contentPageHeader.cta.title || 'Get Started',
-                  target: aboutContent.contentPageHeader.cta.target || '_self',
-                  className: 'button-without-box',
-                }
+                href: aboutContent.contentPageHeader.cta.url || '#',
+                label: aboutContent.contentPageHeader.cta.title || 'Get Started',
+                target: aboutContent.contentPageHeader.cta.target || '_self',
+                className: 'button-without-box',
+              }
               : null,
           ]}
           image={
@@ -127,31 +127,31 @@ export default async function AboutPage() {
 
       {/* 4) [Global] Services Accordion */}
       {/* 4) [Global] Services Accordion */}
-{/* 4) [Global] Services Accordion */}
-{t.showServicesAccordion && globalContentBlocks?.servicesAccordion && (
-  <ServicesAccordion
-    globalData={{
-      title: globalContentBlocks.servicesAccordion.title,
-      subtitle: globalContentBlocks.servicesAccordion.subtitle,
-      illustration: globalContentBlocks.servicesAccordion.illustration,
-      services: {
-        nodes: (
-          globalContentBlocks.servicesAccordion?.services?.nodes
-          ?? (globalContentBlocks.servicesAccordion?.services?.edges || []).map(e => e?.node)
-          ?? globalContentBlocks.servicesAccordion?.servicesList?.nodes
-          ?? (globalContentBlocks.servicesAccordion?.servicesList?.edges || []).map(e => e?.node)
-          ?? (Array.isArray(globalContentBlocks.servicesAccordion?.servicesList)
-                ? globalContentBlocks.servicesAccordion.servicesList
-                : [])
-        ).filter(Boolean),
-      },
-    }}
-    overlap={false}
-    bg="bg-white"
-    panelBg="bg-white"
-    className="pt-10 md:pt-12"
-  />
-)}
+      {/* 4) [Global] Services Accordion */}
+      {t.showServicesAccordion && globalContentBlocks?.servicesAccordion && (
+        <ServicesAccordion
+          globalData={{
+            title: globalContentBlocks.servicesAccordion.title,
+            subtitle: globalContentBlocks.servicesAccordion.subtitle,
+            illustration: globalContentBlocks.servicesAccordion.illustration,
+            services: {
+              nodes: (
+                globalContentBlocks.servicesAccordion?.services?.nodes
+                ?? (globalContentBlocks.servicesAccordion?.services?.edges || []).map(e => e?.node)
+                ?? globalContentBlocks.servicesAccordion?.servicesList?.nodes
+                ?? (globalContentBlocks.servicesAccordion?.servicesList?.edges || []).map(e => e?.node)
+                ?? (Array.isArray(globalContentBlocks.servicesAccordion?.servicesList)
+                  ? globalContentBlocks.servicesAccordion.servicesList
+                  : [])
+              ).filter(Boolean),
+            },
+          }}
+          overlap={false}
+          bg="bg-white"
+          panelBg="bg-white"
+          className="pt-10 md:pt-12"
+        />
+      )}
 
 
 
@@ -225,17 +225,11 @@ export default async function AboutPage() {
                   <p className="cda-subtitle mb-2">{aboutContent.behindCda.subtitle}</p>
                 )}
                 {aboutContent.behindCda.title && (
-                  <ResponsiveUnderlinedTitle
-                    as="h2"
-                    className="section-title mb-4"
-                    underlineColor="#FF60DF"
-                  >
-                    {aboutContent.behindCda.title}
-                  </ResponsiveUnderlinedTitle>
+                  <h2 className="cda-title mb-4">{aboutContent.behindCda.title}</h2>
                 )}
                 {aboutContent.behindCda.description && (
-                  <div className="wysiwyg-content text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] mb-6"
-                       dangerouslySetInnerHTML={{ __html: aboutContent.behindCda.description }} />
+                  <div className="wysiwyg-content text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] mb-6 py-8 pr-8"
+                    dangerouslySetInnerHTML={{ __html: aboutContent.behindCda.description }} />
                 )}
                 {aboutContent.behindCda.cta?.url && (
                   <TextLinkButton

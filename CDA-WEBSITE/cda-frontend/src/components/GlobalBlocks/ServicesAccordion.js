@@ -60,7 +60,7 @@ const ServicesAccordion = ({
 
           {/* Right: Accordion */}
           <div className="col-span-12 lg:col-span-8">
-            <div className="divide-y divide-gray-200 border-t border-gray-200 bg-[#F4F4F4]">
+            <div className="divide-y divide-gray-200 border-t border-gray-200">
               {itemsRaw.map((item, idx) => {
                 const isOpen = openIndex === idx;
                 const isLast = idx === itemsRaw.length - 1;
