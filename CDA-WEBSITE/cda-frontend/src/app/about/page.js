@@ -207,20 +207,8 @@ export default async function AboutPage() {
         <section className="py-16 bg-white">
           <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
             <div className="grid grid-cols-12 gap-x-8 gap-y-10 items-center">
-              {/* Left: Image */}
-              <div className="col-span-12 md:col-span-6">
-                {aboutContent.behindCda.illustration?.node?.sourceUrl && (
-                  <img
-                    src={aboutContent.behindCda.illustration.node.sourceUrl}
-                    alt={aboutContent.behindCda.illustration.node.altText || 'Behind CDA illustration'}
-                    width={485}
-                    height={586}
-                    className="w-[485px] h-[586px] object-contain rounded"
-                  />
-                )}
-              </div>
-              {/* Right: Subtitle, Title, Text, CTA */}
-              <div className="col-span-12 md:col-span-6">
+              {/* Text content - order-1 on mobile, order-2 on desktop */}
+              <div className="col-span-12 md:col-span-6 order-1 md:order-2">
                 {aboutContent.behindCda.subtitle && (
                   <p className="cda-subtitle mb-2">{aboutContent.behindCda.subtitle}</p>
                 )}
@@ -228,7 +216,7 @@ export default async function AboutPage() {
                   <h2 className="cda-title mb-4">{aboutContent.behindCda.title}</h2>
                 )}
                 {aboutContent.behindCda.description && (
-                  <div className="wysiwyg-content text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] mb-6 py-8 pr-8"
+                  <div className="wysiwyg-content text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] mb-6 md:py-8 md:pr-8"
                     dangerouslySetInnerHTML={{ __html: aboutContent.behindCda.description }} />
                 )}
                 {aboutContent.behindCda.cta?.url && (
@@ -238,6 +226,16 @@ export default async function AboutPage() {
                   >
                     {aboutContent.behindCda.cta.title || 'Learn More'}
                   </TextLinkButton>
+                )}
+              </div>
+              {/* Image - order-2 on mobile, order-1 on desktop */}
+              <div className="col-span-12 md:col-span-6 order-2 md:order-1">
+                {aboutContent.behindCda.illustration?.node?.sourceUrl && (
+                  <img
+                    src={aboutContent.behindCda.illustration.node.sourceUrl}
+                    alt={aboutContent.behindCda.illustration.node.altText || 'Behind CDA illustration'}
+                    className="w-full max-w-[300px] mx-auto md:max-w-none md:w-[485px] md:h-[586px] h-auto object-contain rounded"
+                  />
                 )}
               </div>
             </div>

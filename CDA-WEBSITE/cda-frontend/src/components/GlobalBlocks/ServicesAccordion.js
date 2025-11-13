@@ -59,7 +59,7 @@ const ServicesAccordion = ({
           </div>
 
           {/* Right: Accordion */}
-          <div className="col-span-12 lg:col-span-8">
+          <div className="col-span-12 lg:col-span-8 overflow-x-hidden">
             <div className="divide-y divide-gray-200 border-t border-gray-200">
               {itemsRaw.map((item, idx) => {
                 const isOpen = openIndex === idx;
@@ -69,11 +69,14 @@ const ServicesAccordion = ({
                   <div key={item.id || `${item.slug || 'svc'}-${idx}`} className={isLast ? 'border-b border-gray-200' : ''}>
                     <button
                       type="button"
-                      className="w-full text-left py-3 md:py-6 md:px-6 flex items-center gap-3 md:gap-4 focus:outline-none"
+                      className="w-full text-left py-3 md:py-6 flex items-center gap-3 md:gap-4 overflow-hidden min-w-0"
                       aria-expanded={isOpen}
                       onClick={() => setOpenIndex(isOpen ? -1 : idx)}
                     >
-                      <span className="flex-1 min-w-0 text-[18px] md:text-[20px] font-bold text-black leading-tight break-words">
+                      <span
+                        className="flex-1 min-w-0 text-[18px] md:text-[20px] font-bold text-black leading-tight"
+                        style={{ overflowWrap: 'anywhere' }}
+                      >
                         {item.title}
                       </span>
                       <span className="flex-shrink-0">
@@ -116,7 +119,7 @@ const ServicesAccordion = ({
 
                           return looksLikeHtml ? (
                             <div
-                              className="mb-4 overflow-x-auto [&_table]:w-full [&_table]:border-collapse [&_table]:table [&_table]:border [&_table]:border-gray-200 [&_td]:p-3 [&_td]:border [&_td]:border-gray-200 [&_th]:p-3 [&_th]:border [&_th]:border-gray-200 [&_th]:bg-gray-50 [&_th]:font-bold"
+                              className="mb-4 [&_table]:w-full [&_table]:border-collapse [&_table]:table [&_table]:border [&_table]:border-gray-200 [&_td]:p-3 [&_td]:border [&_td]:border-gray-200 [&_th]:p-3 [&_th]:border [&_th]:border-gray-200 [&_th]:bg-gray-50 [&_th]:font-bold"
                               dangerouslySetInnerHTML={{ __html: descRaw }}
                             />
                           ) : (
