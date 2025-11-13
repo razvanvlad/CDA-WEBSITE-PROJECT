@@ -31,7 +31,7 @@ const Showreel = ({ globalData }) => {
       position="top"
       color="bg-[#F4F4F4]"
       height="h-[300px] md:h-[850px]"
-      className="bg-white py-12 md:py-16 lg:py-20"
+      className="bg-white pt-12 pb-0 md:py-16 lg:py-20"
     >
       {/* Header: mobile stacked/centered; desktop split */}
       {(subtitle || title || button) && (

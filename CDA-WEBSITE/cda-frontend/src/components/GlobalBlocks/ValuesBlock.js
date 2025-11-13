@@ -74,7 +74,7 @@ export default function ValuesBlock({ globalData, pageData, useOverride = false 
             <img
               src={fishSrc}
               alt={fishAlt}
-              className="w-[220px] max-w-[70%] h-auto pointer-events-none select-none"
+              className="w-[300px] max-w-[100%] h-auto pointer-events-none select-none"
               draggable={false}
             />
           </div>
@@ -88,7 +88,7 @@ export default function ValuesBlock({ globalData, pageData, useOverride = false 
       <style jsx>{`
         .values-fish {
           float: right;
-          width: clamp(220px, 24vw, 420px); /* adjust size */
+          width: 600px;
           height: auto;
 
           /* how much space text keeps from the fish outline */
@@ -96,7 +96,7 @@ export default function ValuesBlock({ globalData, pageData, useOverride = false 
           -webkit-shape-margin: 18px;
 
           /* position tweaks (top, right, bottom, left) */
-          margin: 24px -16px -48px 24px;
+          margin: 24px -200px -48px 24px;
 
           pointer-events: none;
           user-select: none;
