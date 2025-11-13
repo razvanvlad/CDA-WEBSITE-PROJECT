@@ -82,7 +82,7 @@ export default function ValuesBlock({ globalData, pageData, useOverride = false 
       </div>
 
       {/* Optional: cross-section arrow (keep if you use it elsewhere) */}
-      <div className="cross-section-arrow" aria-hidden="true"></div>
+
 
       {/* Page-scoped styles for the desktop fish wrapping */}
       <style jsx>{`

@@ -33,11 +33,11 @@ const Showreel = ({ globalData }) => {
       height="h-[300px] md:h-[850px]"
       className="bg-white py-12 md:py-16 lg:py-20"
     >
-      <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
-        {/* Header: mobile stacked/centered; desktop split */}
-        {(subtitle || title || button) && (
+      {/* Header: mobile stacked/centered; desktop split */}
+      {(subtitle || title || button) && (
+        <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
           <div className="mb-6 md:mb-8 flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">
-            <div className="text-center md:text-left">
+            <div className="text-left">
               {subtitle && <p className="cda-subtitle">{subtitle}</p>}
               {title && <h2 className="cda-title">{title}</h2>}
             </div>
@@ -46,17 +46,19 @@ const Showreel = ({ globalData }) => {
               <TextLinkButton
                 href={button.url}
                 target={button.target === '_blank' ? '_blank' : '_self'}
-                className="self-center md:self-auto"
+                className="self-start"
               >
                 {button.title || 'View Our Work'}
               </TextLinkButton>
             )}
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Hero image */}
-        {largeImage?.node?.sourceUrl && (
-          <div className="relative rounded-xl overflow-hidden border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
+      {/* Hero image - Full width on mobile, contained on desktop */}
+      {largeImage?.node?.sourceUrl && (
+        <div className="md:mx-auto md:w-full md:max-w-[1620px] md:px-6 lg:px-8">
+          <div className="showreel-image-container relative md:rounded-xl overflow-hidden border-y md:border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
             <img
               src={largeImage.node.sourceUrl}
               alt={largeImage.node.altText || title || 'Showreel'}
@@ -71,46 +73,44 @@ const Showreel = ({ globalData }) => {
               <span className="text-[11px] md:text-[12px] font-bold tracking-wider text-[#111827]">PLAY</span>
             </button>
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Logos: mobile = ticker; desktop = grid */}
-        {logos.length > 0 && (
-          <>
-            {/* MOBILE ticker (auto scrolling) */}
-            <div className="md:hidden mt-8">
-              <div className="overflow-hidden">
-                <div className="sr-ticker-track flex items-center">
-                  {tickerLogos.map((logo, i) => (
-                    <div key={`tl-${i}`} className="px-8 py-3 shrink-0">
-                      <img
-                        src={logo.sourceUrl}
-                        alt={logo.altText || 'Client logo'}
-                        className="h-9 object-contain grayscale"
-                      />
-                    </div>
-                  ))}
-                </div>
+      {/* Logos: mobile = ticker; desktop = grid */}
+      {logos.length > 0 && (
+        <>
+          {/* MOBILE ticker (auto scrolling) - Full width */}
+          <div className="md:hidden mt-4">
+            <div className="overflow-hidden">
+              <div className="sr-ticker-track flex items-center">
+                {tickerLogos.map((logo, i) => (
+                  <div key={`tl-${i}`} className="px-8 py-3 shrink-0">
+                    <img
+                      src={logo.sourceUrl}
+                      alt={logo.altText || 'Client logo'}
+                      className="h-9 object-contain grayscale"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
+          </div>
 
-            {/* DESKTOP grid */}
-            <div className="hidden md:flex mt-12 flex-wrap justify-between items-center gap-6">
-              {logos.map((logo, i) => (
-                <div key={i} className="flex items-center justify-center" style={{ maxWidth: '220px', flex: '0 1 auto' }}>
-                  <img
-                    src={logo.sourceUrl}
-                    alt={logo.altText || 'Client logo'}
-                    className="h-8 sm:h-9 md:h-10 lg:h-12 w-full object-contain grayscale hover:grayscale-0 transition"
-                    style={{ maxWidth: '220px' }}
-                  />
-                </div>
-              ))}
-            </div>
-          </>
-        )}
-
-        {/* Mobile bottom CTA removed (CTA is already in the header) */}
-      </div>
+          {/* DESKTOP grid */}
+          <div className="hidden md:flex mt-12 mx-auto w-full max-w-[1620px] px-6 lg:px-8 flex-wrap justify-between items-center gap-6">
+            {logos.map((logo, i) => (
+              <div key={i} className="flex items-center justify-center" style={{ maxWidth: '220px', flex: '0 1 auto' }}>
+                <img
+                  src={logo.sourceUrl}
+                  alt={logo.altText || 'Client logo'}
+                  className="h-8 sm:h-9 md:h-10 lg:h-12 w-full object-contain grayscale hover:grayscale-0 transition"
+                  style={{ maxWidth: '220px' }}
+                />
+              </div>
+            ))}
+          </div>
+        </>
+      )}
 
       {/* Inline styles for the mobile ticker animation */}
       <style jsx>{`
