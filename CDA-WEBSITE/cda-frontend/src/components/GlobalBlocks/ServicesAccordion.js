@@ -8,7 +8,6 @@ const ServicesAccordion = ({
   globalData,
   overlap = true,
   bg = 'bg-[#F4F4F4]',
-  panelBg = 'bg-[#F4F4F4]',
   className = '',
 }) => {
   if (!globalData) return null;
@@ -26,7 +25,7 @@ const ServicesAccordion = ({
   }, [globalData]);
 
 
-// change snipp for about page
+  // change snipp for about page
 
   const [openIndex, setOpenIndex] = useState(0);
   if (!itemsRaw.length && !globalData.title) return null;
@@ -61,128 +60,77 @@ const ServicesAccordion = ({
 
           {/* Right: Accordion */}
           <div className="col-span-12 lg:col-span-8">
-            <div
-              className={[
-                'divide-y divide-[#E5E7EB] rounded-[14px] border border-[#E5E7EB]',
-                panelBg,
-              ].join(' ')}
-            >
+            <div className="divide-y divide-gray-200 border-t border-gray-200 bg-[#F4F4F4]">
               {itemsRaw.map((item, idx) => {
                 const isOpen = openIndex === idx;
-
-                // Build a subtitle from the most common places the data can live:
-                const sub =
-                  item?.serviceFields?.heroSection?.subtitle ?? // preferred
-                  item?.heroSection?.subtitle ??                // alt shape
-                  item?.serviceFields?.subtitle ??              // rare alt
-                  item?.subtitle ??                             // generic
-                  '';                                           // nothing
-
-                // Helper: string contains HTML tags?
-                const looksLikeHtml = typeof sub === 'string' && /<[^>]+>/.test(sub);
+                const isLast = idx === itemsRaw.length - 1;
 
                 return (
-                  <div key={item.id || `${item.slug || 'svc'}-${idx}`}>
+                  <div key={item.id || `${item.slug || 'svc'}-${idx}`} className={isLast ? 'border-b border-gray-200' : ''}>
                     <button
                       type="button"
-                      className="w-full text-left px-5 md:px-6 py-4 md:py-5 flex items-center justify-between gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]"
+                      className="w-full text-left py-3 md:py-6 md:px-6 flex items-center gap-3 md:gap-4 focus:outline-none"
                       aria-expanded={isOpen}
                       onClick={() => setOpenIndex(isOpen ? -1 : idx)}
                     >
-                      <span className="text-[16px] md:text-[18px] font-semibold text-black">
+                      <span className="flex-1 min-w-0 text-[18px] md:text-[20px] font-bold text-black leading-tight break-words">
                         {item.title}
                       </span>
-                      {isOpen ? (
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                          <path d="M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                        </svg>
-                      ) : (
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                          <path d="M12 5v14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                          <path d="M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                        </svg>
-                      )}
+                      <span className="flex-shrink-0">
+                        {isOpen ? (
+                          <img
+                            src="/images/minus.svg"
+                            alt="Collapse"
+                            width={16}
+                            height={16}
+                            className="w-4 h-4"
+                          />
+                        ) : (
+                          <img
+                            src="/images/plus.svg"
+                            alt="Expand"
+                            width={16}
+                            height={16}
+                            className="w-4 h-4"
+                          />
+                        )}
+                      </span>
                     </button>
 
-                    {/* Panel body with subtitle */}
-                    {/* <div className={`px-5 md:px-6 pb-5 md:pb-6 ${isOpen ? 'block' : 'hidden'}`}>
-                      <div className="text-[15px] md:text-[16px] leading-[1.7] text-[#4B5563]">
-                        {sub
-                          ? (looksLikeHtml ? (
-                              <div className="mb-4" dangerouslySetInnerHTML={{ __html: sub }} />
-                            ) : (
-                              <p className="mb-4">{sub}</p>
-                            ))
-                          : null}
+                    {/* 3 */}
+                    <div className={`pb-5 md:pb-6 ${isOpen ? 'block' : 'hidden'}`}>
+                      <div className="text-[14px] md:text-[16px] leading-[1.7] text-[#4B5563]">
+                        {(() => {
+                          // Use description from heroSection as specified
+                          const descRaw =
+                            item?.serviceFields?.heroSection?.description ||
+                            item?.heroSection?.description ||
+                            item?.excerpt ||
+                            item?.content ||
+                            '';
+
+                          if (!descRaw) return null;
+
+                          const looksLikeHtml =
+                            typeof descRaw === 'string' && /<[^>]+>/.test(descRaw);
+
+                          return looksLikeHtml ? (
+                            <div
+                              className="mb-4 overflow-x-auto [&_table]:w-full [&_table]:border-collapse [&_table]:table [&_table]:border [&_table]:border-gray-200 [&_td]:p-3 [&_td]:border [&_td]:border-gray-200 [&_th]:p-3 [&_th]:border [&_th]:border-gray-200 [&_th]:bg-gray-50 [&_th]:font-bold"
+                              dangerouslySetInnerHTML={{ __html: descRaw }}
+                            />
+                          ) : (
+                            <p className="mb-4">{descRaw}</p>
+                          );
+                        })()}
 
                         {item.slug && (
-                          <a href={`/services/${item.slug}`} className="button-l inline-flex">
+                          <a href={`/services/${item.slug}`} className="button-l-transparent inline-flex">
                             Find Out More
                           </a>
                         )}
                       </div>
-                    </div> */}
-
-                    {/* //2 */}
-{/* <div className={`px-5 md:px-6 pb-5 md:pb-6 ${isOpen ? 'block' : 'hidden'}`}>
-  <div className="text-[15px] md:text-[16px] leading-[1.7] text-[#4B5563]">
-    {(() => {
-      // Prefer the WP ACF field used on service pages
-      const sub =
-        item?.serviceFields?.heroSection?.subtitle ??
-        item?.heroSection?.subtitle ??
-        item?.serviceFields?.subtitle ??
-        item?.subtitle ??
-        '';
-
-      if (!sub) return null;
-
-      // If WordPress returns HTML, render it safely; otherwise as plain text
-      const looksLikeHtml = typeof sub === 'string' && /<[^>]+>/.test(sub);
-      return looksLikeHtml
-        ? <div className="mb-4" dangerouslySetInnerHTML={{ __html: sub }} />
-        : <p className="mb-4">{sub}</p>;
-    })()}
-
-    {item.slug && (
-      <a href={`/services/${item.slug}`} className="button-l inline-flex">
-        Find Out More
-      </a>
-    )}
-  </div>
-</div> */}
-
-{/* 3 */}
-<div className={`px-5 md:px-6 pb-5 md:pb-6 ${isOpen ? 'block' : 'hidden'}`}>
-  <div className="text-[15px] md:text-[16px] leading-[1.7] text-[#4B5563]">
-    {(() => {
-      // Prefer the ACF subtitle if present, otherwise use WP excerpt, then content
-      const subRaw =
-        item?.serviceFields?.heroSection?.subtitle ||
-        item?.excerpt ||
-        item?.content ||
-        item?.subtitle ||
-        '';
-
-      if (!subRaw) return null;
-
-      const looksLikeHtml =
-        typeof subRaw === 'string' && /<[^>]+>/.test(subRaw);
-
-      return looksLikeHtml ? (
-        <div className="mb-4" dangerouslySetInnerHTML={{ __html: subRaw }} />
-      ) : (
-        <p className="mb-4">{subRaw}</p>
-      );
-    })()}
-
-    {item.slug && (
-      <a href={`/services/${item.slug}`} className="button-l inline-flex">
-        Find Out More
-      </a>
-    )}
-  </div>
-</div>
+                    </div>
 
 
                   </div>
