@@ -231,7 +231,7 @@ export default async function TeamPage() {
       {t.showJoinOurTeam && globalData?.joinOurTeam && (
         <section className="relative overflow-hidden bg-white py-24 lg:py-28">
           {/* full-width gray band */}
-          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[220px] md:h-[260px] bg-gray-100 z-0" />
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[260px] md:h-[300px] bg-gray-100 z-0" />
 
           {/* white mask on the left so art sits on white */}
           <div className="absolute inset-y-0 left-0 w-[36vw] xl:w-[30vw] bg-white hidden md:block z-10" />
@@ -252,7 +252,7 @@ export default async function TeamPage() {
           {/* CONTENT (nudged to the right) */}
           <div className="relative z-30 mx-auto w-full max-w-[1280px] px-4">
             <div className="mx-auto w-full max-w-4xl md:translate-x-[3vw] lg:translate-x-[4vw]">
-              <div className="px-8 md:px-16 lg:px-20">
+              <div className="px-8 md:px-16 lg:pl-15 py-5">
                 {globalData.joinOurTeam.title && (
                   <h2 className="h2 mb-4">
                     {globalData.joinOurTeam.title}
