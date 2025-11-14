@@ -28,7 +28,7 @@ export default async function TeamPage() {
   if (!toggles) toggles = await getPageGlobalTogglesByUri('/team/')
   if (!toggles) toggles = await getPageGlobalTogglesBySlug('team')
   const knownKeys = [
-    'showApproach','showCaseStudies','showImageFrame','showNewsCarousel','showThreeColumns','showValues','showWhyCda','showServicesAccordion','showTechnologiesSlider','showShowreel','showLocationsImage','showNewsletterSignup','showContactFormLeftImageRight','showJoinOurTeam','showFullVideo','showStatsAndNumbers','showCultureGallerySlider'
+    'showApproach', 'showCaseStudies', 'showImageFrame', 'showNewsCarousel', 'showThreeColumns', 'showValues', 'showWhyCda', 'showServicesAccordion', 'showTechnologiesSlider', 'showShowreel', 'showLocationsImage', 'showNewsletterSignup', 'showContactFormLeftImageRight', 'showJoinOurTeam', 'showFullVideo', 'showStatsAndNumbers', 'showCultureGallerySlider'
   ]
   const hasAny = toggles && typeof toggles === 'object' && knownKeys.some(k => Object.prototype.hasOwnProperty.call(toggles, k))
   const t = hasAny ? toggles : Object.fromEntries(knownKeys.map(k => [k, true]))
@@ -166,11 +166,11 @@ export default async function TeamPage() {
           ctas={[
             header.cta?.url
               ? {
-                  href: header.cta.url,
-                  label: header.cta.title || 'Contact Us',
-                  target: header.cta.target || '_self',
-                  className: 'button-l',
-                }
+                href: header.cta.url,
+                label: header.cta.title || 'Contact Us',
+                target: header.cta.target || '_self',
+                className: 'button-without-box',
+              }
               : null,
           ]}
           image={
@@ -203,7 +203,7 @@ export default async function TeamPage() {
               </div>
               <div className="col-span-12 md:col-span-6">
                 {founder.subtitle && (<p className="cda-subtitle mb-2">{founder.subtitle}</p>)}
-                {founder.title && (<h2 className="cda-title mb-4" style={{ textDecoration: 'none' }}>{founder.title}</h2>)}
+                {founder.title && (<p className="h2 mb-2">{founder.title}</p>)}
                 {founder.description && (
                   <div className="wysiwyg-content text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] mb-6" dangerouslySetInnerHTML={{ __html: founder.description }} />
                 )}
@@ -226,7 +226,7 @@ export default async function TeamPage() {
                 <ResponsiveUnderlinedTitle
                   as="h2"
                   className="section-title"
-                  underlineColor="#FF60DF"
+                  underlineColor="#FF5C8A"
                 >
                   {meet.title}
                 </ResponsiveUnderlinedTitle>
@@ -240,28 +240,57 @@ export default async function TeamPage() {
                   const job = m?.teamMemberFields?.jobTitle || m?.jobTitle || ''
                   return (
                     <div key={m.id} className="w-full flex-shrink-0">
-                      <div className="block group text-center">
+                      <div className="block group text-left">
                         <Link href={`/team/${m.slug}`} className="block">
-                          <div className="relative w-full pb-[100%] bg-gray-100 overflow-hidden rounded-md">
+                          <div className="relative w-full pb-[100%]  overflow-visible rounded-md mb-4">
                             {img?.sourceUrl && (
-                              <Image src={img.sourceUrl} alt={alt} fill className="object-cover" />
+                              <Image
+                                src={img.sourceUrl}
+                                alt={alt}
+                                fill
+                                className="object-cover object-top"
+                                style={{ transform: 'translateY(-8%)' }}
+                              />
                             )}
                           </div>
-                          <div className="mt-3">
-                            <div className="font-semibold text-black leading-tight group-hover:underline">{m.title}</div>
-                            {job && <div className="text-sm text-gray-600">{job}</div>}
+                          <div className="relative">
+                            <div className="text-[22px] leading-tight text-black" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700 }}>
+                              {m.title}
+                            </div>
+                            {job && (
+                              <div className="text-[18px] text-gray-600 mt-3" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 400 }}>
+                                {job}
+                              </div>
+                            )}
                           </div>
                         </Link>
-                        <div className="mt-3">
-                          <Link href={`/team/${m.slug}`} className="inline-flex items-center gap-2 font-semibold text-black hover:underline">
-                            <span>View Profile</span>
-                            <span aria-hidden>→</span>
+                        <div className="mt-4">
+                          <Link
+                            href={`/team/${m.slug}`}
+                            className="button-without-box"
+                          >
+                            <span className="button-text">View Profile</span>
+                            <span className="button-icon-wrapper">
+                              <img src="/images/arrow-icons/diagonal-right-arrow.svg" alt="" className="button-icon button-icon-default" aria-hidden="true" />
+                              <img src="/images/arrow-icons/right-arrow.svg" alt="" className="button-icon button-icon-hover" aria-hidden="true" />
+                            </span>
                           </Link>
                         </div>
                       </div>
                     </div>
                   )
                 })}
+                <div className="w-full flex-shrink-0">
+                  <div className="flex items-center justify-center h-full">
+                    <Image
+                      src="/images/green-arrow.svg"
+                      alt=""
+                      width={271}
+                      height={313}
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
               </div>
             ) : (
               <div className="bg-gray-50 p-8 rounded-lg text-center">
@@ -274,72 +303,74 @@ export default async function TeamPage() {
       )}
 
 
-{/* join our team section */}
+      {/* join our team section */}
 
-   {t.showJoinOurTeam && globalData?.joinOurTeam && (
-  <section className="relative overflow-hidden bg-white py-24 lg:py-28">
-    {/* full-width gray band */}
-    <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[220px] md:h-[260px] bg-gray-100 z-0" />
+      {t.showJoinOurTeam && globalData?.joinOurTeam && (
+        <section className="relative overflow-hidden bg-white py-24 lg:py-28">
+          {/* full-width gray band */}
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[220px] md:h-[260px] bg-gray-100 z-0" />
 
-    {/* white mask on the left so art sits on white */}
-    <div className="absolute inset-y-0 left-0 w-[36vw] xl:w-[30vw] bg-white hidden md:block z-10" />
+          {/* white mask on the left so art sits on white */}
+          <div className="absolute inset-y-0 left-0 w-[36vw] xl:w-[30vw] bg-white hidden md:block z-10" />
 
-    {/* LEFT art (nudged to the right) */}
-    {globalData.joinOurTeam.leftImage?.node?.sourceUrl && (
-      <div className="pointer-events-none absolute top-1/2 -translate-y-1/2 hidden md:block z-20">
-        <Image
-          src={globalData.joinOurTeam.leftImage.node.sourceUrl}
-          alt={globalData.joinOurTeam.leftImage.node.altText || ''}
-          width={700}
-          height={700}
-          className="max-w-none w-[30vw] xl:w-[26vw] 2xl:w-[24vw] min-w-[220px] max-h-[320px] object-contain"
-        />
-      </div>
-    )}
-
-    {/* CONTENT (nudged to the right) */}
-    <div className="relative z-30 mx-auto w-full max-w-[1280px] px-4">
-      <div className="mx-auto w-full max-w-4xl md:translate-x-[3vw] lg:translate-x-[4vw]">
-        <div className="px-6 md:px-10 lg:px-14">
-          {globalData.joinOurTeam.title && (
-            <h2 className="cda-title">
-              {globalData.joinOurTeam.title}
-            </h2>
+          {/* LEFT art (nudged to the right) */}
+          {globalData.joinOurTeam.leftImage?.node?.sourceUrl && (
+            <div className="pointer-events-none absolute top-1/2 -translate-y-1/2 hidden md:block z-20">
+              <Image
+                src={globalData.joinOurTeam.leftImage.node.sourceUrl}
+                alt={globalData.joinOurTeam.leftImage.node.altText || ''}
+                width={700}
+                height={700}
+                className="max-w-none w-[30vw] xl:w-[26vw] 2xl:w-[24vw] min-w-[220px] max-h-[320px] object-contain"
+              />
+            </div>
           )}
-          {globalData.joinOurTeam.text && (
-            <div
-              className="prose prose-sm md:prose-base max-w-none text-black mt-5"
-              dangerouslySetInnerHTML={{ __html: globalData.joinOurTeam.text }}
-            />
-          )}
-          {globalData.joinOurTeam?.cta?.url && globalData.joinOurTeam?.cta?.title && (
-            <a
-              href={globalData.joinOurTeam.cta.url}
-              target={globalData.joinOurTeam.cta.target || '_self'}
-              className="mt-6 inline-flex items-center gap-2 font-semibold underline underline-offset-4"
-            >
-              {globalData.joinOurTeam.cta.title}
-              <span aria-hidden>↘</span>
-            </a>
-          )}
-        </div>
-      </div>
-    </div>
 
-    {/* RIGHT bricks (nudged left) */}
-    {globalData.joinOurTeam.rightImage?.node?.sourceUrl && (
-      <>
-        <Image
-          src={globalData.joinOurTeam.rightImage.node.sourceUrl}
-          alt={globalData.joinOurTeam.rightImage.node.altText || ''}
-          width={420}
-          height={280}
-          className="pointer-events-none hidden md:block absolute -bottom-3 right-[9vw] lg:right-[8vw] rotate-12 w-[200px] lg:w-[230px] h-auto z-20"
-        />        
-      </>
-    )}
-  </section>
-)}
+          {/* CONTENT (nudged to the right) */}
+          <div className="relative z-30 mx-auto w-full max-w-[1280px] px-4">
+            <div className="mx-auto w-full max-w-4xl md:translate-x-[3vw] lg:translate-x-[4vw]">
+              <div className="px-8 md:px-16 lg:px-20">
+                {globalData.joinOurTeam.title && (
+                  <h2 className="h2 mb-4">
+                    {globalData.joinOurTeam.title}
+                  </h2>
+                )}
+                {globalData.joinOurTeam.text && (
+                  <div
+                    className="mt-5 text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563]"
+                    style={{ fontFamily: 'Inter, sans-serif', fontWeight: 400 }}
+                    dangerouslySetInnerHTML={{ __html: globalData.joinOurTeam.text }}
+                  />
+                )}
+                <a
+                  href="/careers"
+                  target="_self"
+                  className="button-without-box mt-6"
+                >
+                  <span className="button-text">View Our Careers</span>
+                  <span className="button-icon-wrapper">
+                    <img src="/images/arrow-icons/diagonal-right-arrow.svg" alt="" className="button-icon button-icon-default" aria-hidden="true" />
+                    <img src="/images/arrow-icons/right-arrow.svg" alt="" className="button-icon button-icon-hover" aria-hidden="true" />
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT bricks (nudged left) */}
+          {globalData.joinOurTeam.rightImage?.node?.sourceUrl && (
+            <>
+              <Image
+                src={globalData.joinOurTeam.rightImage.node.sourceUrl}
+                alt={globalData.joinOurTeam.rightImage.node.altText || ''}
+                width={420}
+                height={280}
+                className="pointer-events-none hidden md:block absolute -bottom-3 right-[9vw] lg:right-[8vw] rotate-12 w-[200px] lg:w-[230px] h-auto z-20"
+              />
+            </>
+          )}
+        </section>
+      )}
 
 
 
