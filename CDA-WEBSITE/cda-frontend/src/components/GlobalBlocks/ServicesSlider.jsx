@@ -35,8 +35,8 @@ export default function ServicesSlider({
 
   const perView = isMobile ? 1 : 4
   const maxIndex = Math.max(0, items.length - perView)
-  const next = () => setIndex((prev) => (prev >= maxIndex ? 0 : prev + 1))
-  const prev = () => setIndex((prev) => (prev <= 0 ? maxIndex : prev - 1))
+  const next = () => setIndex((prev) => Math.min(prev + 1, maxIndex))
+  const prev = () => setIndex((prev) => Math.max(prev - 1, 0))
 
   if (!items?.length) return null
 
@@ -65,20 +65,22 @@ export default function ServicesSlider({
             {/* Desktop controls + All Services */}
             <div className="hidden md:flex items-center gap-6 ml-6 whitespace-nowrap">
               {items.length > perView && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 mr-5">
                   <button
                     onClick={prev}
+                    disabled={index === 0}
                     aria-label="Previous"
-                    className="pl-5, pr-5 hover:font-bold"
+                    className={`p-0 flex-shrink-0 transition-opacity ${index === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:opacity-100 active:opacity-100 cursor-pointer'}`}
                   >
-                    ←
+                    <img src="/images/arrow-icons/left-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" aria-hidden="true" />
                   </button>
                   <button
                     onClick={next}
+                    disabled={index >= maxIndex}
                     aria-label="Next"
-                    className=""
+                    className={`p-0 flex-shrink-0 transition-opacity ${index >= maxIndex ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:opacity-100 active:opacity-100 cursor-pointer'}`}
                   >
-                    →
+                    <img src="/images/arrow-icons/right-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" aria-hidden="true" />
                   </button>
                 </div>
               )}
@@ -126,17 +128,19 @@ export default function ServicesSlider({
             <div className="mt-6 flex md:hidden justify-center gap-4">
               <button
                 onClick={prev}
+                disabled={index === 0}
                 aria-label="Previous"
-                className="p-2 border border-gray-300 hover:bg-gray-50"
+                className={`p-0 flex-shrink-0 transition-opacity ${index === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:opacity-100 active:opacity-100 cursor-pointer'}`}
               >
-                ←
+                <img src="/images/arrow-icons/left-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" aria-hidden="true" />
               </button>
               <button
                 onClick={next}
+                disabled={index >= maxIndex}
                 aria-label="Next"
-                className="p-2 border border-gray-300 hover:bg-gray-50"
+                className={`p-0 flex-shrink-0 transition-opacity ${index >= maxIndex ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:opacity-100 active:opacity-100 cursor-pointer'}`}
               >
-                →
+                <img src="/images/arrow-icons/right-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" aria-hidden="true" />
               </button>
             </div>
           )}
