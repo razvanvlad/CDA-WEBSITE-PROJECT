@@ -1,5 +1,19 @@
 # About Us Page Query Development
 
+## Metadata
+- **Status**: ACTIVE
+- **Category**: IMPLEMENTATION
+- **Last Modified**: November 3, 2025, 1:32:39 PM
+- **Last Verified**: November 14, 2025 (Documentation Audit)
+- **Related Files**: None
+- **Code Dependencies**:
+  - `src/app/about/page.js`
+  - `src/lib/graphql/queries.js`
+  - `src/components/GlobalBlocks/WhyCdaBlock.js`
+
+## Last Modified
+Monday, November 3, 2025, 1:32:39 PM
+
 ## Overview
 This document outlines the development and fixes applied to the About Us page GraphQL queries to resolve issues with global content sections not displaying correctly.
 

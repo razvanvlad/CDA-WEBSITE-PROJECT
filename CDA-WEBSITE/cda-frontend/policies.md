@@ -1,5 +1,16 @@
 # Policies Post Type – Implementation and Integration Notes
 
+## Metadata
+- **Status**: ACTIVE
+- **Category**: IMPLEMENTATION
+- **Last Modified**: November 3, 2025, 1:32:39 PM
+- **Last Verified**: November 14, 2025 (Documentation Audit)
+- **Related Files**: None
+- **Code Dependencies**: `src/app/policies/page.js`, `src/app/policies/[slug]/page.js`, `src/lib/graphql-queries.js`, `src/styles/global.css`, WordPress `wp-content/mu-plugins/cda-cms/post-types/policies.php`
+
+## Last Modified
+Monday, November 3, 2025, 1:32:39 PM
+
 This document explains how the Policies post type was added, why policies initially didn’t render on the frontend, the queries used to inspect the schema, and how we made the pages work using the simplest, schema-safe approach.
 
 ## What we added

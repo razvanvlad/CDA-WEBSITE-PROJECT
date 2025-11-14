@@ -1,6 +1,17 @@
 # News cleanup status and refactor suggestions
 
-Completed changes
+## Metadata
+- **Status**: ACTIVE
+- **Category**: STATUS
+- **Last Modified**: November 3, 2025, 1:32:39 PM
+- **Last Verified**: November 14, 2025 (Documentation Audit)
+- **Related Files**: None
+- **Code Dependencies**: `src/app/news/[slug]/page.js`, `src/app/knowledge-hub/page.js`, `src/components/NewsCarouselClient.jsx`, `next.config.js`
+
+## Last Modified
+Monday, November 3, 2025, 1:32:39 PM
+
+# Completed changes
 - Unified slug to /news/[slug]
 - Removed duplicate route: cda-frontend/src/app/news-article
 - Updated internal links:

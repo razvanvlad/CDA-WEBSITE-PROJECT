@@ -16,8 +16,8 @@ export default function TeamSlider({ teamMembers = [] }) {
 
   const perView = 1 // Mobile shows 1 at a time
   const maxIndex = Math.max(0, teamMembers.length - perView)
-  const next = () => setIndex((prev) => Math.min(prev + 1, maxIndex))
-  const prev = () => setIndex((prev) => Math.max(prev - 1, 0))
+  const next = () => setIndex((prev) => (prev >= maxIndex ? 0 : prev + 1))
+  const prev = () => setIndex((prev) => (prev <= 0 ? maxIndex : prev - 1))
 
   if (!teamMembers?.length) return null
 
@@ -94,14 +94,14 @@ export default function TeamSlider({ teamMembers = [] }) {
       <div className="overflow-hidden">
         <div
           className="flex transition-transform duration-500"
-          style={{ transform: `translateX(-${index * 100}%)` }}
+          style={{ transform: `translateX(calc(-${index * 373}px + calc(50% - 186.5px)))` }}
         >
           {teamMembers.map((m) => {
             const img = m?.featuredImage?.node || m?.teamMemberFields?.featuredImage?.node
             const alt = img?.altText || m?.title
             const job = m?.teamMemberFields?.jobTitle || m?.jobTitle || ''
             return (
-              <div key={m.id} className="w-full flex-shrink-0 px-3">
+              <div key={m.id} className="w-[373px] flex-shrink-0" style={{ padding: '0 10px' }}>
                 <div className="block group text-left">
                   <Link href={`/team/${m.slug}`} className="block">
                     <div className="relative w-full pb-[100%] overflow-visible rounded-md mb-4">
@@ -150,17 +150,15 @@ export default function TeamSlider({ teamMembers = [] }) {
         <div className="mt-6 flex justify-center gap-4">
           <button
             onClick={prev}
-            disabled={index === 0}
             aria-label="Previous"
-            className={`p-0 flex-shrink-0 transition-opacity ${index === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:opacity-100 active:opacity-100 cursor-pointer'}`}
+            className="p-0 flex-shrink-0 opacity-30 hover:opacity-100 active:opacity-100 transition-opacity cursor-pointer"
           >
             <img src="/images/arrow-icons/left-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" aria-hidden="true" />
           </button>
           <button
             onClick={next}
-            disabled={index >= maxIndex}
             aria-label="Next"
-            className={`p-0 flex-shrink-0 transition-opacity ${index >= maxIndex ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:opacity-100 active:opacity-100 cursor-pointer'}`}
+            className="p-0 flex-shrink-0 opacity-30 hover:opacity-100 active:opacity-100 transition-opacity cursor-pointer"
           >
             <img src="/images/arrow-icons/right-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" aria-hidden="true" />
           </button>

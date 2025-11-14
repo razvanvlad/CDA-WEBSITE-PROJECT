@@ -23,6 +23,7 @@
     "graphql-request": "^7.2.0",
     "isomorphic-dompurify": "^2.26.0",
     "next": "15.4.7",
+    "nodemailer": "^7.0.10",
     "pixelmatch": "^7.1.0",
     "playwright": "^1.56.1",
     "pngjs": "^7.0.0",

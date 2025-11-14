@@ -35,8 +35,8 @@ export default function ServicesSlider({
 
   const perView = isMobile ? 1 : 4
   const maxIndex = Math.max(0, items.length - perView)
-  const next = () => setIndex((prev) => Math.min(prev + 1, maxIndex))
-  const prev = () => setIndex((prev) => Math.max(prev - 1, 0))
+  const next = () => setIndex((prev) => (prev >= maxIndex ? 0 : prev + 1))
+  const prev = () => setIndex((prev) => (prev <= 0 ? maxIndex : prev - 1))
 
   if (!items?.length) return null
 
@@ -94,12 +94,17 @@ export default function ServicesSlider({
           <div className="overflow-hidden">
             <div
               className="flex transition-transform duration-500"
-              style={{ transform: `translateX(-${index * (100 / perView)}%)` }}
+              style={{
+                transform: isMobile
+                  ? `translateX(calc(-${index * 373}px + calc(50% - 186.5px)))`
+                  : `translateX(-${index * (100 / perView)}%)`
+              }}
             >
               {items.map((svc) => (
                 <div
                   key={svc.id}
-                  className="w-full md:w-1/2 lg:w-1/4 flex-shrink-0 px-3"
+                  className="w-[373px] md:w-1/2 lg:w-1/4 flex-shrink-0 md:px-3"
+                  style={isMobile ? { padding: '0 10px' } : {}}
                 >
                   <Link href={`/services/${svc.slug}`} className="block group">
                     <div className="relative w-full pb-[66%] bg-white border border-gray-200 overflow-hidden">
@@ -128,17 +133,15 @@ export default function ServicesSlider({
             <div className="mt-6 flex md:hidden justify-center gap-4">
               <button
                 onClick={prev}
-                disabled={index === 0}
                 aria-label="Previous"
-                className={`p-0 flex-shrink-0 transition-opacity ${index === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:opacity-100 active:opacity-100 cursor-pointer'}`}
+                className="p-0 flex-shrink-0 opacity-30 hover:opacity-100 active:opacity-100 transition-opacity cursor-pointer"
               >
                 <img src="/images/arrow-icons/left-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" aria-hidden="true" />
               </button>
               <button
                 onClick={next}
-                disabled={index >= maxIndex}
                 aria-label="Next"
-                className={`p-0 flex-shrink-0 transition-opacity ${index >= maxIndex ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:opacity-100 active:opacity-100 cursor-pointer'}`}
+                className="p-0 flex-shrink-0 opacity-30 hover:opacity-100 active:opacity-100 transition-opacity cursor-pointer"
               >
                 <img src="/images/arrow-icons/right-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" aria-hidden="true" />
               </button>

@@ -1,7 +1,18 @@
 # UnderlinedTitle Component - Quick Reference Guide
 
+## Metadata
+- **Status**: ACTIVE
+- **Category**: GUIDE
+- **Last Modified**: October 28, 2025, 1:33:19 PM
+- **Last Verified**: November 14, 2025 (Documentation Audit - Corrected SVG implementation info)
+- **Related Files**: IMPLEMENTATION_PROGRESS.md, SIZING_REFERENCE.md, CURRENT_STATUS.md
+- **Code Dependencies**: `src/components/UnderlinedTitle.tsx`, `src/constants/colors.ts`
+
+## Last Modified
+Tuesday, October 28, 2025, 1:33:19 PM
+
 ## Overview
-The `UnderlinedTitle` component provides a simple, consistent way to add straight underlines to titles across the site.
+The `UnderlinedTitle` component provides a simple, consistent way to add curved SVG underlines to titles across the site.
 
 ## Default Values
 - **Color:** `#FF5C8A` (brand-redish-pink)
@@ -231,11 +242,14 @@ className="border-brand-green"      // Border colors
 
 ## Notes
 
-- The component uses CSS `text-decoration` properties for the underline
-- Underlines are always straight (not curved)
-- Responsive by default - no special handling needed
+- The component uses **SVG curved underlines** with quadratic bezier paths (NOT CSS text-decoration)
+- Underlines feature **smooth curves** for visual appeal (not straight lines)
+- Fully responsive with multi-line support - uses ResizeObserver for dynamic measurements
+- Automatically measures text width and adjusts curves for each line
 - Accessible - maintains semantic HTML heading structure
 - Works with all Tailwind utility classes
+- Technical implementation: SVG path formula `M 0 ${startY} Q ${lineWidth / 2} ${controlY} ${lineWidth} ${endY}`
+- Curve intensity controlled via `curveIntensity` prop (default: 0.01)
 
 ---
 
