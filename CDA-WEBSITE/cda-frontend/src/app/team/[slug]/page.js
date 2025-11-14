@@ -1,10 +1,12 @@
-import { getTeamMemberBySlug, getTeamMemberSlugs, getTeamMemberDetailsByDbId } from '@/lib/graphql-queries.js'
+import { getTeamMemberBySlug, getTeamMemberSlugs, getTeamMemberDetailsByDbId, getTeamMembersWithPagination, getTeamMembersCoreWithPagination } from '@/lib/graphql-queries.js'
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
 import ResponsiveUnderlinedTitle from '../../../components/ResponsiveUnderlinedTitle'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import HubspotMeetingsScheduler from '@/components/Embeds/HubspotMeetingsScheduler.jsx'
+import TeamMembers from '../../../components/TeamMembers'
+import ServicesSlider from '../../../components/GlobalBlocks/ServicesSlider'
 
 export const revalidate = 300
 
@@ -62,6 +64,19 @@ export default async function TeamMemberDetailPage({ params }) {
     const contactDetails = member?.teamMemberFields?.contactDetails || []
     const profileImage = member?.teamMemberFields?.featuredImage?.node?.sourceUrl || member?.featuredImage?.node?.sourceUrl || null
     const profileAlt = member?.teamMemberFields?.featuredImage?.node?.altText || member?.featuredImage?.node?.altText || member?.title || 'Team member photo'
+
+    // Fetch ALL team members for TeamMembers component
+    let allTeam = []
+    try {
+      const { nodes } = await getTeamMembersWithPagination({ first: 100 })
+      if (nodes?.length) allTeam = nodes
+      else {
+        const coreMembers = await getTeamMembersCoreWithPagination({ first: 100 })
+        allTeam = coreMembers?.nodes || []
+      }
+    } catch (_) { /* ignore */ }
+    // Oldest first (ascending by date)
+    allTeam = [...allTeam].sort((a, b) => new Date(a?.date || 0) - new Date(b?.date || 0))
 
     return (
       <>
@@ -134,23 +149,18 @@ export default async function TeamMemberDetailPage({ params }) {
           </div> 
         </article>
 
-        {/* Team Members Slider (below booking form) */}
-        {member && (
-          <div className="bg-white">
-            {(() => { const TeamMembersSlider = require('../../../components/GlobalBlocks/TeamMembersSlider.jsx').default; return (
-              <TeamMembersSlider title="Meet More of the Team" subtitle="Our Team" />
-            ); })()}
-          </div>
-        )}
+        {/* Team Members Section (below booking form) */}
+        <TeamMembers
+          subtitle="Our Team"
+          title="Meet More of the Team"
+          teamMembers={allTeam}
+        />
 
         {/* Services Slider at end of team member post */}
-        {member && (
-          <div className="bg-white">
-            {(() => { const ServicesSlider = require('../../../components/GlobalBlocks/ServicesSlider.jsx').default; return (
-              <ServicesSlider title="You May Also Be Interested In" subtitle="Our Services" />
-            ); })()}
-          </div>
-        )}
+        <ServicesSlider
+          title="You May Also Be Interested In"
+          subtitle="Our Services"
+        />
         <Footer />
       </>
     )

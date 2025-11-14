@@ -2,9 +2,9 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import HeroSection from '@/components/GlobalBlocks/HeroSection'
 import TextLinkButton from '../../components/ui/TextLinkButton'
-import Link from 'next/link'
 import Image from 'next/image'
 import ResponsiveUnderlinedTitle from '../../components/ResponsiveUnderlinedTitle'
+import TeamMembers from '../../components/TeamMembers'
 import { sanitizeTitleHtml } from '@/lib/sanitizeTitleHtml'
 import { executeGraphQLQuery, getGlobalContent, getPageGlobalTogglesByUri, getPageGlobalTogglesBySlug, getTeamMembersWithPagination, getTeamMembersCoreWithPagination } from '@/lib/graphql-queries'
 
@@ -218,88 +218,11 @@ export default async function TeamPage() {
 
       {/* 3) Meet the team */}
       {meet && (
-        <section className="py-16 bg-white">
-          <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
-            <div className="mb-8">
-              {meet.subtitle && (<p className="cda-subtitle">{meet.subtitle}</p>)}
-              {meet.title && (
-                <ResponsiveUnderlinedTitle
-                  as="h2"
-                  className="section-title"
-                  underlineColor="#FF5C8A"
-                >
-                  {meet.title}
-                </ResponsiveUnderlinedTitle>
-              )}
-            </div>
-            {allTeam && allTeam.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {allTeam.map((m) => {
-                  const img = m?.featuredImage?.node || m?.teamMemberFields?.featuredImage?.node
-                  const alt = img?.altText || m?.title
-                  const job = m?.teamMemberFields?.jobTitle || m?.jobTitle || ''
-                  return (
-                    <div key={m.id} className="w-full flex-shrink-0">
-                      <div className="block group text-left">
-                        <Link href={`/team/${m.slug}`} className="block">
-                          <div className="relative w-full pb-[100%]  overflow-visible rounded-md mb-4">
-                            {img?.sourceUrl && (
-                              <Image
-                                src={img.sourceUrl}
-                                alt={alt}
-                                fill
-                                className="object-cover object-top"
-                                style={{ transform: 'translateY(-8%)' }}
-                              />
-                            )}
-                          </div>
-                          <div className="relative">
-                            <div className="text-[22px] leading-tight text-black" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700 }}>
-                              {m.title}
-                            </div>
-                            {job && (
-                              <div className="text-[18px] text-gray-600 mt-3" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 400 }}>
-                                {job}
-                              </div>
-                            )}
-                          </div>
-                        </Link>
-                        <div className="mt-4">
-                          <Link
-                            href={`/team/${m.slug}`}
-                            className="button-without-box"
-                          >
-                            <span className="button-text">View Profile</span>
-                            <span className="button-icon-wrapper">
-                              <img src="/images/arrow-icons/diagonal-right-arrow.svg" alt="" className="button-icon button-icon-default" aria-hidden="true" />
-                              <img src="/images/arrow-icons/right-arrow.svg" alt="" className="button-icon button-icon-hover" aria-hidden="true" />
-                            </span>
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-                <div className="w-full flex-shrink-0">
-                  <div className="flex items-center justify-center h-full">
-                    <Image
-                      src="/images/green-arrow.svg"
-                      alt=""
-                      width={271}
-                      height={313}
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="bg-gray-50 p-8 rounded-lg text-center">
-                <h3 className="text-xl font-semibold text-gray-700 mb-2">No team members found</h3>
-                <p className="text-gray-600">Add team members in WP → Team Members.</p>
-              </div>
-            )}
-          </div>
-        </section>
+        <TeamMembers
+          subtitle={meet.subtitle}
+          title={meet.title}
+          teamMembers={allTeam}
+        />
       )}
 
 
