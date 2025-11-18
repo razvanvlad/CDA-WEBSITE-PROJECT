@@ -76,10 +76,19 @@ export default function ServicesClient({ initialItems = [] }) {
   }
 
   return (
-    <div className="space-y-6 mb-16">
-      {services.map((service) => (
-        <div key={service.id} className="bg-white border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 hover:border-gray-300">
-          <div className="flex flex-col lg:flex-row">
+    <div className="mb-16">
+      {/* Container: top border + divide-y for shared middle lines */}
+      <div className="divide-y divide-gray-200 border-t border-gray-200">
+        {services.map((service, index) => {
+          // Determine if this is the last item
+          const isLast = index === services.length - 1;
+
+          return (
+            <div
+              key={service.id}
+              className={`bg-white ${isLast ? 'border-b border-gray-200' : ''} hover:shadow-lg transition-all duration-300 hover:border-gray-300`}
+            >
+              <div className="flex flex-col lg:flex-row">
             {/* Left Section - Title and Image */}
             <div className="lg:w-1/3 p-6">
               <div className="flex items-center gap-2 mb-4">
@@ -150,7 +159,9 @@ export default function ServicesClient({ initialItems = [] }) {
             </div>
           </div>
         </div>
-      ))}
+          );
+        })}
+      </div>
     </div>
   );
 }
