@@ -1,0 +1,398 @@
+/* ═══════════════════════════════════════════════════════════════════
+   SHARED LAYOUT PATTERNS
+   ═══════════════════════════════════════════════════════════════════
+
+   Reusable layout components and patterns used across the site.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────
+   VALUE BADGES
+   ───────────────────────────────────────────────────────────────── */
+
+/* Square badge in the style of button-l */
+.value-badge-l {
+  --btn-l-line: 1px;
+  --btn-l-offset: 4px;
+  --badge-size: 37px;
+
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: var(--badge-size);
+  height: var(--badge-size);
+
+  background-color: black;
+  color: white;
+
+  font-family: var(--font-poppins, Poppins), var(--font-inter, Inter), sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+
+  flex: 0 0 auto;
+  border: none;
+  box-shadow: none;
+  cursor: default;
+}
+
+.value-badge-l::before {
+  content: '';
+  position: absolute;
+  left: var(--btn-l-offset);
+  bottom: calc(var(--btn-l-offset) * -1);
+  width: calc(100% - var(--btn-l-line));
+  height: var(--btn-l-line);
+  background-color: black;
+  z-index: 1;
+}
+
+.value-badge-l::after {
+  content: '';
+  position: absolute;
+  top: var(--btn-l-offset);
+  right: calc(var(--btn-l-offset) * -1);
+  width: var(--btn-l-line);
+  bottom: calc(var(--btn-l-offset) * -1);
+  background-color: black;
+  z-index: 1;
+}
+
+/* Values number badge */
+.value-badge {
+  width: 75px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-poppins), var(--font-inter), sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  background: #000000;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #000000;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   TITLE UNDERLINE SVG HELPER
+   ───────────────────────────────────────────────────────────────── */
+
+.underline-svg {
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SHARED HERO LAYOUT (CDA-HERO)
+   ───────────────────────────────────────────────────────────────── */
+
+.cda-hero {
+  background-color: #ffffff;
+  padding: 24px 0 40px;
+}
+
+@media (min-width: 768px) {
+  .cda-hero {
+    padding: 88px 0;
+  }
+}
+
+.cda-hero__container {
+  width: 100%;
+  max-width: 1620px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+  .cda-hero__container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cda-hero__container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.cda-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "title"
+    "image"
+    "text"
+    "cta";
+  row-gap: 16px;
+  column-gap: 0;
+  justify-items: center;
+}
+
+.cda-hero__title,
+.cda-hero__text,
+.cda-hero__cta {
+  width: 100%;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cda-hero__title {
+  grid-area: title;
+  text-align: center;
+}
+
+.cda-hero__title-text {
+  margin: 0;
+}
+
+.cda-hero__eyebrow {
+  font-family: var(--font-poppins), var(--font-inter), sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 0.75rem;
+}
+
+.cda-hero__image {
+  grid-area: image;
+  display: flex;
+  justify-content: center;
+}
+
+.cda-hero__image-media {
+  width: min(560px, 100%);
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  .cda-hero__image-media {
+    width: min(320px, 90%);
+  }
+}
+
+.cda-hero__image-placeholder {
+  width: min(520px, 100%);
+  min-height: 260px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  border: 1px dashed #d1d5db;
+  background-color: #f9fafb;
+  color: #4b5563;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.cda-hero__text {
+  grid-area: text;
+  text-align: center;
+}
+
+.cda-hero__text-content {
+  margin: 0;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: #4b5563;
+}
+
+@media (min-width: 768px) {
+  .cda-hero__text-content {
+    font-size: 18px;
+    font-weight: 400;
+  }
+}
+
+.cda-hero__cta {
+  grid-area: cta;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px 24px;
+}
+
+.cda-hero__cta-item {
+  display: inline-flex;
+}
+
+@media (min-width: 1024px) {
+  .cda-hero__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "title image"
+      "text image"
+      "cta image";
+    column-gap: 4rem;
+    row-gap: 16px;
+    justify-items: stretch;
+    align-items: center;
+  }
+
+  .cda-hero__title,
+  .cda-hero__text,
+  .cda-hero__cta {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+    justify-self: flex-start;
+  }
+
+  .cda-hero__image {
+    justify-content: flex-end;
+  }
+
+  .cda-hero__cta {
+    justify-content: flex-start;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   POLICY CONTENT STYLES
+   ───────────────────────────────────────────────────────────────── */
+
+.policy-content h1,
+.policy-content h2,
+.policy-content h3,
+.policy-content h4,
+.policy-content h5,
+.policy-content h6 {
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+.policy-content h1 {
+  font-size: 1.875rem;
+}
+
+.policy-content h2 {
+  font-size: 1.5rem;
+}
+
+.policy-content h3 {
+  font-size: 1.25rem;
+}
+
+.policy-content h4 {
+  font-size: 1.125rem;
+}
+
+.policy-content p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+  color: #374151;
+}
+
+.policy-content ul,
+.policy-content ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.policy-content li {
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.policy-content a {
+  color: #3B82F6;
+  text-decoration: underline;
+}
+
+.policy-content a:hover {
+  color: #1D4ED8;
+}
+
+.policy-content strong {
+  font-weight: 600;
+  color: #111827;
+}
+
+.policy-content blockquote {
+  border-left: 4px solid #E5E7EB;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #6B7280;
+}
+
+.policy-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.policy-content th,
+.policy-content td {
+  border: 1px solid #E5E7EB;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.policy-content th {
+  background-color: #F9FAFB;
+  font-weight: 600;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   GLOBAL OVERRIDES
+   ───────────────────────────────────────────────────────────────── */
+
+/* Global override: Remove all border-radius from the website */
+* {
+  border-radius: 0 !important;
+}
+
+/* Specific overrides for common rounded classes */
+.rounded,
+.rounded-sm,
+.rounded-md,
+.rounded-lg,
+.rounded-xl,
+.rounded-2xl,
+.rounded-3xl,
+.rounded-full,
+.rounded-none,
+.rounded-t,
+.rounded-r,
+.rounded-b,
+.rounded-l,
+.rounded-tl,
+.rounded-tr,
+.rounded-br,
+.rounded-bl {
+  border-radius: 0 !important;
+}
+
+/* Extra specific override for bullet points and small elements */
+.w-2.h-2,
+.flex-shrink-0.w-2.h-2,
+div.w-2.h-2,
+.w-2.h-2.rounded-full {
+  border-radius: 0 !important;
+}
+
+/* Force rounded class for exceptions */
+.force-rounded {
+  border-radius: 20px !important;
+}

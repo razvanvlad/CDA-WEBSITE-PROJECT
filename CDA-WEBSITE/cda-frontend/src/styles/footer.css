@@ -1,0 +1,76 @@
+/* ═══════════════════════════════════════════════════════════════════
+   FOOTER STYLES
+   ═══════════════════════════════════════════════════════════════════
+
+   Footer CTA and magnifier interaction styles.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Footer CTA: bottom-center magnifier with hover swap */
+.footer-cta-card {
+  position: relative;
+  overflow: visible !important;
+}
+
+.footer-cta-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+/* Magnifier container: positioned within the CTA card */
+.footer-cta-magnifier {
+  position: absolute;
+  --rest-left: 50%;
+  --rest-offset: 220px;
+  left: var(--rest-left);
+  top: calc(100% + var(--rest-offset));
+  bottom: auto;
+  transform: translateX(-50%);
+
+  width: 518px;
+  height: 518px;
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform, top, left;
+  transition: left 260ms ease, top 260ms ease, transform 260ms ease, opacity 200ms ease;
+
+  /* Lens center inside the SVG frame (fractions, 0..1) */
+  --lens-anchor-x: 0.50;
+  --lens-anchor-y: 0.46;
+  --lens-nudge-x: 0px;
+  --lens-nudge-y: -2px;
+  --hover-scale: 1.7;
+
+  transform-origin: calc(var(--lens-anchor-x) * 100%) calc(var(--lens-anchor-y) * 100%);
+}
+
+/* When JS aligns the magnifier to the button center */
+.footer-cta-magnifier[data-moved="true"] {
+  bottom: auto;
+  transform: scale(var(--hover-scale));
+}
+
+/* Responsive minor tweak in case container constrains */
+@media (max-width: 640px) {
+  .footer-cta-magnifier {
+    width: 380px;
+    height: 324px;
+    left: 50%;
+    --rest-offset: 100px;
+    --hover-scale: 1.35;
+    top: calc(100% + var(--rest-offset));
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-cta-magnifier {
+    width: clamp(140px, 40vw, 260px);
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-cta-magnifier {
+    width: clamp(120px, 45vw, 220px);
+  }
+}

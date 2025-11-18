@@ -1,0 +1,44 @@
+/* ═══════════════════════════════════════════════════════════════════
+   HUBSPOT FORM STYLES
+   ═══════════════════════════════════════════════════════════════════
+
+   All HubSpot-related form styling and layout overrides.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* HubSpot injected layout wrappers */
+.hubspot-form-wrapper .hs-form .hs-grid-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.hubspot-form-wrapper .hs-form .hs-grid-row.hs-grid-row--first>.hs-form-field {
+  min-width: 0;
+}
+
+.hubspot-form-wrapper .hs-form .hs-actions-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .hubspot-form-wrapper .hs-form .hs-grid-row {
+    grid-template-columns: 1fr;
+  }
+
+  .hubspot-form-wrapper .hs-form .hs-actions-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* hide original submit input when proxy is present */
+.hubspot-form-wrapper .hs-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  white-space: nowrap !important;
+}

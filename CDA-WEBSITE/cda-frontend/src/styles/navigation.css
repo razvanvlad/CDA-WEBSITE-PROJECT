@@ -1,0 +1,95 @@
+/* ═══════════════════════════════════════════════════════════════════
+   NAVIGATION & MENU STYLES
+   ═══════════════════════════════════════════════════════════════════
+
+   Navigation links, side menu, and menu-related components.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────
+   NAV LINKS
+   ───────────────────────────────────────────────────────────────── */
+
+.nav-link {
+  color: #000000;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #000000;
+  text-decoration: underline;
+  text-decoration-color: #3CBEEB;
+  text-decoration-thickness: 4px;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SIDE MENU
+   ───────────────────────────────────────────────────────────────── */
+
+.side-menu-heading {
+  font-family: var(--font-poppins), var(--font-inter), sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #FFFFFF;
+}
+
+.side-menu-divider {
+  border: 0;
+  border-top: 1px solid #FFFFFF;
+  border-color: #FFFFFF;
+}
+
+.side-menu-item {
+  display: block;
+  padding: 0.25rem 0;
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.side-menu-item:hover {
+  color: #FFFFFF;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.side-menu-connect-heading {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  color: #FFFFFF;
+}
+
+.side-menu-connect-link {
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #FFFFFF;
+  text-decoration: none;
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.side-menu-connect-text {
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #D1D1D1;
+}
+
+.side-menu-social {
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Back button in side menu - specific styling */
+button .side-menu-heading.group-hover\:underline {
+  text-decoration: underline;
+  font-size: 14px;
+  font-weight: 700;
+}
