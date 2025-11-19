@@ -17,7 +17,10 @@
       "Bash(npm --version:*)",
       "Bash(python add_puppeteer_mcp.py:*)",
       "Bash(powershell -Command:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(dir /b \"C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\public\\images\" 2)",
+      "Bash(nul)",
+      "Bash(dir /b \"C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\public\\images\\services\")"
     ],
     "deny": [],
     "ask": []

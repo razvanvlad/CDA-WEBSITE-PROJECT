@@ -13,6 +13,8 @@ import ApproachBlock from '../../../components/GlobalBlocks/ApproachBlock';
 import NewsCarousel from '../../../components/GlobalBlocks/NewsCarousel';
 import ServicesSlider from '../../../components/GlobalBlocks/ServicesSlider.jsx';
 import SellOnline from '@/components/SellOnline';
+import ClientShowcase from '../../../components/ClientShowcase';
+import ChartServiceSection from '../../../components/ChartServiceSection';
 
 export const revalidate = 120;
 
@@ -119,7 +121,126 @@ export default async function ServicePage({ params }) {
           image={heroImageNode}
         />
 
+        {/* SECTION 1: Services Grid (3x3 Cards) */}
+        <section className={`services-grid-section py-16 ${nextBg()}`}>
+          <div className="cda-hero__container">
+            {/* Services Grid - 3x3 */}
+            <div className="services-grid">
+              {/* Card 1: Ecommerce Website Development */}
+              <div className="service-card">
+                <h3 className="service-card__title">Ecommerce Website Development</h3>
+                <p className="service-card__description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <Link href="/services/ecommerce-website-development" className="button-l-white">
+                  Find Out More
+                </Link>
+              </div>
 
+              {/* Card 2: Ecommerce UI & UX */}
+              <div className="service-card">
+                <h3 className="service-card__title">Ecommerce UI & UX</h3>
+                <p className="service-card__description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <Link href="/services/ecommerce-ui-ux" className="button-l-white">
+                  Find Out More
+                </Link>
+              </div>
+
+              {/* Card 3: Ecommerce Marketing */}
+              <div className="service-card">
+                <h3 className="service-card__title">Ecommerce Marketing</h3>
+                <p className="service-card__description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <Link href="/services/ecommerce-marketing" className="button-l-white">
+                  Find Out More
+                </Link>
+              </div>
+
+              {/* Card 4: Conversion Rate Optimisation */}
+              <div className="service-card">
+                <h3 className="service-card__title">Conversion Rate Optimisation</h3>
+                <p className="service-card__description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <Link href="/services/conversion-rate-optimisation" className="button-l-white">
+                  Find Out More
+                </Link>
+              </div>
+
+              {/* Card 5: Ecommerce Platforms */}
+              <div className="service-card">
+                <h3 className="service-card__title">Ecommerce Platforms</h3>
+                <p className="service-card__description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <Link href="/services/ecommerce-platforms" className="button-l-white">
+                  Find Out More
+                </Link>
+              </div>
+
+              {/* Card 6: Ecommerce Automations */}
+              <div className="service-card">
+                <h3 className="service-card__title">Ecommerce Automations</h3>
+                <p className="service-card__description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <Link href="/services/ecommerce-automations" className="button-l-white">
+                  Find Out More
+                </Link>
+              </div>
+
+              {/* Card 7: Ecommerce Consultancy */}
+              <div className="service-card">
+                <h3 className="service-card__title">Ecommerce Consultancy</h3>
+                <p className="service-card__description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <Link href="/services/ecommerce-consultancy" className="button-l-white">
+                  Find Out More
+                </Link>
+              </div>
+
+              {/* Card 8: Ecommerce And AI */}
+              <div className="service-card">
+                <h3 className="service-card__title">Ecommerce And AI</h3>
+                <p className="service-card__description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <Link href="/services/ecommerce-ai" className="button-l-white">
+                  Find Out More
+                </Link>
+              </div>
+
+              {/* Card 9: Headless Ecommerce */}
+              <div className="service-card">
+                <h3 className="service-card__title">Headless Ecommerce</h3>
+                <p className="service-card__description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <Link href="/services/headless-ecommerce" className="button-l-white">
+                  Find Out More
+                </Link>
+              </div>
+            </div>
+
+            {/* Decorative curved line graphics */}
+            <svg className="services-grid-decoration services-grid-decoration--top" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 0 50 Q 50 0, 100 50 T 200 50" stroke="#3CBEEB" strokeWidth="2" fill="none" opacity="0.3" />
+            </svg>
+            <svg className="services-grid-decoration services-grid-decoration--bottom" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 0 50 Q 50 100, 100 50 T 200 50" stroke="#3CBEEB" strokeWidth="2" fill="none" opacity="0.3" />
+            </svg>
+          </div>
+        </section>
+
+        {/* SECTION 4: Stats Image + Content with Bullets */}
+        <ChartServiceSection />
+
+        {/* SECTION 3: Client Showcase */}
+        <ClientShowcase />
 
 
 

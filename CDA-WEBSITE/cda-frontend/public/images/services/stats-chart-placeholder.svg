@@ -1,0 +1,67 @@
+<svg width="600" height="500" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="600" height="500" fill="#F9FAFB"/>
+
+  <!-- Grid lines -->
+  <g opacity="0.2">
+    <line x1="50" y1="100" x2="550" y2="100" stroke="#9CA3AF" stroke-width="1"/>
+    <line x1="50" y1="175" x2="550" y2="175" stroke="#9CA3AF" stroke-width="1"/>
+    <line x1="50" y1="250" x2="550" y2="250" stroke="#9CA3AF" stroke-width="1"/>
+    <line x1="50" y1="325" x2="550" y2="325" stroke="#9CA3AF" stroke-width="1"/>
+    <line x1="50" y1="400" x2="550" y2="400" stroke="#9CA3AF" stroke-width="1"/>
+  </g>
+
+  <!-- Growing bars (ascending) -->
+  <g>
+    <!-- Bar 1 - Shortest -->
+    <rect x="100" y="350" width="60" height="50" fill="#3CBEEB" opacity="0.6" rx="4"/>
+
+    <!-- Bar 2 -->
+    <rect x="190" y="300" width="60" height="100" fill="#3CBEEB" opacity="0.7" rx="4"/>
+
+    <!-- Bar 3 -->
+    <rect x="280" y="240" width="60" height="160" fill="#3CBEEB" opacity="0.8" rx="4"/>
+
+    <!-- Bar 4 -->
+    <rect x="370" y="180" width="60" height="220" fill="#3CBEEB" opacity="0.9" rx="4"/>
+
+    <!-- Bar 5 - Tallest -->
+    <rect x="460" y="120" width="60" height="280" fill="#3CBEEB" rx="4"/>
+  </g>
+
+  <!-- Trend line overlay -->
+  <path d="M 130 375 L 220 350 L 310 310 L 400 270 L 490 240"
+        stroke="#3CBEEB"
+        stroke-width="3"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Data points on trend line -->
+  <circle cx="130" cy="375" r="6" fill="#3CBEEB"/>
+  <circle cx="220" cy="350" r="6" fill="#3CBEEB"/>
+  <circle cx="310" cy="310" r="6" fill="#3CBEEB"/>
+  <circle cx="400" cy="270" r="6" fill="#3CBEEB"/>
+  <circle cx="490" cy="240" r="6" fill="#3CBEEB"/>
+
+  <!-- Axis -->
+  <line x1="50" y1="400" x2="550" y2="400" stroke="#374151" stroke-width="2"/>
+  <line x1="50" y1="400" x2="50" y2="80" stroke="#374151" stroke-width="2"/>
+
+  <!-- Y-axis labels -->
+  <text x="35" y="105" font-family="Arial" font-size="12" fill="#6B7280" text-anchor="end">100</text>
+  <text x="35" y="180" font-family="Arial" font-size="12" fill="#6B7280" text-anchor="end">75</text>
+  <text x="35" y="255" font-family="Arial" font-size="12" fill="#6B7280" text-anchor="end">50</text>
+  <text x="35" y="330" font-family="Arial" font-size="12" fill="#6B7280" text-anchor="end">25</text>
+  <text x="35" y="405" font-family="Arial" font-size="12" fill="#6B7280" text-anchor="end">0</text>
+
+  <!-- X-axis labels -->
+  <text x="130" y="430" font-family="Arial" font-size="12" fill="#6B7280" text-anchor="middle">Q1</text>
+  <text x="220" y="430" font-family="Arial" font-size="12" fill="#6B7280" text-anchor="middle">Q2</text>
+  <text x="310" y="430" font-family="Arial" font-size="12" fill="#6B7280" text-anchor="middle">Q3</text>
+  <text x="400" y="430" font-family="Arial" font-size="12" fill="#6B7280" text-anchor="middle">Q4</text>
+  <text x="490" y="430" font-family="Arial" font-size="12" fill="#6B7280" text-anchor="middle">Q5</text>
+
+  <!-- Title -->
+  <text x="300" y="40" font-family="Arial" font-size="20" font-weight="600" fill="#111827" text-anchor="middle">Ecommerce Growth</text>
+</svg>

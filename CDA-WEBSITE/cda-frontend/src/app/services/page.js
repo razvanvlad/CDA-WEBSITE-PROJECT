@@ -8,6 +8,7 @@ import Showreel from '@/components/GlobalBlocks/Showreel'
 import ServicesProcess from '@/components/Sections/ServicesProcess'
 import ServicesStats from '@/components/Sections/ServicesStats'
 import ServicesCaseStudiesPreview from '@/components/Sections/ServicesCaseStudiesPreview'
+import ServiceIconListSection from '@/components/Sections/ServiceIconListSection'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import ResponsiveUnderlinedTitle from '../../components/ResponsiveUnderlinedTitle'
@@ -257,6 +258,9 @@ export default async function ServicesPage() {
             <Suspense fallback={<div className="max-w-7xl mx-auto px-4 py-16 text-gray-500">Loading services…</div>}>
               <ServicesClient initialItems={services} />
             </Suspense>
+
+            {/* Service Icon List Section */}
+            <ServiceIconListSection />
 
             {/* Our Approach Global Block (placed directly after the services list) */}
             {globalContent?.approach && (
