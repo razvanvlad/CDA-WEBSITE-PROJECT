@@ -244,7 +244,7 @@ export default async function ServicePage({ params }) {
         </section>
 
         {/* SECTION 4: Stats Image + Content with Bullets */}
-        <ChartServiceSection />
+        <ChartServiceSection serviceColor={serviceColor} />
 
         {/* SECTION 3: Client Showcase */}
         <ClientShowcase />
