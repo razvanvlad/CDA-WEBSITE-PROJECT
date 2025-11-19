@@ -168,9 +168,9 @@ export default function RoiCalculatorForm() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
+        <div className="flex flex-col lg:grid lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Left 1/3 - Title and Text */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 order-1">
             <div className="mb-6">
               <ResponsiveUnderlinedTitle as="h1" underlineColor="#01E486">
                 ROI Calculator
@@ -180,22 +180,10 @@ export default function RoiCalculatorForm() {
             <p className="text-gray-700 leading-relaxed mb-8 text-base lg:text-lg">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco nisi laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.
             </p>
-
-            {/* Mobile image only */}
-            <div className="lg:hidden -mx-4 mt-8">
-              <Image
-                src="/images/roi-calculator.svg"
-                alt="ROI Calculator Illustration"
-                width={959}
-                height={600}
-                className="w-full h-auto"
-                priority
-              />
-            </div>
           </div>
 
           {/* Right 2/3 - Form */}
-          <div className="lg:col-span-2 bg-[#F4F4F4] p-6 lg:p-8 rounded-lg min-h-[600px]">
+          <div className="lg:col-span-2 bg-[#F4F4F4] p-6 lg:p-8 rounded-lg min-h-[600px] order-2">
             {/* Progress Indicator */}
             <div className="mb-8">
               <div className="flex justify-between items-center mb-3">
@@ -403,6 +391,18 @@ export default function RoiCalculatorForm() {
                 </>
               )}
             </form>
+          </div>
+
+          {/* Mobile image - shown after form on mobile */}
+          <div className="lg:hidden -mx-4 order-3">
+            <Image
+              src="/images/roi-calculator.svg"
+              alt="ROI Calculator Illustration"
+              width={959}
+              height={600}
+              className="w-full h-auto"
+              priority
+            />
           </div>
         </div>
       </div>
