@@ -151,6 +151,28 @@
   margin-top: auto;
 }
 
+/* Card with pin - position relative for absolute positioning */
+.service-card--with-pin {
+  position: relative;
+}
+
+/* Pin icon */
+.service-card__pin {
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  width: 45px;
+  height: 66px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .service-card__pin {
+    right: 15px;
+  }
+}
+
 /* Decorative curved line graphics */
 .services-grid-decoration {
   position: absolute;
@@ -323,4 +345,115 @@
   .stats-content-decoration {
     display: none;
   }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SOLUTIONS SECTION (Replaces Stats Content)
+   ───────────────────────────────────────────────────────────────── */
+
+.solutions-section {
+  background-color: #f9fafb;
+  /* Light gray background */
+  padding: 80px 0;
+}
+
+.solutions-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .solutions-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+}
+
+/* Left Column: Checkmark List */
+.solutions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.solutions-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.solutions-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  color: #111827;
+  /* Black icon */
+}
+
+.solutions-text {
+  font-family: var(--font-poppins);
+  font-size: 18px;
+  font-weight: 700;
+  /* Bold */
+  color: #111827;
+  line-height: 1.4;
+}
+
+@media (max-width: 767px) {
+  .solutions-text {
+    font-size: 16px;
+  }
+}
+
+/* Right Column: White Card */
+.solutions-card {
+  background-color: white;
+  padding: 48px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  /* border-radius: 0; Sharp corners as per design? Or default? Assuming sharp or slight radius. Image looks sharp/default. */
+}
+
+@media (max-width: 767px) {
+  .solutions-card {
+    padding: 32px;
+  }
+}
+
+.solutions-card__title {
+  font-family: var(--font-poppins);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #000000;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 767px) {
+  .solutions-card__title {
+    font-size: 24px;
+  }
+}
+
+.solutions-card__description {
+  font-family: var(--font-inter);
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4b5563;
+  margin-bottom: 32px;
+}
+
+.solutions-card .button-l {
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  display: inline-block;
+}
+
+.solutions-card .button-l:hover {
+  background-color: #333333;
 }

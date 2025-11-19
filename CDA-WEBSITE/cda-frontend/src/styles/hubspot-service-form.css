@@ -1,0 +1,184 @@
+/* Service Page Hubspot Form Styles */
+.service-hubspot-form {
+    position: relative;
+    background-color: #f9fafb;
+    /* Light gray background */
+    padding: 4rem 1rem;
+    overflow: hidden;
+}
+
+.service-hubspot-form__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+@media (min-width: 1024px) {
+    .service-hubspot-form__container {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+}
+
+.service-hubspot-form__content {
+    flex: 1;
+    max-width: 600px;
+    z-index: 10;
+}
+
+.service-hubspot-form__title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #000;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+    line-height: 1.2;
+}
+
+.service-hubspot-form__title::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background-color: #ff7a00;
+    z-index: -1;
+}
+
+.service-hubspot-form__bird {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+    margin-top: 2rem;
+}
+
+@media (min-width: 1024px) {
+    .service-hubspot-form__bird {
+        margin-top: 0;
+        justify-content: flex-end;
+        /* Position it to overlap or sit nicely */
+        min-height: 500px;
+    }
+
+    .service-hubspot-form__bird img {
+        max-width: 120%;
+        /* Allow it to be large */
+        width: 500px;
+    }
+}
+
+/* Hubspot Form Overrides */
+.service-hubspot-form .hs-form-field {
+    margin-bottom: 1rem;
+}
+
+/* Grid Layout for Form Fields */
+.service-hubspot-form .hs-form .hs-grid-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+    .service-hubspot-form .hs-form .hs-grid-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .service-hubspot-form .hs-form .hs-grid-row>.hs-form-field:only-child {
+        grid-column: 1 / -1;
+    }
+}
+
+.service-hubspot-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: #374151;
+    font-weight: 500;
+}
+
+.service-hubspot-form input[type="text"],
+.service-hubspot-form input[type="email"],
+.service-hubspot-form input[type="tel"],
+.service-hubspot-form input[type="number"],
+.service-hubspot-form input[type="url"],
+.service-hubspot-form textarea,
+.service-hubspot-form select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb;
+    background-color: #fff;
+    font-size: 1rem;
+    color: #1f2937;
+    outline: none;
+    border-radius: 0;
+    /* Sharp corners as per design */
+    box-sizing: border-box;
+    font-family: var(--font-inter), sans-serif;
+}
+
+.service-hubspot-form input:focus,
+.service-hubspot-form textarea:focus,
+.service-hubspot-form select:focus {
+    border-color: #000;
+    outline: 1px solid #000;
+}
+
+.service-hubspot-form select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: 2.5rem;
+}
+
+.service-hubspot-form .hs-error-msg {
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Submit Button */
+.service-hubspot-form .hs-button,
+.service-hubspot-form .hs-custom-submit {
+    background-color: #000 !important;
+    color: #fff !important;
+    padding: 0.75rem 2rem !important;
+    font-weight: bold !important;
+    border: 1px solid #000 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    text-transform: capitalize;
+    font-size: 1rem;
+    margin-top: 1rem;
+    display: inline-block;
+    width: auto;
+}
+
+.service-hubspot-form .hs-button:hover,
+.service-hubspot-form .hs-custom-submit:hover {
+    background-color: #fff !important;
+    color: #000 !important;
+}
+
+/* Checkbox styles */
+.service-hubspot-form .hs-form-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.service-hubspot-form .hs-form-checkbox input {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.125rem;
+}

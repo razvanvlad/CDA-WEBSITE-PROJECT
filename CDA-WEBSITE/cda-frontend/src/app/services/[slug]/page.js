@@ -123,7 +123,7 @@ export default async function ServicePage({ params }) {
 
         {/* SECTION 1: Services Grid (3x3 Cards) */}
         <section className={`services-grid-section py-16 ${nextBg()}`}>
-          <div className="cda-hero__container">
+          <div className="container mx-auto px-4" style={{ maxWidth: '1620px' }}>
             {/* Services Grid - 3x3 */}
             <div className="services-grid">
               {/* Card 1: Ecommerce Website Development */}
@@ -215,7 +215,14 @@ export default async function ServicePage({ params }) {
               </div>
 
               {/* Card 9: Headless Ecommerce */}
-              <div className="service-card">
+              <div className="service-card service-card--with-pin">
+                <Image
+                  src="/images/service-cards-pin.svg"
+                  alt=""
+                  width={45}
+                  height={66}
+                  className="service-card__pin"
+                />
                 <h3 className="service-card__title">Headless Ecommerce</h3>
                 <p className="service-card__description">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -420,64 +427,8 @@ export default async function ServicePage({ params }) {
       </main>
 
       {/* Contact Form Section */}
-      <section id="contact-form" className={`py-16 ${nextBg()}`}>
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Get Started with {service.title}
-            </h2>
-            <p className="text-lg text-gray-600">
-              Fill out the form below and we'll get back to you within 24 hours.
-            </p>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg p-8 hubspot-form-wrapper">
-            {/* Robust client embed to ensure consistent loading */}
-            <HubspotFormEmbed slug={service.slug} />
-          </div>
-
-          {/* Force form colors: text black, fields white; override submit button colors */}
-          <style>{`
-            .hubspot-form-wrapper, .hubspot-form-wrapper * { color: #000; }
-            .hubspot-form-wrapper label { color: #000 !important; }
-            .hubspot-form-wrapper input[type="text"],
-            .hubspot-form-wrapper input[type="email"],
-            .hubspot-form-wrapper input[type="tel"],
-            .hubspot-form-wrapper input[type="number"],
-            .hubspot-form-wrapper input[type="url"],
-            .hubspot-form-wrapper input[type="password"],
-            .hubspot-form-wrapper select,
-            .hubspot-form-wrapper textarea {
-              background-color: #fff !important;
-              color: #000 !important;
-              border: 1px solid #e5e7eb !important;
-              border-radius: 0 !important;
-              padding: 0.75rem 1rem !important;
-            }
-            .hubspot-form-wrapper .hs-error-msg, .hubspot-form-wrapper .hs-form-required {
-              color: #b91c1c !important;
-            }
-            /* Submit button (proxy and native) — white text on black; invert on hover */
-            .hubspot-form-wrapper .hs-custom-submit.button-l,
-            .hubspot-form-wrapper .hs-submit .hs-button {
-              background-color: #000 !important;
-              color: #fff !important;
-              box-shadow: none !important;
-            }
-            .hubspot-form-wrapper .hs-custom-submit.button-l:hover,
-            .hubspot-form-wrapper .hs-submit .hs-button:hover {
-              background-color: #fff !important;
-              color: #000 !important;
-              box-shadow: inset 0 0 0 1px #000 !important;
-            }
-            .hubspot-form-wrapper .button-l,
-            .hubspot-form-wrapper .hs-button.button-l {
-              /* Ensure our styled submit stands out if HubSpot overwrites */
-              background-image: none !important;
-            }
-            .hubspot-form-wrapper .hs-hidden { display: none !important; }
-          `}</style>
-        </div>
+      <section id="contact-form">
+        <HubspotFormEmbed slug={service.slug} />
       </section>
 
       <Footer />

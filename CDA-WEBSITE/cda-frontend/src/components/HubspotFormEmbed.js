@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
+import '../styles/hubspot-service-form.css';
 
 const FORM_MAP = {
   ecommerce: { portalId: "143891025", formId: "80e897f8-198d-42e2-81b8-41f6732d4218", region: "eu1" },
@@ -61,27 +62,113 @@ export default function HubspotFormEmbed({ slug, containerId }) {
           formId: cfg.formId,
           region: cfg.region,
           target: `#${id}`,
-          onFormReady: function () {
+          css: '', // Disable default Hubspot styles
+          onFormReady: function ($form) {
             try {
-              const form = el.querySelector('form.hs-form') || el.querySelector('.hs-form');
-              if (!form) return;
-              // Find submit input/button
-              let submitInput = form.querySelector('input[type="submit"], .hs-button[type="submit"]') || form.querySelector('.hs-button');
-              // Fallback wrap
-              let submitWrap = form.querySelector('.hs-submit, .hs_submit') || (submitInput && submitInput.parentElement);
-              if (submitInput) {
-                submitInput.classList.add('hs-hidden');
-                // Add proxy styled button once
-                if (!form.querySelector('.hs-custom-submit')) {
-                  const proxy = document.createElement('button');
-                  proxy.type = 'button';
-                  proxy.className = 'button-l footer-cta-btn mt-6 hs-custom-submit';
-                  proxy.textContent = submitInput.value || 'Submit';
-                  proxy.addEventListener('click', () => submitInput.click());
-                  (submitWrap || form).appendChild(proxy);
-                }
+              // Inject custom styles into the iframe
+              const formEl = $form[0];
+              const doc = formEl.ownerDocument;
+              const styleId = 'custom-hubspot-styles';
+              if (!doc.getElementById(styleId)) {
+                const style = doc.createElement('style');
+                style.id = styleId;
+                style.textContent = `
+                  .hs-form-field { margin-bottom: 1rem; }
+                  .hs-form .hs-grid-row { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 1rem; }
+                  @media (min-width: 768px) { .hs-form .hs-grid-row { grid-template-columns: repeat(2, 1fr); } .hs-form .hs-grid-row > .hs-form-field:only-child { grid-column: 1 / -1; } }
+                  label { display: block; margin-bottom: 0.5rem; font-size: 0.875rem; color: #374151; font-weight: 500; font-family: 'Inter', sans-serif; }
+                  input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="url"], textarea, select {
+                    width: 100%; padding: 0.75rem 1rem; border: 1px solid #e5e7eb; background-color: #fff; font-size: 1rem; color: #1f2937; outline: none; border-radius: 0; box-sizing: border-box; font-family: 'Inter', sans-serif;
+                  }
+                  input:focus, textarea:focus, select:focus { border-color: #000; outline: 1px solid #000; }
+                  select { appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e"); background-position: right 12px center; background-repeat: no-repeat; background-size: 16px; padding-right: 2.5rem; }
+                  .hs-error-msg { color: #dc2626; font-size: 0.875rem; margin-top: 0.25rem; }
+                  
+                  /* Button L Styles for Proxy Button */
+                  .hs-custom-submit {
+                    --btn-l-line: 1px;
+                    --btn-l-offset: 4px;
+                    position: relative;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 235px;
+                    height: 54px;
+                    padding: 0;
+                    font-family: 'Poppins', sans-serif;
+                    font-weight: 700;
+                    font-size: 18px;
+                    color: white;
+                    background-color: black;
+                    border: none;
+                    border-radius: 0;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    text-align: center;
+                    white-space: nowrap;
+                    margin-top: 1rem;
+                  }
+                  @media (max-width: 767px) {
+                    .hs-custom-submit { width: 176px; height: 46px; font-size: 14px; }
+                  }
+                  .hs-custom-submit:hover {
+                    background-color: white;
+                    color: black;
+                    box-shadow: inset 0 0 0 1px black;
+                  }
+                  .hs-custom-submit::before {
+                    content: ''; position: absolute; left: 4px; bottom: -4px; width: 100%; height: 1px; background-color: black; z-index: 1;
+                  }
+                  .hs-custom-submit::after {
+                    content: ''; position: absolute; top: 4px; right: -4px; width: 1px; bottom: -4px; background-color: black; z-index: 1;
+                  }
+                  
+                  .hs-form-checkbox { display: flex; align-items: flex-start; gap: 0.5rem; }
+                  .hs-form-checkbox input { width: 1.25rem; height: 1.25rem; margin-top: 0.125rem; }
+                  
+                  /* Utility to hide original submit safely */
+                  .hs-hidden-submit { display: none !important; }
+                `;
+                doc.head.appendChild(style);
               }
-            } catch {}
+
+              // 2. Create Proxy Button
+              // Try multiple selectors to find the submit button
+              let submitInput = formEl.querySelector('input[type="submit"]');
+              if (!submitInput) submitInput = formEl.querySelector('.hs-button[type="submit"]');
+              if (!submitInput) submitInput = formEl.querySelector('.hs_submit .hs-button');
+
+              if (submitInput) {
+                // Check if proxy already exists
+                if (formEl.querySelector('.hs-custom-submit')) return;
+
+                const proxy = doc.createElement('button');
+                proxy.type = 'button';
+                proxy.className = 'hs-custom-submit';
+                proxy.textContent = submitInput.value || 'Submit';
+                proxy.addEventListener('click', function (e) {
+                  e.preventDefault();
+                  submitInput.click();
+                });
+
+                // Insert proxy
+                const container = submitInput.closest('.hs_submit') || submitInput.closest('.actions') || submitInput.parentElement;
+                if (container) {
+                  container.appendChild(proxy);
+                } else {
+                  // Fallback: append to the end of the form
+                  formEl.appendChild(proxy);
+                }
+
+                // Hide the original submit button ONLY after proxy is added
+                submitInput.classList.add('hs-hidden-submit');
+              } else {
+                console.warn("Hubspot submit button not found. Keeping original visible if present.");
+              }
+
+            } catch (e) {
+              console.error("Error injecting styles or proxy button", e);
+            }
           },
         });
       } catch (e) {
@@ -95,6 +182,17 @@ export default function HubspotFormEmbed({ slug, containerId }) {
     };
   }, [slug, id]);
 
-  return <div id={id} ref={ref} />;
+  return (
+    <div className="service-hubspot-form">
+      <div className="service-hubspot-form__container">
+        <div className="service-hubspot-form__content">
+          <h2 className="service-hubspot-form__title">Send Us A Message</h2>
+          <div id={id} ref={ref} />
+        </div>
+        <div className="service-hubspot-form__bird">
+          <img src="/images/contact-birds.svg" alt="Contact illustration with birds and envelopes" />
+        </div>
+      </div>
+    </div>
+  );
 }
-
