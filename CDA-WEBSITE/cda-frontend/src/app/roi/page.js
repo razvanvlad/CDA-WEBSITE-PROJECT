@@ -26,7 +26,7 @@ export default async function RoiPage() {
       if (nodes && nodes.length > 0) {
         csData = {
           title: 'Some Of Our Case Studies',
-          subtitle: 'Our Work',
+          subtitle: 'Projects',
           knowledgeHubLink: { url: '/case-studies', title: 'See All Case Studies', target: '_self' },
           selectedStudies: {
             nodes: nodes.map(n => ({

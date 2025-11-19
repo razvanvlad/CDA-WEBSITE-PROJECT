@@ -4,7 +4,7 @@ import HeroSection from '../../../components/GlobalBlocks/HeroSection';
 import ResponsiveUnderlinedTitle from '../../../components/ResponsiveUnderlinedTitle';
 import TextLinkButton from '../../../components/ui/TextLinkButton';
 import { notFound } from 'next/navigation';
-import { sanitizeTitleHtml } from '../../../lib/sanitizeTitleHtml';
+import { sanitizeTitleHtml, sanitizeImageAlt } from '../../../lib/sanitizeTitleHtml';
 import { executeGraphQLQuery, GET_SERVICE_BY_SLUG } from '../../../lib/graphql-queries';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -53,9 +53,21 @@ export default async function ServicePage({ params }) {
   const serviceColor = getServiceColor(service.slug);
   const heroImageNode = heroSection.heroImage?.node?.sourceUrl
     ? (
+      <Image
+        src={heroSection.heroImage.node.sourceUrl}
+        alt={sanitizeImageAlt(heroSection.heroImage.node.altText || service.title)}
+        width={600}
+        height={400}
+        className="cda-hero__image-media"
+        style={{ maxHeight: '600px', objectFit: 'contain' }}
+        priority
+      />
+    )
+    : service.featuredImage?.node?.sourceUrl
+      ? (
         <Image
-          src={heroSection.heroImage.node.sourceUrl}
-          alt={heroSection.heroImage.node.altText || service.title}
+          src={service.featuredImage.node.sourceUrl}
+          alt={sanitizeImageAlt(service.featuredImage.node.altText || service.title)}
           width={600}
           height={400}
           className="cda-hero__image-media"
@@ -63,18 +75,6 @@ export default async function ServicePage({ params }) {
           priority
         />
       )
-    : service.featuredImage?.node?.sourceUrl
-      ? (
-          <Image
-            src={service.featuredImage.node.sourceUrl}
-            alt={service.featuredImage.node.altText || service.title}
-            width={600}
-            height={400}
-            className="cda-hero__image-media"
-            style={{ maxHeight: '600px', objectFit: 'contain' }}
-            priority
-          />
-        )
       : null;
 
   // Global content blocks
@@ -110,10 +110,10 @@ export default async function ServicePage({ params }) {
           ctas={[
             heroSection.cta?.title
               ? {
-                  href: '#contact-form',
-                  label: heroSection.cta.title,
-                  className: 'button-l',
-                }
+                href: '#contact-form',
+                label: heroSection.cta.title,
+                className: 'button-l',
+              }
               : null,
           ]}
           image={heroImageNode}
@@ -131,113 +131,113 @@ export default async function ServicePage({ params }) {
 
 
 
-         {/* Service Bullet Points */}
-         {serviceBulletPoints && (serviceBulletPoints.title || serviceBulletPoints.bullets) && (
-           <section className={`service-bullet-points py-16 ${nextBg()}`}>
-             <div className="container mx-auto px-4">
-               <div className="text-center mb-12">
-                 {serviceBulletPoints.title && (
-                   <h2 className="text-3xl font-bold text-gray-900 mb-4">{serviceBulletPoints.title}</h2>
-                 )}
-               </div>
-               {serviceBulletPoints.bullets && serviceBulletPoints.bullets.length > 0 && (
-                 <div className="max-w-4xl mx-auto">
-                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                     {serviceBulletPoints.bullets.map((bullet, index) => (
-                       <li key={index} className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
-                         <div 
-                           className="flex-shrink-0 w-2 h-2 rounded-full mt-2"
-                           style={{ backgroundColor: serviceColor }}
-                         ></div>
-                         <span className="text-gray-700">{bullet.text}</span>
-                       </li>
-                     ))}
-                   </ul>
-                 </div>
-               )}
-             </div>
-           </section>
-         )}
+        {/* Service Bullet Points */}
+        {serviceBulletPoints && (serviceBulletPoints.title || serviceBulletPoints.bullets) && (
+          <section className={`service-bullet-points py-16 ${nextBg()}`}>
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-12">
+                {serviceBulletPoints.title && (
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">{serviceBulletPoints.title}</h2>
+                )}
+              </div>
+              {serviceBulletPoints.bullets && serviceBulletPoints.bullets.length > 0 && (
+                <div className="max-w-4xl mx-auto">
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {serviceBulletPoints.bullets.map((bullet, index) => (
+                      <li key={index} className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
+                        <div
+                          className="flex-shrink-0 w-2 h-2 rounded-full mt-2"
+                          style={{ backgroundColor: serviceColor }}
+                        ></div>
+                        <span className="text-gray-700">{bullet.text}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
 
-         {/* Value Description */}
-         {valueDescription && (valueDescription.title || valueDescription.description) && (
-           <section className={`value-description py-16 ${nextBg()}`}>
-             <div className="container mx-auto px-4">
-               <div className="text-center mb-12">
-                 {valueDescription.title && (
-                   <h2 className="text-3xl font-bold text-gray-900 mb-4">{valueDescription.title}</h2>
-                 )}
-               </div>
-               <div className="max-w-4xl mx-auto">
-                 <div className="bg-white rounded-lg">
-                   {valueDescription.description && (
-                     <p className="text-lg text-gray-700 leading-relaxed text-center mb-6">
-                       {valueDescription.description}
-                     </p>
-                   )}
-                   {valueDescription.cta?.url && valueDescription.cta?.title && (
-                     <div className="text-center">
-                       <Link
-                         href={valueDescription.cta.url}
-                         className="inline-block bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
-                       >
-                         {valueDescription.cta.title}
-                       </Link>
-                     </div>
-                   )}
-                 </div>
-               </div>
-             </div>
-           </section>
-         )}
+        {/* Value Description */}
+        {valueDescription && (valueDescription.title || valueDescription.description) && (
+          <section className={`value-description py-16 ${nextBg()}`}>
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-12">
+                {valueDescription.title && (
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">{valueDescription.title}</h2>
+                )}
+              </div>
+              <div className="max-w-4xl mx-auto">
+                <div className="bg-white rounded-lg">
+                  {valueDescription.description && (
+                    <p className="text-lg text-gray-700 leading-relaxed text-center mb-6">
+                      {valueDescription.description}
+                    </p>
+                  )}
+                  {valueDescription.cta?.url && valueDescription.cta?.title && (
+                    <div className="text-center">
+                      <Link
+                        href={valueDescription.cta.url}
+                        className="inline-block bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+                      >
+                        {valueDescription.cta.title}
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
 
-         {/* Featured Case Studies Section */}
-         {featuredCaseStudies && featuredCaseStudies.length > 0 && (
-           <section className={`home-case-studies ${nextBg()}`} style={{padding: '5rem 1rem'}}>
-             <div style={{maxWidth: '1620px', margin: '0 auto'}}>
-               {/* Header */}
-               <div className="cs-header">
-                 <div className="cs-head-left">
-                   <p className="cs-subtitle">Projects</p>
-                   <h2 className="cs-heading">Some Of Our Outsourced CMO Case Studies</h2>
-                 </div>
-                 <a href="/case-studies" className="button-without-box cs-header-cta">
-                   View All Case Studies
-                 </a>
-               </div>
-               
-               {/* Selected Case Studies - Alternating two-up layout */}
-               <div className="cs-list" style={{marginBottom: '3rem'}}>
-                 {featuredCaseStudies.slice(0, 2).map((study, index) => (
-                   <article key={study.id || index} className={`cs-item ${index % 2 === 1 ? 'cs-item--reverse' : ''}`}>
-                     <div className="cs-media">
-                       {study.featuredImage?.node?.sourceUrl && (
-                         <img 
-                           src={study.featuredImage.node.sourceUrl}
-                           alt={study.featuredImage.node.altText || study.title}
-                           className="cs-img"
-                           loading="lazy"
-                         />
-                       )}
-                     </div>
-                     <div className="cs-content">
-                       <h3 className="cs-title">{study.title}</h3>
-                       <div className="cs-excerpt" dangerouslySetInnerHTML={{__html: study.excerpt}} />
-                       <a href={study.uri} className="button-l button-l--white cs-cta">Read Case Study</a>
-                     </div>
-                   </article>
-                 ))}
-               </div>
-             </div>
-           </section>
-         )}
+        {/* Featured Case Studies Section */}
+        {featuredCaseStudies && featuredCaseStudies.length > 0 && (
+          <section className={`home-case-studies ${nextBg()}`} style={{ padding: '5rem 1rem' }}>
+            <div style={{ maxWidth: '1620px', margin: '0 auto' }}>
+              {/* Header */}
+              <div className="cs-header">
+                <div className="cs-head-left">
+                  <p className="cs-subtitle">Projects</p>
+                  <h2 className="cs-heading">Some Of Our Outsourced CMO Case Studies</h2>
+                </div>
+                <a href="/case-studies" className="button-without-box cs-header-cta">
+                  View All Case Studies
+                </a>
+              </div>
+
+              {/* Selected Case Studies - Alternating two-up layout */}
+              <div className="cs-list" style={{ marginBottom: '3rem' }}>
+                {featuredCaseStudies.slice(0, 2).map((study, index) => (
+                  <article key={study.id || index} className={`cs-item ${index % 2 === 1 ? 'cs-item--reverse' : ''}`}>
+                    <div className="cs-media">
+                      {study.featuredImage?.node?.sourceUrl && (
+                        <img
+                          src={study.featuredImage.node.sourceUrl}
+                          alt={sanitizeImageAlt(study.featuredImage.node.altText || study.title)}
+                          className="cs-img"
+                          loading="lazy"
+                        />
+                      )}
+                    </div>
+                    <div className="cs-content">
+                      <h3 className="cs-title">{study.title}</h3>
+                      <div className="cs-excerpt" dangerouslySetInnerHTML={{ __html: study.excerpt }} />
+                      <a href={study.uri} className="button-l button-l--white cs-cta">Read Case Study</a>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Main Content */}
         {service.content && (
           <section className={`service-content py-16 ${nextBg()}`}>
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
-                <div 
+                <div
                   className="prose prose-lg max-w-none"
                   dangerouslySetInnerHTML={{ __html: service.content }}
                 />
@@ -245,7 +245,7 @@ export default async function ServicePage({ params }) {
             </div>
           </section>
         )}
-
+        <SellOnline />
         {/* Approach Block */}
         {globalSelection?.enableApproach && globalData?.globalContentBlocks?.approach && (
           <ApproachBlock globalData={{
@@ -261,12 +261,12 @@ export default async function ServicePage({ params }) {
         )}
 
         {/* Sell Online CTA */}
-        <SellOnline />
+
 
         {/* Global Case Studies Section */}
         {globalSelection?.enableCaseStudies && globalContentBlocks?.caseStudiesSection && (
-          <section className="home-case-studies" style={{padding: '5rem 1rem'}}>
-            <div style={{maxWidth: '1620px', margin: '0 auto'}}>
+          <section className="home-case-studies" style={{ padding: '5rem 1rem' }}>
+            <div style={{ maxWidth: '1620px', margin: '0 auto' }}>
               {/* Header: left subtitle + title, right CTA */}
               <div className="cs-header">
                 <div className="cs-head-left">
@@ -277,7 +277,7 @@ export default async function ServicePage({ params }) {
                   View All Case Studies
                 </TextLinkButton>
               </div>
-              
+
               <div className="text-center py-8">
                 <p className="text-gray-600 mb-6">Explore our portfolio of successful projects similar to this service.</p>
                 <a href="/case-studies" className="button-l">Browse Case Studies</a>
@@ -309,11 +309,11 @@ export default async function ServicePage({ params }) {
               Fill out the form below and we'll get back to you within 24 hours.
             </p>
           </div>
-          
+
           <div className="bg-white rounded-lg shadow-lg p-8 hubspot-form-wrapper">
             {/* Robust client embed to ensure consistent loading */}
             <HubspotFormEmbed slug={service.slug} />
-           </div>
+          </div>
 
           {/* Force form colors: text black, fields white; override submit button colors */}
           <style>{`
@@ -358,7 +358,7 @@ export default async function ServicePage({ params }) {
           `}</style>
         </div>
       </section>
-      
+
       <Footer />
     </>
   );

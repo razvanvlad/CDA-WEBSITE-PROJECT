@@ -57,3 +57,21 @@ export function sanitizeTitleHtml(html) {
   return clean;
 }
 
+// Sanitize text for use in Image alt attributes by converting Unicode characters to ASCII
+export function sanitizeImageAlt(text) {
+  if (!text || typeof text !== 'string') return '';
+
+  return text
+    // Replace smart quotes with regular quotes
+    .replace(/[\u2018\u2019]/g, "'")  // Single quotes
+    .replace(/[\u201C\u201D]/g, '"')  // Double quotes
+    // Replace en-dash and em-dash with hyphen
+    .replace(/[\u2013\u2014]/g, '-')  // En-dash (8211), Em-dash (8212)
+    // Replace other common Unicode characters
+    .replace(/\u2026/g, '...')        // Ellipsis
+    .replace(/[\u2018-\u201F]/g, '')  // Remove other quote-like characters
+    // Remove any remaining non-ASCII characters
+    .replace(/[^\x00-\x7F]/g, '')
+    .trim();
+}
+

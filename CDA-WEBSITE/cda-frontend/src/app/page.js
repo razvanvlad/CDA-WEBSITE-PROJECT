@@ -166,9 +166,9 @@ export default async function Home() {
         const { nodes } = await getCaseStudiesWithPagination({ first: 2 })
         if (nodes && nodes.length > 0) {
           csData = {
-            title: 'Case Studies',
-            subtitle: 'Our Work',
-            knowledgeHubLink: { url: '/case-studies', title: 'See All', target: '_self' },
+            title: 'Some Of Our Case Studies',
+            subtitle: 'Projects',
+            knowledgeHubLink: { url: '/case-studies', title: 'View All Case Studies', target: '_self' },
             selectedStudies: {
               nodes: nodes.map(n => ({
                 id: n.id,
