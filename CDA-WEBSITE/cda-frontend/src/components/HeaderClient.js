@@ -281,8 +281,10 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
           </div>
 
           {/* Side Menu Content */}
-          <div className="flex-1 overflow-y-auto">
-            <nav className="p-6">
+          <div className="flex-1 overflow-y-auto px-[38px] md:px-6">
+            {/* Mobile: 353px container for menu content */}
+            <div className="w-full max-w-[353px] md:max-w-none mx-0 md:mx-auto">
+              <nav className="py-6">
               {!isServicesOpen && (
                 <>
                   <button type="button" onClick={() => setIsServicesOpen(true)} className="md:hidden w-full flex items-center justify-between mb-3 text-left" aria-expanded={isServicesOpen} aria-controls="side-menu-services">
@@ -381,7 +383,8 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
                   </a>
                 </div>
               </div>
-            </nav>
+              </nav>
+            </div>
           </div>
 
           {/* Side Menu Footer (optional placeholder to keep spacing) */}
