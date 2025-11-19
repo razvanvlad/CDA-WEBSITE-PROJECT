@@ -154,7 +154,7 @@ export default function RoiCalculatorForm() {
   }
 
   return (
-    <section className="relative py-16 lg:py-20 bg-white overflow-hidden">
+    <section className="relative py-16 lg:pt-20 lg:pb-44 bg-white overflow-hidden">
       {/* Desktop image - positioned from viewport edge, below text */}
       <div className="hidden lg:block absolute left-0 top-[380px] w-[959px] pointer-events-none z-20">
         <Image
