@@ -146,7 +146,7 @@ export default function RoiCalculatorForm() {
             onClick={() => setShowConfirmation(false)}
             className="button-l"
           >
-            Submit Another Response
+            Go Back
           </button>
         </div>
       </div>
@@ -156,7 +156,7 @@ export default function RoiCalculatorForm() {
   return (
     <section className="relative py-16 lg:pt-20 lg:pb-44 bg-white overflow-hidden">
       {/* Desktop image - positioned from viewport edge, below text */}
-      <div className="hidden lg:block absolute left-0 top-[380px] w-[959px] pointer-events-none z-20">
+      <div className="hidden lg:block absolute left-0 top-[490px] w-[959px] pointer-events-none z-20">
         <Image
           src="/images/roi-calculator.svg"
           alt="ROI Calculator Illustration"
@@ -195,7 +195,7 @@ export default function RoiCalculatorForm() {
           </div>
 
           {/* Right 2/3 - Form */}
-          <div className="lg:col-span-2 bg-[#F4F4F4] p-6 lg:p-8 rounded-lg">
+          <div className="lg:col-span-2 bg-[#F4F4F4] p-6 lg:p-8 rounded-lg min-h-[600px]">
             {/* Progress Indicator */}
             <div className="mb-8">
               <div className="flex justify-between items-center mb-3">
@@ -384,7 +384,7 @@ export default function RoiCalculatorForm() {
                   </div>
 
                   {/* Back and Submit Buttons */}
-                  <div className="pt-6 flex gap-4">
+                  <div className="pt-6 flex justify-center gap-4">
                     <button
                       type="button"
                       onClick={handleBack}
