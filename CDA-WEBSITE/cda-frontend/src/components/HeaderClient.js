@@ -167,32 +167,43 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
       </div>
 
       <header className="bg-white" style={{ borderBottom: '1px solid #EBEBEB' }}>
-        <div className="mx-auto max-w-[1620px] px-[38px] md:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center">
-              <Link href="/" aria-label="Go to homepage">
-                <Image src="/images/cda-logo.svg" alt="CDA Logo" width={120} height={32} priority />
-              </Link>
-            </div>
+        {/* Mobile: 79px height | Desktop: 125px height */}
+        <div className="mx-auto max-w-[1620px] container-padding h-[79px] md:h-[125px] flex items-center">
+          {/* Mobile: 353px container for Logo + Menu */}
+          <div className="w-full max-w-[353px] md:max-w-none mx-0 md:mx-auto">
+            <div className="flex items-center justify-between">
+              {/* Logo - Mobile: 77x27 | Desktop: 131x46 */}
+              <div className="flex items-center">
+                <Link href="/" aria-label="Go to homepage">
+                  <Image
+                    src="/images/cda-logo.svg"
+                    alt="CDA Logo"
+                    width={77}
+                    height={27}
+                    priority
+                    className="md:w-[131px] md:h-[46px]"
+                  />
+                </Link>
+              </div>
 
-            {/* Desktop Navigation - primary menu */}
-            <nav className="hidden md:flex space-x-8">
-              {(primaryLinks || []).map((item) => (
-                <a key={item.id} href={item.url} className="nav-link" style={{ fontFamily: 'Inter', fontSize: '18px', fontWeight: '600' }}>
-                  {item.label}
-                </a>
-              ))}
-            </nav>
+              {/* Desktop Navigation - primary menu */}
+              <nav className="hidden md:flex space-x-8">
+                {(primaryLinks || []).map((item) => (
+                  <a key={item.id} href={item.url} className="nav-link" style={{ fontFamily: 'Inter', fontSize: '18px', fontWeight: '600' }}>
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
 
-            {/* Side Menu and Mobile Menu Buttons */}
-            <div className="flex items-center space-x-4">
-              <button className="hover:bg-gray-100 rounded-lg transition-colors" onClick={() => setIsSideMenuOpen(true)} aria-label="Open side menu">
-                <img src="/images/menu-icon.svg" alt="" className="w-6 h-6" aria-hidden="true" />
-              </button>
-              <button className="hidden" aria-hidden="true" tabIndex={-1} aria-label="Open mobile menu" style={{ display: 'none' }}>
-                <svg className="w-6 h-6" viewBox="0 0 24 24" aria-hidden="true" />
-              </button>
+              {/* Side Menu and Mobile Menu Buttons - Mobile: 26x17 | Desktop: 31x20 */}
+              <div className="flex items-center">
+                <button className="hover:bg-gray-100 rounded-lg transition-colors p-0" onClick={() => setIsSideMenuOpen(true)} aria-label="Open side menu">
+                  <img src="/images/menu-icon.svg" alt="" className="w-[26px] h-[17px] md:w-[31px] md:h-[20px]" aria-hidden="true" />
+                </button>
+                <button className="hidden" aria-hidden="true" tabIndex={-1} aria-label="Open mobile menu" style={{ display: 'none' }}>
+                  <svg className="w-6 h-6" viewBox="0 0 24 24" aria-hidden="true" />
+                </button>
+              </div>
             </div>
           </div>
 
@@ -202,7 +213,7 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
       {/* Breadcrumb row (outside header, below the line) */}
       {!isHome && (
         <div className="bg-white">
-          <div className="mx-auto max-w-[1620px] px-[38px] md:px-6 lg:px-8 py-2">
+          <div className="mx-auto max-w-[1620px] container-padding py-2">
             <nav aria-label="Breadcrumb">
               <ol className="flex items-center gap-2 text-[14px] md:text-[15px] text-black">
                 <li>
@@ -250,14 +261,23 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
       {/* Side Menu */}
       <div className={`fixed top-0 right-0 h-full w-full md:w-[430px] bg-black shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${isSideMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex flex-col h-full">
-          {/* Side Menu Header */}
-          <div className="flex items-center justify-between p-6">
-            <Link href="/" aria-label="Go to homepage">
-              <Image src="/images/cda-logo-white.svg" alt="CDA Logo" width={120} height={32} />
-            </Link>
-            <button onClick={() => { setIsSideMenuOpen(false); setIsCompanyMenuOpen(false); }} className="p-2 hover:bg-white/10 rounded-lg transition-colors" aria-label="Close side menu">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-            </button>
+          {/* Side Menu Header - Mobile: 79px height | Desktop: 125px height */}
+          <div className="flex items-center justify-between h-[79px] md:h-[125px] px-[38px] md:px-6">
+            {/* Mobile: 353px container for Logo + Close button */}
+            <div className="w-full max-w-[353px] md:max-w-none mx-0 md:mx-auto flex items-center justify-between">
+              <Link href="/" aria-label="Go to homepage">
+                <Image
+                  src="/images/cda-logo-white.svg"
+                  alt="CDA Logo"
+                  width={77}
+                  height={27}
+                  className="md:w-[131px] md:h-[46px]"
+                />
+              </Link>
+              <button onClick={() => { setIsSideMenuOpen(false); setIsCompanyMenuOpen(false); }} className="hover:bg-white/10 rounded-lg transition-colors p-0" aria-label="Close side menu">
+                <svg className="w-[26px] h-[26px] md:w-[31px] md:h-[31px] text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
           </div>
 
           {/* Side Menu Content */}
