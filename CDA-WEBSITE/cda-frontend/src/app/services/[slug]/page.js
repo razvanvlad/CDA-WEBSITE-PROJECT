@@ -233,14 +233,6 @@ export default async function ServicePage({ params }) {
                 </Link>
               </div>
             </div>
-
-            {/* Decorative curved line graphics */}
-            <svg className="services-grid-decoration services-grid-decoration--top" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-              <path d="M 0 50 Q 50 0, 100 50 T 200 50" stroke="#3CBEEB" strokeWidth="2" fill="none" opacity="0.3" />
-            </svg>
-            <svg className="services-grid-decoration services-grid-decoration--bottom" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-              <path d="M 0 50 Q 50 100, 100 50 T 200 50" stroke="#3CBEEB" strokeWidth="2" fill="none" opacity="0.3" />
-            </svg>
           </div>
         </section>
 
