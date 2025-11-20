@@ -104,7 +104,7 @@ export default function ChartServiceSection({ serviceColor = '#3cbeeb' }) {
           </div>
 
           {/* Down Arrow - Bottom right (desktop only initially, then mobile at bottom) */}
-          <div className="hidden lg:block absolute bottom-0 right-0 pointer-events-none">
+          <div className="hidden lg:block absolute -bottom-24 right-0 pointer-events-none">
             <Image
               src="/images/service-stats-down-arrow.svg"
               alt=""
@@ -115,7 +115,7 @@ export default function ChartServiceSection({ serviceColor = '#3cbeeb' }) {
           </div>
 
           {/* Down Arrow - Mobile (centered at bottom) */}
-          <div className="lg:hidden flex justify-center mt-12">
+          <div className="lg:hidden flex justify-center mt-12 -mb-12">
             <Image
               src="/images/service-stats-down-arrow.svg"
               alt=""

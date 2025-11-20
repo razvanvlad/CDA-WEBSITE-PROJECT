@@ -15,6 +15,7 @@ import ServicesSlider from '../../../components/GlobalBlocks/ServicesSlider.jsx'
 import SellOnline from '@/components/SellOnline';
 import ClientShowcase from '../../../components/ClientShowcase';
 import ChartServiceSection from '../../../components/ChartServiceSection';
+import ServiceStatsSection from '../../../components/ServiceStatsSection';
 
 export const revalidate = 120;
 
@@ -245,6 +246,9 @@ export default async function ServicePage({ params }) {
 
         {/* SECTION 4: Stats Image + Content with Bullets */}
         <ChartServiceSection serviceColor={serviceColor} />
+
+        {/* SECTION 5: Stats with Underlines */}
+        <ServiceStatsSection />
 
         {/* SECTION 3: Client Showcase */}
         <ClientShowcase />
