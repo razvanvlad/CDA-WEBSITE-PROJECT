@@ -10,28 +10,28 @@ import client from '../lib/graphql/client';
 /* Magnifier configuration                                                    */
 /* -------------------------------------------------------------------------- */
 const MAG_CONFIG = {
-  baseSrc: '/images/magnifying-glass.svg',
-  hoverSrc: '/images/magnifying-glass-hover.svg',
-  mobileSrc: '/images/footer/mobile-glass-cropped.png', // Mobile-specific cropped image
+  baseSrc: '/images/footer-magnifying-glass/footer-magnifying-glass-desktop.svg',
+  hoverSrc: '/images/footer-magnifying-glass/footer-magnifying-glass-desktop-hover.svg',
+  mobileSrc: '/images/footer-magnifying-glass/footer-magnifying-glass-mobile.svg',
 
   // While aligning on desktop keep both visible; set to false afterwards
   showBothOnDesktop: false,
-  reserveBottomDesktop: 240, // pixels of extra space under the CTA to show the magnifier
+  reserveBottomDesktop: 0, // Removed extra space
   layerDesktop: 'behind',    // 'behind' or 'front' (z-index control)
 
   // Mobile (<768px): no hover; show only the hover art with these settings
   mobile: {
-    width: 680,
-    x: -85,
-    y: 160,
+    width: 380,
+    x: -20,
+    y: 80,
     scale: 1,
     rotate: 0,
   },
 
   // Desktop (≥768px): independent positions for base and hover
   desktop: {
-    base: { width: 680, x: 500, y: 190, scale: 1, rotate: 0 },
-    hover: { width: 680, x: 365, y: 40, scale: 1, rotate: 0 },
+    base: { width: 680, x: 480, y: 100, scale: 1, rotate: 0 },
+    hover: { width: 680, x: 350, y: -50, scale: 1, rotate: 0 },
   },
 };
 
@@ -184,10 +184,10 @@ export default function Footer() {
             style={{ zIndex: MAG_CONFIG.layerDesktop === 'front' ? 20 : 10 }}
           >
             <p className="cda-subtitle">Take The First Step Toward Something Great</p>
-            <h2 class="cda-page-title-clean text-center my-5">
+            <h2 className="cda-page-title-clean text-center my-5">
               Ready To Start Your
-              <span class="relative inline-block">
-                <span class="cda-page-title-clean">Project?</span>
+              <span className="relative inline-block">
+                <span className="cda-page-title-clean">Project?</span>
 
               </span>
             </h2>
@@ -206,7 +206,7 @@ export default function Footer() {
 
           {/* Magnifier canvas — this is what guarantees no extra scrollbar */}
           <div
-            className="absolute inset-0 overflow-hidden pointer-events-none z-0"
+            className="absolute inset-0 pointer-events-none z-0"
             style={{ contain: 'paint', zIndex: MAG_CONFIG.layerDesktop === 'front' ? 30 : 0 }}
           >
             {/* MOBILE: single image (no hover on touch) */}
