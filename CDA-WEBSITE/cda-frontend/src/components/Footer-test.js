@@ -169,10 +169,9 @@ export default function FooterTest() {
             <div className="mx-auto max-w-[1620px] px-[38px]">
                 {/* CTA Section */}
                 <div className="footer-cta-card relative rounded-2xl bg-white group flex flex-col items-center justify-center text-center pt-16 pb-32 md:pb-48">
-                    <p className="cda-subtitle mb-4">Take The First Step Toward Something Great</p>
-                    <h2 className="cda-page-title-clean text-center mb-8 text-4xl md:text-6xl font-bold">
-                        Ready To Start Your
-                        <br />
+                    <p className="cda-subtitle mb-2">Take The First Step Toward Something Great</p>
+                    <h2 className="cda-page-title-clean text-center mb-10 text-4xl md:text-6xl font-bold">
+                        Ready To Start Your&nbsp;
                         <span className="relative inline-block">
                             <span className="relative z-10">Project?</span>
                             <span className="absolute left-0 bottom-1 w-full h-2 bg-[#FD8721] -z-0"></span>
@@ -183,7 +182,7 @@ export default function FooterTest() {
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
                         className="
-         button-l footer-cta-btn mt-2 inline-flex items-center justify-center
+         button-l footer-cta-btn mt-6 inline-flex items-center justify-center
          bg-black text-white px-10 py-4 rounded-none border-2 border-white shadow-[0_0_0_1px_rgba(0,0,0,1)]
          transform-gpu transition-transform duration-300 ease-out will-change-transform
          hover:scale-105
@@ -203,10 +202,13 @@ export default function FooterTest() {
                             <img
                                 src={MAG_CONFIG.mobileSrc}
                                 alt=""
-                                className="absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-[40%]"
+                                className="absolute"
                                 style={{
                                     width: '320px',
                                     maxWidth: 'none',
+                                    left: '50%',
+                                    bottom: '0',
+                                    transform: 'translateX(-50%) translateY(35%)',
                                 }}
                             />
                         ) : (
@@ -215,20 +217,26 @@ export default function FooterTest() {
                                 <img
                                     src={MAG_CONFIG.baseSrc}
                                     alt=""
-                                    className={`absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-[45%] transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+                                    className={`absolute transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
                                     style={{
                                         width: '580px',
                                         maxWidth: 'none',
+                                        left: 'calc(50% + 200px)',
+                                        bottom: '0',
+                                        transform: 'translateX(-50%) translateY(45%) scale(1)',
                                     }}
                                 />
                                 {/* Hover Image */}
                                 <img
                                     src={MAG_CONFIG.hoverSrc}
                                     alt=""
-                                    className={`absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-[45%] transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+                                    className={`absolute transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
                                     style={{
-                                        width: '580px',
+                                        width: '458px',
                                         maxWidth: 'none',
+                                        left: 'calc(50% + 200px)',
+                                        bottom: '0',
+                                        transform: 'translateX(-50%) translateY(45%) scale(1)',
                                     }}
                                 />
                             </>
@@ -240,7 +248,7 @@ export default function FooterTest() {
                 {/* Bottom Section */}
                 <div className="mt-10 flex flex-col md:flex-row items-center justify-between gap-10 relative z-10">
                     {/* Left: Links */}
-                    <div className="w-full md:w-auto text-center md:text-left">
+                    <div className="w-full pb-10 md:w-auto flex flex-col items-center md:items-start text-center md:text-left">
                         <h3 className="cda-subtitle mb-6">Have A Browse</h3>
 
                         <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center md:justify-start">
@@ -260,15 +268,15 @@ export default function FooterTest() {
                             ))}
                         </div>
 
-                        <p className="mt-6 text-[14px] text-[#000000]/60">
+                        <p className="mt-4 text-[14px] text-[#000000]/60">
                             CDA © {new Date().getFullYear()}. All rights reserved.
                         </p>
                     </div>
 
                     {/* Right: Social & contact */}
                     <div className="w-full pb-10 md:w-auto flex flex-col items-center md:items-end text-center md:text-right">
-                        <h3 className="cda-subtitle mb-8">Let&apos;s Connect</h3>
-                        <div className="flex items-center gap-5 mb-4 justify-center md:justify-end">
+                        <h3 className="cda-subtitle mb-6">Let&apos;s Connect</h3>
+                        <div className="flex items-center gap-5 mb-6 justify-center md:justify-end">
                             <a href="https://www.facebook.com/cdagroupUK/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="side-menu-social">
                                 <Image src="/images/social-icons/black/facebook.svg" alt="" width={9} height={20} aria-hidden="true" />
                             </a>
