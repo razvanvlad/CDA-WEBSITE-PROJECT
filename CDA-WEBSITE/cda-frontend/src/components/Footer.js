@@ -1,4 +1,3 @@
-// components/Footer.js
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
@@ -16,7 +15,7 @@ const MAG_CONFIG = {
 
   // While aligning on desktop keep both visible; set to false afterwards
   showBothOnDesktop: false,
-  reserveBottomDesktop: 0, // Removed extra space
+  reserveBottomDesktop: 0,
   layerDesktop: 'behind',    // 'behind' or 'front' (z-index control)
 
   // Mobile (<768px): no hover; show only the hover art with these settings
@@ -80,10 +79,11 @@ const MENU_BY_NAME = gql`
 
 /* -------------------------------------------------------------------------- */
 
-export default function Footer() {
+export default function FooterTest() {
   /* ------------------------------- Menu state ------------------------------ */
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
 
   /* ----------------------------- Mobile/desktop ---------------------------- */
   const [isMobile, setIsMobile] = useState(false);
@@ -163,96 +163,81 @@ export default function Footer() {
     })();
   }, []);
 
-  /* ----------------------- Hover image visibility class -------------------- */
-  const hoverVisibleClass = MAG_CONFIG.showBothOnDesktop
-    ? 'opacity-100'
-    : 'opacity-0 md:group-hover:opacity-100';
-  // When not aligning, hide the base on desktop hover (cross-fade with hover image)
-  const baseVisibleClass = MAG_CONFIG.showBothOnDesktop
-    ? 'opacity-100'
-    : 'opacity-100 md:group-hover:opacity-0';
   /* --------------------------------- Render -------------------------------- */
   return (
     <footer className="bg-white pt-5">
       <div className="mx-auto max-w-[1620px] px-[38px]">
-        {/* CTA Section (group used for desktop hover) */}
         {/* CTA Section */}
-        <div className="footer-cta-card relative rounded-2xl bg-white group"
-          style={{ paddingBottom: isMobile ? 0 : (MAG_CONFIG.reserveBottomDesktop || 0) }}
-        >
-          <div className="footer-cta-content py-16 px-6 md:px-12 relative"
-            style={{ zIndex: MAG_CONFIG.layerDesktop === 'front' ? 20 : 10 }}
-          >
-            <p className="cda-subtitle">Take The First Step Toward Something Great</p>
-            <h2 className="cda-page-title-clean text-center my-5">
-              Ready To Start Your
-              <span className="relative inline-block">
-                <span className="cda-page-title-clean">Project?</span>
-
-              </span>
-            </h2>
-            <a
-              href="/contact"
-              className="
+        <div className="footer-cta-card relative rounded-2xl bg-white group flex flex-col items-center justify-center text-center pt-16 pb-[169px] md:pb-[162px]">
+          <p className="cda-subtitle mb-2">Take The First Step Toward Something Great</p>
+          <h2 className="cda-page-title-clean text-center mb-10 text-4xl md:text-6xl font-bold">
+            Ready To Start Your&nbsp;
+            <span className="relative inline-block">
+              <span className="relative z-10">Project?</span>
+              <span className="absolute left-0 bottom-1 w-full h-2 bg-[#FD8721] -z-0"></span>
+            </span>
+          </h2>
+          <a
+            href="/contact"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="
          button-l footer-cta-btn mt-6 inline-flex items-center justify-center
+         bg-black text-white px-10 py-4 rounded-none border-2 border-white shadow-[0_0_0_1px_rgba(0,0,0,1)]
          transform-gpu transition-transform duration-300 ease-out will-change-transform
-         motion-safe:md:hover:scale-[1.06] motion-safe:md:group-hover:scale-[1.06]
+         hover:scale-105
          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/70
          active:scale-[1.02]
+         z-20 relative
     "
-            >
-              Let's Talk</a>
-          </div>
-
-          {/* Magnifier canvas — this is what guarantees no extra scrollbar */}
-          <div
-            className="absolute inset-0 pointer-events-none z-0"
-            style={{ contain: 'paint', zIndex: MAG_CONFIG.layerDesktop === 'front' ? 30 : 0 }}
           >
-            {/* MOBILE: single image (no hover on touch) */}
+            Let's Talk</a>
+
+          {/* Magnifier canvas */}
+          <div
+            className="absolute inset-0 pointer-events-none z-0 overflow-visible"
+            style={{ contain: 'layout style' }}
+          >
             {isMobile ? (
               <img
                 src={MAG_CONFIG.mobileSrc}
                 alt=""
-                className="absolute select-none will-change-transform"
+                className="absolute"
                 style={{
-                  left: MAG_CONFIG.mobile.x,
-                  top: MAG_CONFIG.mobile.y,
-                  width: MAG_CONFIG.mobile.width,
-                  transform: `scale(${MAG_CONFIG.mobile.scale}) rotate(${MAG_CONFIG.mobile.rotate}deg)`,
+                  width: '320px',
+                  maxWidth: 'none',
+                  left: '50%',
+                  bottom: '0',
+                  transform: 'translateX(-50%) translateY(35%)',
                 }}
-                draggable={false}
               />
             ) : (
               <>
-                {/* DESKTOP: base */}
+                {/* Base Image */}
                 <img
                   src={MAG_CONFIG.baseSrc}
                   alt=""
-                  className={`absolute select-none will-change-transform transition-opacity duration-300 ease-out ${MAG_CONFIG.showBothOnDesktop ? 'opacity-100' : 'md:group-hover:opacity-0'
-                    }`}
+                  className={`absolute transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
                   style={{
-                    left: MAG_CONFIG.desktop.base.x,
-                    top: MAG_CONFIG.desktop.base.y,
-                    width: MAG_CONFIG.desktop.base.width,
-                    transform: `scale(${MAG_CONFIG.desktop.base.scale}) rotate(${MAG_CONFIG.desktop.base.rotate}deg)`,
+                    width: '580px',
+                    maxWidth: 'none',
+                    left: 'calc(50% - 100px)',
+                    bottom: '0',
+                    transform: 'translateX(-50%) translateY(45%) scale(1)',
                   }}
-                  draggable={false}
                 />
-
-                {/* DESKTOP: hover */}
+                {/* Hover Image */}
                 <img
                   src={MAG_CONFIG.hoverSrc}
                   alt=""
-                  className={`absolute select-none will-change-transform transition-opacity duration-300 ease-out ${MAG_CONFIG.showBothOnDesktop ? 'opacity-100' : 'opacity-0 md:group-hover:opacity-100'
-                    }`}
+                  className={`absolute transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
                   style={{
-                    left: MAG_CONFIG.desktop.hover.x,
-                    top: MAG_CONFIG.desktop.hover.y,
-                    width: MAG_CONFIG.desktop.hover.width,
-                    transform: `scale(${MAG_CONFIG.desktop.hover.scale}) rotate(${MAG_CONFIG.desktop.hover.rotate}deg)`,
+                    width: '458px',
+                    maxWidth: 'none',
+                    left: 'calc(50% - 38px)',
+                    bottom: '0',
+                    transform: 'translateX(-50%) translateY(45%) scale(1)',
                   }}
-                  draggable={false}
                 />
               </>
             )}
@@ -261,9 +246,9 @@ export default function Footer() {
 
 
         {/* Bottom Section */}
-        <div className="pb-10 mt-10 flex flex-col md:flex-row items-center justify-between gap-10">
+        <div className="mt-10 flex flex-col md:flex-row items-center justify-between gap-10 relative z-10">
           {/* Left: Links */}
-          <div className="w-full md:w-auto text-center md:text-left">
+          <div className="w-full pb-[106px] md:pb-[65px] md:w-auto flex flex-col items-center md:items-start text-center md:text-left">
             <h3 className="cda-subtitle mb-6">Have A Browse</h3>
 
             <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center md:justify-start">
@@ -283,15 +268,15 @@ export default function Footer() {
               ))}
             </div>
 
-            <p className="mt-6 text-[14px] text-[#000000]/60">
+            <p className="mt-4 text-[14px] text-[#000000]/60">
               CDA © {new Date().getFullYear()}. All rights reserved.
             </p>
           </div>
 
           {/* Right: Social & contact */}
-          <div className="w-full pb-10 md:w-auto flex flex-col items-center md:items-end text-center md:text-right">
-            <h3 className="cda-subtitle mb-8">Let&apos;s Connect</h3>
-            <div className="flex items-center gap-5 mb-4 justify-center md:justify-end">
+          <div className="w-full pb-[106px] md:pb-[65px] md:w-auto flex flex-col items-center md:items-end text-center md:text-right">
+            <h3 className="cda-subtitle mb-6">Let&apos;s Connect</h3>
+            <div className="flex items-center gap-5 mb-6 justify-center md:justify-end">
               <a href="https://www.facebook.com/cdagroupUK/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="side-menu-social">
                 <Image src="/images/social-icons/black/facebook.svg" alt="" width={9} height={20} aria-hidden="true" />
               </a>
