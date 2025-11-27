@@ -56,7 +56,7 @@ const ApproachBlock = ({ globalData, pageData, useOverride = false }) => {
 
   return (
     <section className="py-16 my-16 bg-white">
-      <div className="container mx-auto px-4 max-w-7xl">
+      <div className="container mx-auto px-[38px] md:px-6 lg:px-8 max-w-7xl">
         <div className="mb-12 md:mb-16 text-center lg:text-left">
           {data.subtitle && (
             <p className="cda-subtitle">

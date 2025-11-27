@@ -107,22 +107,7 @@
   width: 100%;
   max-width: 1620px;
   margin: 0 auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-@media (min-width: 768px) {
-  .cda-hero__container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .cda-hero__container {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
+  /* Padding applied via Tailwind classes in component */
 }
 
 /* Mobile grid removed - now handled by components.css with flexbox */
@@ -131,9 +116,14 @@
 .cda-hero__text,
 .cda-hero__cta {
   width: 100%;
-  max-width: 720px;
-  margin-left: auto;
-  margin-right: auto;
+}
+
+@media (min-width: 1024px) {
+  .cda-hero__title,
+  .cda-hero__text,
+  .cda-hero__cta {
+    max-width: 720px;
+  }
 }
 
 .cda-hero__title {

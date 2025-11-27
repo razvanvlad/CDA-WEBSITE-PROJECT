@@ -89,76 +89,68 @@ export default function ServicesClient({ initialItems = [] }) {
               className={`bg-white ${isLast ? 'border-b border-gray-200' : ''} hover:shadow-lg transition-all duration-300 hover:border-gray-300`}
             >
               <div className="flex flex-col lg:flex-row">
-            {/* Left Section - Title and Image */}
-            <div className="lg:w-1/3 p-6">
-              <div className="flex items-center gap-2 mb-4">
-                {service.serviceTypes?.nodes?.slice(0, 2).map((type) => (
-                  <span key={type.id} className="inline-block px-3 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
-                    {type.name}
-                  </span>
-                ))}
-              </div>
+                {/* Left Section - Title and Image */}
+                <div className="lg:w-1/3 p-6">
+                  <h2 className="font-bold text-gray-900 mt-4 text-center lg:text-left" style={{ fontSize: '38px', lineHeight: '1.2' }}>
+                    <Link href={`/services/${service.slug}`} className="transition-colors">
+                      <ResponsiveUnderlinedTitle as="h2" underlineColor={getServiceColor(service.slug)}>
+                        {service.title}
+                      </ResponsiveUnderlinedTitle>
+                    </Link>
+                  </h2>
 
-              <h2 className="font-bold text-gray-900 mb-4" style={{ fontSize: '38px', lineHeight: '1.2' }}>
-                <Link href={`/services/${service.slug}`} className="transition-colors">
-                  <ResponsiveUnderlinedTitle as="h2" underlineColor={getServiceColor(service.slug)}>
-                    {service.title}
-                  </ResponsiveUnderlinedTitle>
-                </Link>
-              </h2>
-
-              {/* Image Section */}
-              {service.featuredImage?.node?.sourceUrl && (
-                <div className="relative h-48 w-full overflow-hidden rounded-lg">
-                  <Image
-                    src={service.featuredImage.node.sourceUrl}
-                    alt={service.featuredImage.node.altText || service.title}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                    className="object-contain"
-                  />
-                </div>
-              )}
-            </div>
-
-            {/* Right Section - Content */}
-            <div className="lg:w-2/3 p-6">
-              {service.serviceFields?.heroSection?.description && (
-                <div className="mb-6">
-                  {service.serviceFields?.serviceBulletPoints?.title && (
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                      {service.serviceFields.serviceBulletPoints.title}
-                    </h3>
+                  {/* Image Section - Hidden on mobile */}
+                  {service.featuredImage?.node?.sourceUrl && (
+                    <div className="relative h-48 w-full overflow-hidden rounded-lg hidden lg:block">
+                      <Image
+                        src={service.featuredImage.node.sourceUrl}
+                        alt={service.featuredImage.node.altText || service.title}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 33vw"
+                        className="object-contain"
+                      />
+                    </div>
                   )}
-                  <div className="text-gray-700 leading-relaxed mb-4">
-                    {service.serviceFields.heroSection.description}
+                </div>
+
+                {/* Right Section - Content */}
+                <div className="lg:w-2/3 p-6">
+                  {service.serviceFields?.heroSection?.description && (
+                    <div className="mb-6">
+                      {service.serviceFields?.serviceBulletPoints?.title && (
+                        <h3 className="text-sm lg:text-lg font-bold text-gray-900 mb-3">
+                          {service.serviceFields.serviceBulletPoints.title}
+                        </h3>
+                      )}
+                      <div className="text-sm lg:text-lg text-gray-700 leading-relaxed mb-4">
+                        {service.serviceFields.heroSection.description}
+                      </div>
+                    </div>
+                  )}
+
+                  {service.serviceFields?.serviceBulletPoints?.bullets && service.serviceFields.serviceBulletPoints.bullets.length > 0 && (
+                    <div className="mb-6">
+                      <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 list-disc pl-5">
+                        {service.serviceFields.serviceBulletPoints.bullets.slice(0, 6).map((bullet, index) => (
+                          <li key={index} className="text-gray-700" style={{ color: getServiceColor(service.slug) }}>
+                            <span className="text-sm lg:text-lg text-gray-700">{bullet.text}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap gap-8">
+                    <Link href={`/services/${service.slug}#contact-form`} className="button-l-white">
+                      Find Out More
+                    </Link>
+                    <TextLinkButton href={`/services/${service.slug}`}>
+                      Speak To Us
+                    </TextLinkButton>
                   </div>
                 </div>
-              )}
-
-              {service.serviceFields?.serviceBulletPoints?.bullets && service.serviceFields.serviceBulletPoints.bullets.length > 0 && (
-                <div className="mb-6">
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 list-disc pl-5">
-                    {service.serviceFields.serviceBulletPoints.bullets.slice(0, 6).map((bullet, index) => (
-                      <li key={index} className="text-gray-700" style={{ color: getServiceColor(service.slug), fontSize: '18px' }}>
-                        <span className="text-gray-700">{bullet.text}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              <div className="flex flex-wrap gap-8">
-                <Link href={`/services/${service.slug}#contact-form`} className="button-l-white">
-                  Find Out More
-                </Link>
-                <TextLinkButton href={`/services/${service.slug}`}>
-                  Speak To Us
-                </TextLinkButton>
               </div>
             </div>
-          </div>
-        </div>
           );
         })}
       </div>

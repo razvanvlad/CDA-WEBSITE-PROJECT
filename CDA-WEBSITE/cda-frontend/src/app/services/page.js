@@ -120,25 +120,40 @@ export default async function ServicesPage() {
     const heroSectionContent = overviewContent?.heroSection || {}
     // Use a static illustration for the Services list header with hover swap
     const heroImageNode = (
-      <div className="cameleon-hero" style={{ width: 600 }}>
-        <img
-          src="/images/cameleon-right.svg"
-          alt="Services illustration"
-          width={600}
-          height={400}
-          className="cameleon-hero__img base"
-          loading="eager"
-        />
-        <img
-          src="/images/cameleon-right-hover.svg"
-          alt=""
-          aria-hidden="true"
-          width={600}
-          height={400}
-          className="cameleon-hero__img hover"
-          loading="eager"
-        />
-      </div>
+      <>
+        {/* Desktop: Chameleon with hover effect */}
+        <div className="cameleon-hero !hidden lg:!block" style={{ width: 600 }}>
+          <img
+            src="/images/cameleon-right.svg"
+            alt="Services illustration"
+            width={600}
+            height={400}
+            className="cameleon-hero__img base"
+            loading="eager"
+          />
+          <img
+            src="/images/cameleon-right-hover.svg"
+            alt=""
+            aria-hidden="true"
+            width={600}
+            height={400}
+            className="cameleon-hero__img hover"
+            loading="eager"
+          />
+        </div>
+
+        {/* Mobile: Centered mobile-specific image */}
+        <div className="lg:hidden flex justify-center">
+          <img
+            src="/images/services/chameleon-mobile.svg"
+            alt="Services illustration"
+            width={320}
+            height={320}
+            className="w-full max-w-[320px]"
+            loading="eager"
+          />
+        </div>
+      </>
     )
 
     const heroDescription =

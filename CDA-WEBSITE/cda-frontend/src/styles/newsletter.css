@@ -10,6 +10,18 @@
   padding: 5rem 38px;
 }
 
+@media (min-width: 768px) {
+  .newsletter-section {
+    padding: 5rem 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .newsletter-section {
+    padding: 5rem 2rem;
+  }
+}
+
 .newsletter-container {
   max-width: 1620px;
   margin: 0 auto;
