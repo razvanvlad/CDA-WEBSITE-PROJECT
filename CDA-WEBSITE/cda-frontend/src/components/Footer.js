@@ -11,14 +11,12 @@ import client from '../lib/graphql/client';
 const MAG_CONFIG = {
   baseSrc: '/images/footer-magnifying-glass/footer-magnifying-glass-desktop.svg',
   hoverSrc: '/images/footer-magnifying-glass/footer-magnifying-glass-desktop-hover.svg',
-  mobileSrc: '/images/footer-magnifying-glass/footer-magnifying-glass-mobile.svg',
+  mobileSrc: '/images/footer/mobile-glass-full.svg', // ✅ NEW SVG
 
-  // While aligning on desktop keep both visible; set to false afterwards
   showBothOnDesktop: false,
   reserveBottomDesktop: 0,
-  layerDesktop: 'behind',    // 'behind' or 'front' (z-index control)
+  layerDesktop: 'behind',
 
-  // Mobile (<768px): no hover; show only the hover art with these settings
   mobile: {
     width: 380,
     x: -20,
@@ -27,7 +25,6 @@ const MAG_CONFIG = {
     rotate: 0,
   },
 
-  // Desktop (≥768px): independent positions for base and hover
   desktop: {
     base: { width: 680, x: 480, y: 100, scale: 1, rotate: 0 },
     hover: { width: 680, x: 350, y: -50, scale: 1, rotate: 0 },
@@ -80,13 +77,11 @@ const MENU_BY_NAME = gql`
 /* -------------------------------------------------------------------------- */
 
 export default function FooterTest() {
-  /* ------------------------------- Menu state ------------------------------ */
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
-
-  /* ----------------------------- Mobile/desktop ---------------------------- */
   const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 768);
     onResize();
@@ -94,7 +89,6 @@ export default function FooterTest() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  /* -------------------------- URL/path normalisation ----------------------- */
   const wpBasePath = useMemo(() => {
     try {
       const url = process.env.NEXT_PUBLIC_WORDPRESS_URL;
@@ -127,11 +121,9 @@ export default function FooterTest() {
     return normalizePath(raw);
   };
 
-  /* ------------------------------- Fetch menu ------------------------------ */
   useEffect(() => {
     (async () => {
       try {
-        // Use your footer menu DB ID here
         let response = await client.query({
           query: MENU_BY_DBID,
           variables: { id: '41' },
@@ -168,9 +160,9 @@ export default function FooterTest() {
     <footer className="bg-white pt-5">
       <div className="mx-auto max-w-[1620px] px-[38px]">
         {/* CTA Section */}
-        <div class="footer-cta-card relative rounded-2xl bg-white group flex flex-col items-center justify-center text-center pt-16 pb-[142px] md:pb-[162px]">
+        <div className="footer-cta-card relative rounded-2xl bg-white group flex flex-col items-center justify-center text-center pt-16 pb-[142px] md:pb-[162px]">
           <p className="cda-subtitle mb-2">Take The First Step Toward Something Great</p>
-          <h1 className="cda-page-title-clean text-center mb-10 text-4xl md:text-6xl font-bold">
+          <h1 className="cda-page-title-clean text-center mb-20 text-4xl md:text-6xl font-bold">
             Ready To Start Your&nbsp;
             <span className="relative inline-block">
               <span className="relative z-10">Project?</span>
@@ -191,24 +183,25 @@ export default function FooterTest() {
          z-20 relative
     "
           >
-            Let's Talk</a>
+            Let's Talk
+          </a>
 
           {/* Magnifier canvas */}
           <div
-            className="absolute inset-0 pointer-events-none z-0 overflow-visible"
+            className="absolute inset-0 pointer-events-none z-10 overflow-visible"
             style={{ contain: 'layout style' }}
           >
             {isMobile ? (
               <img
                 src={MAG_CONFIG.mobileSrc}
                 alt=""
-                className="absolute"
+                className="absolute pointer-events-none"
                 style={{
-                  width: '320px',
+                  width: 'auto',
                   maxWidth: 'none',
                   left: '50%',
                   bottom: '0',
-                  transform: 'translateX(-50%) translateY(35%)',
+                  transform: 'translateX(-67%) translateY(26%)', // ✅ Adjust this value as needed
                 }}
               />
             ) : (
@@ -243,7 +236,6 @@ export default function FooterTest() {
             )}
           </div>
         </div>
-
 
         {/* Bottom Section */}
         <div className="mt-10 flex flex-col md:flex-row items-center justify-between gap-10 relative z-10">
