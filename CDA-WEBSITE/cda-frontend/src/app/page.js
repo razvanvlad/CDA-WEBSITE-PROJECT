@@ -191,6 +191,12 @@ export default async function Home() {
       {/* 1) Hero individual */}
       {hero && (
         <HeroSection
+          mobileOrder={{
+            title: 1,
+            text: 2,
+            image: 3,
+            cta: 4
+          }}
           sectionClassName="bg-white"
           title={
             <ResponsiveUnderlinedTitle

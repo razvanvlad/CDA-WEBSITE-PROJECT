@@ -90,6 +90,7 @@ const normalizeCtas = (ctas) => {
 export default function HeroSection({
   sectionClassName = 'bg-white',
   containerClassName = defaultContainerClassName,
+  mobileOrder,
   eyebrow,
   eyebrowClassName = '',
   title,
@@ -157,10 +158,18 @@ export default function HeroSection({
   const ctaItems = normalizeCtas(ctas)
   const imageNode = isValidElement(image) ? image : null
 
+  // Generate inline style for CSS variables when mobileOrder is provided
+  const gridStyle = mobileOrder ? {
+    '--mobile-order-title': mobileOrder.title || 1,
+    '--mobile-order-text': mobileOrder.text || 3,
+    '--mobile-order-image': mobileOrder.image || 2,
+    '--mobile-order-cta': mobileOrder.cta || 4,
+  } : undefined
+
   return (
     <section className={`cda-hero ${sectionClassName}`.trim()} id={id}>
       <div className={`cda-hero__container ${containerClassName}`.trim()}>
-        <div className="cda-hero__grid">
+        <div className="cda-hero__grid" style={gridStyle}>
           {(eyebrow || normalizedTitle) && (
             <div className="cda-hero__title">
               {eyebrow && (

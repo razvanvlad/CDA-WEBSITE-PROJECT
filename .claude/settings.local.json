@@ -20,7 +20,9 @@
       "Bash(find:*)",
       "Bash(dir /b \"C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\public\\images\" 2)",
       "Bash(nul)",
-      "Bash(dir /b \"C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\public\\images\\services\")"
+      "Bash(dir /b \"C:\\xampp\\htdocs\\CDA-WEBSITE-PROJECT\\CDA-WEBSITE\\cda-frontend\\public\\images\\services\")",
+      "Bash(tasklist:*)",
+      "Bash(findstr:*)"
     ],
     "deny": [],
     "ask": []

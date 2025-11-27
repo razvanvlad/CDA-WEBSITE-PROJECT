@@ -27,14 +27,15 @@
 }
 
 .cda-hero__grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
   align-items: center;
 }
 
 @media (min-width: 1024px) {
   .cda-hero__grid {
+    display: grid;
     grid-template-columns: 7fr 5fr;
     /* 60/40 split */
     gap: 3rem;
@@ -45,9 +46,9 @@
    MOBILE LAYOUT ORDER
    ============================================ */
 
-/* Title - Order 1 on mobile, Order 1 on desktop */
+/* Title - Order on mobile uses CSS variable or defaults to 1 */
 .cda-hero__title {
-  order: 1;
+  order: var(--mobile-order-title, 1);
   text-align: center;
 }
 
@@ -61,9 +62,9 @@
   }
 }
 
-/* Image - Order 2 on mobile, Order 2 on desktop (right column) */
+/* Image - Order on mobile uses CSS variable or defaults to 2 */
 .cda-hero__image {
-  order: 2;
+  order: var(--mobile-order-image, 2);
   display: flex;
   justify-content: center;
 }
@@ -80,9 +81,9 @@
   }
 }
 
-/* Text - Order 3 on mobile, Part of left column on desktop */
+/* Text - Order on mobile uses CSS variable or defaults to 3 */
 .cda-hero__text {
-  order: 3;
+  order: var(--mobile-order-text, 3);
   text-align: center;
 }
 
@@ -95,9 +96,9 @@
   }
 }
 
-/* CTAs - Order 4 on mobile, Part of left column on desktop */
+/* CTAs - Order on mobile uses CSS variable or defaults to 4 */
 .cda-hero__cta {
-  order: 4;
+  order: var(--mobile-order-cta, 4);
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
