@@ -129,7 +129,7 @@ export default function RoiCalculatorForm() {
 
   if (showConfirmation) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center py-16 px-4">
+      <div className="min-h-screen bg-white flex items-center justify-center py-16 px-[38px] md:px-6 lg:px-8">
         <div className="max-w-2xl text-center">
           <div className="mb-8">
             <svg className="mx-auto h-16 w-16 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -167,7 +167,7 @@ export default function RoiCalculatorForm() {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 relative z-10">
+      <div className="max-w-7xl mx-auto px-[38px] md:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:grid lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Left 1/3 - Title and Text */}
           <div className="lg:col-span-1 order-1">
@@ -394,7 +394,7 @@ export default function RoiCalculatorForm() {
           </div>
 
           {/* Mobile image - shown after form on mobile */}
-          <div className="lg:hidden -mx-4 order-3">
+          <div className="lg:hidden -mx-[38px] md:-mx-6 order-3">
             <Image
               src="/images/roi-calculator.svg"
               alt="ROI Calculator Illustration"

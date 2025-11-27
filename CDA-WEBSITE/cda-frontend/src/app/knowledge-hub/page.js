@@ -54,24 +54,24 @@ export const revalidate = 300
 
 export default async function KnowledgeHubPage() {
   try {
-// Fetch case studies (core fields) and blog posts separately
+    // Fetch case studies (core fields) and blog posts separately
     const [caseStudiesResponse, blogPostsResponse, globalData] = await Promise.all([
       executeGraphQLQuery(GET_CASE_STUDIES_WITH_PAGINATION),
       executeGraphQLQuery(GET_ALL_BLOGPOSTS),
       getGlobalContent()
     ])
-    
+
     if (caseStudiesResponse.errors) {
       console.error('Case Studies GraphQL errors:', caseStudiesResponse.errors)
     }
-    
-if (blogPostsResponse.errors) {
+
+    if (blogPostsResponse.errors) {
       console.error('BlogPosts GraphQL errors:', blogPostsResponse.errors)
     }
-    
-const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
+
+    const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
     const posts = blogPostsResponse.data?.blogPosts?.nodes || []
-    
+
     return (
       <>
         <Header />
@@ -91,18 +91,18 @@ const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
             }
             description="Read more news and articles from CDA. Explore our case studies, industry insights, and expert resources to help your business grow."
             descriptionClassName="text-lg text-gray-600"
-            ctas={[
-              {
-                label: 'View Case Studies',
-                href: '/case-studies',
-                className: 'button-l',
-              },
-              {
-                label: 'Contact Us',
-                href: '/contact',
-                className: 'button-secondary',
-              },
-            ]}
+            // ctas={[
+            //   {
+            //     label: 'View Case Studies',
+            //     href: '/case-studies',
+            //     className: 'button-l',
+            //   },
+            //   {
+            //     label: 'Contact Us',
+            //     href: '/contact',
+            //     className: 'button-secondary',
+            //   },
+            // ]}
             image={
               <img
                 src="/images/owl.svg"
@@ -163,16 +163,16 @@ const caseStudies = caseStudiesResponse.data?.caseStudies?.nodes || []
             }}
             useHubspot={false}
           />
-          
+
 
         </main>
-        
+
         <Footer />
       </>
     )
   } catch (error) {
     console.error('Failed to load Knowledge Hub:', error)
-    
+
     return (
       <>
         <Header />

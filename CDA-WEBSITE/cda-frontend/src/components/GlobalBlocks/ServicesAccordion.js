@@ -74,7 +74,7 @@ const ServicesAccordion = ({
                       onClick={() => setOpenIndex(isOpen ? -1 : idx)}
                     >
                       <span
-                        className="flex-1 min-w-0 text-[18px] md:text-[20px] font-bold text-black leading-tight"
+                        className="flex-1 min-w-0 text-[18px] md:text-[22px] font-bold text-black leading-tight"
                         style={{ overflowWrap: 'anywhere' }}
                       >
                         {item.title}

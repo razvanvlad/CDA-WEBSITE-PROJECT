@@ -2,10 +2,10 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import HeroSection from '../../components/GlobalBlocks/HeroSection';
 import ApproachBlock from '../../components/GlobalBlocks/ApproachBlock';
-import CaseStudies from '../../components/GlobalBlocks/CaseStudies';
+import CaseStudies from '@/components/GlobalBlocks/CaseStudies';
 import Image from 'next/image'
 import ResponsiveUnderlinedTitle from '@/components/ResponsiveUnderlinedTitle';
-import { getTechnologiesWithPagination, getGlobalContent } from '@/lib/graphql-queries.js';
+import { getTechnologiesWithPagination, getGlobalContent, getAllGlobalContentBlocks, getCaseStudiesWithPagination } from '@/lib/graphql-queries.js';
 import GlobalTailSections from '@/components/GlobalBlocks/GlobalTailSections.jsx';
 import ServicesSlider from '@/components/GlobalBlocks/ServicesSlider.jsx';
 
@@ -20,6 +20,34 @@ export const metadata = {
 export default async function TechnologiesPage() {
   const { nodes: technologies } = await getTechnologiesWithPagination({ first: 100 })
   const globalData = await getGlobalContent()
+
+  // Fetch case studies data with fallback
+  let csData = null;
+  try {
+    const allGlobalData = await getAllGlobalContentBlocks();
+    csData = allGlobalData?.caseStudiesSection || null;
+    if (!csData) {
+      const { nodes } = await getCaseStudiesWithPagination({ first: 3 });
+      if (nodes && nodes.length > 0) {
+        csData = {
+          title: 'Some Of Our Case Studies',
+          subtitle: 'Projects',
+          knowledgeHubLink: { url: '/case-studies', title: 'See All Case Studies', target: '_self' },
+          selectedStudies: {
+            nodes: nodes.map(n => ({
+              id: n.id,
+              title: n.title,
+              uri: `/case-studies/${n.slug}`,
+              excerpt: n.excerpt,
+              featuredImage: n.featuredImage,
+            }))
+          }
+        };
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching case studies:', error);
+  }
 
   const stripHtml = (html) => html?.replace(/<[^>]*>/g, '') || ''
   const truncateText = (text, maxLength = 120) => {
@@ -44,18 +72,6 @@ export default async function TechnologiesPage() {
         }
         description="Discover the cutting-edge technologies and frameworks we use to build exceptional digital solutions for our clients."
         descriptionClassName="text-lg text-gray-600"
-        ctas={[
-          {
-            label: 'Get Started',
-            href: '/contact',
-            className: 'button-l',
-          },
-          {
-            label: 'View Services',
-            href: '/services',
-            className: 'button-secondary',
-          },
-        ]}
         image={
           <img
             src="/images/drone.svg"
@@ -130,6 +146,11 @@ export default async function TechnologiesPage() {
 
       {/* Services Slider (static component fed by Services CPT) */}
       <ServicesSlider />
+
+      {/* Case Studies Section */}
+      {csData && (
+        <CaseStudies globalData={csData} />
+      )}
 
       {/* Global tail sections (Case Studies, Approach) */}
       <GlobalTailSections globalData={globalData} enableStats={false} />

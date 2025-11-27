@@ -36,8 +36,8 @@ const CaseStudies = ({ globalData }) => {
   const studies = selectedStudies?.nodes || [];
 
   return (
-    <section className="home-case-studies" style={{padding: '5rem 1rem'}}>
-      <div style={{maxWidth: '1620px', margin: '0 auto'}}>
+    <section className="home-case-studies py-20">
+      <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
         {/* Header: left subtitle + title, right CTA (empty box style) */}
         <div className="cs-header">
           <div className="cs-head-left">
@@ -214,12 +214,6 @@ const CaseStudies = ({ globalData }) => {
 
           .cs-list {
             gap: 2.5rem;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .home-case-studies {
-            padding: 3rem 1rem !important;
           }
 
           .cs-title {

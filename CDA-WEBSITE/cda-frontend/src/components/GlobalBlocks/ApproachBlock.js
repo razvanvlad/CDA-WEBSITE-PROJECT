@@ -64,13 +64,9 @@ const ApproachBlock = ({ globalData, pageData, useOverride = false }) => {
             </p>
           )}
           {data.title && (
-            <ResponsiveUnderlinedTitle
-              as="h2"
-              className="section-title"
-              underlineColor="#FF60DF"
-            >
+            <h2 className="section-title">
               {data.title}
-            </ResponsiveUnderlinedTitle>
+            </h2>
           )}
         </div>
 
