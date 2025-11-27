@@ -12,7 +12,12 @@
    HEADINGS - Poppins Bold
    ───────────────────────────────────────────────────────────────── */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-poppins);
   font-weight: 700;
 }
@@ -22,14 +27,17 @@ h1, h2, h3, h4, h5, h6 {
    Desktop (>768px): 50px
    Font-weight: 800 (Extra Bold)
    ───────────────────────────────────────────────────────────────── */
-h1, .h1 {
+h1,
+.h1 {
   font-size: 32px;
   line-height: 1.1;
   font-weight: 800;
 }
 
 @media (min-width: 769px) {
-  h1, .h1 {
+
+  h1,
+  .h1 {
     font-size: 50px;
   }
 }
@@ -39,14 +47,17 @@ h1, .h1 {
    Desktop (>768px): 38px
    Font-weight: 700 (Bold)
    ───────────────────────────────────────────────────────────────── */
-h2, .h2 {
+h2,
+.h2 {
   font-size: 28px;
   line-height: 1.2;
   font-weight: 700;
 }
 
 @media (min-width: 769px) {
-  h2, .h2 {
+
+  h2,
+  .h2 {
     font-size: 38px;
   }
 }
@@ -60,7 +71,11 @@ body {
   font-weight: 400;
 }
 
-p, span, div, li, a {
+p,
+span,
+div,
+li,
+a {
   font-family: var(--font-inter);
   /* NO font-weight here - let Tailwind control it */
 }
@@ -122,6 +137,18 @@ p, span, div, li, a {
 .cda-page-title-clean {
   font-family: var(--font-poppins);
   font-weight: 700;
+  font-size: 18px;
+  /* Mobile default */
+}
+
+/* Desktop (or larger screens) */
+@media (min-width: 768px) {
+
+  .cda-subtitle,
+  .cda-page-title,
+  .cda-page-title-clean {
+    font-size: 22px;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────

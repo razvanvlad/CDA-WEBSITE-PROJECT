@@ -160,7 +160,7 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
       </div>
 
       {/* Mobile Sticky Start Project Button - Bottom Edge */}
-      <div className="fixed bottom-0 left-0 w-full z-50 md:hidden bg-black py-3 flex justify-center">
+      <div className="fixed bottom-0 left-0 w-full z-50 md:hidden bg-black h-[58px] flex items-center justify-center">
         <TextLinkButton onClick={() => setIsBookingModalOpen(true)} variant="white">
           Start A Project
         </TextLinkButton>

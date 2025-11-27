@@ -275,8 +275,8 @@ export default function FooterTest() {
 
           {/* Right: Social & contact */}
           <div className="w-full pb-[106px] md:pb-[65px] md:w-auto flex flex-col items-center md:items-end text-center md:text-right">
-            <h3 className="cda-subtitle mb-6">Let&apos;s Connect</h3>
-            <div className="flex items-center gap-5 mb-6 justify-center md:justify-end">
+            <h3 className="cda-subtitle mb-3">Let&apos;s Connect</h3>
+            <div className="flex items-center gap-8 mb-3 justify-center md:justify-end">
               <a href="https://www.facebook.com/cdagroupUK/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="side-menu-social">
                 <Image src="/images/social-icons/black/facebook.svg" alt="" width={9} height={20} aria-hidden="true" />
               </a>
