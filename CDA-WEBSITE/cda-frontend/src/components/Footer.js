@@ -221,8 +221,8 @@ export default function FooterTest() {
                   style={{
                     width: '580px',
                     maxWidth: 'none',
-                    left: 'calc(50% - 100px)',
-                    bottom: '0',
+                    left: 'calc(50% + 150px)',
+                    bottom: '-40px',
                     transform: 'translateX(-50%) translateY(45%) scale(1)',
                   }}
                 />
