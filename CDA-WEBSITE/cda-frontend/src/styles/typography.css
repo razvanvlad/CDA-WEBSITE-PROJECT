@@ -132,9 +132,7 @@ a {
    LEGACY CDA CLASSES (Keep for backwards compatibility)
    ───────────────────────────────────────────────────────────────── */
 
-.cda-subtitle,
-.cda-page-title,
-.cda-page-title-clean {
+.cda-subtitle {
   font-family: var(--font-poppins);
   font-weight: 700;
   font-size: 18px;
@@ -144,10 +142,26 @@ a {
 /* Desktop (or larger screens) */
 @media (min-width: 768px) {
 
-  .cda-subtitle,
+  .cda-subtitle {
+    font-size: 22px;
+  }
+}
+
+
+.cda-page-title,
+.cda-page-title-clean {
+  font-family: var(--font-poppins);
+  font-weight: 700;
+  /* Mobile default */
+}
+
+/* Desktop (or larger screens) */
+@media (min-width: 768px) {
+
   .cda-page-title,
   .cda-page-title-clean {
-    font-size: 22px;
+    font-family: var(--font-poppins);
+    font-weight: 700;
   }
 }
 

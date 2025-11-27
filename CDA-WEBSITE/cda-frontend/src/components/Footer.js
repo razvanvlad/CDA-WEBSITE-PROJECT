@@ -168,15 +168,15 @@ export default function FooterTest() {
     <footer className="bg-white pt-5">
       <div className="mx-auto max-w-[1620px] px-[38px]">
         {/* CTA Section */}
-        <div className="footer-cta-card relative rounded-2xl bg-white group flex flex-col items-center justify-center text-center pt-16 pb-[169px] md:pb-[162px]">
+        <div class="footer-cta-card relative rounded-2xl bg-white group flex flex-col items-center justify-center text-center pt-16 pb-[142px] md:pb-[162px]">
           <p className="cda-subtitle mb-2">Take The First Step Toward Something Great</p>
-          <h2 className="cda-page-title-clean text-center mb-10 text-4xl md:text-6xl font-bold">
+          <h1 className="cda-page-title-clean text-center mb-10 text-4xl md:text-6xl font-bold">
             Ready To Start Your&nbsp;
             <span className="relative inline-block">
               <span className="relative z-10">Project?</span>
               <span className="absolute left-0 bottom-1 w-full h-2 bg-[#FD8721] -z-0"></span>
             </span>
-          </h2>
+          </h1>
           <a
             href="/contact"
             onMouseEnter={() => setIsHovered(true)}
@@ -185,7 +185,7 @@ export default function FooterTest() {
          button-l footer-cta-btn mt-6 inline-flex items-center justify-center
          bg-black text-white px-10 py-4 rounded-none border-2 border-white shadow-[0_0_0_1px_rgba(0,0,0,1)]
          transform-gpu transition-transform duration-300 ease-out will-change-transform
-         hover:scale-105
+         hover:bg-black hover:text-white hover:scale-105
          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/70
          active:scale-[1.02]
          z-20 relative
