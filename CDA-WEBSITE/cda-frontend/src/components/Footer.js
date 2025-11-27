@@ -248,10 +248,10 @@ export default function FooterTest() {
         {/* Bottom Section */}
         <div className="mt-10 flex flex-col md:flex-row items-center justify-between gap-10 relative z-10">
           {/* Left: Links */}
-          <div className="w-full pb-[106px] md:pb-[65px] md:w-auto flex flex-col items-center md:items-start text-center md:text-left">
-            <h3 className="cda-subtitle mb-6">Have A Browse</h3>
+          <div className="w-full md:pb-[65px] md:w-auto flex flex-col items-center md:items-start text-center md:text-left">
+            <h3 className="cda-subtitle mb-3">Have A Browse</h3>
 
-            <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center md:justify-start">
+            <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center md:justify-start mb-3">
               {!loading && menuItems.length === 0 && (
                 <span className="text-[14px] text-[#000000]/60">
                   No footer links configured
@@ -268,7 +268,7 @@ export default function FooterTest() {
               ))}
             </div>
 
-            <p className="mt-4 text-[14px] text-[#000000]/60">
+            <p className="text-[14px] text-[#000000]/60">
               CDA © {new Date().getFullYear()}. All rights reserved.
             </p>
           </div>
