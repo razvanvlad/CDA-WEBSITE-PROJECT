@@ -168,7 +168,7 @@ export default function FooterTest() {
         <footer className="bg-white pt-5">
             <div className="mx-auto max-w-[1620px] px-[38px]">
                 {/* CTA Section */}
-                <div className="footer-cta-card relative rounded-2xl bg-white group flex flex-col items-center justify-center text-center pt-16 pb-32 md:pb-48">
+                <div className="footer-cta-card relative rounded-2xl bg-white group flex flex-col items-center justify-center text-center pt-16 pb-[169px] md:pb-[162px]">
                     <p className="cda-subtitle mb-2">Take The First Step Toward Something Great</p>
                     <h2 className="cda-page-title-clean text-center mb-10 text-4xl md:text-6xl font-bold">
                         Ready To Start Your&nbsp;
@@ -221,7 +221,7 @@ export default function FooterTest() {
                                     style={{
                                         width: '580px',
                                         maxWidth: 'none',
-                                        left: 'calc(50% + 200px)',
+                                        left: 'calc(50% - 100px)',
                                         bottom: '0',
                                         transform: 'translateX(-50%) translateY(45%) scale(1)',
                                     }}
@@ -234,7 +234,7 @@ export default function FooterTest() {
                                     style={{
                                         width: '458px',
                                         maxWidth: 'none',
-                                        left: 'calc(50% + 200px)',
+                                        left: 'calc(50% - 38px)',
                                         bottom: '0',
                                         transform: 'translateX(-50%) translateY(45%) scale(1)',
                                     }}
