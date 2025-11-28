@@ -104,6 +104,22 @@ export const GET_ALL_SERVICES = `
               text
             }
           }
+          featuredCaseStudies {
+            nodes {
+              ... on CaseStudy {
+                id
+                title
+                uri
+                excerpt
+                featuredImage {
+                  node {
+                    sourceUrl
+                    altText
+                  }
+                }
+              }
+            }
+          }
         }
         serviceTypes {
           nodes {
@@ -149,6 +165,22 @@ export const GET_SERVICES_WITH_PAGINATION = `
             title
             bullets {
               text
+            }
+          }
+          featuredCaseStudies {
+            nodes {
+              ... on CaseStudy {
+                id
+                title
+                uri
+                excerpt
+                featuredImage {
+                  node {
+                    sourceUrl
+                    altText
+                  }
+                }
+              }
             }
           }
         }
@@ -234,22 +266,6 @@ export const GET_SERVICE_BY_SLUG = `
           cta {
             url
             title
-          }
-        }
-        caseStudies {
-          nodes {
-            ... on CaseStudy {
-              id
-              title
-              uri
-              excerpt
-              featuredImage {
-                node {
-                  sourceUrl
-                  altText
-                }
-              }
-            }
           }
         }
       }
