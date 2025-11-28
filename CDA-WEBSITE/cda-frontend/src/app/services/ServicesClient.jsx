@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ResponsiveUnderlinedTitle from '@/components/ResponsiveUnderlinedTitle';
 import TextLinkButton from '@/components/ui/TextLinkButton';
@@ -20,6 +20,82 @@ const getServiceColor = (slug) => {
   };
   return colorMap[slug] || '#7c3aed';
 };
+
+// Case Studies Slider Component
+function CaseStudiesSlider({ caseStudies }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (!caseStudies || caseStudies.length === 0) return null;
+
+  const currentStudy = caseStudies[currentIndex];
+
+  return (
+    <div className="hidden lg:block w-full mt-6">
+      {/* Slider Content */}
+      <div className="bg-white rounded-lg overflow-hidden">
+        {/* Image */}
+        {currentStudy.featuredImage?.node?.sourceUrl && (
+          <div className="relative w-full h-[264px] overflow-hidden">
+            <Image
+              src={currentStudy.featuredImage.node.sourceUrl}
+              alt={currentStudy.featuredImage.node.altText || currentStudy.title}
+              fill
+              className="object-cover"
+              sizes="512px"
+            />
+          </div>
+        )}
+
+        {/* Title */}
+        <h3 className="mt-4 font-bold text-gray-900" style={{ fontSize: '22px', fontFamily: 'Poppins, sans-serif' }}>
+          {currentStudy.title}
+        </h3>
+
+        {/* CTA Button */}
+        <div className="mt-4">
+          <a
+            href={currentStudy.uri || `/case-studies/${currentStudy.slug}`}
+            className="button-without-box"
+          >
+            <span className="button-text">Explore Case Study</span>
+            <span className="button-icon-wrapper">
+              <img
+                src="/images/arrow-icons/diagonal-right-arrow.svg"
+                alt=""
+                className="button-icon button-icon-default"
+                aria-hidden="true"
+              />
+              <img
+                src="/images/arrow-icons/right-arrow.svg"
+                alt=""
+                className="button-icon button-icon-hover"
+                aria-hidden="true"
+              />
+            </span>
+          </a>
+        </div>
+      </div>
+
+      {/* Pagination Dots */}
+      {caseStudies.length > 1 && (
+        <div className="flex justify-center gap-2 mt-4">
+          {caseStudies.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                index === currentIndex
+                  ? 'bg-gray-900 w-6'
+                  : 'bg-gray-300 hover:bg-gray-400'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function ServicesClient({ initialItems = [] }) {
   const searchParams = useSearchParams();
@@ -99,18 +175,10 @@ export default function ServicesClient({ initialItems = [] }) {
                     </Link>
                   </h2>
 
-                  {/* Image Section - Hidden on mobile */}
-                  {service.featuredImage?.node?.sourceUrl && (
-                    <div className="relative h-48 w-full overflow-hidden rounded-lg hidden lg:block">
-                      <Image
-                        src={service.featuredImage.node.sourceUrl}
-                        alt={service.featuredImage.node.altText || service.title}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 33vw"
-                        className="object-contain"
-                      />
-                    </div>
-                  )}
+                  {/* Case Studies Slider - Hidden on mobile */}
+                  <CaseStudiesSlider
+                    caseStudies={service.serviceFields?.featuredCaseStudies?.nodes || service.caseStudies?.nodes || []}
+                  />
                 </div>
 
                 {/* Right Section - Content */}

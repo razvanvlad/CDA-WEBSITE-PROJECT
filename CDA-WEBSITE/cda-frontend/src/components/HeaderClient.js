@@ -9,6 +9,7 @@ import client from '../lib/graphql/client'
 import BookingModal from './BookingModal'
 import { usePathname } from 'next/navigation'
 import TextLinkButton from './ui/TextLinkButton'
+import UnderlinedTitle from './UnderlinedTitle'
 
 // Client-side queries (used only as background refresh when initial props are missing)
 const MENU_BY_DBID = gql`
@@ -58,6 +59,35 @@ const LIST_MENUS = gql`
     }
   }
 `
+
+// NavLink component with custom SVG underline on hover
+function NavLink({ href, children, className = '' }) {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <a
+      href={href}
+      className={className}
+      style={{ fontFamily: 'Inter', fontSize: '18px', fontWeight: '600' }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {isHovered ? (
+        <UnderlinedTitle
+          as="span"
+          underlineColor="#3CBEEB"
+          strokeWidth={4}
+          underlineOffset={16}
+          curveIntensity={0.01}
+        >
+          {children}
+        </UnderlinedTitle>
+      ) : (
+        <span>{children}</span>
+      )}
+    </a>
+  )
+}
 
 export default function Header({ initialPrimaryLinks = [], initialCompanyLinks = [], backButton = null }) {
   const [menuItems, setMenuItems] = useState([])
@@ -189,9 +219,9 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
               {/* Desktop Navigation - primary menu */}
               <nav className="hidden md:flex space-x-8">
                 {(primaryLinks || []).map((item) => (
-                  <a key={item.id} href={item.url} className="nav-link" style={{ fontFamily: 'Inter', fontSize: '18px', fontWeight: '600' }}>
+                  <NavLink key={item.id} href={item.url}>
                     {item.label}
-                  </a>
+                  </NavLink>
                 ))}
               </nav>
 
