@@ -6,6 +6,7 @@ import TextLinkButton from '../../../components/ui/TextLinkButton';
 import { notFound } from 'next/navigation';
 import { sanitizeTitleHtml, sanitizeImageAlt } from '../../../lib/sanitizeTitleHtml';
 import { executeGraphQLQuery, GET_SERVICE_BY_SLUG } from '../../../lib/graphql-queries';
+import { safeImageUrl } from '../../../lib/imageUtils';
 import Image from 'next/image';
 import Link from 'next/link';
 import HubspotFormEmbed from '../../../components/HubspotFormEmbed';
@@ -16,7 +17,7 @@ import SellOnline from '@/components/SellOnline';
 import ClientShowcase from '../../../components/ClientShowcase';
 import ChartServiceSection from '../../../components/ChartServiceSection';
 import ServiceStatsSection from '../../../components/ServiceStatsSection';
-import EcommerceSolutionsSection from '../../../components/EcommerceSolutionsSection';
+import ServiceDetails from '../../../components/ServiceDetails';
 
 export const revalidate = 120;
 
@@ -53,21 +54,17 @@ export default async function ServicePage({ params }) {
   const heroSection = serviceFields.heroSection || {};
   const serviceBulletPoints = serviceFields.serviceBulletPoints || {};
   const valueDescription = serviceFields.valueDescription || {};
-  const featuredCaseStudies = serviceFields.caseStudies?.nodes || [];
-  const serviceColor = getServiceColor(service.slug);
 
-  // Helper function to safely encode image URLs
-  const safeImageUrl = (url) => {
-    if (!url) return null;
-    try {
-      // Decode first in case it's already encoded, then encode properly
-      const decoded = decodeURI(url);
-      return encodeURI(decoded);
-    } catch (e) {
-      // If encoding fails, return original URL
-      return url;
-    }
-  };
+  // New ACF fields
+  const serviceCards = serviceFields.serviceCards || [];
+  const serviceDetails = serviceFields.serviceDetails || null;
+  const clientsLogos = serviceFields.clientsLogos || null;
+  const performance = serviceFields.performance || null;
+  const sellOnlineData = serviceFields.sellOnline || null;
+  const numbers = serviceFields.numbers || null;
+  const featuredCaseStudies = serviceFields.featuredCaseStudies?.nodes || [];
+
+  const serviceColor = getServiceColor(service.slug);
 
   const heroImageNode = heroSection.heroImage?.node?.sourceUrl
     ? (
@@ -102,10 +99,6 @@ export default async function ServicePage({ params }) {
     enableCaseStudies: true,
     enableLatestNews: true
   };
-
-  // Alternate backgrounds for sections after hero: gray -> white -> gray -> ...
-  let sectionIndex = 0;
-  const nextBg = () => (sectionIndex++ % 2 === 0 ? 'bg-gray-50' : 'bg-white');
 
   return (
     <>
@@ -144,133 +137,59 @@ export default async function ServicePage({ params }) {
           image={heroImageNode}
         />
 
-        {/* SECTION 1: Services Grid (3x3 Cards) */}
-        <section className={`services-grid-section py-16 ${nextBg()}`}>
-          <div className="container mx-auto px-4" style={{ maxWidth: '1620px' }}>
-            {/* Services Grid - 3x3 */}
-            <div className="services-grid">
-              {/* Card 1: Ecommerce Website Development */}
-              <div className="service-card">
-                <h3 className="service-card__title">Ecommerce Website Development</h3>
-                <p className="service-card__description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <Link href="/services/ecommerce-website-development" className="button-l-white">
-                  Find Out More
-                </Link>
-              </div>
-
-              {/* Card 2: Ecommerce UI & UX */}
-              <div className="service-card">
-                <h3 className="service-card__title">Ecommerce UI & UX</h3>
-                <p className="service-card__description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <Link href="/services/ecommerce-ui-ux" className="button-l-white">
-                  Find Out More
-                </Link>
-              </div>
-
-              {/* Card 3: Ecommerce Marketing */}
-              <div className="service-card">
-                <h3 className="service-card__title">Ecommerce Marketing</h3>
-                <p className="service-card__description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <Link href="/services/ecommerce-marketing" className="button-l-white">
-                  Find Out More
-                </Link>
-              </div>
-
-              {/* Card 4: Conversion Rate Optimisation */}
-              <div className="service-card">
-                <h3 className="service-card__title">Conversion Rate Optimisation</h3>
-                <p className="service-card__description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <Link href="/services/conversion-rate-optimisation" className="button-l-white">
-                  Find Out More
-                </Link>
-              </div>
-
-              {/* Card 5: Ecommerce Platforms */}
-              <div className="service-card">
-                <h3 className="service-card__title">Ecommerce Platforms</h3>
-                <p className="service-card__description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <Link href="/services/ecommerce-platforms" className="button-l-white">
-                  Find Out More
-                </Link>
-              </div>
-
-              {/* Card 6: Ecommerce Automations */}
-              <div className="service-card">
-                <h3 className="service-card__title">Ecommerce Automations</h3>
-                <p className="service-card__description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <Link href="/services/ecommerce-automations" className="button-l-white">
-                  Find Out More
-                </Link>
-              </div>
-
-              {/* Card 7: Ecommerce Consultancy */}
-              <div className="service-card">
-                <h3 className="service-card__title">Ecommerce Consultancy</h3>
-                <p className="service-card__description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <Link href="/services/ecommerce-consultancy" className="button-l-white">
-                  Find Out More
-                </Link>
-              </div>
-
-              {/* Card 8: Ecommerce And AI */}
-              <div className="service-card">
-                <h3 className="service-card__title">Ecommerce And AI</h3>
-                <p className="service-card__description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <Link href="/services/ecommerce-ai" className="button-l-white">
-                  Find Out More
-                </Link>
-              </div>
-
-              {/* Card 9: Headless Ecommerce */}
-              <div className="service-card service-card--with-pin">
-                <Image
-                  src="/images/service-cards-pin.svg"
-                  alt=""
-                  width={45}
-                  height={66}
-                  className="service-card__pin"
-                />
-                <h3 className="service-card__title">Headless Ecommerce</h3>
-                <p className="service-card__description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <Link href="/services/headless-ecommerce" className="button-l-white">
-                  Find Out More
-                </Link>
+        {/* Service Cards Grid - Dynamic from ACF */}
+        {serviceCards && serviceCards.length > 0 && (
+          <section className="services-grid-section py-16">
+            <div className="container mx-auto px-4" style={{ maxWidth: '1620px' }}>
+              <div className="services-grid">
+                {serviceCards.map((card, index) => (
+                  <div key={index} className={`service-card ${card.pinIcon ? 'service-card--with-pin' : ''}`}>
+                    {card.pinIcon && (
+                      <Image
+                        src="/images/service-cards-pin.svg"
+                        alt=""
+                        width={45}
+                        height={66}
+                        className="service-card__pin"
+                      />
+                    )}
+                    <h3 className="service-card__title">{card.title}</h3>
+                    <p className="service-card__description">{card.description}</p>
+                    {card.cta?.url && (
+                      <Link
+                        href={card.cta.url}
+                        className="button-l-white"
+                        target={card.cta.target || '_self'}
+                      >
+                        {card.cta.title || 'Find Out More'}
+                      </Link>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* NEW SECTION: Ecommerce Solutions (Only for ecommerce slug) */}
-        {service.slug === 'ecommerce' && (
-          <EcommerceSolutionsSection />
+          </section>
         )}
 
-        {/* SECTION 4: Stats Image + Content with Bullets */}
-        <ChartServiceSection serviceColor={serviceColor} />
+        {/* Service Details - Dynamic from ACF */}
+        {serviceDetails && (
+          <ServiceDetails serviceDetailsFields={serviceDetails} />
+        )}
 
-        {/* SECTION 5: Stats with Underlines */}
-        <ServiceStatsSection />
+        {/* Performance Section - Dynamic from ACF */}
+        {performance && (
+          <ChartServiceSection serviceColor={serviceColor} performanceFields={performance} />
+        )}
 
-        {/* SECTION 3: Client Showcase */}
-        <ClientShowcase />
+        {/* Numbers/Stats Section - Dynamic from ACF */}
+        {numbers && (
+          <ServiceStatsSection numbersFields={numbers} />
+        )}
+
+        {/* Client Showcase - Dynamic from ACF */}
+        {clientsLogos && (
+          <ClientShowcase clientsLogosFields={clientsLogos} />
+        )}
 
 
 
@@ -284,7 +203,7 @@ export default async function ServicePage({ params }) {
 
         {/* Service Bullet Points */}
         {serviceBulletPoints && (serviceBulletPoints.title || serviceBulletPoints.bullets) && (
-          <section className={`service-bullet-points py-16 ${nextBg()}`}>
+          <section className="service-bullet-points py-16">
             <div className="container mx-auto px-4">
               <div className="text-center mb-12">
                 {serviceBulletPoints.title && (
@@ -312,7 +231,7 @@ export default async function ServicePage({ params }) {
 
         {/* Value Description */}
         {valueDescription && (valueDescription.title || valueDescription.description) && (
-          <section className={`value-description py-16 ${nextBg()}`}>
+          <section className="value-description py-16">
             <div className="container mx-auto px-4">
               <div className="text-center mb-12">
                 {valueDescription.title && (
@@ -344,7 +263,7 @@ export default async function ServicePage({ params }) {
 
         {/* Featured Case Studies Section */}
         {featuredCaseStudies && featuredCaseStudies.length > 0 && (
-          <section className={`home-case-studies ${nextBg()}`} style={{ padding: '5rem 1rem' }}>
+          <section className="home-case-studies" style={{ padding: '5rem 1rem' }}>
             <div style={{ maxWidth: '1620px', margin: '0 auto' }}>
               {/* Header */}
               <div className="cs-header">
@@ -385,7 +304,7 @@ export default async function ServicePage({ params }) {
 
         {/* Main Content */}
         {service.content && (
-          <section className={`service-content py-16 ${nextBg()}`}>
+          <section className="service-content py-16">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
                 <div
@@ -396,7 +315,11 @@ export default async function ServicePage({ params }) {
             </div>
           </section>
         )}
-        <SellOnline />
+
+        {/* Sell Online CTA - Dynamic from ACF */}
+        {sellOnlineData && (
+          <SellOnline sellOnlineFields={sellOnlineData} />
+        )}
         {/* Approach Block */}
         {globalSelection?.enableApproach && globalData?.globalContentBlocks?.approach && (
           <ApproachBlock globalData={{

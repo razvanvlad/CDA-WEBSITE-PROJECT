@@ -98,12 +98,6 @@ export const GET_ALL_SERVICES = `
             subtitle
             description
           }
-          serviceBulletPoints {
-            title
-            bullets {
-              text
-            }
-          }
           featuredCaseStudies {
             nodes {
               ... on CaseStudy {
@@ -160,12 +154,6 @@ export const GET_SERVICES_WITH_PAGINATION = `
           heroSection {
             subtitle
             description
-          }
-          serviceBulletPoints {
-            title
-            bullets {
-              text
-            }
           }
           featuredCaseStudies {
             nodes {
@@ -230,7 +218,6 @@ export const GET_SERVICE_BY_SLUG = `
       id
       title
       slug
-      date
       content
       excerpt
       featuredImage {
@@ -252,24 +239,123 @@ export const GET_SERVICE_BY_SLUG = `
           cta {
             url
             title
+            target
           }
           ctab {
             url
             title
+            target
           }
         }
-        serviceBulletPoints {
-          title
-          bullets {
-            text
-          }
-        }
-        valueDescription {
+        serviceCards {
           title
           description
           cta {
             url
             title
+            target
+          }
+          pinIcon
+        }
+        serviceDetails {
+          title
+          text
+          cta {
+            url
+            title
+            target
+          }
+          checkmark {
+            title           
+          }
+        }
+        clientsLogos {
+          sectionTitle
+          sectionSubtitle {
+            url
+            title
+            target
+          }
+          title
+          subtitle
+          cta {
+            url
+            title
+            target
+          }
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          logos {
+            logo {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+        performance {
+          title
+          subtitle
+          description
+          text
+          cta {
+            url
+            title
+            target
+          }
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          bulletPoints {
+            title
+          }
+        }
+        sellOnline {
+          title
+          cta {
+            url
+            title
+            target
+          }
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+        featuredCaseStudies {
+          nodes {
+            ... on CaseStudy {
+              id
+              title
+              uri
+              excerpt
+              featuredImage {
+                node {
+                  sourceUrl
+                  altText
+                }
+              }
+            }
+          }
+        }
+        numbers {
+          leftTitle
+          leftText
+          rightTitle
+          rightText
+          stats {
+            number
+            text
           }
         }
       }
@@ -940,7 +1026,7 @@ export async function getCaseStudyByAny(params) {
 export async function getTeamMemberBySlug(slug) {
   // Prefer core-only query to avoid ACF/SEO dependency
   const response = await executeGraphQLQuery(GET_TEAM_MEMBER_CORE_BY_SLUG, { slug });
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return null;
@@ -951,7 +1037,7 @@ export async function getTeamMemberBySlug(slug) {
 
 export async function getTeamMembersCoreWithPagination(variables) {
   const response = await executeGraphQLQuery(GET_TEAM_MEMBERS_CORE_WITH_PAGINATION, variables);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return { nodes: [], pageInfo: null };
@@ -965,7 +1051,7 @@ export async function getTeamMembersCoreWithPagination(variables) {
 
 export async function getAllServices() {
   const response = await executeGraphQLQuery(GET_ALL_SERVICES);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return [];
@@ -976,7 +1062,7 @@ export async function getAllServices() {
 
 export async function getServicesWithPagination(variables) {
   const response = await executeGraphQLQuery(GET_SERVICES_WITH_PAGINATION, variables);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return { nodes: [], pageInfo: null };
@@ -990,7 +1076,7 @@ export async function getServicesWithPagination(variables) {
 
 export async function getServicesCoreWithPagination(variables) {
   const response = await executeGraphQLQuery(GET_SERVICES_CORE_WITH_PAGINATION, variables);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return { nodes: [], pageInfo: null };
@@ -1004,7 +1090,7 @@ export async function getServicesCoreWithPagination(variables) {
 
 export async function getAllCaseStudies() {
   const response = await executeGraphQLQuery(GET_ALL_CASE_STUDIES);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return [];
@@ -1015,7 +1101,7 @@ export async function getAllCaseStudies() {
 
 export async function getCaseStudiesWithPagination(variables) {
   const response = await executeGraphQLQuery(GET_CASE_STUDIES_WITH_PAGINATION, variables);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return { nodes: [], pageInfo: null };
@@ -1029,7 +1115,7 @@ export async function getCaseStudiesWithPagination(variables) {
 
 export async function getAllTeamMembers() {
   const response = await executeGraphQLQuery(GET_ALL_TEAM_MEMBERS);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return [];
@@ -1040,7 +1126,7 @@ export async function getAllTeamMembers() {
 
 export async function getTeamMembersWithPagination(variables) {
   const response = await executeGraphQLQuery(GET_TEAM_MEMBERS_WITH_PAGINATION, variables);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return { nodes: [], pageInfo: null };
@@ -1055,7 +1141,7 @@ export async function getTeamMembersWithPagination(variables) {
 // Functions to get all slugs for generateStaticParams
 export async function getServiceSlugs() {
   const response = await executeGraphQLQuery(GET_SERVICE_SLUGS);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return [];
@@ -1066,7 +1152,7 @@ export async function getServiceSlugs() {
 
 export async function getCaseStudySlugs() {
   const response = await executeGraphQLQuery(GET_CASE_STUDY_SLUGS);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return [];
@@ -1077,7 +1163,7 @@ export async function getCaseStudySlugs() {
 
 export async function getTeamMemberSlugs() {
   const response = await executeGraphQLQuery(GET_TEAM_MEMBER_SLUGS);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return [];
@@ -1277,7 +1363,7 @@ export const GET_GLOBAL_CASE_STUDIES_SECTION = `
 
 export async function getGlobalContent() {
   const response = await executeGraphQLQuery(GET_GLOBAL_CONTENT);
-  
+
   // Be tolerant of partial GraphQL errors – return whatever data we have
   if (response.errors) {
     console.warn('Global content GraphQL warnings:', response.errors);
@@ -1311,7 +1397,7 @@ export async function getGlobalContent() {
 
 export async function getJobListingBySlug(slug) {
   const response = await executeGraphQLQuery(GET_JOB_LISTING_BY_SLUG, { slug });
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return null;
@@ -1322,7 +1408,7 @@ export async function getJobListingBySlug(slug) {
 
 export async function getAllJobListings() {
   const response = await executeGraphQLQuery(GET_ALL_JOB_LISTINGS);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return [];
@@ -1333,7 +1419,7 @@ export async function getAllJobListings() {
 
 export async function getJobListingsWithPagination(variables) {
   const response = await executeGraphQLQuery(GET_JOB_LISTINGS_WITH_PAGINATION, variables);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return { nodes: [], pageInfo: null };
@@ -1347,7 +1433,7 @@ export async function getJobListingsWithPagination(variables) {
 
 export async function getJobListingSlugs() {
   const response = await executeGraphQLQuery(GET_JOB_LISTING_SLUGS);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return [];
@@ -1358,7 +1444,7 @@ export async function getJobListingSlugs() {
 
 export async function getJobListingsSimple() {
   const response = await executeGraphQLQuery(GET_JOB_LISTINGS_SIMPLE);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return [];
@@ -1870,7 +1956,7 @@ export async function getTechnologySlugs() {
 
 export async function getPolicyBySlug(slug) {
   const response = await executeGraphQLQuery(GET_POLICY_BY_SLUG, { slug });
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return null;
@@ -1881,7 +1967,7 @@ export async function getPolicyBySlug(slug) {
 
 export async function getAllPolicies() {
   const response = await executeGraphQLQuery(GET_ALL_POLICIES);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return [];
@@ -1892,7 +1978,7 @@ export async function getAllPolicies() {
 
 export async function getPoliciesWithPagination(variables) {
   const response = await executeGraphQLQuery(GET_POLICIES_WITH_PAGINATION, variables);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return { nodes: [], pageInfo: null };
@@ -1906,7 +1992,7 @@ export async function getPoliciesWithPagination(variables) {
 
 export async function getPolicySlugs() {
   const response = await executeGraphQLQuery(GET_POLICY_SLUGS);
-  
+
   if (response.errors) {
     console.error('GraphQL errors:', response.errors);
     return [];
@@ -1923,8 +2009,6 @@ export const GET_SERVICE_ENHANCED_FIELDS = `
     service(id: $slug, idType: SLUG) {
       serviceFields {
         serviceCards { title description pinIcon cta { url title target } }
-        serviceBulletPoints { title bullets { text } }
-        valueDescription { title description cta { url title target } }
         clientsLogos {
           title
           description
