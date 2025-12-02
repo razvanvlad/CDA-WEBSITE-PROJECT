@@ -4,7 +4,32 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { safeImageUrl } from '@/lib/imageUtils';
 
-export default function SellOnline({ sellOnlineFields }) {
+interface MediaNode {
+  sourceUrl: string;
+  altText?: string | null;
+}
+
+interface ACFImage {
+  node: MediaNode;
+}
+
+interface ACFLink {
+  url: string;
+  title: string;
+  target?: string | null;
+}
+
+interface SellOnlineFields {
+  title?: string | null;
+  cta?: ACFLink | null;
+  image?: ACFImage | null;
+}
+
+interface SellOnlineProps {
+  sellOnlineFields: SellOnlineFields | null;
+}
+
+export default function SellOnline({ sellOnlineFields }: SellOnlineProps) {
   if (!sellOnlineFields) return null;
 
   const { title, cta, image } = sellOnlineFields;
