@@ -55,8 +55,21 @@ export default async function ServicePage({ params }) {
   const serviceBulletPoints = serviceFields.serviceBulletPoints || {};
   const valueDescription = serviceFields.valueDescription || {};
 
+  // Get related sub-services for dynamic service cards
+  const relatedSubServices = serviceFields.subservice?.nodes || [];
+
+  // Map sub-services to service cards format
+  const serviceCards = relatedSubServices.map(subService => ({
+    title: subService.title,
+    description: subService.subServices?.heroSection?.text || '',
+    cta: {
+      url: `/services/${service.slug}/${subService.slug}`,
+      title: 'Learn More',
+      target: '_self'
+    }
+  }));
+
   // New ACF fields
-  const serviceCards = serviceFields.serviceCards || [];
   const serviceDetails = serviceFields.serviceDetails || null;
   const clientsLogos = serviceFields.clientsLogos || null;
   const performance = serviceFields.performance || null;

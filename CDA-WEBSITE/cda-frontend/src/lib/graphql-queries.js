@@ -358,6 +358,21 @@ export const GET_SERVICE_BY_SLUG = `
             text
           }
         }
+        subservice {
+          nodes {
+            ... on SubService {
+              id
+              title
+              slug
+              subServices {
+                heroSection {
+                  title
+                  text
+                }
+              }
+            }
+          }
+        }
       }
     }
     globalOptions {
@@ -388,6 +403,104 @@ export const GET_SERVICE_BY_SLUG = `
             }
           }
         }
+      }
+    }
+  }
+`;
+
+export const GET_SUBSERVICE_BY_SLUG = `
+  query GetSubServiceBySlug($slug: ID!) {
+    subService(id: $slug, idType: SLUG) {
+      id
+      title
+      slug
+      content
+      excerpt
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+        }
+      }
+      subServices {
+        heroSection {
+          title
+          text
+          cta {
+            url
+            title
+            target
+          }
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+        stats {
+          number
+          text
+        }
+        videoSection {
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          title
+          text
+          cta {
+            url
+            title
+            target
+          }
+          subtitle
+          description
+        }
+        frameSection {
+          title
+          text
+          cta {
+            url
+            title
+            target
+          }
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+      }
+    }
+    globalOptions {
+      globalContentBlocks {
+        approach {
+          title
+          subtitle
+          steps {
+            title
+            image {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_SUBSERVICE_SLUGS = `
+  query GetSubServiceSlugs {
+    subServices(first: 100) {
+      nodes {
+        slug
       }
     }
   }
