@@ -16,6 +16,7 @@ import SellOnline from '@/components/SellOnline';
 import ClientShowcase from '../../../components/ClientShowcase';
 import ChartServiceSection from '../../../components/ChartServiceSection';
 import ServiceStatsSection from '../../../components/ServiceStatsSection';
+import EcommerceSolutionsSection from '../../../components/EcommerceSolutionsSection';
 
 export const revalidate = 120;
 
@@ -54,10 +55,24 @@ export default async function ServicePage({ params }) {
   const valueDescription = serviceFields.valueDescription || {};
   const featuredCaseStudies = serviceFields.caseStudies?.nodes || [];
   const serviceColor = getServiceColor(service.slug);
+
+  // Helper function to safely encode image URLs
+  const safeImageUrl = (url) => {
+    if (!url) return null;
+    try {
+      // Decode first in case it's already encoded, then encode properly
+      const decoded = decodeURI(url);
+      return encodeURI(decoded);
+    } catch (e) {
+      // If encoding fails, return original URL
+      return url;
+    }
+  };
+
   const heroImageNode = heroSection.heroImage?.node?.sourceUrl
     ? (
       <Image
-        src={heroSection.heroImage.node.sourceUrl}
+        src={safeImageUrl(heroSection.heroImage.node.sourceUrl)}
         alt={sanitizeImageAlt(heroSection.heroImage.node.altText || service.title)}
         width={600}
         height={400}
@@ -69,7 +84,7 @@ export default async function ServicePage({ params }) {
     : service.featuredImage?.node?.sourceUrl
       ? (
         <Image
-          src={service.featuredImage.node.sourceUrl}
+          src={safeImageUrl(service.featuredImage.node.sourceUrl)}
           alt={sanitizeImageAlt(service.featuredImage.node.altText || service.title)}
           width={600}
           height={400}
@@ -243,6 +258,11 @@ export default async function ServicePage({ params }) {
           </div>
         </section>
 
+        {/* NEW SECTION: Ecommerce Solutions (Only for ecommerce slug) */}
+        {service.slug === 'ecommerce' && (
+          <EcommerceSolutionsSection />
+        )}
+
         {/* SECTION 4: Stats Image + Content with Bullets */}
         <ChartServiceSection serviceColor={serviceColor} />
 
@@ -344,7 +364,7 @@ export default async function ServicePage({ params }) {
                     <div className="cs-media">
                       {study.featuredImage?.node?.sourceUrl && (
                         <img
-                          src={study.featuredImage.node.sourceUrl}
+                          src={safeImageUrl(study.featuredImage.node.sourceUrl)}
                           alt={sanitizeImageAlt(study.featuredImage.node.altText || study.title)}
                           className="cs-img"
                           loading="lazy"
