@@ -15,7 +15,7 @@ export default function ClientShowcase({ clientsLogosFields }) {
   const { sectionTitle, sectionSubtitle, title, subtitle, cta, image, logos } = clientsLogosFields;
 
   return (
-    <section className="bg-gray-50 py-20 lg:py-32">
+    <section className="py-20 lg:py-32">
       <div className="cda-container">
         {/* TOP AREA - CENTERED */}
         <div className="text-center mb-32 lg:mb-48">

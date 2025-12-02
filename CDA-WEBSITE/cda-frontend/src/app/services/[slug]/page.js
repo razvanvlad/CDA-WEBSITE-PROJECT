@@ -176,6 +176,11 @@ export default async function ServicePage({ params }) {
           <ServiceDetails serviceDetailsFields={serviceDetails} />
         )}
 
+        {/* Client Showcase - Dynamic from ACF */}
+        {clientsLogos && (
+          <ClientShowcase clientsLogosFields={clientsLogos} />
+        )}
+
         {/* Performance Section - Dynamic from ACF */}
         {performance && (
           <ChartServiceSection serviceColor={serviceColor} performanceFields={performance} />
@@ -186,79 +191,27 @@ export default async function ServicePage({ params }) {
           <ServiceStatsSection numbersFields={numbers} />
         )}
 
-        {/* Client Showcase - Dynamic from ACF */}
-        {clientsLogos && (
-          <ClientShowcase clientsLogosFields={clientsLogos} />
+
+
+
+
+
+        {/* Sell Online CTA - Dynamic from ACF */}
+        {sellOnlineData && (
+          <SellOnline sellOnlineFields={sellOnlineData} />
         )}
-
-
-
-
-
-
-
-
-
-
-
-        {/* Service Bullet Points */}
-        {serviceBulletPoints && (serviceBulletPoints.title || serviceBulletPoints.bullets) && (
-          <section className="service-bullet-points py-16">
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                {serviceBulletPoints.title && (
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">{serviceBulletPoints.title}</h2>
-                )}
-              </div>
-              {serviceBulletPoints.bullets && serviceBulletPoints.bullets.length > 0 && (
-                <div className="max-w-4xl mx-auto">
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {serviceBulletPoints.bullets.map((bullet, index) => (
-                      <li key={index} className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
-                        <div
-                          className="flex-shrink-0 w-2 h-2 rounded-full mt-2"
-                          style={{ backgroundColor: serviceColor }}
-                        ></div>
-                        <span className="text-gray-700">{bullet.text}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-
-        {/* Value Description */}
-        {valueDescription && (valueDescription.title || valueDescription.description) && (
-          <section className="value-description py-16">
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                {valueDescription.title && (
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">{valueDescription.title}</h2>
-                )}
-              </div>
-              <div className="max-w-4xl mx-auto">
-                <div className="bg-white rounded-lg">
-                  {valueDescription.description && (
-                    <p className="text-lg text-gray-700 leading-relaxed text-center mb-6">
-                      {valueDescription.description}
-                    </p>
-                  )}
-                  {valueDescription.cta?.url && valueDescription.cta?.title && (
-                    <div className="text-center">
-                      <Link
-                        href={valueDescription.cta.url}
-                        className="inline-block bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
-                      >
-                        {valueDescription.cta.title}
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </section>
+        {/* Approach Block */}
+        {globalSelection?.enableApproach && globalData?.globalContentBlocks?.approach && (
+          <ApproachBlock globalData={{
+            title: globalData.globalContentBlocks.approach.title || "Our Approach",
+            subtitle: globalData.globalContentBlocks.approach.subtitle || "How We Deliver Results",
+            steps: globalData.globalContentBlocks.approach.steps?.map((step, index) => ({
+              stepNumber: index + 1,
+              title: step.title,
+              description: step.description || '',
+              image: step.image
+            })) || []
+          }} />
         )}
 
         {/* Featured Case Studies Section */}
@@ -301,40 +254,6 @@ export default async function ServicePage({ params }) {
             </div>
           </section>
         )}
-
-        {/* Main Content */}
-        {service.content && (
-          <section className="service-content py-16">
-            <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto">
-                <div
-                  className="prose prose-lg max-w-none"
-                  dangerouslySetInnerHTML={{ __html: service.content }}
-                />
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Sell Online CTA - Dynamic from ACF */}
-        {sellOnlineData && (
-          <SellOnline sellOnlineFields={sellOnlineData} />
-        )}
-        {/* Approach Block */}
-        {globalSelection?.enableApproach && globalData?.globalContentBlocks?.approach && (
-          <ApproachBlock globalData={{
-            title: globalData.globalContentBlocks.approach.title || "Our Approach",
-            subtitle: globalData.globalContentBlocks.approach.subtitle || "How We Deliver Results",
-            steps: globalData.globalContentBlocks.approach.steps?.map((step, index) => ({
-              stepNumber: index + 1,
-              title: step.title,
-              description: step.description || '',
-              image: step.image
-            })) || []
-          }} />
-        )}
-
-        {/* Sell Online CTA */}
 
 
         {/* Global Case Studies Section */}
