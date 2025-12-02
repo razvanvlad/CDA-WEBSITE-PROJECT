@@ -212,23 +212,23 @@
 
 @media (min-width: 1024px) {
   .cda-hero__grid {
+    display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: max-content max-content max-content 1fr;
     grid-template-areas:
       "title image"
       "text image"
-      "cta image";
+      "cta image"
+      ". image";
     column-gap: 4rem;
-    row-gap: 16px;
-    justify-items: stretch;
-    align-items: center;
+    row-gap: 0;
+    justify-items: start;
+    align-items: start;
   }
 
   .cda-hero__title {
     grid-area: title;
-  }
-
-  .cda-hero__image {
-    grid-area: image;
+    align-self: start;
   }
 
   .cda-hero__text {
@@ -237,6 +237,16 @@
 
   .cda-hero__cta {
     grid-area: cta;
+    align-self: start;
+    justify-content: flex-start;
+  }
+
+  .cda-hero__image {
+    grid-area: image;
+    justify-self: end;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
   }
 
   .cda-hero__title,
@@ -245,15 +255,7 @@
     text-align: left;
     margin-left: 0;
     margin-right: 0;
-    justify-self: flex-start;
-  }
-
-  .cda-hero__image {
-    justify-content: flex-end;
-  }
-
-  .cda-hero__cta {
-    justify-content: flex-start;
+    justify-self: start;
   }
 }
 
