@@ -118,6 +118,13 @@ export default async function ServicePage({ params }) {
                 className: 'button-l',
               }
               : null,
+            heroSection.ctab?.title
+              ? {
+                href: heroSection.ctab.url || '#contact-form',
+                label: heroSection.ctab.title,
+                className: 'button-without-box',
+              }
+              : null,
           ]}
           image={heroImageNode}
         />

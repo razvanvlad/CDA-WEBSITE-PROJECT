@@ -253,6 +253,10 @@ export const GET_SERVICE_BY_SLUG = `
             url
             title
           }
+          ctab {
+            url
+            title
+          }
         }
         serviceBulletPoints {
           title
