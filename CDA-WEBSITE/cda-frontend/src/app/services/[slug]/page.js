@@ -142,30 +142,33 @@ export default async function ServicePage({ params }) {
           <section className="services-grid-section py-16">
             <div className="container mx-auto px-4" style={{ maxWidth: '1620px' }}>
               <div className="services-grid">
-                {serviceCards.map((card, index) => (
-                  <div key={index} className={`service-card ${card.pinIcon ? 'service-card--with-pin' : ''}`}>
-                    {card.pinIcon && (
-                      <Image
-                        src="/images/service-cards-pin.svg"
-                        alt=""
-                        width={45}
-                        height={66}
-                        className="service-card__pin"
-                      />
-                    )}
-                    <h3 className="service-card__title">{card.title}</h3>
-                    <p className="service-card__description">{card.description}</p>
-                    {card.cta?.url && (
-                      <Link
-                        href={card.cta.url}
-                        className="button-l-white"
-                        target={card.cta.target || '_self'}
-                      >
-                        {card.cta.title || 'Find Out More'}
-                      </Link>
-                    )}
-                  </div>
-                ))}
+                {serviceCards.map((card, index) => {
+                  const isLastCard = index === serviceCards.length - 1;
+                  return (
+                    <div key={index} className={`service-card ${isLastCard ? 'service-card--with-pin' : ''}`}>
+                      {isLastCard && (
+                        <Image
+                          src="/images/service-cards-pin.svg"
+                          alt=""
+                          width={45}
+                          height={66}
+                          className="service-card__pin"
+                        />
+                      )}
+                      <h3 className="service-card__title">{card.title}</h3>
+                      <p className="service-card__description">{card.description}</p>
+                      {card.cta?.url && (
+                        <Link
+                          href={card.cta.url}
+                          className="button-l-white"
+                          target={card.cta.target || '_self'}
+                        >
+                          {card.cta.title || 'Find Out More'}
+                        </Link>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </section>
