@@ -264,7 +264,7 @@ button {
 .button-without-box .button-text::after {
    content: '';
    position: absolute;
-   bottom: -1px;
+   bottom: 1px;
    left: 0;
    width: 100%;
    height: var(--btn-link-underline);

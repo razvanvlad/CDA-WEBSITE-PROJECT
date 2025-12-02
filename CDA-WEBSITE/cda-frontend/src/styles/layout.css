@@ -119,6 +119,7 @@
 }
 
 @media (min-width: 1024px) {
+
   .cda-hero__title,
   .cda-hero__text,
   .cda-hero__cta {
@@ -202,7 +203,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 16px 24px;
+  gap: 16px 33px;
 }
 
 .cda-hero__cta-item {

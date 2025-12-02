@@ -274,9 +274,6 @@ export default async function ServicesPage() {
               <ServicesClient initialItems={services} />
             </Suspense>
 
-            {/* Service Icon List Section */}
-            <ServiceIconListSection />
-
             {/* Our Approach Global Block (placed directly after the services list) */}
             {globalContent?.approach && (
               <ApproachBlock

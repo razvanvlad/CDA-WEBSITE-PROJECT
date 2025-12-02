@@ -83,13 +83,19 @@ function CaseStudiesSlider({ caseStudies }) {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                index === currentIndex
-                  ? 'bg-gray-900 w-6'
-                  : 'bg-gray-300 hover:bg-gray-400'
-              }`}
+              className="transition-opacity hover:opacity-70"
               aria-label={`Go to slide ${index + 1}`}
-            />
+            >
+              <img
+                src={index === currentIndex
+                  ? '/images/circle-icon-slider/elipse-black.svg'
+                  : '/images/circle-icon-slider/elipse-empty.svg'
+                }
+                alt=""
+                className="w-3 h-3"
+                aria-hidden="true"
+              />
+            </button>
           ))}
         </div>
       )}
@@ -167,7 +173,7 @@ export default function ServicesClient({ initialItems = [] }) {
               <div className="flex flex-col lg:flex-row">
                 {/* Left Section - Title and Image */}
                 <div className="lg:w-1/3 p-6">
-                  <h2 className="font-bold text-gray-900 mt-4 text-center lg:text-left" style={{ fontSize: '38px', lineHeight: '1.2' }}>
+                  <h2 className="font-bold text-gray-900 text-center lg:text-left" style={{ fontSize: '38px', lineHeight: '1.2' }}>
                     <Link href={`/services/${service.slug}`} className="transition-colors">
                       <ResponsiveUnderlinedTitle as="h2" underlineColor={getServiceColor(service.slug)}>
                         {service.title}
