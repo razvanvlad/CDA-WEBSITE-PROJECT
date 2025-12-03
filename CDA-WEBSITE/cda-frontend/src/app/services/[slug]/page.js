@@ -64,7 +64,7 @@ export default async function ServicePage({ params }) {
     description: subService.subServices?.heroSection?.text || '',
     cta: {
       url: `/services/${service.slug}/${subService.slug}`,
-      title: 'Learn More',
+      title: 'Find Out More',
       target: '_self'
     }
   }));
@@ -157,8 +157,9 @@ export default async function ServicePage({ params }) {
               <div className="services-grid">
                 {serviceCards.map((card, index) => {
                   const isLastCard = index === serviceCards.length - 1;
+                  const isFourthCard = index === 3 && serviceCards.length >= 5;
                   return (
-                    <div key={index} className={`service-card ${isLastCard ? 'service-card--with-pin' : ''}`}>
+                    <div key={index} className={`service-card ${isLastCard ? 'service-card--with-pin' : ''} ${isFourthCard ? 'service-card--with-post-pin' : ''}`}>
                       {isLastCard && (
                         <Image
                           src="/images/service-cards-pin.svg"
@@ -168,7 +169,23 @@ export default async function ServicePage({ params }) {
                           className="service-card__pin"
                         />
                       )}
-                      <h3 className="service-card__title">{card.title}</h3>
+                      {isFourthCard && (
+                        <Image
+                          src="/images/services/post-pin.svg"
+                          alt=""
+                          width={33}
+                          height={65}
+                          className="service-card__post-pin"
+                          style={{
+                            transform: 'rotate(-153deg)',
+                            position: 'absolute',
+                            top: '5px',
+                            right: '5px',
+                            zIndex: 10
+                          }}
+                        />
+                      )}
+                      <h4 className="service-card__title">{card.title}</h4>
                       <p className="service-card__description">{card.description}</p>
                       {card.cta?.url && (
                         <Link
