@@ -37,7 +37,9 @@
     display: grid;
     grid-template-columns: 7fr 5fr;
     /* 60/40 split */
-    gap: 3rem;
+    row-gap: 45px;
+    column-gap: 3rem;
+    align-items: center;
   }
 }
 
@@ -56,8 +58,7 @@
     order: 1;
     text-align: left;
     grid-column: 1;
-    grid-row: 1 / span 3;
-    /* Span all 3 rows */
+    grid-row: 1;
   }
 }
 
