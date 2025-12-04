@@ -63,13 +63,20 @@ export async function executeGraphQLQuery(query, variables = {}) {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      const errorText = await response.text().catch(() => response.statusText);
+      throw new Error(`HTTP ${response.status}: ${errorText}`);
     }
 
     const result = await response.json();
+
+    // Log GraphQL errors but still return the result (partial data may be present)
+    if (result.errors) {
+      console.warn('GraphQL query returned errors:', result.errors);
+    }
+
     return result;
   } catch (error) {
-    console.error('GraphQL query failed:', error);
+    console.error('GraphQL query failed:', error.message || error);
     throw error;
   }
 }

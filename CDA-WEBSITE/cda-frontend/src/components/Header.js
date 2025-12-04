@@ -67,7 +67,9 @@ async function fetchMenuSmart({ id, name, autoMatch }) {
     const nodes = res?.data?.menu?.menuItems?.nodes || []
     const norm = normalize(nodes)
     if (norm.length) return norm
-  } catch {}
+  } catch (err) {
+    console.warn(`Failed to fetch menu by DB ID ${id}:`, err.message)
+  }
 
   // Try by name
   try {
@@ -75,7 +77,9 @@ async function fetchMenuSmart({ id, name, autoMatch }) {
     const nodes = res?.data?.menu?.menuItems?.nodes || []
     const norm = normalize(nodes)
     if (norm.length) return norm
-  } catch {}
+  } catch (err) {
+    console.warn(`Failed to fetch menu by name ${name}:`, err.message)
+  }
 
   // Auto-resolve from list
   try {
@@ -87,16 +91,26 @@ async function fetchMenuSmart({ id, name, autoMatch }) {
       const nodes = res2?.data?.menu?.menuItems?.nodes || []
       return normalize(nodes)
     }
-  } catch {}
+  } catch (err) {
+    console.warn('Failed to auto-resolve menu:', err.message)
+  }
 
   return []
 }
 
 export default async function Header({ backButton = null }) {
-  const [primary, company] = await Promise.all([
-    fetchMenuSmart({ id: '4', name: 'primary', autoMatch: /primary/i }),
-    fetchMenuSmart({ id: '18', name: 'company', autoMatch: /company|sidebar/i }),
-  ])
+  let primary = []
+  let company = []
+
+  try {
+    [primary, company] = await Promise.all([
+      fetchMenuSmart({ id: '4', name: 'primary', autoMatch: /primary/i }),
+      fetchMenuSmart({ id: '18', name: 'company', autoMatch: /company|sidebar/i }),
+    ])
+  } catch (err) {
+    console.error('Failed to fetch menu data in Header:', err.message)
+    // Continue with empty arrays - HeaderClient will handle the fallback
+  }
 
   return (
     <HeaderClient
