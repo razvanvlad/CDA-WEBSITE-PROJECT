@@ -7,6 +7,9 @@ export default function ChartServiceSection({ serviceColor = '#3cbeeb', performa
 
   const { title, subtitle, description, text, cta, image, bulletPoints } = performanceFields;
 
+  // Don't render if there's no meaningful content
+  if (!title && !description && !image?.node?.sourceUrl && !subtitle && !text && (!bulletPoints || bulletPoints.length === 0)) return null;
+
   return (
     <section className="chart-service-section bg-gray-50 py-16 lg:py-24">
       <div className="container mx-auto px-4" style={{ maxWidth: '1620px' }}>

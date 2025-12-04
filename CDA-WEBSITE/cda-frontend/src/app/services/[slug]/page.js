@@ -59,15 +59,17 @@ export default async function ServicePage({ params }) {
   const relatedSubServices = serviceFields.subservice?.nodes || [];
 
   // Map sub-services to service cards format
-  const serviceCards = relatedSubServices.map(subService => ({
-    title: subService.title,
-    description: subService.subServices?.heroSection?.text || '',
-    cta: {
-      url: `/services/${service.slug}/${subService.slug}`,
-      title: 'Find Out More',
-      target: '_self'
-    }
-  }));
+  const serviceCards = relatedSubServices
+    .map(subService => ({
+      title: subService.title,
+      description: subService.subServices?.heroSection?.text || '',
+      cta: {
+        url: `/services/${service.slug}/${subService.slug}`,
+        title: 'Find Out More',
+        target: '_self'
+      }
+    }))
+    .filter(card => card.title || card.description); // Only include cards with valid content
 
   // New ACF fields
   const serviceDetails = serviceFields.serviceDetails || null;

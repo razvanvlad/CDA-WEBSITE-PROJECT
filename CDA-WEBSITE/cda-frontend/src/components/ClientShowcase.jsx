@@ -14,6 +14,9 @@ export default function ClientShowcase({ clientsLogosFields }) {
 
   const { sectionTitle, sectionSubtitle, title, subtitle, cta, image, logos } = clientsLogosFields;
 
+  // Don't render if there's no meaningful content
+  if (!sectionTitle && !title && (!logos || logos.length === 0)) return null;
+
   return (
     <section className="py-20 lg:py-32">
       <div className="cda-container">

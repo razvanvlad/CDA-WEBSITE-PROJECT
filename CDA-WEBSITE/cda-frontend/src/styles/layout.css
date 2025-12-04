@@ -203,7 +203,13 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 16px 33px;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .cda-hero__cta {
+    gap: 16px 33px;
+  }
 }
 
 .cda-hero__cta-item {

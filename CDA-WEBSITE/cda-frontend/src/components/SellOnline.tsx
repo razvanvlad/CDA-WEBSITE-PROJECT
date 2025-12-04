@@ -34,6 +34,9 @@ export default function SellOnline({ sellOnlineFields }: SellOnlineProps) {
 
   const { title, cta, image } = sellOnlineFields;
 
+  // Don't render if there's no meaningful content
+  if (!title && !cta && !image) return null;
+
   return (
     <section className="w-full bg-gray-100 my-32">
       <div className="max-w-[1920px] mx-auto h-[490px] lg:h-[254px] flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 px-4 lg:px-8 pt-[30px] lg:pt-0 pb-0 lg:pb-0 relative">

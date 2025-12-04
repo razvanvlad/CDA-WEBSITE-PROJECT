@@ -6,6 +6,9 @@ export default function ServiceStatsSection({ numbersFields }) {
 
     const { leftTitle, leftText, rightTitle, rightText, stats } = numbersFields;
 
+    // Don't render if there's no meaningful content
+    if ((!stats || stats.length === 0) && !leftTitle && !rightTitle) return null;
+
     // Hardcoded underline colors in order (exactly 4 stats expected)
     const underlineColors = ['#FF5C8A', '#3CBEEB', '#01E486', '#FD8721'];
 
