@@ -214,8 +214,9 @@
   .cda-hero__grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-rows: max-content max-content max-content 1fr;
+    grid-template-rows: 1fr max-content max-content max-content 1fr;
     grid-template-areas:
+      ". image"
       "title image"
       "text image"
       "cta image"
