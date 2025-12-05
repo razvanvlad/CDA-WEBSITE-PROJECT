@@ -144,7 +144,7 @@ export default async function TeamMemberDetailPage({ params }) {
         {Number(core?.databaseId) === 884 && (
           <section className="bg-white py-16">
             <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
-              <HubspotMeetingsScheduler ownerSlug="stuart-alldis" defaultProvider="zoom" memberName={member.title} jobTitle={jobTitle || ''} />
+              <HubspotMeetingsScheduler ownerSlug="stuart-alldis" defaultProvider="zoom" />
             </div>
           </section>
         )}

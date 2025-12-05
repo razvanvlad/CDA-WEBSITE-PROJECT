@@ -28,7 +28,8 @@
       "Bash(timeout:*)",
       "Bash(dir:*)",
       "Bash(echo:*)",
-      "Bash(copy /b srccomponentsGlobalBlocksHeroSection.jsx +,,)"
+      "Bash(copy /b srccomponentsGlobalBlocksHeroSection.jsx +,,)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []

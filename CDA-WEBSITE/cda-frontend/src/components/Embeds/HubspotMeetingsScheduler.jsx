@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
+import ResponsiveUnderlinedTitle from '@/components/ResponsiveUnderlinedTitle';
 
 /**
  * HubSpot Meetings Scheduler with prefill + provider toggle (Teams/Zoom)
@@ -14,8 +15,6 @@ export default function HubspotMeetingsScheduler({
   ownerSlug = "stuart-alldis",
   defaultProvider = "teams",
   region = "eu1",
-  memberName = "",
-  jobTitle = "",
 }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -43,13 +42,9 @@ export default function HubspotMeetingsScheduler({
     script.async = true;
     document.body.appendChild(script);
     return () => {
-      try { document.body.removeChild(script); } catch (_) {}
+      try { document.body.removeChild(script); } catch (_) { }
     };
   }, [embedUrl]);
-
-  // Derived labels
-  const displayName = memberName || ownerSlug.replace(/-/g, ' ').replace(/\b\w/g, (m) => m.toUpperCase())
-// Do not append job title to booking heading text
 
   // Decorative images from public folder
   const carUrl = '/images/Group-9161.svg'
@@ -64,7 +59,7 @@ export default function HubspotMeetingsScheduler({
         src={carUrl}
         alt=""
         className="pointer-events-none select-none absolute right-6 top-0 md:w-[1021px] md:h-[325px] w-[436px] h-[139px] object-contain z-10 md:-translate-y-1/2"
-        style={{ top: '-90px', width: '50%'}}
+        style={{ top: '-90px', width: '50%' }}
       />
       {/* Arrow placed under the HubSpot form, overlapping into next section by half its height */}
       <img
@@ -78,12 +73,10 @@ export default function HubspotMeetingsScheduler({
 
         {/* Left: Form */}
         <div className="col-span-12 lg:col-span-6 relative z-20">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            <p className="transition-colors" style={{ textDecoration: 'underline', textDecorationColor: '#FF5C8A', textDecorationThickness: '4px' }}>
-              {`Book Time With ${displayName}`}
-            </p>
-          </h2>
-          <p className="text-[#4B5563] mb-6">The first step toward something great.</p>
+          <ResponsiveUnderlinedTitle as="h2" className="mb-4" underlineColor="#FD8721">
+            Book Time With Us
+          </ResponsiveUnderlinedTitle>
+          <p className="mb-6">The first step toward something great.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <input aria-label="First Name" placeholder="First Name*" className="border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
             <input aria-label="Last Name" placeholder="Last Name*" className="border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black" value={lastName} onChange={(e) => setLastName(e.target.value)} />
@@ -92,37 +85,30 @@ export default function HubspotMeetingsScheduler({
             <input aria-label="Email" placeholder="Email*" type="email" className="w-full border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
 
-          <p className="text-sm text-[#111827] mb-3">Choose how you want to do this meeting</p>
-          <div className="flex gap-4 mb-6">
+          <p className="text-sm mb-3">Choose how you want to do this meeting</p>
+          <div className="grid grid-cols-2 gap-4 mb-6">
             <button
               type="button"
-              className={`px-5 py-3 border border-black inline-flex items-center gap-2 ${provider === 'teams' ? 'bg-black text-white' : 'bg-white text-black'}`}
+              className={`px-4 py-3 border border-black inline-flex items-center gap-2 ${provider === 'teams' ? 'bg-white text-black' : 'bg-black text-white'}`}
               onClick={() => setProvider('teams')}
             >
               {/* Teams icon */}
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <rect x="3" y="6" width="8" height="12" rx="2"></rect>
-                <path d="M13 8h5a2 2 0 0 1 2 2v8h-7V8z"></path>
-                <text x="7" y="15" fontSize="8" fontFamily="Arial" fill="white">T</text>
-              </svg>
+              <img src="/images/form/teams.svg" alt="" className="md:w-[27.75px] md:h-[25.37px] w-[21.87px] h-[20px]" aria-hidden="true" />
               <span>Teams</span>
             </button>
             <button
               type="button"
-              className={`px-5 py-3 border border-black inline-flex items-center gap-2 ${provider === 'zoom' ? 'bg-black text-white' : 'bg-white text-black'}`}
+              className={`px-4 py-3 border border-black inline-flex items-center gap-2 ${provider === 'teams' ? 'bg-black text-white' : 'bg-white text-black'}`}
               onClick={() => setProvider('zoom')}
             >
               {/* Zoom icon */}
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <rect x="3" y="7" width="12" height="10" rx="2"></rect>
-                <path d="M17 9l4 3-4 3V9z"></path>
-              </svg>
+              <img src="/images/form/zoom.svg" alt="" className="md:w-[24.13px] md:h-[24.13px] w-[19.94px] h-[19.94px]" aria-hidden="true" />
               <span>Zoom</span>
             </button>
           </div>
 
-          <div className="mt-8 text-sm text-[#4B5563]">
-            <p className="mb-4">Your meeting details will be applied to the scheduler on the right.</p>
+          <div className="mt-8 text-sm">
+            <p className="mb-4">Your meeting details:</p>
             <button
               type="button"
               disabled={!isValid}
@@ -131,13 +117,17 @@ export default function HubspotMeetingsScheduler({
                 // Scroll to the embed times area
                 try {
                   document.querySelector('.meetings-iframe-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                } catch (_) {}
+                } catch (_) { }
               }}
               className={`inline-flex items-center justify-center px-6 py-3 font-semibold transition-colors ${isValid ? 'bg-black text-white' : 'bg-gray-300 text-gray-600 cursor-not-allowed'}`}
             >
               Book A Meeting
             </button>
-            <p className="mt-3 text-[#111827]">Or give us a call on 0203 780 0808</p>
+            <p className="mt-3">
+              Or give us a call on
+              <strong> 0203 780 0808
+              </strong>
+            </p>
           </div>
         </div>
 

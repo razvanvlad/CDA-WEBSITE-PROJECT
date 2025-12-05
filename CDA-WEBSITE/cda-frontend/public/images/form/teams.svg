@@ -1,0 +1,34 @@
+<svg id="_6296667_microsoft_office_office_365_teams_icon" data-name="6296667_microsoft_office_office 365_teams_icon" xmlns="http://www.w3.org/2000/svg" width="27.748" height="25.375" viewBox="0 0 27.748 25.375">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #4f59ca;
+      }
+
+      .cls-2 {
+        fill: #7b82ea;
+      }
+
+      .cls-3 {
+        fill: #4c53bb;
+      }
+
+      .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-5 {
+        opacity: 0.2;
+      }
+    </style>
+  </defs>
+  <circle id="Ellipse_578" data-name="Ellipse 578" class="cls-1" cx="2.829" cy="2.829" r="2.829" transform="translate(21.327 2.546)"/>
+  <path id="Path_8303" data-name="Path 8303" class="cls-1" d="M91.635,61.457H91.2a4.2,4.2,0,0,1-4.2-4.2V50.6a1.193,1.193,0,0,1,1.2-1.2h6.442a1.193,1.193,0,0,1,1.2,1.2v6.638A4.194,4.194,0,0,1,91.635,61.457Z" transform="translate(-68.088 -39.846)"/>
+  <circle id="Ellipse_579" data-name="Ellipse 579" class="cls-2" cx="4.07" cy="4.07" r="4.07" transform="translate(11.208)"/>
+  <path id="Path_8304" data-name="Path 8304" class="cls-2" d="M44.034,65.3h-.7A6.65,6.65,0,0,1,36.7,58.662V50.5a1.013,1.013,0,0,1,1-1h11.97a1.013,1.013,0,0,1,1,1v8.161A6.636,6.636,0,0,1,44.034,65.3Z" transform="translate(-28.735 -39.925)"/>
+  <path id="Path_8305" data-name="Path 8305" class="cls-3" d="M13.027,46.346H1.493A1.4,1.4,0,0,1,.1,44.953V33.593A1.4,1.4,0,0,1,1.493,32.2H13.027a1.4,1.4,0,0,1,1.393,1.393v11.36A1.389,1.389,0,0,1,13.027,46.346Z" transform="translate(-0.1 -26.39)"/>
+  <g id="Group_9780" data-name="Group 9780" transform="translate(4.113 9.075)">
+    <path id="Path_8306" data-name="Path 8306" class="cls-4" d="M21.263,48.4H19V47.2h5.985v1.2H22.721v6.594H21.285V48.4Z" transform="translate(-19 -47.2)"/>
+  </g>
+  <path id="Path_8307" data-name="Path 8307" class="cls-5" d="M43.468,49.5v8.966a1.4,1.4,0,0,1-1.393,1.393H37.2l.326,1.24H43.25a1.4,1.4,0,0,0,1.393-1.393V49.5Z" transform="translate(-29.126 -39.925)"/>
+</svg>
