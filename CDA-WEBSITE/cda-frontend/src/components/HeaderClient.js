@@ -289,13 +289,13 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
       )}
 
       {/* Side Menu */}
-      <div className={`fixed top-0 right-0 h-full w-full md:w-[430px] bg-black shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${isSideMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`fixed top-0 right-0 h-full w-full md:w-[662px] bg-black transform transition-transform duration-300 ease-in-out z-50 ${isSideMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex flex-col h-full">
           {/* Side Menu Header - Mobile: 79px height | Desktop: 125px height */}
-          <div className="flex items-center justify-between h-[79px] md:h-[125px] px-[38px] md:px-6">
+          <div className="flex items-center justify-between h-[79px] md:h-[125px] px-[38px] md:pl-[82px] md:pr-[178px]">
             {/* Mobile: 353px container for Logo + Close button */}
-            <div className="w-full max-w-[353px] md:max-w-none mx-0 md:mx-auto flex items-center justify-between">
-              <Link href="/" aria-label="Go to homepage">
+            <div className="w-full max-w-[353px] md:max-w-none mx-0 flex items-center justify-between md:justify-end">
+              <Link href="/" aria-label="Go to homepage" className="md:hidden">
                 <Image
                   src="/images/cda-logo-white.svg"
                   alt="CDA Logo"
@@ -311,56 +311,71 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
           </div>
 
           {/* Side Menu Content */}
-          <div className="flex-1 overflow-y-auto px-[38px] md:px-6">
+          <div className="flex-1 overflow-y-auto px-[38px] md:pl-[82px] md:pr-6">
             {/* Mobile: 353px container for menu content */}
-            <div className="w-full max-w-[353px] md:max-w-none mx-0 md:mx-auto">
+            <div className="w-full max-w-[353px] md:max-w-none mx-0">
               <nav className="py-6">
-              {!isServicesOpen && (
-                <>
-                  <button type="button" onClick={() => setIsServicesOpen(true)} className="md:hidden w-full flex items-center justify-between mb-3 text-left" aria-expanded={isServicesOpen} aria-controls="side-menu-services">
-                    <div className="flex items-center gap-3">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <rect x="3" y="3" width="4" height="4" fill="#fff" />
-                        <rect x="10" y="3" width="4" height="4" fill="#fff" />
-                        <rect x="17" y="3" width="4" height="4" fill="#fff" />
-                        <rect x="3" y="10" width="4" height="4" fill="#fff" />
-                        <rect x="10" y="10" width="4" height="4" fill="#fff" />
-                        <rect x="17" y="10" width="4" height="4" fill="#fff" />
-                        <rect x="3" y="17" width="4" height="4" fill="#fff" />
-                        <rect x="10" y="17" width="4" height="4" fill="#fff" />
-                        <rect x="17" y="17" width="4" height="4" fill="#fff" />
-                      </svg>
-                      <span className="side-menu-heading">Our Services</span>
-                    </div>
-                    <Image src="/images/right-icon.svg" alt="" width={16} height={16} aria-hidden="true" />
-                  </button>
-                  <hr className="side-menu-divider md:hidden" />
-                </>
-              )}
+                {!isServicesOpen && (
+                  <>
+                    <button type="button" onClick={() => setIsServicesOpen(true)} className="md:hidden w-full flex items-center justify-between mb-3 text-left" aria-expanded={isServicesOpen} aria-controls="side-menu-services">
+                      <div className="flex items-center gap-3">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <rect x="3" y="3" width="4" height="4" fill="#fff" />
+                          <rect x="10" y="3" width="4" height="4" fill="#fff" />
+                          <rect x="17" y="3" width="4" height="4" fill="#fff" />
+                          <rect x="3" y="10" width="4" height="4" fill="#fff" />
+                          <rect x="10" y="10" width="4" height="4" fill="#fff" />
+                          <rect x="17" y="10" width="4" height="4" fill="#fff" />
+                          <rect x="3" y="17" width="4" height="4" fill="#fff" />
+                          <rect x="10" y="17" width="4" height="4" fill="#fff" />
+                          <rect x="17" y="17" width="4" height="4" fill="#fff" />
+                        </svg>
+                        <span className="side-menu-heading">Our Services</span>
+                      </div>
+                      <Image src="/images/right-icon.svg" alt="" width={16} height={16} aria-hidden="true" />
+                    </button>
+                    <hr className="side-menu-divider md:hidden" />
+                  </>
+                )}
 
-              {/* Mobile: Services submenu when isServicesOpen is true */}
-              {isServicesOpen && (
-                <>
-                  <button type="button" onClick={() => setIsServicesOpen(false)} className="md:hidden w-full flex items-center gap-3 mb-3 text-left group">
-                    <Image src="/images/left-back-icon.svg" alt="" width={11} height={11} aria-hidden="true" />
-                    <span className="side-menu-heading group-hover:underline">Back</span>
-                  </button>
-                  <hr className="side-menu-divider md:hidden" />
-                  <ul id="side-menu-services" className="space-y-4 md:hidden">
-                    {primaryLinks.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).map((svc) => (
-                      <li key={svc.id}>
-                        <a href={svc.url} className="side-menu-item block" onClick={() => { setIsSideMenuOpen(false); setIsServicesOpen(false); }} title={svc.label}>
-                          {svc.label}
-                        </a>
-                      </li>
-                    ))}
+                {/* Mobile: Services submenu when isServicesOpen is true */}
+                {isServicesOpen && (
+                  <>
+                    <button type="button" onClick={() => setIsServicesOpen(false)} className="md:hidden w-full flex items-center gap-3 mb-3 text-left group">
+                      <Image src="/images/left-back-icon.svg" alt="" width={11} height={11} aria-hidden="true" />
+                      <span className="side-menu-heading group-hover:underline">Back</span>
+                    </button>
+                    <hr className="side-menu-divider md:hidden" />
+                    <ul id="side-menu-services" className="space-y-4 md:hidden">
+                      {primaryLinks.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).map((svc) => (
+                        <li key={svc.id}>
+                          <a href={svc.url} className="side-menu-item block" onClick={() => { setIsSideMenuOpen(false); setIsServicesOpen(false); }} title={svc.label}>
+                            {svc.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+
+                {/* Mobile: Show company links only when not in services menu */}
+                {!isServicesOpen && (
+                  <ul className="mt-6 space-y-4 md:hidden">
+                    {companyLinks
+                      .filter((i) => (i?.label || '').toLowerCase() !== 'services')
+                      .sort((a, b) => ((a.order ?? 0) - (b.order ?? 0)))
+                      .map((item) => (
+                        <li key={item.id}>
+                          <a href={item.url} className="side-menu-item" onClick={() => { setIsSideMenuOpen(false); setIsCompanyMenuOpen(false); }}>
+                            {item.label}
+                          </a>
+                        </li>
+                      ))}
                   </ul>
-                </>
-              )}
+                )}
 
-              {/* Mobile: Show company links only when not in services menu */}
-              {!isServicesOpen && (
-                <ul className="mt-6 space-y-4 md:hidden">
+                {/* Desktop: Always show company links (regardless of isServicesOpen state) */}
+                <ul className="hidden md:block space-y-4">
                   {companyLinks
                     .filter((i) => (i?.label || '').toLowerCase() !== 'services')
                     .sort((a, b) => ((a.order ?? 0) - (b.order ?? 0)))
@@ -372,47 +387,32 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
                       </li>
                     ))}
                 </ul>
-              )}
 
-              {/* Desktop: Always show company links (regardless of isServicesOpen state) */}
-              <ul className="hidden md:block space-y-4">
-                {companyLinks
-                  .filter((i) => (i?.label || '').toLowerCase() !== 'services')
-                  .sort((a, b) => ((a.order ?? 0) - (b.order ?? 0)))
-                  .map((item) => (
-                    <li key={item.id}>
-                      <a href={item.url} className="side-menu-item" onClick={() => { setIsSideMenuOpen(false); setIsCompanyMenuOpen(false); }}>
-                        {item.label}
-                      </a>
-                    </li>
-                  ))}
-              </ul>
-
-              {/* Let’s Connect */}
-              <div className="mt-10">
-                <h3 className="side-menu-connect-heading">Let’s Connect</h3>
-                <div className="mt-3 flex items-center gap-4">
-                  <a href="/contact" className="side-menu-connect-link" onClick={() => setIsSideMenuOpen(false)}>Contact Us</a>
-                  <span className="side-menu-connect-text">0203 780 0808</span>
+                {/* Let’s Connect */}
+                <div className="mt-10">
+                  <h3 className="side-menu-connect-heading">Let’s Connect</h3>
+                  <div className="mt-3 flex items-center gap-4">
+                    <a href="/contact" className="side-menu-connect-link" onClick={() => setIsSideMenuOpen(false)}>Contact Us</a>
+                    <span className="side-menu-connect-text">0203 780 0808</span>
+                  </div>
+                  <div className="mt-4 flex items-center gap-5">
+                    <a href="https://www.facebook.com/cdagroupUK/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="side-menu-social">
+                      <Image src="/images/social-icons/facebook.svg" alt="" width={9} height={20} aria-hidden="true" />
+                    </a>
+                    <a href="https://www.tiktok.com/@cdagroupuk" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="side-menu-social">
+                      <Image src="/images/social-icons/tiktok.svg" alt="" width={17} height={20} aria-hidden="true" />
+                    </a>
+                    <a href="https://www.instagram.com/cdagroupUK/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="side-menu-social">
+                      <Image src="/images/social-icons/instagram.svg" alt="" width={18} height={20} aria-hidden="true" />
+                    </a>
+                    <a href="https://www.linkedin.com/company/cdagroup/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="side-menu-social">
+                      <Image src="/images/social-icons/linkedin.svg" alt="" width={18} height={20} aria-hidden="true" />
+                    </a>
+                    <a href="https://www.youtube.com/@CDAGroupUK" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="side-menu-social">
+                      <Image src="/images/social-icons/youtube.svg" alt="" width={26} height={20} aria-hidden="true" />
+                    </a>
+                  </div>
                 </div>
-                <div className="mt-4 flex items-center gap-5">
-                  <a href="https://www.facebook.com/cdagroupUK/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="side-menu-social">
-                    <Image src="/images/social-icons/facebook.svg" alt="" width={9} height={20} aria-hidden="true" />
-                  </a>
-                  <a href="https://www.tiktok.com/@cdagroupuk" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="side-menu-social">
-                    <Image src="/images/social-icons/tiktok.svg" alt="" width={17} height={20} aria-hidden="true" />
-                  </a>
-                  <a href="https://www.instagram.com/cdagroupUK/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="side-menu-social">
-                    <Image src="/images/social-icons/instagram.svg" alt="" width={18} height={20} aria-hidden="true" />
-                  </a>
-                  <a href="https://www.linkedin.com/company/cdagroup/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="side-menu-social">
-                    <Image src="/images/social-icons/linkedin.svg" alt="" width={18} height={20} aria-hidden="true" />
-                  </a>
-                  <a href="https://www.youtube.com/@CDAGroupUK" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="side-menu-social">
-                    <Image src="/images/social-icons/youtube.svg" alt="" width={26} height={20} aria-hidden="true" />
-                  </a>
-                </div>
-              </div>
               </nav>
             </div>
           </div>

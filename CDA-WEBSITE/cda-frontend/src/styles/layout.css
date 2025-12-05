@@ -279,7 +279,7 @@
   font-weight: 600;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  color: #111827;
+  color: #000000;
 }
 
 .policy-content h1 {
@@ -301,7 +301,7 @@
 .policy-content p {
   margin-bottom: 1rem;
   line-height: 1.75;
-  color: #374151;
+  color: #000000;
 }
 
 .policy-content ul,
@@ -326,7 +326,7 @@
 
 .policy-content strong {
   font-weight: 600;
-  color: #111827;
+  color: #000000;
 }
 
 .policy-content blockquote {
@@ -334,7 +334,7 @@
   padding-left: 1rem;
   margin: 1.5rem 0;
   font-style: italic;
-  color: #6B7280;
+  color: #000000;
 }
 
 .policy-content table {
