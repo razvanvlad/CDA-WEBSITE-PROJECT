@@ -546,47 +546,47 @@ export default function BookingModal({ isOpen = true, onClose }) {
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
 
-        <div className="grid grid-cols-12 gap-0 h-full px-8 py-8">
+        <div className="grid grid-cols-12 gap-6 h-full px-8 py-8">
           {/* Left: Form */}
           <div className="col-span-12 lg:col-span-5 p-6 lg:p-8 overflow-y-auto">
             <ResponsiveUnderlinedTitle as="h2" className="mb-4" underlineColor="#FD8721">
               Book Time With Us
             </ResponsiveUnderlinedTitle>
-            <p className="mb-6">The first step toward something great.</p>
+            <p className="mb-4">The first step toward something great.</p>
 
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <input aria-label="First Name" placeholder="First Name*" className="border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-              <input aria-label="Last Name" placeholder="Last Name*" className="border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            <div className="grid grid-cols-2 gap-8 mb-4">
+              <input aria-label="First Name" placeholder="First Name*" className="border border-gray-300 px-6 py-3 focus:outline-none focus:ring-2 focus:ring-black" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+              <input aria-label="Last Name" placeholder="Last Name*" className="border border-gray-300 px-6 py-3 focus:outline-none focus:ring-2 focus:ring-black" value={lastName} onChange={(e) => setLastName(e.target.value)} />
             </div>
-            <div className="mb-6">
-              <input aria-label="Email" placeholder="Email*" type="email" className="w-full border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <div className="mb-4">
+              <input aria-label="Email" placeholder="Email*" type="email" className="w-full border border-gray-300 px-6 py-3 focus:outline-none focus:ring-2 focus:ring-black" value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
 
-            <p className="text-sm mb-3">Choose how you want to do this meeting</p>
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <button type="button" className={`px-4 py-3 border border-black inline-flex items-center gap-2 ${provider === 'teams' ? 'bg-white text-black' : 'bg-black text-white'}`} onClick={() => setProvider('teams')}>
+            <p className="text-sm mb-4 mt-4">Choose how you want to do this meeting</p>
+            <div className="grid grid-cols-2 gap-8 mb-4">
+              <button type="button" className={`px-4 py-3 border inline-flex items-center justify-center gap-2 ${provider === 'teams' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'}`} onClick={() => setProvider('teams')}>
                 {/* Teams icon */}
                 <img src="/images/form/teams.svg" alt="" className="md:w-[27.75px] md:h-[25.37px] w-[21.87px] h-[20px]" aria-hidden="true" />
-                <span>Teams</span>
+                <span className="text-lg font-bold">Teams</span>
               </button>
-              <button type="button" className={`px-4 py-3 border border-black inline-flex items-center gap-2 ${provider === 'teams' ? 'bg-black text-white' : 'bg-white text-black'}`} onClick={() => setProvider('zoom')}>
+              <button type="button" className={`px-4 py-3 border inline-flex items-center justify-center gap-2 ${provider === 'zoom' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'}`} onClick={() => setProvider('zoom')}>
                 {/* Zoom icon */}
                 <img src="/images/form/zoom.svg" alt="" className="md:w-[24.13px] md:h-[24.13px] w-[19.94px] h-[19.94px]" aria-hidden="true" />
-                <span>Zoom</span>
+                <span className="text-lg font-bold">Zoom</span>
               </button>
             </div>
 
-            <div className="mt-8 text-sm">
+            <div className="mt-4 text-sm">
               <p className="mb-4">Your meeting details:</p>
               <button type="button" disabled={!isValid} onClick={() => { /* optional no-op */ }} className="button-l">
                 Book A Meeting
               </button>
-              <p className="mt-3">Or give us a call on <strong>0203 780 0808 </strong></p>
+              <p className="mt-4">Or give us a call on <strong>0203 780 0808 </strong></p>
             </div>
           </div>
 
           {/* Right: Embed */}
-          <div className="col-span-12 lg:col-span-7 p-0 border-t lg:border-t-0 lg:border-l border-gray-200 bg-white min-h-[300px]">
+          <div className="col-span-12 lg:col-span-7 p-0  bg-white min-h-[300px]">
             <div key={embedUrl} className="meetings-iframe-container" data-src={embedUrl} />
           </div>
         </div>

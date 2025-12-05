@@ -89,21 +89,21 @@ export default function HubspotMeetingsScheduler({
           <div className="grid grid-cols-2 gap-4 mb-6">
             <button
               type="button"
-              className={`px-4 py-3 border border-black inline-flex items-center gap-2 ${provider === 'teams' ? 'bg-white text-black' : 'bg-black text-white'}`}
+              className={`px-4 py-3 border inline-flex items-center justify-center gap-2 ${provider === 'teams' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'}`}
               onClick={() => setProvider('teams')}
             >
               {/* Teams icon */}
               <img src="/images/form/teams.svg" alt="" className="md:w-[27.75px] md:h-[25.37px] w-[21.87px] h-[20px]" aria-hidden="true" />
-              <span>Teams</span>
+              <span className="text-lg font-bold">Teams</span>
             </button>
             <button
               type="button"
-              className={`px-4 py-3 border border-black inline-flex items-center gap-2 ${provider === 'teams' ? 'bg-black text-white' : 'bg-white text-black'}`}
+              className={`px-4 py-3 border inline-flex items-center justify-center gap-2 ${provider === 'zoom' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'}`}
               onClick={() => setProvider('zoom')}
             >
               {/* Zoom icon */}
               <img src="/images/form/zoom.svg" alt="" className="md:w-[24.13px] md:h-[24.13px] w-[19.94px] h-[19.94px]" aria-hidden="true" />
-              <span>Zoom</span>
+              <span className="text-lg font-bold">Zoom</span>
             </button>
           </div>
 
