@@ -1,6 +1,5 @@
 'use client';
 
-import TextLinkButton from './ui/TextLinkButton';
 import Image from 'next/image';
 import Link from 'next/link';
 import { safeImageUrl } from '@/lib/imageUtils';
@@ -30,13 +29,27 @@ export default function ClientShowcase({ clientsLogosFields }) {
 
           {cta?.url && cta?.title && (
             <div className="flex justify-center">
-              <TextLinkButton
+              <Link
                 href={cta.url}
-                className="text-base lg:text-lg font-semibold"
                 target={cta.target || '_self'}
+                className="button-without-box text-base lg:text-lg font-semibold"
               >
-                {cta.title}
-              </TextLinkButton>
+                <span className="button-text">{cta.title}</span>
+                <span className="button-icon-wrapper">
+                  <img
+                    src="/images/arrow-icons/diagonal-right-arrow.svg"
+                    alt=""
+                    className="button-icon button-icon-default"
+                    aria-hidden="true"
+                  />
+                  <img
+                    src="/images/arrow-icons/right-arrow.svg"
+                    alt=""
+                    className="button-icon button-icon-hover"
+                    aria-hidden="true"
+                  />
+                </span>
+              </Link>
             </div>
           )}
         </div>
@@ -47,17 +60,15 @@ export default function ClientShowcase({ clientsLogosFields }) {
           <div className="text-center lg:text-left">
             {/* Label */}
             {subtitle && (
-              <p className="text-sm font-bold uppercase tracking-widest text-gray-900 mb-4">
+              <p className="text-[22px] font-bold tracking-widest mb-4">
                 {subtitle}
               </p>
             )}
 
-            {/* Heading with cyan underline on mobile */}
+            {/* Heading */}
             {title && (
-              <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 relative inline-block">
+              <h3 className="text-3xl lg:text-4xl font-bold mb-4">
                 {title}
-                {/* Cyan underline - visible on mobile only */}
-                <span className="lg:hidden absolute left-0 right-0 bottom-0 h-1 bg-cyan-400" style={{ bottom: '-4px' }}></span>
               </h3>
             )}
 
@@ -67,9 +78,23 @@ export default function ClientShowcase({ clientsLogosFields }) {
                 <Link
                   href={sectionSubtitle.url}
                   target={sectionSubtitle.target || '_self'}
-                  className="font-bold text-gray-900 border-b-2 border-gray-900 pb-1 hover:text-gray-700 hover:border-gray-700 transition-colors"
+                  className="button-without-box"
                 >
-                  {sectionSubtitle.title}
+                  <span className="button-text">{sectionSubtitle.title}</span>
+                  <span className="button-icon-wrapper">
+                    <img
+                      src="/images/arrow-icons/diagonal-right-arrow.svg"
+                      alt=""
+                      className="button-icon button-icon-default"
+                      aria-hidden="true"
+                    />
+                    <img
+                      src="/images/arrow-icons/right-arrow.svg"
+                      alt=""
+                      className="button-icon button-icon-hover"
+                      aria-hidden="true"
+                    />
+                  </span>
                 </Link>
               </div>
             )}
