@@ -144,7 +144,7 @@ export const GET_ALL_SERVICES = `
 
 export const GET_SERVICES_WITH_PAGINATION = `
   query GetServicesWithPagination($first: Int = 12, $after: String, $search: String) {
-    services(first: $first, after: $after, where: { search: $search }) {
+    services(first: $first, after: $after, where: { search: $search, orderby: { field: MENU_ORDER, order: ASC } }) {
       nodes {
         id
         title

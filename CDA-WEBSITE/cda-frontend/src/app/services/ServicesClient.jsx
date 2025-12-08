@@ -161,16 +161,13 @@ export default function ServicesClient({ initialItems = [] }) {
 
   return (
     <div className="mb-16">
-      {/* Container: top border + divide-y for shared middle lines */}
-      <div className="divide-y divide-gray-200 border-t border-gray-200">
+      {/* Container: divide-y for borders between services only */}
+      <div className="divide-y divide-gray-200">
         {services.map((service, index) => {
-          // Determine if this is the last item
-          const isLast = index === services.length - 1;
-
           return (
             <div
               key={service.id}
-              className={`bg-white ${isLast ? 'border-b border-gray-200' : ''} hover:shadow-lg transition-all duration-300 hover:border-gray-300`}
+              className="bg-white hover:shadow-lg transition-all duration-300 hover:border-gray-300"
             >
               <div className="flex flex-col lg:flex-row">
                 {/* Left Section - Title and Image */}
@@ -191,7 +188,8 @@ export default function ServicesClient({ initialItems = [] }) {
 
                 {/* Right Section - Content */}
                 <div className="lg:w-2/3 p-6">
-                  {service.serviceFields?.heroSection?.description && (
+                  {/* OLD IMPLEMENTATION - Commented out */}
+                  {/* {service.serviceFields?.heroSection?.description && (
                     <div className="mb-6">
                       {service.serviceFields?.serviceBulletPoints?.title && (
                         <h3 className="text-sm lg:text-lg font-bold text-gray-900 mb-3">
@@ -202,7 +200,7 @@ export default function ServicesClient({ initialItems = [] }) {
                         {service.serviceFields.heroSection.description}
                       </div>
                     </div>
-                  )}
+                  )} */}
 
                   {/* Service Details Title & Text */}
                   {service.serviceFields?.serviceDetails && (
