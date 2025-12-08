@@ -91,7 +91,7 @@ export default async function NewsArchivePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map((post) => (
-              <article key={post.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+              <article key={post.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden transition-shadow">
                 {post.featuredImage?.node?.sourceUrl && (
                   <div className="relative h-48">
                     <Image

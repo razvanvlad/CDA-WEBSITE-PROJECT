@@ -11,23 +11,23 @@ export default function KnowledgeHubClient({ caseStudies, posts, searchSection }
   // Filter content based on active tab and search
   const filterContent = () => {
     let content = []
-    
+
     if (activeTab === 'all' || activeTab === 'case-studies') {
-      const filteredCaseStudies = caseStudies.filter(item => 
+      const filteredCaseStudies = caseStudies.filter(item =>
         item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.excerpt?.toLowerCase().includes(searchQuery.toLowerCase())
       ).map(item => ({ ...item, type: 'case-study' }))
       content = [...content, ...filteredCaseStudies]
     }
-    
+
     if (activeTab === 'all' || activeTab === 'news') {
-      const filteredPosts = posts.filter(item => 
+      const filteredPosts = posts.filter(item =>
         item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.excerpt?.toLowerCase().includes(searchQuery.toLowerCase())
       ).map(item => ({ ...item, type: 'news' }))
       content = [...content, ...filteredPosts]
     }
-    
+
     // Sort by date (newest first)
     return content.sort((a, b) => new Date(b.date) - new Date(a.date))
   }
@@ -66,46 +66,43 @@ export default function KnowledgeHubClient({ caseStudies, posts, searchSection }
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Browse Our Knowledge Base</h2>
             <p className="text-xl text-gray-600">Explore case studies, insights, and resources</p>
           </div>
-          
+
           {/* Filter Tabs */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <button
               onClick={() => setActiveTab('all')}
-              className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-                activeTab === 'all'
+              className={`px-6 py-3 rounded-lg font-medium transition-colors ${activeTab === 'all'
                   ? 'bg-blue-600 text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
+                }`}
             >
               All Content ({filteredContent.length})
             </button>
             <button
               onClick={() => setActiveTab('case-studies')}
-              className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-                activeTab === 'case-studies'
+              className={`px-6 py-3 rounded-lg font-medium transition-colors ${activeTab === 'case-studies'
                   ? 'bg-blue-600 text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
+                }`}
             >
               Case Studies ({caseStudies.length})
             </button>
             <button
               onClick={() => setActiveTab('news')}
-              className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-                activeTab === 'news'
+              className={`px-6 py-3 rounded-lg font-medium transition-colors ${activeTab === 'news'
                   ? 'bg-blue-600 text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
+                }`}
             >
               News & Insights ({posts.length})
             </button>
           </div>
-          
+
           {/* Content Grid */}
           {filteredContent.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredContent.map((item) => (
-                <article key={`${item.type}-${item.id}`} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+                <article key={`${item.type}-${item.id}`} className="bg-white rounded-lg overflow-hidden transition-shadow">
                   {item.featuredImage?.node?.sourceUrl && (
                     <div className="relative h-48">
                       <Image
@@ -116,47 +113,46 @@ export default function KnowledgeHubClient({ caseStudies, posts, searchSection }
                       />
                     </div>
                   )}
-                  
+
                   <div className="p-6">
                     <div className="flex items-center gap-2 mb-3">
-                      <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full ${
-                        item.type === 'case-study' 
-                          ? 'bg-blue-100 text-blue-800' 
+                      <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full ${item.type === 'case-study'
+                          ? 'bg-blue-100 text-blue-800'
                           : 'bg-green-100 text-green-800'
-                      }`}>
+                        }`}>
                         {item.type === 'case-study' ? 'Case Study' : 'News'}
                       </span>
-                      
+
                       {item.projectTypes?.nodes?.[0]?.name && (
                         <span className="inline-block px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
                           {item.projectTypes.nodes[0].name}
                         </span>
                       )}
-                      
+
                       {item.categories?.nodes?.[0]?.name && (
                         <span className="inline-block px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
                           {item.categories.nodes[0].name}
                         </span>
                       )}
                     </div>
-                    
+
                     <h3 className="text-xl font-semibold text-gray-900 mb-3">
                       {item.title}
                     </h3>
-                    
+
                     {item.excerpt && (
-                      <div 
+                      <div
                         className="text-gray-600 mb-4 line-clamp-3"
                         dangerouslySetInnerHTML={{ __html: item.excerpt }}
                       />
                     )}
-                    
+
                     {item.caseStudyFields?.projectOverview?.clientName && (
                       <p className="text-sm text-gray-500 mb-4">
                         Client: {item.caseStudyFields.projectOverview.clientName}
                       </p>
                     )}
-                    
+
                     <div className="flex items-center justify-between">
                       <TextLinkButton
                         href={item.type === 'case-study' ? `/case-studies/${item.slug}` : `/news/${item.slug}`}

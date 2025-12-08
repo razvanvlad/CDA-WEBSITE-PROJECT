@@ -167,7 +167,7 @@ export default function ServicesClient({ initialItems = [] }) {
           return (
             <div
               key={service.id}
-              className="bg-white hover:shadow-lg transition-all duration-300 hover:border-gray-300"
+              className="bg-white transition-all duration-300 hover:border-gray-300"
             >
               <div className="flex flex-col lg:flex-row">
                 {/* Left Section - Title and Image */}

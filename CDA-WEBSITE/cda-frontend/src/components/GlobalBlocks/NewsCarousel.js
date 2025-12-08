@@ -66,7 +66,7 @@ export default function NewsCarousel({ newsCarousel }) {
             {articles.map((article) => (
               <article
                 key={article.id}
-                className="flex-none w-80 bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                className="flex-none w-80 bg-white rounded-lg shadow-md overflow-hidden transition-shadow"
               >
                 {/* Article Image */}
                 {article.featuredImage?.node?.sourceUrl && (
@@ -85,9 +85,9 @@ export default function NewsCarousel({ newsCarousel }) {
                   <h3 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
                     {article.title}
                   </h3>
-                  
+
                   {article.excerpt && (
-                    <div 
+                    <div
                       className="text-gray-600 mb-4 line-clamp-3"
                       dangerouslySetInnerHTML={{ __html: article.excerpt }}
                     />
@@ -119,7 +119,7 @@ export default function NewsCarousel({ newsCarousel }) {
         {articles.length > 0 && (
           <div className="text-center mt-8">
             <Link
-              href="/news" 
+              href="/news"
               className="button-l"
             >
               View All Articles

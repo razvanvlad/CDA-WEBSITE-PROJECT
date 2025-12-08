@@ -239,7 +239,7 @@ button {
    font-weight: 700;
    font-size: 18px;
    line-height: 1;
-   color: #374151;
+   color: #000000;
    text-decoration: none;
    cursor: pointer;
    transition: all 0.2s ease;
@@ -268,13 +268,13 @@ button {
    left: 0;
    width: 100%;
    height: var(--btn-link-underline);
-   background-color: #374151;
+   background-color: #000000;
    z-index: 1;
    transition: all 0.2s ease;
 }
 
 .button-without-box:hover .button-text::after {
-   background-color: #374151;
+   background-color: #000000;
 }
 
 /* Icon - Diagonal arrow (default) */
