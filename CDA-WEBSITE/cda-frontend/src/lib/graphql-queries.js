@@ -162,6 +162,19 @@ export const GET_SERVICES_WITH_PAGINATION = `
             subtitle
             description
           }
+          serviceDetails {
+            title
+            text
+          }
+          subservice {
+            nodes {
+              ... on SubService {
+                id
+                title
+                slug
+              }
+            }
+          }
           featuredCaseStudies {
             nodes {
               ... on CaseStudy {

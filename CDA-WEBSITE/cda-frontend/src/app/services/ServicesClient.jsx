@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ResponsiveUnderlinedTitle from '@/components/ResponsiveUnderlinedTitle';
 import TextLinkButton from '@/components/ui/TextLinkButton';
+import BookingModal from '@/components/BookingModal';
 
 const getServiceColor = (slug) => {
   const colorMap = {
@@ -104,6 +105,7 @@ function CaseStudiesSlider({ caseStudies }) {
 }
 
 export default function ServicesClient({ initialItems = [] }) {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get('search') || '';
   const selectedType = searchParams.get('service_type') || null;
@@ -202,12 +204,29 @@ export default function ServicesClient({ initialItems = [] }) {
                     </div>
                   )}
 
-                  {service.serviceFields?.serviceBulletPoints?.bullets && service.serviceFields.serviceBulletPoints.bullets.length > 0 && (
+                  {/* Service Details Title & Text */}
+                  {service.serviceFields?.serviceDetails && (
+                    <div className="mb-6">
+                      {service.serviceFields.serviceDetails.title && (
+                        <h3 className="text-sm lg:text-lg font-bold text-gray-900 mb-3">
+                          {service.serviceFields.serviceDetails.title}
+                        </h3>
+                      )}
+                      {service.serviceFields.serviceDetails.text && (
+                        <p className="text-sm lg:text-lg text-gray-700 leading-relaxed mb-4">
+                          {service.serviceFields.serviceDetails.text}
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Sub-service Titles as Bullet Points */}
+                  {service.serviceFields?.subservice?.nodes && service.serviceFields.subservice.nodes.length > 0 && (
                     <div className="mb-6">
                       <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 list-disc pl-5">
-                        {service.serviceFields.serviceBulletPoints.bullets.slice(0, 6).map((bullet, index) => (
-                          <li key={index} className="text-gray-700" style={{ color: getServiceColor(service.slug) }}>
-                            <span className="text-sm lg:text-lg text-gray-700">{bullet.text}</span>
+                        {service.serviceFields.subservice.nodes.filter(s => s.title).slice(0, 6).map((subService) => (
+                          <li key={subService.id} className="text-gray-700" style={{ color: getServiceColor(service.slug) }}>
+                            <span className="text-sm lg:text-lg text-gray-700">{subService.title}</span>
                           </li>
                         ))}
                       </ul>
@@ -218,9 +237,13 @@ export default function ServicesClient({ initialItems = [] }) {
                     <Link href={`/services/${service.slug}#contact-form`} className="button-l-white">
                       Find Out More
                     </Link>
-                    <TextLinkButton href={`/services/${service.slug}`}>
+                    <button
+                      onClick={() => setIsBookingModalOpen(true)}
+                      className="button-without-box"
+                      type="button"
+                    >
                       Speak To Us
-                    </TextLinkButton>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -228,6 +251,14 @@ export default function ServicesClient({ initialItems = [] }) {
           );
         })}
       </div>
+
+      {/* Booking Modal */}
+      {isBookingModalOpen && (
+        <BookingModal
+          isOpen={isBookingModalOpen}
+          onClose={() => setIsBookingModalOpen(false)}
+        />
+      )}
     </div>
   );
 }

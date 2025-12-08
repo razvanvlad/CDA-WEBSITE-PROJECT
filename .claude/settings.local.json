@@ -29,7 +29,9 @@
       "Bash(dir:*)",
       "Bash(echo:*)",
       "Bash(copy /b srccomponentsGlobalBlocksHeroSection.jsx +,,)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(grep:*)",
+      "Bash(wc:*)"
     ],
     "deny": [],
     "ask": []
