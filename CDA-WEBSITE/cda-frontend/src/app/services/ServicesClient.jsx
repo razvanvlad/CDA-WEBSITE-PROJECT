@@ -240,7 +240,21 @@ export default function ServicesClient({ initialItems = [] }) {
                       className="button-without-box"
                       type="button"
                     >
-                      Speak To Us
+                      <span className="button-text">Speak To Us</span>
+                      <span className="button-icon-wrapper">
+                        <img
+                          src="/images/arrow-icons/diagonal-right-arrow.svg"
+                          alt=""
+                          className="button-icon button-icon-default"
+                          aria-hidden="true"
+                        />
+                        <img
+                          src="/images/arrow-icons/right-arrow.svg"
+                          alt=""
+                          className="button-icon button-icon-hover"
+                          aria-hidden="true"
+                        />
+                      </span>
                     </button>
                   </div>
                 </div>
