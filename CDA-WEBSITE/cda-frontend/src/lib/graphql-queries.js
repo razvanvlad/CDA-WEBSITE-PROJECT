@@ -267,16 +267,6 @@ export const GET_SERVICE_BY_SLUG = `
             target
           }
         }
-        serviceCards {
-          title
-          description
-          cta {
-            url
-            title
-            target
-          }
-          pinIcon
-        }
         serviceDetails {
           title
           text
@@ -2141,7 +2131,6 @@ export const GET_SERVICE_ENHANCED_FIELDS = `
   query GetServiceEnhanced($slug: ID!) {
     service(id: $slug, idType: SLUG) {
       serviceFields {
-        serviceCards { title description pinIcon cta { url title target } }
         clientsLogos {
           title
           description

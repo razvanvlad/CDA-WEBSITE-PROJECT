@@ -5,7 +5,7 @@ import ResponsiveUnderlinedTitle from '../../../components/ResponsiveUnderlinedT
 import TextLinkButton from '../../../components/ui/TextLinkButton';
 import { notFound } from 'next/navigation';
 import { sanitizeTitleHtml, sanitizeImageAlt } from '../../../lib/sanitizeTitleHtml';
-import { executeGraphQLQuery, GET_SERVICE_BY_SLUG } from '../../../lib/graphql-queries';
+import { executeGraphQLQuery, GET_SERVICE_BY_SLUG, getServiceSlugs } from '../../../lib/graphql-queries';
 import { safeImageUrl } from '../../../lib/imageUtils';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -20,6 +20,16 @@ import ServiceStatsSection from '../../../components/ServiceStatsSection';
 import ServiceDetails from '../../../components/ServiceDetails';
 
 export const revalidate = 120;
+
+export async function generateStaticParams() {
+  try {
+    const slugs = await getServiceSlugs();
+    return slugs.map((slug) => ({ slug }));
+  } catch (error) {
+    console.error('Error generating static params for services:', error);
+    return [];
+  }
+}
 
 // Service color mapping
 const getServiceColor = (slug) => {

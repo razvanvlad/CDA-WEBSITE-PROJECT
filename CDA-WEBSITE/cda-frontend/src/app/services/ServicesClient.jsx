@@ -232,7 +232,7 @@ export default function ServicesClient({ initialItems = [] }) {
                   )}
 
                   <div className="flex flex-wrap gap-8">
-                    <Link href={`/services/${service.slug}#contact-form`} className="button-l-white">
+                    <Link href={`/services/${service.slug}`} className="button-l-white">
                       Find Out More
                     </Link>
                     <button
