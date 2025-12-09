@@ -140,7 +140,7 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
 
   return (
     <div className="min-h-screen bg-white py-16">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto container-padding">
         {/* 2-col layout on md+; single column on mobile */}
         <div className="grid md:grid-cols-12 gap-x-10 gap-y-10 relative">
 
@@ -162,7 +162,7 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
           </aside>
 
           {/* RIGHT COL — 8/12 (2/3) */}
-          <main className="md:col-span-8 relative overflow-visible">
+          <main className="md:col-span-8 relative overflow-visible -mx-[38px] md:mx-0 container-padding md:p-0">
             {/* Open Positions */}
             {openJobs.length > 0 && (
               <div className="mb-14">
@@ -184,7 +184,7 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
                         // Add border-b only to last item to ensure bottom line
                         className={`group block bg-white ${isLast ? 'border-b border-gray-200' : ''} hover:border-gray-300 hover:shadow-lg transition-all duration-300`}
                       >
-                        <div className="p-8">
+                        <div className="py-8">
                           {/* Row 1: Title on left, Button on right (desktop) / Title only (mobile) */}
                           <div className="flex flex-col md:flex-row md:justify-between md:items-start">
                             <div className="flex-1">
