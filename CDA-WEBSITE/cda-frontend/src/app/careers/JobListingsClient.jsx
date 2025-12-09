@@ -230,13 +230,13 @@ export default function JobListingsClient({ initialItems = [], globalBlocks = nu
                   src="/images/bee-right.svg"
                   alt=""
                   className="pointer-events-none select-none absolute z-[2] w-[180px] md:w-[220px] h-auto
-          -bottom-[85px] left-1/2 -translate-x-1/2
+          -bottom-[75px] left-1/2 -translate-x-1/2
           md:bottom-auto md:-top-[-170px] md:left-auto md:-right-8 md:translate-x-0"
                   aria-hidden="true"
                   draggable="false"
                 />
                 <div className="w-full">
-                  <div className="relative rounded-xl bg-[#F4F4F4]  px-6 py-12 md:px-10 md:py-14 text-center z-[1]">
+                  <div className="relative rounded-xl bg-[#F4F4F4] px-6 pt-12 pb-30 md:px-10 md:py-14 text-center z-[1]">
                     <h3 className="cda-hero__title-text service-hero-title text-2xl lg:text-3xl pb-10 font-bold mb-6">
                       <ResponsiveUnderlinedTitle as="h2" underlineColor="#FF5FA0">
                         Looking For Another Role?
