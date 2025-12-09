@@ -22,7 +22,7 @@ export default function ClientShowcase({ clientsLogosFields }) {
         {/* TOP AREA - CENTERED */}
         <div className="text-center mb-32 lg:mb-48">
           {sectionTitle && (
-            <h2 className="cda-title mb-6 lg:mb-8">
+            <h2 className="section-title">
               {sectionTitle}
             </h2>
           )}

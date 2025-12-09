@@ -208,7 +208,7 @@ export default async function AboutPage() {
           <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
             <div className="grid grid-cols-12 gap-x-8 gap-y-10 items-center">
               {/* Text content - order-1 on mobile, order-2 on desktop */}
-              <div className="col-span-12 md:col-span-6 order-1 md:order-2">
+              <div className="col-span-12 md:col-span-6 order-1 md:order-2 text-center md:text-left">
                 {aboutContent.behindCda.subtitle && (
                   <p className="cda-subtitle mb-2">{aboutContent.behindCda.subtitle}</p>
                 )}
@@ -216,7 +216,7 @@ export default async function AboutPage() {
                   <h2 className="cda-title mb-4">{aboutContent.behindCda.title}</h2>
                 )}
                 {aboutContent.behindCda.description && (
-                  <div className="wysiwyg-content text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] mb-6 md:py-8 md:pr-8"
+                  <div className="cda-description mb-6 md:py-8 md:pr-8"
                     dangerouslySetInnerHTML={{ __html: aboutContent.behindCda.description }} />
                 )}
                 {aboutContent.behindCda.cta?.url && (

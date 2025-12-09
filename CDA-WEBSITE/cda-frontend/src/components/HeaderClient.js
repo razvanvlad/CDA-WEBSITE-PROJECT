@@ -245,8 +245,8 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
         <div className="bg-white">
           <div className="mx-auto max-w-[1620px] container-padding py-2">
             <nav aria-label="Breadcrumb">
-              <ol className="flex items-center gap-2 text-[14px] md:text-[15px] text-black">
-                <li>
+              <ol className="flex items-center gap-2 text-[14px] md:text-[15px] text-black min-w-0">
+                <li className="flex-shrink-0">
                   <Link href="/" className="underline font-semibold">Home</Link>
                 </li>
                 {crumbParts.map((seg, idx) => {
@@ -254,10 +254,10 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
                   const last = idx === crumbParts.length - 1
                   const label = formatLabel(seg)
                   return (
-                    <li key={href} className="flex items-center gap-2">
-                      <span className="opacity-60">/</span>
+                    <li key={href} className={`flex items-center gap-2 ${last ? 'min-w-0 flex-1' : 'flex-shrink-0'}`}>
+                      <span className="opacity-60 flex-shrink-0">/</span>
                       {last ? (
-                        <span>{label}</span>
+                        <span className="truncate">{label}</span>
                       ) : (
                         <a href={href} className="underline font-semibold">{label}</a>
                       )}

@@ -97,6 +97,48 @@ a {
 }
 
 /* ─────────────────────────────────────────────────────────────────
+   DESCRIPTION TEXT
+   ───────────────────────────────────────────────────────────────── */
+
+.cda-description {
+  font-family: var(--font-inter);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #000000;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   LOCATIONS TEXT
+   ───────────────────────────────────────────────────────────────── */
+
+.cda-locations-text-top {
+  font-family: var(--font-poppins);
+  font-size: 18px;
+  font-weight: 700;
+  color: #000000;
+}
+
+@media (min-width: 769px) {
+  .cda-locations-text-top {
+    font-size: 22px;
+  }
+}
+
+.cda-locations-text-bot {
+  font-family: var(--font-inter);
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000;
+}
+
+@media (min-width: 769px) {
+  .cda-locations-text-bot {
+    font-size: 18px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
    TITLE UTILITY CLASSES
    ───────────────────────────────────────────────────────────────── */
 

@@ -89,6 +89,7 @@ const LocationsImage = ({ globalData }) => {
                           as="span"
                           className="text-[28px] font-semibold text-[#111827]"
                           underlineColor="#FF5C8A"
+                          underlineOffset={24}
                         >
                           {c.countryName}
                         </ResponsiveUnderlinedTitle>
@@ -109,23 +110,23 @@ const LocationsImage = ({ globalData }) => {
                 {current.offices.map((office, idx) => (
                   <div key={idx}>
                     {office.name && (
-                      <h3 className="text-[28px] md:text-[32px] font-bold text-[#111827] mb-5">{office.name}</h3>
+                      <h3 className="text-[28px] md:text-[32px] font-bold mb-5">{office.name}</h3>
                     )}
 
                     <div className="grid grid-cols-2 gap-x-6 gap-y-6">
                       <div>
-                        <p className="text-[18px] font-semibold text-[#111827] mb-2">Address</p>
+                        <p className="cda-locations-text-top mb-2">Address</p>
                         {office.address && (
-                          <p className="text-[16px] leading-[1.8] text-[#111827] whitespace-pre-line">{office.address}</p>
+                          <p className="cda-locations-text-bot">{office.address}</p>
                         )}
 
-                        <p className="text-[18px] font-semibold text-[#111827] mb-2">Email</p>
+                        <p className="cda-locations-text-top mb-2">Email</p>
                         {office.email && (
-                          <p className="text-[16px] text-[#111827]">{office.email}</p>
+                          <p className="cda-locations-text-bot">{office.email}</p>
                         )}
-                        <p className="text-[18px] font-semibold text-[#111827] mb-2">Phone</p>
+                        <p className="cda-locations-text-top mb-2">Phone</p>
                         {office.phone && (
-                          <p className="text-[16px] text-[#111827]">{office.phone}</p>
+                          <p className="cda-locations-text-bot">{office.phone}</p>
                         )}
                       </div>
                     </div>

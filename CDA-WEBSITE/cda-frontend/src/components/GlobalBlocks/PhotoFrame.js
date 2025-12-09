@@ -52,37 +52,37 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
 
           {/* Right: Copy */}
           {/* Right: Copy */}
-<div className="col-span-12 lg:col-span-6 lg:px-20 self-start pt-4 md:pt-6 lg:pt-8">
-  <div className="relative">
-    {copy.subtitle && <p className="cda-subtitle">{copy.subtitle}</p>}
-    {copy.title && <h2 className="cda-title">{copy.title}</h2>}
-    {copy.text && (
-      <div className="text-[16px] md:text-[18px] leading-[1.7] text-[#4B5563] space-y-4 mb-6">
-        {String(copy.text).split('\n').map((p, i) => p.trim() && <p key={i}>{p.trim()}</p>)}
-      </div>
-    )}
-    {copy.button?.url && copy.button?.title && (
-      <TextLinkButton
-        href={copy.button.url}
-        target={copy.button.target === '_blank' ? '_blank' : '_self'}
-        className="text-black"
-      >
-        {copy.button.title}
-      </TextLinkButton>
-    )}
+          <div className="col-span-12 lg:col-span-6 lg:px-20 self-start pt-4 md:pt-6 lg:pt-8">
+            <div className="relative">
+              {copy.subtitle && <p className="cda-subtitle">{copy.subtitle}</p>}
+              {copy.title && <h2 className="section-title">{copy.title}</h2>}
+              {copy.text && (
+                <div className="cda-description space-y-4 mt-8 mb-8">
+                  {String(copy.text).split('\n').map((p, i) => p.trim() && <p key={i}>{p.trim()}</p>)}
+                </div>
+              )}
+              {copy.button?.url && copy.button?.title && (
+                <TextLinkButton
+                  href={copy.button.url}
+                  target={copy.button.target === '_blank' ? '_blank' : '_self'}
+                  className="text-black"
+                >
+                  {copy.button.title}
+                </TextLinkButton>
+              )}
 
-    {arrowIllustration?.node?.sourceUrl && (
-      <Image
-        src={arrowIllustration.node.sourceUrl}
-        alt={arrowIllustration.node.altText || 'Arrow'}
-        width={200}
-        height={200}
-        className="hidden lg:block absolute -bottom-[320px] left-[170px] w-[200px] h-auto pointer-events-none select-none z-30"
-        draggable={false}
-      />
-    )}
-  </div>
-</div>
+              {arrowIllustration?.node?.sourceUrl && (
+                <Image
+                  src={arrowIllustration.node.sourceUrl}
+                  alt={arrowIllustration.node.altText || 'Arrow'}
+                  width={200}
+                  height={200}
+                  className="hidden lg:block absolute -bottom-[320px] left-[170px] w-[200px] h-auto pointer-events-none select-none z-30"
+                  draggable={false}
+                />
+              )}
+            </div>
+          </div>
 
         </div>
       </div>

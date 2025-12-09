@@ -39,7 +39,7 @@ const Showreel = ({ globalData }) => {
           <div className="mb-6 md:mb-8 flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">
             <div className="text-left">
               {subtitle && <p className="cda-subtitle">{subtitle}</p>}
-              {title && <h2 className="cda-title">{title}</h2>}
+              {title && <h2 className="section-title">{title}</h2>}
             </div>
 
             {button?.url && (

@@ -34,7 +34,7 @@ const TechnologiesSlider = ({ globalData, subtitle, title, logos }) => {
             <p className="cda-subtitle">{data.subtitle}</p>
           )}
           {data.title && (
-            <h2 className="cda-title">{data.title}</h2>
+            <h2 className="section-title">{data.title}</h2>
           )}
         </div>
 

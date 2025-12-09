@@ -142,22 +142,21 @@ export default async function CareerDetailPage({ params }) {
         {/* Hero Section */}
         <section className="relative bg-white text-black">
           <div className="cda-container py-4">
-            <ResponsiveUnderlinedTitle
-              as="h1"
-              className="cda-title mb-6"
-              underlineColor="#3CBEEB"
-            >
-              {job.title}
-            </ResponsiveUnderlinedTitle>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between md:gap-8 mb-6">
+              <ResponsiveUnderlinedTitle
+                as="h1"
+                className="cda-title mb-4 md:mb-0"
+                underlineColor="#3CBEEB"
+              >
+                {job.title}
+              </ResponsiveUnderlinedTitle>
 
-            <div className="flex flex-wrap gap-4 mb-4">
               <Link
                 href="#apply"
-                className="button-l"
+                className="button-l flex-shrink-0"
               >
-                Apply Now
+                Apply
               </Link>
-
             </div>
           </div>
         </section>
@@ -168,64 +167,63 @@ export default async function CareerDetailPage({ params }) {
             {/* Desktop: Single Row */}
             <div className="hidden md:flex md:flex-wrap md:gap-x-8 md:gap-y-2 text-sm">
               <div>
-                <span className="font-bold text-black-500">Publish Date: </span>
-                <span className="text-black-900">{formatDate(jobDetails?.publishDate || job.date)}</span>
+                <span className="font-bold text-black">Publish Date: </span>
+                <span className="text-black">{formatDate(jobDetails?.publishDate || job.date)}</span>
               </div>
               {jobDetails?.location && (
                 <div>
-                  <span className="font-bold text-black-500">Location: </span>
-                  <span className="text-black-900">{jobDetails.location}</span>
+                  <span className="font-bold text-black">Location: </span>
+                  <span className="text-black">{jobDetails.location}</span>
                 </div>
               )}
               {jobDetails?.working && (
                 <div>
-                  <span className="font-bold text-black-500">Working: </span>
-                  <span className="text-black-900">{getWorkingDisplay(jobDetails.working)}</span>
+                  <span className="font-bold text-black">Working: </span>
+                  <span className="text-black">{getWorkingDisplay(jobDetails.working)}</span>
                 </div>
               )}
               {jobDetails?.hours && (
                 <div>
-                  <span className="font-bold text-black-500">Hours: </span>
-                  <span className="text-black-900">{getHoursDisplay(jobDetails.hours)}</span>
+                  <span className="font-bold text-black">Hours: </span>
+                  <span className="text-black">{getHoursDisplay(jobDetails.hours)}</span>
                 </div>
               )}
               {jobDetails?.salary && (
                 <div>
-                  <span className="font-bold text-black-500">Salary: </span>
-                  <span className="text-black-900">{jobDetails.salary}</span>
+                  <span className="font-bold text-black">Salary: </span>
+                  <span className="text-black">{jobDetails.salary}</span>
                 </div>
               )}
             </div>
 
-            {/* Mobile: 2 Columns */}
-            <div className="grid grid-cols-2 gap-x-4 gap-y-3 md:hidden text-sm">
-              <div>
-                <div className="font-bold text-gray-500">Publish Date:</div>
-                <div className="text-gray-900">{formatDate(jobDetails?.publishDate || job.date)}</div>
-              </div>
+            {/* Mobile: Single Column with Aligned Values */}
+            <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 md:hidden text-sm">
+              <span className="font-bold text-black">Publish Date:</span>
+              <span className="text-black">{formatDate(jobDetails?.publishDate || job.date)}</span>
+
               {jobDetails?.location && (
-                <div>
-                  <div className="font-bold text-gray-500">Location:</div>
-                  <div className="text-gray-900">{jobDetails.location}</div>
-                </div>
+                <>
+                  <span className="font-bold text-black">Location:</span>
+                  <span className="text-black">{jobDetails.location}</span>
+                </>
               )}
               {jobDetails?.working && (
-                <div>
-                  <div className="font-bold text-gray-500">Working:</div>
-                  <div className="text-gray-900">{getWorkingDisplay(jobDetails.working)}</div>
-                </div>
+                <>
+                  <span className="font-bold text-black">Working:</span>
+                  <span className="text-black">{getWorkingDisplay(jobDetails.working)}</span>
+                </>
               )}
               {jobDetails?.hours && (
-                <div>
-                  <div className="font-bold text-gray-500">Hours:</div>
-                  <div className="text-gray-900">{getHoursDisplay(jobDetails.hours)}</div>
-                </div>
+                <>
+                  <span className="font-bold text-black">Hours:</span>
+                  <span className="text-black">{getHoursDisplay(jobDetails.hours)}</span>
+                </>
               )}
               {jobDetails?.salary && (
-                <div className="col-span-2">
-                  <div className="font-bold text-gray-500">Salary:</div>
-                  <div className="text-gray-900">{jobDetails.salary}</div>
-                </div>
+                <>
+                  <span className="font-bold text-black">Salary:</span>
+                  <span className="text-black">{jobDetails.salary}</span>
+                </>
               )}
             </div>
           </div>
@@ -237,7 +235,7 @@ export default async function CareerDetailPage({ params }) {
             <div className="cda-container">
               <div className="grid grid-cols-12 gap-6 md:gap-10 items-start">
                 <div className="col-span-12 md:col-span-8">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6">About The Position</h2>
+                  <h2 className="text-3xl font-bold text-black mb-6">About The Position</h2>
                   <div
                     className="prose prose-lg max-w-none"
                     dangerouslySetInnerHTML={{ __html: requirements.aboutThePosition }}
@@ -276,7 +274,7 @@ export default async function CareerDetailPage({ params }) {
                   </div>
                 </div>
                 <div className="col-span-12 md:col-span-8">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Dream Candidate</h2>
+                  <h2 className="text-3xl font-bold text-black mb-6">Our Dream Candidate</h2>
                   <div
                     className="prose prose-lg max-w-none"
                     dangerouslySetInnerHTML={{ __html: requirements.ourDreamCandidate }}
@@ -297,14 +295,14 @@ export default async function CareerDetailPage({ params }) {
                 {/* Key Responsibilities */}
                 {requirements?.requiredSkills?.length > 0 && (
                   <div className="col-span-12 md:col-span-6">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-6">Key Responsibilities</h2>
+                    <h2 className="text-3xl font-bold text-black mb-6">Key Responsibilities</h2>
                     <ul className="space-y-3">
                       {requirements.requiredSkills.map((item, i) => (
                         <li key={i} className="flex items-start">
                           <svg className="h-6 w-6 text-blue-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
-                          <span className="text-gray-700">{item?.responsability || item?.text || ''}</span>
+                          <span className="text-black">{item?.responsability || item?.text || ''}</span>
                         </li>
                       ))}
                     </ul>
@@ -314,14 +312,14 @@ export default async function CareerDetailPage({ params }) {
                 {/* Qualifications and Experience */}
                 {requirements?.requiredQualifications?.length > 0 && (
                   <div className="col-span-12 md:col-span-6">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-6">Qualifications and Experience</h2>
+                    <h2 className="text-3xl font-bold text-black mb-6">Qualifications and Experience</h2>
                     <ul className="space-y-3">
                       {requirements.requiredQualifications.map((item, i) => (
                         <li key={i} className="flex items-start">
                           <svg className="h-6 w-6 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4" />
                           </svg>
-                          <span className="text-gray-700">{item?.qualification || item?.text || ''}</span>
+                          <span className="text-black">{item?.qualification || item?.text || ''}</span>
                         </li>
                       ))}
                     </ul>
@@ -343,8 +341,8 @@ export default async function CareerDetailPage({ params }) {
               {/* Left image (4/12) */}
               <div className="col-span-12 md:col-span-4">
                 <div className="text-center mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Apply for {job.title}</h2>
-                  <p className="text-lg text-gray-600">
+                  <h2 className="text-3xl font-bold text-black mb-4">Apply for {job.title}</h2>
+                  <p className="text-lg text-black">
                     Ready to join our team? Fill out the form below and we'll get back to you within 24 hours.
                   </p>
                 </div>
