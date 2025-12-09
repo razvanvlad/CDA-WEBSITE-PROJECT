@@ -11,8 +11,8 @@
    ============================================ */
 
 .cda-hero {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
 }
 
 @media (min-width: 1024px) {
@@ -27,6 +27,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 30px;
 }
 
 @media (min-width: 1024px) {
@@ -48,6 +49,12 @@
 .cda-hero__title {
   order: var(--mobile-order-title, 1);
   text-align: center;
+}
+
+@media (max-width: 1023px) {
+  .cda-hero__title {
+    margin-top: 20px;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -211,6 +218,18 @@
     width: auto;
     height: auto;
     max-width: 280px;
+  }
+}
+
+/* Service Detail Page specific hero styling */
+.service-detail-page .cda-hero__image-media {
+  max-height: 600px;
+  object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  .service-detail-page .cda-hero__image-media {
+    max-height: 231px;
   }
 }
 

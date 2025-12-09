@@ -99,7 +99,6 @@ export default async function ServicePage({ params }) {
         width={600}
         height={400}
         className="cda-hero__image-media"
-        style={{ maxHeight: '600px', objectFit: 'contain' }}
         priority
       />
     )
@@ -111,7 +110,6 @@ export default async function ServicePage({ params }) {
           width={600}
           height={400}
           className="cda-hero__image-media"
-          style={{ maxHeight: '600px', objectFit: 'contain' }}
           priority
         />
       )
