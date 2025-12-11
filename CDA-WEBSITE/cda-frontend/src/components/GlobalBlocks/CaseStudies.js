@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import TextLinkButton from '../ui/TextLinkButton';
+import ResponsiveUnderlinedTitle from '../ResponsiveUnderlinedTitle';
 
 /**
  * CaseStudies Global Block Component
@@ -35,6 +36,64 @@ const CaseStudies = ({ globalData }) => {
 
   const studies = selectedStudies?.nodes || [];
 
+  // Track if we're on desktop to conditionally apply reverse layout
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  // Check screen size on mount and resize
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1025);
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
+
+  // Scroll-triggered overlay animation using Intersection Observer
+  useEffect(() => {
+    // Skip if window undefined (SSR safety)
+    if (typeof window === 'undefined') return;
+
+    // Respect prefers-reduced-motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Get all image containers
+    const mediaElements = document.querySelectorAll('.cs-media');
+
+    // Track which elements have animated (prevent double-triggering in React strict mode)
+    const animatedElements = new Set();
+
+    // Create Intersection Observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Trigger only once when entering viewport
+          if (entry.isIntersecting && !animatedElements.has(entry.target)) {
+            animatedElements.add(entry.target);
+
+            // Add class to trigger animation (skip if reduced motion)
+            if (!prefersReducedMotion) {
+              entry.target.classList.add('cs-media-animate');
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px'
+      }
+    );
+
+    // Observe all media elements
+    mediaElements.forEach(element => observer.observe(element));
+
+    // Cleanup
+    return () => {
+      mediaElements.forEach(element => observer.unobserve(element));
+      observer.disconnect();
+    };
+  }, []); // Empty dependency - run once on mount
+
   return (
     <section className="home-case-studies py-20">
       <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
@@ -45,26 +104,32 @@ const CaseStudies = ({ globalData }) => {
               <p className="cda-subtitle">{subtitle}</p>
             )}
             {title && (
-              <h2 className="cda-title title-small-orange">{title}</h2>
+              <ResponsiveUnderlinedTitle
+                as="h2"
+                underlineColor="#FD8721"
+                className="section-title my-4"
+              >
+                {title}
+              </ResponsiveUnderlinedTitle>
             )}
           </div>
           {knowledgeHubLink && (
             <TextLinkButton
               href={knowledgeHubLink.url}
-              className="cs-header-cta"
+              className="cs-header-cta mb-2"
               target={knowledgeHubLink.target || '_self'}
             >
               {knowledgeHubLink.title}
             </TextLinkButton>
           )}
         </div>
-        
+
         {/* Selected Case Studies - Alternating two-up layout */}
         {studies.length > 0 && (
-          <div className="cs-list" style={{marginBottom: '3rem'}}>
+          <div className="cs-list" style={{ marginBottom: '3rem' }}>
             {studies.slice(0, 2).map((study, index) => (
-              <article key={study.id || index} className={`cs-item ${index % 2 === 1 ? 'cs-item--reverse' : ''}`}>
-                <div className="cs-media">
+              <article key={study.id || index} className={`cs-item ${index % 2 === 1 && isDesktop ? 'cs-item--reverse' : ''}`}>
+                <div className="cs-media mb-2">
                   {study.featuredImage?.node?.sourceUrl && (
                     <Image
                       src={study.featuredImage.node.sourceUrl}
@@ -77,154 +142,15 @@ const CaseStudies = ({ globalData }) => {
                   )}
                 </div>
                 <div className="cs-content">
-                  <h3 className="cs-title">{study.title}</h3>
-                  <div className="cs-excerpt" dangerouslySetInnerHTML={{__html: study.excerpt}} />
-                  <a href={study.uri} className="button-l button-l--white cs-cta">Read Case Study</a>
+                  <h3 className="cs-title mb-4">{study.title}</h3>
+                  <div className="cs-excerpt mb-2" dangerouslySetInnerHTML={{ __html: study.excerpt }} />
+                  <a href={study.uri} className="button-l-transparent mt-5">Read Case Study</a>
                 </div>
               </article>
             ))}
           </div>
         )}
       </div>
-
-      <style jsx>{`
-        .cs-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          margin-bottom: 4rem;
-          gap: 2rem;
-        }
-
-        .cs-head-left {
-          flex: 1;
-        }
-
-        .cs-header-cta {
-          flex-shrink: 0;
-        }
-
-        .cs-list {
-          display: flex;
-          flex-direction: column;
-          gap: 4rem;
-        }
-
-        .cs-item {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 4rem;
-          align-items: center;
-        }
-
-        .cs-item--reverse {
-          grid-template-columns: 1fr 1fr;
-        }
-
-        .cs-item--reverse .cs-media {
-          order: 2;
-        }
-
-        .cs-item--reverse .cs-content {
-          order: 1;
-        }
-
-        .cs-media {
-          position: relative;
-          aspect-ratio: 16 / 10;
-          overflow: hidden;
-          border-radius: 12px;
-        }
-
-        .cs-content {
-          padding: 2rem 0;
-        }
-
-        .cs-title {
-          font-size: 2rem;
-          font-weight: 700;
-          color: #1a1a1a;
-          margin-bottom: 1.5rem;
-          line-height: 1.2;
-        }
-
-        .cs-excerpt {
-          color: #666;
-          font-size: 1.1rem;
-          line-height: 1.6;
-          margin-bottom: 2rem;
-        }
-
-        .cs-excerpt p {
-          margin-bottom: 1rem;
-        }
-
-        .cs-excerpt p:last-child {
-          margin-bottom: 0;
-        }
-
-        .cs-cta {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          transition: all 0.3s ease;
-        }
-
-        .cs-cta:hover {
-          transform: translateY(-2px);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-          .cs-header {
-            flex-direction: column;
-            align-items: flex-start;
-            margin-bottom: 2.5rem;
-            gap: 1.5rem;
-          }
-
-          .cs-item {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            text-align: center;
-          }
-
-          .cs-item--reverse {
-            grid-template-columns: 1fr;
-          }
-
-          .cs-item--reverse .cs-media,
-          .cs-item--reverse .cs-content {
-            order: initial;
-          }
-
-          .cs-content {
-            padding: 1rem 0;
-          }
-
-          .cs-title {
-            font-size: 1.75rem;
-            margin-bottom: 1rem;
-          }
-
-          .cs-excerpt {
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-          }
-
-          .cs-list {
-            gap: 2.5rem;
-          }
-
-          .cs-title {
-            font-size: 1.5rem;
-          }
-
-          .cs-excerpt {
-            font-size: 0.95rem;
-          }
-        }
-      `}</style>
     </section>
   );
 };

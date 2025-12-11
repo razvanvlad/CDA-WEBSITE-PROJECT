@@ -19,7 +19,7 @@ export default function UnderlinedTitle({
   underlineColor = '#FF5C8A',
   size = 'large',
   strokeWidth,
-  curveIntensity = 0.01,
+  curveIntensity = 0.005,
   underlineOffset = 48,
   centered = false,
   as: Component = 'h2',
