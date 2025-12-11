@@ -1,5 +1,6 @@
 import ResponsiveUnderlinedTitle from './ResponsiveUnderlinedTitle';
 import Image from 'next/image';
+import COLORS from '../constants/colors';
 
 export default function ServiceStatsSection({ numbersFields }) {
     if (!numbersFields) return null;
@@ -10,7 +11,7 @@ export default function ServiceStatsSection({ numbersFields }) {
     if ((!stats || stats.length === 0) && !leftTitle && !rightTitle) return null;
 
     // Hardcoded underline colors in order (exactly 4 stats expected)
-    const underlineColors = ['#FF5C8A', '#3CBEEB', '#01E486', '#FD8721'];
+    const underlineColors = [COLORS.REDISH_PINK, COLORS.PURPLE, COLORS.BLUE, COLORS.ORANGE];
 
     return (
         <section className="stats-section bg-white py-16 lg:py-24 relative">
@@ -23,6 +24,7 @@ export default function ServiceStatsSection({ numbersFields }) {
                                 <ResponsiveUnderlinedTitle
                                     as="span"
                                     className="text-4xl lg:text-5xl font-bold"
+                                    underlineOffset={42}
                                     underlineColor={underlineColors[index % underlineColors.length]}
                                 >
                                     {stat.number}

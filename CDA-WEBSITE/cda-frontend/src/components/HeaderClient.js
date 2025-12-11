@@ -76,9 +76,9 @@ function NavLink({ href, children, className = '' }) {
         <UnderlinedTitle
           as="span"
           underlineColor="#3CBEEB"
-          strokeWidth={4}
-          underlineOffset={16}
-          curveIntensity={0.01}
+          strokeWidth={6}
+          underlineOffset={12}
+          curveIntensity={0.005}
         >
           {children}
         </UnderlinedTitle>

@@ -7,7 +7,13 @@
 
 .newsletter-section {
   background-color: #f4f4f4;
-  padding: 5rem 38px;
+  padding: 5rem 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .newsletter-section {
+    padding: 5rem 11px !important;
+  }
 }
 
 @media (min-width: 768px) {
@@ -62,7 +68,7 @@
   .newsletter-container {
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 200px;
+    margin-bottom: 150px;
   }
 
   .newsletter-content {
@@ -85,7 +91,7 @@
 
 @media (max-width: 640px) {
   .newsletter-illustration {
-    top: 120%;
+    top: 85%;
     transform: none;
   }
 }
@@ -101,6 +107,14 @@
   text-align: left;
   position: relative;
   z-index: 2;
+}
+
+@media (max-width: 640px) {
+  .newsletter-content {
+    width: 100%;
+    max-width: 353px;
+    margin: 0 auto;
+  }
 }
 
 .newsletter-header {

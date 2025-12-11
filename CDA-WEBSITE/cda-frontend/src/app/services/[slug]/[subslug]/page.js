@@ -27,6 +27,8 @@ export async function generateStaticParams() {
   }
 }
 
+import ServiceStatsSection from '../../../../components/ServiceStatsSection';
+
 export default async function SubServicePage({ params }) {
   const { slug, subslug } = await params;
 
@@ -99,12 +101,12 @@ export default async function SubServicePage({ params }) {
           ctas={
             heroSection.cta?.title
               ? [
-                  {
-                    href: heroSection.cta.url || '#contact',
-                    label: heroSection.cta.title,
-                    className: 'button-l',
-                  },
-                ]
+                {
+                  href: heroSection.cta.url || '#contact',
+                  label: heroSection.cta.title,
+                  className: 'button-l',
+                },
+              ]
               : []
           }
           image={heroImageNode}
@@ -112,22 +114,7 @@ export default async function SubServicePage({ params }) {
 
         {/* Stats Section */}
         {stats && stats.length > 0 && (
-          <section className="py-16 bg-gray-50">
-            <div className="container mx-auto px-4" style={{ maxWidth: '1620px' }}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {stats.map((stat, index) => (
-                  <div key={index} className="text-center">
-                    <div className="text-5xl font-bold text-blue-600 mb-2">
-                      {stat.number}
-                    </div>
-                    <div className="text-gray-600">
-                      {stat.text}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
+          <ServiceStatsSection numbersFields={{ stats }} />
         )}
 
         {/* Video Section */}
