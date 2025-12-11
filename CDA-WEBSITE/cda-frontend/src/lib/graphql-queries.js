@@ -400,19 +400,6 @@ export const GET_SERVICE_BY_SLUG = `
             }
           }
         }
-        newsCarousel {
-          title
-          subtitle
-          articleSelection
-          category { nodes { name slug } }
-          manualArticles {
-            nodes {
-              __typename
-              ... on BlogPost { id title excerpt uri featuredImage { node { sourceUrl altText } } }
-              ... on Post { id title excerpt uri featuredImage { node { sourceUrl altText } } }
-            }
-          }
-        }
         caseStudies {
           title
           subtitle
@@ -1514,20 +1501,6 @@ export const GET_GLOBAL_CONTENT = `
           countries { countryName offices { name address email phone } }
           illustration { node { sourceUrl altText } }
         }
-        # NEWS CAROUSEL
-        newsCarousel {
-          title
-          subtitle
-          articleSelection
-          category { nodes { name slug } }
-          manualArticles {
-            nodes {
-              __typename
-              ... on BlogPost { id title excerpt uri featuredImage { node { sourceUrl altText } } }
-              ... on Post { id title excerpt uri featuredImage { node { sourceUrl altText } } }
-            }
-          }
-        }
         # NEWSLETTER SIGNUP
         newsletterSignup {
           title
@@ -1773,12 +1746,6 @@ export const GET_ALL_GLOBAL_CONTENT_BLOCKS = `
             offices { name address email phone }
           }
         }
-        newsCarousel {
-          title
-          subtitle
-          articleSelection
-          manualArticles { edges { node { ... on BlogPost { id title slug } } } }
-        }
         newsletterSignup {
           title
           subtitle
@@ -1900,19 +1867,6 @@ export const GET_GLOBAL_IMAGE_FRAME_MIN = `
   }
 `;
 
-export const GET_GLOBAL_NEWS_CAROUSEL_MIN = `
-  query GetGlobalNewsCarousel {
-    globalOptions { globalContentBlocks {
-      newsCarousel {
-        title
-        subtitle
-        articleSelection
-        manualArticles { edges { node { ... on BlogPost { id title slug } } } }
-      }
-    } }
-  }
-`;
-
 export const GET_GLOBAL_THREE_COLUMNS_MIN = `
   query GetGlobalThreeColumns {
     globalOptions { globalContentBlocks {
@@ -1946,11 +1900,6 @@ export async function getGlobalStatsBlock() {
 export async function getGlobalImageFrameBlockMin() {
   const res = await executeGraphQLQuery(GET_GLOBAL_IMAGE_FRAME_MIN);
   return res?.data?.globalOptions?.globalContentBlocks?.imageFrameBlock || null;
-}
-
-export async function getGlobalNewsCarouselConfigMin() {
-  const res = await executeGraphQLQuery(GET_GLOBAL_NEWS_CAROUSEL_MIN);
-  return res?.data?.globalOptions?.globalContentBlocks?.newsCarousel || null;
 }
 
 export async function getGlobalThreeColumnsMin() {

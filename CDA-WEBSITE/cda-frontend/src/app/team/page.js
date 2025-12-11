@@ -28,7 +28,7 @@ export default async function TeamPage() {
   if (!toggles) toggles = await getPageGlobalTogglesByUri('/team/')
   if (!toggles) toggles = await getPageGlobalTogglesBySlug('team')
   const knownKeys = [
-    'showApproach', 'showCaseStudies', 'showImageFrame', 'showNewsCarousel', 'showThreeColumns', 'showValues', 'showWhyCda', 'showServicesAccordion', 'showTechnologiesSlider', 'showShowreel', 'showLocationsImage', 'showNewsletterSignup', 'showContactFormLeftImageRight', 'showJoinOurTeam', 'showFullVideo', 'showStatsAndNumbers', 'showCultureGallerySlider'
+    'showApproach', 'showCaseStudies', 'showImageFrame', 'showThreeColumns', 'showValues', 'showWhyCda', 'showServicesAccordion', 'showTechnologiesSlider', 'showShowreel', 'showLocationsImage', 'showNewsletterSignup', 'showContactFormLeftImageRight', 'showJoinOurTeam', 'showFullVideo', 'showStatsAndNumbers', 'showCultureGallerySlider'
   ]
   const hasAny = toggles && typeof toggles === 'object' && knownKeys.some(k => Object.prototype.hasOwnProperty.call(toggles, k))
   const t = hasAny ? toggles : Object.fromEntries(knownKeys.map(k => [k, true]))

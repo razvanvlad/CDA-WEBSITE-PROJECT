@@ -63,7 +63,6 @@ async function getHomeToggles() {
             showApproach
             showCaseStudies
             showImageFrame
-            showNewsCarousel
             showThreeColumns
             showValues
             showWhyCda
@@ -83,7 +82,6 @@ async function getHomeToggles() {
               showApproach
               showCaseStudies
               showImageFrame
-              showNewsCarousel
               showThreeColumns
               showValues
               showWhyCda
@@ -138,7 +136,7 @@ export default async function Home() {
 
   // Known toggle keys used across pages
   const knownKeys = [
-    'showApproach', 'showCaseStudies', 'showImageFrame', 'showNewsCarousel', 'showThreeColumns', 'showValues', 'showWhyCda', 'showServicesAccordion', 'showTechnologiesSlider', 'showShowreel', 'showLocationsImage', 'showNewsletterSignup', 'showContactFormLeftImageRight', 'showJoinOurTeam', 'showFullVideo', 'showStatsAndNumbers', 'showCultureGallerySlider'
+    'showApproach', 'showCaseStudies', 'showImageFrame', 'showThreeColumns', 'showValues', 'showWhyCda', 'showServicesAccordion', 'showTechnologiesSlider', 'showShowreel', 'showLocationsImage', 'showNewsletterSignup', 'showContactFormLeftImageRight', 'showJoinOurTeam', 'showFullVideo', 'showStatsAndNumbers', 'showCultureGallerySlider'
   ]
   const hasAny = toggles && typeof toggles === 'object' && knownKeys.some(k => Object.prototype.hasOwnProperty.call(toggles, k))
   const t = hasAny ? toggles : Object.fromEntries(knownKeys.map(k => [k, true]))

@@ -27,8 +27,12 @@ export default function BookingModal({ isOpen = true, onClose }) {
   useEffect(() => {
     if (!isOpen) return;
 
+    // Prevent background scrolling completely
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
     const script = document.createElement('script');
-    script.src = 'https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js';
+    script.src = 'https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js  ';
     script.async = true;
     document.body.appendChild(script);
 
@@ -48,12 +52,12 @@ export default function BookingModal({ isOpen = true, onClose }) {
            ======================================== */
 
         * {
-          border-radius: 0 !important; /* Remove ALL rounded corners */
+          border-radius: 0 !important;
         }
 
         body, html {
           background-color: #FFFFFF !important;
-          color: #111827 !important;
+          color: #000000 !important; /* all text black */
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
         }
 
@@ -70,31 +74,28 @@ export default function BookingModal({ isOpen = true, onClose }) {
            HEADER / MEETING TITLE SECTION
            ======================================== */
 
-        /* Main container */
         .hs-meeting-scheduler__header {
           background-color: #FFFFFF !important;
           padding: 24px !important;
         }
 
-        /* "Meeting with Stuart Alldis" text */
         .hs-meeting-scheduler__title,
         .hs-meeting-scheduler__meeting-title {
-          color: #111827 !important;
+          color: #000000 !important;
           font-size: 24px !important;
           font-weight: 700 !important;
           margin-bottom: 8px !important;
         }
 
-        /* Logo/Avatar */
         .hs-meeting-scheduler__avatar,
         .hs-meeting-scheduler__logo {
           width: 80px !important;
           height: 80px !important;
-          border-radius: 0 !important; /* Square logo */
+          border-radius: 0 !important;
         }
 
         /* ========================================
-           DURATION SELECTOR ("How long do you need?")
+           DURATION SELECTOR
            ======================================== */
 
         .hs-meeting-scheduler__duration-selector {
@@ -104,16 +105,15 @@ export default function BookingModal({ isOpen = true, onClose }) {
         }
 
         .hs-meeting-scheduler__duration-label {
-          color: #111827 !important;
+          color: #000000 !important;
           font-size: 16px !important;
           font-weight: 600 !important;
           margin-bottom: 12px !important;
         }
 
-        /* Duration buttons (30 mins / 1 hour) */
         .hs-meeting-scheduler__duration-button {
           background-color: #FFFFFF !important;
-          color: #111827 !important;
+          color: #000000 !important;
           border: 1px solid #E5E7EB !important;
           border-radius: 0 !important;
           padding: 10px 20px !important;
@@ -123,14 +123,14 @@ export default function BookingModal({ isOpen = true, onClose }) {
         }
 
         .hs-meeting-scheduler__duration-button:hover {
-          border-color: #111827 !important;
+          border-color: #000000 !important;
           background-color: #F9FAFB !important;
         }
 
         .hs-meeting-scheduler__duration-button--selected {
           background-color: #D1D5DB !important;
-          border-color: #111827 !important;
-          color: #111827 !important;
+          border-color: #000000 !important;
+          color: #000000 !important;
         }
 
         /* ========================================
@@ -146,7 +146,6 @@ export default function BookingModal({ isOpen = true, onClose }) {
           background-color: #FFFFFF !important;
         }
 
-        /* Month/Year header and navigation */
         .hs-meeting-scheduler__calendar-header {
           display: flex !important;
           justify-content: space-between !important;
@@ -159,10 +158,9 @@ export default function BookingModal({ isOpen = true, onClose }) {
         .hs-meeting-scheduler__calendar-title {
           font-weight: 700 !important;
           font-size: 20px !important;
-          color: #111827 !important;
+          color: #000000 !important;
         }
 
-        /* Navigation arrows */
         .hs-meeting-scheduler__nav-button,
         .hs-meeting-scheduler__arrow,
         .hs-meeting-scheduler__prev-month,
@@ -171,7 +169,7 @@ export default function BookingModal({ isOpen = true, onClose }) {
         button[aria-label*="next"] {
           background-color: transparent !important;
           border: none !important;
-          color: #111827 !important;
+          color: #000000 !important;
           font-size: 20px !important;
           cursor: pointer !important;
           padding: 8px !important;
@@ -183,7 +181,6 @@ export default function BookingModal({ isOpen = true, onClose }) {
           opacity: 0.7 !important;
         }
 
-        /* Day names row (Mon, Tue, Wed...) */
         .hs-meeting-scheduler__day-names,
         .hs-meeting-scheduler__weekday-header {
           display: grid !important;
@@ -197,12 +194,11 @@ export default function BookingModal({ isOpen = true, onClose }) {
           text-align: center !important;
           font-size: 14px !important;
           font-weight: 500 !important;
-          color: #111827 !important;
+          color: #000000 !important;
           text-transform: capitalize !important;
           padding: 8px 0 !important;
         }
 
-        /* Calendar grid */
         .hs-meeting-scheduler__calendar-grid,
         .hs-meeting-scheduler__days {
           display: grid !important;
@@ -210,7 +206,6 @@ export default function BookingModal({ isOpen = true, onClose }) {
           gap: 4px !important;
         }
 
-        /* Individual date cells */
         .hs-meeting-scheduler__date,
         .hs-meeting-scheduler__day,
         .hs-meeting-scheduler__calendar-day,
@@ -222,7 +217,7 @@ export default function BookingModal({ isOpen = true, onClose }) {
           justify-content: center !important;
           border: none !important;
           background-color: transparent !important;
-          color: #111827 !important;
+          color: #000000 !important;
           font-weight: 500 !important;
           font-size: 14px !important;
           cursor: pointer !important;
@@ -232,25 +227,22 @@ export default function BookingModal({ isOpen = true, onClose }) {
           padding: 0 !important;
         }
 
-        /* Hover state for available dates */
         .hs-meeting-scheduler__date:hover:not([disabled]),
         .hs-meeting-scheduler__day:hover:not([disabled]),
         .hs-meeting-scheduler__calendar-day:hover:not([disabled]) {
           background-color: #F3F4F6 !important;
         }
 
-        /* Selected date - BLACK BACKGROUND */
         .hs-meeting-scheduler__date--selected,
         .hs-meeting-scheduler__day--selected,
         .hs-meeting-scheduler__calendar-day--selected,
         [class*="selected"] {
-          background-color: #111827 !important;
+          background-color: #000000 !important;
           color: #FFFFFF !important;
           border: none !important;
           font-weight: 600 !important;
         }
 
-        /* Disabled/unavailable dates */
         .hs-meeting-scheduler__date--disabled,
         .hs-meeting-scheduler__day--disabled,
         .hs-meeting-scheduler__calendar-day--disabled,
@@ -260,7 +252,6 @@ export default function BookingModal({ isOpen = true, onClose }) {
           opacity: 0.5 !important;
         }
 
-        /* Today's date (optional highlight) */
         .hs-meeting-scheduler__date--today,
         .hs-meeting-scheduler__day--today {
           font-weight: 700 !important;
@@ -277,7 +268,7 @@ export default function BookingModal({ isOpen = true, onClose }) {
         }
 
         .hs-meeting-scheduler__timezone-label {
-          color: #111827 !important;
+          color: #000000 !important;
           font-size: 14px !important;
           font-weight: 600 !important;
           margin-bottom: 8px !important;
@@ -290,7 +281,7 @@ export default function BookingModal({ isOpen = true, onClose }) {
           border: 1px solid #E5E7EB !important;
           border-radius: 0 !important;
           background-color: #FFFFFF !important;
-          color: #111827 !important;
+          color: #000000 !important;
           font-size: 14px !important;
           cursor: pointer !important;
         }
@@ -305,7 +296,7 @@ export default function BookingModal({ isOpen = true, onClose }) {
         }
 
         .hs-meeting-scheduler__time-slots-header {
-          color: #111827 !important;
+          color: #000000 !important;
           font-size: 16px !important;
           font-weight: 600 !important;
           margin-bottom: 16px !important;
@@ -318,14 +309,13 @@ export default function BookingModal({ isOpen = true, onClose }) {
           gap: 12px !important;
         }
 
-        /* Individual time slot buttons */
         .hs-meeting-scheduler__time-slot,
         .hs-meeting-scheduler__time-button,
         .hs-meeting-scheduler__slot,
         button[class*="time-slot"],
         button[class*="slot"] {
           background-color: #FFFFFF !important;
-          color: #111827 !important;
+          color: #000000 !important;
           border: 1px solid #E5E7EB !important;
           border-radius: 0 !important;
           padding: 12px 16px !important;
@@ -337,22 +327,20 @@ export default function BookingModal({ isOpen = true, onClose }) {
           min-width: 100px !important;
         }
 
-        /* Time slot hover */
         .hs-meeting-scheduler__time-slot:hover,
         .hs-meeting-scheduler__time-button:hover,
         .hs-meeting-scheduler__slot:hover {
-          border-color: #111827 !important;
+          border-color: #000000 !important;
           background-color: #F9FAFB !important;
         }
 
-        /* Selected time slot - BLACK BACKGROUND */
         .hs-meeting-scheduler__time-slot--selected,
         .hs-meeting-scheduler__time-button--selected,
         .hs-meeting-scheduler__slot--selected,
         [class*="slot"][class*="selected"] {
-          background-color: #111827 !important;
+          background-color: #000000 !important;
           color: #FFFFFF !important;
-          border-color: #111827 !important;
+          border-color: #000000 !important;
           font-weight: 600 !important;
         }
 
@@ -366,7 +354,7 @@ export default function BookingModal({ isOpen = true, onClose }) {
 
         .hs-meeting-scheduler__label,
         label {
-          color: #111827 !important;
+          color: #000000 !important;
           font-size: 14px !important;
           font-weight: 500 !important;
           margin-bottom: 6px !important;
@@ -382,7 +370,7 @@ export default function BookingModal({ isOpen = true, onClose }) {
           border: 1px solid #E5E7EB !important;
           border-radius: 0 !important;
           background-color: #FFFFFF !important;
-          color: #111827 !important;
+          color: #000000 !important;
           font-size: 14px !important;
         }
 
@@ -390,19 +378,19 @@ export default function BookingModal({ isOpen = true, onClose }) {
         input:focus,
         textarea:focus {
           outline: none !important;
-          border-color: #111827 !important;
-          box-shadow: 0 0 0 2px rgba(17, 24, 39, 0.1) !important;
+          border-color: #000000 !important;
+          box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1) !important;
         }
 
         /* ========================================
-           BUTTONS (Submit, Next, etc.)
+           BUTTONS
            ======================================== */
 
         .hs-meeting-scheduler__button,
         .hs-meeting-scheduler__submit,
         .hs-meeting-scheduler__next-button,
         button[type="submit"] {
-          background-color: #111827 !important;
+          background-color: #000000 !important;
           color: #FFFFFF !important;
           border: none !important;
           border-radius: 0 !important;
@@ -451,19 +439,16 @@ export default function BookingModal({ isOpen = true, onClose }) {
            ADDITIONAL OVERRIDES
            ======================================== */
 
-        /* Remove any box shadows */
         * {
           box-shadow: none !important;
         }
 
-        /* Ensure all text is dark on light background */
         p, span, div, h1, h2, h3, h4, h5, h6 {
-          color: #111827 !important;
+          color: #000000 !important;
         }
 
-        /* Links */
         a {
-          color: #111827 !important;
+          color: #000000 !important;
           text-decoration: underline !important;
         }
 
@@ -476,27 +461,23 @@ export default function BookingModal({ isOpen = true, onClose }) {
       console.log('✅ HubSpot iframe styles injected successfully');
     };
 
-    // Poll for iframe readiness with retry logic
     let attempts = 0;
-    const maxAttempts = 30; // Increase attempts
+    const maxAttempts = 30;
     const styleInterval = setInterval(() => {
       attempts++;
       const iframe = document.querySelector('.meetings-iframe-container iframe');
 
       if (iframe && iframe.contentDocument) {
         try {
-          // Check if document is ready
           if (iframe.contentDocument.readyState === 'complete' ||
             iframe.contentDocument.readyState === 'interactive') {
 
             injectIframeStyles();
 
-            // Verify injection was successful
             if (iframe.contentDocument.querySelector('#custom-hubspot-styles')) {
               console.log('✅ Styles verified in iframe');
               clearInterval(styleInterval);
 
-              // Re-inject if DOM changes (HubSpot sometimes re-renders)
               const observer = new MutationObserver(() => {
                 if (!iframe.contentDocument.querySelector('#custom-hubspot-styles')) {
                   console.log('🔄 Re-injecting styles after DOM change');
@@ -515,7 +496,6 @@ export default function BookingModal({ isOpen = true, onClose }) {
         }
       }
 
-      // Stop trying after max attempts
       if (attempts >= maxAttempts) {
         console.error('❌ Failed to inject styles after', maxAttempts, 'attempts');
         clearInterval(styleInterval);
@@ -527,6 +507,8 @@ export default function BookingModal({ isOpen = true, onClose }) {
       try {
         document.body.removeChild(script);
       } catch (_) { }
+      document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
     };
   }, [isOpen, embedUrl])
 
@@ -539,38 +521,64 @@ export default function BookingModal({ isOpen = true, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" onClick={handleOverlayClick}>
-      <div className="bg-white max-w-[1281px] w-full max-h-[90vh] overflow-hidden relative shadow-2xl">
-        {/* Close Button */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm overscroll-contain" onClick={handleOverlayClick}>
+      <div className="bg-white max-w-[1281px] w-full h-[90vh] md:max-h-[90vh] overflow-y-auto md:overflow-hidden relative shadow-2xl rounded-none">
         <button onClick={onClose} className="absolute top-4 right-4 z-10 text-gray-500 hover:text-gray-900" aria-label="Close">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
 
-        <div className="grid grid-cols-12 gap-6 h-full px-8 py-8">
+        <div className="grid grid-cols-12 gap-6 h-auto md:h-full px-4 md:px-8 py-8">
           {/* Left: Form */}
-          <div className="col-span-12 lg:col-span-5 p-6 lg:p-8 overflow-y-auto">
-            <ResponsiveUnderlinedTitle as="h2" className="mb-4" underlineColor="#FD8721">
+          <div className="col-span-12 lg:col-span-5 p-0 md:p-6 lg:p-8 md:overflow-y-auto">
+            <ResponsiveUnderlinedTitle as="h2" className="mb-4 mx-auto md:mx-0 sm:text-center" underlineColor="#FD8721">
               Book Time With Us
             </ResponsiveUnderlinedTitle>
-            <p className="mb-4">The first step toward something great.</p>
+            <p className="mb-4 text-center md:text-left">The first step toward something great.</p>
 
-            <div className="grid grid-cols-2 gap-8 mb-4">
-              <input aria-label="First Name" placeholder="First Name*" className="border border-gray-300 px-6 py-3 focus:outline-none focus:ring-2 focus:ring-black" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-              <input aria-label="Last Name" placeholder="Last Name*" className="border border-gray-300 px-6 py-3 focus:outline-none focus:ring-2 focus:ring-black" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            {/* Keep original borders and padding */}
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <input
+                aria-label="First Name"
+                placeholder="First Name*"
+                className="w-full border border-gray-300 px-6 py-3 focus:outline-none focus:ring-2 focus:ring-black"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <input
+                aria-label="Last Name"
+                placeholder="Last Name*"
+                className="w-full border border-gray-300 px-6 py-3 focus:outline-none focus:ring-2 focus:ring-black"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
             </div>
+
             <div className="mb-4">
-              <input aria-label="Email" placeholder="Email*" type="email" className="w-full border border-gray-300 px-6 py-3 focus:outline-none focus:ring-2 focus:ring-black" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <input
+                aria-label="Email"
+                placeholder="Email*"
+                type="email"
+                className="w-full border border-gray-300 px-6 py-3 focus:outline-none focus:ring-2 focus:ring-black"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
 
-            <p className="text-sm mb-4 mt-4">Choose how you want to do this meeting</p>
-            <div className="grid grid-cols-2 gap-8 mb-4">
-              <button type="button" className={`px-4 py-3 border inline-flex items-center justify-center gap-2 ${provider === 'teams' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'}`} onClick={() => setProvider('teams')}>
-                {/* Teams icon */}
+            <p className="text-sm mb-4 mt-4 text-center md:text-left">Choose how you want to do this meeting</p>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <button
+                type="button"
+                className={`w-full px-4 py-3 border inline-flex items-center justify-center gap-2 ${provider === 'teams' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'}`}
+                onClick={() => setProvider('teams')}
+              >
                 <img src="/images/form/teams.svg" alt="" className="md:w-[27.75px] md:h-[25.37px] w-[21.87px] h-[20px]" aria-hidden="true" />
                 <span className="text-lg font-bold">Teams</span>
               </button>
-              <button type="button" className={`px-4 py-3 border inline-flex items-center justify-center gap-2 ${provider === 'zoom' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'}`} onClick={() => setProvider('zoom')}>
-                {/* Zoom icon */}
+              <button
+                type="button"
+                className={`w-full px-4 py-3 border inline-flex items-center justify-center gap-2 ${provider === 'zoom' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'}`}
+                onClick={() => setProvider('zoom')}
+              >
                 <img src="/images/form/zoom.svg" alt="" className="md:w-[24.13px] md:h-[24.13px] w-[19.94px] h-[19.94px]" aria-hidden="true" />
                 <span className="text-lg font-bold">Zoom</span>
               </button>
@@ -578,15 +586,21 @@ export default function BookingModal({ isOpen = true, onClose }) {
 
             <div className="mt-4 text-sm">
               <p className="mb-4">Your meeting details:</p>
-              <button type="button" disabled={!isValid} onClick={() => { /* optional no-op */ }} className="button-l">
+              {/* Use standard typography — no inline font-size or weight */}
+              <button
+                type="button"
+                disabled={!isValid}
+                onClick={() => { /* optional no-op */ }}
+                className={`button-l w-full ${!isValid ? 'opacity-50 cursor-not-allowed' : ''}`}
+              >
                 Book A Meeting
               </button>
-              <p className="mt-4">Or give us a call on <strong>0203 780 0808 </strong></p>
+              <p className="mt-4">Or give us a call on <strong>0203 780 0808</strong></p>
             </div>
           </div>
 
           {/* Right: Embed */}
-          <div className="col-span-12 lg:col-span-7 p-0  bg-white min-h-[300px]">
+          <div className="col-span-12 lg:col-span-7 p-0 bg-white min-h-[300px]">
             <div key={embedUrl} className="meetings-iframe-container" data-src={embedUrl} />
           </div>
         </div>
