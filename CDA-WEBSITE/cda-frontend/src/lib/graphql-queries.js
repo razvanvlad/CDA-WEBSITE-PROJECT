@@ -448,9 +448,13 @@ export const GET_SUBSERVICE_BY_SLUG = `
             }
           }
         }
-        stats {
-          number
+        statsSection {
+          title
           text
+          stats {
+            number
+            text
+          }
         }
         videoSection {
           image {

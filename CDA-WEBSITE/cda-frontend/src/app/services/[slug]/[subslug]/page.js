@@ -9,6 +9,7 @@ import { safeImageUrl } from '../../../../lib/imageUtils';
 import { sanitizeTitleHtml, sanitizeImageAlt } from '../../../../lib/sanitizeTitleHtml';
 import Image from 'next/image';
 import Link from 'next/link';
+import COLORS from '../../../../constants/colors';
 
 export const revalidate = 120;
 
@@ -26,8 +27,6 @@ export async function generateStaticParams() {
     return [];
   }
 }
-
-import ServiceStatsSection from '../../../../components/ServiceStatsSection';
 
 export default async function SubServicePage({ params }) {
   const { slug, subslug } = await params;
@@ -49,7 +48,7 @@ export default async function SubServicePage({ params }) {
 
   const subServiceFields = subService.subServices || {};
   const heroSection = subServiceFields.heroSection || {};
-  const stats = subServiceFields.stats || [];
+  const statsSection = subServiceFields.statsSection || null;
   const videoSection = subServiceFields.videoSection || null;
   const frameSection = subServiceFields.frameSection || null;
 
@@ -113,9 +112,51 @@ export default async function SubServicePage({ params }) {
         />
 
         {/* Stats Section */}
-        {stats && stats.length > 0 && (
-          <ServiceStatsSection numbersFields={{ stats }} />
-        )}
+        {statsSection?.stats && statsSection.stats.length > 0 ? (
+          <section className="py-16 lg:py-24" style={{ backgroundColor: '#F4F4F4' }}>
+            <div className="container mx-auto px-4" style={{ maxWidth: '1620px' }}>
+              {/* Title and Text */}
+              {(statsSection.title || statsSection.text) && (
+                <div className="mb-12 lg:mb-16">
+                  {statsSection.title && (
+                    <h2 className="cda-section-title mb-6" style={{ textAlign: 'left' }}>
+                      {statsSection.title}
+                    </h2>
+                  )}
+                  {statsSection.text && (
+                    <div
+                      className="text-base lg:text-lg text-gray-700 leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: statsSection.text }}
+                    />
+                  )}
+                </div>
+              )}
+
+              {/* Stats Grid - Direct rendering with underlined numbers */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+                {statsSection.stats.map((stat, index) => {
+                  const underlineColors = [COLORS.REDISH_PINK, COLORS.PURPLE, COLORS.BLUE, COLORS.ORANGE];
+                  return (
+                    <div key={index} className="text-center">
+                      <ResponsiveUnderlinedTitle
+                        as="span"
+                        className="text-4xl lg:text-5xl font-bold block"
+                        underlineOffset={42}
+                        underlineColor={underlineColors[index % underlineColors.length]}
+                      >
+                        {stat.number}
+                      </ResponsiveUnderlinedTitle>
+                      <div
+                        className="text-base text-gray-700 leading-relaxed mt-4"
+                        dangerouslySetInnerHTML={{ __html: stat.text }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         {/* Video Section */}
         {videoSection && (
@@ -137,22 +178,12 @@ export default async function SubServicePage({ params }) {
 
                 {/* Content */}
                 <div className="space-y-6">
-                  {videoSection.subtitle && (
-                    <div className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
-                      {videoSection.subtitle}
-                    </div>
-                  )}
                   {videoSection.title && (
                     <h2 className="text-3xl lg:text-4xl font-bold">
                       {videoSection.title}
                     </h2>
                   )}
-                  {videoSection.description && (
-                    <div
-                      className="text-gray-600 text-lg"
-                      dangerouslySetInnerHTML={{ __html: videoSection.description }}
-                    />
-                  )}
+
                   {videoSection.text && (
                     <div
                       className="text-gray-600"
@@ -170,6 +201,23 @@ export default async function SubServicePage({ params }) {
                   )}
                 </div>
               </div>
+
+              {/* Full Width Subtitle and Description */}
+              {(videoSection.subtitle || videoSection.description) && (
+                <div className="mt-12">
+                  {videoSection.subtitle && (
+                    <h2 className="cda-section-title mb-6">
+                      {videoSection.subtitle}
+                    </h2>
+                  )}
+                  {videoSection.description && (
+                    <div
+                      className="text-base lg:text-lg text-gray-700 leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: videoSection.description }}
+                    />
+                  )}
+                </div>
+              )}
             </div>
           </section>
         )}
