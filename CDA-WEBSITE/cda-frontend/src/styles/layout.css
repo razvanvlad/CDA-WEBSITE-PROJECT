@@ -219,7 +219,7 @@
 @media (min-width: 1024px) {
   .cda-hero__grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr max-content max-content max-content 1fr;
     grid-template-areas:
       ". image"
