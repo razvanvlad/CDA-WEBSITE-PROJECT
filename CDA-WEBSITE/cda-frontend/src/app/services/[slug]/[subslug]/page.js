@@ -3,6 +3,8 @@ import Footer from '../../../../components/Footer';
 import HeroSection from '../../../../components/GlobalBlocks/HeroSection';
 import ResponsiveUnderlinedTitle from '../../../../components/ResponsiveUnderlinedTitle';
 import ApproachBlock from '../../../../components/GlobalBlocks/ApproachBlock';
+import SellOnline from '@/components/SellOnline';
+import CaseStudies from '../../../../components/GlobalBlocks/CaseStudies';
 import { notFound } from 'next/navigation';
 import { executeGraphQLQuery, GET_SUBSERVICE_BY_SLUG, GET_SUBSERVICE_SLUGS } from '../../../../lib/graphql-queries';
 import { safeImageUrl } from '../../../../lib/imageUtils';
@@ -51,6 +53,8 @@ export default async function SubServicePage({ params }) {
   const statsSection = subServiceFields.statsSection || null;
   const videoSection = subServiceFields.videoSection || null;
   const frameSection = subServiceFields.frameSection || null;
+  const sellOnlineData = subServiceFields.sellOnline || null;
+  const featuredCaseStudies = subServiceFields.featuredCaseStudies?.nodes || [];
 
   // Hero image
   const heroImageNode = heroSection.image?.node?.sourceUrl
@@ -283,6 +287,28 @@ export default async function SubServicePage({ params }) {
             }}
           />
         )}
+
+        {/* Sell Online CTA - Dynamic from ACF */}
+        {/* Sell Online CTA - Dynamic from ACF */}
+        {sellOnlineData && (
+          <SellOnline sellOnlineFields={sellOnlineData} />
+        )}
+
+        {/* Global Projects / Fallback Case Studies */}
+        <CaseStudies
+          globalData={globalData?.globalContentBlocks?.caseStudies ? {
+            ...globalData.globalContentBlocks.caseStudies,
+            selectedStudies: globalData.globalContentBlocks.caseStudies.caseStudy || result?.data?.recentCaseStudies, // Fallback to generic recent
+            knowledgeHubLink: globalData.globalContentBlocks.caseStudies.cta
+          } : {
+            selectedStudies: result?.data?.recentCaseStudies // Fallback even if global block is missing
+          }}
+          pageData={{
+            title: "Relevant Case Studies",
+            selectedStudies: { nodes: featuredCaseStudies }
+          }}
+          useOverride={true}
+        />
       </main>
       <Footer />
     </>

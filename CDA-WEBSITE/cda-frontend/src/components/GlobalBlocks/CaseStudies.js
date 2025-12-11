@@ -16,9 +16,15 @@ import ResponsiveUnderlinedTitle from '../ResponsiveUnderlinedTitle';
  * @param {Object} props.globalData - Case studies data from WordPress
  * @returns {JSX.Element} CaseStudies component
  */
-const CaseStudies = ({ globalData }) => {
-  // Don't render if no data
-  if (!globalData) {
+const CaseStudies = ({ globalData, pageData, useOverride = false }) => {
+  // Logic: 
+  // 1. If overrides enabled AND pageData exists AND it has studies => Use pageData
+  // 2. Otherwise (no override needed OR local data empty) => Use globalData
+  const hasLocalStudies = useOverride && pageData?.selectedStudies?.nodes?.length > 0;
+  const data = hasLocalStudies ? pageData : globalData;
+
+  // Don't render if no data (neither local nor global)
+  if (!data) {
     return null;
   }
 
@@ -27,7 +33,8 @@ const CaseStudies = ({ globalData }) => {
     subtitle,
     knowledgeHubLink,
     selectedStudies
-  } = globalData;
+  } = data || {};
+
 
   // Don't render if no essential content
   if (!title && !subtitle && (!selectedStudies?.nodes || selectedStudies.nodes.length === 0)) {

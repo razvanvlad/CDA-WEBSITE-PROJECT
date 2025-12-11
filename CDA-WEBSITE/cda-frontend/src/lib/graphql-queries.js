@@ -413,6 +413,45 @@ export const GET_SERVICE_BY_SLUG = `
             }
           }
         }
+        caseStudies {
+          title
+          subtitle
+          cta {
+            target
+            title
+            url
+          }
+          # case_study {
+          #   ... on CaseStudy {
+          #     id
+          #     title
+          #     uri
+          #     excerpt
+          #     featuredImage {
+          #       node {
+          #         sourceUrl
+          #         altText
+          #       }
+          #     }
+          #   }
+          # }
+        }
+
+      }
+    }
+
+    recentCaseStudies: caseStudies(first: 2) {
+      nodes {
+        id
+        title
+        uri
+        excerpt
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
       }
     }
   }
@@ -488,6 +527,36 @@ export const GET_SUBSERVICE_BY_SLUG = `
             }
           }
         }
+        sellOnline {
+          title
+          cta {
+            url
+            title
+            target
+          }
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+        # featuredCaseStudies {
+        #   nodes {
+        #     ... on CaseStudy {
+        #       id
+        #       title
+        #       uri
+        #       excerpt
+        #       featuredImage {
+        #         node {
+        #           sourceUrl
+        #           altText
+        #         }
+        #       }
+        #     }
+        #   }
+        # }
       }
     }
     globalOptions {
@@ -503,6 +572,45 @@ export const GET_SUBSERVICE_BY_SLUG = `
                 altText
               }
             }
+          }
+        }
+        caseStudies {
+          title
+          subtitle
+          cta {
+            target
+            title
+            url
+          }
+          # caseStudy {
+          #   nodes {
+          #     id
+          #     title
+          #     uri
+          #     excerpt
+          #     featuredImage {
+          #       node {
+          #         sourceUrl
+          #         altText
+          #       }
+          #     }
+          #   }
+          # }
+        }
+
+      }
+    }
+
+    recentCaseStudies: caseStudies(first: 2) {
+      nodes {
+        id
+        title
+        uri
+        excerpt
+        featuredImage {
+          node {
+            sourceUrl
+            altText
           }
         }
       }

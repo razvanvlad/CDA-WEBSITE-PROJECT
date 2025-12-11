@@ -11,6 +11,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import HubspotFormEmbed from '../../../components/HubspotFormEmbed';
 import ApproachBlock from '../../../components/GlobalBlocks/ApproachBlock';
+import CaseStudies from '../../../components/GlobalBlocks/CaseStudies';
 import NewsCarousel from '../../../components/GlobalBlocks/NewsCarousel';
 import ServicesSlider from '../../../components/GlobalBlocks/ServicesSlider.jsx';
 import SellOnline from '@/components/SellOnline';
@@ -257,70 +258,27 @@ export default async function ServicePage({ params }) {
           }} />
         )}
 
-        {/* Featured Case Studies Section */}
-        {featuredCaseStudies && featuredCaseStudies.length > 0 && (
-          <section className="home-case-studies" style={{ padding: '5rem 1rem' }}>
-            <div style={{ maxWidth: '1620px', margin: '0 auto' }}>
-              {/* Header */}
-              <div className="cs-header">
-                <div className="cs-head-left">
-                  <p className="cs-subtitle">Projects</p>
-                  <h2 className="cs-heading">Some Of Our Outsourced CMO Case Studies</h2>
-                </div>
-                <a href="/case-studies" className="button-without-box cs-header-cta">
-                  View All Case Studies
-                </a>
-              </div>
-
-              {/* Selected Case Studies - Alternating two-up layout */}
-              <div className="cs-list" style={{ marginBottom: '3rem' }}>
-                {featuredCaseStudies.slice(0, 2).map((study, index) => (
-                  <article key={study.id || index} className={`cs-item ${index % 2 === 1 ? 'cs-item--reverse' : ''}`}>
-                    <div className="cs-media">
-                      {study.featuredImage?.node?.sourceUrl && (
-                        <img
-                          src={safeImageUrl(study.featuredImage.node.sourceUrl)}
-                          alt={sanitizeImageAlt(study.featuredImage.node.altText || study.title)}
-                          className="cs-img"
-                          loading="lazy"
-                        />
-                      )}
-                    </div>
-                    <div className="cs-content">
-                      <h3 className="cs-title">{study.title}</h3>
-                      <div className="cs-excerpt" dangerouslySetInnerHTML={{ __html: study.excerpt }} />
-                      <a href={study.uri} className="button-l button-l--white cs-cta">Read Case Study</a>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
+        {/* 8) [Global] Projects / case studies (global or fallback) */}
+        {/* 8) [Global] Projects / case studies (global or fallback) */}
+        {globalSelection?.enableCaseStudies && (
+          <CaseStudies
+            globalData={globalData?.globalContentBlocks?.caseStudies ? {
+              ...globalData.globalContentBlocks.caseStudies,
+              selectedStudies: globalData.globalContentBlocks.caseStudies.caseStudy || result?.data?.recentCaseStudies, // Fallback to generic recent
+              knowledgeHubLink: globalData.globalContentBlocks.caseStudies.cta
+            } : {
+              selectedStudies: result?.data?.recentCaseStudies // Fallback even if global block is missing
+            }}
+            pageData={{
+              title: serviceFields.caseStudiesSection?.title || globalData?.globalContentBlocks?.caseStudies?.title || "Latest Case Studies",
+              selectedStudies: { nodes: featuredCaseStudies }
+            }}
+            useOverride={true}
+          />
         )}
 
 
-        {/* Global Case Studies Section */}
-        {globalSelection?.enableCaseStudies && globalContentBlocks?.caseStudiesSection && (
-          <section className="home-case-studies" style={{ padding: '5rem 1rem' }}>
-            <div style={{ maxWidth: '1620px', margin: '0 auto' }}>
-              {/* Header: left subtitle + title, right CTA */}
-              <div className="cs-header">
-                <div className="cs-head-left">
-                  <p className="cda-subtitle">Our Work</p>
-                  <h2 className="cda-title title-small-orange">Related Case Studies</h2>
-                </div>
-                <TextLinkButton href="/case-studies" className="cs-header-cta">
-                  View All Case Studies
-                </TextLinkButton>
-              </div>
 
-              <div className="text-center py-8">
-                <p className="text-gray-600 mb-6">Explore our portfolio of successful projects similar to this service.</p>
-                <a href="/case-studies" className="button-l">Browse Case Studies</a>
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* News/Latest Articles Section */}
         {globalSelection?.enableLatestNews && globalData?.globalContentBlocks?.newsCarousel && (
