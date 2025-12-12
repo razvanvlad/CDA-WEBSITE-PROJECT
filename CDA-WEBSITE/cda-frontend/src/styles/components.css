@@ -59,6 +59,33 @@
     column-gap: 3rem;
     align-items: center;
   }
+
+  /* Reversed layout: Image on left, content on right */
+  .cda-hero__grid--reverse {
+    grid-template-columns: 1fr 2fr;
+    /* 1/3 - 2/3 split (image | content) */
+  }
+
+  .cda-hero__grid--reverse .cda-hero__title {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .cda-hero__grid--reverse .cda-hero__image {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    justify-content: flex-start;
+  }
+
+  .cda-hero__grid--reverse .cda-hero__text {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .cda-hero__grid--reverse .cda-hero__cta {
+    grid-column: 2;
+    grid-row: 3;
+  }
 }
 
 /* ============================================

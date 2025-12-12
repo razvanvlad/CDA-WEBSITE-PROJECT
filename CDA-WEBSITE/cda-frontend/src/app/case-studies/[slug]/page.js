@@ -268,27 +268,6 @@ export default async function CaseStudyPage(props) {
           />
         )}
 
-        {/* CTA Section */}
-        <section className="py-20 bg-black text-white">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to Start Your Project?</h2>
-            <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-              Let's discuss how we can help you achieve similar results for your business.
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="button-l bg-white text-black hover:bg-gray-200 border-none"
-              >
-                Get Started Today
-              </Link>
-              <TextLinkButton href="/case-studies" variant="white">
-                View More Case Studies
-              </TextLinkButton>
-            </div>
-          </div>
-        </section>
-
       </main>
 
       <GlobalTailSections globalData={globalData} />

@@ -84,13 +84,16 @@ export default async function TeamMemberDetailPage({ params }) {
         <Header backButton={{ href: '/team', label: 'Back To Team' }} />
 
         <HeroSection
+          reverseLayout={true}
           mobileOrder={{
             title: 1,
             text: 2,
-            image: 3,
-            cta: 4
+            cta: 3,
+            image: 4
           }}
           sectionClassName="bg-white py-20 md:py-24"
+          eyebrow={jobTitle}
+          eyebrowClassName="text-sm font-semibold tracking-wider uppercase text-gray-900 mb-2"
           title={
             <ResponsiveUnderlinedTitle
               as="h1"
@@ -98,7 +101,6 @@ export default async function TeamMemberDetailPage({ params }) {
               underlineColor="#FF5C8A"
             >
               {member.title}
-              {jobTitle && <span className="block lg:inline"> {jobTitle}</span>}
             </ResponsiveUnderlinedTitle>
           }
           description={shortBio ? (

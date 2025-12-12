@@ -38,7 +38,6 @@ const getServiceColor = (slug) => {
     'ecommerce': '#3CBEEB',
     'b2b-lead-generation': '#AD80F9',
     'software-development': '#01E486',
-    'franchise-booking-systems': '#FD8721',
     'booking-systems': '#FD8721',
     'digital-marketing': '#FF60DF',
     'outsourced-cmo': '#FF5C8A',

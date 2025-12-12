@@ -3,7 +3,9 @@ import Footer from '../../../components/Footer';
 import ResponsiveUnderlinedTitle from '../../../components/ResponsiveUnderlinedTitle';
 import TextLinkButton from '../../../components/ui/TextLinkButton';
 import { notFound } from 'next/navigation';
-import { getJobListingBySlug, getJobListingSlugs, getJobListingsSimple, getJobListingsWithPagination } from '../../../lib/graphql-queries';
+import { getJobListingBySlug, getJobListingSlugs, getJobListingsSimple, getJobListingsWithPagination, getGlobalContent } from '../../../lib/graphql-queries';
+import CultureGallerySlider from '../../../components/GlobalBlocks/CultureGallerySlider.jsx';
+import NewsletterSignup from '../../../components/GlobalBlocks/NewsletterSignup';
 import Image from 'next/image';
 import Link from 'next/link';
 import JobApplicationForm from '../../../components/JobApplicationForm';
@@ -127,6 +129,9 @@ export default async function CareerDetailPage({ params }) {
   if (!job) {
     notFound();
   }
+
+  // Fetch global content for Culture and Newsletter sections
+  const globalData = await getGlobalContent();
 
   // Extract ACF fields if they exist
   const { jobDetails, requirements, jobStatus } = job.jobListingFields || {};
@@ -400,6 +405,21 @@ export default async function CareerDetailPage({ params }) {
     `}</style>
           </div>
         </section>
+
+        {/* Culture Gallery Slider Section */}
+        {globalData?.cultureGallerySlider && (
+          <CultureGallerySlider globalData={{
+            title: globalData.cultureGallerySlider.title,
+            subtitle: globalData.cultureGallerySlider.subtitle,
+            images: (globalData.cultureGallerySlider.images?.edges || []).map(e => e?.node).filter(Boolean),
+            useGlobalSocialLinks: !!globalData.cultureGallerySlider.useGlobalSocialLinks
+          }} />
+        )}
+
+        {/* Newsletter Signup Section */}
+        {globalData?.newsletterSignup && (
+          <NewsletterSignup globalData={globalData.newsletterSignup} />
+        )}
       </main>
 
       <Footer />

@@ -105,6 +105,7 @@ export default function HeroSection({
   image = null,
   imageWrapperClassName = '',
   id,
+  reverseLayout = false,
 }) {
   const normalizedTitle = (() => {
     if (titleHtml) {
@@ -169,7 +170,7 @@ export default function HeroSection({
   return (
     <section className={`cda-hero ${sectionClassName}`.trim()} id={id}>
       <div className={`cda-hero__container ${containerClassName}`.trim()}>
-        <div className="cda-hero__grid" style={gridStyle}>
+        <div className={`cda-hero__grid${reverseLayout ? ' cda-hero__grid--reverse' : ''}`} style={gridStyle}>
           {(eyebrow || normalizedTitle) && (
             <div className="cda-hero__title">
               {eyebrow && (

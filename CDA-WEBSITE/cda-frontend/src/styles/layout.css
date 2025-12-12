@@ -264,6 +264,25 @@
     margin-right: 0;
     justify-self: start;
   }
+
+  /* ─────────────────────────────────────────────────────────────────
+     REVERSED LAYOUT: Image on LEFT, Content on RIGHT
+     Used for Team Profile pages
+     ───────────────────────────────────────────────────────────────── */
+  .cda-hero__grid--reverse {
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas:
+      "image ."
+      "image title"
+      "image text"
+      "image cta"
+      "image .";
+  }
+
+  .cda-hero__grid--reverse .cda-hero__image {
+    justify-self: start;
+    justify-content: flex-start;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────

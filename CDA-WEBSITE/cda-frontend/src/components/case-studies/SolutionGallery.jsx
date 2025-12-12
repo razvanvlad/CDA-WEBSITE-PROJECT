@@ -9,11 +9,11 @@ export default function SolutionGallery({ data }) {
 
   // --- 1. Dynamic Scroll Logic ---
   // Calculates the width of the first card to scroll exactly one item at a time
-  const scroll = (ref, direction) => {
+  const scroll = (ref, direction, gap = 24) => {
     if (ref.current) {
-      // Get the width of the first image card + gap (approx)
+      // Get the width of the first image card + gap
       const firstCard = ref.current.firstElementChild;
-      const scrollAmount = firstCard ? firstCard.clientWidth + 24 : 400; // 24 is the gap-6
+      const scrollAmount = firstCard ? firstCard.clientWidth + gap : 400;
 
       ref.current.scrollBy({
         left: direction === 'left' ? -scrollAmount : scrollAmount,
@@ -44,19 +44,19 @@ export default function SolutionGallery({ data }) {
           {/* Controls */}
           <div className="flex gap-4 mb-6">
             <button
-              onClick={() => scroll(desktopScrollRef, 'left')}
+              onClick={() => scroll(desktopScrollRef, 'left', 24)}
               className="p-3 border border-gray-300 hover:bg-gray-100 rounded-full transition-colors flex items-center justify-center"
               aria-label="Previous image"
             >
-               {/* Rotate arrow for Left */}
-               <img src="/images/arrow-icons/left-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
+              {/* Rotate arrow for Left */}
+              <img src="/images/arrow-icons/left-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
             </button>
             <button
-              onClick={() => scroll(desktopScrollRef, 'right')}
+              onClick={() => scroll(desktopScrollRef, 'right', 24)}
               className="p-3 border border-gray-300 hover:bg-gray-100 rounded-full transition-colors flex items-center justify-center"
               aria-label="Next image"
             >
-               <img src="/images/arrow-icons/right-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
+              <img src="/images/arrow-icons/right-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
             </button>
           </div>
 
@@ -108,7 +108,7 @@ export default function SolutionGallery({ data }) {
           ROW 2: MOBILE SHOWCASE
           Images Left (Overflows Left Edge) | Text Right
       ========================================= */}
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 lg:items-center">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 lg:items-start">
 
         {/* LEFT COL: Mobile Gallery
             - Order-2 on mobile (text first), Order-1 on Desktop (images first)
@@ -118,7 +118,7 @@ export default function SolutionGallery({ data }) {
           <div
             ref={mobileScrollRef}
             className="
-              flex gap-8 overflow-x-auto pb-8 snap-x snap-mandatory
+              flex gap-12 overflow-x-auto pb-8 snap-x snap-mandatory
               no-scrollbar
               w-full
               lg:ml-[calc(50%-50vw)] lg:w-[150vw] lg:pl-[calc(50vw-50%+1rem)]
@@ -133,37 +133,37 @@ export default function SolutionGallery({ data }) {
             */}
 
             {mobileImages.map((img, i) => (
-              <div key={i} className="min-w-[280px] md:min-w-[340px] snap-start flex-shrink-0">
-                <div className="relative aspect-[9/19] rounded-2xl overflow-hidden bg-white shadow-2xl border border-gray-100">
-                   <Image
-                      src={img.sourceUrl}
-                      alt={img.altText || 'Mobile Solution Interface'}
-                      fill
-                      className="object-cover object-top"
+              <div key={i} className="min-w-[297px] w-[297px] snap-start flex-shrink-0">
+                <div className="relative w-[297px] h-[661px] rounded-2xl overflow-hidden bg-white shadow-2xl border border-gray-100">
+                  <Image
+                    src={img.sourceUrl}
+                    alt={img.altText || 'Mobile Solution Interface'}
+                    fill
+                    className="object-cover object-top"
                   />
                 </div>
               </div>
             ))}
-             <div className="min-w-[5vw]"></div>
+            <div className="min-w-[5vw]"></div>
           </div>
         </div>
 
         {/* RIGHT COL: Text Content */}
-        <div className="lg:w-[40%] flex flex-col justify-center order-1 lg:order-2">
-           <div className="flex gap-4 mb-6">
+        <div className="lg:w-[40%] flex flex-col justify-start order-1 lg:order-2">
+          <div className="flex gap-4 mb-6">
             <button
-              onClick={() => scroll(mobileScrollRef, 'left')}
+              onClick={() => scroll(mobileScrollRef, 'left', 48)}
               className="p-3 border border-gray-300 hover:bg-gray-100 rounded-full transition-colors flex items-center justify-center"
               aria-label="Previous mobile view"
             >
-               <img src="/images/arrow-icons/left-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
+              <img src="/images/arrow-icons/left-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
             </button>
             <button
-              onClick={() => scroll(mobileScrollRef, 'right')}
+              onClick={() => scroll(mobileScrollRef, 'right', 48)}
               className="p-3 border border-gray-300 hover:bg-gray-100 rounded-full transition-colors flex items-center justify-center"
               aria-label="Next mobile view"
             >
-               <img src="/images/arrow-icons/right-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
+              <img src="/images/arrow-icons/right-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
             </button>
           </div>
 
