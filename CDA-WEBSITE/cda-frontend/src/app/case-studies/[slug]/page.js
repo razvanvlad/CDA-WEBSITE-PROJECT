@@ -69,11 +69,7 @@ export default async function CaseStudyPage(props) {
       <Header />
 
       <main className="case-study-detail-page">
-        {/* DEBUG BLOCK */}
-        <div className="bg-red-600 text-white p-6 font-mono text-sm overflow-auto max-h-96 w-full z-50 relative border-4 border-yellow-400">
-          <h3 className="font-bold underline mb-2">DEBUG DATA DUMP:</h3>
-          <pre>{JSON.stringify(caseStudy, null, 2)}</pre>
-        </div>
+
 
         {/* Hero Section */}
         <section className="relative bg-white text-black">

@@ -19,6 +19,7 @@ export const GET_BLOG_POST_BY_SLUG = `
       slug
       uri
       date
+      modified
       content
       excerpt
       featuredImage {
@@ -49,35 +50,38 @@ export const GET_BLOG_POST_BY_SLUG = `
           }
           relevantServices {
             nodes {
-              id
               ... on Service {
+                id
                 title
                 uri
+                slug
               }
               ... on SubService {
+                id
                 title
                 uri
+                slug
               }
             }
           }
           author {
             node {
-              id
               ... on TeamMember {
+                id
                 title
                 uri
+                slug
               }
             }
           }
         }
         information {
           what
+          who
+          why
           points {
             text
           }
-          who
-          text
-          why
           image {
             node {
               sourceUrl
@@ -96,24 +100,7 @@ export const GET_BLOG_POST_BY_SLUG = `
           }
         }
       }
-      globalContentToggles {
-        showApproach
-        showCaseStudies
-        showImageFrame
-        showThreeColumns
-        showValues
-        showWhyCda
-        showServicesAccordion
-        showTechnologiesSlider
-        showShowreel
-        showLocationsImage
-        showNewsletterSignup
-        showContactFormLeftImageRight
-        showJoinOurTeam
-        showFullVideo
-        showStatsAndNumbers
-        showCultureGallerySlider
-      }
+
     }
   }
 `;
@@ -996,13 +983,7 @@ export const GET_CASE_STUDY_BY_SLUG = `
           mediaDetails { width height }
         }
       }
-      seo {
-        title
-        metaDesc
-        opengraphImage {
-          sourceUrl
-        }
-      }
+
       caseStudyProjects {
         hero {
           title
@@ -1159,13 +1140,7 @@ export const GET_CASE_STUDY_BY_URI = `
           mediaDetails { width height }
         }
       }
-      seo {
-        title
-        metaDesc
-        opengraphImage {
-          sourceUrl
-        }
-      }
+
       caseStudyProjects {
         hero {
           title
@@ -1598,6 +1573,8 @@ export async function getCaseStudyByUri(uri) {
     const response = await executeGraphQLQuery(GET_CASE_STUDY_BY_URI, { uri });
     if (!response.errors && response.data?.caseStudy) return response.data.caseStudy;
   } catch (e) {
+    console.error('Enhanced case study (uri) FAILED. Error details:', JSON.stringify(e, null, 2));
+    if (response) console.error('Response errors:', JSON.stringify(response.errors, null, 2));
     console.warn('Enhanced case study (uri) failed, trying core fallback...', e)
   }
   // Fallback to core-only query
