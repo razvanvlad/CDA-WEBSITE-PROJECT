@@ -140,6 +140,48 @@ export async function getBlogPostSlugs() {
   return response.data?.blogPosts?.nodes?.map((node) => node.slug) || [];
 }
 
+// Get adjacent (previous/next) blog posts for navigation
+export async function getAdjacentBlogPosts(currentDate) {
+  const query = `
+    query GetAdjacentBlogPosts($before: String, $after: String) {
+      previousPost: blogPosts(first: 1, where: { dateQuery: { before: { date: $before } }, orderby: { field: DATE, order: DESC } }) {
+        nodes {
+          title
+          slug
+          date
+        }
+      }
+      nextPost: blogPosts(first: 1, where: { dateQuery: { after: { date: $after } }, orderby: { field: DATE, order: ASC } }) {
+        nodes {
+          title
+          slug
+          date
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await executeGraphQLQuery(query, {
+      before: currentDate,
+      after: currentDate
+    });
+
+    if (response.errors) {
+      console.error('GraphQL errors for adjacent posts:', response.errors);
+      return { previous: null, next: null };
+    }
+
+    return {
+      previous: response.data?.previousPost?.nodes?.[0] || null,
+      next: response.data?.nextPost?.nodes?.[0] || null
+    };
+  } catch (error) {
+    console.error('Error fetching adjacent posts:', error);
+    return { previous: null, next: null };
+  }
+}
+
 
 // Resolve endpoint to absolute URL on server; relative is fine on the client
 function resolveGraphQLEndpoint() {

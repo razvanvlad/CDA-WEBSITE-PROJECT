@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16.299" height="19.474" viewBox="0 0 16.299 19.474">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        stroke: #000;
+      }
+
+      .cls-1 {
+        stroke-width: 0.5px;
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke-width: 1.5px;
+      }
+    </style>
+  </defs>
+  <g id="Component_118_1" data-name="Component 118 – 1" transform="translate(0.427 0.5)">
+    <path id="_9110843_arrow_bottom_right_icon_1_" data-name="9110843_arrow_bottom_right_icon (1)" class="cls-1" d="M13.907,12.983V8.024h1.307v7.191H8.024V13.907h4.959l-8.69-8.69.924-.924Z" transform="translate(7.723 -6.071) rotate(45)"/>
+    <path id="Path_7700" data-name="Path 7700" class="cls-2" d="M-8910.868,3957.455h14.773" transform="translate(8911.277 -3939.231)"/>
+  </g>
+</svg>

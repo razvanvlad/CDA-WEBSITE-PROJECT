@@ -76,20 +76,6 @@ export default async function CaseStudyPage(props) {
           <div className="max-w-7xl mx-auto px-4 py-16 lg:py-24">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                {hero?.servicesUsed?.nodes && hero.servicesUsed.nodes.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {hero.servicesUsed.nodes.map((service) => (
-                      <Link
-                        key={service.id}
-                        href={service.uri || `/services/${service.slug}`}
-                        className="inline-block px-4 py-2 bg-purple-50 text-purple-700 rounded-full text-sm font-semibold hover:bg-purple-100 transition-colors"
-                      >
-                        {service.title}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-
                 <ResponsiveUnderlinedTitle
                   as="h1"
                   className="cda-title mb-6"
@@ -106,9 +92,26 @@ export default async function CaseStudyPage(props) {
 
                 {hero?.text && (
                   <div
-                    className="text-lg text-gray-600 mb-8 leading-relaxed"
+                    className="text-lg text-gray-600 mb-6 leading-relaxed"
                     dangerouslySetInnerHTML={{ __html: hero.text }}
                   />
+                )}
+
+                {hero?.servicesUsed?.nodes && hero.servicesUsed.nodes.length > 0 && (
+                  <div className="mb-8">
+                    <p className="font-bold text-gray-900 mb-3">Services Used:</p>
+                    <div className="flex flex-wrap gap-3">
+                      {hero.servicesUsed.nodes.map((service) => (
+                        <Link
+                          key={service.id}
+                          href={service.uri || `/services/${service.slug}`}
+                          className="px-3 py-1 text-sm bg-gray-100 text-gray-700 force-rounded hover:bg-gray-200 transition-colors"
+                        >
+                          {service.title}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 )}
 
                 <div className="flex flex-wrap gap-4">
@@ -117,7 +120,7 @@ export default async function CaseStudyPage(props) {
                       href={hero.liveSite.url}
                       target={hero.liveSite.target || "_blank"}
                       rel="noopener noreferrer"
-                      className="button-l text-white bg-black hover:bg-gray-800 transition-colors"
+                      className="button-l"
                     >
                       {hero.liveSite.title || "Visit Live Site"}
                     </Link>
@@ -127,10 +130,17 @@ export default async function CaseStudyPage(props) {
                       href={hero.downloadPdf.node.mediaItemUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="button-l text-black border border-gray-300 hover:bg-gray-50 transition-colors inline-flex items-center gap-2"
+                      className="button-l-transparent inline-flex items-center justify-center gap-2"
                     >
                       {hero.downloadPdf.node.title || "Download PDF"}
-                      <span className="text-xl">↓</span>
+                      <img
+                        src="/images/arrow-icons/download-icon.svg"
+                        alt=""
+                        width="16"
+                        height="16"
+                        className="w-4 h-4"
+                        aria-hidden="true"
+                      />
                     </Link>
                   )}
                 </div>
@@ -155,17 +165,13 @@ export default async function CaseStudyPage(props) {
 
         {/* Customer Details */}
         {customerDetails && (
-          <section className="py-16 lg:py-24 bg-gray-50">
+          <section className="py-16 lg:py-24 bg-white">
             <div className="max-w-7xl mx-auto px-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
                 <div>
-                  <ResponsiveUnderlinedTitle
-                    as="h2"
-                    className="text-3xl font-bold mb-6"
-                    underlineColor="#AD80F9"
-                  >
+                  <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                     {customerDetails.company ? `The Company` : "About the Client"}
-                  </ResponsiveUnderlinedTitle>
+                  </h2>
 
                   {customerDetails.text && (
                     <div
@@ -176,13 +182,9 @@ export default async function CaseStudyPage(props) {
                 </div>
 
                 <div>
-                  <ResponsiveUnderlinedTitle
-                    as="h3"
-                    className="text-3xl font-bold mb-6"
-                    underlineColor="#AD80F9" // Or different color if needed
-                  >
-                    Their Goals
-                  </ResponsiveUnderlinedTitle>
+                  <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+                    The Goals
+                  </h3>
 
                   {customerDetails.goals && (
                     <div
@@ -205,30 +207,26 @@ export default async function CaseStudyPage(props) {
 
         {/* Challenge Section */}
         {challenge && (
-          <section className="py-16 lg:py-24 bg-white">
+          <section className="py-16 lg:py-24 bg-white overflow-hidden">
             <div className="max-w-7xl mx-auto px-4">
-              <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-12 lg:items-center">
-                {challenge.image?.node?.sourceUrl ? (
-                  <div className="relative w-full aspect-square lg:aspect-[4/3] overflow-hidden rounded-xl">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:items-center">
+                {/* Image on LEFT */}
+                {challenge.image?.node?.sourceUrl && (
+                  <div className="relative w-full max-w-[447px] h-[339px] overflow-hidden rounded-lg shadow-lg mx-auto lg:mx-0">
                     <Image
                       src={challenge.image.node.sourceUrl}
                       alt={challenge.image.node.altText || challenge.title || "Challenge"}
                       fill
-                      className="object-contain lg:object-cover"
+                      className="object-cover"
                     />
                   </div>
-                ) : (
-                  <div className="hidden lg:block"></div> // Spacer if no image
                 )}
 
-                <div>
-                  <ResponsiveUnderlinedTitle
-                    as="h2"
-                    className="text-3xl font-bold mb-6"
-                    underlineColor="#FF6B6B" // Specific color for challenge if needed, keeping varied
-                  >
+                {/* Text on RIGHT with gray background extending to edge */}
+                <div className="relative -mr-4 lg:-mr-[50vw] lg:pr-[calc(50vw-1rem)] py-12 px-8 lg:px-12 bg-gray-50">
+                  <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                     {challenge.title || "The Challenge"}
-                  </ResponsiveUnderlinedTitle>
+                  </h2>
                   <div
                     className="prose prose-lg max-w-none text-gray-600"
                     dangerouslySetInnerHTML={{ __html: challenge.text }}
@@ -243,50 +241,44 @@ export default async function CaseStudyPage(props) {
         {technologies?.logos?.nodes && technologies.logos.nodes.length > 0 && (
           <section className="py-16 lg:py-24 bg-gray-50">
             <div className="max-w-7xl mx-auto px-4">
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">{technologies.title || "The Technologies We Used"}</h2>
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-12 text-center">
+                {technologies.title || "Technologies Used"}
+              </h2>
+
+              <div className="flex flex-wrap justify-between items-center gap-8">
+                {technologies.logos.nodes.map((tech) => (
+                  <Link
+                    key={tech.id}
+                    href={tech.uri || `/technologies/${tech.slug}`}
+                    className="group flex-shrink-0"
+                  >
+                    {tech.featuredImage?.node?.sourceUrl && (
+                      <div className="relative h-[50px] w-auto min-w-[50px]">
+                        <Image
+                          src={tech.featuredImage.node.sourceUrl}
+                          alt={tech.featuredImage.node.altText || tech.title}
+                          height={50}
+                          width={100}
+                          className="object-contain h-[50px] w-auto group-hover:scale-110 transition-transform duration-300"
+                          style={{ height: '50px', width: 'auto' }}
+                        />
+                      </div>
+                    )}
+                  </Link>
+                ))}
               </div>
-              <TechnologiesGrid technologies={technologies.logos} />
             </div>
           </section>
         )}
 
-        {/* Solution Section */}
+        {/* Solution Section - REPLACED BLOCK */}
         {solution && (
-          <section className="py-16 lg:py-24 bg-white overflow-hidden">
-
-            {/* Solution Text Content */}
-            <div className="max-w-7xl mx-auto px-4 mb-12">
-              <ResponsiveUnderlinedTitle
-                as="h2"
-                className="section-title mb-6"
-                underlineColor="#AD80F9"
-              >
-                {solution.title || "Our Solution"}
-              </ResponsiveUnderlinedTitle>
-
-              {/* Desktop Text */}
-              {solution.desktopText && (
-                <div className="hidden lg:block prose prose-lg max-w-4xl text-gray-600 mb-8" dangerouslySetInnerHTML={{ __html: solution.desktopText }} />
-              )}
-              {/* Mobile Text (fallback to desktop if not present, or just show desktop text always?) 
-                    Usually easier to show one text block, but user schema has both. 
-                    Let's show mobileText on mobile if exists, otherwise desktopText.
-                */}
-              {solution.mobileText && (
-                <div className="lg:hidden prose prose-lg max-w-none text-gray-600 mb-8" dangerouslySetInnerHTML={{ __html: solution.mobileText }} />
-              )}
+          <section className="py-16 lg:py-24 bg-[#F9F9F9] overflow-hidden">
+            <div className="max-w-7xl mx-auto px-4 lg:px-8">
+              <SolutionGallery data={solution} />
             </div>
 
-            {/* Solution Gallery */}
-            <div className="max-w-[1620px] mx-auto px-4 lg:px-8">
-              <SolutionGallery
-                desktopImages={solution.desktopImage?.nodes}
-                mobileImages={solution.mobileImage?.nodes}
-              />
-            </div>
-
-            {/* Results Section (Nested in Solution in user schema) */}
+            {/* Results Section */}
             {solution.results && (solution.results.first || solution.results.second || solution.results.third) && (
               <div className="max-w-7xl mx-auto px-4 mt-24">
                 <ResultsCards results={solution.results} />
