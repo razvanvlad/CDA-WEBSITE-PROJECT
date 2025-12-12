@@ -102,7 +102,7 @@ export default async function NewsArticlePage({ params }) {
 
                 {/* Meta Data with border lines */}
                 <div className="border-t border-b border-gray-300 py-4 mb-6">
-                  <div className="flex flex-wrap gap-4 text-black text-sm font-medium">
+                  <div className="flex flex-col gap-2 text-black text-sm font-medium">
                     {dateStr && <span>{dateStr}</span>}
                     {hero?.readTime && <span>{hero.readTime} Minutes To Read</span>}
                   </div>
