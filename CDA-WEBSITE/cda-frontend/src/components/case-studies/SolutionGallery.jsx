@@ -35,7 +35,7 @@ export default function SolutionGallery({ data }) {
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 lg:items-center">
 
         {/* LEFT COL: Text Content */}
-        <div className="lg:w-[40%] flex flex-col justify-center">
+        <div className="lg:w-[30%] flex flex-col justify-center">
           <h2 className="text-3xl lg:text-4xl font-bold font-serif text-gray-900 mb-6 relative inline-block">
             {data?.title || 'Our Solution'}
             <span className="absolute bottom-1 left-0 w-full h-3 bg-purple-200 -z-10 opacity-50"></span>
@@ -70,7 +70,7 @@ export default function SolutionGallery({ data }) {
             - lg:mr-[calc(50%-50vw)]: Pulls the container margin to the screen edge
             - lg:w-[150vw]: Makes it wide enough to overflow
         */}
-        <div className="lg:w-[60%] relative min-w-0">
+        <div className="lg:w-[70%] relative min-w-0">
           <div
             ref={desktopScrollRef}
             className="
@@ -114,27 +114,26 @@ export default function SolutionGallery({ data }) {
             - Order-2 on mobile (text first), Order-1 on Desktop (images first)
             - lg:ml-[calc(50%-50vw)]: Pulls container to left screen edge
         */}
-        <div className="lg:w-[60%] relative min-w-0 order-2 lg:order-1">
+        <div className="lg:w-[70%] relative min-w-0 order-2 lg:order-1">
           <div
             ref={mobileScrollRef}
             className="
               flex gap-12 overflow-x-auto pb-8 snap-x snap-mandatory
               no-scrollbar
               w-full
-              lg:ml-[calc(50%-50vw)] lg:w-[150vw] lg:pl-[calc(50vw-50%+1rem)]
+              lg:ml-[calc(50%-50vw+90px)] lg:w-[150vw]
             "
+            // ADJUST HORIZONTAL POSITION: Change '92px' in the calc below to move left/right.
+            // Larger px value (e.g. 150px) = more to the left (more cut off)
+            // Smaller px value (e.g. 50px) = more to the right (less cut off)
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none'
             }}
           >
-            {/* The padding-left above (lg:pl-...) ensures the first image aligns with the content grid,
-              while the container background stretches to the edge.
-            */}
-
             {mobileImages.map((img, i) => (
               <div key={i} className="min-w-[297px] w-[297px] snap-start flex-shrink-0">
-                <div className="relative w-[297px] h-[661px] rounded-2xl overflow-hidden bg-white shadow-2xl border border-gray-100">
+                <div className="relative w-[297px] h-[661px] rounded-2xl overflow-hidden bg-white border border-gray-100">
                   <Image
                     src={img.sourceUrl}
                     alt={img.altText || 'Mobile Solution Interface'}
@@ -149,7 +148,7 @@ export default function SolutionGallery({ data }) {
         </div>
 
         {/* RIGHT COL: Text Content */}
-        <div className="lg:w-[40%] flex flex-col justify-start order-1 lg:order-2">
+        <div className="lg:w-[30%] flex flex-col justify-start order-1 lg:order-2">
           <div className="flex gap-4 mb-6">
             <button
               onClick={() => scroll(mobileScrollRef, 'left', 48)}

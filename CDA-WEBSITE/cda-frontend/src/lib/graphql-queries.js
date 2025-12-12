@@ -182,6 +182,41 @@ export async function getAdjacentBlogPosts(currentSlug, currentDate) {
   }
 }
 
+// Get blog posts for carousel/news section
+export async function getBlogPostsForCarousel(limit = 6) {
+  const query = `
+    query GetBlogPostsForCarousel($first: Int!) {
+      blogPosts(first: $first, where: { orderby: { field: DATE, order: DESC } }) {
+        nodes {
+          id
+          title
+          slug
+          uri
+          excerpt
+          date
+          featuredImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await executeGraphQLQuery(query, { first: limit });
+    if (response.errors) {
+      console.error('GraphQL errors fetching blog posts for carousel:', response.errors);
+      return [];
+    }
+    return response.data?.blogPosts?.nodes || [];
+  } catch (error) {
+    console.error('Error fetching blog posts for carousel:', error);
+    return [];
+  }
+}
 
 // Resolve endpoint to absolute URL on server; relative is fine on the client
 function resolveGraphQLEndpoint() {

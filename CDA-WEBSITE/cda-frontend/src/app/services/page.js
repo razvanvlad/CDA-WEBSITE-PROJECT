@@ -1,10 +1,11 @@
 // src/app/services/page.js
-import { getServicesWithPagination, executeGraphQLQuery, getServiceOverviewContent, getServiceBySlug, getAllGlobalContentBlocks } from '@/lib/graphql-queries.js'
+import { getServicesWithPagination, executeGraphQLQuery, getServiceOverviewContent, getServiceBySlug, getAllGlobalContentBlocks, getBlogPostsForCarousel } from '@/lib/graphql-queries.js'
 import ServicesClient from './ServicesClient'
 import ServicesFilters from './ServicesFilters'
 import ApproachBlock from '@/components/GlobalBlocks/ApproachBlock'
 import HeroSection from '@/components/GlobalBlocks/HeroSection'
 import Showreel from '@/components/GlobalBlocks/Showreel'
+import NewsCarouselClient from '@/components/GlobalBlocks/NewsCarouselClient'
 import ServicesProcess from '@/components/Sections/ServicesProcess'
 import ServicesStats from '@/components/Sections/ServicesStats'
 import ServicesCaseStudiesPreview from '@/components/Sections/ServicesCaseStudiesPreview'
@@ -101,6 +102,9 @@ export default async function ServicesPage() {
 
     // Fetch global content for Approach Block
     const globalContent = await getAllGlobalContentBlocks()
+
+    // Fetch blog posts for news carousel
+    const blogPosts = await getBlogPostsForCarousel(6)
 
     // Resolve featured case study for left column
     let featuredCaseStudy = null
@@ -298,7 +302,19 @@ export default async function ServicesPage() {
               </div>
             </section>
 
-
+            {/* News Carousel */}
+            <NewsCarouselClient
+              title="Latest News & Insights"
+              subtitle="Stay Updated"
+              articles={(blogPosts || []).map(post => ({
+                id: post.id,
+                title: post.title,
+                excerpt: post.excerpt,
+                uri: post.uri,
+                imageUrl: post.featuredImage?.node?.sourceUrl || '',
+                imageAlt: post.featuredImage?.node?.altText || post.title
+              }))}
+            />
 
             {/* Services: Process, Stats, Case Studies Preview */}
 
