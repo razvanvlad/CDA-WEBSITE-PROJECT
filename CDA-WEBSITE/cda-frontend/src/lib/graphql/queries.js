@@ -42,7 +42,7 @@ export const GET_HOMEPAGE_CONTENT = gql`
           valueItems { title description }
         }
 
-        caseStudiesSection {
+        caseStudies {
           title
           caseStudies { nodes { id title } }
         }

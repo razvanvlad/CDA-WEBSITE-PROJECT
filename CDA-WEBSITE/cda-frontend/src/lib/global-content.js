@@ -23,7 +23,7 @@ async function getThreeColumns() {
 }
 
 export async function getGlobalContentSections(opts) {
-  const { imageFrame = false, newsCarousel = false, threeColumns = false, stats = false, caseStudiesSection = false } = opts || {}
+  const { imageFrame = false, newsCarousel = false, threeColumns = false, stats = false, caseStudies = false } = opts || {}
 
   const tasks = []
   const result = {}
@@ -37,7 +37,7 @@ export async function getGlobalContentSections(opts) {
     // reuse existing getGlobalContent for stats if needed, or add a tiny stats query
     // Placeholder: keep undefined unless you want me to wire it fully
   }
-  if (caseStudiesSection) {
+  if (caseStudies) {
     // Placeholder: same note as stats
   }
 

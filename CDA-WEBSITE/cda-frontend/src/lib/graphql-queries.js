@@ -141,17 +141,12 @@ export async function getBlogPostSlugs() {
 }
 
 // Get adjacent (previous/next) blog posts for navigation
-export async function getAdjacentBlogPosts(currentDate) {
-  const query = `
-    query GetAdjacentBlogPosts($before: String, $after: String) {
-      previousPost: blogPosts(first: 1, where: { dateQuery: { before: { date: $before } }, orderby: { field: DATE, order: DESC } }) {
-        nodes {
-          title
-          slug
-          date
-        }
-      }
-      nextPost: blogPosts(first: 1, where: { dateQuery: { after: { date: $after } }, orderby: { field: DATE, order: ASC } }) {
+// Uses cursor-based pagination to find posts before/after the current post date
+export async function getAdjacentBlogPosts(currentSlug, currentDate) {
+  // Fetch all posts and find adjacent ones
+  const allPostsQuery = `
+    query GetAllBlogPostsForNav {
+      blogPosts(first: 100, where: { orderby: { field: DATE, order: DESC } }) {
         nodes {
           title
           slug
@@ -162,19 +157,25 @@ export async function getAdjacentBlogPosts(currentDate) {
   `;
 
   try {
-    const response = await executeGraphQLQuery(query, {
-      before: currentDate,
-      after: currentDate
-    });
+    const response = await executeGraphQLQuery(allPostsQuery);
 
     if (response.errors) {
       console.error('GraphQL errors for adjacent posts:', response.errors);
       return { previous: null, next: null };
     }
 
+    const posts = response.data?.blogPosts?.nodes || [];
+    const currentIndex = posts.findIndex(p => p.slug === currentSlug);
+
+    if (currentIndex === -1) {
+      return { previous: null, next: null };
+    }
+
+    // Posts are sorted DESC (newest first)
+    // Previous = newer post (index - 1), Next = older post (index + 1)
     return {
-      previous: response.data?.previousPost?.nodes?.[0] || null,
-      next: response.data?.nextPost?.nodes?.[0] || null
+      previous: currentIndex > 0 ? posts[currentIndex - 1] : null,
+      next: currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null
     };
   } catch (error) {
     console.error('Error fetching adjacent posts:', error);
@@ -872,7 +873,7 @@ export const GET_SERVICE_BY_SLUG_WITH_ACF = `
             description
           }
         }
-        caseStudiesSection {
+        caseStudies {
           title
           caseStudies {
             ... on CaseStudy {
@@ -1977,23 +1978,21 @@ export const GET_GLOBAL_CASE_STUDIES_SECTION = `
   query GetGlobalCaseStudiesSection {
     globalOptions {
       globalContentBlocks {
-        caseStudiesSection {
+        caseStudies {
           title
           subtitle
-          knowledgeHubLink { url title target }
-          selectedStudies {
-            nodes {
-              ... on CaseStudy {
-                id
-                title
-                slug
-                uri
-                excerpt
-                featuredImage { node { sourceUrl altText } }
-              }
-            }
-          }
+          cta { url title target }
         }
+      }
+    }
+    recentCaseStudies: caseStudies(first: 2) {
+      nodes {
+        id
+        title
+        slug
+        uri
+        excerpt
+        featuredImage { node { sourceUrl altText } }
       }
     }
   }
@@ -2013,8 +2012,17 @@ export async function getGlobalContent() {
   let merged = baseBlocks ? { ...baseBlocks } : {}
   try {
     const csRes = await executeGraphQLQuery(GET_GLOBAL_CASE_STUDIES_SECTION);
-    if (csRes?.data?.globalOptions?.globalContentBlocks?.caseStudiesSection) {
-      merged.caseStudiesSection = csRes.data.globalOptions.globalContentBlocks.caseStudiesSection
+    // New structure: caseStudies block + recentCaseStudies at the root
+    const caseStudiesBlock = csRes?.data?.globalOptions?.globalContentBlocks?.caseStudies;
+    const recentStudies = csRes?.data?.recentCaseStudies;
+    if (caseStudiesBlock) {
+      merged.caseStudies = {
+        ...caseStudiesBlock,
+        // Map cta to knowledgeHubLink for backward compatibility with components
+        knowledgeHubLink: caseStudiesBlock.cta,
+        // Add recent case studies as selectedStudies for backward compatibility
+        selectedStudies: recentStudies || { nodes: [] }
+      };
     }
   } catch (e) {
     // ignore
@@ -2254,17 +2262,22 @@ export const GET_GLOBAL_APPROACH = `
 export const GET_GLOBAL_CASE_STUDIES_SECTION_ONLY = `
   query GetGlobalCaseStudiesSectionOnly {
     globalOptions { globalContentBlocks {
-      caseStudiesSection {
+      caseStudies {
         title
         subtitle
-        knowledgeHubLink { url title target }
-        selectedStudies {
-          nodes {
-            ... on CaseStudy { id title slug uri excerpt featuredImage { node { sourceUrl altText } } }
-          }
-        }
+        cta { url title target }
       }
     } }
+    recentCaseStudies: caseStudies(first: 2) {
+      nodes {
+        id
+        title
+        slug
+        uri
+        excerpt
+        featuredImage { node { sourceUrl altText } }
+      }
+    }
   }
 `;
 
@@ -2318,8 +2331,16 @@ export async function getGlobalApproachBlock() {
 }
 
 export async function getGlobalCaseStudiesSectionOnly() {
-  const res = await executeGraphQLQuery(GET_GLOBAL_CASE_STUDIES_SECTION);
-  return res?.data?.globalOptions?.globalContentBlocks?.caseStudiesSection || null;
+  const res = await executeGraphQLQuery(GET_GLOBAL_CASE_STUDIES_SECTION_ONLY);
+  const caseStudiesBlock = res?.data?.globalOptions?.globalContentBlocks?.caseStudies;
+  const recentStudies = res?.data?.recentCaseStudies;
+  if (!caseStudiesBlock) return null;
+  // Return with backward compatible structure
+  return {
+    ...caseStudiesBlock,
+    knowledgeHubLink: caseStudiesBlock.cta,
+    selectedStudies: recentStudies || { nodes: [] }
+  };
 }
 
 export async function getGlobalStatsBlock() {
@@ -2346,24 +2367,26 @@ export const GET_PAGE_GLOBAL_TOGGLES = `
       id
       title
       uri
-      globalContentToggles {
-        showApproach
-        showCaseStudies
-        showImageFrame
-        showNewsCarousel
-        showThreeColumns
-        showValues
-        showWhyCda
-        showServicesAccordion
-        showTechnologiesSlider
-        showShowreel
-        showLocationsImage
-        showNewsletterSignup
-        showContactFormLeftImageRight
-        showJoinOurTeam
-        showFullVideo
-        showStatsAndNumbers
-        showCultureGallerySlider
+      gLOBALCONTENTBLOCKSTOGGLE {
+        globalContentToggles {
+          showApproach
+          showCaseStudies
+          showImageFrame
+          showNewsCarousel
+          showThreeColumns
+          showValues
+          showWhyCda
+          showServicesAccordion
+          showTechnologiesSlider
+          showShowreel
+          showLocationsImage
+          showNewsletterSignup
+          showContactFormLeftImageRight
+          showJoinOurTeam
+          showFullVideo
+          showStatsAndNumbers
+          showCultureGallerySlider
+        }
       }
     }
   }
@@ -2407,24 +2430,26 @@ export const GET_PAGE_GLOBAL_TOGGLES_BY_SLUG = `
       id
       title
       uri
-      globalContentToggles {
-        showApproach
-        showCaseStudies
-        showImageFrame
-        showNewsCarousel
-        showThreeColumns
-        showValues
-        showWhyCda
-        showServicesAccordion
-        showTechnologiesSlider
-        showShowreel
-        showLocationsImage
-        showNewsletterSignup
-        showContactFormLeftImageRight
-        showJoinOurTeam
-        showFullVideo
-        showStatsAndNumbers
-        showCultureGallerySlider
+      gLOBALCONTENTBLOCKSTOGGLE {
+        globalContentToggles {
+          showApproach
+          showCaseStudies
+          showImageFrame
+          showNewsCarousel
+          showThreeColumns
+          showValues
+          showWhyCda
+          showServicesAccordion
+          showTechnologiesSlider
+          showShowreel
+          showLocationsImage
+          showNewsletterSignup
+          showContactFormLeftImageRight
+          showJoinOurTeam
+          showFullVideo
+          showStatsAndNumbers
+          showCultureGallerySlider
+        }
       }
     }
   }
@@ -2436,25 +2461,6 @@ export const GET_PAGE_GLOBAL_TOGGLES_BY_DBID = `
       id
       title
       uri
-      globalContentToggles {
-        showApproach
-        showCaseStudies
-        showImageFrame
-        showNewsCarousel
-        showThreeColumns
-        showValues
-        showWhyCda
-        showServicesAccordion
-        showTechnologiesSlider
-        showShowreel
-        showLocationsImage
-        showNewsletterSignup
-        showContactFormLeftImageRight
-        showJoinOurTeam
-        showFullVideo
-        showStatsAndNumbers
-        showCultureGallerySlider
-      }
       gLOBALCONTENTBLOCKSTOGGLE {
         globalContentToggles {
           showApproach

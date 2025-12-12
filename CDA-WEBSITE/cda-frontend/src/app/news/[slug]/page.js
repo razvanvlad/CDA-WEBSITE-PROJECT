@@ -47,7 +47,7 @@ export default async function NewsArticlePage({ params }) {
   const dateRaw = hero?.date || post.date;
   const dateStr = dateRaw ? new Date(dateRaw).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
   const categories = post.blogCategories?.nodes || [];
-  const toggles = post.globalContentToggles || {};
+  const toggles = post.gLOBALCONTENTBLOCKSTOGGLE?.globalContentToggles || {};
 
   // Image priority: Hero Image -> Featured Image
   const mainImage = hero?.image?.node?.sourceUrl ? hero.image.node : post.featuredImage?.node;
@@ -62,7 +62,7 @@ export default async function NewsArticlePage({ params }) {
   const globalContentBlocks = await getGlobalContent();
 
   // Fetch adjacent posts for navigation
-  const adjacentPosts = await getAdjacentBlogPosts(post.date);
+  const adjacentPosts = await getAdjacentBlogPosts(slug, post.date);
 
   return (
     <div className="min-h-screen bg-white">
@@ -109,7 +109,7 @@ export default async function NewsArticlePage({ params }) {
                 </div>
 
                 {/* CTA Button */}
-                {hero?.cta?.url && (
+                {/* {hero?.cta?.url && (
                   <div className="mb-8">
                     <a
                       href={hero.cta.url}
@@ -123,7 +123,7 @@ export default async function NewsArticlePage({ params }) {
                       </span>
                     </a>
                   </div>
-                )}
+                )} */}
 
                 {/* Author - 100x100px circular */}
                 <div className="flex items-center gap-4">

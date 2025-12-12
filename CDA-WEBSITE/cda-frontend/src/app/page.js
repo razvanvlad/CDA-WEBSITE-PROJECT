@@ -59,24 +59,6 @@ async function getHomeToggles() {
         ... on Page {
           databaseId
           uri
-          globalContentToggles {
-            showApproach
-            showCaseStudies
-            showImageFrame
-            showThreeColumns
-            showValues
-            showWhyCda
-            showServicesAccordion
-            showTechnologiesSlider
-            showShowreel
-            showLocationsImage
-            showNewsletterSignup
-            showContactFormLeftImageRight
-            showJoinOurTeam
-            showFullVideo
-            showStatsAndNumbers
-            showCultureGallerySlider
-          }
           gLOBALCONTENTBLOCKSTOGGLE {
             globalContentToggles {
               showApproach
@@ -105,10 +87,8 @@ async function getHomeToggles() {
     try {
       const res = await executeGraphQLQuery(NODE_QUERY, { uri })
       const node = res?.data?.nodeByUri
-      const direct = node?.globalContentToggles
-      if (direct) return direct
-      const nested = node?.gLOBALCONTENTBLOCKSTOGGLE?.globalContentToggles
-      if (nested) return nested
+      const toggles = node?.gLOBALCONTENTBLOCKSTOGGLE?.globalContentToggles
+      if (toggles) return toggles
       const dbid = node?.databaseId
       if (dbid) {
         const byId = await getPageGlobalTogglesByDbId(String(dbid))
