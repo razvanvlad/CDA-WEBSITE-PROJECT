@@ -3,9 +3,8 @@
  * Single post and archive queries for all custom post types
  */
 
-// GraphQL endpoint configuration
-// GraphQL endpoint configuration
-const GRAPHQL_ENDPOINT = 'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/graphql';
+// GraphQL endpoint configuration - use environment variable with fallback for local dev
+const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT || 'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/graphql';
 
 // =============================================================================
 // BLOG / NEWS QUERIES
