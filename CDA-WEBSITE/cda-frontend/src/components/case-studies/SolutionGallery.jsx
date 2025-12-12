@@ -7,10 +7,14 @@ export default function SolutionGallery({ data }) {
   const desktopScrollRef = useRef(null);
   const mobileScrollRef = useRef(null);
 
-  // Smooth Scroll Helper
+  // --- 1. Dynamic Scroll Logic ---
+  // Calculates the width of the first card to scroll exactly one item at a time
   const scroll = (ref, direction) => {
     if (ref.current) {
-      const scrollAmount = 500; // Adjusts scroll distance per click
+      // Get the width of the first image card + gap (approx)
+      const firstCard = ref.current.firstElementChild;
+      const scrollAmount = firstCard ? firstCard.clientWidth + 24 : 400; // 24 is the gap-6
+
       ref.current.scrollBy({
         left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth',
@@ -22,13 +26,13 @@ export default function SolutionGallery({ data }) {
   const mobileImages = data?.mobileImage?.nodes || [];
 
   return (
-    <div className="flex flex-col gap-24 lg:gap-32">
+    <div className="flex flex-col gap-20 lg:gap-32 w-full">
 
       {/* =========================================
-          ROW 1: DESKTOP CONTEXT
-          Text Left | Images Right (Overflows Right)
+          ROW 1: DESKTOP SHOWCASE
+          Text Left | Images Right (Overflows Right Edge)
       ========================================= */}
-      <div className="flex flex-col lg:flex-row gap-12 lg:items-center">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 lg:items-center">
 
         {/* LEFT COL: Text Content */}
         <div className="lg:w-[40%] flex flex-col justify-center">
@@ -37,19 +41,20 @@ export default function SolutionGallery({ data }) {
             <span className="absolute bottom-1 left-0 w-full h-3 bg-purple-200 -z-10 opacity-50"></span>
           </h2>
 
-          {/* Navigation Controls */}
+          {/* Controls */}
           <div className="flex gap-4 mb-6">
             <button
               onClick={() => scroll(desktopScrollRef, 'left')}
-              className="p-2 border border-gray-300 hover:bg-gray-100 transition-opacity cursor-pointer flex items-center justify-center rounded-full"
-              aria-label="Scroll Desktop Gallery Left"
+              className="p-3 border border-gray-300 hover:bg-gray-100 rounded-full transition-colors flex items-center justify-center"
+              aria-label="Previous image"
             >
+               {/* Rotate arrow for Left */}
                <img src="/images/arrow-icons/left-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
             </button>
             <button
               onClick={() => scroll(desktopScrollRef, 'right')}
-              className="p-2 border border-gray-300 hover:bg-gray-100 transition-opacity cursor-pointer flex items-center justify-center rounded-full"
-              aria-label="Scroll Desktop Gallery Right"
+              className="p-3 border border-gray-300 hover:bg-gray-100 rounded-full transition-colors flex items-center justify-center"
+              aria-label="Next image"
             >
                <img src="/images/arrow-icons/right-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
             </button>
@@ -61,20 +66,28 @@ export default function SolutionGallery({ data }) {
           />
         </div>
 
-        {/* RIGHT COL: Desktop Images (Breakout Layout) */}
-        <div className="lg:w-[60%] relative">
-          {/* w-[150vw] ensures the container extends well beyond the right edge of the screen */}
+        {/* RIGHT COL: Desktop Gallery
+            - lg:mr-[calc(50%-50vw)]: Pulls the container margin to the screen edge
+            - lg:w-[150vw]: Makes it wide enough to overflow
+        */}
+        <div className="lg:w-[60%] relative min-w-0">
           <div
             ref={desktopScrollRef}
-            className="flex gap-6 overflow-x-auto pb-10 snap-x snap-mandatory w-[150vw]"
+            className="
+              flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory
+              no-scrollbar
+              w-full
+              lg:mr-[calc(50%-50vw)] lg:w-[150vw] lg:pr-[10vw]
+            "
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none'
             }}
           >
             {desktopImages.map((img, i) => (
-              <div key={i} className="min-w-[85vw] md:min-w-[650px] snap-center flex-shrink-0 first:pl-0">
-                <div className="relative aspect-[16/10] shadow-xl rounded-md overflow-hidden bg-white">
+              // Increased min-width for better visibility (650px -> 750px)
+              <div key={i} className="min-w-[85vw] md:min-w-[750px] snap-start flex-shrink-0">
+                <div className="relative aspect-[16/10] shadow-xl rounded-md overflow-hidden bg-white border border-gray-100">
                   <Image
                     src={img.sourceUrl}
                     alt={img.altText || 'Desktop Solution Interface'}
@@ -84,42 +97,43 @@ export default function SolutionGallery({ data }) {
                 </div>
               </div>
             ))}
-             {/* Spacer to allow full scroll */}
-            <div className="min-w-[100px]"></div>
+            {/* Spacer to ensure last item can be scrolled into view */}
+            <div className="min-w-[5vw]"></div>
           </div>
-          <style jsx>{`
-            div::-webkit-scrollbar {
-              display: none;
-            }
-          `}</style>
         </div>
       </div>
 
 
       {/* =========================================
-          ROW 2: MOBILE CONTEXT
-          Images Left (Overflows Left) | Text Right
+          ROW 2: MOBILE SHOWCASE
+          Images Left (Overflows Left Edge) | Text Right
       ========================================= */}
-      <div className="flex flex-col lg:flex-row gap-12 lg:items-center">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 lg:items-center">
 
-        {/* LEFT COL: Mobile Images (Breakout Layout) */}
-        {/* order-2 lg:order-1 puts images on the left on desktop */}
-        <div className="lg:w-[60%] relative order-2 lg:order-1">
+        {/* LEFT COL: Mobile Gallery
+            - Order-2 on mobile (text first), Order-1 on Desktop (images first)
+            - lg:ml-[calc(50%-50vw)]: Pulls container to left screen edge
+        */}
+        <div className="lg:w-[60%] relative min-w-0 order-2 lg:order-1">
           <div
             ref={mobileScrollRef}
-            className="flex gap-8 overflow-x-auto pb-10 snap-x snap-mandatory px-4 lg:px-0"
+            className="
+              flex gap-8 overflow-x-auto pb-8 snap-x snap-mandatory
+              no-scrollbar
+              w-full
+              lg:ml-[calc(50%-50vw)] lg:w-[150vw] lg:pl-[calc(50vw-50%+1rem)]
+            "
             style={{
               scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-              // Pulls the container way to the left to create the "irregular overflow"
-              marginLeft: '-50vw',
-              width: '150vw',
-              // Padding left ensures the first image roughly aligns with where we want it, or flows from edge
-              paddingLeft: 'calc(50vw + 1rem)'
+              msOverflowStyle: 'none'
             }}
           >
+            {/* The padding-left above (lg:pl-...) ensures the first image aligns with the content grid,
+              while the container background stretches to the edge.
+            */}
+
             {mobileImages.map((img, i) => (
-              <div key={i} className="min-w-[280px] md:min-w-[320px] snap-center flex-shrink-0">
+              <div key={i} className="min-w-[280px] md:min-w-[340px] snap-start flex-shrink-0">
                 <div className="relative aspect-[9/19] rounded-2xl overflow-hidden bg-white shadow-2xl border border-gray-100">
                    <Image
                       src={img.sourceUrl}
@@ -130,13 +144,8 @@ export default function SolutionGallery({ data }) {
                 </div>
               </div>
             ))}
-            <div className="min-w-[100px]"></div>
+             <div className="min-w-[5vw]"></div>
           </div>
-          <style jsx>{`
-            div::-webkit-scrollbar {
-              display: none;
-            }
-          `}</style>
         </div>
 
         {/* RIGHT COL: Text Content */}
@@ -144,15 +153,15 @@ export default function SolutionGallery({ data }) {
            <div className="flex gap-4 mb-6">
             <button
               onClick={() => scroll(mobileScrollRef, 'left')}
-              className="p-2 border border-gray-300 hover:bg-gray-100 transition-opacity cursor-pointer flex items-center justify-center rounded-full"
-              aria-label="Scroll Mobile Gallery Left"
+              className="p-3 border border-gray-300 hover:bg-gray-100 rounded-full transition-colors flex items-center justify-center"
+              aria-label="Previous mobile view"
             >
                <img src="/images/arrow-icons/left-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
             </button>
             <button
               onClick={() => scroll(mobileScrollRef, 'right')}
-              className="p-2 border border-gray-300 hover:bg-gray-100 transition-opacity cursor-pointer flex items-center justify-center rounded-full"
-              aria-label="Scroll Mobile Gallery Right"
+              className="p-3 border border-gray-300 hover:bg-gray-100 rounded-full transition-colors flex items-center justify-center"
+              aria-label="Next mobile view"
             >
                <img src="/images/arrow-icons/right-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
             </button>
@@ -162,7 +171,6 @@ export default function SolutionGallery({ data }) {
 
           <div
             className="prose prose-lg text-gray-600 leading-relaxed"
-            // Fallback: If no mobileText exists, show a generic message or desktopText
             dangerouslySetInnerHTML={{ __html: data?.mobileText || '<p>Fully responsive mobile design ensuring seamless user experience across all devices.</p>' }}
           />
         </div>

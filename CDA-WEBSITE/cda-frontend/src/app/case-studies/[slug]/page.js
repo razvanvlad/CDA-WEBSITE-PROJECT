@@ -9,7 +9,7 @@ import GlobalTailSections from '../../../components/GlobalBlocks/GlobalTailSecti
 import TestimonialCard from '@/components/TestimonialCard';
 import TextLinkButton from '../../../components/ui/TextLinkButton';
 import SolutionGallery from '@/components/case-studies/SolutionGallery';
-import TechnologiesGrid from '@/components/case-studies/TechnologiesGrid';
+import TechnologiesSection from '@/components/case-studies/TechnologiesSection';
 import ResultsCards from '@/components/case-studies/ResultsCards';
 
 export const revalidate = 300
@@ -238,38 +238,7 @@ export default async function CaseStudyPage(props) {
         )}
 
         {/* Technologies Section */}
-        {technologies?.logos?.nodes && technologies.logos.nodes.length > 0 && (
-          <section className="py-16 lg:py-24 bg-gray-50">
-            <div className="max-w-7xl mx-auto px-4">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-12 text-center">
-                {technologies.title || "Technologies Used"}
-              </h2>
-
-              <div className="flex flex-wrap justify-between items-center gap-8">
-                {technologies.logos.nodes.map((tech) => (
-                  <Link
-                    key={tech.id}
-                    href={tech.uri || `/technologies/${tech.slug}`}
-                    className="group flex-shrink-0"
-                  >
-                    {tech.featuredImage?.node?.sourceUrl && (
-                      <div className="relative h-[50px] w-auto min-w-[50px]">
-                        <Image
-                          src={tech.featuredImage.node.sourceUrl}
-                          alt={tech.featuredImage.node.altText || tech.title}
-                          height={50}
-                          width={100}
-                          className="object-contain h-[50px] w-auto group-hover:scale-110 transition-transform duration-300"
-                          style={{ height: '50px', width: 'auto' }}
-                        />
-                      </div>
-                    )}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
+        <TechnologiesSection technologies={technologies} />
 
         {/* Solution Section - REPLACED BLOCK */}
         {solution && (
