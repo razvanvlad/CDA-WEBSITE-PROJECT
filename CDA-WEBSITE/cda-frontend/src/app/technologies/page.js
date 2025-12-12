@@ -89,28 +89,36 @@ export default async function TechnologiesPage() {
           {technologies.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {technologies.map((tech) => (
-                <div key={tech.id} className="tech-card bg-white border border-gray-200 p-10 hover:shadow-md transition-shadow duration-300">
-                  {/* Top: Brand/Technology Logo */}
-                  <div className="mb-8">
-                    {tech.featuredImage?.node?.sourceUrl ? (
-                      <img
-                        src={tech.featuredImage.node.sourceUrl}
-                        alt={tech.featuredImage.node.altText || tech.title}
-                        className="h-16 w-auto object-contain"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div className="h-16 w-40 bg-gray-100" />
-                    )}
+                <div key={tech.id} className="tech-card bg-white border border-gray-200 p-6 md:p-10 hover:shadow-md transition-shadow duration-300">
+                  {/* Mobile: Horizontal layout | Desktop: Vertical layout */}
+                  <div className="flex items-center justify-between md:block">
+                    {/* Brand/Technology Logo */}
+                    <div className="mb-0 md:mb-8">
+                      {tech.featuredImage?.node?.sourceUrl ? (
+                        <img
+                          src={tech.featuredImage.node.sourceUrl}
+                          alt={tech.featuredImage.node.altText || tech.title}
+                          className="max-h-[24px] md:max-h-[45px] w-auto object-contain"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="h-[24px] md:h-[45px] w-24 md:w-40 bg-gray-100" />
+                      )}
+                    </div>
+
+                    {/* CTA - visible on mobile in row */}
+                    <div className="md:hidden">
+                      <a href="/contact" className="button-l-transparent">Find Out More</a>
+                    </div>
                   </div>
 
-                  {/* Body copy */}
-                  <div className="text-black text-2xl leading-relaxed mb-10">
+                  {/* Body copy - hidden on mobile */}
+                  <div className="hidden md:block text-black text-lg leading-relaxed mb-10">
                     {stripHtml(tech.excerpt || tech.content) || 'Discover how we use this technology to deliver reliable, scalable experiences.'}
                   </div>
 
-                  {/* CTA */}
-                  <div>
+                  {/* CTA - hidden on mobile, shown on desktop */}
+                  <div className="hidden md:block">
                     <a href="/contact" className="button-l-transparent">Find Out More</a>
                   </div>
                 </div>

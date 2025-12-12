@@ -389,7 +389,7 @@ export default async function NewsArticlePage({ params }) {
         enableTechnologiesSlider={!!toggles.showTechnologiesSlider}
         enableShowreel={!!toggles.showShowreel}
         enableLocationsImage={!!toggles.showLocationsImage}
-        enableNewsletterSignup={true}
+        enableNewsletterSignup={false}
         enableContactFormLeftImageRight={!!toggles.showContactFormLeftImageRight}
         enableJoinOurTeam={!!toggles.showJoinOurTeam}
         enableFullVideo={!!toggles.showFullVideo}
