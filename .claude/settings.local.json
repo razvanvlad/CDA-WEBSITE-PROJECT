@@ -31,7 +31,8 @@
       "Bash(copy /b srccomponentsGlobalBlocksHeroSection.jsx +,,)",
       "Bash(git checkout:*)",
       "Bash(grep:*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(xargs ls:*)"
     ],
     "deny": [],
     "ask": []

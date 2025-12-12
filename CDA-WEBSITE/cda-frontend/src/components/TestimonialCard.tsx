@@ -1,13 +1,31 @@
 'use client';
 import Image from 'next/image';
 
-export default function TestimonialCard() {
+interface TestimonialCardProps {
+  title?: string;
+  text?: string;
+  logo?: string;
+  profile?: string;
+  name?: string;
+  job?: string;
+  className?: string;
+}
+
+export default function TestimonialCard({
+  title = "What The Client Had To Say",
+  text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  logo = "/images/testimonial/oakleigh-testimonial-desktop.png",
+  profile = "/images/testimonial/user-profile-testimonial-desktop.png",
+  name = "Client Name",
+  job = "Job Position",
+  className = ""
+}: TestimonialCardProps) {
   return (
-    <section className="w-full py-16 lg:py-24 overflow-x-hidden">
+    <section className={`w-full py-16 lg:py-24 overflow-x-hidden ${className}`}>
       <div className="max-w-[1400px] mx-auto px-4 lg:px-20">
         {/* Title */}
         <h2 className="text-[38px] font-bold font-['Poppins'] text-center mb-12 lg:mb-16">
-          What The Client Had To Say
+          {title}
         </h2>
 
         {/* Card container with quotes */}
@@ -37,39 +55,44 @@ export default function TestimonialCard() {
           {/* Main gray card - NO FIXED HEIGHT */}
           <div className="relative bg-gray-100 w-[calc(100%-3rem)] max-w-[353px] lg:max-w-none lg:w-[1144px] mx-auto py-8 lg:py-12 px-6 lg:px-16">
             {/* Quote text with adjusted margin */}
-            <p className="text-black text-base lg:text-lg leading-relaxed lg:leading-9 mb-6 lg:mb-12">
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-            </p>
+            <div
+              className="text-black text-base lg:text-lg leading-relaxed lg:leading-9 mb-6 lg:mb-12"
+              dangerouslySetInnerHTML={{ __html: text }} // Use dangerouslySetInnerHTML to support formatted text if needed
+            />
 
             {/* DESKTOP CLIENT INFO */}
             <div className="hidden lg:flex items-center gap-6">
               {/* Company logo container - NO BORDER */}
-              <div className="bg-white px-6 py-4 flex items-center justify-center min-w-[200px]">
-                <Image
-                  src="/images/testimonial/oakleigh-testimonial-desktop.png"
-                  alt="Company logo"
-                  width={180}
-                  height={60}
-                  className="hidden lg:block"
-                />
-              </div>
+              {logo && (
+                <div className="bg-white px-6 py-4 flex items-center justify-center min-w-[200px]">
+                  <Image
+                    src={logo}
+                    alt="Company logo"
+                    width={180}
+                    height={60}
+                    className="hidden lg:block object-contain"
+                  />
+                </div>
+              )}
 
               {/* Client photo - NO BORDER */}
-              <Image
-                src="/images/testimonial/user-profile-testimonial-desktop.png"
-                alt="Client photo"
-                width={80}
-                height={80}
-                className="rounded-full object-cover"
-              />
+              {profile && (
+                <Image
+                  src={profile}
+                  alt="Client photo"
+                  width={80}
+                  height={80}
+                  className="rounded-full object-cover w-[80px] h-[80px]"
+                />
+              )}
 
               {/* Client details */}
               <div>
                 <p className="text-black text-xl font-bold font-['Poppins'] capitalize">
-                  Client Name
+                  {name}
                 </p>
                 <p className="text-black text-xl font-normal font-['Inter']">
-                  Job Position
+                  {job}
                 </p>
               </div>
             </div>
@@ -77,32 +100,36 @@ export default function TestimonialCard() {
             {/* MOBILE CLIENT INFO */}
             <div className="lg:hidden flex flex-col items-center gap-6">
               {/* Company logo container - NO BORDER */}
-              <div className="bg-white px-6 py-4 flex items-center justify-center w-full max-w-[280px]">
-                <Image
-                  src="/images/testimonial/oakleigh-testimonial-mobile.png"
-                  alt="Company logo"
-                  width={200}
-                  height={60}
-                  className="lg:hidden"
-                />
-              </div>
+              {logo && (
+                <div className="bg-white px-6 py-4 flex items-center justify-center w-full max-w-[280px]">
+                  <Image
+                    src={logo} // Use same logo, assuming responsive handling or generic support
+                    alt="Company logo"
+                    width={200}
+                    height={60}
+                    className="lg:hidden object-contain"
+                  />
+                </div>
+              )}
 
               {/* Client photo and details */}
               <div className="flex flex-col items-center gap-3">
                 {/* Client photo - NO BORDER */}
-                <Image
-                  src="/images/testimonial/user-profile-testimonial-mobile.png"
-                  alt="Client photo"
-                  width={100}
-                  height={100}
-                  className="rounded-full object-cover"
-                />
+                {profile && (
+                  <Image
+                    src={profile}
+                    alt="Client photo"
+                    width={100}
+                    height={100}
+                    className="rounded-full object-cover w-[100px] h-[100px]"
+                  />
+                )}
                 <div className="text-center">
                   <p className="text-black text-xl font-bold font-['Poppins'] capitalize">
-                    Client Name
+                    {name}
                   </p>
                   <p className="text-black text-lg font-normal font-['Inter']">
-                    Job Position
+                    {job}
                   </p>
                 </div>
               </div>

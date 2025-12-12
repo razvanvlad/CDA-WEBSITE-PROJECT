@@ -4,11 +4,147 @@
  */
 
 // GraphQL endpoint configuration
-const GRAPHQL_ENDPOINT =
-  process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_ENDPOINT ||
-  (process?.env?.NEXT_PUBLIC_WORDPRESS_URL
-    ? `${process.env.NEXT_PUBLIC_WORDPRESS_URL.replace(/\/$/, '')}/graphql`
-    : '/api/wp-graphql');
+// GraphQL endpoint configuration
+const GRAPHQL_ENDPOINT = 'http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/graphql';
+
+// =============================================================================
+// BLOG / NEWS QUERIES
+// =============================================================================
+
+export const GET_BLOG_POST_BY_SLUG = `
+  query GetBlogPostBySlug($slug: ID!) {
+    blogPost(id: $slug, idType: SLUG) {
+      id
+      title
+      slug
+      uri
+      date
+      content
+      excerpt
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+          mediaDetails { width height }
+        }
+      }
+      blogCategories {
+        nodes {
+          name
+          slug
+        }
+      }
+      blogPosts {
+        hero {
+          title
+          date
+          readTime
+          cta { url title target }
+          image {
+            node {
+              sourceUrl
+              altText
+              mediaDetails { width height }
+            }
+          }
+          relevantServices {
+            nodes {
+              id
+              ... on Service {
+                title
+                uri
+              }
+              ... on SubService {
+                title
+                uri
+              }
+            }
+          }
+          author {
+            node {
+              id
+              ... on TeamMember {
+                title
+                uri
+              }
+            }
+          }
+        }
+        information {
+          what
+          points {
+            text
+          }
+          who
+          text
+          why
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+        article {
+          title
+          text
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+      }
+      globalContentToggles {
+        showApproach
+        showCaseStudies
+        showImageFrame
+        showThreeColumns
+        showValues
+        showWhyCda
+        showServicesAccordion
+        showTechnologiesSlider
+        showShowreel
+        showLocationsImage
+        showNewsletterSignup
+        showContactFormLeftImageRight
+        showJoinOurTeam
+        showFullVideo
+        showStatsAndNumbers
+        showCultureGallerySlider
+      }
+    }
+  }
+`;
+
+export async function getBlogPostBySlug(slug) {
+  const response = await executeGraphQLQuery(GET_BLOG_POST_BY_SLUG, { slug });
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return null;
+  }
+  return response.data?.blogPost || null;
+}
+
+export async function getBlogPostSlugs() {
+  const query = `
+    query GetAllBlogPostSlugs {
+      blogPosts(first: 100) {
+        nodes {
+          slug
+        }
+      }
+    }
+  `;
+  const response = await executeGraphQLQuery(query);
+  if (response.errors) {
+    console.error('GraphQL errors:', response.errors);
+    return [];
+  }
+  return response.data?.blogPosts?.nodes?.map((node) => node.slug) || [];
+}
+
 
 // Resolve endpoint to absolute URL on server; relative is fine on the client
 function resolveGraphQLEndpoint() {
@@ -110,6 +246,7 @@ export const GET_ALL_SERVICES = `
               ... on CaseStudy {
                 id
                 title
+                slug
                 uri
                 excerpt
                 featuredImage {
@@ -180,6 +317,7 @@ export const GET_SERVICES_WITH_PAGINATION = `
               ... on CaseStudy {
                 id
                 title
+                slug
                 uri
                 excerpt
                 featuredImage {
@@ -347,6 +485,7 @@ export const GET_SERVICE_BY_SLUG = `
             ... on CaseStudy {
               id
               title
+              slug
               uri
               excerpt
               featuredImage {
@@ -762,28 +901,35 @@ export const GET_ALL_CASE_STUDIES = `
         id
         title
         slug
+        uri
         date
         excerpt
         featuredImage {
           node {
             sourceUrl
             altText
+            mediaDetails { width height }
           }
         }
-        caseStudyFields {
-          projectOverview {
-            clientName
-            clientLogo {
+        caseStudyProjects {
+          hero {
+            title
+            text
+            image {
               node {
                 sourceUrl
                 altText
+                mediaDetails { width height }
               }
             }
           }
-          featured
+          customerDetails {
+            company
+          }
         }
         projectTypes {
           nodes {
+            id
             name
             slug
           }
@@ -839,6 +985,7 @@ export const GET_CASE_STUDY_BY_SLUG = `
       id
       title
       slug
+      uri
       date
       content
       excerpt
@@ -846,24 +993,143 @@ export const GET_CASE_STUDY_BY_SLUG = `
         node {
           sourceUrl
           altText
+          mediaDetails { width height }
         }
       }
-      caseStudyFields {
-        projectOverview {
-          clientName
-          clientLogo {
+      seo {
+        title
+        metaDesc
+        opengraphImage {
+          sourceUrl
+        }
+      }
+      caseStudyProjects {
+        hero {
+          title
+          text
+          liveSite { url title target }
+          downloadPdf {
+            node {
+              mediaItemUrl
+              title
+              mimeType
+            }
+          }
+          image {
             node {
               sourceUrl
               altText
+              mediaDetails { width height }
             }
           }
-          projectUrl
-          completionDate
+          servicesUsed {
+            nodes {
+              ... on Service {
+                id
+                title
+                uri
+                slug
+              }
+              ... on SubService {
+                id
+                title
+                uri
+                slug
+              }
+            }
+          }
         }
-        challenge
-        solution
-        results
-        featured
+        customerDetails {
+          company
+          text
+          goals
+          text2
+        }
+        challenge {
+          title
+          text
+          image {
+            node {
+              sourceUrl
+              altText
+              mediaDetails { width height }
+            }
+          }
+        }
+        technologies {
+          title
+          logos {
+            nodes {
+              ... on Technology {
+                id
+                title
+                uri
+                slug
+                featuredImage {
+                  node {
+                    sourceUrl
+                    altText
+                  }
+                }
+              }
+            }
+          }
+        }
+        solution {
+          title
+          desktopText
+          mobileText
+          desktopImage {
+            nodes {
+              sourceUrl
+              altText
+              mediaDetails { width height }
+            }
+          }
+          mobileImage {
+            nodes {
+              sourceUrl
+              altText
+              mediaDetails { width height }
+            }
+          }
+          results {
+            title
+            first {
+              metric
+              number
+              text
+            }
+            second {
+              metric
+              number
+              text
+            }
+            third {
+              metric
+              number
+              text
+            }
+          }
+          testimonial {
+            title
+            text
+            logo {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            profile {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            name
+            job
+          }
+        }
       }
       projectTypes {
         nodes {
@@ -882,23 +1148,159 @@ export const GET_CASE_STUDY_BY_URI = `
       id
       title
       slug
+      uri
       date
       content
       excerpt
-      featuredImage { node { sourceUrl altText } }
-      caseStudyFields {
-        projectOverview {
-          clientName
-          clientLogo { node { sourceUrl altText } }
-          projectUrl
-          completionDate
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+          mediaDetails { width height }
         }
-        challenge
-        solution
-        results
-        featured
       }
-      projectTypes { nodes { id name slug } }
+      seo {
+        title
+        metaDesc
+        opengraphImage {
+          sourceUrl
+        }
+      }
+      caseStudyProjects {
+        hero {
+          title
+          text
+          liveSite { url title target }
+          downloadPdf {
+            node {
+              mediaItemUrl
+              title
+              mimeType
+            }
+          }
+          image {
+            node {
+              sourceUrl
+              altText
+              mediaDetails { width height }
+            }
+          }
+          servicesUsed {
+            nodes {
+              ... on Service {
+                id
+                title
+                uri
+                slug
+              }
+              ... on SubService {
+                id
+                title
+                uri
+                slug
+              }
+            }
+          }
+        }
+        customerDetails {
+          company
+          text
+          goals
+          text2
+        }
+        challenge {
+          title
+          text
+          image {
+            node {
+              sourceUrl
+              altText
+              mediaDetails { width height }
+            }
+          }
+        }
+        technologies {
+          title
+          logos {
+            nodes {
+              ... on Technology {
+                id
+                title
+                uri
+                slug
+                featuredImage {
+                  node {
+                    sourceUrl
+                    altText
+                  }
+                }
+              }
+            }
+          }
+        }
+        solution {
+          title
+          desktopText
+          mobileText
+          desktopImage {
+            nodes {
+              sourceUrl
+              altText
+              mediaDetails { width height }
+            }
+          }
+          mobileImage {
+            nodes {
+              sourceUrl
+              altText
+              mediaDetails { width height }
+            }
+          }
+          results {
+            title
+            first {
+              metric
+              number
+              text
+            }
+            second {
+              metric
+              number
+              text
+            }
+            third {
+              metric
+              number
+              text
+            }
+          }
+          testimonial {
+            title
+            text
+            logo {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            profile {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            name
+            job
+          }
+        }
+      }
+      projectTypes {
+        nodes {
+          id
+          name
+          slug
+        }
+      }
     }
   }
 `;
@@ -1557,6 +1959,7 @@ export const GET_GLOBAL_CASE_STUDIES_SECTION = `
               ... on CaseStudy {
                 id
                 title
+                slug
                 uri
                 excerpt
                 featuredImage { node { sourceUrl altText } }
@@ -1830,7 +2233,7 @@ export const GET_GLOBAL_CASE_STUDIES_SECTION_ONLY = `
         knowledgeHubLink { url title target }
         selectedStudies {
           nodes {
-            ... on CaseStudy { id title uri excerpt featuredImage { node { sourceUrl altText } } }
+            ... on CaseStudy { id title slug uri excerpt featuredImage { node { sourceUrl altText } } }
           }
         }
       }

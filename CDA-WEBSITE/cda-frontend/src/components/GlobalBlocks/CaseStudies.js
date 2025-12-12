@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import TextLinkButton from '../ui/TextLinkButton';
@@ -151,7 +152,7 @@ const CaseStudies = ({ globalData, pageData, useOverride = false }) => {
                 <div className="cs-content">
                   <h3 className="cs-title mb-4">{study.title}</h3>
                   <div className="cs-excerpt mb-2" dangerouslySetInnerHTML={{ __html: study.excerpt }} />
-                  <a href={study.uri} className="button-l-transparent mt-5">Read Case Study</a>
+                  <Link href={`/case-studies/${study.slug}`} className="button-l-transparent mt-5">Read Case Study</Link>
                 </div>
               </article>
             ))}
