@@ -35,8 +35,14 @@ export default async function SubServicePage({ params }) {
 
   if (!subslug) notFound();
 
-  // Fetch sub-service data
-  const result = await executeGraphQLQuery(GET_SUBSERVICE_BY_SLUG, { slug: subslug });
+  // Fetch sub-service data with error handling
+  let result;
+  try {
+    result = await executeGraphQLQuery(GET_SUBSERVICE_BY_SLUG, { slug: subslug });
+  } catch (error) {
+    console.error('SubServicePage: Failed to fetch data for', subslug, error);
+    notFound();
+  }
 
   if (result?.errors) {
     console.error('GraphQL errors:', result.errors);

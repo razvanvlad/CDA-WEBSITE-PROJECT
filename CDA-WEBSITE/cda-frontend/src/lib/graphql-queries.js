@@ -222,6 +222,8 @@ function resolveGraphQLEndpoint() {
 export async function executeGraphQLQuery(query, variables = {}) {
   try {
     const resolvedEndpoint = resolveGraphQLEndpoint();
+    console.log('[GraphQL] Fetching from:', resolvedEndpoint);
+
     const response = await fetch(resolvedEndpoint, {
       method: 'POST',
       headers: {
@@ -237,10 +239,28 @@ export async function executeGraphQLQuery(query, variables = {}) {
 
     if (!response.ok) {
       const errorText = await response.text().catch(() => response.statusText);
+      console.error('[GraphQL] HTTP error:', response.status, 'Endpoint:', resolvedEndpoint);
       throw new Error(`HTTP ${response.status}: ${errorText}`);
     }
 
-    const result = await response.json();
+    // Get the raw text first to check if it's valid JSON
+    const responseText = await response.text();
+
+    // Check if response starts with HTML (error page)
+    if (responseText.startsWith('<!') || responseText.startsWith('<html') || responseText.startsWith('<?xml')) {
+      console.error('[GraphQL] Received HTML instead of JSON from:', resolvedEndpoint);
+      console.error('[GraphQL] Response preview:', responseText.substring(0, 200));
+      throw new Error(`GraphQL endpoint returned HTML instead of JSON. Check if WPGraphQL is active.`);
+    }
+
+    let result;
+    try {
+      result = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error('[GraphQL] Failed to parse JSON from:', resolvedEndpoint);
+      console.error('[GraphQL] Response preview:', responseText.substring(0, 200));
+      throw new Error(`Invalid JSON response: ${parseError.message}`);
+    }
 
     // Log GraphQL errors but still return the result (partial data may be present)
     if (result.errors) {
@@ -768,6 +788,7 @@ export const GET_SUBSERVICE_BY_SLUG = `
       nodes {
         id
         title
+        slug
         uri
         excerpt
         featuredImage {
