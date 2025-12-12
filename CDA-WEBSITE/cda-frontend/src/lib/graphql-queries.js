@@ -71,6 +71,14 @@ export const GET_BLOG_POST_BY_SLUG = `
                 title
                 uri
                 slug
+                teamMemberFields {
+                  featuredImage {
+                    node {
+                      sourceUrl
+                      altText
+                    }
+                  }
+                }
               }
             }
           }
