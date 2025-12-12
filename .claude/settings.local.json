@@ -32,7 +32,11 @@
       "Bash(git checkout:*)",
       "Bash(grep:*)",
       "Bash(wc:*)",
-      "Bash(xargs ls:*)"
+      "Bash(xargs ls:*)",
+      "Bash(npm outdated:*)",
+      "Bash(npm view:*)",
+      "Bash(npm audit:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []
