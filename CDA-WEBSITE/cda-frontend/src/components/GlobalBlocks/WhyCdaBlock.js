@@ -55,12 +55,12 @@ const WhyCdaBlock = ({ globalData }) => {
                         <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
                           <div className="p-6 text-center">
                             {card?.title && (
-                              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                              <h3 className="text-xl font-semibold text-black mb-3">
                                 {card.title}
                               </h3>
                             )}
                             {card?.description && (
-                              <p className="text-gray-600 leading-relaxed mb-6">
+                              <p className="text-black leading-relaxed mb-6">
                                 {card.description}
                               </p>
                             )}
@@ -110,32 +110,32 @@ const WhyCdaBlock = ({ globalData }) => {
             {cards.map((card, index) => (
               <div
                 key={index}
-                className="relative bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden min-h-[260px]"
+                className="relative bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden min-h-[244px] flex items-center"
               >
-                {/* Text column (leave room on the right for the image) */}
-                <div className="p-8 pr-52">
+                {/* Text column (centered vertically due to flex on parent) */}
+                <div className="py-14 pl-12 pr-64">
                   {card?.title && (
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                    <h3 className="text-xl font-semibold text-black mb-3">
                       {card.title}
                     </h3>
                   )}
                   {card?.description && (
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="text-black leading-relaxed max-w-[412px]">
                       {card.description}
                     </p>
                   )}
                 </div>
 
-                {/* Illustration anchored to bottom-right */}
+                {/* Illustration anchored to bottom-right, larger size */}
                 {card?.icon?.node?.sourceUrl && (
-                  <div className="absolute right-6 bottom-0 h-[160px] lg:h-[180px] pointer-events-none select-none">
+                  <div className="absolute right-0 top-5 bottom-0 w-auto h-auto pointer-events-none select-none">
                     <Image
                       src={card.icon.node.sourceUrl}
                       alt={card.icon.node.altText || card.title || ''}
                       width={360}
-                      height={220}
-                      sizes="(min-width: 1024px) 180px"
-                      className="h-full w-auto object-contain"
+                      height={360}
+                      sizes="(min-width: 1024px) 300px"
+                      className="h-full w-auto object-contain object-bottom"
                       priority={index < 2}
                     />
                   </div>

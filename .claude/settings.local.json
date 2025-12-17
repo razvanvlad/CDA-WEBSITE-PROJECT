@@ -36,7 +36,8 @@
       "Bash(npm outdated:*)",
       "Bash(npm view:*)",
       "Bash(npm audit:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(del \"CDA-WEBSITE\\cda-frontend\\src\\components\\ServiceHeroClient.jsx\")"
     ],
     "deny": [],
     "ask": []

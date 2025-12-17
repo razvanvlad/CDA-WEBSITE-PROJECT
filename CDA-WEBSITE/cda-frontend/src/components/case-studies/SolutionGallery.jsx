@@ -166,7 +166,7 @@ export default function SolutionGallery({ data }) {
             </button>
           </div>
 
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Mobile Experience</h3>
+
 
           <div
             className="prose prose-lg text-gray-600 leading-relaxed"

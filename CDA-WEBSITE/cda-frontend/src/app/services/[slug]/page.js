@@ -144,14 +144,14 @@ export default async function ServicePage({ params }) {
           ctas={[
             heroSection.cta?.title
               ? {
-                href: '#contact-form',
+                href: '/contact',
                 label: heroSection.cta.title,
                 className: 'button-l',
               }
               : null,
             heroSection.ctab?.title
               ? {
-                href: heroSection.ctab.url || '#contact-form',
+                href: heroSection.ctab.url || '/contact',
                 label: heroSection.ctab.title,
                 className: 'button-without-box',
               }
