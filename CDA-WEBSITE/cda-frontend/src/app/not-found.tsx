@@ -13,7 +13,7 @@ export const metadata = { title: '404 – Page Not Found' };
 function HeaderFallback() {
   return (
     <header className="bg-white" style={{ borderBottom: '1px solid #EBEBEB' }}>
-      <div className="mx-auto max-w-[1620px] container-padding h-[79px] md:h-[125px] flex items-center">
+      <div className="cda-container h-[79px] md:h-[125px] flex items-center">
         <div className="w-full max-w-[353px] md:max-w-none mx-0 md:mx-auto">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
@@ -46,7 +46,7 @@ export default function NotFound() {
 
       <main className="bg-white">
         {/* Copy */}
-        <section className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8 py-16 md:py-20">
+        <section className="cda-container py-16 md:py-20">
           <div className="text-center max-w-3xl mx-auto">
             <ResponsiveUnderlinedTitle
               as="h1"

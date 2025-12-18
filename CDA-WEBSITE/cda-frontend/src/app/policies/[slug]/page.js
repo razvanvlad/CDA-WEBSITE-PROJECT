@@ -88,7 +88,7 @@ export default async function PolicyDetailPage({ params }) {
         <Header backButton={{ href: '/policies', label: 'Back To Policies' }} />
         <article className="min-h-screen bg-white py-16">
 
-          <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-4">
+          <div className="cda-container">
 
             {/* Policy Header - Title and Homepage Button */}
             <header className="mb-8">
@@ -144,7 +144,7 @@ export default async function PolicyDetailPage({ params }) {
       <>
         <Header />
         <div className="min-h-screen bg-white py-16">
-          <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
+          <div className="cda-container">
             <div className="bg-red-50 p-8 rounded-lg text-center">
               <h1 className="text-2xl font-bold text-red-700 mb-4">Error Loading Policy</h1>
               <p className="text-red-600 mb-6">

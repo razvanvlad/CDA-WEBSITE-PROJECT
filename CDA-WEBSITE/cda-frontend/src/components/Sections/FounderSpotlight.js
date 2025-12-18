@@ -9,7 +9,7 @@ export default function FounderSpotlight({ leader }) {
 
   return (
     <section className="py-16 bg-white">
-      <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
+      <div className="cda-container">
         <div className="text-center mb-12">
           <p className="text-[12px] tracking-[0.18em] font-semibold uppercase text-black mb-2">Founder Spotlight</p>
           <h2 className="text-3xl md:text-4xl font-bold text-black">Our Leadership</h2>

@@ -85,7 +85,7 @@ export default async function TechnologiesPage() {
 
       {/* Technologies Cards Section */}
       <section className="bg-white py-16">
-        <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
+        <div className="cda-container">
           {technologies.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {technologies.map((tech) => (

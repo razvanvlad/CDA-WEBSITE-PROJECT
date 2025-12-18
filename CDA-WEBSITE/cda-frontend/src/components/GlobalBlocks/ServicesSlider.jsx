@@ -50,7 +50,7 @@ export default function ServicesSlider({
       desktop={{ color: 'bg-gray-100', height: 'h-[320px]', position: 'top' }}
     >
       <section className="services-slider">
-        <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
+        <div className="cda-container">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div className="text-center md:text-left w-full">

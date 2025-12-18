@@ -198,7 +198,7 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
 
       <header className="bg-white" style={{ borderBottom: '1px solid #EBEBEB' }}>
         {/* Mobile: 79px height | Desktop: 125px height */}
-        <div className="mx-auto max-w-[1620px] container-padding h-[79px] md:h-[125px] flex items-center">
+        <div className="cda-container h-[79px] md:h-[125px] flex items-center">
           {/* Mobile: 353px container for Logo + Menu */}
           <div className="w-full max-w-[353px] md:max-w-none mx-0 md:mx-auto">
             <div className="flex items-center justify-between">
@@ -243,7 +243,7 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
       {/* Breadcrumb row (outside header, below the line) */}
       {!isHome && (
         <div className="bg-white">
-          <div className="mx-auto max-w-[1620px] container-padding py-2">
+          <div className="cda-container py-2">
             <nav aria-label="Breadcrumb">
               <ol className="flex items-center gap-2 text-[14px] md:text-[15px] text-black min-w-0">
                 <li className="flex-shrink-0">

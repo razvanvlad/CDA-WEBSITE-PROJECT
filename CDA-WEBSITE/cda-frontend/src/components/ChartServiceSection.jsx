@@ -12,7 +12,7 @@ export default function ChartServiceSection({ serviceColor = '#3cbeeb', performa
 
   return (
     <section className="chart-service-section bg-gray-50 py-16 lg:py-24">
-      <div className="container mx-auto px-4" style={{ maxWidth: '1620px' }}>
+      <div className="cda-container">
 
         {/* SECTION 1: Chart + Title/Description/CTA from ACF */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20 lg:mb-32">

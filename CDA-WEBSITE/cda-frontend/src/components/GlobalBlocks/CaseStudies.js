@@ -104,7 +104,7 @@ const CaseStudies = ({ globalData, pageData, useOverride = false, serviceColor }
 
   return (
     <section className="home-case-studies py-20">
-      <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
+      <div className="cda-container">
         {/* Header: left subtitle + title, right CTA (empty box style) */}
         <div className="cs-header">
           <div className="cs-head-left">

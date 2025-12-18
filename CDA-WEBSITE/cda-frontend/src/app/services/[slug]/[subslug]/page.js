@@ -103,6 +103,8 @@ export default async function SubServicePage({ params }) {
       date: post.date,
       excerpt: post.excerpt,
       featuredImage: post.featuredImage,
+      blogCategories: post.blogCategories, // Include categories for color mapping
+      blogPosts: post.blogPosts, // Include ACF hero image
     })),
     allNewsLink: '/news'
   } : null;
@@ -169,7 +171,7 @@ export default async function SubServicePage({ params }) {
         {/* Stats Section */}
         {statsSection?.stats && statsSection.stats.length > 0 ? (
           <section className="py-16 lg:py-24" style={{ backgroundColor: '#F4F4F4' }}>
-            <div className="container mx-auto px-4" style={{ maxWidth: '1620px' }}>
+            <div className="cda-container">
               {/* Title and Text */}
               {(statsSection.title || statsSection.text) && (
                 <div className="mb-12 lg:mb-16">
@@ -216,7 +218,7 @@ export default async function SubServicePage({ params }) {
         {/* Video Section */}
         {videoSection && (
           <section className="py-16">
-            <div className="container mx-auto px-4" style={{ maxWidth: '1620px' }}>
+            <div className="cda-container">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 {/* Image/Video */}
                 <div className="relative">
@@ -280,7 +282,7 @@ export default async function SubServicePage({ params }) {
         {/* Frame Section */}
         {frameSection && (
           <section className="py-16 bg-gray-50">
-            <div className="container mx-auto px-4" style={{ maxWidth: '1620px' }}>
+            <div className="cda-container">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 {/* Content */}
                 <div className="space-y-6 lg:order-1">

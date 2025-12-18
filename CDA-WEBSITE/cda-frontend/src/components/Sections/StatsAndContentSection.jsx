@@ -46,7 +46,7 @@ const StatsAndContentSection = ({
 }) => {
   return (
     <section className={`stats-and-content-section py-16 md:py-20 lg:py-24 ${className}`}>
-      <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
+      <div className="cda-container">
 
         {/* PART 1 - STATISTICS ROW */}
         <div className="stats-row mb-16 md:mb-20 lg:mb-24">

@@ -3,7 +3,7 @@ import React from 'react';
 export default function JoinOurTeamCTA({ title = 'Join Our Team', description = 'We are always looking for passionate people to join our mission.', primary = { title: 'Open Positions', url: '/careers' } }) {
   return (
     <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white">
-      <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8 text-center">
+      <div className="cda-container text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">{title}</h2>
         <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">{description}</p>
         <div className="flex flex-wrap gap-4 justify-center">

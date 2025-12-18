@@ -105,9 +105,26 @@
 
 .cda-hero__container {
   width: 100%;
-  max-width: 1620px;
+  max-width: calc(var(--container-max-desktop) + (var(--spacing-container-mobile) * 2));
   margin: 0 auto;
-  /* Padding applied via Tailwind classes in component */
+  padding-left: var(--spacing-container-mobile);
+  padding-right: var(--spacing-container-mobile);
+}
+
+@media (min-width: 768px) {
+  .cda-hero__container {
+    max-width: calc(var(--container-max-desktop) + (var(--spacing-container-tablet) * 2));
+    padding-left: var(--spacing-container-tablet);
+    padding-right: var(--spacing-container-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cda-hero__container {
+    max-width: calc(var(--container-max-desktop) + (var(--spacing-container-desktop) * 2));
+    padding-left: var(--spacing-container-desktop);
+    padding-right: var(--spacing-container-desktop);
+  }
 }
 
 /* Mobile grid removed - now handled by components.css with flexbox */

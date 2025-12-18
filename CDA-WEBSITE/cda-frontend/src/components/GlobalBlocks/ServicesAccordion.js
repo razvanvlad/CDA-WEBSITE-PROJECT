@@ -42,7 +42,7 @@ const ServicesAccordion = ({
 
   return (
     <section className={sectionCls}>
-      <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8 relative z-10">
+      <div className="cda-container relative z-10">
         <div className="grid grid-cols-12 gap-y-10 gap-x-10 items-start">
           {/* Left: Title/subtitle */}
           <div className="col-span-12 lg:col-span-4">
@@ -59,7 +59,7 @@ const ServicesAccordion = ({
           </div>
 
           {/* Right: Accordion */}
-          <div className="col-span-12 lg:col-span-8 overflow-x-hidden">
+          <div className="col-span-12 lg:col-span-8 overflow-hidden">
             <div className="divide-y divide-gray-200 border-t border-gray-200">
               {itemsRaw.map((item, idx) => {
                 const isOpen = openIndex === idx;
@@ -69,17 +69,21 @@ const ServicesAccordion = ({
                   <div key={item.id || `${item.slug || 'svc'}-${idx}`} className={isLast ? 'border-b border-gray-200' : ''}>
                     <button
                       type="button"
-                      className="w-full text-left py-3 md:py-6 flex items-center gap-3 md:gap-4 overflow-hidden min-w-0"
+                      className="w-full text-left py-3 md:py-6 flex items-center gap-3 md:gap-4"
+                      style={{ minWidth: 0 }}
                       aria-expanded={isOpen}
                       onClick={() => setOpenIndex(isOpen ? -1 : idx)}
                     >
                       <span
                         className="flex-1 min-w-0 text-[18px] md:text-[22px] font-bold text-black leading-tight"
-                        style={{ overflowWrap: 'anywhere' }}
+                        style={{
+                          overflowWrap: 'break-word',
+                          wordBreak: 'break-word'
+                        }}
                       >
                         {item.title}
                       </span>
-                      <span className="flex-shrink-0">
+                      <span className="flex-shrink-0 ml-2">
                         {isOpen ? (
                           <img
                             src="/images/minus.svg"

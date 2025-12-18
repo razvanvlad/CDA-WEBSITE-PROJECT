@@ -35,7 +35,7 @@ const Showreel = ({ globalData }) => {
     >
       {/* Header: mobile stacked/centered; desktop split */}
       {(subtitle || title || button) && (
-        <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
+        <div className="cda-container">
           <div className="mb-6 md:mb-8 flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">
             <div className="text-left">
               {subtitle && <p className="cda-subtitle">{subtitle}</p>}
@@ -57,7 +57,7 @@ const Showreel = ({ globalData }) => {
 
       {/* Hero image - Full width on mobile, contained on desktop */}
       {largeImage?.node?.sourceUrl && (
-        <div className="md:mx-auto md:w-full md:max-w-[1620px] md:px-6 lg:px-8">
+        <div className="md:cda-container">
           <div className="showreel-image-container relative md:rounded-xl overflow-hidden border-y md:border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
             <img
               src={largeImage.node.sourceUrl}
@@ -97,7 +97,7 @@ const Showreel = ({ globalData }) => {
           </div>
 
           {/* DESKTOP grid */}
-          <div className="hidden md:flex mt-12 mx-auto w-full max-w-[1620px] px-6 lg:px-8 flex-wrap justify-between items-center gap-6">
+          <div className="hidden md:flex mt-12 cda-container flex-wrap justify-between items-center gap-6">
             {logos.map((logo, i) => (
               <div key={i} className="flex items-center justify-center" style={{ maxWidth: '220px', flex: '0 1 auto' }}>
                 <img

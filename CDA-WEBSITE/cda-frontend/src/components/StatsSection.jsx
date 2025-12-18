@@ -31,7 +31,7 @@ export default function StatsSection() {
 
     return (
         <section className="stats-section bg-white py-16 lg:py-24 relative">
-            <div className="container mx-auto px-4" style={{ maxWidth: '1620px' }}>
+            <div className="cda-container">
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20 lg:mb-24">
                     {stats.map((stat, index) => (

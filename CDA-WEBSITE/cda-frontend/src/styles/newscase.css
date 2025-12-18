@@ -18,7 +18,7 @@
 }
 
 .news-carousel-container {
-  max-width: 1620px;
+  max-width: 1616px;
   margin: 0 auto;
 }
 
@@ -679,7 +679,7 @@
 }
 
 .knowledge-hub-card__bottom--center {
-  text-align: center;
+  text-align: left;
 }
 
 /* Badge wrapper with SVG underline */

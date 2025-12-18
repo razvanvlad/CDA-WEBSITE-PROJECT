@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
+import { getServiceColor, getServiceTitle } from '@/lib/serviceColors';
 
 function stripHtml(html) {
   return html?.replace(/<[^>]*>/g, '') || '';
@@ -322,10 +323,15 @@ export default function KnowledgeHubClient({ initialCaseStudies = [], initialPos
             }
 
             const p = item.data;
-            const imageUrl = p.featuredImage?.node?.sourceUrl || '/images/placeholder.jpg';
-            // Rotate colors for underline
-            const colors = ['#3CBEEB', '#01E486', '#FD8721', '#FF60DF', '#AD80F9'];
-            const underlineColor = colors[index % colors.length];
+            const imageUrl = p.blogPosts?.hero?.image?.node?.sourceUrl || p.featuredImage?.node?.sourceUrl || '/images/placeholder.jpg';
+
+            // Get category and color
+            const category = p.blogCategories?.nodes?.[0];
+            const categorySlug = category?.slug || '';
+            const underlineColor = getServiceColor(categorySlug);
+
+            // Get all categories as comma-separated string
+            const categoriesText = p.blogCategories?.nodes?.map(cat => cat.name).join(', ') || '';
 
             return (
               <Link href={`/news/${p.slug}`} key={item.id}>
@@ -333,13 +339,13 @@ export default function KnowledgeHubClient({ initialCaseStudies = [], initialPos
                   <div className="knowledge-hub-card__image-wrapper">
                     <Image
                       src={imageUrl}
-                      alt={p.featuredImage?.node?.altText || p.title}
+                      alt={p.blogPosts?.hero?.image?.node?.altText || p.featuredImage?.node?.altText || p.title}
                       fill
                       className="knowledge-hub-card__image"
                     />
                     <div className="knowledge-hub-card__overlay"></div>
                   </div>
-                  {/* Top: Tag left, Date right */}
+                  {/* Top: News badge (left) + Date (right) */}
                   <div className="knowledge-hub-card__top knowledge-hub-card__top--spread">
                     <BadgeWithUnderline color={underlineColor}>
                       News
@@ -348,8 +354,16 @@ export default function KnowledgeHubClient({ initialCaseStudies = [], initialPos
                       {new Date(p.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </time>
                   </div>
-                  {/* Bottom center: Title */}
+                  {/* Bottom center: Categories + Title */}
                   <div className="knowledge-hub-card__bottom knowledge-hub-card__bottom--center">
+                    {/* Categories as plain text */}
+                    {categoriesText && (
+                      <p className="text-white text-[14px] md:text-[18px] font-normal font-inter mb-2 opacity-90">
+                        {categoriesText}
+                      </p>
+                    )}
+
+                    {/* Title */}
                     <h3 className="knowledge-hub-card__title">{p.title}</h3>
                   </div>
                 </article>

@@ -57,7 +57,7 @@ const CultureGallerySlider = ({ globalData }) => {
 
   return (
     <section className="culture-gallery-slider py-16" style={{ backgroundColor: '#ffffffff' }}>
-      <div className="max-w-[1620px] mx-auto px-[38px]">
+      <div className="cda-container">
         {/* Header */}
         <div className="mb-12">
           {/* First Row: Subtitle - centered on mobile, left on desktop */}

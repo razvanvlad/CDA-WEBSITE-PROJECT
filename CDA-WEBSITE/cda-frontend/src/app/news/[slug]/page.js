@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import GlobalTailSections from '../../../components/GlobalBlocks/GlobalTailSections.jsx';
 import { getBlogPostBySlug, getGlobalContent, getAdjacentBlogPosts } from '../../../lib/graphql-queries';
 import ResponsiveUnderlinedTitle from '../../../components/ResponsiveUnderlinedTitle';
+import { getServiceColor, getServiceTitle } from '../../../lib/serviceColors';
 
 // Generate static params for all blog posts
 export async function generateStaticParams() {
@@ -61,6 +62,12 @@ export default async function NewsArticlePage({ params }) {
   // Get Author info
   const authorName = hero?.author?.node?.title || 'CDA Team';
 
+  // Get category and service color
+  const category = categories[0];
+  const categorySlug = category?.slug || '';
+  const categoryName = category?.name || getServiceTitle(categorySlug);
+  const serviceColor = getServiceColor(categorySlug); // This will be used for underlines and bullets
+
   // Fetch global blocks for tail sections
   const globalContentBlocks = await getGlobalContent();
 
@@ -83,7 +90,7 @@ export default async function NewsArticlePage({ params }) {
                 <ResponsiveUnderlinedTitle
                   as="h1"
                   className="text-4xl lg:text-5xl font-extrabold text-black mb-6 leading-tight"
-                  underlineColor="#ff6a00"
+                  underlineColor={serviceColor}
                 >
                   {title}
                 </ResponsiveUnderlinedTitle>
@@ -181,7 +188,7 @@ export default async function NewsArticlePage({ params }) {
                             {information.points.map((pt, idx) => (
                               pt.text && (
                                 <li key={idx} className="flex items-start gap-3 text-gray-700 text-sm leading-relaxed">
-                                  <span className="text-[#ff6a00] text-xl mt-[-4px]">•</span>
+                                  <span style={{ color: serviceColor }} className="text-xl mt-[-4px]">•</span>
                                   <span>{pt.text}</span>
                                 </li>
                               )

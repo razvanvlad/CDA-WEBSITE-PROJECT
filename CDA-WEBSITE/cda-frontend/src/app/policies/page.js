@@ -26,7 +26,7 @@ export default async function PoliciesLandingPage() {
       <>
         <Header />
         <div className="bg-white py-16">
-          <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
+          <div className="cda-container">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center">
               {/* Mobile: Title first, Desktop: Title in left column */}
               <div className="lg:order-1 order-1">
@@ -82,7 +82,7 @@ export default async function PoliciesLandingPage() {
         {/* Policies Listing Section with Full-Width Gray Background */}
         {policies && policies.length > 0 && (
           <div className="policies-section w-full bg-[#F4F4F4] py-16">
-            <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
+            <div className="cda-container">
 
 
               {/* Policies Grid */}
@@ -107,7 +107,7 @@ export default async function PoliciesLandingPage() {
       <>
         <Header />
         <div className="min-h-screen bg-white py-16">
-          <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
+          <div className="cda-container">
             <h1 className="text-4xl font-bold text-black mb-6">Policies</h1>
             <div className="bg-red-50 p-8 rounded-lg text-center">
               <h2 className="text-xl font-semibold text-red-700 mb-2">Error Loading Policies</h2>

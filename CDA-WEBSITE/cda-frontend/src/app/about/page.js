@@ -205,7 +205,7 @@ export default async function AboutPage() {
       {/* 9) Custom individual (Behind CDA) */}
       {aboutContent?.behindCda && (
         <section className="py-16 bg-white">
-          <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
+          <div className="cda-container">
             <div className="grid grid-cols-12 gap-x-8 gap-y-10 items-center">
               {/* Text content - order-1 on mobile, order-2 on desktop */}
               <div className="col-span-12 md:col-span-6 order-1 md:order-2 text-center md:text-left">

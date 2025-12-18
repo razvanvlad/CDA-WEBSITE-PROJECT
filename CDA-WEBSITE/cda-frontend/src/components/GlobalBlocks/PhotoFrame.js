@@ -19,7 +19,7 @@ const PhotoFrame = ({ globalData, contentOverride }) => {
       position="bottom"                     // <-- put the band on the BOTTOM
       height="h-[350px] md:h-[270px]"       // band thickness (tune to taste)
     >
-      <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8 relative z-20">
+      <div className="cda-container relative z-20">
         <div className="grid grid-cols-12 gap-y-10 gap-x-8 items-center">
           {/* Left: Frame */}
           <div className="col-span-12 lg:col-span-6 order-1 lg:order-none">

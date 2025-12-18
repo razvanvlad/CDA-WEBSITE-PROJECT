@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getServiceColor, getServiceTitle } from '@/lib/serviceColors';
 import TextLinkButton from '@/components/ui/TextLinkButton';
 
 // Badge component with SVG underline (matching Knowledge Hub)
@@ -62,7 +63,8 @@ export default function NewsCarousel({ newsCarousel }) {
   const items = newsCarousel?.manualArticles?.nodes || newsCarousel?.articles || [];
 
   const [isMobile, setIsMobile] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
+  // Start at index 1 on mobile so there's always a partial card visible on the left
+  const [activeIndex, setActiveIndex] = useState(1);
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 1024);
@@ -98,16 +100,27 @@ export default function NewsCarousel({ newsCarousel }) {
 
   // Render a single card
   const renderCard = (post, colorIndex, size = 'big') => {
-    const imageUrl = post.imageUrl || post.featuredImage?.node?.sourceUrl || '';
-    const imageAlt = post.imageAlt || post.featuredImage?.node?.altText || post.title;
-    const underlineColor = colors[colorIndex % colors.length];
+    // Priority: Hero Image -> Featured Image
+    const imageUrl = post.blogPosts?.hero?.image?.node?.sourceUrl ||
+      post.imageUrl ||
+      post.featuredImage?.node?.sourceUrl || '';
+    const imageAlt = post.blogPosts?.hero?.image?.node?.altText ||
+      post.imageAlt ||
+      post.featuredImage?.node?.altText ||
+      post.title;
+
+    // Get category and color
+    const category = post.blogCategories?.nodes?.[0];
+    const categorySlug = category?.slug || '';
+    const categoryName = category?.name || getServiceTitle(categorySlug);
+    const underlineColor = getServiceColor(categorySlug);
 
     // Size classes based on card type
     let sizeClasses = '';
     if (size === 'big') {
-      sizeClasses = 'w-[1064px] h-[658px]';
+      sizeClasses = 'w-[1064px] h-[632px]';
     } else if (size === 'small') {
-      sizeClasses = 'w-[512px] h-[657px]';
+      sizeClasses = 'w-[512px] h-[632px]';
     } else if (size === 'edge') {
       sizeClasses = 'w-[512px] h-[296px]';
     }
@@ -118,11 +131,10 @@ export default function NewsCarousel({ newsCarousel }) {
           {/* Image wrapper */}
           <div className="absolute inset-0">
             {imageUrl ? (
-              <Image
+              <img
                 src={imageUrl}
                 alt={imageAlt}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
             ) : (
               <div className="absolute inset-0 bg-gradient-to-br from-gray-500 to-gray-700" />
@@ -131,7 +143,7 @@ export default function NewsCarousel({ newsCarousel }) {
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/70 group-hover:from-black/40 group-hover:to-black/80 transition-colors duration-300" />
           </div>
 
-          {/* Top section: Badge and Date */}
+          {/* Top section: News badge (left) + Date (right) */}
           <div className="absolute top-6 left-6 right-6 flex items-start justify-between z-10">
             <BadgeWithUnderline color={underlineColor}>
               News
@@ -147,8 +159,16 @@ export default function NewsCarousel({ newsCarousel }) {
             )}
           </div>
 
-          {/* Bottom section: Title */}
+          {/* Bottom section: Categories and Title */}
           <div className="absolute bottom-6 left-6 right-6 z-10">
+            {/* Categories as plain text */}
+            {post.blogCategories?.nodes && post.blogCategories.nodes.length > 0 && (
+              <p className="text-white text-[14px] md:text-[18px] font-normal font-inter mb-2 opacity-90">
+                {post.blogCategories.nodes.map(cat => cat.name).join(', ')}
+              </p>
+            )}
+
+            {/* Title */}
             <h3
               className={`text-white font-bold font-poppins leading-tight line-clamp-3 ${size === 'big' ? 'text-3xl' : 'text-xl'}`}
               dangerouslySetInnerHTML={{ __html: post.title }}
@@ -176,22 +196,44 @@ export default function NewsCarousel({ newsCarousel }) {
             <Link href={toHref(post.uri)} className="block w-full h-full">
               <article className="w-full h-full relative overflow-hidden rounded-lg shadow-lg group cursor-pointer">
                 <div className="absolute inset-0">
-                  {(post.imageUrl || post.featuredImage?.node?.sourceUrl) ? (
-                    <Image
-                      src={post.imageUrl || post.featuredImage?.node?.sourceUrl}
-                      alt={post.imageAlt || post.title}
-                      fill
-                      className="object-cover"
+                  {(post.blogPosts?.hero?.image?.node?.sourceUrl || post.imageUrl || post.featuredImage?.node?.sourceUrl) ? (
+                    <img
+                      src={post.blogPosts?.hero?.image?.node?.sourceUrl || post.imageUrl || post.featuredImage?.node?.sourceUrl}
+                      alt={post.blogPosts?.hero?.image?.node?.altText || post.imageAlt || post.title}
+                      className="w-full h-full object-cover"
                     />
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-gray-500 to-gray-700" />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/70" />
                 </div>
+
+                {/* Top section: News badge (left) + Date (right) */}
                 <div className="absolute top-4 left-4 right-4 flex items-start justify-between z-10">
-                  <BadgeWithUnderline color={colors[i % colors.length]}>News</BadgeWithUnderline>
+                  <BadgeWithUnderline color={getServiceColor(post.blogCategories?.nodes?.[0]?.slug || '')}>
+                    News
+                  </BadgeWithUnderline>
+                  {post.date && (
+                    <time className="text-white font-bold font-poppins text-sm opacity-90">
+                      {new Date(post.date).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                      })}
+                    </time>
+                  )}
                 </div>
+
+                {/* Bottom section: Categories + Title */}
                 <div className="absolute bottom-4 left-4 right-4 z-10">
+                  {/* Categories as plain text */}
+                  {post.blogCategories?.nodes && post.blogCategories.nodes.length > 0 && (
+                    <p className="text-white text-[14px] font-normal font-inter mb-2 opacity-90">
+                      {post.blogCategories.nodes.map(cat => cat.name).join(', ')}
+                    </p>
+                  )}
+
+                  {/* Title */}
                   <h3 className="text-white font-bold font-poppins text-xl leading-tight line-clamp-3" dangerouslySetInnerHTML={{ __html: post.title }} />
                 </div>
               </article>
@@ -212,81 +254,86 @@ export default function NewsCarousel({ newsCarousel }) {
     </div>
   );
 
-  // --- Desktop Layout: Big + Small + Edge cards ---
+  // --- Desktop Layout: Big + Small + Edge cards (2 rows on each edge) ---
   const renderDesktop = () => {
-    // Calculate indices for circular buffer
-    const idx0 = (activeIndex - 1 + totalItems) % totalItems; // Left Edge (partial)
-    const idx1 = activeIndex; // BIG (main focus)
-    const idx2 = (activeIndex + 1) % totalItems; // Small (right of big)
-    const idx3 = (activeIndex + 2) % totalItems; // Right Edge (partial)
+    // Calculate indices for circular buffer - need 6 items for edges
+    const idxLeftTop = (activeIndex - 2 + totalItems) % totalItems; // Left Edge Top
+    const idxLeftBottom = (activeIndex - 1 + totalItems) % totalItems; // Left Edge Bottom
+    const idxBig = activeIndex; // BIG (main focus)
+    const idxSmall = (activeIndex + 1) % totalItems; // Small (right of big)
+    const idxRightTop = (activeIndex + 2) % totalItems; // Right Edge Top
+    const idxRightBottom = (activeIndex + 3) % totalItems; // Right Edge Bottom
 
     return (
       <div className="relative w-full overflow-hidden" style={{ height: '700px' }}>
         {/* Container for all cards - centered */}
         <div className="absolute inset-0 flex items-center justify-center">
 
-          {/* Left Edge Card - partially visible off-screen */}
+          {/* Left Edge Cards - 2 stacked, partially visible */}
           <div
-            className="absolute flex-shrink-0 opacity-60 transition-all duration-500"
-            style={{ left: '-400px', top: '50%', transform: 'translateY(-50%)' }}
+            className="absolute flex flex-col opacity-60 transition-all duration-500"
+            style={{
+              left: '-400px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              gap: '40px'
+            }}
           >
-            {renderCard(items[idx0], idx0, 'edge')}
+            {renderCard(items[idxLeftTop], idxLeftTop, 'edge')}
+            {renderCard(items[idxLeftBottom], idxLeftBottom, 'edge')}
           </div>
 
-          {/* Main cards container */}
-          <div className="flex items-center gap-10">
+          {/* Main cards container - Big + Small with 40px gap */}
+          <div className="flex items-center" style={{ gap: '40px' }}>
             {/* BIG Card - 1064x658 */}
             <div className="flex-shrink-0 transition-all duration-500">
-              {renderCard(items[idx1], idx1, 'big')}
+              {renderCard(items[idxBig], idxBig, 'big')}
             </div>
 
             {/* Small Card - 512x657 */}
             <div className="flex-shrink-0 transition-all duration-500">
-              {renderCard(items[idx2], idx2, 'small')}
+              {renderCard(items[idxSmall], idxSmall, 'small')}
             </div>
           </div>
 
-          {/* Right Edge Card - partially visible off-screen */}
+          {/* Right Edge Cards - 2 stacked, partially visible */}
           <div
-            className="absolute flex-shrink-0 opacity-60 transition-all duration-500"
-            style={{ right: '-400px', top: '50%', transform: 'translateY(-50%)' }}
+            className="absolute flex flex-col opacity-60 transition-all duration-500"
+            style={{
+              right: '-400px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              gap: '40px'
+            }}
           >
-            {renderCard(items[idx3], idx3, 'edge')}
+            {renderCard(items[idxRightTop], idxRightTop, 'edge')}
+            {renderCard(items[idxRightBottom], idxRightBottom, 'edge')}
           </div>
 
         </div>
-
-        {/* Navigation Arrows - at edges */}
-        <button
-          onClick={handlePrev}
-          aria-label="Previous"
-          className="absolute left-8 top-1/2 -translate-y-1/2 z-30 p-0 flex-shrink-0 opacity-50 hover:opacity-100 transition-opacity cursor-pointer"
-        >
-          <img src="/images/arrow-icons/left-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
-        </button>
-        <button
-          onClick={handleNext}
-          aria-label="Next"
-          className="absolute right-8 top-1/2 -translate-y-1/2 z-30 p-0 flex-shrink-0 opacity-50 hover:opacity-100 transition-opacity cursor-pointer"
-        >
-          <img src="/images/arrow-icons/right-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
-        </button>
       </div>
     );
   };
 
+
   return (
-    <section className="news-carousel py-16 bg-[#F4F4F4] overflow-hidden">
+    <section className="news-carousel py-16 bg-white overflow-hidden">
       {/* Header with container */}
-      <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8 mb-8">
-        <div className="flex items-center justify-between">
-          <div className="text-center md:text-left">
+      <div className="cda-container mb-8">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="text-left">
             <p className="cda-subtitle">
               {newsCarousel?.subtitle || 'Latest News'}
             </p>
             <h2 className="cda-title">
               {newsCarousel?.title || 'News & Insights'}
             </h2>
+            {/* Mobile: All News button under title */}
+            <div className="mt-4 md:hidden">
+              <TextLinkButton href="/news">
+                All News
+              </TextLinkButton>
+            </div>
           </div>
 
           {/* Desktop: Arrows + All News */}
@@ -317,13 +364,6 @@ export default function NewsCarousel({ newsCarousel }) {
       {/* Carousel - full width for edge-to-edge effect */}
       <div className="w-full">
         {isMobile ? renderMobile() : renderDesktop()}
-      </div>
-
-      {/* Mobile All News button */}
-      <div className="mt-8 text-center md:hidden">
-        <Link href="/news" className="button-l inline-block">
-          All News
-        </Link>
       </div>
     </section>
   );

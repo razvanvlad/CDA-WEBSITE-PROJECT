@@ -107,6 +107,8 @@ export default async function ServicePage({ params }) {
       date: post.date,
       excerpt: post.excerpt,
       featuredImage: post.featuredImage,
+      blogCategories: post.blogCategories, // Include categories for color mapping
+      blogPosts: post.blogPosts, // Include ACF hero image
     })),
     allNewsLink: '/news'
   } : null;
@@ -183,7 +185,7 @@ export default async function ServicePage({ params }) {
         {/* Service Cards Grid - Dynamic from ACF */}
         {serviceCards && serviceCards.length > 0 && (
           <section className="services-grid-section py-16">
-            <div className="container mx-auto px-4" style={{ maxWidth: '1620px' }}>
+            <div className="cda-container">
               <div className="services-grid">
                 {serviceCards.map((card, index) => {
                   const isLastCard = index === serviceCards.length - 1;

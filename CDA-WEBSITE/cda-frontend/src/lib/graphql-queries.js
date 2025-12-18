@@ -2583,6 +2583,22 @@ export const GET_GLOBAL_NEWS_CAROUSEL_MIN = `
                     altText
                   }
                 }
+                blogCategories {
+                  nodes {
+                    name
+                    slug
+                  }
+                }
+                blogPosts {
+                  hero {
+                    image {
+                      node {
+                        sourceUrl
+                        altText
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -2663,6 +2679,16 @@ export async function getBlogPostsByCategory(categorySlug, count = 6) {
             nodes {
               name
               slug
+            }
+          }
+          blogPosts {
+            hero {
+              image {
+                node {
+                  sourceUrl
+                  altText
+                }
+              }
             }
           }
         }

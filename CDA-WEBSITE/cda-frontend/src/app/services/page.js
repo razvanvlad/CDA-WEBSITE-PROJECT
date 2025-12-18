@@ -283,7 +283,7 @@ export default async function ServicesPage() {
                 }}
                 aria-hidden="true"
               />
-              <div className="relative z-10 mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
+              <div className="relative z-10 cda-container">
                 <Showreel globalData={globalContent.showreel} />
               </div>
             </section>

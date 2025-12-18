@@ -27,11 +27,15 @@
   /* Custom Gray Override - Override default gray-50 with site standard */
   --color-gray-50: #F4F4F4;
 
+  /* Container Max Widths */
+  --container-max-desktop: 1616px;
+  --container-max-mobile: 335px;
+
   /* Container Spacing - Mobile-first responsive padding */
-  /* Mobile: 38px sides (354px content on 430px screen) */
+  /* Mobile: 20px sides (335px content on 375px screen) */
   /* Tablet: 24px sides (md) */
   /* Desktop: 32px sides (lg) */
-  --spacing-container-mobile: 38px;
+  --spacing-container-mobile: 20px;
   --spacing-container-tablet: 24px;
   --spacing-container-desktop: 32px;
 }
@@ -106,25 +110,47 @@ body {
   overflow-x: hidden;
 }
 
-/* Sitewide max-width override: design uses 1620px */
+/* Sitewide max-width override: design uses 1616px */
 .max-w-6xl,
 .max-w-7xl,
 .max-w-5xl {
-  max-width: 1620px !important;
+  max-width: 1616px !important;
 }
 
-/* Also bump any legacy 1200px containers to 1620px if present */
-.max-w-\[1200px\] {
-  max-width: 1620px !important;
+/* Also bump any legacy containers to 1616px if present */
+.max-w-\[1200px\],
+.max-w-\[1620px\] {
+  max-width: 1616px !important;
 }
 
-/* Standard Container Class - Use this for consistent site-wide spacing */
+/* ─────────────────────────────────────────────────────────────────
+   GLOBAL CONTAINER CLASS
+   Mobile: 335px content + 20px padding = 375px total
+   Desktop: 1616px content + 32px padding = 1680px total
+   ───────────────────────────────────────────────────────────────── */
 .cda-container {
-  max-width: 1620px;
+  width: 100%;
+  max-width: calc(var(--container-max-mobile) + (var(--spacing-container-mobile) * 2));
   margin-left: auto;
   margin-right: auto;
-  padding-left: 38px;
-  padding-right: 38px;
+  padding-left: var(--spacing-container-mobile);
+  padding-right: var(--spacing-container-mobile);
+}
+
+@media (min-width: 768px) {
+  .cda-container {
+    max-width: calc(var(--container-max-desktop) + (var(--spacing-container-tablet) * 2));
+    padding-left: var(--spacing-container-tablet);
+    padding-right: var(--spacing-container-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cda-container {
+    max-width: calc(var(--container-max-desktop) + (var(--spacing-container-desktop) * 2));
+    padding-left: var(--spacing-container-desktop);
+    padding-right: var(--spacing-container-desktop);
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────

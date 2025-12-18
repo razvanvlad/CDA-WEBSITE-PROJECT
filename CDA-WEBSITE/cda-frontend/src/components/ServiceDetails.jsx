@@ -12,7 +12,7 @@ const ServiceDetails = ({ serviceDetailsFields }) => {
 
     return (
         <section className="py-16 bg-gray-50">
-            <div className="container mx-auto px-4" style={{ maxWidth: '1620px' }}>
+            <div className="cda-container">
                 <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 
                     {/* Left Side: Bullet Points from ACF checkmark array */}

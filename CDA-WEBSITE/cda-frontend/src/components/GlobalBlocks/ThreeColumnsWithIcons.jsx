@@ -10,7 +10,7 @@ export default function ThreeColumnsWithIcons({ globalData }) {
 
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-white">
-      <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
+      <div className="cda-container">
         <div className="text-center max-w-3xl mx-auto mb-10">
           {subtitle && (
             <p className="text-xs tracking-[0.18em] font-semibold uppercase text-black mb-3">{subtitle}</p>

@@ -145,7 +145,7 @@ export default async function TeamMemberDetailPage({ params }) {
         {/* Full-width Booking Form (only for Stuart Alldis - DB ID 884) */}
         {Number(core?.databaseId) === 884 && (
           <section className="bg-white py-16">
-            <div className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8">
+            <div className="cda-container">
               <HubspotMeetingsScheduler ownerSlug="stuart-alldis" defaultProvider="zoom" />
             </div>
           </section>

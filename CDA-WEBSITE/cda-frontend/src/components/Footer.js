@@ -158,7 +158,7 @@ export default function FooterTest() {
   /* --------------------------------- Render -------------------------------- */
   return (
     <footer className="bg-white pt-5">
-      <div className="mx-auto max-w-[1620px] px-[38px]">
+      <div className="cda-container">
         {/* CTA Section */}
         <div className="footer-cta-card relative rounded-2xl bg-white group flex flex-col items-center justify-center text-center pt-16 pb-[142px] md:pb-[162px]">
           <p className="cda-subtitle mb-2">Take The First Step Toward Something Great</p>
