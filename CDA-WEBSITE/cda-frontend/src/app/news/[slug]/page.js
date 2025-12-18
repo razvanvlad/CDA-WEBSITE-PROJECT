@@ -389,6 +389,7 @@ export default async function NewsArticlePage({ params }) {
         enableCaseStudies={true}
         enableCaseStudiesFallback={true}
         enableNewsCarousel={true}
+        enableNewsCarouselFallback={true}
         enableApproach={!!toggles.showApproach}
         enableStats={!!toggles.showStatsAndNumbers}
         enableImageFrame={!!toggles.showImageFrame}

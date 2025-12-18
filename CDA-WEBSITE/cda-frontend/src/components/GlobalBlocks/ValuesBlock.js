@@ -52,7 +52,7 @@ export default function ValuesBlock({ globalData, pageData, useOverride = false 
         {/* Two-column list */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
           {items.map((item, index) => (
-            <div key={index} className="flex items-start gap-4">
+            <div key={index} className="flex items-start gap-8">
               <div className="value-badge-l">{String(index + 1).padStart(2, '0')}</div>
               <div>
                 <h3 className="text-[18px] md:text-[20px] font-semibold text-black mb-2">

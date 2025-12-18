@@ -160,7 +160,7 @@ export default function NewsCarousel({ newsCarousel }) {
           </div>
 
           {/* Bottom section: Categories and Title */}
-          <div className="absolute bottom-6 left-6 right-6 z-10">
+          <div className="absolute bottom-6 left-6 right-6 z-10 transition-transform duration-500 group-hover:-translate-y-2">
             {/* Categories as plain text */}
             {post.blogCategories?.nodes && post.blogCategories.nodes.length > 0 && (
               <p className="text-white text-[14px] md:text-[18px] font-normal font-inter mb-2 opacity-90">
@@ -173,6 +173,27 @@ export default function NewsCarousel({ newsCarousel }) {
               className={`text-white font-bold font-poppins leading-tight line-clamp-3 ${size === 'big' ? 'text-3xl' : 'text-xl'}`}
               dangerouslySetInnerHTML={{ __html: post.title }}
             />
+
+            {/* Read More Button (simulated TextLinkButton structure for valid HTML inside Link) */}
+            <div className="mt-4 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
+              <div className="button-without-box button-without-box-white inline-flex">
+                <span className="button-text">Read More</span>
+                <span className="button-icon-wrapper">
+                  <img
+                    src="/images/arrow-icons/diagonal-right-arrow-white.svg"
+                    alt=""
+                    className="button-icon button-icon-default"
+                    aria-hidden="true"
+                  />
+                  <img
+                    src="/images/arrow-icons/right-arrow-white.svg"
+                    alt=""
+                    className="button-icon button-icon-hover"
+                    aria-hidden="true"
+                  />
+                </span>
+              </div>
+            </div>
           </div>
         </article>
       </Link>
