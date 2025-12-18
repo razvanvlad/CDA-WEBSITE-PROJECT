@@ -138,7 +138,7 @@ const CaseStudies = ({ globalData, pageData, useOverride = false, serviceColor }
             {studies.slice(0, 2).map((study, index) => (
               <article key={study.id || index} className={`cs-item ${index % 2 === 1 && isDesktop ? 'cs-item--reverse' : ''}`}>
                 <div className="cs-media mb-2">
-                  {study.featuredImage?.node?.sourceUrl && (
+                  {study.featuredImage?.node?.sourceUrl ? (
                     <Image
                       src={study.featuredImage.node.sourceUrl}
                       alt={study.featuredImage.node.altText || study.title}
@@ -146,7 +146,12 @@ const CaseStudies = ({ globalData, pageData, useOverride = false, serviceColor }
                       height={400}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 640px"
                       className="cs-img"
+                      unoptimized
                     />
+                  ) : (
+                    <div className="cs-img bg-gray-200 flex items-center justify-center">
+                      <span className="text-gray-400">No image</span>
+                    </div>
                   )}
                 </div>
                 <div className="cs-content">

@@ -474,6 +474,11 @@ button {
       width: auto;
       height: auto;
    }
+
+   /* Desktop hover state with subtle drop-shadow */
+   .button-without-box-vertical-black:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+   }
 }
 
 /* Mobile: Horizontal text at bottom, full width */

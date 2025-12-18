@@ -65,18 +65,23 @@ const nextConfig = {
     imageSizes: [200, 320, 400, 640, 750, 828],
     minimumCacheTTL: 60,
     remotePatterns: [
-      // Local WP (when running locally)
+      // Local WP (when running locally) - with port 80
       {
         protocol: 'http',
         hostname: 'localhost',
-        port: '',
+        port: '80',
+        pathname: '/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/wp-content/uploads/**',
+      },
+      // Local WP (when running locally) - without port
+      {
+        protocol: 'http',
+        hostname: 'localhost',
         pathname: '/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/wp-content/uploads/**',
       },
       // WP Engine dev
       {
         protocol: 'https',
         hostname: 'cdanewwebsite.wpenginepowered.com',
-        port: '',
         pathname: '/wp-content/uploads/**',
       },
     ],

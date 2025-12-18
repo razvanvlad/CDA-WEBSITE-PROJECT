@@ -112,6 +112,7 @@ export default function ClientShowcase({ clientsLogosFields }) {
                       alt={item.logo.node.altText || 'Client logo'}
                       fill
                       className="object-contain object-center lg:object-left"
+                      unoptimized
                     />
                   </div>
                 ))}
@@ -130,6 +131,7 @@ export default function ClientShowcase({ clientsLogosFields }) {
                   height={500}
                   className="w-full h-auto object-contain"
                   style={{ maxWidth: '600px' }}
+                  unoptimized
                 />
               </div>
 
@@ -142,6 +144,7 @@ export default function ClientShowcase({ clientsLogosFields }) {
                   height={350}
                   className="w-full h-auto object-contain"
                   style={{ maxWidth: '350px' }}
+                  unoptimized
                 />
               </div>
             </>

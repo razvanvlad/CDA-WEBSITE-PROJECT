@@ -186,7 +186,7 @@ export default function Header({ initialPrimaryLinks = [], initialCompanyLinks =
     <>
       {/* Desktop Sticky Start Project Button - Left Edge */}
       <div className="fixed left-0 top-1/2 transform -translate-y-1/2 z-50 hidden md:block">
-        <button onClick={() => setIsBookingModalOpen(true)} className="button-without-box-vertical-black shadow-lg hover:shadow-xl transition-shadow duration-300">Start A Project</button>
+        <button onClick={() => setIsBookingModalOpen(true)} className="button-without-box-vertical-black">Start A Project</button>
       </div>
 
       {/* Mobile Sticky Start Project Button - Bottom Edge */}
