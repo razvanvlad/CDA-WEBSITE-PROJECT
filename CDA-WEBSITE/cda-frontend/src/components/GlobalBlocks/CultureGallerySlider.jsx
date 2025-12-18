@@ -26,12 +26,13 @@ const CultureGallerySlider = ({ globalData }) => {
         : [];
   const useGlobalSocialLinks = globalData?.useGlobalSocialLinks || false;
 
-  // Clones setup: Prepend 2, Append 2
-  const CLONE_COUNT = 2;
+  // Clones setup: Increase clone count for smoother infinite loop
+  const CLONE_COUNT = Math.max(5, originalImages.length);
   const images = React.useMemo(() => {
     if (originalImages.length === 0) return [];
-    const startClones = originalImages.slice(-CLONE_COUNT);
-    const endClones = originalImages.slice(0, CLONE_COUNT);
+    const repeats = Math.ceil(CLONE_COUNT / originalImages.length);
+    const startClones = Array(repeats).fill(originalImages).flat().slice(-CLONE_COUNT);
+    const endClones = Array(repeats).fill(originalImages).flat().slice(0, CLONE_COUNT);
     return [...startClones, ...originalImages, ...endClones];
   }, [originalImages]);
 
@@ -39,6 +40,7 @@ const CultureGallerySlider = ({ globalData }) => {
   const [currentSlide, setCurrentSlide] = useState(CLONE_COUNT);
   const [useTransition, setUseTransition] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const transitionTimeoutRef = useRef(null);
 
   // Handle responsive behavior
   useEffect(() => {
@@ -48,7 +50,12 @@ const CultureGallerySlider = ({ globalData }) => {
 
     handleResize();
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (transitionTimeoutRef.current) {
+        clearTimeout(transitionTimeoutRef.current);
+      }
+    };
   }, []);
 
   // Configuration
@@ -72,20 +79,28 @@ const CultureGallerySlider = ({ globalData }) => {
     // Check clone status
     const totalLen = images.length;
     if (currentSlide < CLONE_COUNT) {
-      setUseTransition(false); // Disable for jump
+      // At the beginning clones, jump to the end section
+      setUseTransition(false);
       setCurrentSlide(currentSlide + originalImages.length);
-      // Re-enable interactions after jump
-      setTimeout(() => {
-        setIsTransitioning(false);
-        setUseTransition(true);
-      }, 50);
+      // Use requestAnimationFrame for smoother re-enable
+      requestAnimationFrame(() => {
+        if (transitionTimeoutRef.current) clearTimeout(transitionTimeoutRef.current);
+        transitionTimeoutRef.current = setTimeout(() => {
+          setIsTransitioning(false);
+          setUseTransition(true);
+        }, 20);
+      });
     } else if (currentSlide >= totalLen - CLONE_COUNT) {
+      // At the ending clones, jump to the beginning section
       setUseTransition(false);
       setCurrentSlide(currentSlide - originalImages.length);
-      setTimeout(() => {
-        setIsTransitioning(false);
-        setUseTransition(true);
-      }, 50);
+      requestAnimationFrame(() => {
+        if (transitionTimeoutRef.current) clearTimeout(transitionTimeoutRef.current);
+        transitionTimeoutRef.current = setTimeout(() => {
+          setIsTransitioning(false);
+          setUseTransition(true);
+        }, 20);
+      });
     } else {
       setIsTransitioning(false);
     }
@@ -93,9 +108,14 @@ const CultureGallerySlider = ({ globalData }) => {
 
   // Drag Event Handlers
   const handleDragStart = (e) => {
-    if (isTransitioning) return; // Prevent drag during transition
+    // Clear any pending transitions
+    if (transitionTimeoutRef.current) {
+      clearTimeout(transitionTimeoutRef.current);
+    }
+
+    if (isTransitioning) return;
     setIsDragging(true);
-    setUseTransition(false); // Disable transition for direct manipulation
+    setUseTransition(false);
     const clientX = e.pageX || e.touches?.[0]?.pageX;
     setStartPos(clientX);
     setDraggingOffset(0);
@@ -103,6 +123,7 @@ const CultureGallerySlider = ({ globalData }) => {
 
   const handleDragMove = (e) => {
     if (!isDragging) return;
+    e.preventDefault(); // Prevent default scrolling behavior
     const clientX = e.pageX || e.touches?.[0]?.pageX;
     if (clientX === undefined) return;
     const diff = clientX - startPos;
@@ -112,25 +133,24 @@ const CultureGallerySlider = ({ globalData }) => {
   const handleDragEnd = () => {
     if (!isDragging) return;
     setIsDragging(false);
-    setUseTransition(true); // Re-enable for snap animation
 
     const threshold = 50;
+    const slideWidthPx = sliderRef.current ? sliderRef.current.offsetWidth * (slideWidth / 100) : 300;
+    const effectiveThreshold = Math.min(threshold, slideWidthPx * 0.3);
 
-    if (draggingOffset < -threshold) {
-      if (!isTransitioning) { // Avoid double trigger
-        setIsTransitioning(true);
-        setCurrentSlide(prev => prev + 1);
-      }
-    } else if (draggingOffset > threshold) {
-      if (!isTransitioning) {
-        setIsTransitioning(true);
-        setCurrentSlide(prev => prev - 1);
-      }
-    } else {
-      // Snap back
-      // Since we are just setting offset to 0, React re-render handles it.
-      // We enabled transition above, so it will animate back.
+    // Enable transition for smooth snap
+    setUseTransition(true);
+
+    if (draggingOffset < -effectiveThreshold) {
+      // Dragged left (swipe left), go to previous
+      setIsTransitioning(true);
+      setCurrentSlide(prev => prev - 1);
+    } else if (draggingOffset > effectiveThreshold) {
+      // Dragged right (swipe right), go to next
+      setIsTransitioning(true);
+      setCurrentSlide(prev => prev + 1);
     }
+    // else: snap back to current position
 
     setDraggingOffset(0);
   };
@@ -173,7 +193,10 @@ const CultureGallerySlider = ({ globalData }) => {
         onTouchStart={handleDragStart}
         onTouchMove={handleDragMove}
         onTouchEnd={handleDragEnd}
-        style={{ cursor: 'url(/images/drag-cursor.svg) 16 16, auto' }}
+        style={{
+          cursor: isDragging ? 'grabbing' : 'grab',
+          touchAction: 'pan-y pinch-zoom'
+        }}
       >
         <div className="overflow-hidden">
           <div
@@ -181,8 +204,9 @@ const CultureGallerySlider = ({ globalData }) => {
             className="flex"
             onTransitionEnd={handleTransitionEnd}
             style={{
-              transition: useTransition ? 'transform 500ms ease-in-out' : 'none',
-              transform: `translateX(calc(-${currentSlide * slideWidth}% + ${centerOffset}% + ${draggingOffset}px))`
+              transition: useTransition ? 'transform 400ms cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+              transform: `translateX(calc(-${currentSlide * slideWidth}% + ${centerOffset}% + ${draggingOffset}px))`,
+              willChange: isDragging ? 'transform' : 'auto'
             }}
           >
             {images.map((image, index) => (
