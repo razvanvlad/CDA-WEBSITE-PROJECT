@@ -46,7 +46,7 @@ export default function NotFound() {
 
       <main className="bg-white">
         {/* Copy */}
-        <section className="mx-auto w-full max-w-[1620px] px-4 md:px-6 lg:px-8 py-16 md:py-20">
+        <section className="mx-auto w-full max-w-[1620px] px-[38px] md:px-6 lg:px-8 py-16 md:py-20">
           <div className="text-center max-w-3xl mx-auto">
             <ResponsiveUnderlinedTitle
               as="h1"
@@ -73,12 +73,15 @@ export default function NotFound() {
         {/* Edge-to-edge ice-cream illustration */}
         <section aria-hidden="true">
           <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen">
-            <img
-              src="/images/ice-cream.svg"
-              alt=""
-              className="w-full h-auto select-none"
-              draggable={false}
-            />
+            <picture>
+              <source media="(max-width: 767px)" srcSet="/images/mobile-iceacream.svg" />
+              <img
+                src="/images/ice-cream.svg"
+                alt=""
+                className="w-full h-auto select-none"
+                draggable={false}
+              />
+            </picture>
           </div>
         </section>
       </main>

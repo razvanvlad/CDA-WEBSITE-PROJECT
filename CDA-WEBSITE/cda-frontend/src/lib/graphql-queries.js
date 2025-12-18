@@ -2611,18 +2611,30 @@ export async function getGlobalCaseStudiesSectionOnly() {
 }
 
 export async function getGlobalNewsCarouselBlockMin() {
-  const res = await executeGraphQLQuery(GET_GLOBAL_NEWS_CAROUSEL_MIN);
-  const newsCarouselBlock = res?.data?.globalOptions?.globalContentBlocks?.newsCarousel;
+  try {
+    const res = await executeGraphQLQuery(GET_GLOBAL_NEWS_CAROUSEL_MIN);
 
-  if (!newsCarouselBlock) return null;
+    // Check for GraphQL errors (field doesn't exist in schema)
+    if (res?.errors) {
+      console.warn('newsCarousel field not found in WordPress schema - skipping');
+      return null;
+    }
 
-  // Return with transformed structure for consistency
-  return {
-    title: newsCarouselBlock.title,
-    subtitle: newsCarouselBlock.subtitle,
-    articles: newsCarouselBlock.manualArticles?.nodes || [],
-    allNewsLink: '/news' // Default link to all news
-  };
+    const newsCarouselBlock = res?.data?.globalOptions?.globalContentBlocks?.newsCarousel;
+
+    if (!newsCarouselBlock) return null;
+
+    // Return with transformed structure for consistency
+    return {
+      title: newsCarouselBlock.title,
+      subtitle: newsCarouselBlock.subtitle,
+      articles: newsCarouselBlock.manualArticles?.nodes || [],
+      allNewsLink: '/news' // Default link to all news
+    };
+  } catch (error) {
+    console.warn('Failed to fetch news carousel - field may not exist in WordPress ACF');
+    return null;
+  }
 }
 
 export async function getBlogPostsByCategory(categorySlug, count = 6) {
