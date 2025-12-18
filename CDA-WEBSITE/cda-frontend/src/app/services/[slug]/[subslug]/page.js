@@ -5,8 +5,9 @@ import ResponsiveUnderlinedTitle from '../../../../components/ResponsiveUnderlin
 import ApproachBlock from '../../../../components/GlobalBlocks/ApproachBlock';
 import SellOnline from '@/components/SellOnline';
 import CaseStudies from '../../../../components/GlobalBlocks/CaseStudies';
+import NewsCarousel from '../../../../components/GlobalBlocks/NewsCarousel';
 import { notFound } from 'next/navigation';
-import { executeGraphQLQuery, GET_SUBSERVICE_BY_SLUG, GET_SUBSERVICE_SLUGS, GET_SUBSERVICE_WITH_PARENT } from '../../../../lib/graphql-queries';
+import { executeGraphQLQuery, GET_SUBSERVICE_BY_SLUG, GET_SUBSERVICE_SLUGS, GET_SUBSERVICE_WITH_PARENT, getBlogPostsByCategory, getBlogPostsForCarousel } from '../../../../lib/graphql-queries';
 import { safeImageUrl } from '../../../../lib/imageUtils';
 import { sanitizeTitleHtml, sanitizeImageAlt } from '../../../../lib/sanitizeTitleHtml';
 import { getServiceColor, getServiceTitle } from '../../../../lib/serviceColors';
@@ -72,6 +73,39 @@ export default async function SubServicePage({ params }) {
   // Get parent service color and title for branding consistency
   const parentServiceColor = getServiceColor(parentService?.slug || slug);
   const parentServiceTitle = getServiceTitle(parentService?.title || parentService?.slug || slug);
+
+  // Fetch news articles matching the parent service category (same as parent service)
+  let categoryNews = [];
+  try {
+    categoryNews = await getBlogPostsByCategory(parentService?.slug || slug, 6);
+    // Fallback to latest articles if no category matches found
+    if (categoryNews.length === 0) {
+      categoryNews = await getBlogPostsForCarousel(6);
+    }
+  } catch (error) {
+    console.error('Error fetching category news:', error);
+    // Try fallback to latest
+    try {
+      categoryNews = await getBlogPostsForCarousel(6);
+    } catch (_) {
+      // Ignore fallback errors
+    }
+  }
+
+  // Create service-specific news carousel data
+  const serviceNewsCarousel = categoryNews.length > 0 ? {
+    title: `${parentServiceTitle} Insights`,
+    subtitle: 'Latest News',
+    articles: categoryNews.map(post => ({
+      id: post.id,
+      title: post.title,
+      uri: post.uri,
+      date: post.date,
+      excerpt: post.excerpt,
+      featuredImage: post.featuredImage,
+    })),
+    allNewsLink: '/news'
+  } : null;
 
   // Hero image
   const heroImageNode = heroSection.image?.node?.sourceUrl
@@ -328,6 +362,11 @@ export default async function SubServicePage({ params }) {
           useOverride={true}
           serviceColor={parentServiceColor}
         />
+
+        {/* News/Latest Articles Section - Inherited from parent service */}
+        {serviceNewsCarousel && (
+          <NewsCarousel newsCarousel={serviceNewsCarousel} />
+        )}
       </main>
       <Footer />
     </>
