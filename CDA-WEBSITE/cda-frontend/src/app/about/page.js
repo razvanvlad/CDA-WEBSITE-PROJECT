@@ -11,6 +11,7 @@ import StatsBlock from '../../components/GlobalBlocks/StatsBlock';
 import ResponsiveUnderlinedTitle from '../../components/ResponsiveUnderlinedTitle';
 import TextLinkButton from '../../components/ui/TextLinkButton';
 import { sanitizeTitleHtml } from '../../lib/sanitizeTitleHtml';
+import CdaFullVideo from '../../components/GlobalBlocks/FullVideoBlock';
 import { executeGraphQLQuery, getGlobalContent, getPageGlobalTogglesByUri, getPageGlobalTogglesBySlug } from '../../lib/graphql-queries';
 
 export const revalidate = 300;
@@ -170,36 +171,8 @@ export default async function AboutPage() {
         <StatsBlock data={globalContentBlocks.statsAndNumbers} />
       )}
 
-      {/* 8) [Global] Full Video */}
       {t.showFullVideo && globalContentBlocks?.fullVideo && (
-        <section className="py-16 bg-white">
-          <div className="mx-auto w-full max-w-[1280px] px-4">
-            {(() => {
-              const raw = globalContentBlocks.fullVideo.file?.node?.sourceUrl || globalContentBlocks.fullVideo.url
-              if (!raw) return null
-              const isVimeo = /vimeo\.com/.test(raw)
-              const isYouTube = /youtube\.com|youtu\.be/.test(raw)
-              if (isVimeo || isYouTube) {
-                let embedUrl = raw
-                if (isVimeo) {
-                  const m = raw.match(/vimeo\.com\/(?:video\/)?(?:.+\/)?(\d+)/)
-                  const id = m && m[1]
-                  if (id) embedUrl = `https://player.vimeo.com/video/${id}`
-                }
-                return (
-                  <div className="aspect-video w-full rounded overflow-hidden">
-                    <iframe src={embedUrl} className="w-full h-full" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />
-                  </div>
-                )
-              }
-              return (
-                <video className="w-full rounded-lg" controls>
-                  <source src={raw} />
-                </video>
-              )
-            })()}
-          </div>
-        </section>
+        <CdaFullVideo data={globalContentBlocks.fullVideo} />
       )}
 
       {/* 9) Custom individual (Behind CDA) */}
