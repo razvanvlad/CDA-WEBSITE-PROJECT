@@ -2,7 +2,7 @@ import ApproachBlock from '@/components/GlobalBlocks/ApproachBlock'
 import CaseStudies from '@/components/GlobalBlocks/CaseStudies'
 import StatsBlock from '@/components/GlobalBlocks/StatsBlock.jsx'
 import PhotoFrame from '@/components/GlobalBlocks/PhotoFrame'
-import NewsCarouselClient from '@/components/GlobalBlocks/NewsCarouselClient.jsx'
+import NewsCarousel from '@/components/GlobalBlocks/NewsCarousel'
 import ServicesAccordion from '@/components/GlobalBlocks/ServicesAccordion'
 import TechnologiesSlider from '@/components/GlobalBlocks/TechnologiesSlider'
 import Showreel from '@/components/GlobalBlocks/Showreel'
@@ -123,12 +123,12 @@ export default async function GlobalTailSections({
         <PhotoFrame globalData={globalData.imageFrameBlock} />
       )}
 
+      {enableImageFrame && globalData?.imageFrameBlock && (
+        <PhotoFrame globalData={globalData.imageFrameBlock} />
+      )}
+
       {enableNewsCarousel && newsData && (
-        <NewsCarouselClient
-          title={newsData.title}
-          subtitle={newsData.subtitle}
-          articles={newsData.articles}
-        />
+        <NewsCarousel newsCarousel={newsData} />
       )}
 
       {enableColumnsWithIcons3X && (globalData?.threeColumnsWithIcons || globalData?.columnsWithIcons3X) && (

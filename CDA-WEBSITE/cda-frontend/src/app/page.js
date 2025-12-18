@@ -295,7 +295,42 @@ export default async function Home() {
         <NewsletterSignup globalData={globalData.newsletterSignup} />
       )}
 
+      {/* 11) [Global] Latest News (Carousel) */}
+      {/* Fetched via getBlogPostsForCarousel(6) inside this component for now, or we can fetch above */}
+      <NewsCarouselWrapper />
+
       <Footer />
     </>
   )
+}
+
+// Helper to fetch and render News Carousel
+async function NewsCarouselWrapper() {
+  try {
+    const { getBlogPostsForCarousel } = await import('../lib/graphql-queries');
+    const posts = await getBlogPostsForCarousel(6);
+    if (!posts || posts.length === 0) return null;
+
+    const newsCarouselData = {
+      title: 'News & Insights',
+      subtitle: 'Latest News',
+      articles: posts.map(p => ({
+        id: p.id,
+        title: p.title,
+        uri: p.uri,
+        date: p.date,
+        excerpt: p.excerpt,
+        featuredImage: p.featuredImage,
+        blogCategories: p.blogCategories,
+        blogPosts: p.blogPosts
+      })),
+      allNewsLink: '/news'
+    };
+
+    const { default: NewsCarousel } = await import('../components/GlobalBlocks/NewsCarousel');
+    return <NewsCarousel newsCarousel={newsCarouselData} />;
+  } catch (error) {
+    console.error("Failed to load NewsCarousel on Homepage:", error);
+    return null;
+  }
 }

@@ -3,6 +3,7 @@ import Footer from '../../../../components/Footer';
 import HeroSection from '../../../../components/GlobalBlocks/HeroSection';
 import ResponsiveUnderlinedTitle from '../../../../components/ResponsiveUnderlinedTitle';
 import ApproachBlock from '../../../../components/GlobalBlocks/ApproachBlock';
+import ServicesSlider from '../../../../components/GlobalBlocks/ServicesSlider.jsx';
 import SellOnline from '@/components/SellOnline';
 import CaseStudies from '../../../../components/GlobalBlocks/CaseStudies';
 import NewsCarousel from '../../../../components/GlobalBlocks/NewsCarousel';
@@ -369,6 +370,9 @@ export default async function SubServicePage({ params }) {
         {serviceNewsCarousel && (
           <NewsCarousel newsCarousel={serviceNewsCarousel} />
         )}
+
+        {/* Services Slider */}
+        <ServicesSlider />
       </main>
       <Footer />
     </>
