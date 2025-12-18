@@ -3,14 +3,7 @@
 import React, { useMemo, useState } from 'react';
 import ResponsiveUnderlinedTitle from '../ResponsiveUnderlinedTitle';
 
-/*
-  LocationsImage (Global block)
-  - Tabs for countries (UK, USA, UAE, ...)
-  - For selected country, render its offices in two columns (stacked on mobile)
-  - Decorative astronaut illustration on the right (desktop), below on mobile
-  - Uses fields from globalContentBlocks.locationsImage
-    { title, subtitle, countries[{ countryName, offices[{ name, address, email, phone }] }], illustration{node{sourceUrl, altText}} }
-*/
+
 const LocationsImage = ({ globalData }) => {
   if (!globalData) return null;
 
@@ -55,11 +48,11 @@ const LocationsImage = ({ globalData }) => {
                   aria-pressed={isActive}
                 >
                   <ResponsiveUnderlinedTitle
-                    as="h2"
+                    as="h3"
                     className="section-title"
                     underlineColor={isActive ? "#FF5C8A" : "#9CA3AF"}
                   >
-                    <span className={isActive ? "text-[24px] font-semibold text-[#111827]" : "text-[24px] font-semibold text-[#9CA3AF]"}>
+                    <span className={isActive ? "text-[28px] font-bold text-[#111827]" : "text-[28px] font-bold text-[#9CA3AF]"}>
                       {c.countryName}
                     </span>
                   </ResponsiveUnderlinedTitle>
@@ -71,7 +64,7 @@ const LocationsImage = ({ globalData }) => {
 
         <div className="grid grid-cols-12 gap-x-8 gap-y-10 items-start">
           {/* Left: vertical country tabs (desktop) */}
-          <div className="hidden md:block md:col-span-3">
+          <div className="hidden md:block md:col-span-2">
             {countries.length > 0 && (
               <div className="flex flex-col gap-6">
                 {countries.map((c, idx) => {
@@ -86,15 +79,15 @@ const LocationsImage = ({ globalData }) => {
                     >
                       {isActive ? (
                         <ResponsiveUnderlinedTitle
-                          as="span"
-                          className="text-[28px] font-semibold text-[#111827]"
+                          as="h3"
+                          className="text-[28px] md:text-[45px] font-bold text-[#111827]"
                           underlineColor="#FF5C8A"
-                          underlineOffset={24}
+
                         >
                           {c.countryName}
                         </ResponsiveUnderlinedTitle>
                       ) : (
-                        <span className="text-[28px] font-semibold text-[#9CA3AF]">{c.countryName}</span>
+                        <span className="text-[28px] md:text-[45px] font-bold text-[#9CA3AF]">{c.countryName}</span>
                       )}
                     </button>
                   );
@@ -104,7 +97,7 @@ const LocationsImage = ({ globalData }) => {
           </div>
 
           {/* Middle: Offices for active country */}
-          <div className="col-span-12 md:col-span-6 xl:col-span-5">
+          <div className="col-span-12 md:col-span-7 xl:col-span-6">
             {current && Array.isArray(current.offices) && current.offices.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
                 {current.offices.map((office, idx) => (
@@ -113,7 +106,7 @@ const LocationsImage = ({ globalData }) => {
                       <h3 className="text-[28px] md:text-[32px] font-bold mb-5">{office.name}</h3>
                     )}
 
-                    <div className="grid grid-cols-2 gap-x-6 gap-y-6">
+                    <div className="w-full">
                       <div>
                         <p className="cda-locations-text-top mb-2">Address</p>
                         {office.address && (

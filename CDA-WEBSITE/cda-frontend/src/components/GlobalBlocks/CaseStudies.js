@@ -17,7 +17,7 @@ import ResponsiveUnderlinedTitle from '../ResponsiveUnderlinedTitle';
  * @param {Object} props.globalData - Case studies data from WordPress
  * @returns {JSX.Element} CaseStudies component
  */
-const CaseStudies = ({ globalData, pageData, useOverride = false }) => {
+const CaseStudies = ({ globalData, pageData, useOverride = false, serviceColor }) => {
   // Logic: 
   // 1. If overrides enabled AND pageData exists AND it has studies => Use pageData
   // 2. Otherwise (no override needed OR local data empty) => Use globalData
@@ -114,7 +114,7 @@ const CaseStudies = ({ globalData, pageData, useOverride = false }) => {
             {title && (
               <ResponsiveUnderlinedTitle
                 as="h2"
-                underlineColor="#FD8721"
+                underlineColor={serviceColor || "#FD8721"}
                 className="section-title my-4"
               >
                 {title}

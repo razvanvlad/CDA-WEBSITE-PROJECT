@@ -5,8 +5,9 @@ import ResponsiveUnderlinedTitle from '../../../components/ResponsiveUnderlinedT
 import TextLinkButton from '../../../components/ui/TextLinkButton';
 import { notFound } from 'next/navigation';
 import { sanitizeTitleHtml, sanitizeImageAlt } from '../../../lib/sanitizeTitleHtml';
-import { executeGraphQLQuery, GET_SERVICE_BY_SLUG, getServiceSlugs } from '../../../lib/graphql-queries';
+import { executeGraphQLQuery, GET_SERVICE_BY_SLUG, getServiceSlugs, getBlogPostsByCategory, getBlogPostsForCarousel } from '../../../lib/graphql-queries';
 import { safeImageUrl } from '../../../lib/imageUtils';
+import { getServiceColor, getServiceTitle } from '../../../lib/serviceColors';
 import Image from 'next/image';
 import Link from 'next/link';
 import HubspotFormEmbed from '../../../components/HubspotFormEmbed';
@@ -31,20 +32,6 @@ export async function generateStaticParams() {
     return [];
   }
 }
-
-// Service color mapping
-const getServiceColor = (slug) => {
-  const colorMap = {
-    'ecommerce': '#3CBEEB',
-    'b2b-lead-generation': '#AD80F9',
-    'software-development': '#01E486',
-    'booking-systems': '#FD8721',
-    'digital-marketing': '#FF60DF',
-    'outsourced-cmo': '#FF5C8A',
-    'ai': '#3CBEEB'
-  };
-  return colorMap[slug] || '#7c3aed'; // fallback to purple
-};
 
 export default async function ServicePage({ params }) {
   const { slug } = await params;
@@ -90,6 +77,39 @@ export default async function ServicePage({ params }) {
   const featuredCaseStudies = serviceFields.featuredCaseStudies?.nodes || [];
 
   const serviceColor = getServiceColor(service.slug);
+
+  // Fetch news articles matching the service category
+  let categoryNews = [];
+  try {
+    categoryNews = await getBlogPostsByCategory(service.slug, 6);
+    // Fallback to latest articles if no category matches found
+    if (categoryNews.length === 0) {
+      categoryNews = await getBlogPostsForCarousel(6);
+    }
+  } catch (error) {
+    console.error('Error fetching category news:', error);
+    // Try fallback to latest
+    try {
+      categoryNews = await getBlogPostsForCarousel(6);
+    } catch (_) {
+      // Ignore fallback errors
+    }
+  }
+
+  // Create service-specific news carousel data
+  const serviceNewsCarousel = categoryNews.length > 0 ? {
+    title: `${service.title} Insights`,
+    subtitle: 'Latest News',
+    articles: categoryNews.map(post => ({
+      id: post.id,
+      title: post.title,
+      uri: post.uri,
+      date: post.date,
+      excerpt: post.excerpt,
+      featuredImage: post.featuredImage,
+    })),
+    allNewsLink: '/news'
+  } : null;
 
   const heroImageNode = heroSection.heroImage?.node?.sourceUrl
     ? (
@@ -269,19 +289,21 @@ export default async function ServicePage({ params }) {
               selectedStudies: result?.data?.recentCaseStudies // Fallback even if global block is missing
             }}
             pageData={{
-              title: serviceFields.caseStudiesSection?.title || globalData?.globalContentBlocks?.caseStudies?.title || "Latest Case Studies",
+              title: `Some Of Our ${getServiceTitle(service.slug)} Case Studies`,
+              subtitle: 'Projects',
               selectedStudies: { nodes: featuredCaseStudies }
             }}
             useOverride={true}
+            serviceColor={serviceColor}
           />
         )}
 
 
 
 
-        {/* News/Latest Articles Section */}
-        {globalSelection?.enableLatestNews && globalData?.globalContentBlocks?.newsCarousel && (
-          <NewsCarousel newsCarousel={globalData.globalContentBlocks.newsCarousel} />
+        {/* News/Latest Articles Section - Service-specific category filtering */}
+        {globalSelection?.enableLatestNews && serviceNewsCarousel && (
+          <NewsCarousel newsCarousel={serviceNewsCarousel} />
         )}
 
 

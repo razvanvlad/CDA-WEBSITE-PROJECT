@@ -1,8 +1,8 @@
 // Orchestrator to fetch only requested global sections, in parallel.
 // This avoids over-fetching while keeping pages simple.
 
-import { executeGraphQLQuery } from '@/lib/graphql-queries'
-import { GET_GLOBAL_IMAGE_FRAME_MIN as GET_GLOBAL_IMAGE_FRAME, GET_GLOBAL_NEWS_CAROUSEL_MIN as GET_GLOBAL_NEWS_CAROUSEL, GET_GLOBAL_THREE_COLUMNS_MIN as GET_GLOBAL_THREE_COLUMNS } from '@/lib/graphql-queries'
+import { executeGraphQLQuery, getGlobalNewsCarouselBlockMin } from '@/lib/graphql-queries'
+import { GET_GLOBAL_IMAGE_FRAME_MIN as GET_GLOBAL_IMAGE_FRAME, GET_GLOBAL_THREE_COLUMNS_MIN as GET_GLOBAL_THREE_COLUMNS } from '@/lib/graphql-queries'
 
 async function getImageFrame() {
   const res = await executeGraphQLQuery(GET_GLOBAL_IMAGE_FRAME)
@@ -10,11 +10,7 @@ async function getImageFrame() {
 }
 
 async function getNewsCarousel() {
-  const res = await executeGraphQLQuery(GET_GLOBAL_NEWS_CAROUSEL)
-  const cfg = res?.data?.globalOptions?.globalContentBlocks?.newsCarousel || null
-  if (!cfg) return null
-  // Note: Keep computation minimal here; pages/components can enrich if needed
-  return cfg
+  return await getGlobalNewsCarouselBlockMin(); // Use the new helper function
 }
 
 async function getThreeColumns() {

@@ -11,7 +11,7 @@ import ValuesBlock from '@/components/GlobalBlocks/ValuesBlock'
 import WhyCdaBlock from '@/components/GlobalBlocks/WhyCdaBlock'
 import ThreeColumnsWithIcons from '@/components/GlobalBlocks/ThreeColumnsWithIcons'
 import CultureGallerySlider from '@/components/GlobalBlocks/CultureGallerySlider.jsx'
-import { getCaseStudiesWithPagination, executeGraphQLQuery } from '@/lib/graphql-queries.js'
+import { getCaseStudiesWithPagination, getBlogPostsForCarousel, executeGraphQLQuery } from '@/lib/graphql-queries.js'
 import HubspotFormClient from '@/components/Embeds/HubspotFormClient.jsx'
 
 // Server component that renders common global sections at the end of a page.
@@ -24,6 +24,8 @@ export default async function GlobalTailSections({
   enableStats = true,
   enableImageFrame = false,
   enableNewsCarousel = false,
+  enableNewsCarouselFallback = false,
+  newsCarouselData = null, // Optional override for service-specific news
   enableColumnsWithIcons3X = false,
   enableApproach = false,
   enableValues = false,
@@ -73,57 +75,35 @@ export default async function GlobalTailSections({
   // Only render Case Studies when enabled
   const showCaseStudiesSection = !!(enableCaseStudies && csData)
 
-  // Compute news carousel articles when enabled
-  let newsArticles = []
-  if (enableNewsCarousel && globalData?.newsCarousel) {
-    const newsConfig = globalData.newsCarousel
-    try {
-      const selection = newsConfig.articleSelection
-      if (selection === 'manual') {
-        newsArticles = (newsConfig.manualArticles?.nodes || []).map((n) => ({
-          id: n?.id,
-          title: n?.title,
-          excerpt: n?.excerpt,
-          uri: n?.uri,
-          imageUrl: n?.featuredImage?.node?.sourceUrl || '',
-          imageAlt: n?.featuredImage?.node?.altText || n?.title || 'Article image',
-        }))
-      } else {
-        const selectedSlug = newsConfig?.category?.nodes?.[0]?.slug
-        const firstCount = selection === 'category' ? 12 : 6
-        const BLOG_QUERY = `
-          query GetLatestBlogPosts($first: Int!) {
-            blogPosts(first: $first, where: { orderby: {field: DATE, order: DESC} }) {
-              nodes {
-                id
-                title
-                excerpt
-                uri
-                date
-                featuredImage { node { sourceUrl altText } }
-                blogCategories { nodes { name slug } }
-              }
-            }
+  // News Carousel: use override (service-specific), global config, or fallback to recent blog posts
+  let newsData = null
+  if (enableNewsCarousel) {
+    // Priority 1: Use override if provided (e.g., service-specific category news)
+    newsData = newsCarouselData || globalData?.newsCarousel || null
+
+    // Fallback: fetch latest blog posts if no data available
+    if (!newsData && enableNewsCarouselFallback) {
+      try {
+        const posts = await getBlogPostsForCarousel(6)
+        if (posts && posts.length > 0) {
+          newsData = {
+            title: 'Latest News & Updates',
+            subtitle: 'News',
+            articles: posts.map(p => ({
+              id: p.id,
+              title: p.title,
+              uri: `/news/${p.slug}`,
+              date: p.date,
+              excerpt: p.excerpt,
+              imageUrl: p.featuredImage?.node?.sourceUrl || '',
+              imageAlt: p.featuredImage?.node?.altText || p.title,
+            })),
+            allNewsLink: '/news'
           }
-        `
-        const blogRes = await executeGraphQLQuery(BLOG_QUERY, { first: firstCount })
-        const blogNodes = blogRes?.data?.blogPosts?.nodes || []
-        const filteredNodes = (selection === 'category' && selectedSlug)
-          ? blogNodes.filter((n) => (n?.blogCategories?.nodes || []).some((c) => c?.slug === selectedSlug))
-          : blogNodes
-        newsArticles = filteredNodes.map((n) => ({
-          id: n?.id,
-          title: n?.title,
-          excerpt: n?.excerpt,
-          uri: n?.uri,
-          date: n?.date,
-          imageUrl: n?.featuredImage?.node?.sourceUrl || '',
-          imageAlt: n?.featuredImage?.node?.altText || n?.title || 'Article image',
-          categories: (n?.blogCategories?.nodes || []).map((c) => c?.name).filter(Boolean),
-        }))
+        }
+      } catch (_) {
+        // ignore fallback errors
       }
-    } catch (e) {
-      console.warn('News Carousel compute failed, showing config without articles.', e)
     }
   }
 
@@ -143,11 +123,11 @@ export default async function GlobalTailSections({
         <PhotoFrame globalData={globalData.imageFrameBlock} />
       )}
 
-      {enableNewsCarousel && globalData?.newsCarousel && (
+      {enableNewsCarousel && newsData && (
         <NewsCarouselClient
-          title={globalData.newsCarousel.title}
-          subtitle={globalData.newsCarousel.subtitle}
-          articles={newsArticles}
+          title={newsData.title}
+          subtitle={newsData.subtitle}
+          articles={newsData.articles}
         />
       )}
 

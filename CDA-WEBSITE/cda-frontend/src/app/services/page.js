@@ -1,5 +1,6 @@
 // src/app/services/page.js
 import { getServicesWithPagination, executeGraphQLQuery, getServiceOverviewContent, getServiceBySlug, getAllGlobalContentBlocks, getBlogPostsForCarousel } from '@/lib/graphql-queries.js'
+import { getServiceColor } from '@/lib/serviceColors'
 import ServicesClient from './ServicesClient'
 import ServicesFilters from './ServicesFilters'
 import ApproachBlock from '@/components/GlobalBlocks/ApproachBlock'
@@ -19,21 +20,6 @@ import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 
 export const revalidate = 300
-
-// Service color mapping
-const getServiceColor = (slug) => {
-  const colorMap = {
-    'ecommerce': '#3CBEEB',
-    'b2b-lead-generation': '#AD80F9',
-    'software-development': '#01E486',
-    'booking-systems': '#FD8721',
-    'booking-systems': '#FD8721',
-    'digital-marketing': '#FF60DF',
-    'outsourced-cmo': '#FF5C8A',
-    'ai': '#3CBEEB'
-  };
-  return colorMap[slug] || '#7c3aed'; // fallback to purple
-};
 
 export const metadata = {
   title: 'Our Services',

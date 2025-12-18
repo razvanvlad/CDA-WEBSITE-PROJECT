@@ -7,20 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import ResponsiveUnderlinedTitle from '@/components/ResponsiveUnderlinedTitle';
 import TextLinkButton from '@/components/ui/TextLinkButton';
 import BookingModal from '@/components/BookingModal';
-
-const getServiceColor = (slug) => {
-  const colorMap = {
-    ecommerce: '#3CBEEB',
-    'b2b-lead-generation': '#AD80F9',
-    'software-development': '#01E486',
-    'booking-systems': '#FD8721',
-    'booking-systems': '#FD8721',
-    'digital-marketing': '#FF60DF',
-    'outsourced-cmo': '#FF5C8A',
-    ai: '#3CBEEB',
-  };
-  return colorMap[slug] || '#7c3aed';
-};
+import { getServiceColor } from '@/lib/serviceColors';
 
 // Case Studies Slider Component
 function CaseStudiesSlider({ caseStudies }) {

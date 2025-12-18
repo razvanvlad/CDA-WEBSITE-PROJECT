@@ -837,6 +837,177 @@ export const GET_SUBSERVICE_BY_SLUG = `
   }
 `;
 
+export const GET_SUBSERVICE_WITH_PARENT = `
+  query GetSubServiceWithParent($subslug: ID!, $parentslug: ID!) {
+    subService(id: $subslug, idType: SLUG) {
+      id
+      title
+      slug
+      content
+      excerpt
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+        }
+      }
+      subServices {
+        heroSection {
+          title
+          text
+          cta {
+            url
+            title
+            target
+          }
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+        statsSection {
+          title
+          text
+          stats {
+            number
+            text
+          }
+        }
+        videoSection {
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          title
+          text
+          cta {
+            url
+            title
+            target
+          }
+          subtitle
+          description
+        }
+        frameSection {
+          title
+          text
+          cta {
+            url
+            title
+            target
+          }
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+        sellOnline {
+          title
+          cta {
+            url
+            title
+            target
+          }
+          image {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+      }
+    }
+    parentService: service(id: $parentslug, idType: SLUG) {
+      id
+      title
+      slug
+      serviceFields {
+        featuredCaseStudies {
+          nodes {
+            ... on CaseStudy {
+              id
+              title
+              slug
+              uri
+              excerpt
+              featuredImage {
+                node {
+                  sourceUrl
+                  altText
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    globalOptions {
+      globalContentBlocks {
+        approach {
+          title
+          subtitle
+          steps {
+            title
+            image {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+        caseStudies {
+          title
+          subtitle
+          cta {
+            target
+            title
+            url
+          }
+          caseStudy {
+            nodes {
+              ... on CaseStudy {
+                id
+                title
+                slug
+                uri
+                excerpt
+                featuredImage {
+                  node {
+                    sourceUrl
+                    altText
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    recentCaseStudies: caseStudies(first: 2) {
+      nodes {
+        id
+        title
+        slug
+        uri
+        excerpt
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const GET_SUBSERVICE_SLUGS = `
   query GetSubServiceSlugs {
     subServices(first: 100) {
@@ -2093,6 +2264,16 @@ export async function getGlobalContent() {
     // ignore
   }
 
+  // Try to fetch optional news carousel separately with transformation; ignore errors
+  try {
+    const newsCarouselData = await getGlobalNewsCarouselBlockMin();
+    if (newsCarouselData) {
+      merged.newsCarousel = newsCarouselData;
+    }
+  } catch (e) {
+    // ignore
+  }
+
   return Object.keys(merged).length ? merged : baseBlocks;
 }
 
@@ -2380,6 +2561,37 @@ export const GET_GLOBAL_THREE_COLUMNS_MIN = `
   }
 `;
 
+export const GET_GLOBAL_NEWS_CAROUSEL_MIN = `
+  query GetGlobalNewsCarousel {
+    globalOptions {
+      globalContentBlocks {
+        newsCarousel {
+          title
+          subtitle
+          manualArticles {
+            nodes {
+              ... on BlogPost {
+                id
+                title
+                slug
+                uri
+                excerpt
+                date
+                featuredImage {
+                  node {
+                    sourceUrl
+                    altText
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export async function getGlobalApproachBlock() {
   const res = await executeGraphQLQuery(GET_GLOBAL_APPROACH);
   return res?.data?.globalOptions?.globalContentBlocks?.approach || null;
@@ -2396,6 +2608,68 @@ export async function getGlobalCaseStudiesSectionOnly() {
     knowledgeHubLink: caseStudiesBlock.cta,
     selectedStudies: recentStudies || { nodes: [] }
   };
+}
+
+export async function getGlobalNewsCarouselBlockMin() {
+  const res = await executeGraphQLQuery(GET_GLOBAL_NEWS_CAROUSEL_MIN);
+  const newsCarouselBlock = res?.data?.globalOptions?.globalContentBlocks?.newsCarousel;
+
+  if (!newsCarouselBlock) return null;
+
+  // Return with transformed structure for consistency
+  return {
+    title: newsCarouselBlock.title,
+    subtitle: newsCarouselBlock.subtitle,
+    articles: newsCarouselBlock.manualArticles?.nodes || [],
+    allNewsLink: '/news' // Default link to all news
+  };
+}
+
+export async function getBlogPostsByCategory(categorySlug, count = 6) {
+  const QUERY = `
+    query GetBlogPostsByCategory($count: Int!) {
+      blogPosts(
+        first: $count,
+        where: {
+          orderby: { field: DATE, order: DESC }
+        }
+      ) {
+        nodes {
+          id
+          title
+          slug
+          uri
+          excerpt
+          date
+          featuredImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          blogCategories {
+            nodes {
+              name
+              slug
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const response = await executeGraphQLQuery(QUERY, {
+    count
+  });
+
+  const allPosts = response?.data?.blogPosts?.nodes || [];
+
+  // Filter posts by category slug on the client side
+  const filteredPosts = allPosts.filter(post =>
+    post.blogCategories?.nodes?.some(cat => cat.slug === categorySlug)
+  );
+
+  return filteredPosts;
 }
 
 export async function getGlobalStatsBlock() {

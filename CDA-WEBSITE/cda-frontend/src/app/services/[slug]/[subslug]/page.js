@@ -6,9 +6,10 @@ import ApproachBlock from '../../../../components/GlobalBlocks/ApproachBlock';
 import SellOnline from '@/components/SellOnline';
 import CaseStudies from '../../../../components/GlobalBlocks/CaseStudies';
 import { notFound } from 'next/navigation';
-import { executeGraphQLQuery, GET_SUBSERVICE_BY_SLUG, GET_SUBSERVICE_SLUGS } from '../../../../lib/graphql-queries';
+import { executeGraphQLQuery, GET_SUBSERVICE_BY_SLUG, GET_SUBSERVICE_SLUGS, GET_SUBSERVICE_WITH_PARENT } from '../../../../lib/graphql-queries';
 import { safeImageUrl } from '../../../../lib/imageUtils';
 import { sanitizeTitleHtml, sanitizeImageAlt } from '../../../../lib/sanitizeTitleHtml';
+import { getServiceColor, getServiceTitle } from '../../../../lib/serviceColors';
 import Image from 'next/image';
 import Link from 'next/link';
 import COLORS from '../../../../constants/colors';
@@ -35,10 +36,13 @@ export default async function SubServicePage({ params }) {
 
   if (!subslug) notFound();
 
-  // Fetch sub-service data with error handling
+  // Fetch sub-service data with parent service for inheritance
   let result;
   try {
-    result = await executeGraphQLQuery(GET_SUBSERVICE_BY_SLUG, { slug: subslug });
+    result = await executeGraphQLQuery(GET_SUBSERVICE_WITH_PARENT, {
+      subslug: subslug,
+      parentslug: slug
+    });
   } catch (error) {
     console.error('SubServicePage: Failed to fetch data for', subslug, error);
     notFound();
@@ -50,6 +54,7 @@ export default async function SubServicePage({ params }) {
   }
 
   const subService = result?.data?.subService || null;
+  const parentService = result?.data?.parentService || null;
   const globalData = result?.data?.globalOptions || null;
 
   if (!subService) notFound();
@@ -60,7 +65,13 @@ export default async function SubServicePage({ params }) {
   const videoSection = subServiceFields.videoSection || null;
   const frameSection = subServiceFields.frameSection || null;
   const sellOnlineData = subServiceFields.sellOnline || null;
-  const featuredCaseStudies = subServiceFields.featuredCaseStudies?.nodes || [];
+
+  // Inherit case studies from parent service
+  const featuredCaseStudies = parentService?.serviceFields?.featuredCaseStudies?.nodes || [];
+
+  // Get parent service color and title for branding consistency
+  const parentServiceColor = getServiceColor(parentService?.slug || slug);
+  const parentServiceTitle = getServiceTitle(parentService?.title || parentService?.slug || slug);
 
   // Hero image
   const heroImageNode = heroSection.image?.node?.sourceUrl
@@ -100,7 +111,7 @@ export default async function SubServicePage({ params }) {
             <ResponsiveUnderlinedTitle
               as="h1"
               className="cda-title"
-              underlineColor="#3CBEEB"
+              underlineColor={parentServiceColor}
             >
               {heroSection.title || subService.title}
             </ResponsiveUnderlinedTitle>
@@ -310,10 +321,12 @@ export default async function SubServicePage({ params }) {
             selectedStudies: result?.data?.recentCaseStudies // Fallback even if global block is missing
           }}
           pageData={{
-            title: "Relevant Case Studies",
+            title: `Some Of Our ${parentServiceTitle} Case Studies`,
+            subtitle: 'Projects',
             selectedStudies: { nodes: featuredCaseStudies }
           }}
           useOverride={true}
+          serviceColor={parentServiceColor}
         />
       </main>
       <Footer />

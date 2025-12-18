@@ -9,6 +9,10 @@
  * - Desktop: 38px, strokeWidth: 9, offset: 4
  * - Mobile: 28px, strokeWidth: 7, offset: 6
  *
+ * H3 Typography (New - Locations):
+ * - Desktop: 45px, strokeWidth: 9, offset: inferred 37
+ * - Mobile: 28px, strokeWidth: 7, offset: 22
+ *
  * Note: Offset values may need visual adjustment
  */
 
@@ -39,22 +43,32 @@ export default function ResponsiveUnderlinedTitle({
     }
   }, []);
 
-  // Determine if this is H1 or H2 based on 'as' prop
+  // Determine if this is H1 or H2 or H3 based on 'as' prop
   const isH1 = as === 'h1';
+  const isH3 = as === 'h3';
 
-  // Set responsive values based on heading level
-  // During SSR and initial render, use desktop values to avoid hydration mismatch
-  const responsiveProps = isH1
-    ? {
+  let responsiveProps = {};
+
+  if (isH1) {
+    responsiveProps = {
       strokeWidth: (mounted && isMobile) ? 8 : 11,
       underlineOffset: (mounted && isMobile) ? 25 : 41,
       size: (mounted && isMobile) ? 'small' : 'large'
-    }
-    : {
+    };
+  } else if (isH3) {
+    responsiveProps = {
+      strokeWidth: (mounted && isMobile) ? 7 : 9,
+      underlineOffset: (mounted && isMobile) ? 22 : 37, // 37 is approx interpolated between 32 and 41 based on 45px font
+      size: (mounted && isMobile) ? 'small' : 'medium'
+    };
+  } else {
+    // Default to H2
+    responsiveProps = {
       strokeWidth: (mounted && isMobile) ? 7 : 9,
       underlineOffset: (mounted && isMobile) ? 22 : 32,
       size: (mounted && isMobile) ? 'small' : 'medium'
     };
+  }
 
   return (
     <UnderlinedTitle

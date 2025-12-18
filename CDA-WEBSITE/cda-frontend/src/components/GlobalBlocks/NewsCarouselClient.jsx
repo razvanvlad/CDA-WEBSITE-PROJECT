@@ -1,5 +1,59 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import Image from "next/image";
+
+// Badge component with SVG underline (matching Knowledge Hub)
+function BadgeWithUnderline({ children, color }) {
+  const textRef = useRef(null);
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    if (textRef.current) {
+      setWidth(textRef.current.offsetWidth);
+    }
+  }, [children]);
+
+  const curveIntensity = 0.01;
+  const strokeWidth = 5;
+  const underlineOffset = 16;
+
+  const curveDepth = width * curveIntensity;
+  const svgHeight = Math.max(curveDepth + strokeWidth * 2, strokeWidth * 2);
+  const startY = curveDepth + strokeWidth;
+  const controlY = strokeWidth;
+  const endY = curveDepth + strokeWidth;
+  const path = `M 0 ${startY} Q ${width / 2} ${controlY} ${width} ${endY}`;
+
+  return (
+    <span className="news-card__badge-wrapper">
+      <span ref={textRef} className="news-card__badge">
+        {children}
+      </span>
+      {width > 0 && (
+        <svg
+          width={width}
+          height={svgHeight}
+          style={{
+            position: 'absolute',
+            top: `${underlineOffset}px`,
+            left: 0,
+          }}
+          preserveAspectRatio="none"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d={path}
+            stroke={color}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            fill="none"
+          />
+        </svg>
+      )}
+    </span>
+  );
+}
 
 export default function NewsCarouselClient({ title, subtitle, articles = [] }) {
   const listRef = useRef(null);
@@ -23,6 +77,9 @@ export default function NewsCarouselClient({ title, subtitle, articles = [] }) {
     }
   };
 
+  // Rotating colors for underlines (matching Knowledge Hub)
+  const colors = ['#3CBEEB', '#01E486', '#FD8721', '#FF60DF', '#AD80F9'];
+
   return (
     <section className="news-carousel-section">
       <div className="news-carousel-container">
@@ -37,22 +94,51 @@ export default function NewsCarouselClient({ title, subtitle, articles = [] }) {
         {(articles.length || 0) > 0 ? (
           <>
             <div ref={listRef} className="news-carousel-list">
-              {articles.map((post) => (
-                <article key={post.id || post.uri} className="news-card">
-                  {post.imageUrl ? (
-                    <a href={toHref(post.uri)} className="news-card-image" aria-label={post.title}>
-                      <img src={post.imageUrl} alt={post.imageAlt || post.title} />
-                    </a>
-                  ) : null}
-                  <div className="news-card-content">
-                    <h3 className="news-card-title" dangerouslySetInnerHTML={{ __html: post.title }} />
-                    {post.excerpt && (
-                      <div className="news-card-excerpt" dangerouslySetInnerHTML={{ __html: post.excerpt }} />
-                    )}
-                    <a href={toHref(post.uri)} className="news-card-link">Read more →</a>
-                  </div>
-                </article>
-              ))}
+              {articles.map((post, index) => {
+                const imageUrl = post.imageUrl || '/images/placeholder.jpg';
+                const underlineColor = colors[index % colors.length];
+
+                return (
+                  <a href={toHref(post.uri)} key={post.id || post.uri}>
+                    <article className="news-card">
+                      {/* Image wrapper with overlay */}
+                      <div className="news-card__image-wrapper">
+                        <Image
+                          src={imageUrl}
+                          alt={post.imageAlt || post.title}
+                          fill
+                          className="news-card__image"
+                        />
+                        <div className="news-card__overlay"></div>
+                      </div>
+
+                      {/* Top section: Badge and Date */}
+                      <div className="news-card__top news-card__top--spread">
+                        <BadgeWithUnderline color={underlineColor}>
+                          News
+                        </BadgeWithUnderline>
+                        {post.date && (
+                          <time className="news-card__date">
+                            {new Date(post.date).toLocaleDateString('en-US', {
+                              month: 'short',
+                              day: 'numeric',
+                              year: 'numeric'
+                            })}
+                          </time>
+                        )}
+                      </div>
+
+                      {/* Bottom section: Title */}
+                      <div className="news-card__bottom news-card__bottom--center">
+                        <h3
+                          className="news-card__title"
+                          dangerouslySetInnerHTML={{ __html: post.title }}
+                        />
+                      </div>
+                    </article>
+                  </a>
+                );
+              })}
             </div>
             <div className="news-carousel-nav">
               <button type="button" className="news-carousel-nav-btn prev" onClick={() => scroll('prev')} aria-label="Previous">

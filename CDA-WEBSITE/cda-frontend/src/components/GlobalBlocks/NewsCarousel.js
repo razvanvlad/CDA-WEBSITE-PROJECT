@@ -15,8 +15,8 @@ export default function NewsCarousel({ newsCarousel }) {
     container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   };
 
-  // Get articles from manual selection or category-based selection
-  const articles = newsCarousel?.manualArticles?.nodes || [];
+  // Get articles - support both new (articles) and old (manualArticles.nodes) data structures
+  const articles = newsCarousel?.articles || newsCarousel?.manualArticles?.nodes || [];
 
   if (!articles || articles.length === 0) {
     return null;
