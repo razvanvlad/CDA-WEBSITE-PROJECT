@@ -18,6 +18,9 @@ export async function generateStaticParams() {
   }
 }
 
+
+
+
 export default async function NewsArticlePage({ params }) {
   const resolvedParams = await params;
   const slug = decodeURIComponent(resolvedParams?.slug || '');
