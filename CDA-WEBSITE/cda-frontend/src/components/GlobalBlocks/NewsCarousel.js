@@ -234,7 +234,7 @@ export default function NewsCarousel({ newsCarousel }) {
           </div>
 
           {/* Main cards container */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-10">
             {/* BIG Card - 1064x658 */}
             <div className="flex-shrink-0 transition-all duration-500">
               {renderCard(items[idx1], idx1, 'big')}
