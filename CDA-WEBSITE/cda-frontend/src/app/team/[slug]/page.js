@@ -5,7 +5,7 @@ import ResponsiveUnderlinedTitle from '../../../components/ResponsiveUnderlinedT
 import HeroSection from '../../../components/GlobalBlocks/HeroSection'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import HubspotMeetingsScheduler from '@/components/Embeds/HubspotMeetingsScheduler.jsx'
+import TeamMemberBookingSection from '../../../components/TeamMemberBookingSection'
 import TeamMembers from '../../../components/TeamMembers'
 import ServicesSlider from '../../../components/GlobalBlocks/ServicesSlider'
 
@@ -83,6 +83,8 @@ export default async function TeamMemberDetailPage({ params }) {
       <>
         <Header backButton={{ href: '/team', label: 'Back To Team' }} />
 
+
+
         <HeroSection
           reverseLayout={true}
           mobileOrder={{
@@ -91,7 +93,7 @@ export default async function TeamMemberDetailPage({ params }) {
             cta: 3,
             image: 4
           }}
-          sectionClassName="bg-white py-20 md:py-24"
+          sectionClassName="bg-white py-10 md:py-12 cda-hero--50-50"
           eyebrow={jobTitle}
           eyebrowClassName="text-sm font-semibold tracking-wider uppercase text-gray-900 mb-2"
           title={
@@ -103,34 +105,36 @@ export default async function TeamMemberDetailPage({ params }) {
               {member.title}
             </ResponsiveUnderlinedTitle>
           }
-          description={shortBio ? (
-            <div className="prose prose-p:mb-4 max-w-none text-gray-800" dangerouslySetInnerHTML={{ __html: shortBio }} />
-          ) : null}
-          ctas={Array.isArray(contactDetails) && contactDetails.length > 0 ? [{
-            node: (
-              <ul className="mt-6 space-y-3">
-                {contactDetails.map((cd, i) => {
-                  const iconUrl = cd?.icon?.node?.sourceUrl || null
-                  const iconAlt = cd?.icon?.node?.altText || ''
-                  const text = cd?.text || ''
-                  const url = cd?.url || ''
-                  const content = (
-                    <span className="inline-flex items-center gap-2">
-                      {iconUrl && <img src={iconUrl} alt={iconAlt} className="w-5 h-5 inline-block" />}
-                      <span>{text}</span>
-                    </span>
-                  )
-                  return (
-                    <li key={i} className="text-[#111827]">
-                      {url ? (
-                        <a href={url} className="hover:underline" target="_blank" rel="noopener noreferrer">{content}</a>
-                      ) : content}
-                    </li>
-                  )
-                })}
-              </ul>
-            )
-          }] : []}
+          description={
+            <div>
+              {shortBio && (
+                <div className="prose prose-p:mb-4 max-w-none text-gray-800" dangerouslySetInnerHTML={{ __html: shortBio }} />
+              )}
+              {Array.isArray(contactDetails) && contactDetails.length > 0 && (
+                <ul className="flex flex-wrap gap-4 mt-6">
+                  {contactDetails.map((cd, i) => {
+                    const iconUrl = cd?.icon?.node?.sourceUrl || null
+                    const iconAlt = cd?.icon?.node?.altText || ''
+                    const text = cd?.text || ''
+                    const url = cd?.url || ''
+                    const content = (
+                      <span className="inline-flex items-center gap-2">
+                        {iconUrl && <img src={iconUrl} alt={iconAlt} className="w-5 h-5 inline-block" />}
+                        <span className="text-[#111827]">{text}</span>
+                      </span>
+                    )
+                    return (
+                      <li key={i}>
+                        {url ? (
+                          <a href={url} className="hover:underline" target="_blank" rel="noopener noreferrer">{content}</a>
+                        ) : content}
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
+            </div>
+          }
           image={profileImage && (
             <Image
               src={profileImage}
@@ -142,13 +146,9 @@ export default async function TeamMemberDetailPage({ params }) {
           )}
         />
 
-        {/* Full-width Booking Form (only for Stuart Alldis - DB ID 884) */}
+        {/* Booking Section with Modal (only for Stuart Alldis - DB ID 884) */}
         {Number(core?.databaseId) === 884 && (
-          <section className="bg-white py-16">
-            <div className="cda-container">
-              <HubspotMeetingsScheduler ownerSlug="stuart-alldis" defaultProvider="zoom" />
-            </div>
-          </section>
+          <TeamMemberBookingSection ownerSlug="stuart-alldis" defaultProvider="zoom" />
         )}
 
         {/* Team Members Section (below booking form) */}

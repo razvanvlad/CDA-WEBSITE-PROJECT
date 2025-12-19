@@ -86,6 +86,47 @@
     grid-column: 2;
     grid-row: 3;
   }
+
+  .cda-hero__grid--reverse .cda-hero__cta {
+    grid-column: 2;
+    grid-row: 3;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  /* 50/50 Split Modifier */
+  .cda-hero--50-50 .cda-hero__grid,
+  .cda-hero--50-50 .cda-hero__grid--reverse {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto; /* Only 2 rows - title and text, no empty CTA row */
+    align-items: start; /* Align items to top */
+    row-gap: 1rem; /* Tighter gap between title and text */
+  }
+
+  /* Center content vertically in 50-50 reverse layout */
+  .cda-hero--50-50 .cda-hero__grid--reverse .cda-hero__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-row: 1 / -1; /* Span all available rows */
+  }
+
+  /* Title and text alignment in reverse layout */
+  .cda-hero--50-50 .cda-hero__grid--reverse .cda-hero__title {
+    align-self: start;
+  }
+
+  .cda-hero--50-50 .cda-hero__grid--reverse .cda-hero__text {
+    align-self: start;
+  }
+
+  /* Constrain image size in 50-50 layouts to prevent excessive height */
+  .cda-hero--50-50 .cda-hero__image img {
+    max-height: 600px;
+    width: auto;
+    object-fit: contain;
+  }
 }
 
 /* ============================================
