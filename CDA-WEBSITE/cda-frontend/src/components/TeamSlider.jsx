@@ -21,87 +21,17 @@ export default function TeamSlider({ teamMembers = [] }) {
 
   if (!teamMembers?.length) return null
 
-  // Desktop: Grid layout
+  // Desktop: Grid layout (in container)
   if (!isMobile) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {teamMembers.map((m) => {
-          const img = m?.featuredImage?.node || m?.teamMemberFields?.featuredImage?.node
-          const alt = img?.altText || m?.title
-          const job = m?.teamMemberFields?.jobTitle || m?.jobTitle || ''
-          return (
-            <div key={m.id} className="w-full flex-shrink-0">
-              <div className="block group text-left">
-                <Link href={`/team/${m.slug}`} className="block">
-                  <div className="relative w-full pb-[100%] overflow-visible rounded-md mb-4">
-                    {img?.sourceUrl && (
-                      <Image
-                        src={img.sourceUrl}
-                        alt={alt}
-                        fill
-                        className="object-cover object-top"
-                        style={{ transform: 'translateY(-8%)' }}
-                      />
-                    )}
-                  </div>
-                  <div className="relative">
-                    <div className="text-[22px] leading-tight text-black" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700 }}>
-                      {m.title}
-                    </div>
-                    {job && (
-                      <div className="text-[18px] text-gray-600 mt-3" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 400 }}>
-                        {job}
-                      </div>
-                    )}
-                  </div>
-                </Link>
-                <div className="mt-4">
-                  <Link
-                    href={`/team/${m.slug}`}
-                    className="button-without-box"
-                  >
-                    <span className="button-text">View Profile</span>
-                    <span className="button-icon-wrapper">
-                      <img src="/images/arrow-icons/diagonal-right-arrow.svg" alt="" className="button-icon button-icon-default" aria-hidden="true" />
-                      <img src="/images/arrow-icons/right-arrow.svg" alt="" className="button-icon button-icon-hover" aria-hidden="true" />
-                    </span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          )
-        })}
-        {/* Green arrow - only on desktop */}
-        <div className="w-full flex-shrink-0">
-          <div className="flex items-center justify-center h-full">
-            <Image
-              src="/images/green-arrow.svg"
-              alt=""
-              width={271}
-              height={313}
-              className="object-contain"
-            />
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  // Mobile: Carousel layout
-  return (
-    <div>
-      {/* Track */}
-      <div className="overflow-hidden">
-        <div
-          className="flex transition-transform duration-500"
-          style={{ transform: `translateX(calc(-${index * 373}px + calc(50% - 186.5px)))` }}
-        >
+      <div className="cda-container">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {teamMembers.map((m) => {
             const img = m?.featuredImage?.node || m?.teamMemberFields?.featuredImage?.node
             const alt = img?.altText || m?.title
             const job = m?.teamMemberFields?.jobTitle || m?.jobTitle || ''
             return (
-              <div key={m.id} className="w-[373px] flex-shrink-0" style={{ padding: '0 10px' }}>
+              <div key={m.id} className="w-full flex-shrink-0">
                 <div className="block group text-left">
                   <Link href={`/team/${m.slug}`} className="block">
                     <div className="relative w-full pb-[100%] overflow-visible rounded-md mb-4">
@@ -142,25 +72,96 @@ export default function TeamSlider({ teamMembers = [] }) {
               </div>
             )
           })}
+          {/* Green arrow - only on desktop */}
+          <div className="w-full flex-shrink-0">
+            <div className="flex items-center justify-center h-full">
+              <Image
+                src="/images/green-arrow.svg"
+                alt=""
+                width={271}
+                height={313}
+                className="object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Mobile: Carousel layout (full-width with peek effect like NewsCarousel)
+  return (
+    <div className="w-full">
+      {/* Track - allows overflow to show partial cards */}
+      <div className="relative overflow-hidden w-full pb-4">
+        <div
+          className="flex transition-transform duration-500 ease-out"
+          style={{ transform: `translateX(calc(-${index * 353}px + calc(50% - 176.5px)))` }}
+        >
+          {teamMembers.map((m) => {
+            const img = m?.featuredImage?.node || m?.teamMemberFields?.featuredImage?.node
+            const alt = img?.altText || m?.title
+            const job = m?.teamMemberFields?.jobTitle || m?.jobTitle || ''
+            return (
+              <div key={m.id} className="flex-shrink-0 w-[353px] px-[10px]">
+                <div className="block group text-center">
+                  <Link href={`/team/${m.slug}`} className="block">
+                    <div className="relative w-full pb-[100%] overflow-hidden rounded-md mb-4">
+                      {img?.sourceUrl && (
+                        <Image
+                          src={img.sourceUrl}
+                          alt={alt}
+                          fill
+                          className="object-cover object-top"
+                        />
+                      )}
+                    </div>
+                    <div className="relative">
+                      <div className="text-[22px] leading-tight text-black" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700 }}>
+                        {m.title}
+                      </div>
+                      {job && (
+                        <div className="text-[18px] text-gray-600 mt-3" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 400 }}>
+                          {job}
+                        </div>
+                      )}
+                    </div>
+                  </Link>
+                  <div className="mt-4">
+                    <Link
+                      href={`/team/${m.slug}`}
+                      className="button-without-box"
+                    >
+                      <span className="button-text">View Profile</span>
+                      <span className="button-icon-wrapper">
+                        <img src="/images/arrow-icons/diagonal-right-arrow.svg" alt="" className="button-icon button-icon-default" aria-hidden="true" />
+                        <img src="/images/arrow-icons/right-arrow.svg" alt="" className="button-icon button-icon-hover" aria-hidden="true" />
+                      </span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
 
       {/* Mobile controls */}
       {teamMembers.length > 1 && (
-        <div className="mt-6 flex justify-center gap-4">
+        <div className="flex justify-center gap-4 mt-8">
           <button
             onClick={prev}
             aria-label="Previous"
-            className="p-0 flex-shrink-0 opacity-30 hover:opacity-100 active:opacity-100 transition-opacity cursor-pointer"
+            className="p-0 flex-shrink-0 opacity-50 hover:opacity-100 transition-opacity cursor-pointer"
           >
-            <img src="/images/arrow-icons/left-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" aria-hidden="true" />
+            <img src="/images/arrow-icons/left-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
           </button>
           <button
             onClick={next}
             aria-label="Next"
-            className="p-0 flex-shrink-0 opacity-30 hover:opacity-100 active:opacity-100 transition-opacity cursor-pointer"
+            className="p-0 flex-shrink-0 opacity-50 hover:opacity-100 transition-opacity cursor-pointer"
           >
-            <img src="/images/arrow-icons/right-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" aria-hidden="true" />
+            <img src="/images/arrow-icons/right-arrow.svg" alt="" width="14" height="14" className="w-[14px] h-[14px] block" />
           </button>
         </div>
       )}

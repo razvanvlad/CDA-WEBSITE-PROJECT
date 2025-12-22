@@ -17,7 +17,8 @@ export default function TeamMembers({ subtitle, title, teamMembers = [] }) {
   }
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-white overflow-hidden">
+      {/* Header in container */}
       <div className="cda-container">
         <div className="mb-8">
           {subtitle && <p className="cda-subtitle">{subtitle}</p>}
@@ -31,8 +32,9 @@ export default function TeamMembers({ subtitle, title, teamMembers = [] }) {
             </ResponsiveUnderlinedTitle>
           )}
         </div>
-        <TeamSlider teamMembers={teamMembers} />
       </div>
+      {/* Slider full-width on mobile, container on desktop */}
+      <TeamSlider teamMembers={teamMembers} />
     </section>
   )
 }
