@@ -10,7 +10,8 @@ interface UnderlinedTitleProps {
   curveIntensity?: number;
   underlineOffset?: number;
   centered?: boolean;
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'div';
+  as?: 'h0' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'div';
+  compactUnderline?: boolean;
 }
 
 export default function UnderlinedTitle({
@@ -23,7 +24,11 @@ export default function UnderlinedTitle({
   underlineOffset = 48,
   centered = false,
   as: Component = 'h2',
+  compactUnderline = false,
 }: UnderlinedTitleProps) {
+  // Convert h0 to div since h0 isn't a valid HTML element
+  const ActualComponent = (Component === 'h0' ? 'div' : Component) as any;
+
   const containerRef = useRef<HTMLSpanElement>(null);
   const [words, setWords] = useState<{ text: string; width: number; left: number; top: number }[]>([]);
 
@@ -85,8 +90,21 @@ export default function UnderlinedTitle({
   const lines = lineGroups.map((lineWords) => {
     const firstWord = lineWords[0];
     const lastWord = lineWords[lineWords.length - 1];
+
+    let width;
+    if (compactUnderline) {
+      // Compact mode: sum individual word widths with small gaps
+      const totalWordWidth = lineWords.reduce((sum, word) => sum + word.width, 0);
+      const gapWidth = 4; // Small gap between words in pixels
+      const totalGaps = (lineWords.length - 1) * gapWidth;
+      width = totalWordWidth + totalGaps;
+    } else {
+      // Default mode: full span from first to last word
+      width = lastWord.left + lastWord.width - firstWord.left;
+    }
+
     return {
-      width: lastWord.left + lastWord.width - firstWord.left,
+      width,
       left: firstWord.left,
       top: firstWord.top,
     };
@@ -141,7 +159,7 @@ export default function UnderlinedTitle({
 
   if (centered) {
     return (
-      <Component className={`${className} flex justify-center text-center`}>
+      <ActualComponent className={`${className} flex justify-center text-center`}>
         <span ref={containerRef} className="relative inline-block">
           <span className="relative z-10">
             {renderText()}
@@ -150,12 +168,12 @@ export default function UnderlinedTitle({
             renderUnderline(line.width, line.left, line.top, index)
           )}
         </span>
-      </Component>
+      </ActualComponent>
     );
   }
 
   return (
-    <Component className={className}>
+    <ActualComponent className={className}>
       <span ref={containerRef} className="relative inline-block">
         <span className="relative z-10">
           {renderText()}
@@ -164,6 +182,6 @@ export default function UnderlinedTitle({
           renderUnderline(line.width, line.left, line.top, index)
         )}
       </span>
-    </Component>
+    </ActualComponent>
   );
 }

@@ -1,6 +1,10 @@
 /**
  * ResponsiveUnderlinedTitle - Automatic responsive title component
  *
+ * H0 Typography (Extra Large - Results Numbers):
+ * - Desktop: 70px Poppins Bold, strokeWidth: 11, offset: TBD
+ * - Mobile: 40px Poppins Bold, strokeWidth: 7, offset: TBD
+ *
  * H1 Typography:
  * - Desktop: 50px, strokeWidth: 11, offset: 4
  * - Mobile: 32px, strokeWidth: 8, offset: 6
@@ -26,6 +30,7 @@ export default function ResponsiveUnderlinedTitle({
   children,
   className = '',
   underlineColor = '#FF5C8A',
+  compactUnderline,
   ...props
 }) {
   const [mounted, setMounted] = useState(false);
@@ -43,13 +48,21 @@ export default function ResponsiveUnderlinedTitle({
     }
   }, []);
 
-  // Determine if this is H1 or H2 or H3 based on 'as' prop
+  // Determine variant based on 'as' prop
+  const isH0 = as === 'h0';
   const isH1 = as === 'h1';
   const isH3 = as === 'h3';
 
   let responsiveProps = {};
 
-  if (isH1) {
+  if (isH0) {
+    // Extra Large - Results Numbers
+    responsiveProps = {
+      strokeWidth: (mounted && isMobile) ? 7 : 11,
+      underlineOffset: (mounted && isMobile) ? 36 : 65, // Adjusted for 70px/40px font sizes
+      size: (mounted && isMobile) ? 'small' : 'large'
+    };
+  } else if (isH1) {
     responsiveProps = {
       strokeWidth: (mounted && isMobile) ? 8 : 11,
       underlineOffset: (mounted && isMobile) ? 25 : 41,
@@ -75,6 +88,7 @@ export default function ResponsiveUnderlinedTitle({
       as={as}
       className={className}
       underlineColor={underlineColor}
+      compactUnderline={compactUnderline}
       {...responsiveProps}
       {...props}
     >

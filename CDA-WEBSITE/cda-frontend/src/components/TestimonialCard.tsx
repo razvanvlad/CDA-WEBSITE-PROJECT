@@ -22,7 +22,7 @@ export default function TestimonialCard({
 }: TestimonialCardProps) {
   return (
     <section className={`w-full py-16 lg:py-24 overflow-x-hidden ${className}`}>
-      <div className="max-w-[1400px] mx-auto px-4 lg:px-20">
+      <div className="max-w-[1400px] mx-auto px-[20px] md:px-[24px] lg:px-20">
         {/* Title */}
         <h2 className="text-[38px] font-bold font-['Poppins'] text-center mb-12 lg:mb-16">
           {title}

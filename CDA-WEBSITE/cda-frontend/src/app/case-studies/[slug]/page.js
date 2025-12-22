@@ -73,7 +73,7 @@ export default async function CaseStudyPage(props) {
 
         {/* Hero Section */}
         <section className="relative bg-white text-black">
-          <div className="max-w-7xl mx-auto px-4 py-16 lg:py-24">
+          <div className="cda-container py-16 lg:py-24">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <ResponsiveUnderlinedTitle
@@ -166,7 +166,7 @@ export default async function CaseStudyPage(props) {
         {/* Customer Details */}
         {customerDetails && (
           <section className="py-16 lg:py-24 bg-white">
-            <div className="max-w-7xl mx-auto px-4">
+            <div className="cda-container">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
                 <div>
                   <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
@@ -208,7 +208,7 @@ export default async function CaseStudyPage(props) {
         {/* Challenge Section */}
         {challenge && (
           <section className="py-16 lg:py-24 bg-white overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4">
+            <div className="cda-container">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:items-center">
                 {/* Image on LEFT */}
                 {challenge.image?.node?.sourceUrl && (
@@ -223,7 +223,7 @@ export default async function CaseStudyPage(props) {
                 )}
 
                 {/* Text on RIGHT with gray background extending to edge */}
-                <div className="relative -mr-4 lg:-mr-[50vw] lg:pr-[calc(50vw-1rem)] py-12 px-8 lg:px-12 bg-gray-50">
+                <div className="relative -mr-[20px] md:-mr-[24px] lg:-mr-[50vw] lg:pr-[calc(50vw-32px)] py-12 px-8 lg:px-12 bg-gray-50">
                   <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
                     {challenge.title || "The Challenge"}
                   </h2>
@@ -243,16 +243,18 @@ export default async function CaseStudyPage(props) {
         {/* Solution Section - REPLACED BLOCK */}
         {solution && (
           <section className="py-16 lg:py-24 bg-[#F9F9F9] overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 lg:px-8">
+            <div className="cda-container">
               <SolutionGallery data={solution} />
             </div>
+          </section>
+        )}
 
-            {/* Results Section */}
-            {solution.results && (solution.results.first || solution.results.second || solution.results.third) && (
-              <div className="max-w-7xl mx-auto px-4 mt-24">
-                <ResultsCards results={solution.results} />
-              </div>
-            )}
+        {/* Results Section */}
+        {solution?.results && (solution.results.first || solution.results.second || solution.results.third) && (
+          <section className="py-16 lg:py-24 bg-white">
+            <div className="cda-container">
+              <ResultsCards results={solution.results} />
+            </div>
           </section>
         )}
 
@@ -270,7 +272,7 @@ export default async function CaseStudyPage(props) {
 
       </main>
 
-      <GlobalTailSections globalData={globalData} />
+      <GlobalTailSections globalData={globalData} enableStats={false} />
 
       <Footer />
     </>
