@@ -76,51 +76,28 @@ const Showreel = ({ globalData }) => {
         </div>
       )}
 
-      {/* Logos: mobile = ticker; desktop = grid */}
+      {/* Logos: infinite scroll carousel for both mobile and desktop */}
       {logos.length > 0 && (
-        <>
-          {/* MOBILE ticker (auto scrolling) - Full width */}
-          <div className="md:hidden mt-4">
-            <div className="overflow-hidden">
-              <div className="sr-ticker-track flex items-center">
-                {tickerLogos.map((logo, i) => (
-                  <div key={`tl-${i}`} className="px-8 py-3 shrink-0">
-                    <img
-                      src={logo.sourceUrl}
-                      alt={logo.altText || 'Client logo'}
-                      className="h-9 object-contain grayscale"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* DESKTOP grid */}
-          <div className="hidden md:flex mt-12 cda-container flex-wrap justify-between items-center gap-6">
-            {logos.map((logo, i) => (
-              <div key={i} className="flex items-center justify-center" style={{ maxWidth: '220px', flex: '0 1 auto' }}>
+        <div className="mt-8 md:mt-12 w-full overflow-hidden mask-gradient">
+          <div className="inline-flex flex-none animate-slow-infinite-scroll items-center gap-8 md:gap-16 pr-8 md:pr-16">
+            {tickerLogos.map((logo, i) => (
+              <div key={`logo-${i}`} className="shrink-0">
                 <img
                   src={logo.sourceUrl}
                   alt={logo.altText || 'Client logo'}
-                  className="h-8 sm:h-9 md:h-10 lg:h-12 w-full object-contain grayscale hover:grayscale-0 transition"
-                  style={{ maxWidth: '220px' }}
+                  className="h-9 md:h-10 lg:h-12 object-contain"
                 />
               </div>
             ))}
           </div>
-        </>
+        </div>
       )}
 
-      {/* Inline styles for the mobile ticker animation */}
+      {/* Carousel mask gradient styles */}
       <style jsx>{`
-        @keyframes sr-scroll {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .sr-ticker-track {
-          animation: sr-scroll 22s linear infinite;
-          will-change: transform;
+        .mask-gradient {
+          mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+          -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
       `}</style>
     </SectionBand>

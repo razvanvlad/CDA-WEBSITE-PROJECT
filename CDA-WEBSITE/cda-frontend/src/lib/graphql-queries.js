@@ -257,7 +257,11 @@ function resolveGraphQLEndpoint() {
 export async function executeGraphQLQuery(query, variables = {}) {
   try {
     const resolvedEndpoint = resolveGraphQLEndpoint();
-    console.log('[GraphQL] Fetching from:', resolvedEndpoint);
+
+    // Only log fetch activity in development or when explicitly enabled
+    if (process.env.NODE_ENV === 'development' || process.env.DEBUG_GRAPHQL === 'true') {
+      console.log('[GraphQL] Fetching from:', resolvedEndpoint);
+    }
 
     const response = await fetch(resolvedEndpoint, {
       method: 'POST',

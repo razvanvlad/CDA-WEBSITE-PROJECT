@@ -148,7 +148,7 @@ export default async function CaseStudyPage(props) {
 
               <div className="relative">
                 {hero?.image?.node?.sourceUrl && (
-                  <div className="relative w-full aspect-[16/10] overflow-hidden rounded-xl shadow-2xl">
+                  <div className="relative w-full aspect-[16/10]">
                     <Image
                       src={hero.image.node.sourceUrl}
                       alt={hero.image.node.altText || hero?.title || caseStudy.title}
@@ -212,7 +212,7 @@ export default async function CaseStudyPage(props) {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:items-center">
                 {/* Image on LEFT */}
                 {challenge.image?.node?.sourceUrl && (
-                  <div className="relative w-full max-w-[447px] h-[339px] overflow-hidden rounded-lg shadow-lg mx-auto lg:mx-0">
+                  <div className="relative w-full max-w-[447px] h-[339px] mx-auto lg:mx-0">
                     <Image
                       src={challenge.image.node.sourceUrl}
                       alt={challenge.image.node.altText || challenge.title || "Challenge"}
