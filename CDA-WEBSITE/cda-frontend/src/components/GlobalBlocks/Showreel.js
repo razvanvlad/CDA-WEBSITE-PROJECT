@@ -1,16 +1,31 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import SectionBand from '@/components/SectionBand';
 import TextLinkButton from '../ui/TextLinkButton';
 
 const Showreel = ({ globalData }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
   if (!globalData) return null;
 
   const title = globalData.title;
   const subtitle = globalData.subtitle;
   const button = globalData.button; // { url, title, target }
   const largeImage = globalData.largeImage || globalData.videoThumbnail;
+  const video = globalData.fullVideo; // { url, file }
+
+  // Video detection and embed URL creation
+  const videoUrl = video?.file?.node?.sourceUrl || video?.url;
+  const isVimeo = videoUrl && /vimeo\.com/.test(videoUrl);
+  const isYouTube = videoUrl && /youtube\.com|youtu\.be/.test(videoUrl);
+
+  let embedUrl = videoUrl;
+  if (isVimeo && videoUrl) {
+    const m = videoUrl.match(/vimeo\.com\/(?:video\/)?(?:.+\/)?(\d+)/);
+    const id = m && m[1];
+    if (id) embedUrl = `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0`;
+  }
 
   // Support both shapes for logos
   const logos = (() => {
@@ -55,23 +70,40 @@ const Showreel = ({ globalData }) => {
         </div>
       )}
 
-      {/* Hero image - Full width on mobile, contained on desktop */}
+      {/* Hero image/video - 1616px max width container */}
       {largeImage?.node?.sourceUrl && (
-        <div className="md:cda-container">
-          <div className="showreel-image-container relative md:rounded-xl overflow-hidden border-y md:border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
-            <img
-              src={largeImage.node.sourceUrl}
-              alt={largeImage.node.altText || title || 'Showreel'}
-              className="w-full h-auto object-cover"
-            />
-            {/* Play badge */}
-            <button
-              type="button"
-              className="absolute top-6 right-6 w-14 h-14 md:w-16 md:h-16 bg-white/95 rounded-full flex items-center justify-center shadow-md"
-              aria-label="Play showreel"
-            >
-              <span className="text-[11px] md:text-[12px] font-bold tracking-wider text-[#111827]">PLAY</span>
-            </button>
+        <div className="mx-auto w-full max-w-[1616px]">
+          <div className="showreel-image-container relative rounded-2xl overflow-hidden bg-gray-100">
+            {videoUrl && isPlaying ? (
+              // Video player (when playing)
+              <>
+                {isVimeo || isYouTube ? (
+                  <iframe
+                    src={embedUrl}
+                    className="w-full aspect-video"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowFullScreen
+                  />
+                ) : (
+                  <video className="w-full h-auto object-cover" controls autoPlay>
+                    <source src={videoUrl} />
+                  </video>
+                )}
+              </>
+            ) : (
+              // Thumbnail with custom play cursor (when not playing)
+              <div
+                className={videoUrl ? "cursor-pointer group" : ""}
+                onClick={videoUrl ? () => setIsPlaying(true) : undefined}
+                style={videoUrl ? { cursor: 'url(/images/play-cursor.svg) 40 40, auto' } : {}}
+              >
+                <img
+                  src={largeImage.node.sourceUrl}
+                  alt={largeImage.node.altText || title || 'Showreel'}
+                  className={`w-full h-auto object-cover ${videoUrl ? 'transition-transform duration-700 group-hover:scale-105' : ''}`}
+                />
+              </div>
+            )}
           </div>
         </div>
       )}

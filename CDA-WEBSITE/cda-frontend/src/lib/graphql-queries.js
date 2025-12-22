@@ -2151,8 +2151,14 @@ export const GET_GLOBAL_CONTENT = `
           title
           subtitle
           button { url title target }
-          largeImage { node { sourceUrl altText } }
-          logos { logo { node { sourceUrl altText } } }
+          largeImage { node { sourceUrl altText } }         
+          fullVideo {
+            url
+            file { node { sourceUrl altText } }
+          }
+          logos { 
+            logo { node { sourceUrl altText } } 
+          }
         }
         # LOCATIONS
         locationsImage {
@@ -2413,6 +2419,7 @@ export const GET_ALL_GLOBAL_CONTENT_BLOCKS = `
           subtitle
           button { url title target }
           largeImage { node { sourceUrl altText } }
+          fullVideo { url file { node { sourceUrl altText } } }
           logos { logo { node { sourceUrl altText } } }
         }
         locationsImage {
