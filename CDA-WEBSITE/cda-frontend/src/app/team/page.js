@@ -229,9 +229,9 @@ export default async function TeamPage() {
       {/* join our team section */}
 
       {t.showJoinOurTeam && globalData?.joinOurTeam && (
-        <section className="relative overflow-hidden bg-white py-24 lg:py-28">
-          {/* full-width gray band */}
-          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[260px] md:h-[300px] bg-gray-100 z-0" />
+        <section className="relative overflow-hidden bg-white py-16 md:py-24 lg:py-28">
+          {/* full-width gray band - responsive height */}
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 min-h-[400px] md:min-h-[300px] h-auto bg-gray-100 z-0" style={{ height: 'calc(100% - 80px)' }} />
 
           {/* white mask on the left so art sits on white */}
           <div className="absolute inset-y-0 left-0 w-[36vw] xl:w-[30vw] bg-white hidden md:block z-10" />
@@ -252,7 +252,7 @@ export default async function TeamPage() {
           {/* CONTENT (nudged to the right) */}
           <div className="relative z-30 mx-auto w-full max-w-[1280px] px-4">
             <div className="mx-auto w-full max-w-4xl md:translate-x-[3vw] lg:translate-x-[4vw]">
-              <div className="px-8 md:px-16 lg:pl-15 py-5">
+              <div className="px-6 md:px-16 lg:pl-15 py-5">
                 {globalData.joinOurTeam.title && (
                   <h2 className="h2 mb-4">
                     {globalData.joinOurTeam.title}
@@ -280,17 +280,15 @@ export default async function TeamPage() {
             </div>
           </div>
 
-          {/* RIGHT bricks (nudged left) */}
+          {/* RIGHT bricks - visible on mobile at bottom right */}
           {globalData.joinOurTeam.rightImage?.node?.sourceUrl && (
-            <>
-              <Image
-                src={globalData.joinOurTeam.rightImage.node.sourceUrl}
-                alt={globalData.joinOurTeam.rightImage.node.altText || ''}
-                width={420}
-                height={280}
-                className="pointer-events-none hidden md:block absolute -bottom-3 right-[9vw] lg:right-[8vw] rotate-12 w-[200px] lg:w-[230px] h-auto z-20"
-              />
-            </>
+            <Image
+              src={globalData.joinOurTeam.rightImage.node.sourceUrl}
+              alt={globalData.joinOurTeam.rightImage.node.altText || ''}
+              width={420}
+              height={280}
+              className="pointer-events-none absolute -bottom-2 right-4 md:-bottom-3 md:right-[9vw] lg:right-[8vw] rotate-12 w-[140px] md:w-[200px] lg:w-[230px] h-auto z-20"
+            />
           )}
         </section>
       )}
