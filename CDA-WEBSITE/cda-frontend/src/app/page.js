@@ -290,14 +290,14 @@ export default async function Home() {
         <LocationsImage globalData={globalData.locationsImage} />
       )}
 
-      {/* 10) [Global] Newsletter (match contact page design) */}
+      {/* 10) [Global] Latest News (Carousel) */}
+      {/* Fetched via getBlogPostsForCarousel(6) inside this component for now, or we can fetch above */}
+      <NewsCarouselWrapper />
+
+      {/* 11) [Global] Newsletter (match contact page design) */}
       {t.showNewsletterSignup && globalData?.newsletterSignup && (
         <NewsletterSignup globalData={globalData.newsletterSignup} />
       )}
-
-      {/* 11) [Global] Latest News (Carousel) */}
-      {/* Fetched via getBlogPostsForCarousel(6) inside this component for now, or we can fetch above */}
-      <NewsCarouselWrapper />
 
       <Footer />
     </>
