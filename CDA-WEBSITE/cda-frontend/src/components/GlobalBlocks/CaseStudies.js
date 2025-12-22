@@ -157,7 +157,7 @@ const CaseStudies = ({ globalData, pageData, useOverride = false, serviceColor }
                 <div className="cs-content">
                   <h3 className="cs-title mb-4">{study.title}</h3>
                   <div className="cs-excerpt mb-2" dangerouslySetInnerHTML={{ __html: study.excerpt }} />
-                  <Link href={`/case-studies/${study.slug}`} className="button-l-transparent mt-5">Read Case Study</Link>
+                  <Link href={study.uri || (study.slug ? `/case-studies/${study.slug}` : '#')} className="button-l-transparent mt-5">Read Case Study</Link>
                 </div>
               </article>
             ))}

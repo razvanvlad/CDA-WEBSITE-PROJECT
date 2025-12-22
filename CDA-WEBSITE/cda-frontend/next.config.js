@@ -95,6 +95,8 @@ const nextConfig = {
       { source: '/eCommerce', destination: '/services/ecommerce', permanent: true },
       { source: '/sectors', destination: '/services', permanent: true },
       { source: '/news-article/:slug', destination: '/news/:slug', permanent: true },
+      { source: '/news', destination: '/knowledge-hub?sortType=news&page=1', permanent: true },
+      { source: '/case-studies', destination: '/knowledge-hub?service_type=case-studies', permanent: true },
     ];
   },
   async rewrites() {

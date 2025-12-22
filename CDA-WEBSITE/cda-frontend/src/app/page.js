@@ -146,7 +146,7 @@ export default async function Home() {
           csData = {
             title: 'Some Of Our Case Studies',
             subtitle: 'Projects',
-            knowledgeHubLink: { url: '/case-studies', title: 'View All Case Studies', target: '_self' },
+            knowledgeHubLink: { url: '/knowledge-hub?service_type=case-studies', title: 'View All Case Studies', target: '_self' },
             selectedStudies: {
               nodes: nodes.map(n => ({
                 id: n.id,
