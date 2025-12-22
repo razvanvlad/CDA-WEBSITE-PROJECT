@@ -169,7 +169,7 @@ export default function HeroSection({
 
   return (
     <section className={`cda-hero ${sectionClassName}`.trim()} id={id}>
-      <div className={`cda-hero__container ${containerClassName}`.trim()}>
+      <div className={`cda-container ${containerClassName}`.trim()}>
         <div className={`cda-hero__grid${reverseLayout ? ' cda-hero__grid--reverse' : ''}`} style={gridStyle}>
           {(eyebrow || normalizedTitle) && (
             <div className="cda-hero__title">

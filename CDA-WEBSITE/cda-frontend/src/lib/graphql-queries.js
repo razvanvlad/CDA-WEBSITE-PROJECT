@@ -2127,7 +2127,19 @@ export const GET_GLOBAL_CONTENT = `
           illustration { node { sourceUrl altText } }
           services {
             nodes {
-              ... on Service { id title uri slug }
+              ... on Service {
+                id
+                title
+                uri
+                slug
+                excerpt
+                content
+                serviceFields {
+                  heroSection {
+                    description
+                  }
+                }
+              }
             }
           }
         }
@@ -2391,8 +2403,16 @@ export const GET_ALL_GLOBAL_CONTENT_BLOCKS = `
                 ... on Service {
                   id
                   title
+                  uri
                   slug
-                  serviceFields { heroSection { subtitle description } }
+                  excerpt
+                  content
+                  serviceFields {
+                    heroSection {
+                      subtitle
+                      description
+                    }
+                  }
                 }
               }
             }

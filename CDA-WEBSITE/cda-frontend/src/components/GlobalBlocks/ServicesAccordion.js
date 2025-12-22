@@ -59,7 +59,7 @@ const ServicesAccordion = ({
           </div>
 
           {/* Right: Accordion */}
-          <div className="col-span-12 lg:col-span-8 overflow-hidden">
+          <div className="col-span-12 lg:col-span-8">
             <div className="divide-y divide-gray-200 border-t border-gray-200">
               {itemsRaw.map((item, idx) => {
                 const isOpen = openIndex === idx;
@@ -69,7 +69,7 @@ const ServicesAccordion = ({
                   <div key={item.id || `${item.slug || 'svc'}-${idx}`} className={isLast ? 'border-b border-gray-200' : ''}>
                     <button
                       type="button"
-                      className="w-full text-left py-3 md:py-6 flex items-center gap-3 md:gap-4"
+                      className="w-full text-left py-3 md:py-6 pr-3 md:pr-4 flex items-center gap-3 md:gap-6"
                       style={{ minWidth: 0 }}
                       aria-expanded={isOpen}
                       onClick={() => setOpenIndex(isOpen ? -1 : idx)}
@@ -83,7 +83,7 @@ const ServicesAccordion = ({
                       >
                         {item.title}
                       </span>
-                      <span className="flex-shrink-0 ml-2">
+                      <span className="flex-shrink-0">
                         {isOpen ? (
                           <img
                             src="/images/minus.svg"
@@ -105,8 +105,8 @@ const ServicesAccordion = ({
                     </button>
 
                     {/* 3 */}
-                    <div className={`pb-5 md:pb-6 ${isOpen ? 'block' : 'hidden'}`}>
-                      <div className="text-[14px] md:text-[16px] leading-[1.7] text-[#4B5563]">
+                    <div className={`pb-5 md:pb-6 pr-3 md:pr-4 ${isOpen ? 'block' : 'hidden'}`}>
+                      <div className="text-[14px] md:text-[16px] leading-[1.7] text-[#4B5563] overflow-x-auto">
                         {(() => {
                           // Use description from heroSection as specified
                           const descRaw =
