@@ -85,27 +85,27 @@ export default async function CaseStudyPage(props) {
                 </ResponsiveUnderlinedTitle>
 
                 {customerDetails?.company && (
-                  <p className="text-xl text-gray-600 mb-6 font-medium">
+                  <p className="text-xl text-black-600 mb-6 font-medium">
                     Client: <span className="text-black">{customerDetails.company}</span>
                   </p>
                 )}
 
                 {hero?.text && (
                   <div
-                    className="text-lg text-gray-600 mb-6 leading-relaxed"
+                    className="text-lg text-black-600 mb-6 leading-relaxed"
                     dangerouslySetInnerHTML={{ __html: hero.text }}
                   />
                 )}
 
                 {hero?.servicesUsed?.nodes && hero.servicesUsed.nodes.length > 0 && (
                   <div className="mb-8">
-                    <p className="font-bold text-gray-900 mb-3">Services Used:</p>
+                    <p className="font-bold text-black-900 mb-3">Services Used:</p>
                     <div className="flex flex-wrap gap-3">
                       {hero.servicesUsed.nodes.map((service) => (
                         <Link
                           key={service.id}
                           href={service.uri || `/services/${service.slug}`}
-                          className="px-3 py-1 text-sm bg-gray-100 text-gray-700 force-rounded hover:bg-gray-200 transition-colors"
+                          className="px-3 py-1 text-sm bg-black-100 text-black-700 force-rounded hover:bg-gray-200 transition-colors"
                         >
                           {service.title}
                         </Link>
@@ -169,33 +169,33 @@ export default async function CaseStudyPage(props) {
             <div className="cda-container">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
                 <div>
-                  <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+                  <h2 className="text-3xl lg:text-4xl font-bold text-black-900 mb-6">
                     {customerDetails.company ? `The Company` : "About the Client"}
                   </h2>
 
                   {customerDetails.text && (
                     <div
-                      className="prose prose-lg max-w-none text-gray-600 mb-8"
+                      className="prose prose-lg max-w-none text-black-600 mb-8"
                       dangerouslySetInnerHTML={{ __html: customerDetails.text }}
                     />
                   )}
                 </div>
 
                 <div>
-                  <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+                  <h3 className="text-3xl lg:text-4xl font-bold text-black-900 mb-6">
                     The Goals
                   </h3>
 
                   {customerDetails.goals && (
                     <div
-                      className="prose prose-lg max-w-none text-gray-600 mb-8"
+                      className="prose prose-lg max-w-none text-black-600 mb-8"
                       dangerouslySetInnerHTML={{ __html: customerDetails.goals }}
                     />
                   )}
 
                   {customerDetails.text2 && (
                     <div
-                      className="prose prose-lg max-w-none text-gray-600"
+                      className="prose prose-lg max-w-none text-black-600"
                       dangerouslySetInnerHTML={{ __html: customerDetails.text2 }}
                     />
                   )}
@@ -224,11 +224,11 @@ export default async function CaseStudyPage(props) {
 
                 {/* Text on RIGHT with gray background extending to edge */}
                 <div className="relative -mr-[20px] md:-mr-[24px] lg:-mr-[50vw] lg:pr-[calc(50vw-32px)] py-12 px-8 lg:px-12 bg-gray-50">
-                  <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+                  <h2 className="text-3xl lg:text-4xl font-bold text-black-900 mb-6">
                     {challenge.title || "The Challenge"}
                   </h2>
                   <div
-                    className="prose prose-lg max-w-none text-gray-600"
+                    className="prose prose-lg max-w-none text-black-600"
                     dangerouslySetInnerHTML={{ __html: challenge.text }}
                   />
                 </div>

@@ -59,7 +59,7 @@ export default function ResponsiveUnderlinedTitle({
     // Extra Large - Results Numbers
     responsiveProps = {
       strokeWidth: (mounted && isMobile) ? 7 : 11,
-      underlineOffset: (mounted && isMobile) ? 36 : 65, // Adjusted for 70px/40px font sizes
+      underlineOffset: (mounted && isMobile) ? 36 : 55, // Adjusted for 70px/40px font sizes
       size: (mounted && isMobile) ? 'small' : 'large'
     };
   } else if (isH1) {

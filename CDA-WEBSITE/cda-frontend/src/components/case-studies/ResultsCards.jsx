@@ -40,7 +40,7 @@ export default function ResultsCards({ results }) {
                                 {item.number && (
                                     <div className="mb-6">
                                         <ResponsiveUnderlinedTitle
-                                            as="span"
+                                            as="h0"
                                             underlineColor={colors[index % colors.length]}
                                             className="text-[40px] md:text-[70px] font-bold"
                                             compactUnderline={true}

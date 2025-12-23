@@ -13,7 +13,7 @@ import ResponsiveUnderlinedTitle from '../ResponsiveUnderlinedTitle'
 export default function StatsBlock({
   data,
   bandPosition = 'center',
-  bandHeight = 'h-[340px] md:h-[400px]',
+  bandHeight = 'h-[450px] md:h-[450px]',
   bandColor = 'bg-gray-100',
   className = '',
 }) {
@@ -27,6 +27,10 @@ export default function StatsBlock({
       color={bandColor}
       position={bandPosition}
       height={bandHeight}
+      mobile={{
+        height: 'h-[616px]',
+        position: 'bottom'
+      }}
     >
       <section className="stats-block py-16">
         <div className="cda-container relative z-10">
@@ -45,24 +49,17 @@ export default function StatsBlock({
                   const color = underlineColors[i % underlineColors.length]
                   return (
                     <div key={i}>
-                      <div
-                        className="text-black"
-                        style={{
-                          fontFamily: 'Poppins, sans-serif',
-                          fontSize: 70,
-                          fontWeight: 700,
-                          lineHeight: 1,
-                        }}
-                      >
+                      <div className="mb-2">
                         <ResponsiveUnderlinedTitle
                           as="span"
                           underlineColor={color}
-                          underlineOffset={64}
+                          className="text-[40px] md:text-[70px] font-bold"
+                          compactUnderline={true}
                         >
                           {s?.number}
                         </ResponsiveUnderlinedTitle>
                       </div>
-                      <div className="mt-3 text-gray-700 text-lg">{s?.text}</div>
+                      <div className="mt-3 text-black text-lg">{s?.text}</div>
                     </div>
                   )
                 })}
@@ -71,7 +68,7 @@ export default function StatsBlock({
               {(description || cta?.url) && (
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                   {description && (
-                    <p className="text-gray-700 text-base md:text-lg leading-relaxed max-w-2xl m-0">
+                    <p className="text-black text-base md:text-lg leading-relaxed max-w-2xl m-0">
                       {description}
                     </p>
                   )}
