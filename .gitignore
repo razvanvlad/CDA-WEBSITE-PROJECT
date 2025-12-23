@@ -32,3 +32,6 @@ node_modules/
 # OS files
 .DS_Store
 Thumbs.db
+
+# backup files
+wp-config-details-from-wp-prod.php
