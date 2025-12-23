@@ -40,9 +40,9 @@ export default function ResultsCards({ results }) {
                                 {item.number && (
                                     <div className="mb-6">
                                         <ResponsiveUnderlinedTitle
-                                            as="h0"
+                                            as="span"
                                             underlineColor={colors[index % colors.length]}
-                                            className="text-[40px] md:text-[70px] font-bold text-gray-900"
+                                            className="text-[40px] md:text-[70px] font-bold"
                                             compactUnderline={true}
                                         >
                                             {item.number.trim()}
@@ -52,7 +52,7 @@ export default function ResultsCards({ results }) {
 
                                 {/* Description */}
                                 {item.text && (
-                                    <p className="text-gray-600 leading-relaxed text-sm">
+                                    <p className="text-sm">
                                         {item.text}
                                     </p>
                                 )}
