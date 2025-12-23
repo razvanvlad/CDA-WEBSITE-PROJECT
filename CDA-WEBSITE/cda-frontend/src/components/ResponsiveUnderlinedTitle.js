@@ -30,7 +30,7 @@ export default function ResponsiveUnderlinedTitle({
   children,
   className = '',
   underlineColor = '#FF5C8A',
-  compactUnderline,
+  compactUnderline = false,
   ...props
 }) {
   const [mounted, setMounted] = useState(false);
