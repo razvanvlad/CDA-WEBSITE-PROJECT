@@ -67,7 +67,7 @@ export default function ResultsCards({ results }) {
                         {/* Using standard img tag for external localhost URL to avoid Next.js config complexity for now, or assume standard Image if configured. 
                             Given the user provided a full URL, and it's SVG, simple img is often safest for immediate rendering without config changes. */}
                         <img
-                            src="http://localhost/CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/wp-content/uploads/2025/09/Group-283.svg"
+                            src="https://cdanewwebsite.wpenginepowered.com/wp-content/uploads/2025/09/Group-283.svg"
                             alt="Results Illustration"
                             className="w-full h-auto object-contain"
                         />
