@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
 import "../styles/global.css";
 
@@ -7,6 +7,12 @@ const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["400", "600", "700"],
+  display: "swap",
+});
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
   display: "swap",
 });
 
@@ -227,7 +233,7 @@ export default function RootLayout({
         {/* Lightweight performance observer */}
         <script dangerouslySetInnerHTML={{ __html: perfObserverScript }} />
       </head>
-      <body className={`${poppins.variable} antialiased`}>
+      <body className={`${poppins.variable} ${inter.variable} antialiased`}>
         {children}
       </body>
     </html>
