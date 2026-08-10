@@ -1,16 +1,1 @@
-<svg id="_8010450_zoom_video_conversation_social_media_audio_icon" data-name="8010450_zoom_video_conversation_social media_audio_icon" xmlns="http://www.w3.org/2000/svg" width="24.135" height="24.135" viewBox="0 0 24.135 24.135">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #518ef7;
-      }
-
-      .cls-2 {
-        fill: #fefefe;
-      }
-    </style>
-  </defs>
-  <rect id="Rectangle_4160" data-name="Rectangle 4160" class="cls-1" width="24.135" height="24.135" rx="2"/>
-  <path id="Path_8291" data-name="Path 8291" class="cls-2" d="M132.893,185.93h6.978a2.521,2.521,0,0,1,2.521,2.522v4.66a1.023,1.023,0,0,1-1.023,1.023h-6.978a2.521,2.521,0,0,1-2.521-2.522v-4.66A1.023,1.023,0,0,1,132.893,185.93Z" transform="translate(-127.07 -177.965)"/>
-  <path id="Path_8292" data-name="Path 8292" class="cls-2" d="M324.6,194.116l-2.27-1.946a.833.833,0,0,1-.328-.662v-2.576a.834.834,0,0,1,.33-.664l2.27-2.174a.515.515,0,0,1,.805.426v7.17a.515.515,0,0,1-.807.426Z" transform="translate(-306.068 -178.036)"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" id="_8010450_zoom_video_conversation_social_media_audio_icon" width="24.135" height="24.135" data-name="8010450_zoom_video_conversation_social media_audio_icon" viewBox="0 0 24.135 24.135"><defs><style>.cls-1{fill:#518ef7}.cls-2{fill:#fefefe}</style></defs><rect id="Rectangle_4160" width="24.135" height="24.135" class="cls-1" data-name="Rectangle 4160" rx="2"/><path id="Path_8291" d="M132.893,185.93h6.978a2.521,2.521,0,0,1,2.521,2.522v4.66a1.023,1.023,0,0,1-1.023,1.023h-6.978a2.521,2.521,0,0,1-2.521-2.522v-4.66A1.023,1.023,0,0,1,132.893,185.93Z" class="cls-2" data-name="Path 8291" transform="translate(-127.07 -177.965)"/><path id="Path_8292" d="M324.6,194.116l-2.27-1.946a.833.833,0,0,1-.328-.662v-2.576a.834.834,0,0,1,.33-.664l2.27-2.174a.515.515,0,0,1,.805.426v7.17a.515.515,0,0,1-.807.426Z" class="cls-2" data-name="Path 8292" transform="translate(-306.068 -178.036)"/></svg>
