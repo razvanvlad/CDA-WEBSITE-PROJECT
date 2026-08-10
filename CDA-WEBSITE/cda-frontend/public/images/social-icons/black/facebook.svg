@@ -1,10 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="9.037" height="19.449" viewBox="0 0 9.037 19.449">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #000;
-      }
-    </style>
-  </defs>
-  <path id="_104498_facebook_icon_4_" data-name="104498_facebook_icon (4)" class="cls-1" d="M27.019,12.394H23.942V10.375A.822.822,0,0,1,24.8,9.44H26.97V6.108L23.979,6.1A3.788,3.788,0,0,0,19.9,10.172v2.222h-1.92v3.434H19.9v9.717h4.039V15.828h2.726Z" transform="translate(-17.982 -6.096)"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="9.037" height="19.449" viewBox="0 0 9.037 19.449"><defs><style>.cls-1{fill:#000}</style></defs><path id="_104498_facebook_icon_4_" d="M27.019,12.394H23.942V10.375A.822.822,0,0,1,24.8,9.44H26.97V6.108L23.979,6.1A3.788,3.788,0,0,0,19.9,10.172v2.222h-1.92v3.434H19.9v9.717h4.039V15.828h2.726Z" class="cls-1" data-name="104498_facebook_icon (4)" transform="translate(-17.982 -6.096)"/></svg>

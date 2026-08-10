@@ -1,14 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="20.5" height="20.5" viewBox="0 0 20.5 20.5">
-  <defs>
-    <style>
-      .cls-1 {
-        stroke: #000;
-        stroke-width: 0.5px;
-        fill-rule: evenodd;
-      }
-    </style>
-  </defs>
-  <g id="Group_9156" data-name="Group 9156" transform="translate(-643.853 -623.073)">
-    <path id="_9110843_arrow_bottom_right_icon_1_" data-name="9110843_arrow_bottom_right_icon (1)" class="cls-1" d="M16.522,15.346V9.038h1.663v9.147H9.038V16.522h6.308L4.293,5.469,5.469,4.293Z" transform="translate(638.282 633.323) rotate(-45)"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="20.5" height="20.5" viewBox="0 0 20.5 20.5"><defs><style>.cls-1{stroke:#000;stroke-width:.5px;fill-rule:evenodd}</style></defs><g id="Group_9156" data-name="Group 9156" transform="translate(-643.853 -623.073)"><path id="_9110843_arrow_bottom_right_icon_1_" d="M16.522,15.346V9.038h1.663v9.147H9.038V16.522h6.308L4.293,5.469,5.469,4.293Z" class="cls-1" data-name="9110843_arrow_bottom_right_icon (1)" transform="translate(638.282 633.323) rotate(-45)"/></g></svg>
